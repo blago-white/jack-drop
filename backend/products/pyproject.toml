@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "products"
+version = "0.1.0"
+description = "Microservice for products"
+authors = ["Bogdan Loginov <bogdanloginov31@gmail.com>"]
+license = "MIT Licence"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
