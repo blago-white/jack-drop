@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from common.models.mixins import TitleModelMixin
 from common.models.base import BaseModel
 
-from items.services import parsers
+from items.services.items import MarketItemParser
 
 from . import validators
 
@@ -52,7 +52,9 @@ class Item(TitleModelMixin, BaseModel):
         return super().save()
 
     def _update_fields(self) -> None:
-        item_info = parsers.parse_item_info(self.market_link)
+        parser = MarketItemParser()
+
+        item_info = parser.get_info(self.market_link)
 
         self.title = item_info.title
         self.image_path = item_info.image_path
