@@ -1,16 +1,15 @@
 from django.db import models
 
 from common.models.mixins import TitleModelMixin
+from common.models.base import BaseModel
+
 from categories.config import MAX_CATEGORY_TITLE_NAME
 
 
-class CasesCategory(TitleModelMixin, models.Model):
+class CasesCategory(TitleModelMixin, BaseModel):
+    slug = models.SlugField(primary_key=True, default="test")
     title = models.CharField(verbose_name="Title of the category",
                              max_length=MAX_CATEGORY_TITLE_NAME)
-    cases = models.ForeignKey(verbose_name="Cases of the category",
-                              to="cases.Case",
-                              on_delete=models.CASCADE,
-                              null=True)
 
     class Meta:
         db_table = "categories_categories"

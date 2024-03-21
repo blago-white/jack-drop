@@ -1,9 +1,11 @@
 from django.db import models
 
+from common.models.base import BaseModel
+
 from . import validators
 
 
-class CaseItem(models.Model):
+class CaseItem(BaseModel):
     item = models.ForeignKey(verbose_name="Item",
                              to="items.Item",
                              on_delete=models.CASCADE)
