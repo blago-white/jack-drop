@@ -2,9 +2,9 @@ name: Products CI
 
 on:
   push:
-    branches: [ "products" ]
+    branches: [ "main", "products" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "products" ]
 
 jobs:
   build:
