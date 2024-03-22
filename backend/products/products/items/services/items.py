@@ -1,7 +1,7 @@
 import requests
 
 from market.services.market import AbstractMarketAPIKeyService, MarketAPIKeyService
-from items.config import MAIN_RETRIEVE_ITEM_URL
+from items.config import MAIN_RETRIEVE_ITEM_URL, MAIN_RETRIEVE_ITEM_IMAGE_URL
 
 from items.items import ItemMarketParams, ItemInfo
 
@@ -37,7 +37,9 @@ class MarketItemParser:
     def _parse_json_result(self, json: dict) -> ItemInfo:
         return self._item_info_dataclass(
             title=json.get("market_name"),
-            image_path="https://cdn.rust.tm/item/Skull/300.png",
+            image_path=self._get_item_image_path(
+                json.get("market_name")
+            ),
             price=float(json.get("min_price"))
         )
 
@@ -54,3 +56,9 @@ class MarketItemParser:
             classid=classid,
             instanceid=instanceid
         )
+
+    @staticmethod
+    def _get_item_image_path(item_name: str) -> str:
+        item_name = item_name.replace(" ", "+")
+
+        return MAIN_RETRIEVE_ITEM_IMAGE_URL.format(name=item_name)

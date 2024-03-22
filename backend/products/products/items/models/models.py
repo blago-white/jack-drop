@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.utils.html import escape, mark_safe
 
 from common.models.mixins import TitleModelMixin
 from common.models.base import BaseModel
@@ -50,6 +51,14 @@ class Item(TitleModelMixin, BaseModel):
             self._update_fields()
 
         return super().save()
+
+    def preview(self):
+        return mark_safe(f'<img src="{escape(self.image_path)}"/>')
+
+    def preview_short(self):
+        return mark_safe(
+            f"<img src=\"{escape(self.image_path)}\" style=\"width: 50px;\"/>"
+        )
 
     def _update_fields(self) -> None:
         parser = MarketItemParser()
