@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from common.models.mixins import TitleModelMixin
 from common.models.base import BaseImageModel
@@ -10,22 +10,23 @@ from . import validators
 
 
 class Item(TitleModelMixin, BaseImageModel):
+    market_link = models.URLField(verbose_name=_(
+                                      "URL of this products on rust.rm"
+                                  ),
+                                  blank=False,
+                                  default="unknown")
+
     title = models.CharField(verbose_name=_("Item title"),
                              max_length=100,
                              blank=True)
-    image_path = models.URLField(verbose_name="Item image path",
+    image_path = models.URLField(verbose_name=_("Item image path"),
                                  blank=True)
-    price = models.FloatField(verbose_name="Price of item",
+    price = models.FloatField(verbose_name=_("Price of item"),
                               validators=[
                                   validators.MAX_ITEM_PRICE_VALIDATOR,
                                   validators.MIN_ITEM_PRICE_VALIDATOR
                               ],
                               blank=True)
-
-    market_link = models.URLField(verbose_name="URL of this products on "
-                                               "rust.rm",
-                                  blank=False,
-                                  default="unknown")
 
     class Meta:
         db_table = "items_items"

@@ -1,20 +1,43 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.utils.html import mark_safe
+from django.contrib.admin.filters import RelatedFieldListFilter
 
 from .models.cases import Case
 from .models.items import CaseItem
 from . import actions
 
 
+class CaseFilter(RelatedFieldListFilter):
+    title = "Filter For Name Of Case"
+
+    def queryset(self, request, queryset):
+        return Case.objects.all()
+
+
 @admin.register(Case)
 class CaseAdmin(ModelAdmin):
-    pass
+    list_display = ["__str__", "preview_short", "count_items"]
+    fields = ["title", "category", "image_path", "preview"]
+    readonly_fields = ["preview"]
+
+    @admin.display
+    def count_items(self, instance: Case):
+        return instance.items.all().count()
 
 
 @admin.register(CaseItem)
 class CaseItemAdmin(ModelAdmin):
-    list_display = ["__str__", "case", "chance_of_item_drop", "preview_short"]
+    list_display = ["__str__",
+                    "case",
+                    "preview_case",
+                    "can_drop",
+                    "view",
+                    "chance_of_item_drop",
+                    "preview_short"]
+    list_editable = ("can_drop", "view")
+    list_filter = ["case", "can_drop", "view"]
+
     exclude = ["chance"]
     ordering = ["case", "-chance"]
 

@@ -29,7 +29,8 @@ class BaseImageModel(models.Model):
         pass
 
     def preview(self):
-        return mark_safe(f'<img src="{escape(self._get_image())}"/>')
+        return mark_safe(f'<img src="{escape(self._get_image())}" '
+                         f'style=\"max-width: 500px;\"/>')
 
     def preview_short(self):
         return mark_safe(

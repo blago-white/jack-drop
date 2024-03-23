@@ -59,7 +59,7 @@ class CaseItemsChancesManager(BaseCaseItemsChancesManager):
 
         percent_value = 100 / summary
 
-        return list(map(
+        return reversed(list(map(
             lambda x: round(x * percent_value / 100, 3),
             pricing
-        ))
+        )))

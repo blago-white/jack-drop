@@ -7,3 +7,4 @@ from .models.apikey import ApiKey
 @admin.register(ApiKey)
 class ApiKeyAdmin(ModelAdmin):
     list_display = ["__str__", "active"]
+    list_editable = ["active"]

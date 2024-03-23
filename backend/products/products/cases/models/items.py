@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.utils.html import mark_safe, escape
 
 from common.models.base import BaseImageModel
 
@@ -72,3 +73,11 @@ class CaseItem(BaseImageModel):
 
     def _get_image(self) -> models.URLField:
         return self.item.image_path
+
+    def _get_case_image(self) -> models.URLField:
+        return self.case.image_path
+
+    def preview_case(self):
+        return mark_safe(
+            f"<img src=\"{escape(self._get_case_image())}\" style=\"width: 50px;\"/>"
+        )
