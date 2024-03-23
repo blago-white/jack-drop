@@ -3,7 +3,7 @@ import requests
 from market.services.market import AbstractMarketAPIKeyService, MarketAPIKeyService
 from items.config import MAIN_RETRIEVE_ITEM_URL, MAIN_RETRIEVE_ITEM_IMAGE_URL
 
-from items.items import ItemMarketParams, ItemInfo
+from market.items import ItemMarketParams, ItemInfo
 
 
 class MarketItemParser:

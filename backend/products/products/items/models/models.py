@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 from common.models.mixins import TitleModelMixin
 from common.models.base import BaseImageModel
 
-from items.services.items import MarketItemParser
+from market.services.items import MarketItemParser
 
 from . import validators
 
@@ -30,6 +30,13 @@ class Item(TitleModelMixin, BaseImageModel):
     class Meta:
         db_table = "items_items"
 
+    def __init__(self, *args,
+                 market_parser: MarketItemParser = MarketItemParser(),
+                 **kwargs):
+        self._market_parser = market_parser
+
+        super().__init__(*args, **kwargs)
+
     def save(
             self, force_insert=False,
             force_update=False,
@@ -38,12 +45,15 @@ class Item(TitleModelMixin, BaseImageModel):
     ):
         self._update_fields()
 
-        return super().save()
+        return super().save(
+            force_insert=force_insert,
+            force_update=force_update,
+            using=using,
+            update_fields=update_fields
+        )
 
     def _update_fields(self) -> None:
-        parser = MarketItemParser()
-
-        item_info = parser.get_info(self.market_link)
+        item_info = self._market_parser.get_info(self.market_link)
 
         self.title = item_info.title
         self.image_path = item_info.image_path

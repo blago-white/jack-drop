@@ -1,11 +1,14 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
-from common.models.base import BaseModel
+from common.models.base import BaseImageModel
 
+from cases.services.cases import CaseItemsChancesManager, \
+    BaseCaseItemsChancesManager
 from . import validators
 
 
-class CaseItem(BaseModel):
+class CaseItem(BaseImageModel):
     item = models.ForeignKey(verbose_name="Item",
                              to="items.Item",
                              on_delete=models.CASCADE)
@@ -26,19 +29,46 @@ class CaseItem(BaseModel):
 
     class Meta:
         db_table = "cases_case_items"
+        unique_together = ["case", "item"]
+
+    def __init__(
+            self, *args,
+            chanses_manager_class: BaseCaseItemsChancesManager = CaseItemsChancesManager,
+            **kwargs):
+        self._chanses_manager_class = chanses_manager_class
+
+        super().__init__(*args, **kwargs)
 
     def __str__(self):
         return f"{self.item} in {self.case}"
 
     def save(
-        self, force_insert=False, force_update=False, using=None, update_fields=None
+            self, force_insert=False, force_update=False, using=None,
+            update_fields=None
     ):
-        # TODO: Updating the chances of falling out for all items
-        #  from the case when adding a new one
+        self_create = self.pk is None
 
-        return super().save(
+        super().save(
             force_insert=force_insert,
             force_update=force_update,
-            update_fields=force_update,
             using=using,
+            update_fields=update_fields
         )
+
+        if self_create:
+            self._update_chanses()
+
+    def delete(self, using=None, keep_parents=False):
+        self._update_chanses()
+
+    def clean(self):
+        if self.can_drop and not self.view:
+            raise ValidationError("The item is hidden, but it can fall out, it is forbidden")
+
+    def _update_chanses(self):
+        manager = self._chanses_manager_class(model=CaseItem)
+
+        manager.update_chanses(case=self.case)
+
+    def _get_image(self) -> models.URLField:
+        return self.item.image_path
