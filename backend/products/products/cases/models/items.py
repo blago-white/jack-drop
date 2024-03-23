@@ -29,3 +29,16 @@ class CaseItem(BaseModel):
 
     def __str__(self):
         return f"{self.item} in {self.case}"
+
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
+        # TODO: Updating the chances of falling out for all items
+        #  from the case when adding a new one
+
+        return super().save(
+            force_insert=force_insert,
+            force_update=force_update,
+            update_fields=force_update,
+            using=using,
+        )

@@ -6,16 +6,23 @@ from .models.models import Item
 
 @admin.register(Item)
 class ItemAdmin(ModelAdmin):
-    list_display = ["__str__", "is_edit_manualy", "preview_short"]
+    list_display = ["__str__", "preview_short", "price_of_item"]
     fields = ["title",
               "image_path",
               "price",
               "market_link",
-              "manage_manually",
               "preview"]
 
-    readonly_fields = ['preview', "preview_short"]
+    readonly_fields = ['preview',
+                       "preview_short",
+                       "title",
+                       "image_path",
+                       "price"]
 
-    @admin.display(boolean=True)
-    def is_edit_manualy(self, instance: Item):
-        return instance.manage_manually
+    search_fields = ["title"]
+
+    ordering = ["-price"]
+
+    @admin.display()
+    def price_of_item(self, instance: Item):
+        return f"{instance.price // 100} RUB"

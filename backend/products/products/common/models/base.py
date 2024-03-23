@@ -1,7 +1,11 @@
-from django.db.models import Model
+from abc import abstractmethod
+
+from django.utils.html import escape, mark_safe
+
+from django.db import models
 
 
-class BaseModel(Model):
+class BaseModel(models.Model):
     class Meta:
         abstract = True
 
@@ -14,3 +18,20 @@ class BaseModel(Model):
                             force_update=force_update,
                             using=using,
                             update_fields=update_fields)
+
+
+class BaseImageModel(models.Model):
+    class Meta:
+        abstract = True
+
+    @abstractmethod
+    def _get_image(self) -> models.URLField:
+        pass
+
+    def preview(self):
+        return mark_safe(f'<img src="{escape(self._get_image())}"/>')
+
+    def preview_short(self):
+        return mark_safe(
+            f"<img src=\"{escape(self._get_image())}\" style=\"width: 50px;\"/>"
+        )

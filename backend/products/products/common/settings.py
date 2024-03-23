@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
 ]
 
 ROOT_URLCONF = 'common.urls'
@@ -131,6 +132,10 @@ STATIC_URL = 'static/'
 MEDIA_URL = 'uploads/'
 
 MEDIA_ROOT = BASE_DIR
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale'
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
