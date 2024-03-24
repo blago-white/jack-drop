@@ -4,8 +4,8 @@ from django.utils.html import mark_safe, escape
 
 from common.models.base import BaseImageModel
 
-from cases.services.cases import CaseItemsChancesManager, \
-    BaseCaseItemsChancesManager
+from cases.services.chances import (CaseItemsChancesService,
+                                    BaseCaseItemsChancesService)
 from . import validators
 
 
@@ -34,7 +34,8 @@ class CaseItem(BaseImageModel):
 
     def __init__(
             self, *args,
-            chanses_manager_class: BaseCaseItemsChancesManager = CaseItemsChancesManager,
+            chanses_manager_class: BaseCaseItemsChancesService =
+            CaseItemsChancesService,
             **kwargs):
         self._chanses_manager_class = chanses_manager_class
 
@@ -47,8 +48,6 @@ class CaseItem(BaseImageModel):
             self, force_insert=False, force_update=False, using=None,
             update_fields=None
     ):
-        self_create = self.pk is None
-
         super().save(
             force_insert=force_insert,
             force_update=force_update,
@@ -56,8 +55,7 @@ class CaseItem(BaseImageModel):
             update_fields=update_fields
         )
 
-        if self_create:
-            self._update_chanses()
+        self._update_chanses()
 
     def delete(self, using=None, keep_parents=False):
         self._update_chanses()
