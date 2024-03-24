@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import sys
+
 import dotenv
 import os
 from pathlib import Path
@@ -96,6 +98,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+if "test" in sys.argv:
+    DATABASES["default"] = DATABASES["test"]
 
 LOGGING = {
     'version': 1,

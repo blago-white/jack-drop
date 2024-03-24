@@ -5,7 +5,7 @@ from common.models.base import BaseModel
 
 
 class ApiKey(BaseModel):
-    key = models.CharField(verbose_name="Api Key of market")
+    key = models.CharField(verbose_name="Api Key of market", max_length=1000)
     active = models.BooleanField(verbose_name="Can site use this key?",
                                  default=True)
 
