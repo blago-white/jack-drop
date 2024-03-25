@@ -16,10 +16,6 @@ function getNewMessageHTML(message_id, username, date, text) {
         <li id="${message_id}">
             ${username} | ${date}
             <p class='message-text'>${text}</p>
-            <button onclick="console.log('Delete:', ${message_id});"
-                    class="btn btn-danger">
-                Delete message
-            </button>
         </li>
     `
 }

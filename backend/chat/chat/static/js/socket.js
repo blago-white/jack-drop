@@ -26,15 +26,6 @@ function getMessageText() {
     return document.getElementById('inputMessage').value;
 }
 
-function deleteMessage(message_id) {
-    socket.send(JSON.stringify({
-        type: 'delete',
-        payload: {
-            message_id: message_id,
-        }
-    }));
-}
-
 function addMessage(message_id, username, date, text) {
     const messageHTML = getNewMessageHTML(
         message_id=message_id,
