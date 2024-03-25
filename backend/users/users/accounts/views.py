@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.views.generic import RedirectView
 
-# Create your views here.
+
+class SteamAuthView(RedirectView):
+    def get(self, request, *args, **kwargs):
+        return

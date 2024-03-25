@@ -1,17 +1,18 @@
 [tool.poetry]
-name = "users"
+name = "chat"
 version = "0.1.0"
 description = ""
 authors = ["Bogdan Loginov <bogdanloginov31@gmail.com>"]
+license = "MIT License"
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
 django = "^5.0.3"
 python-dotenv = "^1.0.1"
-psycopg2 = "^2.9.9"
-django-admin-interface = "^0.28.6"
-django-allauth = "^0.61.1"
+channels = "^4.0.0"
+djangorestframework = "^3.15.1"
+daphne = "^4.1.0"
 
 
 [build-system]
