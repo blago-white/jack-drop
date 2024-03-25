@@ -12,7 +12,7 @@ class UserDataPrivateApiView(BaseRetrieveApiViewMixin, RetrieveAPIView):
 
     def retrieve(self, request: Request, **kwargs):
         user_data = self.repository.get_user_info(
-            user_id=kwargs.get("user_id")
+            user_id=kwargs.get(self.lookup_url_kwarg)
         )
 
         return self.get_200_request(data=user_data)
