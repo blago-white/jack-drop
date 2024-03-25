@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from message.services.messages import MessagesService, BaseMessagesService
 from message.serializers import MessageSerializer
 
+from .services.users import BaseUserService
 from .mixins import MessagesApiViewMixin
 
 
@@ -16,3 +17,8 @@ class ChatMessagesApiView(MessagesApiViewMixin, ListAPIView):
 
 class ChatView(TemplateView):
     template_name = "chat.html"
+    _service: BaseUserService
+
+    def get_context_data(self, **kwargs):
+        kwargs.update(username="TEST")
+        return kwargs
