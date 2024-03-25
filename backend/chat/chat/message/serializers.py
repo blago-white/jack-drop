@@ -16,7 +16,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        exclude = ["date"]
+        fields = "__all__"
         read_only_fields = ["id", "date"]
 
     def __init__(self, *args,

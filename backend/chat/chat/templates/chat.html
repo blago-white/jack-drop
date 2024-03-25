@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <ul class="messages" id="messages">
+    </ul>
+    {% include 'input.html' %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    messages = document.getElementById('messages');
+
+    async function fetchMessages() {
+        const response = await fetch("http://127.0.0.1:8000/api/v1/messages/")
+        const result = await response.json();
+
+        result.forEach((message) => {
+            messages.innerHTML += `
+            <li>
+                ${message.username} | ${message.date}
+                <p class='message-text'>${message.text}</p>
+            </li>
+            `;
+        })
+    }
+    fetchMessages();
+</script>
+<script src="{% static 'js/socket.js' %}"></script>
+{% endblock %}

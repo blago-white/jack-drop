@@ -1,18 +1,20 @@
+import json
+
 from channels.generic.websocket import AsyncWebsocketConsumer
 
-from messages import django_logger
+from message import django_logger
 
-from messages.serializers import MessageSerializer
-from messages.services.messages import BaseMessagesService, MessagesService
+from message.serializers import MessageSerializer
+from message.services.messages import BaseMessagesService, MessagesService
 
 
 __all__ = ["ChatConsumer"]
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
-    _CHAT_GROUP_NAME = "messages"
+    _CHAT_GROUP_NAME = "message"
     _MESSAGE_TYPE = "chat_message"
-    _service: base.BaseService
+    _service: BaseMessagesService
 
     def __init__(self, *args,
                  service: BaseMessagesService = MessagesService(),
@@ -36,7 +38,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if not message.is_valid():
             return await self.channel_layer.group_send(
                 group=self._CHAT_GROUP_NAME,
-                message=message.errors
+                message=dict(
+                    type=self._MESSAGE_TYPE,
+                    message=json.dumps(message.errors)
+                )
             )
 
         saved_message = await message.save()
@@ -44,10 +49,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
         django_logger.debug(f"Saved message: {saved_message}")
 
         message = dict(type=self._MESSAGE_TYPE,
-                       message=message.data)
+                       message=json.dumps(message.data)
+                       )
 
         await self.channel_layer.group_send(group=self._CHAT_GROUP_NAME,
-                                            message=message)
+                                            message=message
+                                            )
 
     async def disconnect(self, code):
         django_logger.debug(f"Disconnect channel: {self.channel_name}")
