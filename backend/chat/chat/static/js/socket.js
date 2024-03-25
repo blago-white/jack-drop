@@ -1,15 +1,17 @@
+import {getNewMessageHTML} from './messages.js';
+
 const socket = new WebSocket(`ws://127.0.0.1:8000/ws/chat/`);
 const messages = document.getElementById('messages');
 
 socket.onmessage = function(event) {
-    message = JSON.parse(event.data);
+    const message = JSON.parse(event.data);
 
     console.log(message);
 
-    addMessage(message_id=message.message_id,
-               username=message.username,
-               text=message.text,
-               date=message.date)
+    addMessage(message.id,
+               message.username,
+               message.date,
+               message.text)
 };
 
 function sendMessage(event, username) {
@@ -34,20 +36,13 @@ function deleteMessage(message_id) {
 }
 
 function addMessage(message_id, username, date, text) {
-    messageHTML = getNewMessageHTML(
+    const messageHTML = getNewMessageHTML(
         message_id=message_id,
         username=username,
         date=date,
-        text=message,
+        text=text,
     );
     messages.innerHTML += messageHTML;
 }
 
-function getNewMessageHTML(message_id, username, date, text) {
-    return `
-        <li id="${message_id}">
-            ${username} | ${date}
-            <p class='message-text'>${message.text}</p>
-        </li>
-    `
-}
+window.sendMessage = sendMessage;

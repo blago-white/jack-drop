@@ -7,7 +7,6 @@ from message import django_logger
 from message.serializers import MessageSerializer
 from message.services.messages import BaseMessagesService, MessagesService
 
-
 __all__ = ["ChatConsumer"]
 
 
@@ -16,16 +15,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
     _MESSAGE_TYPE = "chat_message"
     _service: BaseMessagesService
 
-    def __init__(self, *args,
-                 service: BaseMessagesService = MessagesService(),
-                 **kwargs):
+    def __init__(
+            self, *args,
+            service: BaseMessagesService = MessagesService(),
+            **kwargs):
         self._service = service
         super().__init__(*args, **kwargs)
 
     async def connect(self):
         django_logger.debug(f"Add new channel {self.channel_name}")
 
-        await self.channel_layer.group_add(self._CHAT_GROUP_NAME, self.channel_name)
+        await self.channel_layer.group_add(self._CHAT_GROUP_NAME,
+                                           self.channel_name)
         await super().connect()
 
     async def receive(self, text_data=None, bytes_data=None):
@@ -45,11 +46,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
             )
 
         saved_message = await message.save()
+        saved_message = MessageSerializer(instance=saved_message).data
 
         django_logger.debug(f"Saved message: {saved_message}")
 
         message = dict(type=self._MESSAGE_TYPE,
-                       message=json.dumps(message.data)
+                       message=json.dumps(saved_message)
                        )
 
         await self.channel_layer.group_send(group=self._CHAT_GROUP_NAME,

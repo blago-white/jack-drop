@@ -1,4 +1,4 @@
-<form onsubmit="return false;">
+<form onsubmit="return sendMessage(event, '{{user.username}}');">
     <div class="form-group">
         <label for="inputMessage">Text message</label>
         <input type="text"
@@ -10,6 +10,5 @@
                class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <button type="submit"
-            onclick="sendMessage(event, '{{user.username}}');return false;"
             class="btn btn-success">Send Message</button>
 </form>
