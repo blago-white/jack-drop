@@ -17,10 +17,27 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import re_path, path, include
 
+from accounts.api.endpoints import TokenVerifyHeaderView
+from rest_framework_simplejwt.views import (TokenObtainPairView,
+                                            TokenRefreshView,
+                                            TokenVerifyView)
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include("accounts.urls")),
-    path('auth/', include('allauth.urls')),
+    path('auth/admin/', admin.site.urls),
+    path('auth/', include("accounts.urls")),
+
+    path('auth/api/token/',
+         TokenObtainPairView.as_view(),
+         name='token_obtain_pair'),
+    path('auth/api/token/refresh/',
+         TokenRefreshView.as_view(),
+         name='token_refresh'),
+    path('auth/api/token/verify/',
+         TokenVerifyView.as_view(),
+         name='token_verify'),
+    path('auth/api/token/_gateway_verify/',
+         TokenVerifyHeaderView.as_view(),
+         name='token_verify')
 ]
 
 urlpatterns += [re_path(r'^i18n/', include('django.conf.urls.i18n'))]
