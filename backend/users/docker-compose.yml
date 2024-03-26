@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:15-bookworm
+    container_name: db
+    env_file:
+      - .env
+    expose:
+      - 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+        test: [ "CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}" ]
+        interval: 20s
+        timeout: 5s
+        retries: 5
+    restart: always
+    networks:
+      - mainnetwork
+  django:
+    build:
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+    depends_on:
+      - db
+    env_file:
+      - .env
+    container_name: django
+    volumes:
+      - ./users/debug.log:/home/app/users/debug.log
+    restart: always
+    networks:
+      - mainnetwork
+
+volumes:
+  postgres_data:
+
+networks:
+  mainnetwork:
+    name: mainnetwork
+    external: true
