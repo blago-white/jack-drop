@@ -17,6 +17,11 @@ class ChatMessagesApiView(MessagesApiViewMixin, ListAPIView):
 
 class ChatView(TemplateView):
     template_name = "chat.html"
+
+    def get_context_data(self, **kwargs):
+        kwargs.update(username="TEST")
+
+        return kwargs
     _service: BaseUserService
 
     def get_context_data(self, **kwargs):
