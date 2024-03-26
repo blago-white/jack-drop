@@ -33,8 +33,11 @@ urlpatterns = [
          TokenRefreshView.as_view(),
          name='token_refresh'),
     path('auth/api/token/verify/',
-         TokenVerifyHeaderView.as_view(),
+         TokenVerifyView.as_view(),
          name='token_verify'),
+    path('auth/api/token/_gateway_verify/',
+         TokenVerifyHeaderView.as_view(),
+         name='token_verify')
 ]
 
 urlpatterns += [re_path(r'^i18n/', include('django.conf.urls.i18n'))]
