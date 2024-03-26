@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <ul class="messages" id="messages">
+    </ul>
+    {% include 'input.html' %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+</script>
+<script src="{% static 'js/socket.js' %}" type="module"></script>
+{% endblock %}
