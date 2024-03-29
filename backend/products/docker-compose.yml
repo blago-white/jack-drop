@@ -31,8 +31,8 @@ services:
     restart: always
   productsnginx:
     build: nginx
-    ports:
-      - "80:80"
+    expose:
+      - 8000
     depends_on:
       - productsapp
     container_name: productsnginx

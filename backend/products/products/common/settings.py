@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'admin_interface',
     'colorfield',
     'common.apps.JackDropAdminConfig',
+    'rest_framework',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -158,7 +159,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'products/static/'
 
 STATIC_ROOT = BASE_DIR / 'static'
 

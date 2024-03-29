@@ -4,7 +4,7 @@ from abc import abstractmethod, ABCMeta
 from django.db import models
 
 from items.models.models import Item
-from .cases import BaseCaseItemsService, CaseItemsService
+from .items import BaseCaseItemsService, CaseItemsService
 
 if typing.TYPE_CHECKING:
     from cases.models.items import CaseItem
