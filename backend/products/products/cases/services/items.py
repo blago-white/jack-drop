@@ -18,7 +18,7 @@ class BaseCaseItemsService(metaclass=ABCMeta):
         self._model = model
 
     @abstractmethod
-    def get_case_items_for_case(self, case):
+    def get_case_items_for_case(self, case_pk):
         pass
 
     @abstractmethod
@@ -32,8 +32,8 @@ class BaseCaseItemsService(metaclass=ABCMeta):
 
 
 class CaseItemsService(BaseCaseItemsService):
-    def get_case_items_for_case(self, case: models.Model):
-        return self._model.objects.filter(case=case)
+    def get_case_items_for_case(self, case_pk: str):
+        return self._model.objects.filter(case=case_pk)
 
     def bulk_update_chances(self, chances: list[float],
                             case_items: models.QuerySet[CaseItem]) -> int:

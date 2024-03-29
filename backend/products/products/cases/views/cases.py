@@ -1,5 +1,3 @@
-from rest_framework.generics import ListAPIView
-
 from common.mixins.api import ModelAPIViewMixin
 from common.views.api import BaseListAPIView
 
