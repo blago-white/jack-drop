@@ -1,0 +1,17 @@
+body {
+    background: #222222;
+}
+
+.messages {
+    background: gray;
+    border-radius: 1em;
+    font-size: 2em;
+    padding-block: 1em;
+    padding-inline: 2em;
+    max-height: 80vh;
+    overflow-y: scroll;
+}
+
+.message-text {
+    font-size: 2.5em;
+}
