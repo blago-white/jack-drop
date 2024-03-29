@@ -1,6 +1,6 @@
 import {getNewMessageHTML} from './messages.js';
 
-const socket = new WebSocket(`ws://localhost/ws/chat/`);
+const socket = new WebSocket(`ws://${window.location.hostname}/chat/ws/`);
 const messages = document.getElementById('messages');
 
 socket.onmessage = function(event) {

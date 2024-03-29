@@ -1,8 +1,8 @@
 version: '3.7'
 
 services:
-  db:
-    image: postgres:15-bookworm
+  chatdb:
+    image: postgres:16.2-bookworm
     container_name: chatdb
     env_file:
       - .env
@@ -17,7 +17,7 @@ services:
         retries: 5
     restart: always
 
-  redis:
+  chatredis:
     image: redis:7.2.4-bookworm
     env_file:
       - .env
@@ -31,7 +31,7 @@ services:
       retries: 5
     restart: always
 
-  web:
+  chatapp:
     build:
       dockerfile: Dockerfile
     expose:
@@ -39,16 +39,16 @@ services:
     depends_on:
       chatdb:
         condition: service_healthy
-      redis:
+      chatredis:
         condition: service_healthy
     env_file:
       - .env
-    container_name: chatweb
+    container_name: chatapp
     volumes:
       - ./chat/debug.log:/home/chat/chat/debug.log
     restart: always
 
-  nginx:
+  chatnginx:
     build: nginx
     expose:
       - 80
@@ -57,7 +57,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./chat/static:/static:ro
     depends_on:
-      - django
+      - chatapp
 
 volumes:
   postgres_data:
