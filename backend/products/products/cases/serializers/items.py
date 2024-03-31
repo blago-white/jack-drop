@@ -4,9 +4,7 @@ from ..models.items import CaseItem
 from .case import CaseSerializer
 
 
-class CaseItemSerializer(serializers.ModelSerializer):
-    case = CaseSerializer()
-
+class CaseItemPrivateSerializer(serializers.ModelSerializer):
     class Meta:
         model = CaseItem
         fields = "__all__"
@@ -14,3 +12,8 @@ class CaseItemSerializer(serializers.ModelSerializer):
             "chance",
             "id"
         ]
+
+
+class CaseWithItemsPrivateSerializer(serializers.Serializer):
+    case = CaseSerializer(read_only=True)
+    items = CaseItemPrivateSerializer(many=True, read_only=True)
