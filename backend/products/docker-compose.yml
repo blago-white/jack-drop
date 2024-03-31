@@ -31,13 +31,13 @@ services:
     restart: always
   productsnginx:
     build: nginx
-    expose:
-      - 8000
+    ports:
+      - "80:80"
     depends_on:
       - productsapp
     container_name: productsnginx
     volumes:
-      - ./products/static/:/static
+      - ./products/static/:/products/static
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
 
 volumes:

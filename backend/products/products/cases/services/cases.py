@@ -1,7 +1,7 @@
-from common.services.base import BaseModelService
+from common.services.default import DefaultModelService
 
 from ..models.cases import Case
 
 
-class CasesService(BaseModelService):
+class CasesService(DefaultModelService):
     _model = Case

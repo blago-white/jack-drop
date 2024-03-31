@@ -1,9 +1,9 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 
 from ..models.cases import Case
 
 
-class CaseSerializer(ModelSerializer):
+class CaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Case
-        fields = "__all__"
+        exclude = ["items"]

@@ -19,6 +19,8 @@ class BaseRepository(metaclass=ABCMeta):
     def _serializer(self) -> serializers.Serializer:
         pass
 
+
+class BaseReadOnlyRepository(BaseRepository, metaclass=ABCMeta):
     @abstractmethod
     def get_all(self, *args, **kwargs) -> dict:
         pass
@@ -27,6 +29,8 @@ class BaseRepository(metaclass=ABCMeta):
     def get(self, *args, **kwargs) -> dict:
         pass
 
+
+class BaseCRUDRepository(metaclass=ABCMeta):
     @abstractmethod
     def create(self, *args, **kwargs) -> dict:
         pass
@@ -40,7 +44,7 @@ class BaseRepository(metaclass=ABCMeta):
         pass
 
 
-class BaseModelRepository(BaseRepository, metaclass=ABCMeta):
+class BaseModelRepository(BaseCRUDRepository, metaclass=ABCMeta):
     @abstractmethod
     def get(self, pk: PrimaryKey) -> dict:
         pass

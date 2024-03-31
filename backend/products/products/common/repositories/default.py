@@ -7,9 +7,6 @@ from common.repositories.base import (BaseModelRepository, PrimaryKey,
 
 
 class DefaultRepository(BaseModelRepository, metaclass=ABCMeta):
-    @property
-    def service(self) -> base.BaseModelService:
-        return self._service
 
     def get_all(self) -> dict:
         objects = self._service.get_all()

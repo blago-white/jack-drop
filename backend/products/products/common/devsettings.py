@@ -18,6 +18,8 @@ if "test" in sys.argv:
 
 del STATIC_ROOT
 
-STATIC_FILES_DIRS = [
+STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
+STATIC_URL = '/products/static/'

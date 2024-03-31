@@ -5,7 +5,7 @@ from cases.repositories.items import CasesItemsRepository
 from cases.serializers.items import CaseItemSerializer
 
 
-class CaseItemsListAPIView(ModelAPIViewMixin, BaseListAPIView):
+class CaseItemsListAPIView(BaseListAPIView):
     serializer_class = CaseItemSerializer
     _repository = CasesItemsRepository()
 

@@ -1,10 +1,8 @@
-from common.mixins.api import ModelAPIViewMixin
-from common.views.api import BaseListAPIView
+from common.views.django import BaseListView
 
-from cases.repositories.cases import CasesRepository
-from cases.serializers.case import CaseSerializer
+from ..services.cases import CasesService
 
 
-class CasesListAPIView(ModelAPIViewMixin, BaseListAPIView):
-    serializer_class = CaseSerializer
-    _repository = CasesRepository()
+class CasesView(BaseListView):
+    _service = CasesService()
+    template_name = "cases.html"

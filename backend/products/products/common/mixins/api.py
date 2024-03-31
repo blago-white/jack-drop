@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.serializers import ModelSerializer
 
-from common.repositories.base import BaseRepository
+from common.repositories.base import BaseCRUDRepository
 
 
 class BaseResponseAPIViewMixin:
@@ -17,7 +17,7 @@ class BaseResponseAPIViewMixin:
 
 class ModelAPIViewMixin(BaseResponseAPIViewMixin):
     serializer_class: ModelSerializer
-    _repository: BaseRepository
+    _repository: BaseCRUDRepository
 
     def get_200_response(self, data: dict = None) -> Response:
         return self._response_class(
