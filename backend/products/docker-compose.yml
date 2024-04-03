@@ -16,6 +16,19 @@ services:
         timeout: 5s
         retries: 5
     restart: always
+  productsredis:
+    image: redis:7.2.4-bookworm
+    env_file:
+      - .env
+    expose:
+      - 6379
+    container_name: productsredis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: always
   productsapp:
     build:
       dockerfile: Dockerfile
@@ -23,18 +36,31 @@ services:
       - 8000
     depends_on:
       - productsdb
+      - productsredis
     env_file:
       - .env
     container_name: productsapp
     volumes:
-      - ./products/debug.log:/home/app/products/debug.log
+#      - ./products/debug.log:/home/app/products/debug.log
+      - ./products/:/home/app/products/
     restart: always
+  productscelery:
+    build: .
+    restart: always
+    command: celery -A config worker -l info
+    container_name: productscelery
+    env_file:
+      - .env
+    depends_on:
+      - productsdb
+      - productsredis
+      - productsapp
   productsnginx:
     build: nginx
     ports:
       - "80:80"
     depends_on:
-      - productsapp
+      - productscelery
     container_name: productsnginx
     volumes:
       - ./products/static/:/products/static

@@ -6,6 +6,7 @@ DATABASES = {
         'NAME': os.environ.get("POSTGRES_DB"),
         'USER': os.environ.get("POSTGRES_USER"),
         'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
+        'HOST': 'localhost'
     },
     'test': {
         'ENGINE': 'django.db.backends.sqlite3',

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'cases',
     'items',
     'market',
+    'refresher',
     'admin_interface',
     'colorfield',
     'common.apps.JackDropAdminConfig',
@@ -176,3 +177,11 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_BROKER_URL = (f"redis://"
+                     f"{os.environ.get('REDIS_USER')}:"
+                     f"{os.environ.get('REDIS_PASSWORD')}@productsredis:6379")
+
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
