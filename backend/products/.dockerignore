@@ -7,3 +7,4 @@ products/cases/migrations
 products/items/migrations
 *.pyc
 .env
+*/migrations
