@@ -1,4 +1,4 @@
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, CreateView
 
 
 class SteamAuthView(RedirectView):
