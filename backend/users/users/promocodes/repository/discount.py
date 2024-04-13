@@ -9,8 +9,6 @@ class DiscountRepository(BaseRepository):
     default_serializer_class = DiscountSerializer
 
     def get(self, pk: int | str) -> dict:
-        print(self._service.get(pk))
-
         serialized = self._serializer_class(
             instance=self._service.get(pk)
         )
