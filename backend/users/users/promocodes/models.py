@@ -1,5 +1,5 @@
-from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db import models
 
 from .config import MAX_PROMOCODE_LENGTH
 

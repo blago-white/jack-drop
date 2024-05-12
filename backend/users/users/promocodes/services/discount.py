@@ -1,6 +1,5 @@
-from common.services import BaseService
-
 from accounts.models import Client
+from common.services import BaseService
 
 
 class DiscountService(BaseService):

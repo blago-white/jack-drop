@@ -1,10 +1,9 @@
 from abc import ABCMeta, abstractmethod
 
 from django.db import models
-from django.contrib.auth import get_user_model
 
-from common.services import BaseService
 from accounts.models import Client
+from common.services import BaseService
 
 
 class BaseUsersService(BaseService, metaclass=ABCMeta):

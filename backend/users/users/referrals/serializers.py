@@ -1,33 +1,42 @@
 from rest_framework import serializers
 
 from accounts.models import Client
-
-from .services.referral import ReferralService
 from .models.utils import ReferralLevels
+from .services.referral import ReferralBenefitService
 
 
 class ClaculatedDiscount(serializers.CurrentUserDefault):
     def __call__(self, serializer_field):
-        count_referrals = serializer_field.parent.initial_data.get("referrals")
+        deposits_amount = serializer_field.parent.initial_data.get("deposits")
 
-        return ReferralService().get_discount(
-            count_referrals=count_referrals
+        return ReferralBenefitService().get_discount(
+            deposits_amount=deposits_amount
         )
 
 
+class ClaculatedLevel(serializers.CurrentUserDefault):
+    def __call__(self, serializer_field):
+        deposits_amount = serializer_field.parent.initial_data.get("deposits")
+
+        return ReferralBenefitService().get_level(
+            required_deposits=deposits_amount
+        ).level
+
+
 class ReferralStatusSerializer(serializers.Serializer):
-    referr = serializers.PrimaryKeyRelatedField(
-        queryset=Client.objects.all()
+    referr_id = serializers.PrimaryKeyRelatedField(
+        queryset=Client.objects.all().values("pk")
     )
 
-    referrals = serializers.IntegerField(allow_null=True,
-                                         initial=0,
-                                         default=0)
+    deposits = serializers.IntegerField(allow_null=False,
+                                        initial=0,
+                                        default=0)
 
     level = serializers.ChoiceField(
-        choices=referralLevels.choices
+        choices=ReferralLevels.choices,
+        default=ClaculatedLevel()
     )
 
-    discount = serializers.IntegerField(allow_null=True,
-                                        initial=0,
-                                        default=ClaculatedDiscount())
+    personal_discount = serializers.IntegerField(allow_null=True,
+                                                 initial=0,
+                                                 default=ClaculatedDiscount())

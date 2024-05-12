@@ -11,11 +11,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 import os
-import dotenv
 import sys
-
 from datetime import timedelta
 from pathlib import Path
+
+import dotenv
 
 dotenv.load_dotenv()
 
@@ -40,6 +40,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'accounts',
     'promocodes',
+    'referrals',
     'admin_interface',
     'colorfield',
     'django.contrib.admin',
@@ -87,14 +88,14 @@ WSGI_APPLICATION = 'common.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'test': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get("POSTGRES_DB"),
         'USER': os.environ.get("POSTGRES_USER"),
         'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-        'HOST': os.environ.get("POSTGRES_HOST"),
+        # 'HOST': os.environ.get("POSTGRES_HOST"),
     },
-    'test': {
+    'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
@@ -121,32 +122,32 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGGING = {
-    'version': 1,
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-        }
-    },
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'debug.log',
-        },
-        'console': {
-            'level': 'DEBUG',
-            'filters': ['require_debug_true'],
-            'class': 'logging.StreamHandler',
-        }
-    },
-    'loggers': {
-        'django': {
-            'level': 'DEBUG',
-            'handlers': ['file', 'console'],
-        },
-    }
-}
+# LOGGING = {
+#     'version': 1,
+#     'filters': {
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         }
+#     },
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': BASE_DIR / 'debug.log',
+#         },
+#         'console': {
+#             'level': 'DEBUG',
+#             'filters': ['require_debug_true'],
+#             'class': 'logging.StreamHandler',
+#         }
+#     },
+#     'loggers': {
+#         'django': {
+#             'level': 'DEBUG',
+#             'handlers': ['file', 'console'],
+#         },
+#     }
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

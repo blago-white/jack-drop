@@ -1,14 +1,13 @@
+from rest_framework import status
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework import status
-
-from rest_framework_simplejwt.views import TokenVerifyView
-from rest_framework_simplejwt.tokens import TokenError
 from rest_framework_simplejwt.exceptions import InvalidToken
+from rest_framework_simplejwt.tokens import TokenError
+from rest_framework_simplejwt.views import TokenVerifyView
 
-from common.mixins import BaseRetrieveApiViewMixin
 from accounts.repositories.users import UsersRepository
+from common.mixins import BaseRetrieveApiViewMixin
 
 
 class UserDataPrivateApiView(BaseRetrieveApiViewMixin, RetrieveAPIView):

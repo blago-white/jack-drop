@@ -1,28 +1,9 @@
-from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db import models
 
 from .utils import ReferralLevels
-
-
-class Referral(models.Model):
-    user_id = models.ForeignKey(to=get_user_model(),
-                                on_delete=models.CASCADE)
-
-    referr = models.ForeignKey(to=get_user_model(),
-                               on_delete=models.CASCADE,
-                               null=True,
-                               blank=True)
-
-    benefit = models.ForeignKey(to="referrals.ReferalBenefit",
-                                on_delete=models.SET_NULL,
-                                null=True,
-                                blank=True)
-
-    def clean(self):
-        if self.referr and not self.benefit:
-            raise ValidationError("Cannot set reffer without benefit")
 
 
 class ReferralBenefit(models.Model):
@@ -33,6 +14,35 @@ class ReferralBenefit(models.Model):
             MaxValueValidator(100)
         ]
     )
-    require_referrals = models.IntegerField(
-        "Count of referrals for up to this level"
+    required_deposits = models.IntegerField(
+        "Sum of deps for up to this level"
     )
+
+    def __str__(self):
+        return f"Level: {self.level} ({self.discount_per_referral}%)"
+
+
+class Referral(models.Model):
+    user = models.ForeignKey(to=get_user_model(),
+                             on_delete=models.CASCADE,
+                             related_name="referral",
+                             primary_key=True,
+                             unique=True)
+
+    referr = models.ForeignKey(to=get_user_model(),
+                               on_delete=models.CASCADE,
+                               null=True,
+                               blank=True,
+                               related_name="referr")
+
+    benefit = models.ForeignKey(to=ReferralBenefit,
+                                on_delete=models.SET_NULL,
+                                null=True,
+                                blank=True)
+
+    def __str__(self):
+        return f"{self.user} {self.benefit}"
+
+    def clean(self):
+        if self.referr and not self.benefit:
+            raise ValidationError("Cannot set reffer without benefit")

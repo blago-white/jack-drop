@@ -1,7 +1,6 @@
 from common.repositories import BaseRepository
-
-from ..services.discount import DiscountService
 from ..serializers import DiscountSerializer
+from ..services.discount import DiscountService
 
 
 class DiscountRepository(BaseRepository):
