@@ -6,9 +6,9 @@ from .models import Client, ClientDeposit
 
 @admin.register(Client)
 class ClientAdmin(ModelAdmin):
-    list_display = ["__str__", "is_staff"]
+    list_display = ["__str__", "promocode", "is_staff"]
 
 
 @admin.register(ClientDeposit)
 class ClientDepositAdmin(ModelAdmin):
-    list_display = ["__str__"]
+    list_display = ["user", "amount", "datetime"]

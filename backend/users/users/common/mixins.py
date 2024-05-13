@@ -1,15 +1,25 @@
 from rest_framework.response import Response
 
 
-class BaseRetrieveApiViewMixin:
+class DetailedApiViewMixin:
     pk_url_kwarg: str
     _response_class: Response = Response
 
-    def get_200_request(self, data: dict) -> Response:
+    def get_requested_pk(self) -> int:
+        return self.kwargs.get(self.pk_url_kwarg)
+
+
+class BaseRetrieveApiViewMixin(DetailedApiViewMixin):
+    def get_200_response(self, data: dict) -> Response:
         return self._response_class(
             data=data,
             status=200
         )
 
-    def get_requested_pk(self) -> int:
-        return self.kwargs.get(self.pk_url_kwarg)
+
+class BaseDetailedCreateApiViewMixin(DetailedApiViewMixin):
+    def get_201_response(self, data: dict) -> Response:
+        return self._response_class(
+            data=data,
+            status=201
+        )

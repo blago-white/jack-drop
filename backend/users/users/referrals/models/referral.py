@@ -23,11 +23,10 @@ class ReferralBenefit(models.Model):
 
 
 class Referral(models.Model):
-    user = models.ForeignKey(to=get_user_model(),
-                             on_delete=models.CASCADE,
-                             related_name="referral",
-                             primary_key=True,
-                             unique=True)
+    user = models.OneToOneField(to=get_user_model(),
+                                on_delete=models.CASCADE,
+                                related_name="referral",
+                                primary_key=True)
 
     referr = models.ForeignKey(to=get_user_model(),
                                on_delete=models.CASCADE,

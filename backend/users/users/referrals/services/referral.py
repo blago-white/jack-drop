@@ -43,3 +43,12 @@ class ReferralService(BaseService):
         level = ReferralBenefitService().get_level(required_deposits=deposits)
 
         self._model.objects.filter(pk=referr_id).update(benefit=level)
+
+    def create(self, user_id: int,
+               referr: int = None,
+               benefit: Model = None) -> Model:
+        self._model.objects.create(
+            user_id=user_id,
+            referr=referr,
+            benefit=benefit
+        )
