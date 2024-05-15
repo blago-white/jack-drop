@@ -4,7 +4,7 @@ from abc import abstractmethod, ABCMeta
 from django.db import models
 
 from items.models.models import Item
-from .cases import BaseCaseItemsService, CaseItemsService
+from .items import BaseCaseItemsService, CaseItemsService
 
 if typing.TYPE_CHECKING:
     from cases.models.items import CaseItem
@@ -37,7 +37,7 @@ class CaseItemsChancesService(BaseCaseItemsChancesService):
         super().__init__(*args, **kwargs)
 
     def update_chanses(self, case: models.Model) -> None:
-        case_items = self._service.get_case_items_for_case(case=case)
+        case_items = self._service.get_case_items_for_case(case_pk=case.pk)
         items = self._service.get_related_items(
             case_items_queryset=case_items
         )

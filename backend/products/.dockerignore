@@ -1,0 +1,10 @@
+venv
+.idea
+.git
+.gitignore
+.flake8
+products/cases/migrations
+products/items/migrations
+*.pyc
+.env
+*/migrations

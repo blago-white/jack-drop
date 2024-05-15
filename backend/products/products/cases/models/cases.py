@@ -6,6 +6,7 @@ from common.models.base import BaseImageModel
 
 from items.models.models import Item
 from cases.config import CASE_TITLE_MAX_LEN
+from .category import CasesCategory
 
 
 class Case(TitleModelMixin, BaseImageModel):
@@ -17,7 +18,7 @@ class Case(TitleModelMixin, BaseImageModel):
                              unique=True)
 
     category = models.ForeignKey(verbose_name=_("Name of category"),
-                                 to="categories.CasesCategory",
+                                 to=CasesCategory,
                                  on_delete=models.SET_NULL,
                                  null=True,
                                  blank=True)

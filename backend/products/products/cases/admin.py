@@ -5,7 +5,18 @@ from django.contrib.admin.filters import RelatedFieldListFilter
 
 from .models.cases import Case
 from .models.items import CaseItem
+from .models.category import CasesCategory
+
 from . import actions
+
+
+@admin.register(CasesCategory)
+class CasesCategoryAdmin(ModelAdmin):
+    list_display = ["__str__", "slug", "count_cases"]
+
+    @admin.display
+    def count_cases(self, instance: CasesCategory):
+        return instance.case_set.all().count()
 
 
 class CaseFilter(RelatedFieldListFilter):
