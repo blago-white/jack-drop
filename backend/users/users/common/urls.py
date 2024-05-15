@@ -16,15 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import re_path, path, include
-
-from accounts.api.endpoints import TokenVerifyHeaderView
 from rest_framework_simplejwt.views import (TokenObtainPairView,
                                             TokenRefreshView,
                                             TokenVerifyView)
 
+from accounts.api.endpoints import TokenVerifyHeaderView
+
 urlpatterns = [
     path('auth/admin/', admin.site.urls),
     path('auth/', include("accounts.urls")),
+    path('auth/discount/', include("promocodes.urls")),
+    path('auth/referrals/', include("referrals.urls")),
 
     path('auth/api/token/',
          TokenObtainPairView.as_view(),

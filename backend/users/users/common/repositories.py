@@ -1,6 +1,6 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
+
 from rest_framework.serializers import Serializer
-from django.db import models
 
 from .services import BaseService
 

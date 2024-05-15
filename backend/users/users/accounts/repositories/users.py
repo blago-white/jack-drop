@@ -1,11 +1,8 @@
 from abc import ABCMeta, abstractmethod
 
-from django.db import models
-
-from common.repositories import BaseRepository
-
-from accounts.services.users import UsersService
 from accounts.serializers import ClientSerializer
+from accounts.services.users import UsersService
+from common.repositories import BaseRepository
 
 
 class BaseUsersRepository(BaseRepository, metaclass=ABCMeta):
