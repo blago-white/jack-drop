@@ -52,3 +52,11 @@ class ReferralService(BaseService):
             referr=referr,
             benefit=benefit
         )
+
+    def add_referr(self, user_id: int, referr: Model) -> bool:
+        return bool(self._model.objects.filter(
+            user_id=user_id, referr_id=None
+        ).update(referr_id=referr.pk))
+
+    def get_referr_by_link(self, referr_link: str) -> Model:
+        return self._model.objects.filter(referr_link=referr_link).first()

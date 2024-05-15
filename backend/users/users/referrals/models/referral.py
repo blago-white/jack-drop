@@ -1,9 +1,12 @@
+from hashlib import sha256
+
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 from .utils import ReferralLevels
+from ..config import REFERR_LINK_MAX_LENGTH
 
 
 class ReferralBenefit(models.Model):
@@ -39,9 +42,23 @@ class Referral(models.Model):
                                 null=True,
                                 blank=True)
 
+    referr_link = models.CharField(max_length=REFERR_LINK_MAX_LENGTH,
+                                   null=False,
+                                   blank=True,
+                                   unique=True)
+
     def __str__(self):
         return f"{self.user} {self.benefit}"
 
     def clean(self):
         if self.referr and not self.benefit:
             raise ValidationError("Cannot set reffer without benefit")
+
+    def save(
+            self, *args, **kwargs
+    ):
+        self.referr_link = sha256(self.user.username.encode(
+            "utf-8"
+        )).hexdigest()[:REFERR_LINK_MAX_LENGTH]
+
+        return super().save(*args, **kwargs)

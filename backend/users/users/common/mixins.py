@@ -8,6 +8,9 @@ class DetailedApiViewMixin:
     def get_requested_pk(self) -> int:
         return self.kwargs.get(self.pk_url_kwarg)
 
+    def get_requested_pk_body(self) -> int:
+        return self.request.data.get(self.pk_url_kwarg)
+
 
 class BaseRetrieveApiViewMixin(DetailedApiViewMixin):
     def get_200_response(self, data: dict) -> Response:

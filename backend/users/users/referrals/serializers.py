@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
-from accounts.models import Client
+from accounts.services.users import UsersService
+
+from .config import REFERR_LINK_MAX_LENGTH
 from .models.utils import ReferralLevels
 from .services.referral import ReferralBenefitService
 
@@ -25,7 +27,7 @@ class ClaculatedLevel(serializers.CurrentUserDefault):
 
 class ReferralStatusSerializer(serializers.Serializer):
     referr_id = serializers.PrimaryKeyRelatedField(
-        queryset=Client.objects.all().values("pk")
+        queryset=UsersService().get_all()
     )
 
     deposits = serializers.IntegerField(allow_null=False,
@@ -40,3 +42,14 @@ class ReferralStatusSerializer(serializers.Serializer):
     personal_discount = serializers.IntegerField(allow_null=True,
                                                  initial=0,
                                                  default=ClaculatedDiscount())
+
+
+class ReferralLinkSerializer(serializers.Serializer):
+    user_id = serializers.PrimaryKeyRelatedField(
+        read_only=True
+    )
+    referr_link = serializers.CharField(max_length=REFERR_LINK_MAX_LENGTH)
+    is_valid = serializers.BooleanField(default=False, read_only=True)
+
+    class Meta:
+        read_only_fields = ["is_valid", "user_id"]
