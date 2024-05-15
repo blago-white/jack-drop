@@ -9,7 +9,7 @@ class DetailedApiViewMixin:
         return self.kwargs.get(self.pk_url_kwarg)
 
     def get_requested_pk_body(self) -> int:
-        return self.request.data.get(self.pk_url_kwarg)
+        return self.request.dataww.get(self.pk_url_kwarg)
 
 
 class BaseRetrieveApiViewMixin(DetailedApiViewMixin):
