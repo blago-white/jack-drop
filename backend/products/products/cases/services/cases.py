@@ -4,6 +4,8 @@ from abc import ABCMeta, abstractmethod
 from django.db import models
 
 from items.models.models import Item
+from ..models.cases import Case
+from common.services.base import BaseReadOnlyService
 
 if typing.TYPE_CHECKING:
     from cases.models.items import CaseItem
@@ -49,3 +51,10 @@ class CaseItemsService(BaseCaseItemsService):
         return Item.objects.filter(
             pk__in=case_items_queryset.values_list("item", flat=True)
         )
+
+
+class CaseService(BaseReadOnlyService):
+    default_model = Case
+
+    def get(self, case_id: int) -> models.Model:
+        return self._model.objects.get(pk=case_id)

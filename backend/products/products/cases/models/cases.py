@@ -27,6 +27,8 @@ class Case(TitleModelMixin, BaseImageModel):
                                  default="/",
                                  unique=True)
 
+    price = models.PositiveIntegerField(default=0)
+
     class Meta:
         db_table = "cases_cases"
 

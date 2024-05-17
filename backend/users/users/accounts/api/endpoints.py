@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework_simplejwt.tokens import TokenError
 from rest_framework_simplejwt.views import TokenVerifyView
+from rest_framework.permissions import IsAuthenticated
 
 from common.mixins import BaseDetailedCreateApiViewMixin
 from common.api.default import DefaultRetrieveApiView, DefaultCreateApiView
@@ -73,3 +74,13 @@ class AddDepositApiView(BaseDetailedCreateApiViewMixin, DefaultCreateApiView):
 
     def _get_deposit_amount(self) -> int:
         return self.request.data.get(self._deposit_amount_param_name)
+
+
+class UserAdvantageRetrieveAPIView(DefaultRetrieveApiView):
+    pk_header_name = "Authorization"
+    permission_classes = [IsAuthenticated]
+
+    def retrieve(self, request, *args, **kwargs):
+        return self.get_200_response(
+            data={"advantage": request.user.advantage}
+        )

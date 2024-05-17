@@ -1,9 +1,9 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
 
 from django.db import models
 
 
-class BaseReadOnlyService(metaclass=ABCMeta):
+class BaseModelService(metaclass=ABCMeta):
     _model: models.Model
     default_model: models.Model | None
 
@@ -18,7 +18,3 @@ class BaseReadOnlyService(metaclass=ABCMeta):
 
         else:
             self._model = model
-
-    @abstractmethod
-    def get(self, *args, **kwargs) -> models.QuerySet:
-        pass
