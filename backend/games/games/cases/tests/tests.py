@@ -31,7 +31,6 @@ class DropCaseItemApiViewTestCase(APITestCase):
         )
 
         case_price = 300
-
         pricing = {
             1: 500,
             2: 200,
