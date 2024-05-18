@@ -2,17 +2,17 @@ from abc import ABCMeta
 
 from rest_framework.serializers import Serializer
 
-from .services import BaseService
+from .services import BaseModelService
 
 
 class BaseRepository(metaclass=ABCMeta):
-    _service: BaseService
+    _service: BaseModelService
     _serializer_class: Serializer
-    default_service: BaseService | None
+    default_service: BaseModelService | None
     default_serializer_class: Serializer | None
 
     def __init__(self,
-                 service: BaseService = None,
+                 service: BaseModelService = None,
                  serializer_class: Serializer = None
                  ):
         self._service = service or self.default_service

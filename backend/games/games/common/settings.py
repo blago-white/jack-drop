@@ -129,5 +129,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PRODUCTS_MICROSERVICE_ROUTES = {
-    "case_info": "http://products:8000/products/cases/api/v1/p/casedata/{case_id}/",
+    "case_info": "http://products:8000/products/cases/api/v1/p/case_drop_data/{case_id}/",
+}
+
+USERS_MICROSERVICE_ROUTES = {
+    "get_advantage": "http://users:8000/auth/api/v1/p/advantage/"
 }

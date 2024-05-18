@@ -1,6 +1,7 @@
 from django.urls import path
 
+from .api import urls
 
-urlpatterns = [
-    path("drop/<int:case_id>/", ...)
-]
+urlpatterns = []
+
+urlpatterns += urls.urlpatterns

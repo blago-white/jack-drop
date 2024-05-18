@@ -3,7 +3,9 @@ import random
 
 from common.services import BaseModelService
 
-from ..states.request import DropRequest, CaseItem, FoundsState, ResultState
+from ..states.request import DropRequest, FoundsState, ResultState
+from ..services.api.transfer import CaseItem
+
 from .wins import WinDropsService
 from .exceptions import ChancesValuesError
 from ._results import FundsDeltaResult
@@ -20,7 +22,7 @@ class CaseItemDropModelService:
 
         advantage = request.state.usr_advantage
         advantage_positive = request.state.usr_advantage > 0
-        
+
         if not is_win:
             item = self._get_random_loss_item(request=request)
         elif advantage_positive and (advantage > (request.case_price / 2)):
@@ -54,7 +56,7 @@ class CaseItemDropModelService:
     def _get_random_loss_item(self, request: DropRequest) -> CaseItem:
         items = list(filter(
             lambda item: (
-                    item.price < request.case_price
+                    item.price <= request.case_price
             ), request.items
         ))
 

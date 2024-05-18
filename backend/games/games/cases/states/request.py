@@ -1,12 +1,7 @@
 from dataclasses import dataclass, field
 from time import time
 
-
-@dataclass(frozen=True)
-class CaseItem:
-    id: int
-    rate: float
-    price: float
+from ..services.api.transfer import CaseItem
 
 
 @dataclass(frozen=True)
