@@ -20,8 +20,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('products/cases/', include("cases.urls"))
+    path('products/admin/', admin.site.urls),
+    path('products/cases/', include("cases.urls")),
+    path('products/items/', include("items.urls"))
 ]
 
 if settings.DEBUG:

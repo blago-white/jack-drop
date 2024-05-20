@@ -1,9 +1,9 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
 
 from django.db import models
 
 
-class BaseReadOnlyService(metaclass=ABCMeta):
+class BaseModelService(metaclass=ABCMeta):
     _model: models.Model
     default_model: models.Model | None
 

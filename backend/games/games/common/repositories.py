@@ -2,7 +2,7 @@ from abc import ABCMeta
 
 from rest_framework.serializers import Serializer
 
-from .services import BaseModelService
+from .services.base import BaseModelService
 
 
 class BaseRepository(metaclass=ABCMeta):

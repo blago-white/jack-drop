@@ -1,14 +1,8 @@
-from dataclasses import dataclass, field
-from time import time
+from dataclasses import dataclass
 
-from ..services.api.transfer import CaseItem
+from common.states import FoundsState
 
-
-@dataclass(frozen=True)
-class FoundsState:
-    usr_advantage: float
-    site_active_hour_funds: float
-    daytime: float = field(default_factory=time)
+from common.services.api.transfer import CaseItem
 
 
 @dataclass(frozen=True)

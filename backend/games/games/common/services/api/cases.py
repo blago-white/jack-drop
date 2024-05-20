@@ -2,7 +2,7 @@ import requests
 
 from django.conf import settings
 
-from cases.states.request import DropRequest, FoundsState
+from cases.states.request import DropRequest
 from .transfer import CaseData, CaseItem
 
 

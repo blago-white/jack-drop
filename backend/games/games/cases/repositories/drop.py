@@ -1,11 +1,12 @@
 from django.http.request import HttpRequest
 
 from common.repositories import BaseRepository
+from common.states import FoundsState
 
-from ..services.api.cases import CasesApiService
-from ..services.api.users import UsersApiService
+from common.services.api.cases import CasesApiService
+from common.services.api.users import UsersApiService
 from ..services.drop import CaseItemDropModelService
-from ..states.request import DropRequest, FoundsState
+from ..states.request import DropRequest
 from ..serializers import DroppedCaseItemSerializer
 
 
@@ -38,7 +39,7 @@ class CaseItemDropRepository(BaseRepository):
             items=case_data.items,
             state=FoundsState(
                 usr_advantage=advantage,
-                site_active_hour_funds=1000,  # TODO: Make core service
+                site_active_hour_funds=1000,  # TODO: Make core services
             ),
             case_price=case_data.price
         )

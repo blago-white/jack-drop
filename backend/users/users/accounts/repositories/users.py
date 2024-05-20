@@ -1,5 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
+from rest_framework.request import Request
+
 from accounts.serializers import ClientSerializer
 from accounts.services.users import UsersService
 from common.repositories import BaseRepository
@@ -23,3 +25,6 @@ class UsersRepository(BaseUsersRepository):
         serialized: ClientSerializer = self._serializer_class(instance=user)
 
         return serialized.data
+
+    def get_user_info_by_jwt(self, request: Request) -> dict:
+        return self.get_user_info(user_id=request.user.id)

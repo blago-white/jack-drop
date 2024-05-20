@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Upgrade, ChanceShift
+
+
+admin.site.register(Upgrade)
+admin.site.register(ChanceShift)

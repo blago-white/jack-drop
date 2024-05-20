@@ -8,8 +8,14 @@ class CaseItem:
     price: float
 
 
-@dataclass
+@dataclass(frozen=True)
 class CaseData:
     id: int
     items: list
     price: int
+
+
+@dataclass(frozen=True)
+class UserData:
+    id: int
+    advantage: float

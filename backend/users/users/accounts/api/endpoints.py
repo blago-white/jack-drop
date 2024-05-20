@@ -29,6 +29,21 @@ class UserDataPrivateApiView(DefaultRetrieveApiView):
         return "Private view for retrieving user info"
 
 
+class JWTUserDataPrivateApiView(DefaultRetrieveApiView):
+    repository = UsersRepository()
+    serializer_class = repository.default_serializer_class
+
+    def retrieve(self, request: Request, **kwargs):
+        user_data = self.repository.get_user_info_by_jwt(
+            request=request
+        )
+
+        return self.get_200_response(data=user_data)
+
+    def get_view_description(self, html=False):
+        return "Private view for retrieving user info by JWT Token"
+
+
 class TokenVerifyHeaderView(TokenVerifyView):
     def post(self, request: Request, *args, **kwargs) -> Response:
         if request.META.get("HTTP_AUTHORIZATION") and not request.data.get(

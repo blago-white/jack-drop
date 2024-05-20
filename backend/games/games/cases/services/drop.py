@@ -1,10 +1,7 @@
-import math
 import random
 
-from common.services import BaseModelService
-
-from ..states.request import DropRequest, FoundsState, ResultState
-from ..services.api.transfer import CaseItem
+from ..states.request import DropRequest, ResultState
+from common.services.api.transfer import CaseItem
 
 from .wins import WinDropsService
 from .exceptions import ChancesValuesError

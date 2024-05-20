@@ -1,7 +1,7 @@
 from rest_framework.test import APITestCase, APIRequestFactory
 from django.urls import reverse
 
-from ..services.api.transfer import CaseData, CaseItem
+from common.services.api.transfer import CaseData, CaseItem
 from ..repositories.drop import CaseItemDropRepository
 from .mock import DropCaseItemApiViewMock, CasesWebServiceMock, UsersWebServiceMock
 
