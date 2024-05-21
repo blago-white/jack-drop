@@ -1,61 +1,38 @@
 from rest_framework.request import Request
 
 from common.repositories import BaseRepository
-from common.services.api.items import ProductItemApiService
-from common.services.api.users import UsersApiService
 from common.states import FundsState
-from ..serializers import GameRequestSerializer
+from ..serializers import UpgradeRequestSerializer
 from ..services.upgrade import UpgradeService
 
 
 class UpgradeRepository(BaseRepository):
     default_service = UpgradeService()
-    default_serializer_class = GameRequestSerializer
-    _users_api_service = UsersApiService()
-    _items_api_service = ProductItemApiService()
+    default_serializer_class = UpgradeRequestSerializer
     _service: UpgradeService
-    _serializer_class: GameRequestSerializer
-
-    def __init__(self,
-                 *args,
-                 users_api_service: UsersApiService = None,
-                 items_api_service: UsersApiService = None,
-                 **kwargs):
-        self._users_api_service = users_api_service or self._users_api_service
-        self._items_api_service = items_api_service or self._items_api_service
-
-        super().__init__(*args, **kwargs)
+    _serializer_class: UpgradeRequestSerializer
 
     def upgrade(self, request: Request) -> dict:
-        user = self._users_api_service.get_info(
-            user_request=request
-        )
-
-        serialized: GameRequestSerializer = self._serializer_class(request.DATA)
+        serialized: UpgradeRequestSerializer = self._serializer_class(request.DATA)
 
         serialized.is_valid(raise_exception=True)
 
-        receive_amount = self._items_api_service.get_price(
-            item_id=serialized.receive_item
-        )
+        receive_amount = serialized.data.get("receive_funds")
 
-        Funds_state = FundsState(
-            usr_advantage=user.advantage,
-            site_active_hour_funds=1000  # TODO: Make service
-        )
-
-        if not serialized.granted_balance:
-            granted_amount = self._items_api_service.get_price(
-                item_id=serialized.granted_item
+        funds_state = FundsState(
+            usr_advantage=serialized.data.get("user_funds").get("advantage"),
+            site_active_hour_funds=serialized.data.get("site_funds").get(
+                "site_active_hour_funds"
             )
-        else:
-            granted_amount = serialized.granted_balance
+        )
+
+        granted_amount = serialized.data.get("granted_funds")
 
         upgrade_successful = self._service.make_upgrade(
-            user_id=user,
+            user_id=serialized.data.get("user_funds").get("id"),
             granted_amount=granted_amount,
             receive_amount=receive_amount,
-            Funds_state=Funds_state
+            funds_state=funds_state
         )
 
         return {"success": upgrade_successful}

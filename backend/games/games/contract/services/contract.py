@@ -1,5 +1,4 @@
 from common.services.base import BaseModelService
-from .award import RelevantItemsService
 from .shift import ContractShiftService
 from ..models import Contract
 
@@ -7,25 +6,19 @@ from ..models import Contract
 class ContractService(BaseModelService):
     default_model = Contract
     _shift_service: ContractShiftService = ContractShiftService()
-    _award_service: RelevantItemsService = RelevantItemsService()
 
     def __init__(self, *args,
-                 contract_shift_service: ContractShiftService,
-                 award_service: ContractShiftService,
+                 contract_shift_service: ContractShiftService = None,
                  **kwargs):
         self._shift_service = contract_shift_service or self._shift_service
-        self._award_service = award_service or self._award_service
 
         super().__init__(*args, **kwargs)
 
-    def complete_contract(self, granted_amount: int):
-        granted_amount -= self._shift_service.get()
+    def get_shiftet_amount(self, granted_amount: float) -> float:
+        return granted_amount - self._shift_service.get()
 
-        win = self._award_service.get_close_by_price(price=granted_amount)
-
+    def save_contract(self, granted_amount: float, result_item: int) -> None:
         self._model.objects.create(
             granted_amount=granted_amount,
-            result_item=win.id
+            result_item=result_item
         )
-
-        return win

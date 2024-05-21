@@ -14,7 +14,7 @@ class UpgradeServiceTestCase(APITestCase):
                 user_id=1,
                 granted_amount=500,
                 receive_amount=5000/(c+1),
-                Funds_state=FundsState(
+                funds_state=FundsState(
                     usr_advantage=100,
                     site_active_hour_funds=100*c,
                 )

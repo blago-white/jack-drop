@@ -1,4 +1,4 @@
-from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import RetrieveAPIView, CreateAPIView
 from rest_framework.views import APIView
 
 from ..mixins.api.create import CreateApiViewMixin
@@ -20,4 +20,10 @@ class DefaultRetrieveCreateApiView(CreateApiViewMixin,
                                    DetailedApiViewMixin,
                                    DefaultApiView,
                                    RetrieveAPIView):
+    pass
+
+
+class DefaultCreateApiView(CreateApiViewMixin,
+                           DefaultApiView,
+                           CreateAPIView):
     pass

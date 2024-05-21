@@ -3,9 +3,7 @@ from django.db import models
 
 class Contract(models.Model):
     granted_amount = models.FloatField()
-
     result_item = models.IntegerField()
-
     datetime = models.DateTimeField(auto_now=True)
 
 

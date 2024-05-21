@@ -23,4 +23,4 @@ class DropCaseRequestSerializer(serializers.Serializer):
 
 class DropResultSerializer(serializers.Serializer):
     item_id = serializers.IntegerField(min_value=0, read_only=True)
-    funds = FundsState(required=True, read_only=True)
+    funds = FundsState(read_only=True)
