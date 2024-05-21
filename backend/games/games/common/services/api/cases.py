@@ -1,8 +1,6 @@
 import requests
-
 from django.conf import settings
 
-from cases.states.request import DropRequest
 from .transfer import CaseData, CaseItem
 
 
@@ -14,19 +12,19 @@ class CasesApiService:
             self.routes.get("case_info").format(case_id=case_id)
         ).json()
 
-        case_items = self._serialize_case_items(case_data.get("items"))
+        case_items = self._serialize_case_items(case_data.drop_item("items"))
 
         return CaseData(
-            id=case_data.get("id"),
+            id=case_data.drop_item("id"),
             items=case_items,
-            price=case_data.get("price"),
+            price=case_data.drop_item("price"),
         )
 
     @staticmethod
     def _serialize_case_items(items: list) -> list[CaseItem]:
         return [
-            CaseItem(id=item.get("id"),
-                     price=item.get("price"),
-                     rate=item.get("chance"))
+            CaseItem(id=item.drop_item("id"),
+                     price=item.drop_item("price"),
+                     rate=item.drop_item("chance"))
             for item in items
         ]

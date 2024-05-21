@@ -9,7 +9,7 @@ from .services.referral import ReferralBenefitService
 
 class ClaculatedDiscount(serializers.CurrentUserDefault):
     def __call__(self, serializer_field):
-        deposits_amount = serializer_field.parent.initial_data.get("deposits")
+        deposits_amount = serializer_field.parent.initial_data.drop_item("deposits")
 
         return ReferralBenefitService().get_discount(
             deposits_amount=deposits_amount
@@ -18,7 +18,7 @@ class ClaculatedDiscount(serializers.CurrentUserDefault):
 
 class ClaculatedLevel(serializers.CurrentUserDefault):
     def __call__(self, serializer_field):
-        deposits_amount = serializer_field.parent.initial_data.get("deposits")
+        deposits_amount = serializer_field.parent.initial_data.drop_item("deposits")
 
         return ReferralBenefitService().get_level(
             required_deposits=deposits_amount

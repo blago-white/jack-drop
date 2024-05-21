@@ -1,9 +1,9 @@
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.views import APIView
 
-from ..repositories import BaseRepository
-from ..mixins.api.detail import DetailedApiViewMixin
 from ..mixins.api.create import CreateApiViewMixin
+from ..mixins.api.detail import DetailedApiViewMixin
+from ..repositories import BaseRepository
 
 
 class DefaultApiView(APIView):

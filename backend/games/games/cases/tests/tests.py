@@ -1,9 +1,10 @@
-from rest_framework.test import APITestCase, APIRequestFactory
 from django.urls import reverse
+from rest_framework.test import APITestCase, APIRequestFactory
 
 from common.services.api.transfer import CaseData, CaseItem
+from .mock import DropCaseItemApiViewMock, CasesWebServiceMock, \
+    UsersWebServiceMock
 from ..repositories.drop import CaseItemDropRepository
-from .mock import DropCaseItemApiViewMock, CasesWebServiceMock, UsersWebServiceMock
 
 
 class DropCaseItemApiViewTestCase(APITestCase):
@@ -56,4 +57,4 @@ class DropCaseItemApiViewTestCase(APITestCase):
 
         response = DropCaseItemApiViewMock.as_view()(request)
 
-        return (case_price - pricing[response.data.get("item_id")]) <= 0
+        return (case_price - pricing[response.data.drop_item("item_id")]) <= 0

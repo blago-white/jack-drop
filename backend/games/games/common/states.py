@@ -1,9 +1,9 @@
-from time import time
 from dataclasses import dataclass, field
+from time import time
 
 
 @dataclass(frozen=True)
-class FoundsState:
+class FundsState:
     usr_advantage: float
     site_active_hour_funds: float
     daytime: float = field(default_factory=time)

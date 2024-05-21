@@ -1,13 +1,13 @@
-from common.views.api import DefaultRetrieveCreateApiView
+from rest_framework.generics import CreateAPIView
+
+from common.views.api import CreateApiViewMixin
 from ..repositories.drop import CaseItemDropRepository
 
 
-class DropCaseItemApiView(DefaultRetrieveCreateApiView):
+class DropCaseItemApiView(CreateApiViewMixin, CreateAPIView):
     repository = CaseItemDropRepository()
-    pk_url_kwarg = "case_id"
 
-    def retrieve(self, request, *args, **kwargs):
-        dropped = self.repository.get(request=request,
-                                      case_id=self.get_requested_pk())
+    def create(self, request, *args, **kwargs):
+        dropped = self.repository.drop_item(request=request)
 
         return self.get_201_response(data=dropped)

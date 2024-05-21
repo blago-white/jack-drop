@@ -1,14 +1,11 @@
 from rest_framework.request import Request
 
-from django.conf import settings
-
 from common.repositories import BaseRepository
-from common.services.api.users import UsersApiService
 from common.services.api.items import ProductItemApiService
-from common.states import FoundsState
-
-from ..services.upgrade import UpgradeService
+from common.services.api.users import UsersApiService
+from common.states import FundsState
 from ..serializers import GameRequestSerializer
+from ..services.upgrade import UpgradeService
 
 
 class UpgradeRepository(BaseRepository):
@@ -42,7 +39,7 @@ class UpgradeRepository(BaseRepository):
             item_id=serialized.receive_item
         )
 
-        founds_state = FoundsState(
+        Funds_state = FundsState(
             usr_advantage=user.advantage,
             site_active_hour_funds=1000  # TODO: Make service
         )
@@ -58,7 +55,7 @@ class UpgradeRepository(BaseRepository):
             user_id=user,
             granted_amount=granted_amount,
             receive_amount=receive_amount,
-            founds_state=founds_state
+            Funds_state=Funds_state
         )
 
         return {"success": upgrade_successful}

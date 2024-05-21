@@ -1,10 +1,8 @@
-from django.test import TestCase
 from rest_framework.test import APITestCase
 
-from common.states import FoundsState
-
-from ..services.upgrade import UpgradeService
+from common.states import FundsState
 from .mock import ShiftServiceMock
+from ..services.upgrade import UpgradeService
 
 
 class UpgradeServiceTestCase(APITestCase):
@@ -16,7 +14,7 @@ class UpgradeServiceTestCase(APITestCase):
                 user_id=1,
                 granted_amount=500,
                 receive_amount=5000/(c+1),
-                founds_state=FoundsState(
+                Funds_state=FundsState(
                     usr_advantage=100,
                     site_active_hour_funds=100*c,
                 )

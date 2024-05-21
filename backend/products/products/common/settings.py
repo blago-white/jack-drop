@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'categories',
     'items',
     'market',
+    'games',
     'admin_interface',
     'colorfield',
     'common.apps.JackDropAdminConfig',

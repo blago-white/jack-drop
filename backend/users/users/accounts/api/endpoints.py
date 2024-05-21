@@ -46,13 +46,13 @@ class JWTUserDataPrivateApiView(DefaultRetrieveApiView):
 
 class TokenVerifyHeaderView(TokenVerifyView):
     def post(self, request: Request, *args, **kwargs) -> Response:
-        if request.META.get("HTTP_AUTHORIZATION") and not request.data.get(
+        if request.META.drop_item("HTTP_AUTHORIZATION") and not request.data.drop_item(
             "token"
         ):
             data = dict(request.data)
 
             data.update(
-                token=request.META.get("HTTP_AUTHORIZATION").split()[-1]
+                token=request.META.drop_item("HTTP_AUTHORIZATION").split()[-1]
             )
 
             serializer = self.get_serializer(
@@ -85,10 +85,10 @@ class AddDepositApiView(BaseDetailedCreateApiViewMixin, DefaultCreateApiView):
         )
 
     def get_requested_pk(self) -> int:
-        return self.request.data.get(self._client_id_param_name)
+        return self.request.data.drop_item(self._client_id_param_name)
 
     def _get_deposit_amount(self) -> int:
-        return self.request.data.get(self._deposit_amount_param_name)
+        return self.request.data.drop_item(self._deposit_amount_param_name)
 
 
 class UserAdvantageRetrieveAPIView(DefaultRetrieveApiView):

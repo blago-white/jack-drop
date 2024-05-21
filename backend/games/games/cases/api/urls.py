@@ -3,7 +3,7 @@ from django.urls import path
 from .endpoints import DropCaseItemApiView
 
 urlpatterns = [
-    path("drop/<int:case_id>/",
+    path("api/v1/p/drop/",
          DropCaseItemApiView.as_view(),
          name="drop-item-view")
 ]

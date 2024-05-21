@@ -1,8 +1,7 @@
 from common.services.base import BaseModelService
-
-from ..models import Contract
-from .shift import ContractShiftService
 from .award import RelevantItemsService
+from .shift import ContractShiftService
+from ..models import Contract
 
 
 class ContractService(BaseModelService):

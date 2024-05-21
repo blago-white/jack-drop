@@ -1,7 +1,7 @@
 from rest_framework.generics import CreateAPIView
 
-from ..repositories.upgrade import UpgradeRepository
 from common.mixins.api.create import CreateApiViewMixin
+from ..repositories.upgrade import UpgradeRepository
 
 
 class UpgradeApiView(CreateApiViewMixin, CreateAPIView):

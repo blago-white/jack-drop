@@ -1,11 +1,10 @@
 import random
 
-from ..states.request import DropRequest, ResultState
 from common.services.api.transfer import CaseItem
-
-from .wins import WinDropsService
-from .exceptions import ChancesValuesError
 from ._results import FundsDeltaResult
+from .exceptions import ChancesValuesError
+from .wins import WinDropsService
+from ..states.request import DropRequest, ResultState
 
 
 class CaseItemDropModelService:
@@ -32,9 +31,11 @@ class CaseItemDropModelService:
         funds = self._get_funds_delta(drop_item=item,
                                       request=request)
 
-        return ResultState(dropped_item=item,
-                           site_funds_delta=funds.site_funds_delta,
-                           user_funds_delta=funds.user_funds_delta)
+        return ResultState(
+            dropped_item=item,
+            new_site_funds=request.state.site_active_hour_funds + funds.site_funds_delta,
+            new_user_funds=request.state.usr_advantage + funds.user_funds_delta
+        )
 
     def _get_random_winning_item(self, request: DropRequest) -> CaseItem:
         items = list(filter(
@@ -85,8 +86,9 @@ class CaseItemDropModelService:
         return random.choice(randoms)
 
     @staticmethod
-    def _get_funds_delta(drop_item: CaseItem,
-                         request: DropRequest) -> FundsDeltaResult:
+    def _get_funds_delta(
+            drop_item: CaseItem,
+            request: DropRequest) -> FundsDeltaResult:
         return FundsDeltaResult(
             site_funds_delta=request.case_price - drop_item.price,
             user_funds_delta=drop_item.price - request.case_price

@@ -1,10 +1,10 @@
 from django.http import HttpRequest
 
-from ..api.endpoints import DropCaseItemApiView
-from ..repositories.drop import CaseItemDropRepository
-from common.services.api.users import UsersApiService
 from common.services.api import CasesApiService
 from common.services.api.transfer import CaseData, CaseItem
+from common.services.api.users import UsersApiService
+from ..api.endpoints import DropCaseItemApiView
+from ..repositories.drop import CaseItemDropRepository
 
 
 class CasesWebServiceMock(CasesApiService):
