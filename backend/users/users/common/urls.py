@@ -27,6 +27,7 @@ urlpatterns = [
     path('auth/', include("accounts.urls")),
     path('auth/discount/', include("promocodes.urls")),
     path('auth/referrals/', include("referrals.urls")),
+    path('auth/balances/', include("balances.urls")),
 
     path('auth/api/token/',
          TokenObtainPairView.as_view(),

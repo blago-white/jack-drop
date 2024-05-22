@@ -1,7 +1,6 @@
-from common.repositories.base import BaseRepository
-
-from cases.services.cases import CaseService
 from cases.serializers.case import CaseDetailedDataPrivateSerializer
+from cases.services.cases import CaseService
+from common.repositories.base import BaseRepository
 
 
 class CasesRepository(BaseRepository):

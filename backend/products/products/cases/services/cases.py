@@ -3,9 +3,9 @@ from abc import ABCMeta, abstractmethod
 
 from django.db import models
 
+from common.services.base import BaseReadOnlyService
 from items.models.models import Item
 from ..models.cases import Case
-from common.services.base import BaseReadOnlyService
 
 if typing.TYPE_CHECKING:
     from cases.models.items import CaseItem
@@ -14,10 +14,10 @@ else:
 
 
 class BaseCaseItemsService(metaclass=ABCMeta):
-    _model: CaseItem
+    _model: CaseItem = CaseItem
 
-    def __init__(self, model: CaseItem):
-        self._model = model
+    def __init__(self, model: CaseItem = None):
+        self._model = model or self
 
     @abstractmethod
     def get_case_items_for_case(self, case):

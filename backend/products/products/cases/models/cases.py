@@ -1,11 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from common.models.mixins import TitleModelMixin
-from common.models.base import BaseImageModel
-
-from items.models.models import Item
 from cases.config import CASE_TITLE_MAX_LEN
+from common.models.base import BaseImageModel
+from common.models.mixins import TitleModelMixin
+from items.models.models import Item
 
 
 class Case(TitleModelMixin, BaseImageModel):

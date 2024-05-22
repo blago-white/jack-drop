@@ -1,9 +1,8 @@
 from django.db import models
 
-from common.models.mixins import TitleModelMixin
-from common.models.base import BaseModel
-
 from categories.config import MAX_CATEGORY_TITLE_NAME
+from common.models.base import BaseModel
+from common.models.mixins import TitleModelMixin
 
 
 class CasesCategory(TitleModelMixin, BaseModel):

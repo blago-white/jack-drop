@@ -1,11 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from common.models.mixins import TitleModelMixin
 from common.models.base import BaseImageModel
-
+from common.models.mixins import TitleModelMixin
 from market.services.items import MarketItemParser
-
 from . import validators
 
 

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts',
     'promocodes',
     'referrals',
+    'balances',
     'admin_interface',
     'colorfield',
     'django.contrib.admin',

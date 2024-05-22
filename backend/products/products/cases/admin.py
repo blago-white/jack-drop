@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from django.utils.html import mark_safe
 from django.contrib.admin.filters import RelatedFieldListFilter
+from django.utils.html import mark_safe
 
+from . import actions
 from .models.cases import Case
 from .models.items import CaseItem
-from . import actions
 
 
 class CaseFilter(RelatedFieldListFilter):

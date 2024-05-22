@@ -9,11 +9,11 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 import sys
+from pathlib import Path
 
 import dotenv
-import os
-from pathlib import Path
 
 dotenv.load_dotenv()
 
@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'games',
     'admin_interface',
     'colorfield',
-    'common.apps.JackDropAdminConfig',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -103,27 +103,27 @@ DATABASES = {
 if "test" in sys.argv:
     DATABASES["default"] = DATABASES["test"]
 
-LOGGING = {
-    'version': 1,
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-        }
-    },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'filters': ['require_debug_true'],
-            'class': 'logging.StreamHandler',
-        }
-    },
-    'loggers': {
-        'django.db.backends': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-        }
-    }
-}
+# LOGGING = {
+#     'version': 1,
+#     'filters': {
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         }
+#     },
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'filters': ['require_debug_true'],
+#             'class': 'logging.StreamHandler',
+#         }
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#         }
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -173,3 +173,15 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+GAMES_SERVICE_ROUTES = {
+    "drop": "http://games/games/case/drop/",
+    "upgrade": "http://games/games/upgrade/new/",
+    "contract_get_amount": "http://games/games/contract/get_shifted_amount/",
+    "contract_save": "http://games/games/contract/save/"
+}
+
+USERS_MICROSERVICE_ROUTES = {
+    "get_advantage": "http://users/auth/api/v1/p/advantage/",
+    "get_info": "http://users/auth/api/v1/p/get_user_info_jwt/",
+}

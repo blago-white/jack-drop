@@ -1,8 +1,7 @@
 from rest_framework.generics import RetrieveAPIView
 
-from common.mixins.api import DetailedApiViewMixin
-
 from cases.repositories.case import CasesRepository
+from common.mixins.api import DetailedApiViewMixin
 
 
 class GetCaseDataPrivateApiView(DetailedApiViewMixin, RetrieveAPIView):

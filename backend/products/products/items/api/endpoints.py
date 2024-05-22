@@ -1,7 +1,6 @@
 from rest_framework.generics import RetrieveAPIView
 
 from common.mixins.api import DetailedApiViewMixin
-
 from ..repositories.items import ItemPriceRepository
 
 

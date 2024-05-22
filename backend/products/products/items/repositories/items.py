@@ -1,7 +1,6 @@
 from common.repositories.base import BaseRepository
-
-from ..services.items import ItemService
 from ..serializers import ItemPriceSerializer
+from ..services.items import ItemService
 
 
 class ItemPriceRepository(BaseRepository):

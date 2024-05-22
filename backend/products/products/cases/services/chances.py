@@ -1,15 +1,10 @@
-import typing
 from abc import abstractmethod, ABCMeta
 
 from django.db import models
 
+from cases.models.items import CaseItem
 from items.models.models import Item
 from .cases import BaseCaseItemsService, CaseItemsService
-
-if typing.TYPE_CHECKING:
-    from cases.models.items import CaseItem
-else:
-    CaseItem = models.Model
 
 
 class BaseCaseItemsChancesService(metaclass=ABCMeta):
@@ -22,17 +17,15 @@ class BaseCaseItemsChancesService(metaclass=ABCMeta):
 
 
 class CaseItemsChancesService(BaseCaseItemsChancesService):
-    _model: models.Model
+    _model: models.Model = CaseItem
     _service: BaseCaseItemsService
 
     def __init__(self, *args,
-                 model: CaseItem,
+                 model: CaseItem = None,
                  service: BaseCaseItemsService = None,
                  **kwargs):
-        self._model = model
-        self._service = (service
-                         if service is not None else
-                         CaseItemsService(model=model))
+        self._model = model or self._model
+        self._service = service or CaseItemsService(model=model)
 
         super().__init__(*args, **kwargs)
 
