@@ -35,3 +35,11 @@ class DropItemGameApiView(DetailedApiViewMixin, BaseGameProxyApiView):
                 data=user_funds | case_data
             )
         )
+
+
+class UpgradeGameApiView(DetailedApiViewMixin, BaseGameProxyApiView):
+    pass
+
+
+class ContractGameApiView(DetailedApiViewMixin, BaseGameProxyApiView):
+    pass
