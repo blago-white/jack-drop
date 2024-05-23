@@ -1,7 +1,6 @@
 from django.db import models
 
 from common.services.base import BaseReadOnlyService
-
 from ..models.models import Item
 
 

@@ -1,7 +1,7 @@
 from requests.models import Response
 
-from games.serializers.contract import CommitContractSerializer, ShiftedContractAmountSerializer
-
+from games.serializers.contract import CommitContractSerializer, \
+    ShiftedContractAmountSerializer
 from .base import BaseApiService
 
 

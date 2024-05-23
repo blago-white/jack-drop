@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 
 class Contract(models.Model):
     granted_amount = models.FloatField()

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from .services.items import ItemService
 from .models.models import Item
+from .services.items import ItemService
 
 
 class RawPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):

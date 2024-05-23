@@ -1,8 +1,7 @@
 import requests
 
-from .base import BaseApiService
-
 from games.serializers.upgrade import UpgradeRequestSerializer
+from .base import BaseApiService
 
 
 class UpgradeService(BaseApiService):
