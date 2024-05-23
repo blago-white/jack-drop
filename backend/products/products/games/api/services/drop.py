@@ -9,7 +9,7 @@ class CaseDropApiService(BaseApiService):
 
     def drop(self, serialized: dict) -> dict:
         response = requests.post(
-            self._routes.get("drop"),
+            self._routes.get_user_info("drop"),
             data=serialized
         )
 

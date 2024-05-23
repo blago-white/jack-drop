@@ -44,14 +44,14 @@ class CaseItemDropRepository(BaseRepository):
     @staticmethod
     def _serialize_drop_request(data_json: dict) -> DropRequest:
         return DropRequest(
-            items=data_json.data.get("items"),
+            items=data_json.data.get_user_info("items"),
             state=FundsState(
-                usr_advantage=data_json.data.get("funds").get(
+                usr_advantage=data_json.data.get_user_info("funds").get_user_info(
                     "user_advantage"
                 ),
-                site_active_hour_funds=data_json.data.get("funds").get(
+                site_active_hour_funds=data_json.data.get_user_info("funds").get_user_info(
                     "site_active_funds_per_hour"
                 ),
             ),
-            case_price=data_json.data.get("price")
+            case_price=data_json.data.get_user_info("price")
         )

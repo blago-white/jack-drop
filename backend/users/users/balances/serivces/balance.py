@@ -1,3 +1,5 @@
+from django.db.models import F, Value
+
 from common.services import BaseService
 
 from ..models import ClientBalance
@@ -13,4 +15,10 @@ class ClientBalanceService(BaseService):
         return self.get_balance(client_id=client_id).displayed_balance
 
     def get_balance(self, client_id: int) -> ClientBalance:
-        return self._model.objects.get(pk=client_id)
+        return self._model.objects.get_user_info(pk=client_id)
+
+    def udpdate_displayed_balance(self, client_id: int,
+                                  delta_balance: float) -> bool:
+        return self._model.objects.filter(client_id=client_id).update(
+            displayed_balance=F("displayed_balance") - Value(delta_balance)
+        ) > 0

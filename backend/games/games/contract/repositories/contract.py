@@ -20,7 +20,7 @@ class ContractAmountShiftRepository(BaseRepository):
         serialized.is_valid(raise_exception=True)
 
         shifted = self._service.get_shiftet_amount(
-            granted_amount=serialized.data.get("granted_amount")
+            granted_amount=serialized.data.get_user_info("granted_amount")
         )
 
         return {"shifted_funds": shifted}
@@ -38,6 +38,6 @@ class ContractRepository(BaseRepository):
         serialized.is_valid(raise_exception=True)
 
         return self._serializer_class(instance=self._service.save_contract(
-            granted_amount=serialized.data.get("granted_amount"),
-            result_item=serialized.data.get("result_item")
+            granted_amount=serialized.data.get_user_info("granted_amount"),
+            result_item=serialized.data.get_user_info("result_item")
         )).data

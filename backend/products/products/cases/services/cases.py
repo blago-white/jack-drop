@@ -57,4 +57,4 @@ class CaseService(BaseReadOnlyService):
     default_model = Case
 
     def get(self, case_id: int) -> models.Model:
-        return self._model.objects.get(pk=case_id)
+        return self._model.objects.get_user_info(pk=case_id)

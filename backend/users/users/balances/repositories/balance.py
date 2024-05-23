@@ -14,3 +14,12 @@ class BalanceRepository(BaseRepository):
         balance = self._service.get_displayed_balance(client_id=client_id)
 
         return {"balance": balance}
+
+    def update_displayed_balance(self, client_id: int,
+                                 delta_amount: float) -> dict:
+        result = self._service.udpdate_displayed_balance(
+            client_id=client_id,
+            delta_balance=delta_amount
+        )
+
+        return {"ok": result}

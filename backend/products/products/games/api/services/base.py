@@ -12,3 +12,7 @@ class BaseApiService:
         self._routes = routes or self.default_routes
         self._endpoint_serializer_class = (endpoint_serializer_class or
                                            self.default_endpoint_serializer_class)
+
+    @property
+    def endpoint_serializer_class(self):
+        return self._endpoint_serializer_class

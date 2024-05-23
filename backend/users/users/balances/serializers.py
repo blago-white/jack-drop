@@ -8,3 +8,7 @@ class ClientBalanceSerializer(serializers.ModelSerializer):
         model = ClientBalance
         fields = "__all__"
         read_only_fields = ["id"]
+
+
+class UpdateClientBalanceSerializer(serializers.Serializer):
+    delta_amount = serializers.FloatField(required=True)

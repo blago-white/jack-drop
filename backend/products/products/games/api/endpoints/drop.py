@@ -1,18 +1,13 @@
-from django.conf import settings
-from rest_framework.generics import RetrieveAPIView
-
 from cases.repositories.case import CasesRepository
-from common.mixins.api import DetailedApiViewMixin
+from common.mixins.api import CreateApiViewMixin
 from games.repositories.api.drop import CaseDropApiRepository
 from games.repositories.api.users import UsersApiRepository
 from games.serializers.drop import DropItemGameApiViewSerializer
 
-
-class BaseGameProxyApiView(RetrieveAPIView):
-    _routes: dict[str, str] = settings.GAMES_SERVICE_ROUTES
+from .base import BaseGameProxyCreateApiView
 
 
-class DropItemGameApiView(DetailedApiViewMixin, BaseGameProxyApiView):
+class DropItemGameApiView(CreateApiViewMixin, BaseGameProxyCreateApiView):
     users_api_repository = UsersApiRepository()
     cases_repository = CasesRepository()
     drop_api_repository = CaseDropApiRepository()
@@ -21,7 +16,7 @@ class DropItemGameApiView(DetailedApiViewMixin, BaseGameProxyApiView):
 
     pk_url_kwarg = "case_id"
 
-    def retrieve(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         user_funds = self.users_api_repository.get(
             user_request=request
         )
@@ -30,16 +25,13 @@ class DropItemGameApiView(DetailedApiViewMixin, BaseGameProxyApiView):
             case_id=self.get_requested_pk()
         )
 
-        return self.get_200_response(
-            data=self.drop_api_repository.drop(
-                data=user_funds | case_data
-            )
+        result = self.drop_api_repository.drop(
+            data=user_funds | case_data
         )
 
+        self.users_api_repository.update_balance(
+            user_request=request,
+            delta_amount=(-case_data.get("price"))
+        )
 
-class UpgradeGameApiView(DetailedApiViewMixin, BaseGameProxyApiView):
-    pass
-
-
-class ContractGameApiView(DetailedApiViewMixin, BaseGameProxyApiView):
-    pass
+        return self.get_201_response(data=result)

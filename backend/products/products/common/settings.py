@@ -184,4 +184,10 @@ GAMES_SERVICE_ROUTES = {
 USERS_MICROSERVICE_ROUTES = {
     "get_advantage": "http://users/auth/api/v1/p/advantage/",
     "get_info": "http://users/auth/api/v1/p/get_user_info_jwt/",
+    "get_balance": "http://users/auth/"
+                   "balances/api/v1/p/displayed_balance_jwt/",
+    "update_balance_jwt": "http://users/auth/"
+                   "balances/api/v1/p/displayed_balance_jwt/update/",
+    "update_balance": "http://users/auth/"
+                   "balances/api/v1/p/displayed_balance/{client_id}/update/"
 }

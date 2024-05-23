@@ -11,7 +11,7 @@ class UsersApiRepository(BaseApiRepository):
     _api_service: UsersApiService
 
     def get(self, user_request: Request) -> dict:
-        data: float = self._api_service.get(
+        data: float = self._api_service.get_user_info(
             user_request=user_request
         )
 
@@ -22,3 +22,9 @@ class UsersApiRepository(BaseApiRepository):
 
     def get_advantage(self, user_request: Request) -> float:
         return self.get(user_request=user_request).get("advantage")
+
+    def update_balance(self, user_request: Request, delta_amount: float):
+        self._api_service.update_user_balance(
+            user_request=user_request,
+            delta_amount=delta_amount
+        )
