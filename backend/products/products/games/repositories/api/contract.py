@@ -1,12 +1,11 @@
-from rest_framework.serializers import Serializer
 from rest_framework.exceptions import APIException
+from rest_framework.serializers import Serializer
 
-from inventory.services.inventory import InventoryService
 from games.api.services.contract import ContractApiService
 from games.serializers.contract import GrantedInventoryItemsSerializer
-from items.services.items import ItemService
+from inventory.services.inventory import InventoryService
 from items.serializers import ItemSerializer
-
+from items.services.items import ItemService
 from .base import BaseApiRepository
 
 
@@ -22,10 +21,10 @@ class ContractApiRepository(BaseApiRepository):
     _api_service: ContractApiService
 
     def __init__(self, *args,
-                 seriaizer_class: ContractRequestSerializer = None,
+                 seriaizer_class: GrantedInventoryItemsSerializer = None,
                  inventory_service: InventoryService = None,
                  items_service: ItemService = None,
-                 item_serializer_class: item_serializer_class = None,
+                 item_serializer_class: ItemSerializer = None,
                  **kwargs):
         self._inventory_service = inventory_service or self.default_inventory_service
         self._seriaizer_class = seriaizer_class or self.default_seriaizer_class

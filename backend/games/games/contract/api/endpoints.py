@@ -4,7 +4,7 @@ from ..repositories.contract import ContractAmountShiftRepository, ContractRepos
 
 
 class ShiftedContractAmountApiView(DefaultRetrieveApiView):
-    repository = ContractAmountShiftRepository
+    repository = ContractAmountShiftRepository()
     serializer_class = ContractAmountShiftRepository.default_serializer_class
 
     def retrieve(self, request, *args, **kwargs):
@@ -14,7 +14,7 @@ class ShiftedContractAmountApiView(DefaultRetrieveApiView):
 
 
 class SaveContractApiView(DefaultCreateApiView):
-    repository = ContractRepository
+    repository = ContractRepository()
     serializer_class = ContractRepository.default_serializer_class
 
     def create(self, request, *args, **kwargs):

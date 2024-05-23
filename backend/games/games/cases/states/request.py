@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
+from common.services.api.states import FundsState
 from common.services.api.transfer import CaseItem
-from common.states import FundsState
 
 
 @dataclass(frozen=True)

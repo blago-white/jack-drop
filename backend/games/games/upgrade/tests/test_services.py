@@ -1,6 +1,6 @@
 from rest_framework.test import APITestCase
 
-from common.states import FundsState
+from common.services.api.states import FundsState
 from .mock import ShiftServiceMock
 from ..services.upgrade import UpgradeService
 

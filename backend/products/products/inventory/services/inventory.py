@@ -2,12 +2,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
 from common.services.base import BaseReadOnlyService
-
 from ..models import InventoryItem
 
 
 class InventoryService(BaseReadOnlyService):
     default_model = InventoryItem
+
+    def get_all(self) -> models.QuerySet:
+        return self._model.objects.all()
 
     def check_ownership(self, owner_id: int, item_id: int) -> bool:
         return self._model.objects.filter(

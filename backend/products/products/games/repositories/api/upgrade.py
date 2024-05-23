@@ -1,11 +1,10 @@
 from rest_framework.exceptions import ValidationError
 
+from games.api.services.upgrade import UpgradeService
+from games.api.services.users import UsersApiService
+from games.serializers.upgrade import UpgradeRequestApiViewSerializer
 from inventory.services.inventory import InventoryService
 from items.services.items import ItemService
-from games.api.services.upgrade import UpgradeService
-from games.serializers.upgrade import UpgradeRequestApiViewSerializer
-from games.api.services.users import UsersApiService
-
 from .base import BaseApiRepository
 
 
@@ -23,6 +22,7 @@ class UpgradeApiRepository(BaseApiRepository):
     def __init__(self, *args,
                  inventory_service: InventoryService = None,
                  items_service: ItemService = None,
+                 users_service: UsersApiService = None,
                  **kwargs):
         self._inventory_service = inventory_service or self.default_inventory_service
         self._items_service = items_service or self.default_items_service

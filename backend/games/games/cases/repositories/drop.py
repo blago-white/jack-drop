@@ -1,7 +1,7 @@
 from rest_framework.request import Request
 
 from common.repositories import BaseRepository
-from common.states import FundsState
+from common.services.api.states import FundsState
 from ..serializers import DropCaseRequestSerializer, DropResultSerializer
 from ..services.drop import CaseItemDropModelService
 from ..states.request import DropRequest

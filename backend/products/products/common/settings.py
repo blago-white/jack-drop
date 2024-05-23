@@ -41,8 +41,11 @@ INSTALLED_APPS = [
     'items',
     'market',
     'games',
+    'inventory',
+
     'admin_interface',
     'colorfield',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

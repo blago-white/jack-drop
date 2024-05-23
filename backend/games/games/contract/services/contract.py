@@ -17,8 +17,8 @@ class ContractService(BaseModelService):
     def get_shiftet_amount(self, granted_amount: float) -> float:
         return granted_amount * (self._shift_service.get_shift()/100)
 
-    def save_contract(self, granted_amount: float, result_item: int) -> None:
-        self._model.objects.create(
+    def save_contract(self, granted_amount: float, result_item: int) -> Contract:
+        return self._model.objects.create(
             granted_amount=granted_amount,
             result_item=result_item
         )

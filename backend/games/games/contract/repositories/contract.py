@@ -1,7 +1,6 @@
 from rest_framework.request import Request
 
 from common.repositories import BaseRepository
-
 from ..serializers import ShiftedContractAmountSerializer, ContractSerializer
 from ..services.contract import ContractService
 
