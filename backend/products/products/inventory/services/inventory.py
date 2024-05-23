@@ -1,3 +1,6 @@
+from django.core.exceptions import ObjectDoesNotExist
+from django.db import models
+
 from common.services.base import BaseReadOnlyService
 
 from ..models import InventoryItem
@@ -22,4 +25,20 @@ class InventoryService(BaseReadOnlyService):
         return self._model.objects.create(
             user_id=owner_id,
             item_id=item_id
+        )
+
+    def bulk_get_items_amount(self, owner_id: int,
+                              inventory_items_ids: list[int]) -> float:
+        items = self._model.objects.filter(
+            user_id=owner_id,
+            id__in=inventory_items_ids
+        ).distinct("item_id")
+
+        if items.count() < len(inventory_items_ids):
+            raise ObjectDoesNotExist(
+                "Some items were not found in the inventory"
+            )
+
+        return items.aggregate(prices_sum=models.Sum("item__price")).get(
+            "prices_sum"
         )

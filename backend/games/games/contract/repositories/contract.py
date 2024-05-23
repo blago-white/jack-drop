@@ -14,13 +14,13 @@ class ContractAmountShiftRepository(BaseRepository):
 
     def get_shifted_amount(self, request: Request) -> dict:
         serialized: ShiftedContractAmountSerializer = (
-            self._serializer_class(data=request.DATA)
+            self._serializer_class(data=request.data)
         )
 
         serialized.is_valid(raise_exception=True)
 
         shifted = self._service.get_shiftet_amount(
-            granted_amount=serialized.data.get_user_info("granted_amount")
+            granted_amount=serialized.data.get("granted_amount")
         )
 
         return {"shifted_funds": shifted}

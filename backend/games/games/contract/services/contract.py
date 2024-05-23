@@ -15,7 +15,7 @@ class ContractService(BaseModelService):
         super().__init__(*args, **kwargs)
 
     def get_shiftet_amount(self, granted_amount: float) -> float:
-        return granted_amount - self._shift_service.get()
+        return granted_amount * (self._shift_service.get_shift()/100)
 
     def save_contract(self, granted_amount: float, result_item: int) -> None:
         self._model.objects.create(

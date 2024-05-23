@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from .services.items import ItemService
+from .models.models import Item
 
 
 class RawPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
@@ -19,3 +20,10 @@ class ItemPriceSerializer(serializers.Serializer):
     )
 
     price = serializers.IntegerField(default=0)
+
+
+class ItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = "__all__"
+        read_only_fields = "__all__"
