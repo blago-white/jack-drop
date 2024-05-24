@@ -178,10 +178,10 @@ LOCALE_PATHS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 GAMES_SERVICE_ROUTES = {
-    "drop": "http://games/games/case/drop/",
-    "upgrade": "http://games/games/upgrade/new/",
-    "contract_get_amount": "http://games/games/contract/get_shifted_amount/",
-    "contract_save": "http://games/games/contract/save/"
+    "drop": "http://games/games/private/case/drop/",
+    "upgrade": "http://games/games/private/upgrade/new/",
+    "contract_get_amount": "http://games/games/private/contract/get_shifted_amount/",
+    "contract_save": "http://games/games/private/contract/save/"
 }
 
 USERS_MICROSERVICE_ROUTES = {

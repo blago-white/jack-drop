@@ -1,8 +1,9 @@
-from rest_framework.generics import RetrieveAPIView, CreateAPIView
+from rest_framework.generics import RetrieveAPIView, CreateAPIView, DestroyAPIView
 from rest_framework.views import APIView
 
 from ..mixins.api.create import CreateApiViewMixin
 from ..mixins.api.detail import DetailedApiViewMixin
+from ..mixins.api.delete import DeleteApiViewMixin
 from ..repositories import BaseRepository
 
 
@@ -26,4 +27,10 @@ class DefaultRetrieveCreateApiView(CreateApiViewMixin,
 class DefaultCreateApiView(CreateApiViewMixin,
                            DefaultApiView,
                            CreateAPIView):
+    pass
+
+
+class DefaultDeleteApiView(DeleteApiViewMixin,
+                           DefaultApiView,
+                           DestroyAPIView):
     pass

@@ -22,7 +22,7 @@ class Upgrade(CleanedSaveModel):
     datetime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Upgrade {self.winning_amount}"
+        return f"Upgrade (win: {self.winning_amount()})"
 
     def winning_amount(self):
         return self.received - self.granted
