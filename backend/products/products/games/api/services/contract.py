@@ -10,7 +10,7 @@ class ContractApiService(BaseApiService):
 
     def get_shifted_amount(self, amount: float) -> float:
         response = requests.post(
-            self._routes.get_user_info("contract_get_amount"),
+            self._routes.get("contract_get_amount"),
             data=ShiftedContractAmountSerializer(instance={
                 "granted_amount": amount
             }).data
@@ -20,7 +20,7 @@ class ContractApiService(BaseApiService):
 
     def save_contract(self, serialized: ShiftedContractAmountSerializer) -> bool:
         response: Response = requests.post(
-            self._routes.get_user_info("save_contract"),
+            self._routes.get("save_contract"),
             data=serialized.data
         )
 

@@ -22,5 +22,6 @@ urlpatterns = [
     path('games/admin/', admin.site.urls),
     path('games/private/case/', include("cases.urls")),
     path('games/private/upgrade/', include("upgrade.urls")),
-    path('games/private/contract/', include("contract.urls"))
+    path('games/private/contract/', include("contract.urls")),
+    path('games/private/battle/', include("battle.urls"))
 ]

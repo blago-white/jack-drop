@@ -106,28 +106,6 @@ DATABASES = {
 if "test" in sys.argv:
     DATABASES["default"] = DATABASES["test"]
 
-# LOGGING = {
-#     'version': 1,
-#     'filters': {
-#         'require_debug_true': {
-#             '()': 'django.utils.log.RequireDebugTrue',
-#         }
-#     },
-#     'handlers': {
-#         'console': {
-#             'level': 'DEBUG',
-#             'filters': ['require_debug_true'],
-#             'class': 'logging.StreamHandler',
-#         }
-#     },
-#     'loggers': {
-#         'django.db.backends': {
-#             'level': 'DEBUG',
-#             'handlers': ['console'],
-#         }
-#     }
-# }
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -181,7 +159,11 @@ GAMES_SERVICE_ROUTES = {
     "drop": "http://games/games/private/case/drop/",
     "upgrade": "http://games/games/private/upgrade/new/",
     "contract_get_amount": "http://games/games/private/contract/get_shifted_amount/",
-    "contract_save": "http://games/games/private/contract/save/"
+    "contract_save": "http://games/games/private/contract/save/",
+    "create_battle_request": "http://games/private/battle/make-request/",
+    "drop_battle_request": "http://games/private/battle/drop-request"
+                           "/{initiator_id}/",
+    "commit_battle": "http://games/private/battle/commit-battle/"
 }
 
 USERS_MICROSERVICE_ROUTES = {

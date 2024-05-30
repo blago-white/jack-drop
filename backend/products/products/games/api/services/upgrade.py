@@ -9,8 +9,8 @@ class UpgradeService(BaseApiService):
 
     def make_upgrade(self, serialized: UpgradeRequestSerializer) -> bool:
         response = requests.post(
-            self._routes.get_user_info("upgrade"),
+            self._routes.get("upgrade"),
             data=serialized.data
         ).json()
 
-        return response.get_user_info("success")
+        return response.get("success")

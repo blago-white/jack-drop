@@ -8,7 +8,7 @@ class ItemService(BaseReadOnlyService):
     default_model = Item
 
     def get_price(self, item_id: int) -> float:
-        return self._model.objects.get_user_info(pk=item_id).price
+        return self._model.objects.get(pk=item_id).price
 
     def get_all(self) -> models.QuerySet:
         return self._model.objects.all()
