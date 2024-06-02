@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/base.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/header.css' %}" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-filter"></div>
+    {% include 'header.html' %}
+</body>
+</html>

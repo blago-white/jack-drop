@@ -1,0 +1,28 @@
+@import 'fonts.css';
+@import 'colors.css';
+
+body {
+    font-family: 'Gilroy Regular', sans-serif;
+    background: url('../img/bg.jpg');
+    background-size: cover;
+    color: var(--fg-color);
+    margin: 0px;
+    height: 200vh;
+    overflow-x: hidden;
+}
+
+body a {
+    color: var(--fg-color);
+    text-decoration: none;
+}
+
+.bg-filter {
+    background: url('../svg/sharp.svg'), linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,1)90%);
+    width: 100vw;
+    height: calc(200vh + calc(100vw * calc(0.0588 * 0.690)));
+    position: absolute;
+    background-blend-mode: screen;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+}
