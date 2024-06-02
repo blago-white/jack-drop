@@ -1,0 +1,51 @@
+.dropped {
+    aspect-ratio: 1/1;
+    border-radius: 32px;
+    width: calc(100vw * calc(196 / 1920));
+    min-width: calc(100vw * calc(196 / 1920));
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: calc(100vw* calc(15 / 1920));
+    gap: 1.5ch;
+}
+
+.regular {
+    background: url('../img/JD.png'), radial-gradient(50% 50% at 50% 50%, rgba(79, 160, 255, 0.8) 0%, rgba(0, 71, 255, 0.8) 100%);
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+}
+
+.rare {
+    background: url('../img/JD.png'), radial-gradient(50% 50% at 50% 50%, rgba(255, 98, 202, 0.8) 0%, rgba(255, 0, 122, 0.8) 100%);
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+}
+
+.dropped span {
+    margin-left: 5ch;
+    margin-right: 2.5ch;
+    margin-top: 2ch;
+}
+
+.dropped svg {
+    position: relative;
+    top: calc(100vw * calc(71 / 1920));
+    left: calc(100vw * calc(17 / 1920));
+}
+
+.w-line {
+    height: calc(80vw * calc(196 / 1920));
+    margin-top: calc(10vw * calc(196 / 1920));
+    margin-left: calc(15vw * calc(196 / 1920));
+    width: calc(100vw * calc(1 / 1920));
+    background: white;
+    position: absolute;
+}
+
+.live-string {
+    display: flex;
+    gap: calc(100vw * calc(48 / 1920));
+    height: calc(100vw * calc(196 / 1920));
+}

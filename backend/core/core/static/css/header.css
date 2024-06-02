@@ -3,7 +3,7 @@
     margin-block: calc(100vw * calc(0.0588 * 0.690));
     display: flex;
     font-size: calc(100vw * calc(22 / 1920));
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     text-transform: uppercase;
 }

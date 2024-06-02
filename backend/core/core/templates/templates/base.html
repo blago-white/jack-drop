@@ -6,9 +6,16 @@
     <title>{% block title %}{% endblock %}</title>
     <link href="{% static 'css/base.css' %}" type="text/css" rel="stylesheet">
     <link href="{% static 'css/header.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/cases-filter.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/latest-drops.css' %}" type="text/css" rel="stylesheet">
 </head>
 <body>
     <div class="bg-filter"></div>
+    <div class="global-sharp"></div>
     {% include 'header.html' %}
+    <main class="main-content">
+        {% include 'cases-filter.html' %}
+        {% include 'latest-drops.html' %}
+    </main>
 </body>
 </html>

@@ -4,11 +4,13 @@
 body {
     font-family: 'Gilroy Regular', sans-serif;
     background: url('../img/bg.jpg');
-    background-size: cover;
+    background-repeat: no-repeat;
     color: var(--fg-color);
     margin: 0px;
     height: 200vh;
     overflow-x: hidden;
+    font-size: calc(100vw * calc(22 / 1920));
+    background-color: black;
 }
 
 body a {
@@ -17,12 +19,42 @@ body a {
 }
 
 .bg-filter {
-    background: url('../svg/sharp.svg'), linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,1)90%);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 20%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,1)90%);
     width: 100vw;
-    height: calc(200vh + calc(100vw * calc(0.0588 * 0.690)));
+    height: calc(110vh + calc(100vw * calc(0.0588 * 0.690)));
     position: absolute;
     background-blend-mode: screen;
     top: 0px;
     left: 0px;
     z-index: -1;
+}
+
+.global-sharp {
+    background: url(../svg/sharp.svg);
+    background-repeat: repeat;
+    height: 200vh;
+    width: 100vw;
+    position: absolute;
+    z-index: -1;
+    top: 0px;
+}
+
+.main-content {
+    margin-inline: calc(100vw* 0.0588);
+    width: auto;
+    display: flex;
+    gap: calc(100vw * calc(0.0588 * 0.690));
+    flex-direction: column;
+}
+
+.button {
+    background-color: #343434;
+    color: white;
+    border-radius: 16px;
+    border: none;
+    text-transform: uppercase;
+    font-size: calc(100vw * calc(22 / 1920));
+    padding-inline: 5ch;
+    display: flex;
+    align-items: center;
 }
