@@ -1,0 +1,25 @@
+{% load static %}
+
+<article class="banner">
+    <div class="banner-content">
+        {% if HEAD %}
+            <h2>{{ HEAD }}</h2>
+        {% elif LONGHEAD %}
+            <h3>{{ LONGHEAD }}</h3>
+        {% endif %}
+        {% if REFCODE %}
+            <span class="refcode">{{ REFCODE }}</span>
+        {% elif BUTTON %}
+            <button class="super-button">
+                <span class="super-button-bg"></span>
+                <span class="super-button-text">
+                    Перейти
+                </span>
+            </button>
+        {% endif %}
+    </div>
+    {% if IMAGEPATH %}
+        <img src="{% static IMAGEPATH %}"
+        class="banner-illustration {% if LONGIMG %}banner-illustration-long{% endif %}">
+    {% endif %}
+</article>

@@ -1,9 +1,9 @@
 .cases-filters {
     background: black;
-    border-radius: 16px;
+    border-radius: calc(100vw * calc(16 / 1920));
     background-color: #33333320;
-    backdrop-filter: blur(10px);
-    border: 1px solid #979797;
+    backdrop-filter: blur(calc(100vw * calc(10 / 1920)));
+    border: calc(100vw * calc(1 / 1920)) solid #979797;
     display: flex;
     align-content: center;
     flex-wrap: wrap;
@@ -15,7 +15,7 @@
 .fast-find-form {
     height: min-content;
     background: inherit;
-    border: 1px solid #656565;
+    border: calc(100vw * calc(1 / 1920)) solid #656565;
     border-radius: inherit;
     font-size: inherit;
     color: #656565;
@@ -65,13 +65,13 @@
 .price-range {
     -webkit-appearance: none !important;
     background: #64CE82;
-    height:5px;
+    height:calc(150vw * calc(4 / 1920));
 }
 .price-range::-webkit-slider-thumb {
     -webkit-appearance: none !important;
     background:white;
-    height:11px;
-    width:5px;
+    height:calc(100vw * calc(15 / 1920));
+    width:calc(100vw * calc(5 / 1920));
 }
 
 .cases-forms {
@@ -83,7 +83,7 @@
 
 .button {
     gap: 1ch;
-    border: 1px solid transparent;
+    border: calc(100vw * calc(1 / 1920)) solid transparent;
 
     transition: border .2s ease;
 }

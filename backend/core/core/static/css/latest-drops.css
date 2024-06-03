@@ -1,6 +1,6 @@
 .dropped {
     aspect-ratio: 1/1;
-    border-radius: 32px;
+    border-radius: calc(100vw * calc(32 / 1920));
     width: calc(100vw * calc(196 / 1920));
     min-width: calc(100vw * calc(196 / 1920));
     overflow: hidden;
