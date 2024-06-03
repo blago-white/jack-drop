@@ -55,7 +55,7 @@ body a {
     border: none;
     text-transform: uppercase;
     font-size: calc(100vw * calc(22 / 1920));
-    padding-inline: 5ch;
+    padding-inline: calc(100vw * calc(35 / 1920));
     display: flex;
     align-items: center;
 
@@ -112,4 +112,12 @@ body a {
     gap: 0.75ch;
 
     text-transform: uppercase;
+}
+
+.chat-btn {
+    position: fixed;
+    bottom: 0px;
+    right: 6%;
+    width: 8%;
+    z-index: 1000;
 }

@@ -20,6 +20,6 @@
     </div>
     {% if IMAGEPATH %}
         <img src="{% static IMAGEPATH %}"
-        class="banner-illustration {% if LONGIMG %}banner-illustration-long{% endif %}">
+        class="{% if LONGIMG %}banner-illustration-long{% else %}banner-illustration{% endif %}">
     {% endif %}
 </article>

@@ -56,6 +56,12 @@
     align-items: center;
     justify-content: center;
     width: 38%;
+    flex-direction: column;
+}
+
+.price-range-form label {
+    font-size: calc(100vw* calc(20 / 1920));
+    margin-bottom: calc(100vw* calc(3 / 1920));
 }
 
 .price-range {
@@ -67,6 +73,7 @@
     background: #64CE82;
     height:calc(150vw * calc(4 / 1920));
 }
+
 .price-range::-webkit-slider-thumb {
     -webkit-appearance: none !important;
     background:white;

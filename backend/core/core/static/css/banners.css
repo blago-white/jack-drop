@@ -61,12 +61,14 @@
 .banner-illustration {
     position: absolute;
     height: 60%;
-    margin-left: 18%;
     pointer-events: none;
+    left: 23%;
 }
 
 .banner-illustration-long {
-    margin-left: -17.6%;
+    position: absolute;
+    right: 5.95%;
+    pointer-events: none;
     height: 49%;
     z-index: 1;
 }
