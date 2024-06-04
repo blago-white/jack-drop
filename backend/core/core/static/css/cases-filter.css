@@ -19,7 +19,7 @@
     border-radius: inherit;
     font-size: inherit;
     color: #656565;
-    font-size: calc(100vw* calc(22 / 1920)) !important;
+    font-size: calc(100vw* calc(22 / 1920));
     padding-inline: 2%;
     padding-block: 1%;
     display: flex;
@@ -99,3 +99,40 @@
     border: inherit;
 }
 
+@media (aspect-ratio < 1/1) {
+    .cases-forms {
+        width: 100%;
+        height: 100%;
+        align-items: center;
+    }
+
+    .fast-find-form {
+        width: 50%;
+        height: 100%;
+        font-size: calc(100vw * calc(30 / 960));
+        padding: 2%;
+    }
+
+    .cases-filters {
+        border-radius: calc(100vw * calc(18 / 960));
+        padding: 5%;
+    }
+
+    .cases-filters button {
+        display: none;
+    }
+
+    .price-range {
+        height:calc(150vw * calc(4 / 960));
+    }
+
+    .price-range::-webkit-slider-thumb {
+        height:calc(100vw * calc(20 / 960));
+        width:calc(100vw * calc(8 / 960));
+    }
+
+    .price-range-form label {
+        font-size: calc(100vw* calc(20 / 960));
+        margin-bottom: calc(100vw* calc(12 / 960));
+    }
+}

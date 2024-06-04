@@ -121,3 +121,23 @@ body a {
     width: 8%;
     z-index: 1000;
 }
+
+@media (aspect-ratio < 1/1) {
+    .main-content {
+        margin-top: 15vh;
+        margin-inline: calc(100vw * 0.055208);
+        gap: calc(100vw* calc(0.0588));
+    }
+
+    .global-sharp {
+        height: 145vh;
+    }
+
+    body {
+        height: auto;
+    }
+
+    .chat-btn {
+        width: calc(100vw * calc(186 / 960));
+    }
+}

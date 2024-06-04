@@ -1,5 +1,7 @@
+@import "variables.css";
+
 .free-cases-sec {
-    min-height: calc(100vw* calc(580 / 1920));
+    min-height: calc(100vw* calc(580 / var(--reference-display-w)));
     width: 100%;
     background: top url(../img/tfborder.png), bottom url(../img/bfborder.png);
     background-size: contain;
@@ -8,25 +10,28 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    margin-top: 3vh;
 }
 
 .free-cases-sec h2 {
     text-transform: uppercase;
-    font-size: calc(100vw * calc(48 / 1920));
+    font-size: calc(100vw * calc(48 / var(--reference-display-w)));
     margin-top: -1.6%;
 }
 
 .case-image {
-    height: calc(100vw * calc(350 / 1920));
+    height: calc(100vw * calc(350 / var(--reference-display-w)));
 }
 
 .cases-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
     margin: 0px;
     margin-bottom: 3%;
     list-style-type: none;
+    padding: 0px;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .case-data {
@@ -40,11 +45,34 @@ h3 {
     font-family: 'Gilroy Regular';
     text-transform: uppercase;
     font-weight: 500;
+    width: max-content;
+    font-size: calc(100vw * calc(20 / var(--reference-display-w)))
 }
 
 .case-data span {
     background: #232323;
-    padding-inline: calc(100vw* calc(22 / 1920));
-    padding-block: calc(100vw* calc(12 / 1920));
-    border-radius: calc(100vw* calc(9 / 1920));
+    padding-inline: calc(100vw* calc(22 / var(--reference-display-w)));
+    padding-block: calc(100vw* calc(12 / var(--reference-display-w)));
+    border-radius: calc(100vw* calc(9 / var(--reference-display-w)));
+    text-align: center;
+}
+
+@media (aspect-ratio < 1/1) {
+    .free-cases-sec {
+        background: transparent;
+    }
+
+    .cases-row {
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+
+    .case-image {
+        height: auto;
+        width: 41vw;
+    }
+
+    .free-cases-sec h2 {
+        margin: 1.6%;
+    }
 }

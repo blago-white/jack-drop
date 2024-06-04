@@ -1,14 +1,21 @@
+@import "variables.css";
+
 .dropped {
     aspect-ratio: 1/1;
-    border-radius: calc(100vw * calc(32 / 1920));
-    width: calc(100vw * calc(196 / 1920));
-    min-width: calc(100vw * calc(196 / 1920));
+    border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
+    width: calc(100vw * calc(196 / var(--reference-display-w)));
+    min-width: calc(100vw * calc(196 / var(--reference-display-w)));
     overflow: hidden;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
-    font-size: calc(100vw* calc(15 / 1920));
+    font-size: calc(100vw* calc(15 / var(--reference-display-w)));
     gap: 1.5ch;
+}
+
+.dropped-content {
+    display: flex;
+    flex-direction: column  ;
 }
 
 .regular {
@@ -24,28 +31,47 @@
 }
 
 .dropped span {
-    margin-left: 5ch;
+    margin-left: 1ch;
     margin-right: 2.5ch;
     margin-top: 2ch;
 }
 
 .dropped svg {
     position: relative;
-    top: calc(100vw * calc(71 / 1920));
-    left: calc(100vw * calc(17 / 1920));
+    top: calc(100vw * calc(71 / var(--reference-display-w)));
+    left: calc(100vw * calc(17 / var(--reference-display-w)));
 }
 
 .w-line {
-    height: calc(80vw * calc(196 / 1920));
-    margin-top: calc(10vw * calc(196 / 1920));
-    margin-left: calc(15vw * calc(196 / 1920));
-    width: calc(100vw * calc(1 / 1920));
+    height: calc(80vw * calc(196 / var(--reference-display-w)));
+    margin-top: calc(10vw * calc(196 / var(--reference-display-w)));
+    margin-left: calc(15vw * calc(196 / var(--reference-display-w)));
+    min-width: calc(100vw * calc(1 / var(--reference-display-w)));
     background: white;
-    position: absolute;
 }
 
 .live-string {
     display: flex;
-    gap: calc(100vw * calc(48 / 1920));
-    height: calc(100vw * calc(196 / 1920));
+    gap: calc(100vw * calc(48 / var(--reference-display-w)));
+    height: calc(100vw * calc(196 / var(--reference-display-w)));
+    overflow-x: scroll;
+    width: calc(100% + calc(100vw* 0.0588));
+    padding-right: 1ch;
+}
+
+.live-string::-webkit-scrollbar {
+    display: none;
+}
+
+.dropped img {
+    width: calc(100vw* calc(196 / var(--reference-display-w)));
+    position: relative;
+    left: -12%;
+    margin-top: 7%;
+}
+
+@media (aspect-ratio < 1/1) {
+    .live-string {
+        width: 105.5%;
+    }
 }
