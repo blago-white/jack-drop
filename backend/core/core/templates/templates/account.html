@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Account{% endblock %}
+
+{% block links %}
+<link href="{% static 'css/account.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+<section class="account-layout">
+    <main class="account-id">
+        <span class="profile-avatar-border">
+            <img src="{% static 'img/account-avatar.png' %}">
+        </span>
+        <div class="account-data">
+            <div class="account-name">
+                <span class="account-usrname">
+                    ПОЧТА
+                    <span class="account-id-val">ID 14888841</span>
+                </span>
+                <span class="account-lvl">0</span>
+            </div>
+        </div>
+        <button class="button button-colorized blue donate-btn-acc">Пополнить</button>
+    </main>
+    <div class="account-level">
+        <h3>Ваш уровень</h3>
+        <div class="lvl-illustr">
+            <div class="illustr-desc"><span>очки</span><span><b>500/1750 xp</b></span></div>
+            <div class="diagram">
+                <div style="width: 35%" class="diagram-filled"></div>
+            </div>
+        </div>
+    </div>
+    <aside class="account-empty"></aside>
+    <div class="account-controls">
+        <button class="account-control">инвентарь</button>
+        <button class="account-control">история игр</button>
+        <button class="account-control">выводы</button>
+    </div>
+    <div class="account-inventory">
+        <div class="count-items">
+            Всего предметов
+            <span>0</span>
+        </div>
+        <div class="able-to-sell">
+            Можно продать
+            <i class="switch-input">
+                <i class="switch-inside-fig"></i>
+            </i>
+        </div>
+        <button class="button button-colorized rose sell-all-btn">
+            Продать все
+        </button>
+    </div>
+    <div class="inventory-items">
+        <img src="{% static 'img/empty-inventory.png' %}">
+        <span class="empty-inv-desc">
+            <b>Нет предметов</b><span>Начните открывать кейсы</span>
+        </span>
+        <button class="super-button open-case-button">
+            <span class="super-button-bg"></span>
+            <span class="super-button-text">
+                Открыть →
+            </span>
+        </button>
+    </div>
+</section>
+{% endblock %}

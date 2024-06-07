@@ -1,0 +1,205 @@
+body {
+    background: black;
+    height: 100%;
+}
+
+.bg-filter {
+    height: 100%;
+}
+
+.global-sharp {
+    height: 130%;
+}
+
+.account-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: calc(100vw* calc(178 / 1920))
+                        calc(100vw* calc(178 / 1920))
+                        calc(100vw* calc(118 / 1920))
+                        calc(100vw* calc(118 / 1920))
+                        calc(100vw* calc(160 / 1920));
+    gap: calc(100vw * calc(16 / 1920));
+    border-radius: calc(100vw * calc(20 / 1920));
+}
+
+.account-id {
+    grid-column: 1;
+    grid-row: 1;
+    background: url('../img/bg-circle-acc.png');
+    background-repeat: no-repeat;
+    background-color: #0E0E0E;
+    display: flex;
+    align-items: center;
+    padding-inline: calc(100vw* calc(50/ 1920));
+    padding-right: calc(100vw* calc(41/ 1920));
+    border-radius: inherit;
+}
+
+.account-empty {
+    grid-column: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    background: url('../img/bg-circle-acc.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #0E0E0E;
+    border-radius: inherit;
+}
+
+.account-level {
+    grid-column: 1;
+    grid-row: 2;
+    background: #0e0e0e;
+    border-radius: inherit;
+    padding-inline: calc(100vw* calc(50/ 1920));
+}
+
+.illustr-desc {
+    display: flex;
+    justify-content: space-between;
+}
+
+.lvl-illustr {
+    display: flex;
+    flex-direction: column;
+    gap: calc(100vw* calc(12 / 1920));
+}
+
+.diagram {
+    width: 100%;
+    height: calc(100vw* calc(9 / 1920));
+    background: #333;
+    border-radius: calc(100vw* calc(16 / 1920));
+}
+
+.diagram-filled {
+    height: 100%;
+    background: #ff007a;
+    border-radius: inherit;
+}
+
+.account-controls {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: calc(100vw * calc(13 / 1920));
+    border-radius: inherit;
+}
+
+.account-inventory {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 4;
+    background: url('../img/bg-circle-acc.png');
+    background-repeat: no-repeat;
+    background-color: #0E0E0E;
+    padding-inline: calc(100vw* calc(50/ 1920));
+    display: flex;
+    align-items: center;
+    border-radius: inherit;
+}
+
+.count-items {
+    color: rgb(131, 131, 131);
+    font-family: 'Gilroy Bold';
+    font-size: calc(100vw* calc(24 / 1920));
+}
+
+.count-items span {
+    padding-inline: calc(100vw* calc(10 / 1920));
+    background: rgba(39, 39, 39, 1);
+    width: calc(100vw* calc(43 / 1920));
+    border-radius: 0.33ch;
+    aspect-ratio: 1 / 1;
+    padding-block: calc(100vw* calc(5 / 1920));
+    margin-left: 1ch;
+}
+
+.able-to-sell {
+    margin-left: auto;
+    display: flex;
+    gap: 1ch;
+    font-family: "Gilroy Bold";
+    color: #838383;
+}
+
+.inventory-items {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 5;
+    background-color: #0E0E0E;
+    padding-inline: calc(100vw* calc(50/ 1920));
+    padding-block: calc(100vw * calc(25 / 1920));
+
+    display: flex;
+    align-items: center;
+    gap: calc(100vw * calc(25 / 1920));
+
+    border-radius: inherit;
+}
+
+.open-case-button {
+    margin-left: auto;
+    width: 13vw;
+}
+
+.empty-inv-desc {
+    font-family: "Gilroy Regular";
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5ch;
+}
+
+.empty-inv-desc span {
+    color: rgba(131, 131, 131, 1);
+}
+
+.account-control {
+    background: url('../img/bg-circle-acc.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #0E0E0E;
+
+    border: 0px;
+    border-radius: inherit;
+    color: white;
+    font-size: calc(100vw * calc(24 / 1920));
+    text-transform: uppercase!important;
+    font-family: 'Gilroy Bold';
+
+    cursor: pointer;
+}
+
+.donate-btn-acc {
+    margin-left: auto;
+}
+
+.sell-all-btn {
+    margin-left: calc(100vw * calc(70 / 1920));
+}
+
+.account-name {
+    margin-left: calc(100vw * calc(29 / 1920));
+}
+
+.account-usrname {
+    display: flex;
+    gap: 1ch;
+    font-size: calc(100vw* calc(28 / 1920));
+}
+
+.account-id-val {
+    font-size: calc(100vw * calc(16 / 1920));
+    background: #272727;
+    color: rgba(131, 131, 131, 1);
+    border-radius: calc(100vw * calc(9 / 1920));
+    width: calc(100vw * calc(145 / 1920));
+    padding-left: calc(100vw * calc(11 / 1920));
+    padding-block: calc(100vw * calc(7  / 1920));
+    cursor: pointer;
+}

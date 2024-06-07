@@ -1,6 +1,7 @@
 .header-wrapper {
     margin-inline: calc(100vw * 0.0588);
-    margin-block: calc(100vw * calc(0.0588 * 0.690));
+    margin-bottom: calc(100vw * calc(90 / 1920));
+    margin-top: calc(100vw* calc(32 / 1920));
     font-size: calc(100vw * calc(22 / 1920));
     text-transform: uppercase;
     display: flex;

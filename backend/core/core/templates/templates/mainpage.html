@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Jack Drop{% endblock %}
+{% block links %}
+<link href="{% static 'css/cases-filter.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/latest-drops.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/banners.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/free-cases.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    {% include 'main/cases-filter.html' %}
+    {% include 'main/latest-drops.html' %}
+    {% include 'main/banners.html' %}
+    {% include 'main/free-cases.html' %}
+    <img src="{% static 'img/chat.png' %}" class="chat-btn">
+{% endblock %}

@@ -12,6 +12,7 @@ body {
     overflow-x: hidden;
     font-size: calc(100vw * calc(22 / 1920));
     background-color: black;
+    text-transform: uppercase!important;
 }
 
 body a {
@@ -53,7 +54,7 @@ body a {
     color: white;
     border-radius: 16px;
     border: none;
-    text-transform: uppercase;
+    text-transform: uppercase!important;
     font-size: calc(100vw * calc(22 / 1920));
     padding-inline: calc(100vw * calc(35 / 1920));
     display: flex;
@@ -120,6 +121,38 @@ body a {
     right: 6%;
     width: 8%;
     z-index: 1000;
+}
+
+.button-colorized {
+    padding-block: calc(100vw * calc(21 / 1920));
+    font-size: calc(100vw * calc(16 / 1920));
+    border-radius: calc(100vw * calc(9 / 1920));
+    font-family: 'Gilroy Bold';
+    text-transform: uppercase;
+}
+
+.blue {
+    background: linear-gradient(180deg, #0047FF 0%, #4FA0FF 100%);
+}
+
+.rose {
+    background: linear-gradient(180deg, #FF62CA 0%, #FF007A 100%);
+}
+
+.switch-input {
+    width: calc(100vw * calc(58 / 1920));
+    height: calc(100vw * calc(24 / 1920));
+    background: #272727;
+    display: flex;
+    border-radius: calc(100vw * calc(24 / 1920));
+    cursor: pointer;
+}
+
+.switch-inside-fig {
+    border-radius: 50%;
+    background: #838383;
+    aspect-ratio: 1/1;
+    height: 95%;
 }
 
 @media (aspect-ratio < 1/1) {

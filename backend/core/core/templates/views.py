@@ -1,6 +1,9 @@
 from django.shortcuts import render
 
 
-def test_base_view(request):
-    return render(request,
-                  template_name="base.html")
+def main_page_view(request):
+    return render(request, template_name="mainpage.html")
+
+
+def account_view(request):
+    return render(request, template_name="account.html")
