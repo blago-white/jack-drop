@@ -7,3 +7,7 @@ def main_page_view(request):
 
 def account_view(request):
     return render(request, template_name="account.html")
+
+
+def mines_view(request):
+    return render(request, template_name="mines.html")

@@ -1,0 +1,172 @@
+@import "variables.css";
+
+body {
+    background: black;
+    height: 139vh;
+}
+
+.global-sharp {
+    height: 139vh;
+}
+
+.mines-sec {
+    display: flex;
+    gap: calc(100vw * calc(33 / var(--reference-display-w)));
+}
+
+.game-control-inputs, .game-info, .game-fieldset {
+    border-radius: calc(100vw * calc(18 / var(--reference-display-w)))!important;
+    background: rgb(0, 0, 0, .3);
+    backdrop-filter: blur(1vh);
+    border: 1px solid rgba(151, 151, 151, 1);
+}
+
+.game-controls {
+    display: flex;
+    flex-direction: column;
+    gap: inherit;
+    width: 100%;
+    font-family: 'Gilroy Bold';
+}
+
+.control-sec-title {
+    margin-bottom: calc(100vw * calc(20 / var(--reference-display-w)));
+}
+
+.game-control-inputs {
+    display: flex;
+    flex-direction: column;
+    padding: calc(100vw * calc(43 / var(--reference-display-w)));
+    height: 100%;
+    justify-content: center;
+    gap: calc(100vw * calc(20 / var(--reference-display-w)));
+}
+
+.mines-count-presets {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr;
+    gap: calc(100vw * calc(11 / var(--reference-display-w)));
+}
+
+.game-control-inputs .game-input, .mines-count-preset, .bet-amount-preset-btn {
+    height: calc(100vw * calc(72 / var(--reference-display-w)));
+    border-radius: calc(100vw * calc(8 / var(--reference-display-w)));
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(39, 39, 39, 1);
+    border: 0px;
+    font-family: 'Gilroy Bold';
+    font-size: calc(100vw * calc(22 / var(--reference-display-w)))!important;
+}
+
+input {
+    padding-inline: 2ch;
+}
+
+.game-control-inputs .game-input {
+    color: white;
+}
+
+.mines-count-preset, .bet-amount-preset-btn {
+    color: rgba(151, 151, 151, 1);
+}
+
+.game-info-field img {
+    height: 2ch;
+    margin: 1ch;
+}
+
+.game-info-field {
+    display: flex;
+    align-items: center;
+    background: firebrick;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    background: black;
+    border: inherit;
+    border-radius: calc(100vw * calc(11 / var(--reference-display-w)));;
+}
+
+.bet-presets {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: calc(100vw * calc(11 / var(--reference-display-w)));
+}
+
+.game-bet-amount {
+    display: flex;
+    flex-direction: column;
+    gap: calc(100vw * calc(11 / var(--reference-display-w)));
+}
+
+.game-info {
+    display: flex;
+    padding-block: calc(100vw * calc(43 / var(--reference-display-w)));
+    padding-inline: calc(100vw * calc(36 / var(--reference-display-w)));
+    justify-content: space-between;
+    font-size: calc(100vw * calc(28 / var(--reference-display-w)));
+    font-family: "Gilroy Bold";
+    gap: calc(100vw * calc(27 / var(--reference-display-w)));
+}
+
+.game-fieldset {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    padding: calc(100vw * calc(16 / var(--reference-display-w)));
+    background: url('../img/mines.png');
+    background-size: cover;
+    gap: calc(100vw * calc(10 / var(--reference-display-w)));
+}
+
+.game-fieldset div {
+    width: calc(100vw * calc(210 / var(--reference-display-w)));
+    aspect-ratio: 1/1;
+    background: rgba(18, 18, 18, 0.2);
+    border-radius: inherit;
+    backdrop-filter: blur(3px);
+    border: 0.95px solid rgba(151, 151, 151, 1);
+}
+
+@media (aspect-ratio < 1/1) {
+    .game-fieldset {
+        aspect-ratio: 1/1;
+        height: auto;
+    }
+
+    .game-fieldset div {
+        width: auto;
+    }
+
+    .mines-sec {
+        flex-direction: column-reverse;
+    }
+
+    .game-controls {
+        flex-direction: column-reverse
+    }
+
+    .global-sharp {
+       height: auto;
+    }
+
+    .game-info {
+        font-size: calc(100vw * calc(32 / var(--reference-display-w)));
+    }
+
+    body {
+        height: auto;
+    }
+
+    .game-control-inputs .game-input, .mines-count-preset, .bet-amount-preset-btn {
+        font-size: calc(100vw* calc(25 / var(--reference-display-w))) !important;
+    }
+
+    .bg-filter {
+        height: auto;
+    }
+}

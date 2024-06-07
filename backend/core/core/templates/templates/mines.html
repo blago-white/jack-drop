@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Mines | Jack Drop
+{% endblock %}
+
+{% block links %}
+<link href="{% static 'css/mines.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+<section class="mines-sec">
+    <div class="game-controls">
+        <form class="game-control-inputs">
+            <div class="game-bet-amount">
+                <h3 class="control-sec-title">Сумма ставки</h3>
+                <input class="game-input" type="number" value="0.1">
+                <div class="bet-presets">
+                    <button class="bet-amount-preset-btn">50.0</button>
+                    <button class="bet-amount-preset-btn">1/2</button>
+                    <button class="bet-amount-preset-btn">X2</button>
+                    <button class="bet-amount-preset-btn">MAX</button>
+                </div>
+            </div>
+            <div class="game-mines-count">
+                <h3 class="control-sec-title">Количество мин</h3>
+                <div class="mines-count-presets">
+                    <input class="game-input" type="number" value="3">
+                    <button class="mines-count-preset">2</button>
+                    <button class="mines-count-preset">4</button>
+                    <button class="mines-count-preset">8</button>
+                    <button class="mines-count-preset">12</button>
+                    <button class="mines-count-preset">24</button>
+                </div>
+            </div>
+            <button class="super-button" style="margin-top: auto;" type="reset">
+                <span class="super-button-bg noactive"></span>
+                <span class="super-button-text">Рандом</span>
+            </button>
+            <button class="super-button" type="submit">
+                <span class="super-button-bg"></span>
+                <span class="super-button-text">Начать игру</span>
+            </button>
+        </form>
+        <div class="game-info">
+            <span class="game-info-field">
+                <img src="{% static 'img/pumpkin.png' %}">22
+            </span>
+            <span class="game-info-field">
+                <img src="{% static 'img/seeds.png' %}">3
+            </span>
+        </div>
+    </div>
+    <div class="game-fieldset">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</section>
+{% endblock %}

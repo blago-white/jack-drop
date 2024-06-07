@@ -49,6 +49,10 @@ body a {
     flex-direction: column;
 }
 
+button {
+    cursor: pointer!important;
+}
+
 .button {
     background-color: #343434;
     color: white;
@@ -98,6 +102,18 @@ body a {
 
 .super-button-bg:hover {
     box-shadow: -4px 4px 0px #FF007A, 4px -4px 0px #0047FF;
+}
+
+.super-button-bg.noactive {
+    background: rgba(39, 39, 39, 1);
+}
+
+.control-sec-title {
+    font-family: 'Gilroy Regular';
+}
+
+.super-button-bg.noactive:hover {
+    box-shadow: none;
 }
 
 .super-button-text {
