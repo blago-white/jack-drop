@@ -11,3 +11,7 @@ def account_view(request):
 
 def mines_view(request):
     return render(request, template_name="mines.html")
+
+
+def battle_view(request):
+    return render(request, template_name="battle.html")

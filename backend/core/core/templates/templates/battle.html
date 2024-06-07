@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Battles | Jack Drop
+{% endblock %}
+
+{% block links %}
+<link href="{% static 'css/battle.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+<section class="battle-sec">
+    <div class="last-battle">
+        <div class="last-battle-info">
+            <div class="last-battle-drop-item">
+                <img src="{% static 'img/testbattle.png' %}">
+                <div class="b-win-info">
+                    <div style="width: 2.5ch;border-radius: 50%;aspect-ratio: 1/1;background: white;"></div>
+                    <img style="position: relative;left: -3ch;bottom: -0.8ch;" src="{% static 'img/battle-winner-i.png' %}">
+                    <span class="b-win-item-price">5,69Р</span>
+                </div>
+            </div>
+            <div class="last-battle-case">
+                <img src="{% static 'img/testbattlecase.png' %}">
+            </div>
+            <div class="last-battle-drop-item">
+                <img src="{% static 'img/testbattle.png' %}">
+                <div class="b-win-info">
+                    <div style="width: 2.5ch;border-radius: 50%;aspect-ratio: 1/1;background: white;"></div>
+                    <span class="b-win-item-price">5,69Р</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="battles">
+        <div class="battles-table-header">
+            <span>КЕЙС</span>
+            <span style="margin-left: 16.75%;">АКТИВНЫЕ СРАЖЕНИЯ</span>
+            <span style="margin-left: 10.75%;">СТОИМОСТЬ</span>
+            <span style="margin-left: 22.5%;">ДЕЙСТВИЯ</span>
+        </div>
+        <div class="battles-table">
+            <div class="battle">
+                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <span class="count-battles">0</span>
+                <span class="price">1000</span>
+                <button class="button button-colorized blue create-battle">Создать</button>
+            </div>
+            <div class="battle">
+                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <span class="count-battles">0</span>
+                <span class="price">1000</span>
+                <button class="button button-colorized blue create-battle">Создать</button>
+            </div>
+            <div class="battle">
+                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <span class="count-battles">0</span>
+                <span class="price">1000</span>
+                <button class="button button-colorized blue create-battle">Создать</button>
+            </div>
+            <div class="battle">
+                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <span class="count-battles">0</span>
+                <span class="price">1000</span>
+                <button class="button button-colorized blue create-battle">Создать</button>
+            </div>
+            <div class="battle">
+                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <span class="count-battles">0</span>
+                <span class="price">1000</span>
+                <button class="button button-colorized blue create-battle">Создать</button>
+            </div>
+            <div class="battle">
+                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <span class="count-battles">0</span>
+                <span class="price">1000</span>
+                <button class="button button-colorized blue create-battle">Создать</button>
+            </div>
+            <div class="battle">
+                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <span class="count-battles">0</span>
+                <span class="price">1000</span>
+                <button class="button button-colorized blue create-battle">Создать</button>
+            </div>
+        </div>
+    </div>
+    <div class="my-battles"></div>
+    <div class="battle-hint"></div>
+</section>
+{% endblock %}
