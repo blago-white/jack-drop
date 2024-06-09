@@ -7,12 +7,32 @@
         </a>
         <nav class="navbar" id="navbar">
             <ol class="navbar-items">
-              <li class="navbar-item"><a href="{% url 'upgrade' %}">Апргрейд</a></li>
-              <li class="navbar-item"><a href="#">Контракт</a></li>
-              <li class="navbar-item"><a href="{% url 'battle' %}">Сражения</a></li>
-              <li class="navbar-item"><a href="#">События</a></li>
-              <li class="navbar-item"><a href="{% url 'mines' %}">Мины</a></li>
-              <li class="navbar-item"><a href="#">КОЛЕСО ФОРТУНЫ</a></li>
+              <li class="navbar-item">
+                  <a style="{% if section == 'upgrade' %}text-decoration: underline;{% endif %}"
+                     href="{% url 'upgrade' %}">
+                      Апргрейд
+                  </a>
+              </li>
+              <li style="{% if section == 'contract' %}text-decoration: underline;{% endif %}"
+                  class="navbar-item">
+                  <a href="{% url 'contract' %}">Контракт</a>
+              </li>
+              <li style="{% if section == 'battle' %}text-decoration: underline;{% endif %}"
+                  class="navbar-item">
+                  <a href="{% url 'battle' %}">Сражения</a>
+              </li>
+              <li style="{% if section == 'a' %}text-decoration: underline;{% endif %}"
+                  class="navbar-item">
+                  <a href="#">События</a>
+              </li>
+              <li style="{% if section == 'mines' %}text-decoration: underline;{% endif %}"
+                  class="navbar-item">
+                  <a href="{% url 'mines' %}">Мины</a>
+              </li>
+              <li style="{% if section == 'f' %}text-decoration: underline;{% endif %}"
+                  class="navbar-item">
+                  <a href="#">КОЛЕСО ФОРТУНЫ</a>
+              </li>
             </ol>
         </nav>
 

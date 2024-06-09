@@ -3,7 +3,7 @@ const header = document.getElementById('header');
 let toggled = false;
 
 function toggleMenu(event) {
-    header.style.minHeight = toggled ? "9.25vh" : "calc(100vw*calc(597/960))";
+    header.style.minHeight = toggled ? "9.25vh" : "calc(100vw*calc(450/960))";
 
     setTimeout(() => {
         if (toggled) {

@@ -119,6 +119,10 @@
         overflow: hidden;
     }
 
+    .navbar-item {
+        max-width: calc(100vw * calc(169 / 960));
+    }
+
     .navbar-items {
         grid-template-columns: auto auto auto;
         font-size: calc(100vw * calc(32 / 960));

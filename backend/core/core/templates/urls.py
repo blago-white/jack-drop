@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import (main_page_view, account_view, mines_view, battle_view,
-                    upgrade_view)
+                    upgrade_view, contract_view)
 
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path("mines/", mines_view, name="mines"),
     path("battle/", battle_view, name="battle"),
     path("upgrade/", upgrade_view, name="upgrade"),
+    path("contract/", contract_view, name="contract"),
 ]

@@ -6,16 +6,29 @@ def main_page_view(request):
 
 
 def account_view(request):
-    return render(request, template_name="account.html")
+    return render(request,
+                  template_name="account.html")
 
 
 def mines_view(request):
-    return render(request, template_name="mines.html")
+    return render(request,
+                  template_name="mines.html",
+                  context={"section": "mines"})
 
 
 def battle_view(request):
-    return render(request, template_name="battle.html")
+    return render(request,
+                  template_name="battle.html",
+                  context={"section": "battle"})
 
 
 def upgrade_view(request):
-    return render(request, template_name="upgrade.html")
+    return render(request,
+                  template_name="upgrade.html",
+                  context={"section": "upgrade"})
+
+
+def contract_view(request):
+    return render(request,
+                  template_name="contract.html",
+                  context={"section": "contract"})
