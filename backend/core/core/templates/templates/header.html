@@ -2,21 +2,21 @@
 
 <header class="header-wrapper" id="header">
     <div class="header-main-part" id="main-part-h">
-        <div class="logo">
+        <a class="logo" href="/">
             <img src="{% static 'img/logo.png' %}">
-        </div>
+        </a>
         <nav class="navbar" id="navbar">
             <ol class="navbar-items">
-              <li class="navbar-item"><a href="#">Апргрейд</a></li>
-              <li class="navbar-item navbar-item-active"><a href="#">Контракт</a></li>
-              <li class="navbar-item"><a href="#">Сражения</a></li>
+              <li class="navbar-item"><a href="{% url 'upgrade' %}">Апргрейд</a></li>
+              <li class="navbar-item"><a href="#">Контракт</a></li>
+              <li class="navbar-item"><a href="{% url 'battle' %}">Сражения</a></li>
               <li class="navbar-item"><a href="#">События</a></li>
-              <li class="navbar-item"><a href="#">Мины</a></li>
+              <li class="navbar-item"><a href="{% url 'mines' %}">Мины</a></li>
               <li class="navbar-item"><a href="#">КОЛЕСО ФОРТУНЫ</a></li>
             </ol>
         </nav>
 
-        <button class="super-button">
+        <button class="super-button" onclick="window.location.href = '{% url 'account' %}'">
             <span class="super-button-bg"></span>
             <span class="super-button-text">
                 <img src="{% static 'img/steam.png' %}" style="height: 2.5ch;filter: invert(1)">

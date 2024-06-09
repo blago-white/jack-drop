@@ -15,3 +15,7 @@ def mines_view(request):
 
 def battle_view(request):
     return render(request, template_name="battle.html")
+
+
+def upgrade_view(request):
+    return render(request, template_name="upgrade.html")

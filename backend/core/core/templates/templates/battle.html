@@ -29,64 +29,134 @@ Battles | Jack Drop
                 <img src="{% static 'img/testbattle.png' %}">
                 <div class="b-win-info">
                     <div style="width: 2.5ch;border-radius: 50%;aspect-ratio: 1/1;background: white;"></div>
+                    <img style="opacity: 0;"
+                         src="{% static 'img/battle-winner-i.png' %}">
                     <span class="b-win-item-price">5,69Р</span>
                 </div>
             </div>
+            <img class="mobile-last-battle-img" src="{% static 'img\last-battle-img.png' %}">
         </div>
     </div>
     <div class="battles">
         <div class="battles-table-header">
-            <span>КЕЙС</span>
-            <span style="margin-left: 16.75%;">АКТИВНЫЕ СРАЖЕНИЯ</span>
+            <span class="case-battle-name">КЕЙС</span>
+            <span class="count-battles-f" style="margin-left: 16.75%;">АКТИВНЫЕ СРАЖЕНИЯ</span>
             <span style="margin-left: 10.75%;">СТОИМОСТЬ</span>
-            <span style="margin-left: 22.5%;">ДЕЙСТВИЯ</span>
+            <span class="actions-battles-f" style="margin-left: 22.5%;">ДЕЙСТВИЯ</span>
         </div>
         <div class="battles-table">
             <div class="battle">
-                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <div class="case-sign">
+                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                    КЕЙС
+                </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
                 <button class="button button-colorized blue create-battle">Создать</button>
             </div>
             <div class="battle">
-                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <div class="case-sign">
+                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                    КЕЙС
+                </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
                 <button class="button button-colorized blue create-battle">Создать</button>
             </div>
             <div class="battle">
-                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <div class="case-sign">
+                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                    КЕЙС
+                </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
                 <button class="button button-colorized blue create-battle">Создать</button>
             </div>
             <div class="battle">
-                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <div class="case-sign">
+                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                    КЕЙС
+                </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
                 <button class="button button-colorized blue create-battle">Создать</button>
             </div>
             <div class="battle">
-                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <div class="case-sign">
+                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                    КЕЙС
+                </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
                 <button class="button button-colorized blue create-battle">Создать</button>
             </div>
             <div class="battle">
-                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <div class="case-sign">
+                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                    КЕЙС
+                </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
                 <button class="button button-colorized blue create-battle">Создать</button>
             </div>
             <div class="battle">
-                <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                <div class="case-sign">
+                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                    КЕЙС
+                </div>
+                <span class="count-battles">0</span>
+                <span class="price">1000</span>
+                <button class="button button-colorized blue create-battle">Создать</button>
+            </div>
+            <div class="battle">
+                <div class="case-sign">
+                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
+                    КЕЙС
+                </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
                 <button class="button button-colorized blue create-battle">Создать</button>
             </div>
         </div>
     </div>
-    <div class="my-battles"></div>
-    <div class="battle-hint"></div>
+    <div class="my-battles">
+        <div class="battles-stats">
+            <div class="battles-stat">
+                <div class="stats-num">0</div>
+                <span>Побед</span>
+            </div>
+            <div class="battles-stat">
+                <div class="stats-num">0</div>
+                <span>Поражений</span>
+            </div>
+            <div class="battles-stat">
+                <div class="stats-num">0</div>
+                <span>Ничья</span>
+            </div>
+        </div>
+        <img src="{% static 'img/stats-border.png' %}">
+        <button class="super-button show-my-buttles">
+            <span class="super-button-bg"></span>
+            <span class="super-button-text">Мои батлы</span>
+        </button>
+    </div>
+    <div class="battle-hint">
+        <h3 class="battle-hint-header">Как это работает?</h3>
+        <img class="mobile-hint-steps" src="{% static 'img/battle-hint-steps.png' %}">
+        <ul class="hint-steps">
+            <li>
+                <img src="{% static 'img/step-1.png' %}" style="height: 100%">
+                <span>Кликните “Создать” или присоединитесь к существующему сражению.</span>
+            </li>
+            <li>
+                <img src="{% static 'img/step-2.png' %}" style="height: 100%">
+                <span>Сражение начнется как только оба участника присоединились.</span>
+            </li>
+            <li>
+                <img src="{% static 'img/step-3.png' %}" style="height: 100%">
+                <span>Участник, получивший предмет дороже, забирает оба.</span>
+            </li>
+        </ul>
+    </div>
 </section>
 {% endblock %}
