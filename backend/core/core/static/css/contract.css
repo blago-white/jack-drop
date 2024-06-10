@@ -52,6 +52,9 @@ body {
     grid-template-columns: 1fr 1fr;
     height: max-content;
 
+    border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
+
+
     max-height: 76.6vh;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -82,14 +85,43 @@ body {
     display: none;
 }
 
+.inventory-items-mobile {
+    display: none;
+}
+
 @media (aspect-ratio < 1/1) {
     body {
         background-size: initial;
         background-color: black;
     }
 
+    .inventory-item {
+        min-width: calc(100vw * calc(274 / var(--reference-display-w)));
+        font-size: calc(100vw * calc(17 / var(--reference-display-w)));
+    }
+
+    .inventory-item span {
+        margin-right: 9.5ch;
+    }
+
+    .inventory-items {
+        display: none;
+    }
+
+    .inventory-items-mobile {
+        display: flex;
+    }
+
     .bg-filter {
         height: 64vh;
+    }
+
+    .w-line {
+        height: 85%;
+    }
+
+    .inventory-item img {
+        width: calc(100vw* calc(277 / var(--reference-display-w)));
     }
 
     .contract-circle {
@@ -131,10 +163,6 @@ body {
 
     .contract-hint {
         grid-row: 3;
-    }
-
-    .inventory-items {
-        display: none;
     }
 
     .contract {
