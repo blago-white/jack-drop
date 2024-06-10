@@ -70,8 +70,15 @@
 
 .price-range {
     -webkit-appearance: none !important;
+    background: transparent;
+    height:calc(150vw * calc(1 / 1920));
+    margin-bottom: calc(150vw * calc(3 / 1920));
+}
+
+.double-range-input {
     background: #64CE82;
-    height:calc(150vw * calc(4 / 1920));
+    height:calc(150vw * calc(1 / 1920));
+    padding-bottom: calc(150vw * calc(3 / 1920));
 }
 
 .price-range::-webkit-slider-thumb {
@@ -79,6 +86,7 @@
     background:white;
     height:calc(100vw * calc(15 / 1920));
     width:calc(100vw * calc(5 / 1920));
+    z-index: 1000;
 }
 
 .cases-forms {

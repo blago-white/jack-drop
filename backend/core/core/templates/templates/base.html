@@ -21,7 +21,7 @@
     <footer class="footer">
         <div class="site-info">
             <img src="{% static 'img/JD-mono.png' %}">
-            <span class="c"><b>© 2018-2024 JackDrop</b><br>Лучшие кейсы RUST</span>
+            <span class="c"><b>© 2018-2024 JackDrop</b><br>Лучшие кейсы RUST</span>
         </div>
         <span class="footer-mobile-info">
             Пользовательское соглашение<br>
@@ -37,5 +37,7 @@
         </ul>
     </footer>
     <script src="{% static 'js/header.js' %}"></script>
+    {% block extrascripts %}
+    {% endblock %}
 </body>
 </html>

@@ -24,9 +24,16 @@
         </button>
     </form>
         <form class="price-range-form">
-            <label for="pri">100р</label>
-            <input type="range" class="price-range" placeholder="БЫСТРЫЙ ПОИСК" id="pri">
+            <div style="display: flex;width: 100%;justify-content: space-between;">
+                <label id="range-price-1" for="pri">0 ₽</label>
+                <label id="range-price-2" for="pri2">5000 ₽</label>
+            </div>
+            <div class="double-range-input" style="display: flex;">
+                <input type="range" value="0" min="0" max="5000" class="price-range" id="pri">
+                <input type="range" value="5000" min="0" max="5000"  class="price-range" id="pri2">
+            </div>
         </form>
+
     </div>
     <button class="button">
         очистить
