@@ -10,10 +10,17 @@ class UsersApiService(BaseApiService):
     default_endpoint_serializer_class = GetUserInfoEndpointSerializer
     routes: dict[str, str] = settings.USERS_MICROSERVICE_ROUTES
 
-    def get_user_info(self, user_request: Request) -> dict:
+    def get_user_info(self, user_request: Request = None,
+                      jwt: str = None) -> dict:
+        if user_request:
+            return self.send_auth_get_api_request(
+                path=self.routes.get("get_info"),
+                user_request=user_request
+            )
+
         return self.send_auth_get_api_request(
             path=self.routes.get("get_info"),
-            user_request=user_request
+            auth_header=jwt
         )
 
     def update_user_balance(self, delta_amount: int,
@@ -43,8 +50,10 @@ class UsersApiService(BaseApiService):
     @staticmethod
     def send_auth_get_api_request(
             path: str,
-            user_request: Request) -> dict:
-        auth_header = user_request.auth
+            user_request: Request = None,
+            auth_header: str = None
+    ) -> dict:
+        auth_header = user_request.auth if auth_header is None else auth_header
 
         return requests.get(
             path,

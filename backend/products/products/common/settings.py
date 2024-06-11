@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     'market',
     'games',
     'inventory',
+    'interactive',
 
     'admin_interface',
     'colorfield',
+    'daphne',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -83,7 +85,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'common.wsgi.application'
+ASGI_APPLICATION = 'common.asgi.application'
 
 
 # Database
@@ -175,4 +177,10 @@ USERS_MICROSERVICE_ROUTES = {
                    "balances/api/v1/p/displayed_balance_jwt/update/",
     "update_balance": "http://users/auth/"
                    "balances/api/v1/p/displayed_balance/{client_id}/update/"
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    },
 }

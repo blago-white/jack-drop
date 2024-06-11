@@ -1,15 +1,15 @@
 from common.repositories import BaseRepository
 
-from battles.services.battle import BattleRequestService, BattleService
+from battles.services.battle import BattleRequestModelService, BattleModelService
 from battles.serializers import BattleRequestSerializer, BattleSerializer
 from battles.services.transfer import BattleInfo
 
 
 class BattleRequestRepository(BaseRepository):
-    default_service = BattleRequestService()
+    default_service = BattleRequestModelService()
     default_serializer_class = BattleRequestSerializer
 
-    _service: BattleRequestService
+    _service: BattleRequestModelService
 
     def create(self, request_data: dict) -> dict:
         serialized: BattleRequestSerializer = self._serializer_class(
@@ -32,12 +32,15 @@ class BattleRequestRepository(BaseRepository):
 
 
 class BattleRepository(BaseRepository):
-    default_service = BattleService()
+    default_service = BattleModelService()
     default_serializer_class = BattleSerializer
 
-    _service: BattleService
+    _service: BattleModelService
 
-    def create(self, request_data: dict) -> dict:
+    def make(self, request_data: dict) -> dict:
+        serialized: BattleSerializer = self._service
+
+    def commit(self, request_data: dict) -> dict:
         serialized: BattleSerializer = self._serializer_class(data=request_data)
 
         serialized.is_valid(raise_exception=True)

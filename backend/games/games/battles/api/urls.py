@@ -11,7 +11,7 @@ urlpatterns = [
     path("drop-request/<int:initiator_id>/",
          DropBattleRequestApiView.as_view(),
          name="drop-request"),
-    path("save-battle/",
+    path("make-battle/<int:initiator_id>/",
          CommitBattleApiView.as_view(),
          name="commit-battle")
 ]

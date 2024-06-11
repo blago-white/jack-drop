@@ -20,7 +20,8 @@ class BattleRequestApiRepository(BaseApiRepository):
 
         super().__init__(*args, **kwargs)
 
-    def create(self, battle_case_id: int, user_data: dict) -> dict:
+    def create(self, battle_case_id: int,
+               user_data: dict) -> dict:
         serialized: BattleRequestServiceEndpointSerializer = (
             self.default_api_service.default_endpoint_serializer_class(
                 data={

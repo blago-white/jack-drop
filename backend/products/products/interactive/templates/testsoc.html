@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    Hi
+
+    <button onclick="send()">WOW</button>
+
+    <script>
+        const socket = new WebSocket("ws://127.0.0.1:8000/ws/battle/");
+
+        socket.onmessage = function(event) {
+            alert("Получены данные " + event.data);
+        };
+
+        function send() {
+            socket.send(JSON.stringify({
+                "type": "cbr",
+                "payload": {
+                    "battle_case_id": 1,
+                }
+            }));
+        }
+    </script>
+</body>
+</html>

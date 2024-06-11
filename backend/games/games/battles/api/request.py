@@ -1,6 +1,6 @@
 from common.views.api import DefaultCreateApiView, DefaultDeleteApiView
 
-from battles.repositories.battle import BattleRequestRepository
+from battles.repositories.battle import BattleRequestRepository, BattleRepository
 
 
 class StartBattleRequestApiView(DefaultCreateApiView):
@@ -21,4 +21,19 @@ class DropBattleRequestApiView(DefaultDeleteApiView):
     def destroy(self, request, *args, **kwargs):
         return self.get_200_response(
             data=self.repository.drop(initiator_id=self.get_requested_pk())
+        )
+
+
+class MakeBattleApiView(DefaultDeleteApiView):
+    repository = BattleRepository()
+    serializer_class = repository.default_serializer_class
+    pk_url_kwarg = "initiator_id"
+
+    def create(self, request, *args, **kwargs):
+        initiator = request
+
+        return self.get_200_response(
+            data=self.repository.make(
+
+            )
         )

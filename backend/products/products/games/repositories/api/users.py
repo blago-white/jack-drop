@@ -17,6 +17,13 @@ class UsersApiRepository(BaseApiRepository):
 
         return UserFundsSerializer(instance=data).data
 
+    def get_by_jwt(self, jwt_token: str) -> dict:
+        data: float = self._api_service.get_user_info(
+            jwt=jwt_token
+        )
+
+        return UserFundsSerializer(instance=data).data
+
     def get_balance(self, user_request: Request) -> float:
         return self.get(user_request=user_request).get("desplayed_balance")
 
