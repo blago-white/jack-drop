@@ -165,7 +165,7 @@ GAMES_SERVICE_ROUTES = {
     "create_battle_request": "http://games/private/battle/make-request/",
     "drop_battle_request": "http://games/private/battle/drop-request"
                            "/{initiator_id}/",
-    "commit_battle": "http://games/private/battle/commit-battle/"
+    "make_battle": "http://games/private/battle/make-battle/",
 }
 
 USERS_MICROSERVICE_ROUTES = {

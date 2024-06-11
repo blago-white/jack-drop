@@ -47,3 +47,21 @@ class BattleRequestApiRepository(BaseApiRepository):
             raise ValidationError(
                 "There are not enough balance funds for action"
             )
+
+
+class BattleApiRepository(BaseApiRepository):
+    default_api_service = BattleRequestApiService()
+    default_cases_service = CaseService()
+
+    _api_service: BattleRequestApiService
+
+    def __init__(self, *args,
+                 cases_service: CaseService = None,
+                 **kwargs):
+        self._cases_service = cases_service or self.default_cases_service
+
+        super().__init__(*args, **kwargs)
+
+    def make(self, battle_case_id: int,
+             user_data: dict) -> dict:
+        pass
