@@ -22,18 +22,3 @@ class DropBattleRequestApiView(DefaultDeleteApiView):
         return self.get_200_response(
             data=self.repository.drop(initiator_id=self.get_requested_pk())
         )
-
-
-class MakeBattleApiView(DefaultDeleteApiView):
-    repository = BattleRepository()
-    serializer_class = repository.default_serializer_class
-    pk_url_kwarg = "initiator_id"
-
-    def create(self, request, *args, **kwargs):
-        initiator = request
-
-        return self.get_200_response(
-            data=self.repository.make(
-
-            )
-        )

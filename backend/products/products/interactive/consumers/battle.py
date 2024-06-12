@@ -75,8 +75,6 @@ class BattleAsyncConsumer(JsonWebsocketConsumer):
         else:
             result = None
 
-        # django_logger.debug(f"Output WS message: {result}")
-
         self.channel_layer.group_send(
             group="_",
             message=result

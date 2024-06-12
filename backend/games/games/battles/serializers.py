@@ -1,6 +1,7 @@
 from rest_framework.serializers import ModelSerializer, IntegerField
 
-from common.serializers import SiteFundsSerializer, UserFundsStateSerializer
+from common.serializers import SiteFundsSerializer
+from cases.serializers import DropItemSerializer
 from .models import BattleRequest, Battle
 
 
@@ -12,10 +13,12 @@ class BattleRequestSerializer(ModelSerializer):
 
 
 class MakeBattleSerializer(ModelSerializer):
-    initiator_data = UserFundsStateSerializer(required=True)
-    participant_data = UserFundsStateSerializer(required=True)
+    initiator_id = IntegerField(required=True)
+    participant_id = IntegerField(required=True)
     site_funds = SiteFundsSerializer(required=True)
     battle_case_id = IntegerField(min_value=0)
+    battle_case_price = IntegerField(min_value=0)
+    battle_case_items = DropItemSerializer(many=True, required=True)
 
 
 class BattleSerializer(ModelSerializer):

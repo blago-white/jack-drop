@@ -5,9 +5,20 @@ from .base import BaseApiRepository
 from cases.services.cases import CaseService
 from games.api.services.battle import BattleRequestApiService
 from games.serializers.battle import BattleRequestServiceEndpointSerializer
+from games.api.services.drop import CaseDropApiService
 
 
-class BattleRequestApiRepository(BaseApiRepository):
+class _BaseBattleApiRepository(BaseApiRepository):
+    def _validate_funds(self, battle_case_id: int, user_data: dict) -> None:
+        case_price = self._cases_service.get_price(case_id=battle_case_id)
+
+        if user_data.get("displayed_balance") < case_price:
+            raise ValidationError(
+                "There are not enough balance funds for action"
+            )
+
+
+class BattleRequestApiRepository(_BaseBattleApiRepository):
     default_api_service = BattleRequestApiService()
     default_cases_service = CaseService()
 
@@ -40,17 +51,9 @@ class BattleRequestApiRepository(BaseApiRepository):
 
         return {"ok": ok}
 
-    def _validate_funds(self, battle_case_id: int, user_data: dict) -> None:
-        case_price = self._cases_service.get_price(case_id=battle_case_id)
 
-        if user_data.get("displayed_balance") < case_price:
-            raise ValidationError(
-                "There are not enough balance funds for action"
-            )
-
-
-class BattleApiRepository(BaseApiRepository):
-    default_api_service = BattleRequestApiService()
+class BattleApiRepository(_BaseBattleApiRepository):
+    default_drop_service = Drop
     default_cases_service = CaseService()
 
     _api_service: BattleRequestApiService
@@ -63,5 +66,8 @@ class BattleApiRepository(BaseApiRepository):
         super().__init__(*args, **kwargs)
 
     def make(self, battle_case_id: int,
-             user_data: dict) -> dict:
-        pass
+             initiator_data: dict,
+             participant_data: dict) -> dict:
+        case_items = self._cases_service.get(
+            case_id=battle_case_id
+        )
