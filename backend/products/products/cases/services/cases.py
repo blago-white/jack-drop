@@ -59,7 +59,7 @@ class CaseService(BaseReadOnlyService):
     def get_all(self) -> models.QuerySet:
         return self._model.objects.all()
 
-    def get(self, case_id: int) -> models.Model:
+    def get(self, case_id: int) -> Case:
         return self._model.objects.get(pk=case_id)
 
     def get_price(self, case_id: int) -> int | float:

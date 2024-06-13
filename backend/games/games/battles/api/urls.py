@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .request import StartBattleRequestApiView, DropBattleRequestApiView
-from .game import CommitBattleApiView
+from .game import MakeBattleApiView
 
 
 urlpatterns = [
@@ -11,7 +11,7 @@ urlpatterns = [
     path("drop-request/<int:initiator_id>/",
          DropBattleRequestApiView.as_view(),
          name="drop-request"),
-    path("make-battle/<int:initiator_id>/",
-         CommitBattleApiView.as_view(),
+    path("make-battle/",
+         MakeBattleApiView.as_view(),
          name="commit-battle")
 ]

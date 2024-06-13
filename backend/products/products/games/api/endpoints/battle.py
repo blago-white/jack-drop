@@ -1,9 +1,8 @@
-from .base import BaseGameProxyCreateApiView
-
 from common.mixins.api import CreateApiViewMixin
 from games.repositories.api.battle import BattleRequestApiRepository
 from games.repositories.api.users import UsersApiRepository
 from games.serializers.battle import BattleRequestApiViewSerializer
+from .base import BaseGameProxyCreateApiView
 
 
 class CreateBattleRequestApiView(CreateApiViewMixin,

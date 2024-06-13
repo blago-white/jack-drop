@@ -1,19 +1,9 @@
-from common.views.api import DefaultCreateApiView, DefaultDeleteApiView
+from common.views.api import DefaultCreateApiView
 
 from battles.repositories.battle import BattleRequestRepository, BattleRepository
 
 
-class CommitBattleApiView(DefaultCreateApiView):
-    repository = BattleRequestRepository()
-    serializer_class = repository.default_serializer_class
-
-    def create(self, request, *args, **kwargs):
-        return self.get_201_response(
-            data=self.repository.create(request_data=request)
-        )
-
-
-class MakeBattleApiView(DefaultDeleteApiView):
+class MakeBattleApiView(DefaultCreateApiView):
     repository = BattleRepository()
     serializer_class = repository.default_serializer_class
     pk_url_kwarg = "initiator_id"

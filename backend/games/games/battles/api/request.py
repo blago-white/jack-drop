@@ -9,7 +9,7 @@ class StartBattleRequestApiView(DefaultCreateApiView):
 
     def create(self, request, *args, **kwargs):
         return self.get_201_response(
-            data=self.repository.create(request_data=request)
+            data=self.repository.create(request_data=request.data)
         )
 
 

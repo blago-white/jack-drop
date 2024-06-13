@@ -13,6 +13,10 @@ class ConnectToRequest(_MessageType):
     pass
 
 
+class CancelBattleRequest(_MessageType):
+    pass
+
+
 @dataclass
 class CreateRequestMessagePayload:
     battle_case_id: int
@@ -20,7 +24,8 @@ class CreateRequestMessagePayload:
 
 MESSAGE_TYPE_CODES = {
     "cbr": CreateBattleRequest,
-    "ctr": ConnectToRequest
+    "ctr": ConnectToRequest,
+    "crb": CancelBattleRequest
 }
 
 

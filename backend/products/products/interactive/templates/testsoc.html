@@ -7,20 +7,40 @@
 <body>
     Hi
 
-    <button onclick="send()">WOW</button>
+    <button onclick="send_create()">Create</button>
+    <button onclick="send_cancel()">Cancel</button>
+    <button onclick="send_conn()">Connect</button>
 
     <script>
-        const socket = new WebSocket("ws://127.0.0.1:8000/ws/battle/");
+        const socket = new WebSocket("ws://127.0.0.1:8000/ws/battle/{{ k }}/");
 
         socket.onmessage = function(event) {
             alert("Получены данные " + event.data);
         };
 
-        function send() {
+        function send_create() {
             socket.send(JSON.stringify({
                 "type": "cbr",
                 "payload": {
-                    "battle_case_id": 1,
+                    "battle_case_id": {{ k }},
+                }
+            }));
+        }
+
+        function send_cancel() {
+            socket.send(JSON.stringify({
+                "type": "crb",
+                "payload": {
+                    "battle_case_id": {{ k }},
+                }
+            }));
+        }
+
+        function send_conn() {
+            socket.send(JSON.stringify({
+                "type": "ctr",
+                "payload": {
+                    "battle_case_id": {{ k }},
                 }
             }));
         }

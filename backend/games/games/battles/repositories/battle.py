@@ -1,6 +1,8 @@
+from rest_framework.exceptions import ValidationError
+
 from common.repositories import BaseRepository
 
-from battles.services.transfer import BattleMakeRequest, BattleResult
+from battles.services.transfer import BattleMakeRequest, BattleResult, CaseItem
 from battles.services.battle import (BattleRequestModelService,
                                      BattleModelService, BattleService)
 from battles.serializers import BattleRequestSerializer, BattleSerializer, MakeBattleSerializer
@@ -21,8 +23,8 @@ class BattleRequestRepository(BaseRepository):
         serialized.is_valid(raise_exception=True)
 
         instance = self._service.create(
-            initiator_id=serialized.get("initiator_id"),
-            case_id=serialized.get("case_id")
+            initiator_id=serialized.data.get("initiator_id"),
+            battle_case_id=serialized.data.get("battle_case_id")
         )
 
         return {"ok": instance is not None}
@@ -39,10 +41,24 @@ class BattleRepository(BaseRepository):
     default_game_service = BattleService()
 
     default_serializer_class = MakeBattleSerializer
+    default_battle_serializer_class = BattleSerializer
 
     _service: BattleModelService
     _game_service: BattleService
     _battle_request_service: BattleRequestModelService
+    _battle_serializer_class: BattleSerializer
+
+    def __init__(self, *args,
+                 battle_request_service: BattleRequestModelService = None,
+                 game_service: BattleService = None,
+                 battle_serializer_class: BattleSerializer = None,
+                 **kwargs):
+        self._battle_request_service = battle_request_service or self.default_battle_request_service
+        self._game_service = game_service or self.default_game_service
+        self._battle_serializer_class = (battle_serializer_class or
+                                         self.default_battle_serializer_class)
+
+        super().__init__(*args, **kwargs)
 
     def make(self, request_data: dict) -> dict:
         serialized: MakeBattleSerializer = self._serializer_class(
@@ -53,17 +69,17 @@ class BattleRepository(BaseRepository):
 
         self._validate_initiator(validated=serialized)
 
-        self._battle_request_service.cancel(initiator_id=serialized.data.get(
-            "initiator_id"
-        ))
-
         result = self._game_service.make_battle(
             battle_request=self._serialize_make_battle_request(
                 serialized=serialized
             )
         )
 
-        return self._serializer_class(
+        self._battle_request_service.cancel(initiator_id=serialized.data.get(
+            "initiator_id"
+        ))
+
+        return self._battle_serializer_class(
             instance=self._commit_result(instance=result)
         ).data
 
@@ -71,19 +87,35 @@ class BattleRepository(BaseRepository):
         return self._service.create(battle_result=instance)
 
     def _validate_initiator(self, validated: MakeBattleSerializer) -> bool:
-        return self._battle_request_service.is_initiator(
+        if not self._battle_request_service.is_initiator(
             initiator_id=validated.validated_data.get("initiator_id")
-        )
+        ):
+            raise ValidationError(
+                "Battle request not found",
+                code=400
+            )
+
+        if (validated.validated_data.get("participant_id") ==
+                validated.validated_data.get("initiator_id")):
+            raise ValidationError(
+                "Battle initiator is participant",
+                code=400
+            )
 
     @staticmethod
     def _serialize_make_battle_request(serialized: dict) -> BattleMakeRequest:
         return BattleMakeRequest(
             initiator_id=serialized.data.get("initiator_id"),
-            participant_id=serialized.data.get("initiator_id"),
+            participant_id=serialized.data.get("participant_id"),
             battle_case_id=serialized.data.get("battle_case_id"),
             battle_case_price=serialized.data.get("battle_case_price"),
-            battle_case_items=serialized.data.get("battle_case_items"),
+            battle_case_items=[
+                CaseItem(id=item.get("id"),
+                         price=item.get("price"),
+                         rate=item.get("rate"))
+                for item in serialized.data.get("battle_case_items")
+            ],
             site_active_hour_funds=serialized.data.get(
                 "site_funds"
-            ).get("site_active_hour_funds"),
+            ).get("site_active_funds_per_hour"),
         )

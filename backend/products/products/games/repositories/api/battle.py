@@ -1,11 +1,9 @@
 from rest_framework.exceptions import ValidationError
 
-from .base import BaseApiRepository
-
 from cases.services.cases import CaseService
-from games.api.services.battle import BattleRequestApiService
+from games.api.services.battle import BattleRequestApiService, BattleApiService
 from games.serializers.battle import BattleRequestServiceEndpointSerializer
-from games.api.services.drop import CaseDropApiService
+from .base import BaseApiRepository
 
 
 class _BaseBattleApiRepository(BaseApiRepository):
@@ -51,12 +49,17 @@ class BattleRequestApiRepository(_BaseBattleApiRepository):
 
         return {"ok": ok}
 
+    def cancel(self, initiator_id: int) -> dict:
+        ok = self._api_service.cancel(initiator_id=initiator_id)
+
+        return {"ok": ok}
+
 
 class BattleApiRepository(_BaseBattleApiRepository):
-    default_drop_service = Drop
     default_cases_service = CaseService()
+    default_api_service = BattleApiService()
 
-    _api_service: BattleRequestApiService
+    _api_service: BattleApiService
 
     def __init__(self, *args,
                  cases_service: CaseService = None,
@@ -66,8 +69,25 @@ class BattleApiRepository(_BaseBattleApiRepository):
         super().__init__(*args, **kwargs)
 
     def make(self, battle_case_id: int,
-             initiator_data: dict,
-             participant_data: dict) -> dict:
-        case_items = self._cases_service.get(
+             initiator_id: int,
+             participant_id: int) -> dict:
+        case_data = self._cases_service.get(
             case_id=battle_case_id
+        )
+
+        serialized = self._api_service.default_endpoint_serializer_class(
+            data={
+                "initiator_id": initiator_id,
+                "participant_id": participant_id,
+                "site_active_funds_per_hour": 1000,  # TODO: Call service
+                "battle_case_id": case_data.pk,
+                "battle_case_price": case_data.price,
+                "battle_case_items": case_data.items
+            }
+        )
+
+        serialized.is_valid(raise_exception=True)
+
+        return self._api_service.make(
+            serialized=serialized
         )

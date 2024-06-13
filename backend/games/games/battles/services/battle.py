@@ -11,12 +11,12 @@ from cases.services.drop import CaseItemDropModelService
 
 
 class BattleRequestModelService(BaseModelService):
-    default_model = BattleMakeRequest
+    default_model = BattleRequest
 
-    def create(self, initiator_id: int, case_id: int) -> BattleMakeRequest:
+    def create(self, initiator_id: int, battle_case_id: int) -> BattleRequest:
         return self._model.objects.create(
             initiator_id=initiator_id,
-            case_id=case_id
+            battle_case_id=battle_case_id
         )
 
     def cancel(self, initiator_id: int) -> bool:
@@ -37,7 +37,9 @@ class BattleModelService(BaseModelService):
             loser_id=battle_result.battle_info.loser_id,
             battle_case_id=battle_result.battle_info.battle_case_id,
             dropped_item_winner_id=battle_result.winner_drop.id,
-            dropped_item_loser_id=battle_result.loser_drop.id
+            dropped_item_loser_id=battle_result.loser_drop.id,
+            loser_balance_diff=battle_result.loser_balance_diff,
+            winner_balance_diff=battle_result.winner_balance_diff
         )
 
 
@@ -67,7 +69,16 @@ class BattleService:
 
         winner, loser = sorted(game_data,
                                reverse=True,
-                               key=lambda pair: pait[-1].price)
+                               key=lambda pair: pair[-1].price)
+
+        winner_b_diff = (
+                (winner[-1].price - battle_request.battle_case_price) +
+                loser[-1].price
+        )
+
+        loser_b_diff = -battle_request.battle_case_price
+
+        print(winner_b_diff, loser_b_diff)
 
         return BattleResult(
             battle_info=BattleInfo(
@@ -76,13 +87,15 @@ class BattleService:
                 battle_case_id=battle_request.battle_case_id
             ),
             winner_drop=winner[-1],
-            loser_drop=loser[-1]
+            loser_drop=loser[-1],
+            winner_balance_diff=winner_b_diff,
+            loser_balance_diff=loser_b_diff
         )
 
     def _validate_items_price(self,
-                              items: BattleMakeRequest.battle_case_items,
+                              items: list,
                               case_price: int,
                               active_funds: float | int) -> None:
         for cip in items:
-            if cip - case_price > active_funds:
+            if cip.price - case_price > active_funds:
                 raise APIException("Case items prices exception")

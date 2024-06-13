@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, IntegerField
+from rest_framework.serializers import ModelSerializer, IntegerField, Serializer
 
 from common.serializers import SiteFundsSerializer
 from cases.serializers import DropItemSerializer
@@ -12,7 +12,7 @@ class BattleRequestSerializer(ModelSerializer):
         read_only_fields = ["id", "start_find_time"]
 
 
-class MakeBattleSerializer(ModelSerializer):
+class MakeBattleSerializer(Serializer):
     initiator_id = IntegerField(required=True)
     participant_id = IntegerField(required=True)
     site_funds = SiteFundsSerializer(required=True)

@@ -1,7 +1,3 @@
-from channels.auth import AuthMiddlewareStack
-from rest_framework.authtoken.models import Token
-from django.contrib.auth.models import AnonymousUser
-
 from channels.exceptions import RequestAborted
 
 from games.repositories.api.users import UsersApiRepository
@@ -21,14 +17,7 @@ class JWTTokenAuthMiddleware:
         headers = dict(scope['headers'])
 
         if b'authorization' not in headers:
-            print("Aborted")
-
-            scope['user'] = {"advantage": 100,
-                             "id": 1,
-                             "displayed_balance": 1200}
-
-            return self.inner(scope, receive, send)
-            # raise RequestAborted()
+            raise RequestAborted()
 
         token_name, token_key = headers[b'authorization'].decode().split()
 

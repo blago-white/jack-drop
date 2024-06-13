@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'upgrade',
     'contract',
     'battles',
-    'daphne',
+    # 'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,8 +78,8 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'common.wsgi.application'
-ASGI_APPLICATION = 'common.asgi.application'
+WSGI_APPLICATION = 'common.wsgi.application'
+# ASGI_APPLICATION = 'common.asgi.application'
 
 
 # Database

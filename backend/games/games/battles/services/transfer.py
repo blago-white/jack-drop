@@ -26,9 +26,14 @@ class BattleResult:
     winner_drop: CaseItem
     loser_drop: CaseItem
 
+    loser_balance_diff: float
+    winner_balance_diff: float
+
     def as_json(self) -> dict:
         return {"winner_id": self.battle_info.winner_id,
                 "loser_id": self.battle_info.loser_id,
                 "battle_case_id": self.battle_info.battle_case_id,
                 "dropped_item_winner_id": self.winner_drop.id,
-                "dropped_item_loser_id": self.loser_drop.id}
+                "dropped_item_loser_id": self.loser_drop.id,
+                "loser_balance_diff": self.loser_balance_diff,
+                "winner_balance_diff": self.winner_balance_diff}
