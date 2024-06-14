@@ -8,7 +8,7 @@ body {
     background-repeat: no-repeat;
     color: var(--fg-color);
     margin: 0px;
-    height: 192vh;
+    height: auto;
     overflow-x: hidden;
     font-size: calc(100vw * calc(22 / 1920));
     background-color: black;
@@ -34,7 +34,7 @@ body a {
 .global-sharp {
     background: url(../svg/sharp.svg);
     background-repeat: repeat;
-    height: 200vh;
+    height: 117vw;
     width: 100vw;
     position: absolute;
     z-index: -1;
@@ -179,7 +179,7 @@ button {
     }
 
     .global-sharp {
-        height: 145vh;
+        height: 314vw;
     }
 
     body {
@@ -188,5 +188,9 @@ button {
 
     .chat-btn {
         width: calc(100vw * calc(186 / 960));
+    }
+
+    .super-button-bg {
+        border-radius: calc(100vw * calc(30 / 1920))!important;
     }
 }

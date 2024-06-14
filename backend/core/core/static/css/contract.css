@@ -85,6 +85,10 @@ body {
     display: none;
 }
 
+.dropped span {
+    margin-left: 0px;
+}
+
 .inventory-items-mobile {
     display: none;
 }

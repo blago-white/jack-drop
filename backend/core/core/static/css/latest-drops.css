@@ -55,7 +55,7 @@
     gap: calc(100vw * calc(48 / var(--reference-display-w)));
     height: calc(100vw * calc(196 / var(--reference-display-w)));
     overflow-x: scroll;
-    width: calc(100% + calc(100vw* 0.0588));
+    width: calc(100% + calc(86vw* 0.0588));
     padding-right: 1ch;
 }
 
