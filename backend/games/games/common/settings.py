@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'upgrade',
     'contract',
     'battles',
-    # 'daphne',
+    'mines',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

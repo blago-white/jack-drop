@@ -21,14 +21,14 @@ class JWTTokenAuthMiddleware:
 
         token_name, token_key = headers[b'authorization'].decode().split()
 
-        print("WOW MID!")
-
         if token_name == 'Bearer':
             user_data: dict = self.users_repository.get_by_jwt(
                 jwt_token=token_key
             )
 
             scope['user'] = user_data
+        else:
+            raise RequestAborted()
 
         return self.inner(scope, receive, send)
 
