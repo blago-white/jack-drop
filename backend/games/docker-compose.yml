@@ -25,6 +25,8 @@ services:
       - gamesdb
     env_file:
       - .env
+    volumes:
+      - .:/home/app/
     container_name: gamesapp
     restart: always
 

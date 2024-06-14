@@ -55,7 +55,7 @@ class BattleService:
             self._validate_items_price(
                 items=case_items[:2],
                 case_price=battle_request.battle_case_price,
-                active_funds=battle_request.site_active_hour_funds
+                active_funds=battle_request.site_active_funds_per_hour
             )
 
             under_price = case_items[:2]

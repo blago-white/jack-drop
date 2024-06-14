@@ -2,6 +2,7 @@ from django.db import models
 
 
 class MinesGame(models.Model):
+    user_id = models.PositiveIntegerField()
     count_mines = models.PositiveIntegerField()
     is_win = models.BooleanField()
     loss_step = models.IntegerField(null=True, blank=True)

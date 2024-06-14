@@ -115,7 +115,7 @@ class BattleRepository(BaseRepository):
                          rate=item.get("rate"))
                 for item in serialized.data.get("battle_case_items")
             ],
-            site_active_hour_funds=serialized.data.get(
+            site_active_funds_per_hour=serialized.data.get(
                 "site_funds"
             ).get("site_active_funds_per_hour"),
         )

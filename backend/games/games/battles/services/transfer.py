@@ -17,7 +17,7 @@ class BattleMakeRequest:
     battle_case_items: list[CaseItem]
     battle_case_price: int
     battle_case_id: int
-    site_active_hour_funds: float
+    site_active_funds_per_hour: float
 
 
 @dataclass

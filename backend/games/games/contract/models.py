@@ -4,6 +4,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Contract(models.Model):
+    user_id = models.PositiveIntegerField()
     granted_amount = models.FloatField()
     result_item = models.IntegerField()
     datetime = models.DateTimeField(auto_now=True)
@@ -21,7 +22,7 @@ class ContractShift(models.Model):
 
     def clean(self):
         if self.active:
-            if ChanceShift.objects.filter(active=True).exists():
+            if ContractShift.objects.filter(active=True).exists():
                 raise ValidationError(
                     "You can add only one active contract shift"
                 )
