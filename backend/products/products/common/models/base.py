@@ -1,8 +1,7 @@
 from abc import abstractmethod
 
-from django.utils.html import escape, mark_safe
-
 from django.db import models
+from django.utils.html import escape, mark_safe
 
 
 class BaseModel(models.Model):
