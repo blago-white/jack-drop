@@ -1,11 +1,11 @@
-from common.mixins.api import CreateApiViewMixin
+from common.mixins.api import CreateAPIViewMixin
 from games.repositories.api.contract import ContractApiRepository
 from games.repositories.api.users import UsersApiRepository
 
 from .base import BaseGameProxyCreateApiView
 
 
-class ContractGameApiView(CreateApiViewMixin, BaseGameProxyCreateApiView):
+class ContractGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):
     users_api_repository = UsersApiRepository()
     contract_repository = ContractApiRepository()
     serializer_class = contract_repository.default_api_service.default_endpoint_serializer_class

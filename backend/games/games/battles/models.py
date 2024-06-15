@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 
 class BattleRequest(models.Model):
     initiator_id = models.PositiveIntegerField(unique=True)
-    battle_case_id = models.PositiveIntegerField()
+    battle_case_id = models.PositiveIntegerField(unique=True)
     start_find_time = models.DateTimeField(auto_now=True, blank=True)
 
 

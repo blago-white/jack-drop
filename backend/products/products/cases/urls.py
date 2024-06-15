@@ -4,7 +4,6 @@ from .apiviews.cases import CasesListAPIView, CaseRetrieveAPIView
 from .apiviews.items import CaseItemsListAPIView
 from .views.cases import CasesView
 from .views.categories import CasesCategoriesView
-from .api import urls
 
 urlpatterns = [
     path("api/v1/cases/", CasesListAPIView.as_view()),

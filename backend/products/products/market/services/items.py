@@ -40,7 +40,7 @@ class MarketItemParser:
             image_path=self._get_item_image_path(
                 json.get("market_name")
             ),
-            price=float(json.get("min_price"))
+            price=float(json.get("min_price"))//100
         )
 
     def _complete_info_api_request(self, item_params: ItemMarketParams) -> str:

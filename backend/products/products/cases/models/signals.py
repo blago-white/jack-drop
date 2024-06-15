@@ -5,7 +5,7 @@ from cases.services.chances import (CaseItemsChancesService,
 from .items import CaseItem
 
 
-def update_case_items_chances(*args,
+def update_case_items_rates(*args,
                               instance: CaseItem,
                               case_items_service: BaseCaseItemsChancesService = None,
                               **kwargs):
@@ -14,5 +14,5 @@ def update_case_items_chances(*args,
     manager.update_chanses(case=instance.case)
 
 
-post_save.connect(update_case_items_chances, sender=CaseItem)
-post_delete.connect(update_case_items_chances, sender=CaseItem)
+post_save.connect(update_case_items_rates, sender=CaseItem)
+post_delete.connect(update_case_items_rates, sender=CaseItem)

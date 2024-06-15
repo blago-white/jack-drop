@@ -78,8 +78,6 @@ class BattleService:
 
         loser_b_diff = -battle_request.battle_case_price
 
-        print(winner_b_diff, loser_b_diff)
-
         return BattleResult(
             battle_info=BattleInfo(
                 winner_id=winner[0],

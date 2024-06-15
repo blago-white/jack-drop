@@ -58,7 +58,7 @@ class BattleRequestAsyncConsumer(JsonWebsocketConsumer):
                 }
             )
 
-            if self._count_connections() == 2:
+            if self._count_connections_for_group() == 2:
                 async_to_sync(self.channel_layer.group_send)(
                     self.group_name, {"type": "disconnect"}
                 )
@@ -72,27 +72,44 @@ class BattleRequestAsyncConsumer(JsonWebsocketConsumer):
         self.battle_case_id = message.payload.battle_case_id
         self.initiator_id = user_data.get("id")
 
-        self.group_name = f"{self.battle_case_id}-{self.initiator_id}"
+        self.group_name = self._get_group_name()
 
-        if count_conns := self._count_connections():
+        if count_conns := self._count_connections_for_group():
+            async_to_sync(self.channel_layer.group_discard)(
+                self.group_name,
+                self.channel_name
+            )
             self.group_name = None
 
             return {"success": False,
                     "error": f"Battle request now exists ({count_conns})"}
 
-        async_to_sync(self.channel_layer.group_add)(
-            self.group_name,
-            self.channel_name
-        )
-
-        return self._battle_request_api_repository.create(
+        result = self._battle_request_api_repository.create(
             battle_case_id=message.payload.battle_case_id,
             user_data=user_data,
         )
 
+        if result.get("ok"):
+            print("ADDED:", self.group_name)
+
+            async_to_sync(self.channel_layer.group_add)(
+                self.group_name,
+                self.channel_name
+            )
+
+            print("CHANNELS:", self.channel_layer.groups)
+        else:
+            self.group_name = None
+
+        print(result, "RESULT CREATE")
+
+        return result
+
     def on_cancel(self) -> dict:
-        if self._count_connections() >= 2:
+        if self._count_connections_for_group() >= 2:
             return {"success": False, "error": "Battle is run now"}
+        elif not self.group_name:
+            return {"success": True, "not_modified": True}
 
         async_to_sync(self.channel_layer.group_discard)(
             self.group_name,
@@ -115,36 +132,51 @@ class BattleRequestAsyncConsumer(JsonWebsocketConsumer):
         if not initiator_id:
             return {"success": "False", "error": "Battle request not found"}
         else:
-            initiator_id = initiator_id[0]
+            self.initiator_id = int(initiator_id[0])
 
-        self.group_name = f"{self.battle_case_id}-{initiator_id}"
+        self.group_name = self._get_group_name()
 
-        if self._count_connections() != 1:
+        if self._count_connections_for_group() != 1:
             return {"success": False, "error": "Battle request not found"}
 
         participant_id = self.scope.get("user").get("id")
+
+        print("ADDED:", self.group_name)
 
         async_to_sync(self.channel_layer.group_add)(
             self.group_name,
             self.channel_name
         )
 
+        print("CHANNELS:", self.channel_layer.groups)
+
         return self._battle_api_repository.make(
             battle_case_id=self.battle_case_id,
-            initiator_id=initiator_id,
+            initiator_id=self.initiator_id,
             participant_id=participant_id
         )
 
     def disconnect(self, code):
-        async_to_sync(self.channel_layer.group_discard)(
-            self.group_name,
-            self.channel_name
-        )
+        if self.group_name:
+            async_to_sync(self.channel_layer.group_discard)(
+                self.group_name,
+                self.channel_name
+            )
+
+        super().disconnect(code=code)
 
     def battle_message(self, message: dict[str, dict]):
         self.send_json(content=message.get("message"))
 
-    def _count_connections(self):
+    def _count_connections_for_group(self):
+        count = list(self.channel_layer.groups.keys())
+
         return len(
             self.channel_layer.groups.get(self.group_name) or []
         )
+
+    def _get_group_name(self) -> str:
+        if not (self.battle_case_id and self.initiator_id):
+            raise ValueError
+
+        return f"{self.battle_case_id}-{self.initiator_id}"

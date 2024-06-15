@@ -12,7 +12,7 @@
     <button onclick="send_conn()">Connect</button>
 
     <script>
-        const socket = new WebSocket("ws://127.0.0.1:8000/ws/battle/{{ k }}/");
+        const socket = new WebSocket("ws://localhost/products/ws/battle/");
 
         socket.onmessage = function(event) {
             alert("Получены данные " + event.data);

@@ -1,11 +1,11 @@
-from cases.serializers.case import CaseDetailedDataPrivateSerializer
+from cases.serializers.case import CaseSerializer
 from cases.services.cases import CaseService
 from common.repositories.base import BaseRepository
 
 
 class CasesRepository(BaseRepository):
     default_service = CaseService()
-    default_serializer_class = CaseDetailedDataPrivateSerializer
+    default_serializer_class = CaseSerializer
 
     _service: CaseService
 

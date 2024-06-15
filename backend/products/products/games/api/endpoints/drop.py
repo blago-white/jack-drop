@@ -1,5 +1,5 @@
 from cases.repositories.case import CasesRepository
-from common.mixins.api import CreateApiViewMixin
+from common.mixins.api import CreateAPIViewMixin
 from games.repositories.api.drop import CaseDropApiRepository
 from games.repositories.api.users import UsersApiRepository
 from games.serializers.drop import DropItemGameApiViewSerializer
@@ -7,7 +7,7 @@ from games.serializers.drop import DropItemGameApiViewSerializer
 from .base import BaseGameProxyCreateApiView
 
 
-class DropItemGameApiView(CreateApiViewMixin, BaseGameProxyCreateApiView):
+class DropItemGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):
     users_api_repository = UsersApiRepository()
     cases_repository = CasesRepository()
     drop_api_repository = CaseDropApiRepository()

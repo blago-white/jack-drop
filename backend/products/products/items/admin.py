@@ -28,5 +28,5 @@ class ItemAdmin(ModelAdmin):
     @admin.display()
     def price_of_item(self, instance: Item):
         return mark_safe(
-            f"<b>{instance.price // 100} RUB</b>"
+            f"<b>{instance.price} RUB</b>"
         )

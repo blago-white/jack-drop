@@ -171,14 +171,16 @@ CELERY_BROKER_URL = (f"redis://"
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 
 GAMES_SERVICE_ROUTES = {
-    "drop": "http://games/games/private/case/drop/",
-    "upgrade": "http://games/games/private/upgrade/new/",
-    "contract_get_amount": "http://games/games/private/contract/get_shifted_amount/",
-    "contract_save": "http://games/games/private/contract/save/",
-    "create_battle_request": "http://games/private/battle/make-request/",
-    "drop_battle_request": "http://games/private/battle/drop-request"
+    "drop": "http://gamesapp:8000/games/private/case/drop/",
+    "upgrade": "http://gamesapp:8000/games/private/upgrade/new/",
+    "contract_get_amount":
+        "http://gamesapp:8000/games/private/contract/get_shifted_amount/",
+    "contract_save": "http://gamesapp:8000/games/private/contract/save/",
+    "create_battle_request":
+        "http://gamesapp:8000/games/private/battle/make-request/",
+    "drop_battle_request": "http://gamesapp:8000/games/private/battle/drop-request"
                            "/{initiator_id}/",
-    "make_battle": "http://games/private/battle/make-battle/",
+    "make_battle": "http://gamesapp:8000/games/private/battle/make-battle/",
 }
 
 USERS_MICROSERVICE_ROUTES = {

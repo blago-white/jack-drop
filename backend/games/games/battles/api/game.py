@@ -1,3 +1,5 @@
+import json
+
 from common.views.api import DefaultCreateApiView
 
 from battles.repositories.battle import BattleRequestRepository, BattleRepository
@@ -11,6 +13,6 @@ class MakeBattleApiView(DefaultCreateApiView):
     def create(self, request, *args, **kwargs):
         return self.get_200_response(
             data=self.repository.make(
-                request_data=request.data
+                request_data=json.loads(request.data)
             )
         )
