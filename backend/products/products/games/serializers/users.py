@@ -11,5 +11,5 @@ class UserAdvantageSerializer(serializers.Serializer):
 
 class UserFundsSerializer(serializers.Serializer):
     id = serializers.IntegerField(required=True, min_value=0)
-    advantage = UserAdvantageSerializer(required=True)
+    user_advantage = serializers.FloatField()
     displayed_balance = serializers.FloatField(required=True, min_value=0)

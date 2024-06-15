@@ -1,3 +1,5 @@
+import json
+
 import requests
 
 from games.serializers.drop import DropCaseRequestSerializer
@@ -10,7 +12,10 @@ class CaseDropApiService(BaseApiService):
     def drop(self, serialized: dict) -> dict:
         response = requests.post(
             self._routes.get("drop"),
-            data=serialized
+            data=json.dumps(serialized),
+            headers={
+                "Content-Type": "application/json"
+            }
         )
 
         return response.json()

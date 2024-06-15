@@ -13,6 +13,6 @@ class MakeBattleApiView(DefaultCreateApiView):
     def create(self, request, *args, **kwargs):
         return self.get_200_response(
             data=self.repository.make(
-                request_data=json.loads(request.data)
+                request_data=request.data
             )
         )

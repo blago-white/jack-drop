@@ -28,9 +28,12 @@ class UsersApiRepository(BaseApiRepository):
         return self.get(user_request=user_request).get("desplayed_balance")
 
     def get_advantage(self, user_request: Request) -> float:
-        return self.get(user_request=user_request).get("advantage")
+        return self.get(user_request=user_request).get("user_advantage")
 
     def update_balance(self, user_request: Request, delta_amount: float):
+        print(user_request, delta_amount)
+        return
+
         self._api_service.update_user_balance(
             user_request=user_request,
             delta_amount=delta_amount

@@ -1,15 +1,18 @@
 from cases.repositories.case import CasesRepository
-from common.mixins.api import CreateAPIViewMixin
-from games.repositories.api.drop import CaseDropApiRepository
+from common.mixins.api import CreateAPIViewMixin, DetailedApiViewMixin
+from games.repositories.api.drop import CaseDropApiRepository, DropItemsRepository
 from games.repositories.api.users import UsersApiRepository
 from games.serializers.drop import DropItemGameApiViewSerializer
 
 from .base import BaseGameProxyCreateApiView
 
 
-class DropItemGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):
+class DropItemGameApiView(DetailedApiViewMixin,
+                          CreateAPIViewMixin,
+                          BaseGameProxyCreateApiView):
     users_api_repository = UsersApiRepository()
     cases_repository = CasesRepository()
+    case_items_repository = DropItemsRepository()
     drop_api_repository = CaseDropApiRepository()
 
     serializer_class = DropItemGameApiViewSerializer
@@ -25,8 +28,13 @@ class DropItemGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):
             case_id=self.get_requested_pk()
         )
 
+        case_items = self.case_items_repository.get_drop_items_by_case(
+            case_pk=case_data.get("id")
+        )
+
         result = self.drop_api_repository.drop(
-            data=user_funds | case_data
+            user_funds=user_funds,
+            case_data=case_data | {"items": case_items}
         )
 
         self.users_api_repository.update_balance(

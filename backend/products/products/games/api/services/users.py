@@ -12,6 +12,14 @@ class UsersApiService(BaseApiService):
 
     def get_user_info(self, user_request: Request = None,
                       jwt: str = None) -> dict:
+        # TODO: Remove on deploy
+
+        return {
+            "id": 1,
+            "user_advantage": -200,
+            "displayed_balance": 1000,
+        }
+
         if user_request:
             return self.send_auth_get_api_request(
                 path=self.routes.get("get_info"),

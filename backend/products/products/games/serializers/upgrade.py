@@ -5,7 +5,8 @@ from .site import SiteFundsSerializer
 
 class UserFundsStateSerializer(serializers.Serializer):
     id = serializers.IntegerField(min_value=0)
-    advantage = serializers.FloatField()
+    user_advantage = serializers.FloatField()
+
 
 class UpgradeRequestSerializer(serializers.Serializer):
     granted_funds = serializers.IntegerField(allow_null=True, default=0)
