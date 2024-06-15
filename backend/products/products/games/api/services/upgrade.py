@@ -1,3 +1,4 @@
+import json
 import requests
 
 from games.serializers.upgrade import UpgradeRequestSerializer
@@ -10,7 +11,10 @@ class UpgradeService(BaseApiService):
     def make_upgrade(self, serialized: UpgradeRequestSerializer) -> bool:
         response = requests.post(
             self._routes.get("upgrade"),
-            data=serialized.data
-        ).json()
+            data=json.dumps(serialized.data),
+            headers={"Content-Type": "application/json"}
+        )
 
-        return response.get("success")
+        print(response.text, "REST", serialized.data)
+
+        return response.json().get("success")

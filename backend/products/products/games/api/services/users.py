@@ -74,6 +74,9 @@ class UsersApiService(BaseApiService):
             user_request: Request,
             data: dict = None
     ) -> dict:
+        # TODO: Remove on deploy
+        return {}
+
         auth_header = user_request.auth
 
         return requests.patch(

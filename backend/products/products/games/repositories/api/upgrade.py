@@ -23,10 +23,12 @@ class UpgradeApiRepository(BaseApiRepository):
                  inventory_service: InventoryService = None,
                  items_service: ItemService = None,
                  users_service: UsersApiService = None,
+                 serializer_class: UpgradeRequestApiViewSerializer = None,
                  **kwargs):
         self._inventory_service = inventory_service or self.default_inventory_service
         self._items_service = items_service or self.default_items_service
         self._users_service = users_service or self.default_users_service
+        self._serializer_class = serializer_class or self.default_serializer_class
 
         super().__init__(*args, **kwargs)
 
@@ -102,8 +104,9 @@ class UpgradeApiRepository(BaseApiRepository):
     def _validate_funds(
             self, data: dict, user_funds: float
     ) -> tuple[dict, dict]:
-        serialized = self._api_service.default_endpoint_serializer_class(
-            data=data
+
+        serialized = self._serializer_class(
+            data=data | user_funds
         )
 
         serialized.is_valid(raise_exception=True)
@@ -119,7 +122,9 @@ class UpgradeApiRepository(BaseApiRepository):
                 )
 
         elif serialized.data.get("granted_funds"):
-            if displayed_balance < serialized.data.get("granted_funds"):
+            if user_funds.get("displayed_balance") < serialized.data.get(
+                    "granted_funds"
+            ):
                 raise ValidationError(
                     "There are not enough balance funds for action"
                 )
