@@ -33,7 +33,7 @@ class ReferralService(BaseService):
 
         deposits = self._deposits_model.objects.filter(
             user_id__in=refferals
-        ).aggregate(deposits=Sum("amount")).get("deposits", 0)
+        ).aggregate(deposits=Sum("amount")).drop_item("deposits", 0)
 
         return deposits if deposits is not None else 0
 

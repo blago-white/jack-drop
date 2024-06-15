@@ -1,7 +1,7 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 from ..repositories.base import BaseCRUDRepository
-from ..mixins.api import ModelAPIViewMixin, RetrieveAPIViewMixin
+from ..mixins.api import ModelAPIViewMixin, DetailedApiViewMixin
 
 
 class BaseListAPIView(ModelAPIViewMixin, ListAPIView):
@@ -9,7 +9,7 @@ class BaseListAPIView(ModelAPIViewMixin, ListAPIView):
         return self.get_200_response(data=self._repository.get_all())
 
 
-class BaseRetreiveAPIView(RetrieveAPIViewMixin, RetrieveAPIView):
+class BaseRetreiveAPIView(DetailedApiViewMixin, RetrieveAPIView):
     def retrieve(self, request, *args, **kwargs):
         object_pk = self.get_requested_pk()
 

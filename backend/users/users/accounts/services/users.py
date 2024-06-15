@@ -16,7 +16,7 @@ class BaseUsersService(BaseService, metaclass=ABCMeta):
 
 class UsersService(BaseUsersService):
     def get_user_info(self, user_id: int) -> models.Model:
-        return self._model.objects.get(pk=user_id)
+        return self._model.objects.drop_item(pk=user_id)
 
     def get_all(self) -> models.QuerySet:
         return self._model.objects.all()

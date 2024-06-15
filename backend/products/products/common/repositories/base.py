@@ -1,36 +1,19 @@
 from abc import ABCMeta, abstractmethod
-
 from rest_framework import serializers
 
 from common.services import base
+
+from ..services.base import BaseReadOnlyService
+
 
 RequestPostData = dict[str, int | str]
 PrimaryKey = int
 
 
-class BaseRepository(metaclass=ABCMeta):
-    @property
-    @abstractmethod
-    def _service(self) -> base.BaseModelService:
-        pass
-
-    @property
-    @abstractmethod
-    def _serializer(self) -> serializers.Serializer:
-        pass
-
-
-class BaseReadOnlyRepository(BaseRepository, metaclass=ABCMeta):
-    @abstractmethod
-    def get_all(self, *args, **kwargs) -> dict:
-        pass
-
-    @abstractmethod
-    def get(self, *args, **kwargs) -> dict:
-        pass
-
-
 class BaseCRUDRepository(metaclass=ABCMeta):
+    def __init__(self):
+        pass
+
     @abstractmethod
     def create(self, *args, **kwargs) -> dict:
         pass
@@ -60,3 +43,18 @@ class BaseModelRepository(BaseCRUDRepository, metaclass=ABCMeta):
     @abstractmethod
     def delete(self, pk: PrimaryKey) -> None:
         pass
+
+
+class BaseRepository(metaclass=ABCMeta):
+    _service: BaseReadOnlyService
+    _serializer_class: serializers.Serializer
+    default_service: BaseReadOnlyService | None
+    default_serializer_class: serializers.Serializer | None
+
+    def __init__(self,
+                 service: BaseReadOnlyService = None,
+                 serializer_class: serializers.Serializer = None
+                 ):
+        self._service = service or self.default_service
+        self._serializer_class = (serializer_class or
+                                  self.default_serializer_class)

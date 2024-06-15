@@ -9,11 +9,11 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 import sys
+from pathlib import Path
 
 import dotenv
-import os
-from pathlib import Path
 
 dotenv.load_dotenv()
 
@@ -40,10 +40,16 @@ INSTALLED_APPS = [
     'items',
     'market',
     'refresher',
+    'games',
+    'inventory',
+    'interactive',
+
+    'daphne',
+    'rest_framework',
     'admin_interface',
     'colorfield',
-    'common.apps.JackDropAdminConfig',
-    'rest_framework',
+
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -82,7 +88,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'common.wsgi.application'
+ASGI_APPLICATION = 'common.asgi.application'
 
 
 # Database
@@ -104,28 +110,6 @@ DATABASES = {
 
 if "test" in sys.argv:
     DATABASES["default"] = DATABASES["test"]
-
-LOGGING = {
-    'version': 1,
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-        }
-    },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'filters': ['require_debug_true'],
-            'class': 'logging.StreamHandler',
-        }
-    },
-    'loggers': {
-        'django.db.backends': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-        }
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -185,3 +169,31 @@ CELERY_BROKER_URL = (f"redis://"
                      f"{os.environ.get('REDIS_PASSWORD')}@productsredis:6379")
 
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+
+GAMES_SERVICE_ROUTES = {
+    "drop": "http://games/games/private/case/drop/",
+    "upgrade": "http://games/games/private/upgrade/new/",
+    "contract_get_amount": "http://games/games/private/contract/get_shifted_amount/",
+    "contract_save": "http://games/games/private/contract/save/",
+    "create_battle_request": "http://games/private/battle/make-request/",
+    "drop_battle_request": "http://games/private/battle/drop-request"
+                           "/{initiator_id}/",
+    "make_battle": "http://games/private/battle/make-battle/",
+}
+
+USERS_MICROSERVICE_ROUTES = {
+    "get_advantage": "http://users/auth/api/v1/p/advantage/",
+    "get_info": "http://users/auth/api/v1/p/get_user_info_jwt/",
+    "get_balance": "http://users/auth/"
+                   "balances/api/v1/p/displayed_balance_jwt/",
+    "update_balance_jwt": "http://users/auth/"
+                   "balances/api/v1/p/displayed_balance_jwt/update/",
+    "update_balance": "http://users/auth/"
+                   "balances/api/v1/p/displayed_balance/{client_id}/update/"
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    },
+}

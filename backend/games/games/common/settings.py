@@ -36,12 +36,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'cases',
+    'upgrade',
+    'contract',
+    'battles',
+    'mines',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +60,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'games.urls'
+ROOT_URLCONF = 'common.urls'
 
 TEMPLATES = [
     {
@@ -72,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'games.wsgi.application'
+WSGI_APPLICATION = 'common.wsgi.application'
 
 
 # Database
@@ -80,6 +86,13 @@ WSGI_APPLICATION = 'games.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get("POSTGRES_DB"),
+        'USER': os.environ.get("POSTGRES_USER"),
+        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
+        'HOST': os.environ.get("POSTGRES_HOST"),
+    },
+    'test': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
@@ -121,8 +134,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PRODUCTS_MICROSERVICE_ROUTES = {
+    "case_info": "http://products:8000/products/cases/api/v1/p/case_drop_data/{case_id}/",
+    "item_price": "http://products:8000/products/items/api/v1/p/item_price/{item_id>}/"
+}
+
+USERS_MICROSERVICE_ROUTES = {
+    "get_advantage": "http://users:8000/auth/api/v1/p/advantage/",
+    "get_info": "http://users:8000/auth/api/v1/p/get_user_info_jwt/",
+}
