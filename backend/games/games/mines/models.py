@@ -12,7 +12,7 @@ class MinesGame(models.Model):
             models.CheckConstraint(
                 check=models.Q(count_mines__gte=1) & models.Q(
                     count_mines__lte=24
-                ) ,
+                ),
                 name="count_mines_gte_1_lte_24"
             ),
         ]

@@ -35,7 +35,8 @@ class CaseItem(BaseImageModel):
     def clean(self):
         if self.can_drop and not self.view:
             raise ValidationError(
-                "The item is hidden, but it can fall out, it is forbidden")
+                "The item is hidden, but it can fall out, it is forbidden"
+            )
 
     def _get_image(self) -> models.URLField:
         return self.item.image_path

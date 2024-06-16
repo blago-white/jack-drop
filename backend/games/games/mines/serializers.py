@@ -10,7 +10,7 @@ class MinesGameRequestSerializer(serializers.Serializer):
                                            required=True,
                                            min_value=1)
 
-    user_advantage = serializers.FloatField()
+    user_funds = UserFundsStateSerializer()
     user_deposit = serializers.FloatField(min_value=1)
 
     site_funds = SiteFundsSerializer(required=True)

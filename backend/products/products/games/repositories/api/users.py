@@ -1,13 +1,13 @@
 from rest_framework.request import Request
 
 from games.api.services.users import UsersApiService
-from games.serializers.users import UserFundsSerializer
+from games.serializers.users import DetailedUserFundsSerializer
 from .base import BaseApiRepository
 
 
 class UsersApiRepository(BaseApiRepository):
     default_api_service = UsersApiService()
-    default_serializer_class = UserFundsSerializer
+    default_serializer_class = DetailedUserFundsSerializer
     _api_service: UsersApiService
 
     def get(self, user_request: Request) -> dict:
@@ -15,14 +15,14 @@ class UsersApiRepository(BaseApiRepository):
             user_request=user_request
         )
 
-        return UserFundsSerializer(instance=data).data
+        return DetailedUserFundsSerializer(instance=data).data
 
     def get_by_jwt(self, jwt_token: str) -> dict:
         data: float = self._api_service.get_user_info(
             jwt=jwt_token
         )
 
-        return UserFundsSerializer(instance=data).data
+        return DetailedUserFundsSerializer(instance=data).data
 
     def get_balance(self, user_request: Request) -> float:
         return self.get(user_request=user_request).get("desplayed_balance")

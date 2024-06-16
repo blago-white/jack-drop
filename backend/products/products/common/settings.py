@@ -181,6 +181,7 @@ GAMES_SERVICE_ROUTES = {
     "drop_battle_request": "http://gamesapp:8000/games/private/battle/drop-request"
                            "/{initiator_id}/",
     "make_battle": "http://gamesapp:8000/games/private/battle/make-battle/",
+    "make_mines_game": "http://gamesapp:8000/games/private/mines/make/",
 }
 
 USERS_MICROSERVICE_ROUTES = {

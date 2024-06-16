@@ -22,6 +22,8 @@ class MinesGameRepository(BaseRepository):
         super().__init__()
 
     def make(self, request_data: dict) -> dict:
+        print("GAME:", request_data)
+
         serialized: MinesGameRequestSerializer = self._serializer_class(
             data=request_data
         )
@@ -37,9 +39,9 @@ class MinesGameRepository(BaseRepository):
         )
 
         instance = self._model_service.save(
+            user_id=serialized.data.get("user_funds").get("id"),
             count_mines=game_request.count_mines,
-            is_win=result.is_win,
-            loss_step=result.loss_step
+            mines_game_result=result
         )
 
         return MinesGameResultSerializer(
@@ -55,7 +57,9 @@ class MinesGameRepository(BaseRepository):
     ) -> MinesGameRequest:
         return MinesGameRequest(
             count_mines=serialized.data.get("count_mines"),
-            user_advantage=serialized.data.get("user_advantage"),
+            user_advantage=serialized.data.get("user_funds").get(
+                "user_advantage"
+            ),
             user_deposit=serialized.data.get("user_deposit"),
             site_active_funds_per_hour=serialized.data.get(
                 "site_funds"

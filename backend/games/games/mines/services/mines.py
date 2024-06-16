@@ -73,11 +73,12 @@ class MinesService:
 class MinesModelService(BaseModelService):
     default_model = MinesGame
 
-    def save(self, count_mines: int,
-             is_win: bool,
-             loss_step: int = None) -> MinesGame:
+    def save(self, user_id: int,
+             count_mines: int,
+             mines_game_result: MinesGameRequest) -> MinesGame:
         return self._model.objects.create(
+            user_id=user_id,
             count_mines=count_mines,
-            is_win=is_win,
-            loss_step=loss_step
+            is_win=mines_game_result.is_win,
+            loss_step=mines_game_result.loss_step
         )
