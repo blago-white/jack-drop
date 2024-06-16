@@ -34,7 +34,7 @@ class UsersApiRepository(BaseApiRepository):
         print(user_request, delta_amount)
         return
 
-        self._api_service.update_user_balance(
+        self._api_service.update_user_balance_by_request(
             user_request=user_request,
             delta_amount=delta_amount
         )

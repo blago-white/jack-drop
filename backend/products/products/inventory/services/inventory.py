@@ -1,5 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.db.transaction import savepoint_rollback, savepoint
 
 from common.services.base import BaseReadOnlyService
 from ..models import InventoryItem
@@ -12,16 +13,37 @@ class InventoryService(BaseReadOnlyService):
         return self._model.objects.all()
 
     def check_ownership(self, owner_id: int, item_id: int) -> bool:
+        print(owner_id, item_id, self._model.objects.all().values(
+            "user_id", "item_id"
+        ))
+
         return self._model.objects.filter(
             user_id=owner_id,
             item_id=item_id
         ).exists()
 
+    def bulk_remove_from_inventory(self, owner_id: int,
+                                   inventory_items_ids: list[int]) -> bool:
+        sid = savepoint()
+
+        deleted, _ = self._model.objects.filter(
+            pk__in=inventory_items_ids,
+            user_id=owner_id
+        ).delete()
+
+        if len(inventory_items_ids) != deleted:
+            savepoint_rollback(sid)
+            return False
+
+        return True
+
     def remove_from_inventory(self, owner_id: int, item_id: int) -> bool:
-        return self._model.objects.filter(
-            owner_id=owner_id,
-            item_id=item_id
-        )[:1].delete() > 0
+        return bool(self._model.objects.filter(
+            pk__in=self._model.objects.filter(
+                user_id=owner_id,
+                item_id=item_id
+            ).values_list("pk", flat=True)[:1]
+        ).delete())
 
     def add_item(self, owner_id: int, item_id: int) -> InventoryItem:
         return self._model.objects.create(
@@ -29,10 +51,9 @@ class InventoryService(BaseReadOnlyService):
             item_id=item_id
         )
 
-    def bulk_get_items_amount(self, owner_id: int,
-                              inventory_items_ids: list[int]) -> float:
-        print("OWNER", owner_id, "INVID", inventory_items_ids)
-
+    def bulk_get_items_amount(
+            self, owner_id: int,
+            inventory_items_ids: list[int]) -> float:
         items = self._model.objects.filter(
             user_id=owner_id,
             id__in=inventory_items_ids

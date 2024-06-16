@@ -39,7 +39,7 @@ class BattleApiService(BaseApiService):
 
         response = requests.post(
             url=self._routes.get("make_battle"),
-            json=json.dumps(dict(serialized.data)),
+            data=json.dumps(serialized.data),
             headers={
                 "Content-Type": "application/json"
             }

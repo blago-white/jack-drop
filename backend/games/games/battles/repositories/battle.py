@@ -75,8 +75,6 @@ class BattleRepository(BaseRepository):
             )
         )
 
-        print("RESULT", result)
-
         self._battle_request_service.cancel(initiator_id=serialized.data.get(
             "initiator_id"
         ))

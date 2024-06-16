@@ -90,18 +90,12 @@ class BattleRequestAsyncConsumer(JsonWebsocketConsumer):
         )
 
         if result.get("ok"):
-            print("ADDED:", self.group_name)
-
             async_to_sync(self.channel_layer.group_add)(
                 self.group_name,
                 self.channel_name
             )
-
-            print("CHANNELS:", self.channel_layer.groups)
         else:
             self.group_name = None
-
-        print(result, "RESULT CREATE")
 
         return result
 
@@ -123,37 +117,32 @@ class BattleRequestAsyncConsumer(JsonWebsocketConsumer):
         )
 
     def on_start_battle(self):
-        initiator_id = [
-            i.split("-")[-1]
-            for i in self.channel_layer.groups.keys()
-            if i.split("-")[0] == str(self.battle_case_id)
-        ]
+        initiator_id = self._get_initiator_by_case_id(
+            battle_case_id=self.battle_case_id
+        )
 
-        if not initiator_id:
+        if initiator_id is None:
+            print("INITIATOR IS NONE")
             return {"success": "False", "error": "Battle request not found"}
-        else:
-            self.initiator_id = int(initiator_id[0])
 
+        self.initiator_id = initiator_id
         self.group_name = self._get_group_name()
 
+        print(self.channel_layer.groups, self.group_name)
+
         if self._count_connections_for_group() != 1:
+            print("SMALL CONN")
             return {"success": False, "error": "Battle request not found"}
-
-        participant_id = self.scope.get("user").get("id")
-
-        print("ADDED:", self.group_name)
 
         async_to_sync(self.channel_layer.group_add)(
             self.group_name,
             self.channel_name
         )
 
-        print("CHANNELS:", self.channel_layer.groups)
-
         return self._battle_api_repository.make(
             battle_case_id=self.battle_case_id,
             initiator_id=self.initiator_id,
-            participant_id=participant_id
+            participant_data=self.scope.get("user")
         )
 
     def disconnect(self, code):
@@ -177,6 +166,18 @@ class BattleRequestAsyncConsumer(JsonWebsocketConsumer):
 
     def _get_group_name(self) -> str:
         if not (self.battle_case_id and self.initiator_id):
-            raise ValueError
+            return
 
         return f"{self.battle_case_id}-{self.initiator_id}"
+
+    def _get_initiator_by_case_id(self, battle_case_id: int) -> int | None:
+        initiator_list = [
+            i.split("-")[-1]
+            for i in self.channel_layer.groups.keys()
+            if i.split("-")[0] == str(battle_case_id)
+        ]
+
+        if not initiator_list:
+            return None
+
+        return initiator_list.pop()

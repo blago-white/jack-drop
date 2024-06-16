@@ -51,6 +51,10 @@ class UpgradeApiRepository(BaseApiRepository):
                 user_funds=user_funds
             )
         else:
+            self._commit_loss(
+                validated_data=validated_data,
+                user_funds=user_funds
+            )
             self._commit_win(
                 owner_id=user_funds.get("id"),
                 item_id=validated_data.get("receive_item_id")
@@ -65,7 +69,7 @@ class UpgradeApiRepository(BaseApiRepository):
                 item_id=validated_data.get("granted_item_id")
             )
         else:
-            self._users_service.update_user_balance(
+            self._users_service.update_user_balance_by_request(
                 user_id=user_funds.get("id"),
                 delta_amount=-validated_data.get("granted_funds")
             )

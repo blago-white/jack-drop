@@ -34,27 +34,26 @@ class ContractApiRepository(BaseApiRepository):
         super().__init__(*args, **kwargs)
 
     def make_contract(self, request_data: dict, user_data: dict) -> dict:
-        request_data: Serializer = self._seriaizer_class(
+        serialized: Serializer = self._seriaizer_class(
             data=request_data
         )
 
-        print("_____111")
-
-        request_data.is_valid(raise_exception=True)
+        serialized.is_valid(raise_exception=True)
 
         granted_amount, shifted_amount = self._get_shifted_amount(
-            request_data=request_data.data,
+            request_data=serialized.data,
             user_id=user_data.get("id")
         )
-
-        print("_______2", granted_amount, shifted_amount)
 
         contract_item = self._items_service.get_closest_by_price(
             price=shifted_amount
         )
 
-        print(user_data, "CLOSEST", contract_item)
-        print(granted_amount, contract_item.pk)
+        self._commit_result(user_id=user_data.get("id"),
+                            granted_items_ids=serialized.data.get(
+                                "granted_inventory_items"
+                            ),
+                            result_item_pk=contract_item.pk)
 
         self._save_contract(serializer_data={
             "user_id": user_data.get("id"),
@@ -62,9 +61,25 @@ class ContractApiRepository(BaseApiRepository):
             "result_item": contract_item.pk
         })
 
-        print("SAVED")
-
         return self._item_serializer_class(instance=contract_item).data
+
+    def _commit_result(self, user_id: int,
+                       granted_items_ids: list[int],
+                       result_item_pk: int):
+        delete = self._inventory_service.bulk_remove_from_inventory(
+            owner_id=user_id,
+            inventory_items_ids=granted_items_ids
+        )
+
+        if not delete:
+            raise APIException("Error with inventory")
+
+        received = self._inventory_service.add_item(
+            owner_id=user_id,
+            item_id=result_item_pk
+        )
+
+        return received
 
     def _get_shifted_amount(self, request_data: dict,
                             user_id: int) -> tuple[float, float]:
