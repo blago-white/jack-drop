@@ -8,18 +8,15 @@ class ShiftedContractAmountSerializer(serializers.Serializer):
 
 
 class CommitContractSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField(max_value=1)
     granted_amount = serializers.FloatField()
     result_item = serializers.IntegerField()
 
 
-class GrantedInventoryItemSerializer(serializers.Serializer):
-    id = serializers.PrimaryKeyRelatedField(
-        queryset=InventoryService().get_all()
-    )
-
-
 class GrantedInventoryItemsSerializer(serializers.Serializer):
     granted_inventory_items = serializers.ListField(
-        child=GrantedInventoryItemSerializer(),
+        child=serializers.PrimaryKeyRelatedField(
+            queryset=InventoryService().get_all()
+        ),
         allow_null=False
     )

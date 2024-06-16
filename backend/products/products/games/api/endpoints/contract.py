@@ -8,7 +8,7 @@ from .base import BaseGameProxyCreateApiView
 class ContractGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):
     users_api_repository = UsersApiRepository()
     contract_repository = ContractApiRepository()
-    serializer_class = contract_repository.default_api_service.default_endpoint_serializer_class
+    serializer_class = contract_repository.default_seriaizer_class
 
     def create(self, request, *args, **kwargs):
         user_data = self.users_api_repository.get(

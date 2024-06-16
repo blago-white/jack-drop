@@ -38,6 +38,8 @@ class ContractApiRepository(BaseApiRepository):
             data=request_data
         )
 
+        print("_____111")
+
         request_data.is_valid(raise_exception=True)
 
         granted_amount, shifted_amount = self._get_shifted_amount(
@@ -45,14 +47,22 @@ class ContractApiRepository(BaseApiRepository):
             user_id=user_data.get("id")
         )
 
+        print("_______2", granted_amount, shifted_amount)
+
         contract_item = self._items_service.get_closest_by_price(
             price=shifted_amount
         )
 
+        print(user_data, "CLOSEST", contract_item)
+        print(granted_amount, contract_item.pk)
+
         self._save_contract(serializer_data={
+            "user_id": user_data.get("id"),
             "granted_amount": granted_amount,
             "result_item": contract_item.pk
         })
+
+        print("SAVED")
 
         return self._item_serializer_class(instance=contract_item).data
 

@@ -31,10 +31,12 @@ class InventoryService(BaseReadOnlyService):
 
     def bulk_get_items_amount(self, owner_id: int,
                               inventory_items_ids: list[int]) -> float:
+        print("OWNER", owner_id, "INVID", inventory_items_ids)
+
         items = self._model.objects.filter(
             user_id=owner_id,
             id__in=inventory_items_ids
-        ).distinct("item_id")
+        )
 
         if items.count() < len(inventory_items_ids):
             raise ObjectDoesNotExist(
