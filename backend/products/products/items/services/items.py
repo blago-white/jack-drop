@@ -1,3 +1,5 @@
+import random
+
 from django.db import models
 
 from common.services.base import BaseReadOnlyService
@@ -17,6 +19,9 @@ class ItemService(BaseReadOnlyService):
 
     def get_all(self) -> models.QuerySet:
         return self._model.objects.all()
+
+    def get_random(self) -> Item:
+        return random.choice(self._model.objects.all())
 
     def get_closest_by_price(self, price: float) -> Item:
         return self._model.objects.filter(

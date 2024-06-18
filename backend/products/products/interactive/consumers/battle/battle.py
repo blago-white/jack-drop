@@ -10,7 +10,7 @@ from .messages import InputMessage, CreateBattleRequest, ConnectToRequest, \
 from .utils import get_serialized_message
 
 
-class BattleRequestAsyncConsumer(JsonWebsocketConsumer):
+class BattleRequestConsumer(JsonWebsocketConsumer):
     _MESSAGE_TYPE = "battle_message"
 
     _battle_request_api_repository: BattleRequestApiRepository
