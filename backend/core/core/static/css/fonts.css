@@ -16,3 +16,10 @@
     font-weight: 600;
     src: url("../fonts/Gilroy-SemiBold.woff2") format("opentype");
 }
+
+
+@font-face {
+    font-family: "Gilroy Thin";
+    font-weight: 400;
+    src: url("../fonts/Gilroy-Light.woff2") format("opentype");
+}

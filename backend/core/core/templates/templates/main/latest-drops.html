@@ -1,68 +1,13 @@
 {% load static %}
 
 <section class="live-string">
-    <article class="dropped regular">
-        <div class="w-line"></div>
-        <div class="dropped-content">
-            <span>StatTrak™ MAC-10 | Neon Rider</span>
-            <img src="{% static 'img/testgun.png' %}">
-        </div>
-    </article>
-    <article class="dropped rare">
-        <div class="w-line"></div>
-        <div class="dropped-content">
-            <span>StatTrak™ MAC-10 | Neon Rider</span>
-            <img src="{% static 'img/testgun.png' %}">
-        </div>
-    </article>
-    <article class="dropped regular">
-        <div class="w-line"></div>
-        <div class="dropped-content">
-            <span>StatTrak™ MAC-10 | Neon Rider</span>
-            <img src="{% static 'img/testgun.png' %}">
-        </div>
-    </article>
-    <article class="dropped rare">
-        <div class="w-line"></div>
-        <div class="dropped-content">
-            <span>StatTrak™ MAC-10 | Neon Rider</span>
-            <img src="{% static 'img/testgun.png' %}">
-        </div>
-    </article>
-    <article class="dropped regular">
-        <div class="w-line"></div>
-        <div class="dropped-content">
-            <span>StatTrak™ MAC-10 | Neon Rider</span>
-            <img src="{% static 'img/testgun.png' %}">
-        </div>
-    </article>
-    <article class="dropped rare">
-        <div class="w-line"></div>
-        <div class="dropped-content">
-            <span>StatTrak™ MAC-10 | Neon Rider</span>
-            <img src="{% static 'img/testgun.png' %}">
-        </div>
-    </article>
-    <article class="dropped regular">
-        <div class="w-line"></div>
-        <div class="dropped-content">
-            <span>StatTrak™ MAC-10 | Neon Rider</span>
-            <img src="{% static 'img/testgun.png' %}">
-        </div>
-    </article>
-    <article class="dropped rare">
-        <div class="w-line"></div>
-        <div class="dropped-content">
-            <span>StatTrak™ MAC-10 | Neon Rider</span>
-            <img src="{% static 'img/testgun.png' %}">
-        </div>
-    </article>
-    <article class="dropped regular">
-        <div class="w-line"></div>
-        <div class="dropped-content">
-            <span>StatTrak™ MAC-10 | Neon Rider</span>
-            <img src="{% static 'img/testgun.png' %}">
-        </div>
-    </article>
+    {% include 'item-card.html' %}
 
+    {% include 'item-card.html' %}
+    {% include 'item-card.html' with RARE=True %}
+    {% include 'item-card.html' %}
+    {% include 'item-card.html' with RARE=True %}
+    {% include 'item-card.html' %}
+    {% include 'item-card.html' with RARE=True %}
+    {% include 'item-card.html' %}
 </section>

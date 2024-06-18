@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Case Info
+{% endblock %}
+
+{% block links %}
+<link href="{% static 'css/latest-drops.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/case.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block main %}
+<section class="case-data-wrapper">
+    <div class="case-info">
+        <img class="case-img" src="{% static 'img/case-info-test-case.png' %}">
+        <div class="case-border-line"></div>
+        <div class="case-text-info">
+            <h3 class="case-title">Кейс</h3>
+            <h4 class="case-short-title">Lorem ipsum dolor sit amet</h4>
+            <span class="case-description">
+                Чтобы открыть этот кейс вам необходимо
+                Пополнение баланса за последние 24 часа не менее, чем на 2000.00
+                За последние 24 часа вы пополнили баланс на 0.00
+                Открывать этот кейс можно не более 1 раз за последние 24 часа
+                Кейс открыт: 0
+            </span>
+        </div>
+    </div>
+    <div class="case-items-wrapper">
+        <h3 class="case-title case-items-header">Содержимое кейса</h3>
+        <div class="case-items">
+            {% include 'main/item-card.html' %}
+            {% include 'main/item-card.html' with RARE=True %}
+            {% include 'main/item-card.html' %}
+            {% include 'main/item-card.html' with RARE=True %}
+            {% include 'main/item-card.html' %}
+            {% include 'main/item-card.html' with RARE=True %}
+            {% include 'main/item-card.html' %}
+            {% include 'main/item-card.html' with RARE=True %}
+            {% include 'main/item-card.html' %}
+            {% include 'main/item-card.html' with RARE=True %}
+            {% include 'main/item-card.html' %}
+            {% include 'main/item-card.html' with RARE=True %}
+        </div>
+    </div>
+</section>
+{% endblock %}

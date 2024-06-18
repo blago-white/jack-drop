@@ -32,6 +32,19 @@
     padding-inline: calc(100vw * calc(32 / 1920));
 }
 
+.navbar-item a {
+    background: black;
+}
+
+.navbar-item {
+    transition: all .3s ease;
+}
+
+.navbar-item:hover {
+    background: var(--fg-color);
+    padding-bottom: 2px;
+}
+
 .logo svg {
     height: calc(100vw * 0.040625);
 }

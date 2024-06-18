@@ -32,3 +32,9 @@ def contract_view(request):
     return render(request,
                   template_name="contract.html",
                   context={"section": "contract"})
+
+
+def case_view(request, case_id):
+    return render(request,
+                  template_name="case.html",
+                  context={"case_id": case_id})
