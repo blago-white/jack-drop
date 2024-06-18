@@ -107,7 +107,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
                 "initiator_id": initiator_id,
                 "participant_id": participant_data.get("id"),
                 "site_funds": {
-                    "site_active_funds_per_hour": 1000,  # TODO: Call ervice
+                    "site_active_funds_per_hour": self._site_funds_service.get(),
                 },
                 "battle_case_id": case_data.pk,
                 "battle_case_price": case_data.price,

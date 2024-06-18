@@ -24,7 +24,7 @@ class MarketItemParser:
         self._market_params_dataclass = market_params_dataclass
         self._item_info_dataclass = item_info_dataclass
 
-    def get_info(self, url: str) -> dict:
+    def get_info(self, url: str) -> ItemInfo:
         item_params = self._extract_item_params(crud_url=url)
 
         response = requests.get(

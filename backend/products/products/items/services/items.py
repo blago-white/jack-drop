@@ -10,6 +10,11 @@ class ItemService(BaseReadOnlyService):
     def get_price(self, item_id: int) -> float:
         return self._model.objects.get(pk=item_id).price
 
+    def set_price(self, item_id: int, item_price: float) -> bool:
+        return self._model.objects.filter(pk=item_id).update(
+            price=item_price
+        ) == 1
+
     def get_all(self) -> models.QuerySet:
         return self._model.objects.all()
 

@@ -26,6 +26,5 @@ app.conf.beat_schedule = {
         # Schedule
         'schedule': 10.0,
         # Function Arguments
-        'args': ("Hello",)
     }
 }

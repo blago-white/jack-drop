@@ -162,8 +162,6 @@ LOCALE_PATHS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CELERY_TASK_TIME_LIMIT = 30 * 60
-
 CELERY_BROKER_URL = (f"redis://"
                      f"{os.environ.get('REDIS_USER')}:"
                      f"{os.environ.get('REDIS_PASSWORD')}@productsredis:6379")

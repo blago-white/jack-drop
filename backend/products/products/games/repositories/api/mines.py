@@ -78,7 +78,7 @@ class MinesGameApiRepository(BaseApiRepository):
                 },
                 "user_deposit": request_data.get("user_deposit"),
                 "site_funds": {
-                    "site_active_funds_per_hour": 1000, # TODO: Call service
+                    "site_active_funds_per_hour": self._site_funds_service.get()
                 }
             }
         )

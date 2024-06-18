@@ -11,13 +11,13 @@ class DinamicFundsService(BaseService):
 
     def update(self, delta_funds: float | int) -> float | int:
         if (self.get() + delta_funds) < self.get_min_value():
-            return self.get()
+            return False
 
         self._get_row().update(
             amount=models.F("amount") + delta_funds
         )
 
-        return self.get()
+        return True
 
     def get(self) -> float | int:
         return self._get_row().first().amount
