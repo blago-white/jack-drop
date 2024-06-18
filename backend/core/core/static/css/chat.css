@@ -29,6 +29,7 @@
     display: flex;
     align-items: center;
     gap: calc(100vw * calc(18 / var(--reference-display-w)));
+    z-index: 1000;
 }
 
 .chat-avatar {
@@ -40,12 +41,39 @@
     padding-inline: calc(100vw * calc(37 / var(--reference-display-w)));
     color: #000000;
     padding-block: calc(100vw * calc(44 / var(--reference-display-w)));
+    overflow-y: scroll;
+    z-index: 1000;
+}
+
+.chat-messages::-webkit-scrollbar {
+    display: none;
+}
+
+.chat-message.self {
+    justify-content: flex-end;
+}
+
+.chat-message.self .chat-msg-body {
+    background: linear-gradient(272.53deg, rgba(79, 160, 255, 0.8) 0%, rgba(0, 71, 255, 0.8) 100%);
+    color: white;
+}
+
+.chat-background-wrapper {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100vw;
+    border: 0px;
+    background: transparent;
+    z-index: 999;
 }
 
 .chat-message {
     display: flex;
     gap: calc(100vw * calc(25 / var(--reference-display-w)));
     align-items: flex-end;
+    margin-bottom: 1ch;
 }
 
 .chat-controls {
@@ -54,6 +82,7 @@
     border-top: 2px solid #BBBBBB;
     display: flex;
     flex-direction: column;
+    z-index: 1000;
 }
 
 .send-message-button {
@@ -103,4 +132,51 @@
     background: #E5E5E5;
     border-radius: calc(100vw * calc(18 / var(--reference-display-w)));
     text-transform: none;
+}
+
+@media (aspect-ratio < 1/1) {
+    .admin-chat {
+        width: 90vw;
+        height: 70vh;
+        right: 5vw;
+    }
+
+    .chat-msg-body {
+        font-size: calc(100vw * calc(40 / var(--reference-display-w)));
+        max-width: calc(100vw* calc(500 / var(--reference-display-w)));
+        margin-bottom: 2ch;
+    }
+
+    .chat-message-text-input {
+        font-size: calc(100vw* calc(40 / var(--reference-display-w)));
+    }
+
+    .message-text-input-fields {
+        margin-block: calc(100vw* calc(45 / var(--reference-display-w)));
+    }
+
+    .chat-controls {
+        height: auto;
+    }
+
+    .send-message-button {
+        height: calc(100vw * calc(88 / var(--reference-display-w)));
+    }
+
+    .heading-chat-info {
+        font-size: calc(100vw* calc(40 / var(--reference-display-w)));
+    }
+
+    .chat-background-wrapper {
+        background: rgb(0, 0, 0, .5);
+    }
+
+    .chat-messages, .chat-controls {
+        background: white;
+    }
+
+    .chat-controls {
+        padding-inline: calc(100vw* calc(31 / var(--reference-display-w)));
+        margin-inline: 0px;
+    }
 }

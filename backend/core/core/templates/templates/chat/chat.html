@@ -11,11 +11,14 @@
     </aside>
     <main class="chat-messages">
         {% include './chat-message.html' with OPPOSITE=True %}
+        {% include './chat-message.html' %}
+        {% include './chat-message.html' with OPPOSITE=True %}
     </main>
     <div class="chat-controls">
         <div class="message-text-input-fields">
-            <input type="text" placeholder="Введите сообщение" class="chat-message-text-input">
-            <button class="send-message-button"></button>
+            <input type="text" placeholder="Введите сообщение" id="message-text" class="chat-message-text-input">
+            <button class="send-message-button" onclick="sendChatMessage()"></button>
         </div>
     </div>
+    <button class="chat-background-wrapper" onclick="closeChat()"></button>
 </section>
