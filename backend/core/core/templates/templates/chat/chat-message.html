@@ -1,0 +1,12 @@
+{% load static %}
+
+<article class="chat-message">
+    {% if OPPOSITE %}
+        <img class="chat-avatar mini" src="{% static 'img/account-avatar.png' %}">
+        <span class="chat-msg-body">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        </span>
+    {% endif %}
+</article>

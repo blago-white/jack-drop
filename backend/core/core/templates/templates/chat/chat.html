@@ -1,0 +1,21 @@
+{% load static %}
+
+<button class="chat-btn" id="open-chat-btn">
+    <img src="{% static 'img/chat.png' %}" class="chat-btn">
+</button>
+<section class="admin-chat" id="admin-chat" style="display: none;">
+    <aside class="heading-chat-info">
+        <img class="chat-avatar" src="{% static 'img/account-avatar.png' %}">
+        Администрация
+        <button id="close-chat-btn" class="close-chat-button"></button>
+    </aside>
+    <main class="chat-messages">
+        {% include './chat-message.html' with OPPOSITE=True %}
+    </main>
+    <div class="chat-controls">
+        <div class="message-text-input-fields">
+            <input type="text" placeholder="Введите сообщение" class="chat-message-text-input">
+            <button class="send-message-button"></button>
+        </div>
+    </div>
+</section>
