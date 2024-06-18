@@ -61,7 +61,7 @@ class MinesGameRepository(BaseRepository):
                 "user_advantage"
             ),
             user_deposit=serialized.data.get("user_deposit"),
-            site_active_funds_per_hour=serialized.data.get(
+            site_active_funds=serialized.data.get(
                 "site_funds"
-            ).get("site_active_funds_per_hour"),
+            ).get("site_active_funds"),
         )

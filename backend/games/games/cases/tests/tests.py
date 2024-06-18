@@ -45,7 +45,7 @@ class DropCaseItemApiViewTestCase(APITestCase):
                 ],
                 "funds": {
                     "user_advantage": advantage,
-                    "site_active_funds_per_hour": 1340,
+                    "site_active_funds": 1340,
                 },
                 "price": case_price
             }

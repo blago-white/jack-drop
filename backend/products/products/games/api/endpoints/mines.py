@@ -1,11 +1,7 @@
-from rest_framework.exceptions import ValidationError
-
 from common.mixins.api import CreateAPIViewMixin
-
-from games.serializers.mines import MinesGameRequestViewSerializer
 from games.repositories.api.mines import MinesGameApiRepository
 from games.repositories.api.users import UsersApiRepository
-
+from games.serializers.mines import MinesGameRequestViewSerializer
 from .base import BaseGameProxyCreateApiView
 
 

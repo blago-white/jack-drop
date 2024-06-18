@@ -18,7 +18,7 @@ class MinesGameRequestSerializer(serializers.Serializer):
 
 class FundsDifferenceSerializer(serializers.Serializer):
     user_funds_diff = serializers.FloatField()
-    site_active_funds_per_hour_diff = serializers.FloatField()
+    site_active_funds_diff = serializers.FloatField()
 
 
 class GameResultSerializer(serializers.ModelSerializer):

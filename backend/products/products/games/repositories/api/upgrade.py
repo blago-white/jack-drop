@@ -3,6 +3,7 @@ from rest_framework.exceptions import ValidationError
 from games.api.services.upgrade import UpgradeService
 from games.api.services.users import UsersApiService
 from games.serializers.upgrade import UpgradeRequestApiViewSerializer
+from games.api.services.site import SiteFundsApiService
 from inventory.services.inventory import InventoryService
 from items.services.items import ItemService
 from .base import BaseApiRepository
@@ -13,13 +14,16 @@ class UpgradeApiRepository(BaseApiRepository):
     default_inventory_service = InventoryService()
     default_items_service = ItemService()
     default_users_service = UsersApiService()
+    default_site_funds_service = SiteFundsApiService()
 
     default_serializer_class = UpgradeRequestApiViewSerializer
 
     _inventory_service: InventoryService()
     _api_service: UpgradeService
+    _site_funds_service: SiteFundsApiService
 
     def __init__(self, *args,
+                 site_funds_service: SiteFundsApiService = None,
                  inventory_service: InventoryService = None,
                  items_service: ItemService = None,
                  users_service: UsersApiService = None,
@@ -29,6 +33,7 @@ class UpgradeApiRepository(BaseApiRepository):
         self._items_service = items_service or self.default_items_service
         self._users_service = users_service or self.default_users_service
         self._serializer_class = serializer_class or self.default_serializer_class
+        self._site_funds_service = site_funds_service or self.default_site_funds_service
 
         super().__init__(*args, **kwargs)
 
@@ -62,22 +67,36 @@ class UpgradeApiRepository(BaseApiRepository):
 
         return {"success": result}
 
-    def _commit_loss(self, validated_data: dict, user_funds: dict) -> None:
+    def _commit_loss(self, validated_data: dict,
+                     user_funds: dict) -> None:
         if validated_data.get("granted_item_id"):
             self._inventory_service.remove_from_inventory(
                 owner_id=user_funds.get("id"),
                 item_id=validated_data.get("granted_item_id")
             )
+
         else:
             self._users_service.update_user_balance_by_request(
                 user_id=user_funds.get("id"),
                 delta_amount=-validated_data.get("granted_funds")
             )
 
-    def _commit_win(self, owner_id: int, item_id: int) -> None:
+        self._site_funds_service.increase(
+            amount=validated_data.get("granted_funds")
+        )
+
+    def _commit_win(self, validated_data: dict,
+                    owner_id: int,
+                    item_id: int) -> None:
         self._inventory_service.add_item(
             owner_id=owner_id,
             item_id=item_id
+        )
+
+        self._site_funds_service.update(
+            amount=validated_data.get("granted_funds") - validated_data.get(
+                "receive_funds"
+            )
         )
 
     def _complete_serializer(

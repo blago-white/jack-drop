@@ -2,13 +2,12 @@ from rest_framework.exceptions import ValidationError
 
 from cases.services.cases import CaseService
 from cases.services.items import CaseItemsService
-
 from games.api.services.battle import BattleRequestApiService, BattleApiService
+from games.api.services.site import SiteFundsApiService
+from games.api.services.users import UsersApiService
 from games.serializers.battle import BattleRequestServiceEndpointSerializer
 from games.serializers.drop import DropItemSerializer
-from games.api.services.users import UsersApiService
 from inventory.services.inventory import InventoryService
-
 from .base import BaseApiRepository
 
 
@@ -69,6 +68,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
     default_case_items_service = CaseItemsService()
     default_inventory_service = InventoryService()
     default_users_service = UsersApiService()
+    default_site_funds_service = SiteFundsApiService()
 
     _api_service: BattleApiService
 
@@ -78,12 +78,14 @@ class BattleApiRepository(_BaseBattleApiRepository):
             case_items_service: CaseItemsService = None,
             inventory_service: InventoryService = None,
             users_service: UsersApiService = None,
+            site_funds_service: SiteFundsApiService = None,
             **kwargs):
         self._cases_service = cases_service or self.default_cases_service
         self._case_items_service = (case_items_service or
                                     self.default_case_items_service)
         self._inventory_service = inventory_service or self.default_inventory_service
         self._users_service = users_service or self.default_users_service
+        self._site_funds_service = site_funds_service or self.default_site_funds_service
 
         super().__init__(*args, **kwargs)
 
@@ -124,9 +126,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
             serialized=serialized
         )
 
-        # TODO: Uncomment
-
-        # self._commit_result(battle_result=result, case_price=case_data.price)
+        self._commit_result(battle_result=result, case_price=case_data.price)
 
         return {
             "winner_id": battle_result.get("winner_id"),
@@ -154,6 +154,10 @@ class BattleApiRepository(_BaseBattleApiRepository):
         self._inventory_service.add_item(
             owner_id=battle_result.get("winner_id"),
             item_id=battle_result.get("dropped_item_loser_id")
+        )
+
+        self._site_funds_service.update(
+            amount=battle_result.get("site_funds_diff")
         )
 
     def _validate_funds_participant(

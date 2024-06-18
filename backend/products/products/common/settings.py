@@ -195,6 +195,12 @@ USERS_MICROSERVICE_ROUTES = {
                    "balances/api/v1/p/displayed_balance/{client_id}/update/"
 }
 
+CORE_MICROSERVICE_ROUTES = {
+    "get_funds": "http://core/core/private/api/v1/funds/get-displayed/",
+    "increase_site_funds": "http://core/core/private/api/v1/funds/increase/",
+    "decrease_site_funds": "http://core/core/private/api/v1/funds/decrease/",
+}
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"

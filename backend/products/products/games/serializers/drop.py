@@ -1,7 +1,5 @@
 from rest_framework import serializers
 
-from .users import UserAdvantageSerializer
-
 
 class DropItemGameApiViewSerializer(serializers.Serializer):
     pass
@@ -14,8 +12,8 @@ class DropItemSerializer(serializers.Serializer):
 
 
 class FundsState(serializers.Serializer):
-    user_advantage = serializers.FloatField()
-    site_active_funds_per_hour = serializers.FloatField(
+    user_funds = serializers.FloatField()
+    site_active_funds = serializers.FloatField(
         min_value=0
     )
 

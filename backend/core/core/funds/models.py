@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.db.models.constraints import CheckConstraint
 
 
 class SingleInstanceModel(models.Model):
@@ -28,6 +29,7 @@ class FrozenSiteProfit(SingleInstanceModel):
 
 class DinamicSiteProfit(SingleInstanceModel):
     amount = models.FloatField("DONT WITHDRAW THIS FUNDS")
+    min_value = models.FloatField("Min value of site profit", default=0)
     time_update = models.DateTimeField(auto_now=True, editable=True)
 
     def __str__(self):
@@ -36,3 +38,19 @@ class DinamicSiteProfit(SingleInstanceModel):
     class Meta:
         verbose_name = "Dinamic Profit"
         verbose_name_plural = "Dinamic Profits"
+
+
+class FreezeFundsPercent(SingleInstanceModel):
+    percent = models.IntegerField("Percent of dinamic funds, wich convert to "
+                                  "frozen funds")
+
+    class Meta:
+        constraints = [
+            CheckConstraint(
+                check=models.Q(percent__gte=0) | models.Q(percent__lte=100),
+                name="percent_valid_value"
+            )
+        ]
+
+    def __str__(self):
+        return f"Percent: {self.percent}"

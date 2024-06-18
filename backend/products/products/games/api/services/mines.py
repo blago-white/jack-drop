@@ -1,8 +1,9 @@
-import requests
 import json
 
-from .base import BaseApiService
+import requests
+
 from games.serializers.mines import MinesGameRequestSerializer
+from .base import BaseApiService
 
 
 class MinesGameApiService(BaseApiService):

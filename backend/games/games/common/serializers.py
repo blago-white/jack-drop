@@ -7,4 +7,4 @@ class UserFundsStateSerializer(serializers.Serializer):
 
 
 class SiteFundsSerializer(serializers.Serializer):
-    site_active_funds_per_hour = serializers.FloatField(min_value=0)
+    site_active_funds = serializers.FloatField(min_value=0)

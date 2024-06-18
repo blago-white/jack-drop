@@ -1,19 +1,28 @@
 from rest_framework.exceptions import ValidationError
 
-from .base import BaseApiRepository
-
 from games.api.services.mines import MinesGameApiService
+from games.api.services.users import UsersApiService
+from games.api.services.site import SiteFundsApiService
 from games.serializers.mines import MinesGameRequestViewSerializer
+from .base import BaseApiRepository
 
 
 class MinesGameApiRepository(BaseApiRepository):
     default_api_service = MinesGameApiService()
     default_serializer_class = MinesGameRequestViewSerializer
+    default_site_funds_service = SiteFundsApiService()
+    default_users_service = UsersApiService()
+
+    _site_funds_service: SiteFundsApiService
 
     def __init__(self, *args,
+                 site_funds_service: SiteFundsApiService = None,
+                 users_service: SiteFundsApiService = None,
                  serializer_class: MinesGameRequestViewSerializer = None,
                  **kwargs):
         self._serializer_class = serializer_class or self.default_serializer_class
+        self._site_funds_service = site_funds_service or self.default_site_funds_service
+        self._users_service = users_service or self.default_users_service
 
         super().__init__(*args, **kwargs)
 
@@ -34,7 +43,22 @@ class MinesGameApiRepository(BaseApiRepository):
             serialized=serialized
         )
 
+        self._commit_result(
+            funds_difference=result.get("funds_difference"),
+            user_id=user_data.get("id")
+        )
+
         return result
+
+    def _commit_result(self, user_id: int, funds_difference: dict) -> None:
+        self._site_funds_service.update(
+            amount=funds_difference.get("site_funds_diff")
+        )
+
+        self._users_service.update_user_balance_by_id(
+            delta_amount=funds_difference.get("user_funds_diff"),
+            user_id=user_id
+        )
 
     @staticmethod
     def _validate_funds(user_balance: float, deposit: int):

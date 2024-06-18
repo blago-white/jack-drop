@@ -14,5 +14,5 @@ class DropRequest:
 @dataclass(frozen=True)
 class ResultState:
     dropped_item: CaseItem
-    new_site_funds: float
-    new_user_funds: float
+    site_funds_delta: float
+    user_funds_delta: float

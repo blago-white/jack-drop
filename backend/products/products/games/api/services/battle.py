@@ -1,4 +1,5 @@
 import json
+
 import requests
 
 from games.serializers.battle import BattleRequestServiceEndpointSerializer, \

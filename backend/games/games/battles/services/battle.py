@@ -55,7 +55,7 @@ class BattleService:
             self._validate_items_price(
                 items=case_items[:2],
                 case_price=battle_request.battle_case_price,
-                active_funds=battle_request.site_active_funds_per_hour
+                active_funds=battle_request.site_active_funds
             )
 
             under_price = case_items[:2]
@@ -87,7 +87,12 @@ class BattleService:
             winner_drop=winner[-1],
             loser_drop=loser[-1],
             winner_balance_diff=winner_b_diff,
-            loser_balance_diff=loser_b_diff
+            loser_balance_diff=loser_b_diff,
+            site_funds_diff=(
+                battle_request.battle_case_price - winner[-1].price
+            ) + (
+                battle_request.battle_case_price - loser[-1].price
+            )
         )
 
     def _validate_items_price(self,

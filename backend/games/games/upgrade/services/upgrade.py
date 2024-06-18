@@ -42,7 +42,7 @@ class UpgradeService(BaseModelService):
         return UpgradeResult(
             user_balance_diff=user_balance_diff,
             success=is_win,
-            site_active_funds_per_hour_diff=(
+            site_active_funds_diff=(
                 granted_amount if not is_win else -user_balance_diff
             )
         )
@@ -66,7 +66,7 @@ class UpgradeService(BaseModelService):
 
         if (
                 receive_amount-granted_amount >
-                funds_state.site_active_funds_per_hour
+                funds_state.site_active_funds
         ) or (funds_state.usr_advantage > receive_amount / 2):
             return False
 

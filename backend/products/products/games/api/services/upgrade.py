@@ -1,4 +1,5 @@
 import json
+
 import requests
 
 from games.serializers.upgrade import UpgradeRequestSerializer
@@ -14,7 +15,5 @@ class UpgradeService(BaseApiService):
             data=json.dumps(serialized.data),
             headers={"Content-Type": "application/json"}
         )
-
-        print(response.text, "REST", serialized.data)
 
         return response.json().get("success")
