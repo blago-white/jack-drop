@@ -90,10 +90,52 @@ h3 {
     display: none;
 }
 
+
+.dropped:active .items-controls {
+    display: flex;
+    background: #232323;
+
+    flex-direction: column;
+    gap: calc(100vw * calc(13 / var(--reference-display-w)));
+
+    height: 100%;
+    width: 100%;
+}
+
+.dropped:active .dropped-content {
+    display: none;
+}
+
+.dropped:active .w-line {
+    display: none;
+}
+
+
 .empty-inventory-item {
     background: url('../img/empty-inventory-item.png');
     border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
     border: 1.33px solid #979797;
     aspect-ratio: 1/1;
     height: 100%;
+    background-size: cover;
+}
+
+@media (aspect-ratio < 1/1) {
+    .inventory-items-table {
+        grid-template-columns: repeat(3, 1fr);
+        gap: calc(100vw * calc(25 / var(--reference-display-w)));
+    }
+
+    body {
+        background: black;
+    }
+
+    .w-line {
+        height: calc(115vw * calc(196 / var(--reference-display-w)));
+    }
+
+    .dropped-content span {
+        font-size: calc(100vw* calc(20 / var(--reference-display-w)))!important;
+        margin-top: 7%!important;
+    }
 }

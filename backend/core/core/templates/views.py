@@ -44,3 +44,8 @@ def inventory_view(request):
     return render(request,
                   template_name="inventory/inventory.html",
                   context={"case_id": "inventory"})
+
+
+def replenish_view(request):
+    return render(request,
+                  template_name="replenish.html")

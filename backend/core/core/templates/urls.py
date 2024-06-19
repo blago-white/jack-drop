@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .views import (main_page_view, account_view, mines_view, battle_view,
-                    upgrade_view, contract_view, case_view, inventory_view)
+                    upgrade_view, contract_view, case_view, inventory_view,
+                    replenish_view)
 
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path("contract/", contract_view, name="contract"),
     path("case/<int:case_id>/", case_view, name="case"),
     path("inventory/", inventory_view, name="inventory"),
+    path("replenish/", replenish_view, name="replenish"),
 ]

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Replenish
+{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/replenish.css' %}">
+{% endblock %}
+
+{% block main %}
+<form class="replenish-form">
+    <h3>Введите данные для пополнения</h3>
+    <button class="form-field"
+            onclick="document.getElementById('payment-type-2').classList.remove('active');
+                     document.getElementById('payment-type-1').classList.add('active');
+                     return false;"
+            id="payment-type-1">
+        <label for="payment-type-1">Выбранный метод оплаты</label>
+        <span>Bank card #1</span>
+    </button>
+    <button class="form-field"
+            onclick="document.getElementById('payment-type-1').classList.remove('active');
+                     document.getElementById('payment-type-2').classList.add('active');
+                     return false;"
+            id="payment-type-2">
+        <label for="payment-type-2">Выбранный метод оплаты</label>
+        <span>Crypto #2</span>
+    </button>
+    <span class="info">
+        внимание! отправляйте указанные сумму с точностью до копеек, иначе платёж не будет засчитан
+    </span>
+    <span class="info">
+        минимальная сумма: 500
+    </span>
+    <input class="data-input" placeholder="Промокод" type="text">
+    <input class="data-input" placeholder="Введите сумму" type="number" min=500>
+    <div class="agreement-field">
+        <input type="checkbox" id="agreement">
+        <label class="agreement-label" for="agreement">я принимаю условия пользовательского соглашения</label>
+    </div>
+
+    <button class="super-button replenish-btn" type="submit">
+        <span class="super-button-bg"></span>
+        <span class="super-button-text">Пополнить баланс</span>
+    </button>
+</form>
+{% endblock %}
