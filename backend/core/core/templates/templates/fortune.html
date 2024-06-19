@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Колесо Фортуны
+{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/fortune.css' %}">
+{% endblock %}
+
+{% block main %}
+<section class="fortune-sec">
+    <div class="wheel">
+        <img src="{% static 'img/wheel-arrow.png' %}" class="wheel-arrow">
+        <img src="{% static 'img/wheel.png' %}" class="wheel-canvas"
+             style="grid-row: 1;grid-column: 1;width: 100%;height: 100%;">
+        <div class="wheel inner-wheel" style="grid-row: 1;grid-column: 1;">
+            <h3 class="wheel-game-title">Колесо фортуны</h3>
+            <span class="wheel-game-desc">До бесплатного открытия осталось:</span>
+            <div class="countdown-clock">
+                <div class="countdown-component">
+                    <span>02</span>
+                    ДНЯ
+                </div>
+                <div class="countdown-component">
+                    <span>02</span>
+                    ЧАС
+                </div>
+                <div class="countdown-component">
+                    <span>02</span>
+                    МИН
+                </div>
+                <div class="countdown-component">
+                    <span>02</span>
+                    СЕК
+                </div>
+            </div>
+            <button class="super-button" style="">
+                <span class="super-button-bg"></span>
+                <span class="super-button-text">вести код</span>
+            </button>
+        </div>
+    </div>
+    <div class="wheel-info">
+        <div class="wheel-info-part" id="f_t">
+            <span>Промокод на пополнение от 5 до 50%</span>
+            <img id="perc-img" src="{% static 'img/wheel-info-perc.png' %}">
+        </div>
+        <div class="wheel-info-part" id="s_d">
+            <span>Скины для контракта от 100-500₽</span>
+            <img id="report-img" src="{% static 'img/wheel-report-img.png' %}">
+        </div>
+        <div class="wheel-info-part" id="t_e">
+            <span>Бесплатный скин от 20-1000₽</span>
+            <img id="gift-img" src="{% static 'img/wheel-gift-img.png' %}">
+        </div>
+        <div class="wheel-info-part" id="f_r">
+            <span>Скидки на определенный кейс от 5-100%</span>
+            <img id="case-img" src="{% static 'img/wheel-case-img.png' %}">
+        </div>
+        <div class="wheel-info-part" id="f_v">
+            <span id="bar-text">Скины для апрегрйда от 100-500₽</span>
+            <img id="bar-img" src="{% static 'img/wheel-bar-img.png' %}">
+        </div>
+    </div>
+</section>
+{% endblock %}

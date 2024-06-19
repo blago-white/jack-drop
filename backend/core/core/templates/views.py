@@ -49,3 +49,8 @@ def inventory_view(request):
 def replenish_view(request):
     return render(request,
                   template_name="replenish.html")
+
+
+def fortune_wheel_view(request):
+    return render(request=request,
+                  template_name="fortune.html")

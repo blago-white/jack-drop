@@ -40,6 +40,11 @@
     transition: all .3s ease;
 }
 
+.navbar-item.navbar-item-active:hover {
+    background: initial!important;
+    padding-bottom: 0px!important;
+}
+
 .navbar-item:hover {
     background: var(--fg-color);
     padding-bottom: 2px;
@@ -59,7 +64,8 @@
 }
 
 .navbar-item-active {
-    text-decoration: underline;
+    background: var(--fg-color);
+    padding-bottom: 2px;
 }
 
 .sandwich-menu-tggled {
@@ -156,5 +162,9 @@
 
     .super-button-bg {
         border-radius: calc(100vw* calc(25 / 1920));
+    }
+
+    .navbar-item-active {
+        background: transparent!important;
     }
 }

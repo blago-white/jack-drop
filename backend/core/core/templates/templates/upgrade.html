@@ -14,6 +14,10 @@ Battles | Jack Drop
 {% block main %}
 <section class="upgrade-sec">
     <div class="upgrade-item">
+        <div class="twin-items">
+            <img class="upgrade-item-img-gun-second" src="{% static 'img/testgun.png' %}">
+            <img class="upgrade-item-img-gun-second" src="{% static 'img/testgun.png' %}">
+        </div>
         <img class="upgrade-item-img-gun" src="{% static 'img/testgun.png' %}">
         <img src="{% static 'img/upgrade-item-bg.png' %}" class="upgrade-item-img">
         <span class="upgrade-items-desc">Выберите один из ваших скинов слева, чтобы обновить его и получить более
@@ -21,7 +25,7 @@ Battles | Jack Drop
         </span>
     </div>
     <div class="upgrade-chance"><img src="{% static 'img/upgrade-chance.png' %}"></div>
-    <div class="upgrade-item">
+    <div class="upgrade-item" id="second-u-i">
         <img class="upgrade-item-img-gun" src="{% static 'img/testgun.png' %}">
         <img src="{% static 'img/upgrade-item-bg.png' %}" class="upgrade-item-img">
         <span class="upgrade-items-desc">Выберите скин справа, до которого вы хотите выполнить апгрейд</span>
@@ -118,6 +122,91 @@ Battles | Jack Drop
                 <img src="{% static 'img/testgun.png' %}">
             </div>
         </article>
+    </div>
+    <div class="items-list">
+        <div class="left-items-list">
+            <span class="items-list-desc">Выберите один из ваших скинов слева, чтобы обновить его и получить более дорогой</span>
+            <div class="items-feed">
+                <article class="dropped mono">
+                    <div class="w-line"></div>
+                    <div class="dropped-content">
+                        <span>StatTrak™ MAC-10 | Neon Rider</span>
+                        <img src="{% static 'img/testgun.png' %}">
+                    </div>
+                </article>
+                <article class="dropped mono">
+                    <div class="w-line"></div>
+                    <div class="dropped-content">
+                        <span>StatTrak™ MAC-10 | Neon Rider</span>
+                        <img src="{% static 'img/testgun.png' %}">
+                    </div>
+                </article>
+                <article class="dropped mono">
+                    <div class="w-line"></div>
+                    <div class="dropped-content">
+                        <span>StatTrak™ MAC-10 | Neon Rider</span>
+                        <img src="{% static 'img/testgun.png' %}">
+                    </div>
+                </article>
+                <article class="dropped mono">
+                    <div class="w-line"></div>
+                    <div class="dropped-content">
+                        <span>StatTrak™ MAC-10 | Neon Rider</span>
+                        <img src="{% static 'img/testgun.png' %}">
+                    </div>
+                </article>
+                <article class="dropped mono">
+                    <div class="w-line"></div>
+                    <div class="dropped-content">
+                        <span>StatTrak™ MAC-10 | Neon Rider</span>
+                        <img src="{% static 'img/testgun.png' %}">
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="items-lists-border"></div>
+        <div class="right-items-list">
+            <span class="items-list-desc">
+                Выберите один из ваших скинов слева, чтобы обновить его и получить более дорогой
+            </span>
+            <div class="items-feed">
+                <article class="dropped mono">
+                    <div class="w-line"></div>
+                    <div class="dropped-content">
+                        <span>StatTrak™ MAC-10 | Neon Rider</span>
+                        <img src="{% static 'img/testgun.png' %}">
+                    </div>
+                </article>
+                <article class="dropped mono">
+                    <div class="w-line"></div>
+                    <div class="dropped-content">
+                        <span>StatTrak™ MAC-10 | Neon Rider</span>
+                        <img src="{% static 'img/testgun.png' %}">
+                    </div>
+                </article>
+                <article class="dropped mono">
+                    <div class="w-line"></div>
+                    <div class="dropped-content">
+                        <span>StatTrak™ MAC-10 | Neon Rider</span>
+                        <img src="{% static 'img/testgun.png' %}">
+                    </div>
+                </article>
+                <article class="dropped mono">
+                    <div class="w-line"></div>
+                    <div class="dropped-content">
+                        <span>StatTrak™ MAC-10 | Neon Rider</span>
+                        <img src="{% static 'img/testgun.png' %}">
+                    </div>
+                </article>
+                <article class="dropped mono">
+                    <div class="w-line"></div>
+                    <div class="dropped-content">
+                        <span>StatTrak™ MAC-10 | Neon Rider</span>
+                        <img src="{% static 'img/testgun.png' %}">
+                    </div>
+                </article>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}

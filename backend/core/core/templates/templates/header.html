@@ -7,30 +7,24 @@
         </a>
         <nav class="navbar" id="navbar">
             <ol class="navbar-items">
-              <li class="navbar-item">
-                  <a style="{% if section == 'upgrade' %}text-decoration: underline;{% endif %}"
-                     href="{% url 'upgrade' %}">
+              <li class="navbar-item {% if section == 'upgrade' %}navbar-item-active{% endif %}">
+                  <a href="{% url 'upgrade' %}">
                       Апргрейд
                   </a>
               </li>
-              <li style="{% if section == 'contract' %}text-decoration: underline;{% endif %}"
-                  class="navbar-item">
+              <li class="navbar-item {% if section == 'contract' %}navbar-item-active{% endif %}">
                   <a href="{% url 'contract' %}">Контракт</a>
               </li>
-              <li style="{% if section == 'battle' %}text-decoration: underline;{% endif %}"
-                  class="navbar-item">
+              <li class="navbar-item {% if section == 'battle' %}navbar-item-active{% endif %}">
                   <a href="{% url 'battle' %}">Сражения</a>
               </li>
-              <li style="{% if section == 'a' %}text-decoration: underline;{% endif %}"
-                  class="navbar-item">
+              <li class="navbar-item {% if section == 'upgrade' %}navbar-item-active{% endif %}">
                   <a href="#">События</a>
               </li>
-              <li style="{% if section == 'mines' %}text-decoration: underline;{% endif %}"
-                  class="navbar-item">
+              <li class="navbar-item {% if section == 'mines' %}navbar-item-active{% endif %}">
                   <a href="{% url 'mines' %}">Мины</a>
               </li>
-              <li style="{% if section == 'f' %}text-decoration: underline;{% endif %}"
-                  class="navbar-item">
+              <li class="navbar-item {% if section == 'upgrade' %}navbar-item-active{% endif %}">
                   <a href="#">КОЛЕСО ФОРТУНЫ</a>
               </li>
             </ol>

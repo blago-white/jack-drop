@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (main_page_view, account_view, mines_view, battle_view,
                     upgrade_view, contract_view, case_view, inventory_view,
-                    replenish_view)
+                    replenish_view, fortune_wheel_view)
 
 
 urlpatterns = [
@@ -15,4 +15,5 @@ urlpatterns = [
     path("case/<int:case_id>/", case_view, name="case"),
     path("inventory/", inventory_view, name="inventory"),
     path("replenish/", replenish_view, name="replenish"),
+    path("fortune/", fortune_wheel_view, name="fortune")
 ]
