@@ -1,5 +1,6 @@
 @import 'fonts.css';
 @import 'colors.css';
+@import "variables.css";
 
 body {
     font-family: 'Gilroy Regular', sans-serif;
@@ -56,11 +57,11 @@ button {
 .button {
     background-color: #343434;
     color: white;
-    border-radius: 16px;
+    border-radius: calc(100vw * calc(16 / var(--reference-display-w)));
     border: none;
     text-transform: uppercase!important;
     font-size: calc(100vw * calc(22 / 1920));
-    padding-inline: calc(100vw * calc(35 / 1920));
+    padding-inline: calc(100vw * calc(35 / var(--reference-display-w)));
     display: flex;
     align-items: center;
 
@@ -140,9 +141,9 @@ button {
 }
 
 .button-colorized {
-    padding-block: calc(100vw * calc(21 / 1920));
-    font-size: calc(100vw * calc(16 / 1920));
-    border-radius: calc(100vw * calc(9 / 1920));
+    padding-block: calc(100vw * calc(21 / var(--reference-display-w)));
+    font-size: calc(100vw * calc(16 / var(--reference-display-w)));
+    border-radius: calc(100vw * calc(9 / var(--reference-display-w)));
     font-family: 'Gilroy Bold';
     text-transform: uppercase;
 }
@@ -156,12 +157,18 @@ button {
 }
 
 .switch-input {
-    width: calc(100vw * calc(58 / 1920));
-    height: calc(100vw * calc(24 / 1920));
+    width: calc(100vw * calc(58 / var(--reference-display-w)));
+    height: calc(100vw * calc(24 / var(--reference-display-w)));
     background: #272727;
     display: flex;
-    border-radius: calc(100vw * calc(24 / 1920));
+    border-radius: calc(100vw * calc(24 / var(--reference-display-w)));
     cursor: pointer;
+}
+
+#l-contr-acc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .switch-inside-fig {
