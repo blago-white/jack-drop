@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/base.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/header.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/footer.css' %}" type="text/css" rel="stylesheet">
+    {% block links %}
+    {% endblock %}
+</head>
+<body>
+    <div class="bg-filter"></div>
+    <div class="global-sharp"></div>
+    {% include 'header.html' %}
+    <main class="main-content">
+        {% block main %}
+        {% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="site-info">
+            <img src="{% static 'img/JD-mono.png' %}">
+            <span class="c"><b>© 2018-2024 JackDrop</b><br>{% trans 'Best Cases' %}</span>
+        </div>
+        <span class="footer-mobile-info">
+            {% trans 'User Agreement' %}<br>
+            {% trans 'Site Contacts' %}<br>
+            {% trans 'FAQ' %}<br>
+        </span>
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <select name="language" class="button" style="width: -webkit-fill-available;margin-bottom: 1ch;border: 0px;">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+        </select>
+        <input class="button" type="submit" style="border: 0px;" value="{% trans 'Change Language' %}">
+    </form>
+        <ul class="media-list">
+            <li><img src="{% static 'img/tg-logo.png' %}"></li>
+            <li><img src="{% static 'img/vk-logo.png' %}"></li>
+            <li><img src="{% static 'img/ig-logo.png' %}"></li>
+            <li><img src="{% static 'img/tw-logo.png' %}"></li>
+        </ul>
+    </footer>
+    <script src="{% static 'js/header.js' %}"></script>
+    {% block extrascripts %}
+    {% endblock %}
+</body>
+</html>

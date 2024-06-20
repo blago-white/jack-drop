@@ -1,0 +1,90 @@
+@import "variables.css";
+
+.banners {
+    display: flex;
+    justify-content: space-between;
+    gap: 3.4%;
+}
+
+.banner {
+    width: 100%;
+    height: calc(100vw * calc(437/ var(--reference-display-w)));
+    background: transparent;
+
+    display: flex;
+    align-items: flex-end;
+
+    min-height: 39vh;
+}
+
+.banner-content {
+    background: url('../img/banner-bg.png');
+    background-size: cover;
+    background-position: right;
+    background-repeat: no-repeat;
+    background-color: #0E0E0E;
+    height: calc(100vw * calc(248 / var(--reference-display-w)));
+    width: 100%;
+    border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
+    padding-left: calc(100vw * calc(50 / var(--reference-display-w)));
+    padding-block: calc(100vw * calc(45 / var(--reference-display-w)));
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.banner-content h2 {
+    font-family: 'Gilroy Bold';
+    margin: 0px;
+    font-size: calc(100vw * calc(96 / var(--reference-display-w)));
+}
+
+.banner-content h3 {
+    font-family: 'Gilroy Bold';
+    margin: 0px;
+    font-size: calc(100vw * calc(48 / var(--reference-display-w)));
+    max-width: min-content;
+    margin-bottom: 0.5ch;
+}
+
+.refcode {
+    font-size: calc(100vw * calc(24 / var(--reference-display-w)));
+    background: #232323;
+    padding-inline: calc(100vw * calc(10 / var(--reference-display-w)));
+    padding-block: calc(100vw * calc(7 / var(--reference-display-w)));
+    border-radius: calc(100vw * calc(9 / var(--reference-display-w)));
+    cursor: pointer;
+}
+
+.banner-illustration {
+    position: absolute;
+    height: calc(100vw * calc(553/ var(--reference-display-w)));
+    pointer-events: none;
+    left: 23%;
+}
+
+.banner-illustration-long {
+    position: absolute;
+    right: 5.95%;
+    pointer-events: none;
+    height: calc(100vw * calc(446/ var(--reference-display-w)));
+    z-index: 1;
+}
+
+@media (aspect-ratio < 1/1) {
+    .banner {
+        min-height: 5vh;
+    }
+
+    .banners {
+        flex-direction: column;
+    }
+
+    .banner-illustration {
+        left: 44%;
+    }
+}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+Account Inventory
+{% endblock %}
+
+{% block links %}
+<link href="{% static 'css/latest-drops.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/inventory.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block main %}
+<section class="inventory-sec">
+    <h3>{% trans 'Inventory' %}</h3>
+    <div class="inventory-items-table">
+        {% include 'inventory/inventory-item.html' with MONO=True %}
+        {% include 'inventory/inventory-item.html' with MONO=True %}
+        {% include 'inventory/inventory-item.html' with MONO=True %}
+        {% include 'inventory/inventory-item.html' with MONO=True %}
+        {% include 'inventory/inventory-item.html' with MONO=True %}
+        {% include 'inventory/inventory-item.html' with MONO=True %}
+        {% include 'inventory/inventory-item.html' with MONO=True %}
+        {% include 'inventory/inventory-item.html' with MONO=True %}
+        {% include 'inventory/inventory-item.html' with MONO=True %}
+        {% include 'inventory/inventory-item.html' with MONO=True %}
+        {% include 'inventory/empty-inventory-item.html' %}
+        {% include 'inventory/empty-inventory-item.html' %}
+        {% include 'inventory/empty-inventory-item.html' %}
+        {% include 'inventory/empty-inventory-item.html' %}
+        {% include 'inventory/empty-inventory-item.html' %}
+        {% include 'inventory/empty-inventory-item.html' %}
+        {% include 'inventory/empty-inventory-item.html' %}
+        {% include 'inventory/empty-inventory-item.html' %}
+    </div>
+</section>
+{% endblock %}

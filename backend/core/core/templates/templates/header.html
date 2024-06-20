@@ -1,0 +1,42 @@
+{% load static %}
+{% load i18n %}
+
+<header class="header-wrapper" id="header">
+    <div class="header-main-part" id="main-part-h">
+        <a class="logo" href="/">
+            <img src="{% static 'img/logo.png' %}">
+        </a>
+        <nav class="navbar" id="navbar">
+            <ol class="navbar-items">
+              <li class="navbar-item {% if section == 'upgrade' %}navbar-item-active{% endif %}">
+                  <a href="{% url 'upgrade' %}">
+                      {% trans 'Upgrade' %}
+                  </a>
+              </li>
+              <li class="navbar-item {% if section == 'contract' %}navbar-item-active{% endif %}">
+                  <a href="{% url 'contract' %}">{% trans 'Contract' %}</a>
+              </li>
+              <li class="navbar-item {% if section == 'battle' %}navbar-item-active{% endif %}">
+                  <a href="{% url 'battle' %}">{% trans 'Battles' %}</a>
+              </li>
+              <li class="navbar-item {% if section == 'mines' %}navbar-item-active{% endif %}">
+                  <a href="{% url 'mines' %}">{% trans 'Mines' %}</a>
+              </li>
+              <li class="navbar-item {% if section == 'fortune' %}navbar-item-active{% endif %}">
+                  <a href="{% url 'fortune' %}">{% trans 'Fortune Wheel' %}</a>
+              </li>
+            </ol>
+        </nav>
+
+        <button class="super-button" onclick="window.location.href = '{% url 'account' %}'">
+            <span class="super-button-bg"></span>
+            <span class="super-button-text">
+                <img src="{% static 'img/steam.png' %}" style="height: 2.5ch;filter: invert(1)">
+                <span id="large-lg-text">{% trans 'Enter Throught Steap' %}</span>
+                <span id="small-lg-text">{% trans 'Enter' %}</span>
+            </span>
+        </button>
+
+        <button class="sandwich-menu" id="menu-btn"></button>
+    </div>
+</header>

@@ -1,0 +1,21 @@
+{% load static %}
+
+<article class="dropped {% if RARE %}rare{% elif MONO %}mono{% else %}regular{% endif %}">
+    <div class="w-line"></div>
+    <div class="dropped-content">
+        <span>StatTrak™ MAC-10 | Neon Rider</span>
+        <img src="{% static 'img/testgun.png' %}">
+    </div>
+    <div class="items-controls">
+        <button>
+            Продать
+            <img src="{% static 'img/inventory-item-sell-icon.png' %}"
+                 style="width: 3ch;aspect-ratio: 1 / 1;position: unset;margin: 0px;">
+        </button>
+        <button>
+            Вывести
+            <img src="{% static 'img/inventory-item-export-icon.png' %}"
+                 style="width: 3ch;aspect-ratio: 1 / 1;position: unset;margin: 0px;">
+        </button>
+    </div>
+</article>

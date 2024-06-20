@@ -1,0 +1,9 @@
+:root {
+    --reference-display-w: 1920;
+}
+
+@media (aspect-ratio < 1/1) {
+    :root {
+        --reference-display-w: 960;
+    }
+}
