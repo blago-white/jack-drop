@@ -66,7 +66,7 @@ body {
     text-wrap: nowrap;
 }
 
-.super-button {
+#code-btn {
     margin-top: calc(100vw * calc(48.2 / var(--reference-display-w)));
 }
 
@@ -209,11 +209,11 @@ body {
         font-size: calc(100vw* calc(42 / var(--reference-display-w)));
     }
 
-    .super-button-text {
+    #code-btn-text {
         font-size: calc(100vw* calc(22 / var(--reference-display-w)));
     }
 
-    .super-button {
+    #code-btn {
         height: calc(88vw* 0.081771);
     }
 

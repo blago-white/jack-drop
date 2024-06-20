@@ -37,14 +37,21 @@ Battles | Jack Drop
             <img class="mobile-last-battle-img" src="{% static 'img\last-battle-img.png' %}">
         </div>
     </div>
-    <div class="battles">
-        <div class="battles-table-header">
+    <div class="battles" id="battles">
+        <div style="display: none;" class="battle-request-controls" id="battle-request-controls">
+            <h2 id="founding-label">Ищем второго игрока</h2>
+            <button class="super-button" onclick="cancelRequest()">
+                <span class="super-button-bg"></span>
+                <span class="super-button-text">Отменить сражение</span>
+            </button>
+        </div>
+        <div class="battles-table-header" id="battles-head">
             <span class="case-battle-name">КЕЙС</span>
             <span class="count-battles-f" style="margin-left: 16.75%;">АКТИВНЫЕ СРАЖЕНИЯ</span>
             <span style="margin-left: 10.75%;">СТОИМОСТЬ</span>
             <span class="actions-battles-f" style="margin-left: 22.5%;">ДЕЙСТВИЯ</span>
         </div>
-        <div class="battles-table">
+        <div id="battles-table" class="battles-table">
             <div class="battle">
                 <div class="case-sign">
                     <img class="battle-case" src="{% static 'img/caseimg.png' %}">
@@ -52,7 +59,7 @@ Battles | Jack Drop
                 </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
-                <button class="button button-colorized blue create-battle">Создать</button>
+                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">Начать</button>
             </div>
             <div class="battle">
                 <div class="case-sign">
@@ -61,7 +68,7 @@ Battles | Jack Drop
                 </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
-                <button class="button button-colorized blue create-battle">Создать</button>
+                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">Начать</button>
             </div>
             <div class="battle">
                 <div class="case-sign">
@@ -70,7 +77,7 @@ Battles | Jack Drop
                 </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
-                <button class="button button-colorized blue create-battle">Создать</button>
+                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">Начать</button>
             </div>
             <div class="battle">
                 <div class="case-sign">
@@ -79,7 +86,7 @@ Battles | Jack Drop
                 </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
-                <button class="button button-colorized blue create-battle">Создать</button>
+                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">Начать</button>
             </div>
             <div class="battle">
                 <div class="case-sign">
@@ -88,7 +95,7 @@ Battles | Jack Drop
                 </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
-                <button class="button button-colorized blue create-battle">Создать</button>
+                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">Начать</button>
             </div>
             <div class="battle">
                 <div class="case-sign">
@@ -97,7 +104,7 @@ Battles | Jack Drop
                 </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
-                <button class="button button-colorized blue create-battle">Создать</button>
+                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">Начать</button>
             </div>
             <div class="battle">
                 <div class="case-sign">
@@ -106,7 +113,7 @@ Battles | Jack Drop
                 </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
-                <button class="button button-colorized blue create-battle">Создать</button>
+                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">Начать</button>
             </div>
             <div class="battle">
                 <div class="case-sign">
@@ -115,7 +122,7 @@ Battles | Jack Drop
                 </div>
                 <span class="count-battles">0</span>
                 <span class="price">1000</span>
-                <button class="button button-colorized blue create-battle">Создать</button>
+                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">Начать</button>
             </div>
         </div>
     </div>
@@ -159,4 +166,8 @@ Battles | Jack Drop
         </ul>
     </div>
 </section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/battle.js' %}"></script>
 {% endblock %}

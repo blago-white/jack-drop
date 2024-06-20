@@ -18,27 +18,27 @@
         <div class="wheel inner-wheel" style="grid-row: 1;grid-column: 1;">
             <h3 class="wheel-game-title">Колесо фортуны</h3>
             <span class="wheel-game-desc">До бесплатного открытия осталось:</span>
-            <div class="countdown-clock">
+            <div class="countdown-clock" id="clock">
                 <div class="countdown-component">
-                    <span>02</span>
+                    <span id="day-count">02</span>
                     ДНЯ
                 </div>
                 <div class="countdown-component">
-                    <span>02</span>
+                    <span id="hrs-count">02</span>
                     ЧАС
                 </div>
                 <div class="countdown-component">
-                    <span>02</span>
+                    <span id="min-count">01</span>
                     МИН
                 </div>
                 <div class="countdown-component">
-                    <span>02</span>
+                    <span id="sec-count">02</span>
                     СЕК
                 </div>
             </div>
-            <button class="super-button" style="">
+            <button id="code-btn" class="super-button" style="">
                 <span class="super-button-bg"></span>
-                <span class="super-button-text">вести код</span>
+                <span id="code-btn-text" class="super-button-text">вести код</span>
             </button>
         </div>
     </div>
@@ -65,4 +65,8 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/countDown.js' %}"></script>
 {% endblock %}

@@ -1,6 +1,6 @@
 {% load static %}
 
-<article class="banner">
+<article class="banner" onclick="{% if URL %}location.href = '{{URL}}'{% endif %}">
     <div class="banner-content">
         {% if HEAD %}
             <h2>{{ HEAD }}</h2>

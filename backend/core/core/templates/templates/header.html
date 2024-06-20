@@ -18,14 +18,11 @@
               <li class="navbar-item {% if section == 'battle' %}navbar-item-active{% endif %}">
                   <a href="{% url 'battle' %}">Сражения</a>
               </li>
-              <li class="navbar-item {% if section == 'upgrade' %}navbar-item-active{% endif %}">
-                  <a href="#">События</a>
-              </li>
               <li class="navbar-item {% if section == 'mines' %}navbar-item-active{% endif %}">
                   <a href="{% url 'mines' %}">Мины</a>
               </li>
-              <li class="navbar-item {% if section == 'upgrade' %}navbar-item-active{% endif %}">
-                  <a href="#">КОЛЕСО ФОРТУНЫ</a>
+              <li class="navbar-item {% if section == 'fortune' %}navbar-item-active{% endif %}">
+                  <a href="{% url 'fortune' %}">КОЛЕСО ФОРТУНЫ</a>
               </li>
             </ol>
         </nav>
