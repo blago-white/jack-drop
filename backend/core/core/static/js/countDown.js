@@ -33,7 +33,7 @@ function getTime() {
     ]
 }
 
-function getNewTime(times, discharge = null) {
+function getNewTime(times) {
     let summary = times[3] + (times[2] * 60) + (times[1] * 60 * 60) + (times[0] * 24 * 60 * 60);
 
     if (!summary) {
@@ -58,21 +58,35 @@ function getNewTime(times, discharge = null) {
 function updateClock() {
     current = getTime();
 
-    newTime = getNewTime(current, 3);
+    newTime = getNewTime(current);
+
+    console.log(newTime);
 
     if (!newTime) {
-        console.log('end');
+        document.getElementById('c-d-desc').style.display = 'none';
+        counterClock.style.display = 'none';
+        document.getElementById('start-btn').style.display = 'grid';
+
+        document.getElementsByClassName('wheel-game-title')[0].style.marginTop = '0px';
+        document.getElementsByClassName('inner-wheel')[0].style.justifyContent = 'center';
+
+        document.getElementById('code-btn').style.display = 'none';
+
+        saveTime(newTime);
+
+        return false;
     }
 
-    console.log(`Commit: ${newTime}`);
-
     saveTime(newTime);
+    return true;
 }
 
 async function main() {
     while (true) {
+        if (!updateClock()) {
+            return
+        }
         await sleep(1000);
-        updateClock();
     }
 }
 

@@ -71,7 +71,6 @@ body {
 }
 
 .wheel-canvas {
-    transition: all 10s ease;
 }
 
 .countdown-clock {
@@ -101,10 +100,6 @@ body {
     font-family: 'Gilroy SemiBold';
 }
 
-.wheel-canvas:hover {
-    transform: rotate(820deg);
-}
-
 .wheel-info {
     height: 100%;
     display: grid;
@@ -123,6 +118,13 @@ body {
     color: #7E7E7E;
     font-family: 'Gilroy Regular';
     overflow: hidden;
+}
+
+
+.wheel-info-part.active {
+    background: linear-gradient(180deg, #FF62CA 0%, #FF007A 100%);
+    color: white;
+    font-family: 'Gilroy Bold';
 }
 
 .wheel-info-part:hover {
