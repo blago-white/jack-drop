@@ -1,7 +1,9 @@
+{% load i18n %}
+
 <section class="cases-filters">
     <div class="cases-forms">
         <form class="fast-find-form">
-        <input type="text" placeholder="БЫСТРЫЙ ПОИСК">
+        <input type="text" placeholder="{% trans 'Fast Search' %}">
         <button type="submit">
             <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <mask id="mask0_66_135" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="29" height="29">
@@ -36,7 +38,7 @@
 
     </div>
     <button class="button" onclick="location.href=''">
-        очистить
+        {% trans 'Clear' %}
         <svg width="29" height="26" viewBox="0 0 29 26" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <mask id="mask0_68_163" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="29" height="26">
             <rect y="0.314209" width="29" height="25.6857" fill="url(#pattern0_68_163)"/>

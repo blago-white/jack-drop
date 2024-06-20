@@ -28,6 +28,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    font-size: calc(100vw* calc(70 / 1920));
 }
 
 .battles-stats {

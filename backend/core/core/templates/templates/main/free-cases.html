@@ -1,7 +1,8 @@
 {% load static %}
+{% load i18n %}
 
 <section class="free-cases-sec">
-    <h2>Бесплатные кейсы</h2>
+    <h2>{% trans 'Free Cases' %}</h2>
     <ul class="cases-row">
         <li class="case-data" onclick="location.href = '{% url 'case' 1 %}'">
             <img src="{% static 'img/caseimg.png' %}" class="case-image">

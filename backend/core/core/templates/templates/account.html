@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}Account{% endblock %}
 
@@ -22,12 +23,12 @@
                 <span class="account-lvl">0</span>
             </div>
         </div>
-        <a href="{% url 'replenish' %}" class="button button-colorized blue donate-btn-acc">Пополнить</a>
+        <a href="{% url 'replenish' %}" class="button button-colorized blue donate-btn-acc">{% trans 'Replenish' %}</a>
     </main>
     <div class="account-level">
-        <h3>Ваш уровень</h3>
+        <h3>{% trans 'Your Level' %}</h3>
         <div class="lvl-illustr">
-            <div class="illustr-desc"><span>очки</span><span><b>500/1750 xp</b></span></div>
+            <div class="illustr-desc"><span>{% trans 'Points' %}</span><span><b>500/1750 xp</b></span></div>
             <div class="diagram">
                 <div style="width: 35%" class="diagram-filled"></div>
             </div>
@@ -35,37 +36,37 @@
     </div>
     <aside class="account-empty"></aside>
     <div class="account-controls">
-        <a href="{% url 'inventory' %}" class="account-control" id="l-contr-acc">инвентарь</a>
-        <button class="account-control" id="c-contr-acc">история игр</button>
-        <button class="account-control" id="r-contr-acc">выводы</button>
+        <a href="{% url 'inventory' %}" class="account-control" id="l-contr-acc">{% trans 'Inventory' %}</a>
+        <button class="account-control" id="c-contr-acc">{% trans 'Game History' %}</button>
+        <button class="account-control" id="r-contr-acc">{% trans 'Withdraws' %}</button>
     </div>
     <div class="account-inventory">
         <div class="count-items">
-            Всего предметов
+            {% trans 'All Items' %}
             <span>0</span>
         </div>
         <div class="able-to-sell">
-            Можно продать
+            {% trans 'Able To Sell' %}
             <i class="switch-input">
                 <i class="switch-inside-fig"></i>
             </i>
         </div>
         <a href="{% url 'inventory' %}" class="button button-colorized rose view-all-btn">
-            Смотреть предметы
+            {% trans 'See All' %}
         </a>
         <button class="button button-colorized rose sell-all-btn">
-            Продать все
+            {% trans 'Sell All' %}
         </button>
     </div>
     <div class="inventory-items">
         <img src="{% static 'img/empty-inventory.png' %}">
         <span class="empty-inv-desc">
-            <b>Нет предметов</b><span>Начните открывать кейсы</span>
+            <b>{% trans 'Empty Inventory' %}</b><span>{% trans 'Start Open Cases' %}</span>
         </span>
         <button class="super-button open-case-button">
             <span class="super-button-bg"></span>
             <span class="super-button-text">
-                Открыть →
+                {% trans 'Open' %} →
             </span>
         </button>
     </div>

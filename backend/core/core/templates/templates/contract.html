@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load i18n %}
 
 {% block title %}
 Contract | Jack Drop
@@ -83,16 +84,22 @@ Contract | Jack Drop
     </div>
     <div class="side-info">
         <div class="contract-hint">
-            <img class="contract-hint-img" style="width: 100%;" src="{% static 'img/contract-hint.png' %}">
-            <img class="contract-mobile-hint-img" style="width: 100%;" src="{% static 'img/contract-hint-mob.png' %}">
+            {% if request.LANGUAGE_CODE == 'ru' %}
+                <img class="contract-hint-img" style="width: 100%;" src="{% static 'img/contract-hint.png' %}">
+                <img class="contract-mobile-hint-img" style="width: 100%;" src="{% static 'img/contract-hint-mob.png' %}">
+            {% else %}
+                <img class="contract-hint-img" style="width: 100%;" src="{% static 'img/contract-hint-ru.png' %}">
+                <img class="contract-mobile-hint-img" style="width: 100%;"
+                     src="{% static 'img/contract-hint-mob-ru.png' %}">
+            {% endif %}
         </div>
         <button class="super-button" id="cr-contract">
             <span class="super-button-bg"></span>
-            <span class="super-button-text">ПОДПИСАТЬ КОНРАКТ</span>
+            <span class="super-button-text">{% trans 'Sign Contract' %}</span>
         </button>
         <button class="super-button" id="cl-contract">
             <span class="super-button-bg noactive"></span>
-            <span class="super-button-text">Очистить</span>
+            <span class="super-button-text">{% trans 'Clear' %}</span>
         </button>
     </div>
     <div class="contract-circle">

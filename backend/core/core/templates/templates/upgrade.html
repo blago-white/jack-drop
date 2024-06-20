@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load i18n %}
 
 {% block title %}
 Battles | Jack Drop
@@ -20,15 +21,14 @@ Battles | Jack Drop
         </div>
         <img class="upgrade-item-img-gun" src="{% static 'img/testgun.png' %}">
         <img src="{% static 'img/upgrade-item-bg.png' %}" class="upgrade-item-img">
-        <span class="upgrade-items-desc">Выберите один из ваших скинов слева, чтобы обновить его и получить более
-            дорогой
+        <span class="upgrade-items-desc">{% trans 'Left Part Descriprion' %}
         </span>
     </div>
     <div class="upgrade-chance"><img src="{% static 'img/upgrade-chance.png' %}"></div>
     <div class="upgrade-item" id="second-u-i">
         <img class="upgrade-item-img-gun" src="{% static 'img/testgun.png' %}">
         <img src="{% static 'img/upgrade-item-bg.png' %}" class="upgrade-item-img">
-        <span class="upgrade-items-desc">Выберите скин справа, до которого вы хотите выполнить апгрейд</span>
+        <span class="upgrade-items-desc">{% trans 'Right Part Desctiption' %}</span>
     </div>
     <div class="grant-items">
         <article class="dropped mono">
@@ -75,9 +75,9 @@ Battles | Jack Drop
         </article>
     </div>
     <div class="ugpgrade-hint">
-        Вы увидите вероятность успешного апгрейда. В случае неудачи, вы теряете свой скин/баланс
+        {% trans 'Hint First' %}
         <img src="{% static 'img/upgrade-hint-separator.png' %}">
-        Вы также можете использовать баланс вашего счета в качестве входных данных вместо скина
+        {% trans 'Hint Second' %}
     </div>
     <div class="grant-items">
         <article class="dropped mono">
@@ -125,7 +125,7 @@ Battles | Jack Drop
     </div>
     <div class="items-list">
         <div class="left-items-list">
-            <span class="items-list-desc">Выберите один из ваших скинов слева, чтобы обновить его и получить более дорогой</span>
+            <span class="items-list-desc">{% trans 'Hint Second' %}</span>
             <div class="items-feed">
                 <article class="dropped mono">
                     <div class="w-line"></div>
@@ -167,7 +167,7 @@ Battles | Jack Drop
         <div class="items-lists-border"></div>
         <div class="right-items-list">
             <span class="items-list-desc">
-                Выберите один из ваших скинов слева, чтобы обновить его и получить более дорогой
+                {% trans 'Left Part Descriprion' %}
             </span>
             <div class="items-feed">
                 <article class="dropped mono">

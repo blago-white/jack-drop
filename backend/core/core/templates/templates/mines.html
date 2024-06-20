@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load i18n %}
 
 {% block title %}
 Mines | Jack Drop
@@ -15,7 +16,7 @@ Mines | Jack Drop
     <div class="game-controls">
         <form class="game-control-inputs">
             <div class="game-bet-amount">
-                <h3 class="control-sec-title">Сумма ставки</h3>
+                <h3 class="control-sec-title">{% trans 'Deposit Amount' %}</h3>
                 <input class="game-input" type="number" value="0.1">
                 <div class="bet-presets">
                     <button class="bet-amount-preset-btn">50.0</button>
@@ -25,7 +26,7 @@ Mines | Jack Drop
                 </div>
             </div>
             <div class="game-mines-count">
-                <h3 class="control-sec-title">Количество мин</h3>
+                <h3 class="control-sec-title">{% trans 'Mines Count' %}</h3>
                 <div class="mines-count-presets">
                     <input class="game-input" type="number" value="3">
                     <button class="mines-count-preset">2</button>
@@ -37,11 +38,11 @@ Mines | Jack Drop
             </div>
             <button class="super-button" style="margin-top: auto;" type="reset">
                 <span class="super-button-bg noactive"></span>
-                <span class="super-button-text">Рандом</span>
+                <span class="super-button-text">{% trans 'Random' %}</span>
             </button>
             <button class="super-button" type="submit">
                 <span class="super-button-bg"></span>
-                <span class="super-button-text">Начать игру</span>
+                <span class="super-button-text">{% trans 'Start Game' %}</span>
             </button>
         </form>
         <div class="game-info">

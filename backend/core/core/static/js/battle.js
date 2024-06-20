@@ -18,14 +18,14 @@ async function onCreateBattle() {
     let c = 0;
 
     while (true) {
-        if (c % 4 == 0) {
-            foundingLabel.innerHTML = "Ищем второго игрока";
+        await sleep(1000);
+        c += 1;
+
+        if (c % 4 == 0 && c > 0) {
+            foundingLabel.innerHTML = foundingLabel.innerHTML.slice(0, -3);
         } else {
             foundingLabel.innerHTML += ".";
         }
-
-        await sleep(1000);
-        c += 1;
     }
 }
 

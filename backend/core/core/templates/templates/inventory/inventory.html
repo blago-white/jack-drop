@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
 Account Inventory
@@ -12,7 +13,7 @@ Account Inventory
 
 {% block main %}
 <section class="inventory-sec">
-    <h3>Инвентарь</h3>
+    <h3>{% trans 'Inventory' %}</h3>
     <div class="inventory-items-table">
         {% include 'inventory/inventory-item.html' with MONO=True %}
         {% include 'inventory/inventory-item.html' with MONO=True %}

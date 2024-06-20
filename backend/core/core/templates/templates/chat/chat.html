@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <button class="chat-btn" id="open-chat-btn">
     <img src="{% static 'img/chat.png' %}" class="chat-btn">
@@ -6,7 +7,7 @@
 <section class="admin-chat" id="admin-chat" style="display: none;">
     <aside class="heading-chat-info">
         <img class="chat-avatar" src="{% static 'img/account-avatar.png' %}">
-        Администрация
+        {% trans 'Administration' %}
         <button id="close-chat-btn" class="close-chat-button"></button>
     </aside>
     <main class="chat-messages">
@@ -16,7 +17,9 @@
     </main>
     <div class="chat-controls">
         <div class="message-text-input-fields">
-            <input type="text" placeholder="Введите сообщение" id="message-text" class="chat-message-text-input">
+            <input type="text" placeholder="{% trans 'Type Message' %}"
+                   id="message-text"
+                   class="chat-message-text-input">
             <button class="send-message-button" onclick="sendChatMessage()"></button>
         </div>
     </div>

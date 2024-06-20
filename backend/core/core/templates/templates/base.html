@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
+{% load i18n %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,14 +23,21 @@
     <footer class="footer">
         <div class="site-info">
             <img src="{% static 'img/JD-mono.png' %}">
-            <span class="c"><b>© 2018-2024 JackDrop</b><br>Лучшие кейсы RUST</span>
+            <span class="c"><b>© 2018-2024 JackDrop</b><br>{% trans 'Best Cases' %}</span>
         </div>
         <span class="footer-mobile-info">
-            Пользовательское соглашение<br>
-            Соглашение о приватности<br>
-            Контакты<br>
-            FAQ<br>
+            {% trans 'User Agreement' %}<br>
+            {% trans 'Site Contacts' %}<br>
+            {% trans 'FAQ' %}<br>
         </span>
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <select name="language" class="button" style="width: -webkit-fill-available;margin-bottom: 1ch;border: 0px;">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+        </select>
+        <input class="button" type="submit" style="border: 0px;" value="{% trans 'Change Language' %}">
+    </form>
         <ul class="media-list">
             <li><img src="{% static 'img/tg-logo.png' %}"></li>
             <li><img src="{% static 'img/vk-logo.png' %}"></li>

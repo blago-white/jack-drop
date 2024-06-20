@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
 Колесо Фортуны
@@ -16,51 +17,51 @@
         <img src="{% static 'img/wheel.png' %}" class="wheel-canvas"
              style="grid-row: 1;grid-column: 1;width: 100%;height: 100%;">
         <div class="wheel inner-wheel" style="grid-row: 1;grid-column: 1;">
-            <h3 class="wheel-game-title">Колесо фортуны</h3>
-            <span class="wheel-game-desc">До бесплатного открытия осталось:</span>
+            <h3 class="wheel-game-title">{% trans 'Fortune Wheel' %}</h3>
+            <span class="wheel-game-desc">{% trans 'Count Down Title' %}</span>
             <div class="countdown-clock" id="clock">
                 <div class="countdown-component">
                     <span id="day-count">02</span>
-                    ДНЯ
+                    {% trans 'D' %}
                 </div>
                 <div class="countdown-component">
                     <span id="hrs-count">02</span>
-                    ЧАС
+                    {% trans 'H' %}
                 </div>
                 <div class="countdown-component">
                     <span id="min-count">01</span>
-                    МИН
+                    {% trans 'M' %}
                 </div>
                 <div class="countdown-component">
                     <span id="sec-count">02</span>
-                    СЕК
+                    {% trans 'S' %}
                 </div>
             </div>
             <button id="code-btn" class="super-button" style="">
                 <span class="super-button-bg"></span>
-                <span id="code-btn-text" class="super-button-text">вести код</span>
+                <span id="code-btn-text" class="super-button-text">{% trans 'Enter Code' %}</span>
             </button>
         </div>
     </div>
     <div class="wheel-info">
         <div class="wheel-info-part" id="f_t">
-            <span>Промокод на пополнение от 5 до 50%</span>
+            <span>{% trans 'Promo For Dep' %}</span>
             <img id="perc-img" src="{% static 'img/wheel-info-perc.png' %}">
         </div>
         <div class="wheel-info-part" id="s_d">
-            <span>Скины для контракта от 100-500₽</span>
+            <span>{% trans 'Contract Skin' %}</span>
             <img id="report-img" src="{% static 'img/wheel-report-img.png' %}">
         </div>
         <div class="wheel-info-part" id="t_e">
-            <span>Бесплатный скин от 20-1000₽</span>
+            <span>{% trans 'Free Skin' %}</span>
             <img id="gift-img" src="{% static 'img/wheel-gift-img.png' %}">
         </div>
         <div class="wheel-info-part" id="f_r">
-            <span>Скидки на определенный кейс от 5-100%</span>
+            <span>{% trans 'Case Discount' %}</span>
             <img id="case-img" src="{% static 'img/wheel-case-img.png' %}">
         </div>
         <div class="wheel-info-part" id="f_v">
-            <span id="bar-text">Скины для апрегрйда от 100-500₽</span>
+            <span id="bar-text">{% trans 'Upgrade Skin' %}</span>
             <img id="bar-img" src="{% static 'img/wheel-bar-img.png' %}">
         </div>
     </div>
