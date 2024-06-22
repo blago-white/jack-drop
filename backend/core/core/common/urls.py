@@ -19,5 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('core/admin/', admin.site.urls),
-    path('core/private/api/v1/funds/', include("funds.urls"))
+    path('core/private/api/v1/funds/', include("funds.urls")),
+    path("", include("templates.urls")),
+    path('i18n/', include('django.conf.urls.i18n')),
 ]

@@ -1,0 +1,60 @@
+@import "variables.css";
+
+.footer {
+    background: #0E0E0E;
+    margin-top: calc(100vw * calc(160 / var(--reference-display-w)));
+    padding-inline: calc(100vw * calc(132 / var(--reference-display-w)));
+    padding-block: calc(100vw * calc(77 / var(--reference-display-w)));
+    display: flex;
+    justify-content: space-between;
+}
+
+.c {
+    font-size: calc(100vw * calc(28 / var(--reference-display-w)));
+}
+
+.site-info {
+    display: flex;
+    align-items: center;
+    gap: calc(100vw* calc(30 / var(--reference-display-w)));
+}
+
+.media-list {
+    display: flex;
+    gap: calc(100vw * calc(64 / var(--reference-display-w)));
+    height: calc(100vw * calc(56 / var(--reference-display-w)));
+    list-style: none;
+}
+
+.footer-mobile-info {
+    display: none;
+    text-align: center;
+    color: rgba(149, 149, 149, 1);
+}
+
+@media (aspect-ratio < 1/1) {
+    footer {
+        flex-direction: column;
+        align-items: center;
+        gap: 1vh;
+        font-size: calc(100vw* calc(36 / var(--reference-display-w)));
+    }
+
+    .c {
+        font-size: calc(100vw * calc(32 / var(--reference-display-w)));
+    }
+
+    .site-info img {
+        filter: brightness(0.5);
+        width: 15.8vw;
+    }
+
+    .site-info {
+        margin-bottom: calc(100vw * calc(50 / var(--reference-display-w)));
+    }
+
+    .footer-mobile-info {
+        display: block;
+        line-height: calc(100vw * calc(72 / var(--reference-display-w)));
+    }
+}

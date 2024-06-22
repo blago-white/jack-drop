@@ -1,0 +1,193 @@
+@import "variables.css";
+
+.global-sharp {
+    display: none;
+}
+
+body {
+    background: url("../img/contract-bg.png");
+    background-repeat: no-repeat;
+    height: auto;
+    background-color: black;
+}
+
+.contract {
+    display: flex;
+    flex-direction: row;
+    gap: calc(100vw * calc(90 / var(--reference-display-w)));
+}
+
+.side-info {
+    width: calc(100vw * calc(367 / var(--reference-display-w)));
+    display: flex;
+    flex-direction: column;
+    gap: calc(100vw * calc(24 / var(--reference-display-w)));
+}
+
+.contract-hint {
+    display: flex;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(20px);
+    padding-block: calc(100vw * calc(43 / var(--reference-display-w)));
+    padding-inline: calc(100vw * calc(25 / var(--reference-display-w)));
+    border-radius: calc(100vw * calc(18 / var(--reference-display-w)));
+    border: 1px solid rgba(151, 151, 151, 1);
+    pointer-events: none;
+}
+
+.contract-cells {
+    display: none;
+}
+
+.inventory-items img {
+    max-height: 76vh;
+    pointer-events: none;
+}
+
+.inventory-items {
+    column-gap: calc(100vw * calc(14 / var(--reference-display-w)));
+    row-gap: calc(100vw * calc(30 / var(--reference-display-w)));
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: max-content;
+
+    border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
+
+
+    max-height: 76.6vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    padding-right: 23.5vw;
+}
+
+.inventory-items::-webkit-scrollbar {
+    width: .75ch;
+    padding-left: 1ch;
+}
+
+.inventory-items::-webkit-scrollbar-track {
+    background: rgba(51, 51, 51, 1);
+    border-radius: 20px;
+}
+
+.inventory-items::-webkit-scrollbar-thumb {
+    background-color: rgba(151, 151, 151, 1);
+    border-radius: 20px;
+}
+
+.contract-hint-img {
+    display: block;
+}
+
+.contract-mobile-hint-img {
+    display: none;
+}
+
+.dropped span {
+    margin-left: 0px;
+}
+
+.inventory-items-mobile {
+    display: none;
+}
+
+@media (aspect-ratio < 1/1) {
+    body {
+        background-size: initial;
+        background-color: black;
+    }
+
+    .inventory-item {
+        min-width: calc(100vw * calc(274 / var(--reference-display-w)));
+        font-size: calc(100vw * calc(17 / var(--reference-display-w)));
+    }
+
+    .inventory-item span {
+        margin-right: 9.5ch;
+    }
+
+    .inventory-items {
+        display: none;
+    }
+
+    .inventory-items-mobile {
+        display: flex;
+    }
+
+    .bg-filter {
+        height: 64vh;
+    }
+
+    .w-line {
+        height: 85%;
+    }
+
+    .inventory-item img {
+        width: calc(100vw* calc(277 / var(--reference-display-w)));
+    }
+
+    .contract-circle {
+        display: none;
+    }
+
+    .side-info {
+        display: grid;
+        justify-items: stretch;
+        grid-template-rows: auto auto auto;
+        width: 100%;
+    }
+
+    #cr-contract {
+        grid-row: 1;
+        width: calc(100%*calc(6 / 8));
+        height: calc(100vw * calc(110 / var(--reference-display-w)));
+        margin-inline: auto;
+    }
+
+    #cl-contract {
+        grid-row: 2;
+        width: calc(100%*calc(6 / 8));
+        height: calc(100vw * calc(110 / var(--reference-display-w)));
+        margin-inline: auto;
+    }
+
+    #cr-contract span[class="super-button-text"] {
+        font-size: calc(100vw * calc(40 / var(--reference-display-w)))!important;
+    }
+
+    .global-sharp {
+        display: block;
+    }
+
+    #cl-contract span[class="super-button-text"] {
+        font-size: calc(100vw * calc(40 / var(--reference-display-w)))!important;
+    }
+
+    .contract-hint {
+        grid-row: 3;
+    }
+
+    .contract {
+        flex-direction: column;
+    }
+
+    .contract-cells {
+        display: block
+    }
+
+    .contract-hint-img {
+        display: none;
+    }
+
+    .contract-mobile-hint-img {
+        display: block;
+    }
+
+    .contract-hint {
+        background: transparent;
+        border: none;
+        backdrop-filter: none;
+    }
+}

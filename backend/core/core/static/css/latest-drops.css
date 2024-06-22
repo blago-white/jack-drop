@@ -1,0 +1,103 @@
+@import "variables.css";
+
+.dropped {
+    aspect-ratio: 1/1;
+    border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
+    width: calc(100vw * calc(196 / var(--reference-display-w)));
+    min-width: calc(100vw * calc(196 / var(--reference-display-w)));
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    font-size: calc(100vw* calc(15 / var(--reference-display-w)));
+    gap: 1.5ch;
+}
+
+.dropped-content {
+    display: flex;
+    flex-direction: column  ;
+}
+
+.dropped.mono {
+    background: radial-gradient(50% 50% at 50% 50%, rgba(93, 93, 93, 0.8) 0%, rgba(35, 35, 35, 0.8) 100%);
+    min-width: auto;
+    aspect-ratio: 1 / 1;
+    width: auto;
+    font-size: calc(100vw* calc(10 / var(--reference-display-w)));
+    border: 1.33px solid #979797;
+}
+
+.dropped.mono span {
+    margin-top: 15%;
+    margin-right: 4.5ch;
+}
+
+.dropped.mono img {
+    width: 112%;
+    position: relative;
+    left: -15%;
+    margin-top: 15%;
+}
+
+.dropped.mono .w-line {
+    background: rgba(217, 217, 217, 1);
+    margin-left: calc(15vw* calc(164 / var(--reference-display-w)));
+}
+
+.dropped.regular {
+    background: url('../img/JD.png'), radial-gradient(50% 50% at 50% 50%, rgba(79, 160, 255, 0.8) 0%, rgba(0, 71, 255, 0.8) 100%);
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+}
+
+.dropped.rare {
+    background: url('../img/JD.png'), radial-gradient(50% 50% at 50% 50%, rgba(255, 98, 202, 0.8) 0%, rgba(255, 0, 122, 0.8) 100%);
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+}
+
+.dropped span {
+    margin-left: 1ch;
+    margin-right: 2.5ch;
+    margin-top: 2ch;
+}
+
+.dropped svg {
+    position: relative;
+    top: calc(100vw * calc(71 / var(--reference-display-w)));
+    left: calc(100vw * calc(17 / var(--reference-display-w)));
+}
+
+.w-line {
+    height: calc(80vw * calc(196 / var(--reference-display-w)));
+    margin-top: calc(10vw * calc(196 / var(--reference-display-w)));
+    margin-left: calc(15vw * calc(196 / var(--reference-display-w)));
+    min-width: calc(100vw * calc(1 / var(--reference-display-w)));
+    background: white;
+}
+
+.live-string {
+    display: flex;
+    gap: calc(100vw * calc(48 / var(--reference-display-w)));
+    height: calc(100vw * calc(196 / var(--reference-display-w)));
+    overflow-x: scroll;
+    width: calc(100% + calc(86vw* 0.0588));
+    padding-right: 1ch;
+}
+
+.live-string::-webkit-scrollbar {
+    display: none;
+}
+
+.dropped img {
+    width: calc(100vw* calc(196 / var(--reference-display-w)));
+    position: relative;
+    left: -12%;
+    margin-top: 7%;
+}
+
+@media (aspect-ratio < 1/1) {
+    .live-string {
+        width: 105.5%;
+    }
+}

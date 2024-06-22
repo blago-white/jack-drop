@@ -1,0 +1,203 @@
+@import 'fonts.css';
+@import 'colors.css';
+@import "variables.css";
+
+body {
+    font-family: 'Gilroy Regular', sans-serif;
+    background: url('../img/bg.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    color: var(--fg-color);
+    margin: 0px;
+    height: auto;
+    overflow-x: hidden;
+    font-size: calc(100vw * calc(22 / 1920));
+    background-color: black;
+    text-transform: uppercase!important;
+}
+
+body a {
+    color: var(--fg-color);
+    text-decoration: none;
+}
+
+.bg-filter {
+    background: linear-gradient(0deg, rgba(0,0,0,1) 20%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,1)90%);
+    width: 100vw;
+    height: calc(110vh + calc(100vw * calc(0.0588 * 0.690)));
+    position: absolute;
+    background-blend-mode: screen;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+}
+
+.global-sharp {
+    background: url(../svg/sharp.svg);
+    background-repeat: repeat;
+    height: 117vw;
+    width: 100vw;
+    position: absolute;
+    z-index: -1;
+    top: 0px;
+}
+
+.main-content {
+    margin-inline: calc(100vw* 0.0588);
+    width: auto;
+    display: flex;
+    gap: calc(100vw * calc(0.0588 * 0.690));
+    flex-direction: column;
+}
+
+button {
+    cursor: pointer!important;
+}
+
+.button {
+    background-color: #343434;
+    color: white;
+    border-radius: calc(100vw * calc(16 / var(--reference-display-w)));
+    border: none;
+    text-transform: uppercase!important;
+    font-size: calc(100vw * calc(22 / 1920));
+    padding-inline: calc(100vw * calc(35 / var(--reference-display-w)));
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.super-button {
+    aspect-ratio: 54/10;
+    background: transparent;
+    aspect-ratio: 5.4/1;
+    height: calc(100vw * 0.0317707);
+    font-size: inherit;
+    color: inherit;
+    text-transform: inherit;
+    border: none;
+
+    font-family: 'Gilroy Bold';
+
+    display: grid;
+    align-items: center;
+    cursor: pointer;
+}
+
+.super-button-bg {
+    background: linear-gradient(90deg, #0047FF 0%, #FF007A 100%);
+    transform: skew(-22.5deg);
+    border-radius: calc(100vw * calc(10 / 1920));
+    width: 100%;
+    height: 100%;
+    display: block;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+
+    box-shadow: none;
+    transition: box-shadow .2s ease;
+}
+
+.super-button-bg:hover {
+    box-shadow: -4px 4px 0px #FF007A, 4px -4px 0px #0047FF;
+}
+
+.super-button-bg.noactive {
+    background: rgba(39, 39, 39, 1);
+}
+
+.control-sec-title {
+    font-family: 'Gilroy Regular';
+}
+
+.super-button-bg.noactive:hover {
+    box-shadow: none;
+}
+
+.super-button-text {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75ch;
+
+    text-transform: uppercase;
+}
+
+.chat-btn {
+    position: fixed;
+    bottom: 0px;
+    right: 6%;
+    width: 8%;
+    z-index: 1000;
+}
+
+.button-colorized {
+    padding-block: calc(100vw * calc(21 / var(--reference-display-w)));
+    font-size: calc(100vw * calc(16 / var(--reference-display-w)));
+    border-radius: calc(100vw * calc(9 / var(--reference-display-w)));
+    font-family: 'Gilroy Bold';
+    text-transform: uppercase;
+}
+
+.blue {
+    background: linear-gradient(180deg, #0047FF 0%, #4FA0FF 100%);
+}
+
+.rose {
+    background: linear-gradient(180deg, #FF62CA 0%, #FF007A 100%);
+}
+
+.switch-input {
+    width: calc(100vw * calc(58 / var(--reference-display-w)));
+    height: calc(100vw * calc(24 / var(--reference-display-w)));
+    background: #272727;
+    display: flex;
+    border-radius: calc(100vw * calc(24 / var(--reference-display-w)));
+    cursor: pointer;
+}
+
+#l-contr-acc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.switch-inside-fig {
+    border-radius: 50%;
+    background: #838383;
+    aspect-ratio: 1/1;
+    height: 95%;
+}
+
+@media (aspect-ratio < 1/1) {
+    .main-content {
+        margin-top: 15vh;
+        margin-inline: calc(100vw * 0.055208);
+        gap: calc(100vw* calc(0.0588));
+    }
+
+    .global-sharp {
+        height: 314vw;
+    }
+
+    body {
+        height: auto;
+    }
+
+    .chat-btn {
+        width: calc(100vw * calc(186 / 960));
+    }
+
+    .super-button-bg {
+        border-radius: calc(100vw * calc(30 / 1920))!important;
+    }
+}

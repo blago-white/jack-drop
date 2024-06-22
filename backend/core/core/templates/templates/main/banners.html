@@ -1,0 +1,10 @@
+{% load static %}
+{% load i18n %}
+
+<section class="banners">
+    {% trans 'Fortune Wheel' as FORTUNE_WHEEL %}
+    {% trans 'Go' as GO %}
+
+    {% include 'main/banner.html' with HEAD="-35%" REFCODE="HFJS-FJFIV-POIF-GHGD" IMAGEPATH="img/banner-man.png" %}
+    {% include 'main/banner.html' with LONGHEAD=FORTUNE_WHEEL BUTTON=GO IMAGEPATH="img/random-banner.png" LONGIMG=True URL='/fortune/' %}
+</section>

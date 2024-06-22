@@ -1,0 +1,225 @@
+@import 'variables.css';
+
+body {
+    background: url('../img/fortune-wheel.png');
+    background-size: cover;
+}
+
+.global-sharp {
+    display: none;
+}
+
+.bg-filter {
+    display: none;
+}
+
+.fortune-sec {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wheel {
+    height: calc(100vw * calc(993 / var(--reference-display-w)));
+    aspect-ratio: 1/1;
+    background: #141414;
+    border-radius: 50%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    justify-items: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.inner-wheel {
+    height: calc(100vw * calc(515 / var(--reference-display-w)));
+    background: #111111;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    padding-inline: calc(100vw * calc(90 / var(--reference-display-w)));
+
+    width: calc(calc(100vw * calc(515 / var(--reference-display-w))) - calc(100vw * (90 / var(--reference-display-w)))
+    *2);
+
+    text-align: center;
+}
+
+.wheel-game-title {
+    font-family: 'Gilroy Bold';
+    font-size: calc(100vw * calc(52 / var(--reference-display-w)));
+    padding-inline: 20%;
+    text-align: center;
+    margin-bottom: calc(100vw * calc(12.85 / var(--reference-display-w)));
+    margin-top: calc(100vw * calc(65 / var(--reference-display-w)));
+}
+
+.wheel-game-desc {
+    display: flex;
+    flex-direction: column;
+    text-transform: none;
+    font-size: calc(100vw * calc(20 / var(--reference-display-w)));
+    margin-bottom: calc(100vw * calc(12.85 / var(--reference-display-w)));
+    text-wrap: nowrap;
+}
+
+#code-btn {
+    margin-top: calc(100vw * calc(48.2 / var(--reference-display-w)));
+}
+
+.wheel-canvas {
+}
+
+.countdown-clock {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(100vw * calc(21 / var(--reference-display-w)));
+    width: 100%;
+}
+
+.countdown-component {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #292929;
+    border-radius: calc(100vw * calc(4 / var(--reference-display-w)));
+    padding: 10%;
+    aspect-ratio: 68 / 80;
+    color: #474747;
+
+    font-family: 'Gilroy SemiBold';
+}
+
+.countdown-component span {
+    color: #838383;
+    font-size: calc(100vw * calc(29 / var(--reference-display-w)));
+    font-family: 'Gilroy SemiBold';
+}
+
+.wheel-info {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: calc(100vw * calc(324 / var(--reference-display-w))) calc(100vw * calc(324 / var
+    (--reference-display-w))) calc(100vw * calc(223 / var(--reference-display-w)));
+    gap: calc(100vw * calc(35 / var(--reference-display-w)));
+    width: calc(100vw * calc(515 / var(--reference-display-w)));
+}
+
+.wheel-info-part {
+    background: linear-gradient(152.95deg, #131313 19.34%, #292929 99.05%);
+    aspect-ratio: 24/34;
+    padding: calc(100vw * calc(25 / var(--reference-display-w)));
+    font-size: calc(100vw * calc(25 / var(--reference-display-w)));
+    color: #7E7E7E;
+    font-family: 'Gilroy Regular';
+    overflow: hidden;
+}
+
+
+.wheel-info-part.active {
+    background: linear-gradient(180deg, #FF62CA 0%, #FF007A 100%);
+    color: white;
+    font-family: 'Gilroy Bold';
+}
+
+.wheel-info-part:hover {
+    background: linear-gradient(180deg, #FF62CA 0%, #FF007A 100%);
+    color: white;
+    font-family: 'Gilroy Bold';
+}
+
+.wheel-info-part img {
+    position: relative;
+    bottom: -12%;
+    right: -5%;
+    max-height: 100%;
+    filter: grayscale(1);
+}
+
+#gift-img {
+    right: -25%;
+    bottom: -15%;
+}
+
+#report-img {
+    right: -15%;
+}
+
+#case-img {
+    bottom: 0%;
+    right: -6%;
+}
+
+#bar-img {
+    right: -55%;
+    top: 0%;
+    transform: scale(1.5);
+}
+
+#bar-text {
+    width: 68%;
+    display: flex;
+}
+
+#perc-img {
+    transform: rotate(-20deg);
+}
+
+#f_v {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    aspect-ratio: 518/223;
+}
+
+.wheel-arrow {
+    position: absolute;
+    z-index: 2;
+    margin-bottom: 46%;
+}
+
+@media (aspect-ratio < 1/1) {
+    body {
+        background: black;
+    }
+
+    .fortune-sec {
+        flex-direction: column;
+        gap: calc(100vw* calc(130 / var(--reference-display-w)));
+    }
+
+    .wheel {
+        height: auto;
+        width: 100%;
+    }
+
+    .wheel-info {
+        width: 100%;
+    }
+
+    .wheel.inner-wheel {
+        height: calc(100vw* calc(480 / var(--reference-display-w)));
+        width: calc(calc(100vw* calc(480 / var(--reference-display-w))) - calc(100vw*(90 / var(--reference-display-w)))*
+        2);
+    }
+
+    .wheel-info-part {
+        font-size: calc(100vw* calc(42 / var(--reference-display-w)));
+    }
+
+    #code-btn-text {
+        font-size: calc(100vw* calc(22 / var(--reference-display-w)));
+    }
+
+    #code-btn {
+        height: calc(88vw* 0.081771);
+    }
+
+    .wheel-arrow {
+        margin-bottom: 77%;
+    }
+}

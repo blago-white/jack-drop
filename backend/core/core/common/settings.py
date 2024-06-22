@@ -32,12 +32,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1:8000", "127.0.0.1", "localhost", "coreapp"]
 
-
 # Application definition
 
 INSTALLED_APPS = [
     'funds',
     'rest_framework',
+    'templates',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'common.urls'
@@ -61,7 +62,9 @@ ROOT_URLCONF = 'common.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates/templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,14 +126,23 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
 
+LOCALE_PATHS = [
+    BASE_DIR / 'locale'
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / "static"
+#STATIC_ROOT = BASE_DIR / "static"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
