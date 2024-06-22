@@ -32,8 +32,8 @@ services:
   coreapp:
     build:
       dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
     depends_on:
       - coredb
       - coreredis
@@ -42,7 +42,7 @@ services:
     container_name: coreapp
     volumes:
 #      - ./products/debug.log:/home/app/products/debug.log
-      - ./products/:/home/app/products/
+      - ./core/:/home/app/core/
     restart: always
   corecelery:
     build:

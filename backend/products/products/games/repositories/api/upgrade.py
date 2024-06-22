@@ -119,7 +119,7 @@ class UpgradeApiRepository(BaseApiRepository):
                 "receive_funds": receive_item_price,
                 "user_funds": user_funds,
                 "site_funds": {
-                    "site_active_funds_per_hour": self._site_funds_service.get()
+                    "site_active_funds": self._site_funds_service.get()
                 }
             }
         )

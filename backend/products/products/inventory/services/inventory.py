@@ -3,7 +3,7 @@ from django.db import models
 from django.db.transaction import savepoint_rollback, savepoint
 
 from common.services.base import BaseReadOnlyService
-from ..models import InventoryItem
+from ..models import InventoryItem, Lockings
 
 
 class InventoryService(BaseReadOnlyService):
@@ -45,10 +45,13 @@ class InventoryService(BaseReadOnlyService):
             ).values_list("pk", flat=True)[:1]
         ).delete())
 
-    def add_item(self, owner_id: int, item_id: int) -> InventoryItem:
+    def add_item(self, owner_id: int,
+                 item_id: int,
+                 locking: str = Lockings.UNLOCK) -> InventoryItem:
         return self._model.objects.create(
             user_id=owner_id,
-            item_id=item_id
+            item_id=item_id,
+            locked_for=locking
         )
 
     def bulk_get_items_amount(

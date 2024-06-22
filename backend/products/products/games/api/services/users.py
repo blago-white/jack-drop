@@ -59,10 +59,21 @@ class UsersApiService(BaseApiService):
 
     def update_user_balance_by_id(
             self, delta_amount: int,
-            user_id: int = None,
+            user_id: int,
     ) -> bool:
         response = requests.patch(
             url=self.routes.get("update_balance").format(
+                client_id=user_id
+            ),
+            data={"delta_amount": delta_amount}
+        ).json()
+
+        return response.get("ok")
+
+    def update_user_hiden_balance(self, user_id: int,
+                                  delta_amount: float):
+        response = requests.patch(
+            url=self.routes.get("update_hidden_balance").format(
                 client_id=user_id
             ),
             data={"delta_amount": delta_amount}

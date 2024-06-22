@@ -1,10 +1,6 @@
 from dataclasses import dataclass
 
-
-@dataclass
-class FundsDifference:
-    user_funds_diff: float
-    site_active_funds_diff: float
+from common.services.api.states import FundsDifference
 
 
 @dataclass

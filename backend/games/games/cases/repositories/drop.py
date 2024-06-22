@@ -31,6 +31,8 @@ class CaseItemDropRepository(BaseRepository):
         request = self._serialize_drop_request(data_json=drop_request_data)
         dropped = self._service.drop(request=request)
 
+        # TODO: Save drop result
+
         return self._result_serializer_class(
             instance={
                 "item_id": dropped.dropped_item.id,

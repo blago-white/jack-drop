@@ -1,3 +1,5 @@
+from celery import shared_task
+
 from market.services.items import MarketItemParser
 from items.services.items import ItemService
 from items.models.models import Item

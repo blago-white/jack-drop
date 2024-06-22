@@ -22,8 +22,6 @@ class MinesGameRepository(BaseRepository):
         super().__init__()
 
     def make(self, request_data: dict) -> dict:
-        print("GAME:", request_data)
-
         serialized: MinesGameRequestSerializer = self._serializer_class(
             data=request_data
         )

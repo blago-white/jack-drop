@@ -162,9 +162,7 @@ LOCALE_PATHS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CELERY_BROKER_URL = (f"redis://"
-                     f"{os.environ.get('REDIS_USER')}:"
-                     f"{os.environ.get('REDIS_PASSWORD')}@productsredis:6379")
+CELERY_BROKER_URL = f"redis://productsredis:6379/0"
 
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 
@@ -180,6 +178,8 @@ GAMES_SERVICE_ROUTES = {
                            "/{initiator_id}/",
     "make_battle": "http://gamesapp:8000/games/private/battle/make-battle/",
     "make_mines_game": "http://gamesapp:8000/games/private/mines/make/",
+    "get_prize_type_wheel": "http://gamesapp:8000/games/private/fortune/prize-type/",
+    "get_prize_wheel": "http://gamesapp:8000/games/private/fortune/make-prize/",
 }
 
 USERS_MICROSERVICE_ROUTES = {
@@ -190,13 +190,18 @@ USERS_MICROSERVICE_ROUTES = {
     "update_balance_jwt": "http://users/auth/"
                    "balances/api/v1/p/displayed_balance_jwt/update/",
     "update_balance": "http://users/auth/"
-                   "balances/api/v1/p/displayed_balance/{client_id}/update/"
+                   "balances/api/v1/p/displayed_balance/{client_id}/update/",
+    "update_hidden_balance": "http://users/auth/"
+                   "balances/api/v1/p/hidden_balance/{client_id}/update/",
 }
 
 CORE_MICROSERVICE_ROUTES = {
-    "get_funds": "http://core/core/private/api/v1/funds/get-displayed/",
-    "increase_site_funds": "http://core/core/private/api/v1/funds/increase/",
-    "decrease_site_funds": "http://core/core/private/api/v1/funds/decrease/",
+    "get_funds": "http://coreapp:8000/core/private/api/v1/funds/get"
+                 "-displayed/",
+    "increase_site_funds": "http://coreapp:8000/core/private/api/v1/funds"
+                           "/increase/",
+    "decrease_site_funds": "http://coreapp:8000/core/private/api/v1/funds"
+                           "/decrease/",
 }
 
 CHANNEL_LAYERS = {

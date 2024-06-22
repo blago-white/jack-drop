@@ -6,6 +6,7 @@ from ..serializers import ClientBalanceSerializer
 
 class BalanceRepository(BaseRepository):
     default_service = ClientBalanceService()
+
     default_serializer_class = ClientBalanceSerializer
 
     _service: ClientBalanceService
@@ -21,5 +22,12 @@ class BalanceRepository(BaseRepository):
             client_id=client_id,
             delta_balance=delta_amount
         )
+
+        return {"ok": result}
+
+    def update_hidden_balance(self, client_id: int,
+                              delta_amount: float) -> dict:
+        result = self._service.update_real_balance(client_id=client_id,
+                                                   delta_balance=delta_amount)
 
         return {"ok": result}

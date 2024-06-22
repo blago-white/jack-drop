@@ -32,7 +32,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "gamesapp",
-    "gamesapp:8000"
+    "gamesapp:8000",
+    "127.0.0.1",
+    "localhost"
 ]
 
 
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'contract',
     'battles',
     'mines',
+    'fortune',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -143,13 +146,3 @@ STATIC_ROOT = BASE_DIR / 'static'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-PRODUCTS_MICROSERVICE_ROUTES = {
-    "case_info": "http://products:8000/products/cases/api/v1/p/case_drop_data/{case_id}/",
-    "item_price": "http://products:8000/products/items/api/v1/p/item_price/{item_id>}/"
-}
-
-USERS_MICROSERVICE_ROUTES = {
-    "get_advantage": "http://users:8000/auth/api/v1/p/advantage/",
-    "get_info": "http://users:8000/auth/api/v1/p/get_user_info_jwt/",
-}

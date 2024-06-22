@@ -7,12 +7,26 @@ class CaseItem:
     rate: float
     price: float
 
+    def as_json(self):
+        return {
+            "id": self.id,
+            "rate": self.rate,
+            "price": self.price
+        }
+
 
 @dataclass(frozen=True)
 class CaseData:
     id: int
-    items: list
+    items: list[CaseItem]
     price: int
+
+    def as_json(self):
+        return {
+            "id": self.id,
+            "items": self.items,
+            "price": self.price
+        }
 
 
 @dataclass(frozen=True)

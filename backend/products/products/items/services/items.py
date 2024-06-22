@@ -17,8 +17,17 @@ class ItemService(BaseReadOnlyService):
             price=item_price
         ) == 1
 
-    def get_all(self) -> models.QuerySet:
-        return self._model.objects.all()
+    def get_all(self, max_price: float = None,
+                min_price: float = None) -> models.QuerySet:
+        result = self._model.objects.all().order_by("price")
+
+        if min_price:
+            result.filter(price__gte=min_price)
+
+        if max_price:
+            result.filter(price__lte=max_price)
+
+        return result
 
     def get_random(self) -> Item:
         return random.choice(self._model.objects.all())

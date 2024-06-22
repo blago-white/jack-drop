@@ -1,11 +1,11 @@
 from .frozen import FrozenFundsService
-from .percent import FreezeFundsPercent
+from .percent import FreezeFundsService
 from .dinamic import DinamicFundsService
 
 
 def convert_dinamic_to_frozen(
         frozen_funds_service: FrozenFundsService = FrozenFundsService(),
-        percent_funds_service: FreezeFundsPercent = FreezeFundsPercent(),
+        percent_funds_service: FreezeFundsService = FreezeFundsService(),
         dinamic_funds_service: DinamicFundsService = DinamicFundsService()
 ) -> None:
     if (dinamic_funds := dinamic_funds_service.get()) <= 1:

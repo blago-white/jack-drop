@@ -15,11 +15,10 @@ class BattleRequestSerializer(serializers.ModelSerializer):
 class MakeBattleSerializer(serializers.Serializer):
     initiator_id = serializers.IntegerField(required=True)
     participant_id = serializers.IntegerField(required=True)
-    site_funds = serializers.SiteFundsSerializer(required=True)
+    site_funds = SiteFundsSerializer(required=True)
     battle_case_id = serializers.IntegerField(min_value=0)
     battle_case_price = serializers.IntegerField(min_value=0)
-    battle_case_items = serializers.DropItemSerializer(many=True,
-                                                       required=True)
+    battle_case_items = DropItemSerializer(many=True, required=True)
 
 
 class BattleSerializer(serializers.ModelSerializer):

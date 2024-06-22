@@ -10,7 +10,11 @@ class SiteFundsApiService(BaseApiService):
     def get(self) -> float:
         response = requests.get(
             url=self.default_routes.get("get_funds"),
-        ).json()
+        )
+
+        print(response.text)
+
+        response = response.json()
 
         return float(response.get("amount"))
 
@@ -20,7 +24,7 @@ class SiteFundsApiService(BaseApiService):
         return self.decrease(amount=amount)
 
     def increase(self, amount: float) -> bool:
-        response = requests.get(
+        response = requests.post(
             url=self.default_routes.get("increase_site_funds"),
             data={
                 "delta_amount": amount
@@ -30,7 +34,7 @@ class SiteFundsApiService(BaseApiService):
         return bool(response.get("ok"))
 
     def decrease(self, amount: float) -> bool:
-        response = requests.get(
+        response = requests.post(
             url=self.default_routes.get("decrease_site_funds"),
             data={
                 "delta_amount": amount
