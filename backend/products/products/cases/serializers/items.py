@@ -9,7 +9,7 @@ class CaseItemPrivateSerializer(serializers.ModelSerializer):
         model = CaseItem
         fields = "__all__"
         read_only_fields = [
-            "chance",
+            "rate",
             "id"
         ]
 

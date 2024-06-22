@@ -1,9 +1,13 @@
 from django.urls import re_path
 
-from .consumers.battle import BattleRequestAsyncConsumer
+from .consumers.battle import BattleRequestConsumer
+from .consumers.feed.feed import FeedWebsocketConsumer
 
 websocket_urlpatterns = [
-    re_path(r'^ws/battle/(?P<initiator_id>\d+)/$',
-            BattleRequestAsyncConsumer.as_asgi(),
+    re_path(r'^products/ws/battle/$',
+            BattleRequestConsumer.as_asgi(),
             name="ws-battle"),
+    re_path(r'^products/ws/feed/$',
+            FeedWebsocketConsumer.as_asgi(),
+            name="ws-feed"),
 ]

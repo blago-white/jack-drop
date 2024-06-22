@@ -6,7 +6,7 @@ from common.services.default import DefaultModelService
 
 
 class CaseCategoriesService(DefaultModelService):
-    _model = CasesCategory
+    default_model = CasesCategory
 
     def get_cases_by_categories(self) -> list[QuerySet]:
         categories_qs = self._model.objects.all().select_related()

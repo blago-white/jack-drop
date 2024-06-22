@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, Serializer, FloatField
 from rest_framework import serializers
 
 from accounts.models import Client, ClientDeposit
@@ -29,3 +29,7 @@ class ClientDepositSerializer(ModelSerializer):
         fields = ["user_id", "amount", "datetime"]
         read_only_fields = ["datetime"]
         model = ClientDeposit
+
+
+class UpdateAdvantageSerializer(Serializer):
+    delta_amount = FloatField()

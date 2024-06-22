@@ -13,13 +13,13 @@ class CaseItem(BaseImageModel):
     case = models.ForeignKey(verbose_name="Case of item",
                              to="cases.Case",
                              on_delete=models.CASCADE)
-    chance = models.FloatField(verbose_name="Chance of item drop",
-                               validators=[
-                                   validators.MAX_CHANCE_VALUE_VALIDATOR,
-                                   validators.MIN_CHANCE_VALUE_VALIDATOR
-                               ],
-                               blank=True,
-                               default=0)
+    rate = models.FloatField(verbose_name="Chance of item drop",
+                             validators=[
+                                 validators.MAX_CHANCE_VALUE_VALIDATOR,
+                                 validators.MIN_CHANCE_VALUE_VALIDATOR
+                             ],
+                             blank=True,
+                             default=0)
     can_drop = models.BooleanField(verbose_name="Can drop this item?",
                                    default=True)
     view = models.BooleanField(verbose_name="Can view this item?",
@@ -34,7 +34,9 @@ class CaseItem(BaseImageModel):
 
     def clean(self):
         if self.can_drop and not self.view:
-            raise ValidationError("The item is hidden, but it can fall out, it is forbidden")
+            raise ValidationError(
+                "The item is hidden, but it can fall out, it is forbidden"
+            )
 
     def _get_image(self) -> models.URLField:
         return self.item.image_path

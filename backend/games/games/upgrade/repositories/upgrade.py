@@ -22,9 +22,13 @@ class UpgradeRepository(BaseRepository):
         receive_amount = serialized.data.get("receive_funds")
 
         funds_state = FundsState(
-            usr_advantage=serialized.data.get("user_funds").get("advantage"),
-            site_active_funds_per_hour=serialized.data.get("site_funds").get(
-                "site_active_funds_per_hour"
+            usr_advantage=float(
+                serialized.data.get("user_funds").get("user_advantage")
+            ),
+            site_active_funds=float(
+                serialized.data.get("site_funds").get(
+                    "site_active_funds"
+                )
             )
         )
 
@@ -40,7 +44,7 @@ class UpgradeRepository(BaseRepository):
         return {
             "user_balance_diff": upgrade_result.user_balance_diff,
             "site_funds": {
-                "site_active_funds_per_hour": upgrade_result.site_active_funds_per_hour_diff
+                "site_active_funds": upgrade_result.site_active_funds_diff
             },
             "success": upgrade_result.success
         }

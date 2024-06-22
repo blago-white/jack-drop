@@ -23,7 +23,7 @@ class MinesService:
         win = True if random_num < ((1-rate_per_win_item)/3) else False
 
         if win:
-            if (game_request.site_active_funds_per_hour > (
+            if (game_request.site_active_funds > (
                     game_request.user_deposit*win_rate
             )):
                 return self._get_win_result(
@@ -49,7 +49,7 @@ class MinesService:
             is_win=False,
             funds_diffirence=FundsDifference(
                 user_funds_diff=-game_request.user_deposit,
-                site_active_funds_per_hour_diff=(
+                site_active_funds_diff=(
                     game_request.user_deposit
                 )
             ),
@@ -65,7 +65,7 @@ class MinesService:
             is_win=True,
             funds_diffirence=FundsDifference(
                 user_funds_diff=user_win_amount,
-                site_active_funds_per_hour_diff=-user_win_amount
+                site_active_funds_diff=-user_win_amount
             )
         )
 
@@ -73,11 +73,12 @@ class MinesService:
 class MinesModelService(BaseModelService):
     default_model = MinesGame
 
-    def save(self, count_mines: int,
-             is_win: bool,
-             loss_step: int = None) -> MinesGame:
+    def save(self, user_id: int,
+             count_mines: int,
+             mines_game_result: MinesGameRequest) -> MinesGame:
         return self._model.objects.create(
+            user_id=user_id,
             count_mines=count_mines,
-            is_win=is_win,
-            loss_step=loss_step
+            is_win=mines_game_result.is_win,
+            loss_step=mines_game_result.loss_step
         )

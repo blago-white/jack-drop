@@ -22,3 +22,9 @@ class ClientBalanceService(BaseService):
         return self._model.objects.filter(client_id=client_id).update(
             displayed_balance=F("displayed_balance") - Value(delta_balance)
         ) > 0
+
+    def update_real_balance(self, client_id: int,
+                            delta_balance: float) -> bool:
+        return self._model.objects.filter(client_id=client_id).update(
+            real_balance=F("real_balance") - Value(delta_balance)
+        )

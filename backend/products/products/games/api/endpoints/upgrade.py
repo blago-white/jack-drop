@@ -1,4 +1,4 @@
-from common.mixins.api import CreateApiViewMixin
+from common.mixins.api import CreateAPIViewMixin
 from games.repositories.api.upgrade import UpgradeApiRepository
 from games.repositories.api.users import UsersApiRepository
 from games.serializers.upgrade import UpgradeRequestApiViewSerializer
@@ -6,7 +6,7 @@ from games.serializers.upgrade import UpgradeRequestApiViewSerializer
 from .base import BaseGameProxyCreateApiView
 
 
-class UpgradeGameApiView(CreateApiViewMixin, BaseGameProxyCreateApiView):
+class UpgradeGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):
     users_api_repository = UsersApiRepository()
     upgrade_repository = UpgradeApiRepository()
     serializer_class = UpgradeRequestApiViewSerializer

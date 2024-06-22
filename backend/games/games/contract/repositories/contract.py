@@ -32,11 +32,14 @@ class ContractRepository(BaseRepository):
     _service: ContractService
 
     def save_contract(self, request: Request) -> dict:
-        serialized: ContractSerializer = self._serializer_class(data=request.DATA)
+        serialized: ContractSerializer = self._serializer_class(
+            data=request.data
+        )
 
         serialized.is_valid(raise_exception=True)
 
         return self._serializer_class(instance=self._service.save_contract(
-            granted_amount=serialized.data.get_user_info("granted_amount"),
-            result_item=serialized.data.get_user_info("result_item")
+            user_id=serialized.data.get("user_id"),
+            granted_amount=serialized.data.get("granted_amount"),
+            result_item=serialized.data.get("result_item")
         )).data

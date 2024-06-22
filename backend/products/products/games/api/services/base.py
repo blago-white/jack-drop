@@ -4,7 +4,9 @@ from rest_framework.serializers import Serializer
 
 
 class BaseApiService:
-    default_routes: dict[str, str] = settings.GAMES_SERVICE_ROUTES
+    default_routes: dict[str, str] = (settings.GAMES_SERVICE_ROUTES |
+                                      settings.USERS_MICROSERVICE_ROUTES |
+                                      settings.CORE_MICROSERVICE_ROUTES)
     default_endpoint_serializer_class: Serializer
 
     def __init__(self, routes: dict[str, str] = None,

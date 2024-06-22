@@ -45,9 +45,10 @@ services:
       - ./products/:/home/app/products/
     restart: always
   productscelery:
-    build: .
+    build:
+      dockerfile: Dockerfile.celery
     restart: always
-    command: celery -A config worker -l info
+    command: celery -A common beat
     container_name: productscelery
     env_file:
       - .env

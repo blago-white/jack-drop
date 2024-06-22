@@ -1,3 +1,5 @@
+import json
+
 import requests
 
 from games.serializers.battle import BattleRequestServiceEndpointSerializer, \
@@ -12,9 +14,13 @@ class BattleRequestApiService(BaseApiService):
         response = requests.post(
             self._routes.get("create_battle_request"),
             data=serialized.data
-        ).json()
+        )
 
-        return response.get("ok")
+        print(response.json(), "RESPONSE")
+
+        return response.json().get("ok") if (
+                response.status_code == 201
+        ) else False
 
     def cancel(self, initiator_id: int) -> bool:
         response = requests.delete(
@@ -30,9 +36,19 @@ class BattleApiService(BaseApiService):
     default_endpoint_serializer_class = MakeBattleServiceEndpointSerializer
 
     def make(self, serialized: MakeBattleServiceEndpointSerializer):
-        response = requests.post(
-            self._routes.get("make_battle"),
-            data=serialized.validated_data
-        ).json()
+        print("MAKE REQUEST:", serialized.data)
 
-        return response.get("ok")
+        response = requests.post(
+            url=self._routes.get("make_battle"),
+            data=json.dumps(serialized.data),
+            headers={
+                "Content-Type": "application/json"
+            }
+        )
+
+        print("MAKE RESULT:", response.json())
+
+        try:
+            return response.json()
+        except:
+            return False

@@ -10,7 +10,7 @@ class MinesGameRequestSerializer(serializers.Serializer):
                                            required=True,
                                            min_value=1)
 
-    user_advantage = serializers.FloatField()
+    user_funds = UserFundsStateSerializer()
     user_deposit = serializers.FloatField(min_value=1)
 
     site_funds = SiteFundsSerializer(required=True)
@@ -18,7 +18,7 @@ class MinesGameRequestSerializer(serializers.Serializer):
 
 class FundsDifferenceSerializer(serializers.Serializer):
     user_funds_diff = serializers.FloatField()
-    site_active_funds_per_hour_diff = serializers.FloatField()
+    site_active_funds_diff = serializers.FloatField()
 
 
 class GameResultSerializer(serializers.ModelSerializer):

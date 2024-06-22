@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .endpoints import (DisplayedBalanceRetrieveApiView,
+from .displayed import (DisplayedBalanceRetrieveApiView,
                         DisplayedBalanceUpdateJWTApiView,
                         DisplayedBalanceUpdateApiView)
 
@@ -13,5 +13,7 @@ urlpatterns = [
          DisplayedBalanceUpdateJWTApiView.as_view(),
          "update-displayed-balance"),
     path("api/v1/p/displayed_balance/<int:client_id>/update/",
+         DisplayedBalanceUpdateApiView.as_view()),
+    path("api/v1/p/hidden_balance/<int:client_id>/update/",
          DisplayedBalanceUpdateApiView.as_view())
 ]

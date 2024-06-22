@@ -1,4 +1,5 @@
 from rest_framework.exceptions import ValidationError
+from django.forms.models import model_to_dict
 
 from common.repositories import BaseRepository
 
@@ -80,7 +81,9 @@ class BattleRepository(BaseRepository):
         ))
 
         return self._battle_serializer_class(
-            instance=self._commit_result(instance=result)
+            instance=model_to_dict(
+                self._commit_result(instance=result)
+            ) | {"site_funds_diff": result.site_funds_diff}
         ).data
 
     def _commit_result(self, instance: BattleResult) -> object:
@@ -115,7 +118,7 @@ class BattleRepository(BaseRepository):
                          rate=item.get("rate"))
                 for item in serialized.data.get("battle_case_items")
             ],
-            site_active_funds_per_hour=serialized.data.get(
+            site_active_funds=serialized.data.get(
                 "site_funds"
-            ).get("site_active_funds_per_hour"),
+            ).get("site_active_funds"),
         )

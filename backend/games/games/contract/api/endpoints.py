@@ -18,6 +18,6 @@ class SaveContractApiView(DefaultCreateApiView):
     serializer_class = ContractRepository.default_serializer_class
 
     def create(self, request, *args, **kwargs):
-        return self.get_200_response(
+        return self.get_201_response(
             data=self.repository.save_contract(request=request)
         )

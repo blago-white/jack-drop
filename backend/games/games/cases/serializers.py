@@ -7,9 +7,16 @@ class DropItemSerializer(serializers.Serializer):
     price = serializers.FloatField(min_value=0)
 
 
+class ResultFundsState(serializers.Serializer):
+    user_funds_delta = serializers.FloatField()
+    site_funds_delta = serializers.FloatField(
+        min_value=0
+    )
+
+
 class FundsState(serializers.Serializer):
-    user_advantage = serializers.FloatField()
-    site_active_funds_per_hour = serializers.FloatField(
+    user_funds = serializers.FloatField()
+    site_active_funds = serializers.FloatField(
         min_value=0
     )
 
@@ -23,4 +30,4 @@ class DropCaseRequestSerializer(serializers.Serializer):
 
 class DropResultSerializer(serializers.Serializer):
     item_id = serializers.IntegerField(min_value=0, read_only=True)
-    funds = FundsState(read_only=True)
+    funds = ResultFundsState(read_only=True)

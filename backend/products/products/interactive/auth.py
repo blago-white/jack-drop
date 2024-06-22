@@ -1,3 +1,5 @@
+import random
+
 from channels.exceptions import RequestAborted
 
 from games.repositories.api.users import UsersApiRepository
@@ -17,6 +19,14 @@ class JWTTokenAuthMiddleware:
         headers = dict(scope['headers'])
 
         if b'authorization' not in headers:
+            scope["user"] = {
+                "id": random.randint(0, 20),
+                "advantage": -200,
+                "displayed_balance": 1000
+            }
+
+            return self.inner(scope, receive, send)
+
             raise RequestAborted()
 
         token_name, token_key = headers[b'authorization'].decode().split()

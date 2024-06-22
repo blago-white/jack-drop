@@ -19,8 +19,8 @@ services:
   gamesapp:
     build:
       dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
     depends_on:
       - gamesdb
     env_file:

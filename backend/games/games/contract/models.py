@@ -4,7 +4,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Contract(models.Model):
-    user_id = models.PositiveIntegerField()
+    user_id = models.PositiveIntegerField(default=0)
     granted_amount = models.FloatField()
     result_item = models.IntegerField()
     datetime = models.DateTimeField(auto_now=True)

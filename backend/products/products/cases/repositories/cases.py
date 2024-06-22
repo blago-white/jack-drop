@@ -1,9 +1,9 @@
 from common.repositories.default import DefaultRepository
 
-from ..services.cases import CasesService
+from ..services.cases import CaseService
 from ..serializers.case import CaseSerializer
 
 
 class CasesRepository(DefaultRepository):
-    _service = CasesService()
+    _service = CaseService()
     _serializer = CaseSerializer

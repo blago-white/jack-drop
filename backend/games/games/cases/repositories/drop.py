@@ -31,12 +31,14 @@ class CaseItemDropRepository(BaseRepository):
         request = self._serialize_drop_request(data_json=drop_request_data)
         dropped = self._service.drop(request=request)
 
+        # TODO: Save drop result
+
         return self._result_serializer_class(
             instance={
                 "item_id": dropped.dropped_item.id,
                 "funds": {
-                    "user_advantage": dropped.new_user_funds,
-                    "site_active_funds_per_hour": dropped.new_site_funds
+                    "user_funds_delta": dropped.user_funds_delta,
+                    "site_funds_delta": dropped.site_funds_delta
                 }
             }
         ).data
@@ -55,8 +57,8 @@ class CaseItemDropRepository(BaseRepository):
                 usr_advantage=data_json.data.get("funds").get(
                     "user_advantage"
                 ),
-                site_active_funds_per_hour=data_json.data.get("funds").get(
-                    "site_active_funds_per_hour"
+                site_active_funds=data_json.data.get("funds").get(
+                    "site_active_funds"
                 ),
             ),
             case_price=data_json.data.get("price")

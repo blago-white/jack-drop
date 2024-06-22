@@ -15,3 +15,14 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks()
+
+app.conf.beat_schedule = {
+    # Scheduler Name
+    'refresh-prices-ten-min': {
+        # Task Name (Name Specified in Decorator)
+        'task': 'refresh_prices',
+        # Schedule
+        'schedule': 10,
+        # Function Arguments
+    }
+}

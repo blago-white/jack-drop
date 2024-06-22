@@ -20,10 +20,11 @@ class CaseItemsChancesService(BaseCaseItemsChancesService):
     _model: models.Model = CaseItem
     _service: BaseCaseItemsService
 
-    def __init__(self, *args,
-                 model: CaseItem = None,
-                 service: BaseCaseItemsService = None,
-                 **kwargs):
+    def __init__(
+            self, *args,
+            model: CaseItem = None,
+            service: BaseCaseItemsService = None,
+            **kwargs):
         self._model = model or self._model
         self._service = service or CaseItemsService(model=model)
 
@@ -37,12 +38,13 @@ class CaseItemsChancesService(BaseCaseItemsChancesService):
 
         percentage = self._calculate_chanses(items_of_case=items)
 
-        self._service.bulk_update_chances(chances=percentage,
-                                          case_items=case_items)
+        self._service.bulk_update_rates(rates=percentage,
+                                        case_items=case_items)
 
-    def _calculate_chanses(self,
-                           items_of_case: models.QuerySet[Item]
-                           ) -> list[int]:
+    def _calculate_chanses(
+            self,
+            items_of_case: models.QuerySet[Item]
+            ) -> list[int]:
         pricing: list[float] = items_of_case.values_list(
             self._price_field_name, flat=True
         )

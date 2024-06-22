@@ -33,14 +33,14 @@ class CaseItemDropModelService:
 
         return ResultState(
             dropped_item=item,
-            new_site_funds=request.state.site_active_funds_per_hour + funds.site_funds_delta,
-            new_user_funds=request.state.usr_advantage + funds.user_funds_delta
+            site_funds_delta=funds.site_funds_delta,
+            user_funds_delta=funds.user_funds_delta
         )
 
     def _get_random_winning_item(self, request: DropRequest) -> CaseItem:
         items = list(filter(
             lambda item: (
-                    request.state.site_active_funds_per_hour >
+                    request.state.site_active_funds >
                     (item.price - request.case_price) and
                     item.price >= request.case_price
             ), request.items

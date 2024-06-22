@@ -11,15 +11,19 @@
     <button onclick="send_cancel()">Cancel</button>
     <button onclick="send_conn()">Connect</button>
 
-    <script>
-        const socket = new WebSocket("ws://127.0.0.1:8000/ws/battle/{{ k }}/");
+    <button onclick="get()">Get Drop</button>
 
-        socket.onmessage = function(event) {
+    <div id="feed"></div>
+
+    <script>
+        const battleSocket = new WebSocket("ws://127.0.0.1:8000/products/ws/battle/");
+
+        battleSocket.onmessage = function(event) {
             alert("Получены данные " + event.data);
         };
 
         function send_create() {
-            socket.send(JSON.stringify({
+            battleSocket.send(JSON.stringify({
                 "type": "cbr",
                 "payload": {
                     "battle_case_id": {{ k }},
@@ -28,7 +32,7 @@
         }
 
         function send_cancel() {
-            socket.send(JSON.stringify({
+            battleSocket.send(JSON.stringify({
                 "type": "crb",
                 "payload": {
                     "battle_case_id": {{ k }},
@@ -37,11 +41,25 @@
         }
 
         function send_conn() {
-            socket.send(JSON.stringify({
+            battleSocket.send(JSON.stringify({
                 "type": "ctr",
                 "payload": {
                     "battle_case_id": {{ k }},
                 }
+            }));
+        }
+    </script>
+    <script>
+        const feedSocket = new WebSocket("ws://127.0.0.1:8000/products/ws/feed/");
+
+        feedSocket.onmessage = function(event) {
+            alert("Получены данные " + event.data);
+        };
+
+        function get() {
+            feedSocket.send(JSON.stringify({
+                "type": "get",
+                "payload": {},
             }));
         }
     </script>

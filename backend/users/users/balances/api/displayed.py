@@ -48,4 +48,4 @@ class DisplayedBalanceUpdateApiView(DefaultUpdateApiView):
             delta_amount=self.request.get_user_info("delta_amount")
         )
 
-        return self.get_200_response(data=data)
+        return self.get_201_response(data=data)
