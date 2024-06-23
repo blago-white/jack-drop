@@ -23,7 +23,7 @@ class PrizeSerializer(serializers.Serializer):
 class PrizeTypeRequestSerializer(serializers.Serializer):
     site_funds = SiteFundsSerializer()
     user_funds = UserFundsStateSerializer()
-    min_item_price = FloatField()
+    min_item_price = serializers.FloatField()
 
 
 class PrizeTypeSerializer(serializers.Serializer):

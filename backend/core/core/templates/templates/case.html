@@ -14,10 +14,10 @@ Case Info
 {% block main %}
 <section class="case-data-wrapper">
     <div class="case-info">
-        <img class="case-img" src="{% static 'img/case-info-test-case.png' %}">
+        <img class="case-img" id="case-img">
         <div class="case-border-line"></div>
         <div class="case-text-info">
-            <h3 class="case-title" id="case-title">Крутейший Кейс</h3>
+            <h3 class="case-title" id="case-title"></h3>
             <h4 class="case-short-title">Lorem ipsum dolor sit amet</h4>
             <span class="case-description">
                 Чтобы открыть этот кейс вам необходимо
@@ -30,20 +30,16 @@ Case Info
     </div>
     <div class="case-items-wrapper">
         <h3 class="case-title case-items-header">{% trans 'Case Payload' %}</h3>
-        <div class="case-items">
-            {% include 'main/item-card.html' %}
-            {% include 'main/item-card.html' with RARE=True %}
-            {% include 'main/item-card.html' %}
-            {% include 'main/item-card.html' with RARE=True %}
-            {% include 'main/item-card.html' %}
-            {% include 'main/item-card.html' with RARE=True %}
-            {% include 'main/item-card.html' %}
-            {% include 'main/item-card.html' with RARE=True %}
-            {% include 'main/item-card.html' %}
-            {% include 'main/item-card.html' with RARE=True %}
-            {% include 'main/item-card.html' %}
-            {% include 'main/item-card.html' with RARE=True %}
+        <div class="case-items" id="case-items">
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/case.js' %}"></script>
+
+<script>
+    getCase({{ case_id }});
+</script>
 {% endblock %}

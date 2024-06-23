@@ -1,3 +1,5 @@
+from django.views.decorators.csrf import csrf_exempt
+
 from rest_framework.serializers import Serializer
 
 from common.mixins.api import CreateAPIViewMixin
@@ -12,6 +14,10 @@ class FortuneWheelGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):
     user_repository = UsersApiRepository()
 
     serializer_class = Serializer
+
+    @csrf_exempt
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(*args, request=request, **kwargs)
 
     def create(self, request, *args, **kwargs):
         user_data = self.user_repository.get(user_request=request)

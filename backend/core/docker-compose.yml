@@ -41,7 +41,7 @@ services:
       - .env
     container_name: coreapp
     volumes:
-#      - ./products/debug.log:/home/app/products/debug.log
+#      - ./core/debug.log:/home/app/core/debug.log
       - ./core/:/home/app/core/
     restart: always
   corecelery:
@@ -58,6 +58,17 @@ services:
       - coredb
       - coreredis
       - coreapp
+  corenginx:
+    build: nginx
+    expose:
+      - 80
+    depends_on:
+      - corecelery
+      - coreapp
+    container_name: corenginx
+    volumes:
+      - ./core/static/:/core/static
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
 
 volumes:
   postgres_data:

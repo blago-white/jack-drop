@@ -24,12 +24,20 @@ const backgrounds = {
     "promoCode": "2",
 }
 
+const responseTypes = {
+    "F": "freeSkin",
+    "C": "freeSkinContract",
+    "D": "caseDiscount",
+    "U": "freeSkinUpgrade",
+    "P": "promoCode",
+}
+
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function randomIntFromInterval(min, max) { // min and max included
+function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
@@ -40,13 +48,40 @@ async function startRotate() {
 
     wheel.style.transition = `all 10s cubic-bezier(0.42, 0, 0.18, 0.99) 0s`;
 
-    wheel.style.transform = `rotate(${360*5 + degrees["promoCode"] + randomIntFromInterval(0, 50)}deg)`;
+    const result = await getResult();
+
+    console.log(result);
+
+    const result_till = responseTypes[result.prize_type];
+
+    wheel.style.transform = `rotate(${360*5 + degrees[result_till] + randomIntFromInterval(0, 50)}deg)`;
 
     setTimeout(
         () => {
-            document.getElementById(tiles["promoCode"]).classList.add('active');
-            document.getElementById('wheel-canvas').src = `/static/img/wheel-${backgrounds["promoCode"]}.png`;
+            document.getElementById(tiles[result_till]).classList.add('active');
+            document.getElementById('wheel-canvas').src = `/core/static/img/wheel-${backgrounds[result_till]}.png`;
         },
         10000
     )
+}
+
+
+async function getResult() {
+    const myHeaders = new Headers();
+    const formdata = new FormData();
+
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-CSRFToken", document.cookie.split("=")[1].split(";")[0]);
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify({}),
+      redirect: "follow"
+
+    };
+
+    const response = await fetch("http://localhost/products/games/fortune-wheel/", requestOptions);
+
+    return await response.json();
 }

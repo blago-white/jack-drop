@@ -30,8 +30,6 @@ async function onCreateBattle() {
 }
 
 function cancelRequest() {
-    console.log(123);
-
     battlesHead.style = '';
     battlesTable.style = '';
 

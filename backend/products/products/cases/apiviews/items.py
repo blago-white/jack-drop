@@ -3,11 +3,9 @@ from common.views.api import BaseListAPIView
 
 from cases.repositories.items import CasesItemsRepository
 from cases.repositories.cases import CasesRepository
-from cases.serializers.items import CaseWithItemsPrivateSerializer
 
 
 class CaseItemsListAPIView(BaseListAPIView):
-    serializer_class = CaseWithItemsPrivateSerializer
     _repository = CasesItemsRepository()
     _cases_repository = CasesRepository()
 

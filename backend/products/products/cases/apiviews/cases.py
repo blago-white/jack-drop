@@ -6,6 +6,15 @@ from ..serializers.case import CaseSerializer
 from ..mixins.cases import CaseAPIViewMixin
 
 
+class CasesByCategoriesListAPIView(BaseListAPIView):
+    _repository = CasesRepository()
+
+    def list(self, request, *args, **kwargs):
+        return self.get_200_response(
+            data=self._repository.get_all_by_categories()
+        )
+
+
 class CasesListAPIView(CaseAPIViewMixin, BaseListAPIView):
     pass
 

@@ -11,6 +11,13 @@ body {
     background-color: black;
 }
 
+.contract-amount {
+    position: absolute;
+    top: 55.5vh;
+    right: calc(50vw - 31px);
+    font-size: calc(100vw * calc(44 / var(--reference-display-w)));
+}
+
 .contract {
     display: flex;
     flex-direction: row;

@@ -1,0 +1,17 @@
+@media (aspect-ratio < 1/1) {
+    body {
+        background: url(../svg/sharp.svg);
+        background-size: auto;
+        background-repeat: repeat;
+        background-blend-mode: initial;
+        background-color: black;
+    }
+
+    .bg-filter {
+        display: none;
+    }
+
+    .global-sharp {
+        display: none;
+    }
+}

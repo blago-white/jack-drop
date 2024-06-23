@@ -11,6 +11,8 @@
 {% endblock %}
 
 {% block main %}
+{% csrf_token %}
+
 <section class="fortune-sec">
     <div class="wheel">
         <img src="{% static 'img/wheel-arrow.png' %}" class="wheel-arrow">
@@ -37,7 +39,7 @@
                     {% trans 'S' %}
                 </div>
             </div>
-            <button id="start-btn" onclick="startRotate()" class="super-button" style="display: none;">
+            <button id="start-btn" onclick="startRotate();" class="super-button" style="display: none;">
                 <span class="super-button-bg"></span>
                 <span id="start-btn-text" class="super-button-text">{% trans 'Start Game' %}</span>
             </button>

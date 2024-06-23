@@ -58,8 +58,8 @@ services:
       - productsapp
   productsnginx:
     build: nginx
-    ports:
-      - "80:80"
+    expose:
+      - 80
     depends_on:
       - productscelery
     container_name: productsnginx

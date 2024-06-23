@@ -54,3 +54,27 @@ def replenish_view(request):
 def fortune_wheel_view(request):
     return render(request=request,
                   template_name="fortune.html")
+
+
+def privacy_policy_view(request):
+    return render(request=request,
+                  template_name="privacy.html")
+
+
+def user_agreement_view(request):
+    return render(request=request,
+                  template_name="agreement.html")
+
+
+def about_view(request):
+    return render(
+        request=request,
+        template_name="about.html"
+    )
+
+
+def tos_view(request):
+    return render(
+        request=request,
+        template_name="terms.html"
+    )

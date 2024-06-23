@@ -13,3 +13,4 @@ class PrizeRequestSerializer(serializers.Serializer):
 class PrizeTypeRequestSerializer(serializers.Serializer):
     site_funds = SiteFundsSerializer(required=True)
     user_funds = UserAdvantageIdSerializer()
+    min_item_price = serializers.FloatField()

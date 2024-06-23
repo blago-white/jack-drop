@@ -74,6 +74,9 @@ class FortuneWheelApiRepository(BaseApiRepository):
 
         self.commit(prize=prize, user_id=user_data.get("id"))
 
+        return {"prize_type": prize_type.get("type"),
+                "prize": prize.get("prize")}
+
     def commit(self, prize: dict, user_id: int) -> None:
         print(prize, "RESULT")
 

@@ -57,11 +57,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+CSRF_TRUSTED_ORIGINS = ['http://localhost/',
+                        'http://localhost:80/',
+                        'http://127.0.0.1:800/']
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -196,11 +200,11 @@ USERS_MICROSERVICE_ROUTES = {
 }
 
 CORE_MICROSERVICE_ROUTES = {
-    "get_funds": "http://coreapp:8000/core/private/api/v1/funds/get"
+    "get_funds": "http://coreapp:8000/private/api/v1/funds/get"
                  "-displayed/",
-    "increase_site_funds": "http://coreapp:8000/core/private/api/v1/funds"
+    "increase_site_funds": "http://coreapp:8000/private/api/v1/funds"
                            "/increase/",
-    "decrease_site_funds": "http://coreapp:8000/core/private/api/v1/funds"
+    "decrease_site_funds": "http://coreapp:8000/private/api/v1/funds"
                            "/decrease/",
 }
 

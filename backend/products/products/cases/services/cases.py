@@ -15,3 +15,6 @@ class CaseService(BaseReadOnlyService):
 
     def get_price(self, case_id: int) -> int | float:
         return self.get(case_id=case_id).price
+
+    def get_all_for_category(self, category: str) -> models.QuerySet:
+        return self._model.objects.filter(category__title=category)

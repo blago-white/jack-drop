@@ -7,6 +7,15 @@
 <link href="{% static 'css/banners.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/free-cases.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/chat.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/mainpage.css' %}" type="text/css" rel="stylesheet">
+<style>
+    .dropped img {
+        width: calc(100vw* calc(150 / var(--reference-display-w)));
+        position: relative;
+        left: 0%;
+        margin-top: 10%;
+    }
+</style>
 {% endblock %}
 
 {% block main %}
@@ -22,4 +31,6 @@
 {% block extrascripts %}
 <script src="{% static 'js/pricesRange.js' %}"></script>
 <script src="{% static 'js/chat.js' %}"></script>
+<script src="{% static 'js/liveFeed.js' %}"></script>
+<script src="{% static 'js/casesCategories.js' %}"></script>
 {% endblock %}
