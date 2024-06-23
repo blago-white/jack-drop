@@ -11,6 +11,8 @@ class UsersApiRepository(BaseApiRepository):
     _api_service: UsersApiService
 
     def get(self, user_request: Request) -> dict:
+        return {"id": 1} # TODO: Remove
+
         data: float = self._api_service.get_user_info(
             user_request=user_request
         )

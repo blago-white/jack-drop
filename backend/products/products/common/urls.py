@@ -25,6 +25,7 @@ urlpatterns = [
     path('products/items/', include("items.urls")),
     path('products/games/', include("games.urls")),
     path('products/interactive/', include("interactive.urls")),
+    path('products/inventory/', include("inventory.urls")),
 ]
 
 if settings.DEBUG:

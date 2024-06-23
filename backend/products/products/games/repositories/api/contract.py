@@ -40,6 +40,8 @@ class ContractApiRepository(BaseApiRepository):
         super().__init__(*args, **kwargs)
 
     def make_contract(self, request_data: dict, user_data: dict) -> dict:
+        print(request_data, "RRRRRRRRRRRRRR")
+
         serialized: Serializer = self._seriaizer_class(
             data=request_data
         )

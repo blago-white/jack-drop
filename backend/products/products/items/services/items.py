@@ -33,6 +33,13 @@ class ItemService(BaseReadOnlyService):
         return random.choice(self._model.objects.all())
 
     def get_closest_by_price(self, price: float) -> Item:
-        return self._model.objects.filter(
+        closest = self._model.objects.filter(
             price__lte=price
         ).order_by("-price").first()
+
+        if not closest:
+            closest = self._model.objects.filter(
+                price__gte=price
+            ).order_by("price").first()
+
+        return closest

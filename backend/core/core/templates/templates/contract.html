@@ -93,83 +93,24 @@ Contract | Jack Drop
                      src="{% static 'img/contract-hint-mob-ru.png' %}">
             {% endif %}
         </div>
-        <button class="super-button" id="cr-contract">
+        <button class="super-button" id="cr-contract" onclick="makeContract();">
             <span class="super-button-bg"></span>
             <span class="super-button-text">{% trans 'Sign Contract' %}</span>
         </button>
-        <button class="super-button" id="cl-contract">
+        <button class="super-button" id="cl-contract" onclick="clearAll();">
             <span class="super-button-bg noactive"></span>
             <span class="super-button-text">{% trans 'Clear' %}</span>
         </button>
     </div>
     <div class="contract-circle">
-        <span class="contract-amount">0</span>
+        <span class="contract-amount" id="contract-amount">0</span>
         <img style="height: 76vh;pointer-events: none;" src="{% static 'img/contract-circle.png' %}">
     </div>
-    <div class="inventory-items">
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
+    <div class="inventory-items" id="inventory-items">
     </div>
 </section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/contract.js' %}"></script>
 {% endblock %}

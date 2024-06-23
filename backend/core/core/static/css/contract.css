@@ -13,9 +13,12 @@ body {
 
 .contract-amount {
     position: absolute;
-    top: 55.5vh;
-    right: calc(50vw - 31px);
+    width: 96.5%;
+    top: 54.5vh;
+    display: flex;
+    left: 0px;
     font-size: calc(100vw * calc(44 / var(--reference-display-w)));
+    justify-content: center;
 }
 
 .contract {
