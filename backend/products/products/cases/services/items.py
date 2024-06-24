@@ -46,6 +46,20 @@ class CaseItemsService(BaseCaseItemsService):
 
         self._model.objects.bulk_update(case_items, ["rate"])
 
+    def get(self, item_id: int) -> CaseItem:
+        return self._model.objects.get(pk=item_id)
+
+    def bulk_get_items(self, item_ids: list[int]) -> models.QuerySet[CaseItem]:
+        return self._model.objects.filter(
+            pk__in=item_ids
+        ).select_related("item").annotate(
+            price=models.F("item__price"),
+            title=models.F("item__title"),
+            image_path=models.F("item__image_path")
+        ).values(
+            "pk", "price", "title", "image_path"
+        )
+
     @staticmethod
     def get_related_items(
             case_items_queryset: models.QuerySet[CaseItem]

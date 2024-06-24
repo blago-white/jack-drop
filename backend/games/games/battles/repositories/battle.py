@@ -86,6 +86,14 @@ class BattleRepository(BaseRepository):
             ) | {"site_funds_diff": result.site_funds_diff}
         ).data
 
+    def get_stats(self, user_id: int):
+        return self._service.get_stats(user_id=user_id).as_json()
+
+    def get_history(self, user_id: int) -> dict:
+        return list(self._service.get_battles(user_id=user_id).values(
+            "battle_case_id", "dropped_item_winner_id", "dropped_item_loser_id"
+        ))
+
     def _commit_result(self, instance: BattleResult) -> object:
         return self._service.create(battle_result=instance)
 

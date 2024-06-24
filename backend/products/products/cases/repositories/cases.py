@@ -12,6 +12,12 @@ class CasesRepository(DefaultRepository):
     _case_category_serializer = CasesByCategoriesSerializer
     _serializer = CaseSerializer
 
+    def get_paid(self):
+        return self._serializer(
+            instance=self._service.get_paid(),
+            many=True
+        ).data
+
     def get_all_by_categories(self):
         categories = self._category_service.get_all()
 

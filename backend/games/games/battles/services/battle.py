@@ -1,11 +1,11 @@
 import random
-
+from django.db import models
 from rest_framework.exceptions import APIException
 
 from common.services.base import BaseModelService
 
 from ..models import BattleRequest, Battle
-from .transfer import BattleInfo, BattleMakeRequest, BattleResult
+from .transfer import BattleInfo, BattleMakeRequest, BattleResult, BattlesStats
 from common.services.api.states import FundsState
 from cases.services.drop import CaseItemDropModelService
 
@@ -42,6 +42,18 @@ class BattleModelService(BaseModelService):
             winner_balance_diff=battle_result.winner_balance_diff
         )
 
+    def get_stats(self, user_id: int) -> BattlesStats:
+        return BattlesStats(
+            wins=self._model.objects.filter(winner_id=user_id).count(),
+            loses=self._model.objects.filter(loser_id=user_id).count(),
+            draw=0
+        )
+
+    def get_battles(self, user_id: int) -> models.QuerySet[Battle]:
+        return self._model.objects.filter(
+            models.Q(winner_id=user_id) | models.Q(loser_id=user_id)
+        )
+
 
 class BattleService:
     def make_battle(self, battle_request: BattleMakeRequest) -> BattleResult:
@@ -50,6 +62,8 @@ class BattleService:
 
         under_price = [i for i in case_items if
                        i.price <= battle_request.battle_case_price]
+
+        print(case_items, battle_request.battle_case_price, battle_request.site_active_funds, "ERRRRR")
 
         if len(under_price) < 2:
             self._validate_items_price(

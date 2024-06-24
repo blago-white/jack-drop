@@ -38,3 +38,15 @@ class BattleResult:
                 "dropped_item_loser_id": self.loser_drop.id,
                 "loser_balance_diff": self.loser_balance_diff,
                 "winner_balance_diff": self.winner_balance_diff}
+
+
+@dataclass
+class BattlesStats:
+    wins: int
+    loses: int
+    draw: int
+
+    def as_json(self) -> dict:
+        return {"wins": self.wins,
+                "loses": self.loses,
+                "draw": self.draw}

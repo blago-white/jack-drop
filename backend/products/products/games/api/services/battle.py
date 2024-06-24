@@ -35,7 +35,9 @@ class BattleRequestApiService(BaseApiService):
 class BattleApiService(BaseApiService):
     default_endpoint_serializer_class = MakeBattleServiceEndpointSerializer
 
-    def make(self, serialized: MakeBattleServiceEndpointSerializer):
+    def make(self, serialized: MakeBattleServiceEndpointSerializer) -> (
+            dict | bool
+    ):
         print("MAKE REQUEST:", serialized.data)
 
         response = requests.post(
@@ -52,3 +54,17 @@ class BattleApiService(BaseApiService):
             return response.json()
         except:
             return False
+
+    def get_stats(self, user_id: int) -> dict:
+        response = requests.get(
+            url=self._routes.get("get_battle_stats").format(user_id=user_id),
+        )
+
+        return response.json()
+
+    def get_all(self, user_id: int) -> dict:
+        response = requests.get(
+            url=self._routes.get("get_battles").format(user_id=user_id),
+        )
+
+        return response.json()

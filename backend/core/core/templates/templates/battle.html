@@ -48,101 +48,24 @@ Battles | Jack Drop
         </div>
         <div class="battles-table-header" id="battles-head">
             <span class="case-battle-name">{% trans 'Case' %}</span>
-            <span class="count-battles-f"
-                  style="margin-left: {% if request.LANGUAGE_CODE == 'ru' %}16.75%{% else %}23.5%{% endif %}">
+            <span class="count-battles-f">
                 {% trans 'Active Battles' %}
             </span>
-            <span style="margin-left: {% if request.LANGUAGE_CODE == 'ru' %}10.75%{% else %}15.75%{% endif %}">
+            <span>
                 {% trans 'Cost' %}
             </span>
             <span class="actions-battles-f" style="margin-left: auto;">{% trans 'Actions' %}</span>
         </div>
         <div id="battles-table" class="battles-table">
-            <div class="battle">
+            <div class="battle" style="display: none;">
                 <div class="case-sign">
                     <img class="battle-case" src="{% static 'img/caseimg.png' %}">
-                    КЕЙС
+                    <span></span>
                 </div>
-                <span class="count-battles">0</span>
-                <span class="price">1000</span>
-                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">
-                    {% trans 'Start' %}
-                </button>
-            </div>
-            <div class="battle">
-                <div class="case-sign">
-                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
-                    КЕЙС
-                </div>
-                <span class="count-battles">0</span>
-                <span class="price">1000</span>
-                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">
-                    {% trans 'Start' %}
-                </button>
-            </div>
-            <div class="battle">
-                <div class="case-sign">
-                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
-                    КЕЙС
-                </div>
-                <span class="count-battles">0</span>
-                <span class="price">1000</span>
-                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">
-                    {% trans 'Start' %}
-                </button>
-            </div>
-            <div class="battle">
-                <div class="case-sign">
-                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
-                    КЕЙС
-                </div>
-                <span class="count-battles">0</span>
-                <span class="price">1000</span>
-                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">
-                    {% trans 'Start' %}
-                </button>
-            </div>
-            <div class="battle">
-                <div class="case-sign">
-                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
-                    КЕЙС
-                </div>
-                <span class="count-battles">0</span>
-                <span class="price">1000</span>
-                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">
-                    {% trans 'Start' %}
-                </button>
-            </div>
-            <div class="battle">
-                <div class="case-sign">
-                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
-                    КЕЙС
-                </div>
-                <span class="count-battles">0</span>
-                <span class="price">1000</span>
-                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">
-                    {% trans 'Start' %}
-                </button>
-            </div>
-            <div class="battle">
-                <div class="case-sign">
-                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
-                    КЕЙС
-                </div>
-                <span class="count-battles">0</span>
-                <span class="price">1000</span>
-                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">
-                    {% trans 'Start' %}
-                </button>
-            </div>
-            <div class="battle">
-                <div class="case-sign">
-                    <img class="battle-case" src="{% static 'img/caseimg.png' %}">
-                    КЕЙС
-                </div>
-                <span class="count-battles">0</span>
-                <span class="price">1000</span>
-                <button onclick="onCreateBattle();" class="button button-colorized blue create-battle">
+                <span class="count-battles"></span>
+                <span class="price"></span>
+                <button onclick="onCreateBattle();" id="create-battle"
+                        class="button button-colorized blue create-battle">
                     {% trans 'Start' %}
                 </button>
             </div>
@@ -151,22 +74,22 @@ Battles | Jack Drop
     <div class="my-battles">
         <div class="battles-stats">
             <div class="battles-stat">
-                <div class="stats-num">0</div>
+                <div class="stats-num" id="wins">0</div>
                 <span>{% trans 'Wins' %}</span>
             </div>
             <div class="battles-stat">
-                <div class="stats-num">0</div>
+                <div class="stats-num" id="loses">0</div>
                 <span>{% trans 'Loses' %}</span>
             </div>
             <div class="battles-stat">
-                <div class="stats-num">0</div>
+                <div class="stats-num" id="draw">0</div>
                 <span>{% trans 'Draws' %}</span>
             </div>
         </div>
         <img src="{% static 'img/stats-border.png' %}">
-        <button class="super-button show-my-buttles">
-            <span class="super-button-bg"></span>
-            <span class="super-button-text">{% trans 'My Battles' %}</span>
+        <button class="super-button show-my-buttles" onclick="showHistory()" id="show-btn">
+            <span class="super-button-bg" id="show-btn-bg"></span>
+            <span class="super-button-text" id="show-btn-text">{% trans 'My Battles' %}</span>
         </button>
     </div>
     <div class="battle-hint">

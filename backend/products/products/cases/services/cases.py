@@ -7,8 +7,14 @@ from ..models.cases import Case
 class CaseService(BaseReadOnlyService):
     default_model = Case
 
+    def get_paid(self) -> models.QuerySet:
+        return self.get_all().filter(price__gt=0)
+
     def get_all(self) -> models.QuerySet:
         return self._model.objects.all()
+
+    def bulk_get(self, case_ids: list[int]) -> models.QuerySet[Case]:
+        return self._model.objects.filter(pk__in=case_ids)
 
     def get(self, case_id: int) -> Case:
         return self._model.objects.get(pk=case_id)

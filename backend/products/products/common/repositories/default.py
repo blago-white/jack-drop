@@ -15,8 +15,6 @@ class DefaultRepository(BaseModelRepository, metaclass=ABCMeta):
             many=True
         )
 
-        print(objects, serialized_objects)
-
         return serialized_objects.data
 
     def get(self, pk: PrimaryKey) -> dict:

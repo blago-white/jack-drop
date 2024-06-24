@@ -36,16 +36,21 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
             message=json.loads(text_data)
         )
 
+        response_type = None
+
         if message.message_type == CreateBattleRequest:
             result = self.on_create(message=message)
+            response_type = "create"
 
         elif message.message_type == CancelBattleRequest:
             result = self.on_cancel()
+            response_type = "cancel"
 
         elif message.message_type == ConnectToRequest:
             self.battle_case_id = message.payload.get("battle_case_id")
 
             result = self.on_start_battle()
+            response_type = "result"
         else:
             result = {"success": False, "error": "Not correct msg type"}
 
@@ -54,7 +59,8 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
                 self.group_name,
                 {
                     "type": "battle_message",
-                    "message": json.dumps({"result": result})
+                    "message": json.dumps({"result": result,
+                                           "response_type": response_type})
                 }
             )
 
@@ -64,7 +70,8 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
                 )
 
         else:
-            self.send_json(content={"result": result})
+            self.send_json(content={"result": result,
+                                    "response_type": response_type})
 
     def on_create(self, message: InputMessage) -> dict:
         user_data = self.scope.get("user")

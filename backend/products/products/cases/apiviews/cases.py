@@ -15,6 +15,13 @@ class CasesByCategoriesListAPIView(BaseListAPIView):
         )
 
 
+class PaidCasesListAPIView(CaseAPIViewMixin, BaseListAPIView):
+    def list(self, request, *args, **kwargs):
+        return self.get_200_response(
+            data=self._repository.get_paid()
+        )
+
+
 class CasesListAPIView(CaseAPIViewMixin, BaseListAPIView):
     pass
 

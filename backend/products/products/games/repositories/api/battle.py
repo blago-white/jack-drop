@@ -1,7 +1,11 @@
 from rest_framework.exceptions import ValidationError
+from rest_framework.serializers import Serializer
+from django.db.models import QuerySet
 
 from cases.services.cases import CaseService
 from cases.services.items import CaseItemsService
+from cases.serializers.case import CaseSerializer
+from cases.serializers.items import ItemSerializer
 from games.api.services.battle import BattleRequestApiService, BattleApiService
 from games.api.services.site import SiteFundsApiService
 from games.api.services.users import UsersApiService
@@ -126,34 +130,93 @@ class BattleApiRepository(_BaseBattleApiRepository):
             serialized=serialized
         )
 
-        self._commit_result(battle_result=result, case_price=case_data.price)
+        self._commit_result(battle_result=battle_result,
+                            case_price=case_data.price)
+
+        dropped_items = [
+            self._case_items_service.get(
+                item_id=battle_result.get("dropped_item_winner_id")
+            ),
+            self._case_items_service.get(
+                item_id=battle_result.get("dropped_item_loser_id")
+            )
+        ]
 
         return {
             "winner_id": battle_result.get("winner_id"),
             "loser_id": battle_result.get("loser_id"),
-            "dropped_item_winner_id": battle_result.get("dropped_item_winner_id"),
-            "dropped_item_loser_id": battle_result.get("dropped_item_loser_id")
+            "dropped_item_winner_id": {
+                "title": dropped_items[0].item.title,
+                "image_path": dropped_items[0].item.image_path,
+                "price": dropped_items[0].item.price
+            },
+            "dropped_item_loser_id": {
+                "title": dropped_items[-1].item.title,
+                "image_path": dropped_items[-1].item.image_path,
+                "price": dropped_items[-1].item.price
+            }
         }
 
+    def get_stats(self, user_id: int) -> dict:
+        return self._api_service.get_stats(user_id=user_id)
+
+    def get_all(self, user_id: int) -> dict:
+        response = self._api_service.get_all(user_id=user_id)
+        result = []
+
+        cases = self._qs_as_dict(
+            self._cases_service.bulk_get([int(i["battle_case_id"])
+                                          for i in response
+                                          ]),
+            serializer=CaseSerializer
+        )
+
+        items = self._values_as_dict(self._case_items_service.bulk_get_items(
+            item_ids={i["dropped_item_loser_id"] for i in response} | {
+                i["dropped_item_winner_id"] for i in response
+            }
+        ))
+
+        for battle in response:
+            result.append({
+                "battle_case": cases.get(battle["battle_case_id"]),
+                "dropped_item_winner": items.get(
+                    battle["dropped_item_winner_id"]
+                ),
+                "dropped_item_loser": items.get(
+                    battle["dropped_item_loser_id"]
+                ),
+            })
+
+        return result
+
     def _commit_result(self, battle_result: dict, case_price: float | int):
-        self._users_service.update_user_balance_by_id(
-            delta_amount=-case_price,
-            user_id=battle_result.get("winner_id")
-        )
+        # self._users_service.update_user_balance_by_id(
+        #     delta_amount=-case_price,
+        #     user_id=battle_result.get("winner_id")
+        # )
 
-        self._users_service.update_user_balance_by_id(
-            delta_amount=-case_price,
-            user_id=battle_result.get("loser_id")
+        # self._users_service.update_user_balance_by_id(
+        #     delta_amount=-case_price,
+        #     user_id=battle_result.get("loser_id")
+        # )
+
+        # TODO: Uncomment
+
+        print(battle_result)
+
+        self._inventory_service.add_item(
+            owner_id=battle_result.get("winner_id"),
+            item_id=self._case_items_service.get(battle_result.get(
+                "dropped_item_winner_id")
+            ).item.pk
         )
 
         self._inventory_service.add_item(
             owner_id=battle_result.get("winner_id"),
-            item_id=battle_result.get("dropped_item_winner_id")
-        )
-
-        self._inventory_service.add_item(
-            owner_id=battle_result.get("winner_id"),
-            item_id=battle_result.get("dropped_item_loser_id")
+            item_id=self._case_items_service.get(battle_result.get(
+                "dropped_item_loser_id")
+            ).item.pk
         )
 
         self._site_funds_service.update(
@@ -166,3 +229,11 @@ class BattleApiRepository(_BaseBattleApiRepository):
         case_price = self._cases_service.get_price(case_id=battle_case_id)
 
         return participant_data.get("displayed_balance") >= case_price
+
+    @staticmethod
+    def _qs_as_dict(qs: QuerySet, serializer: Serializer) -> dict:
+        return {item.pk: serializer(instance=item).data for item in qs}
+
+    @staticmethod
+    def _values_as_dict(qs_values: list[dict]) -> dict:
+        return {item.get("pk"): item for item in qs_values}
