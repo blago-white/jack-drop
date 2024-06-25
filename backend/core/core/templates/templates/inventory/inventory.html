@@ -14,25 +14,12 @@ Account Inventory
 {% block main %}
 <section class="inventory-sec">
     <h3>{% trans 'Inventory' %}</h3>
-    <div class="inventory-items-table">
-        {% include 'inventory/inventory-item.html' with MONO=True %}
-        {% include 'inventory/inventory-item.html' with MONO=True %}
-        {% include 'inventory/inventory-item.html' with MONO=True %}
-        {% include 'inventory/inventory-item.html' with MONO=True %}
-        {% include 'inventory/inventory-item.html' with MONO=True %}
-        {% include 'inventory/inventory-item.html' with MONO=True %}
-        {% include 'inventory/inventory-item.html' with MONO=True %}
-        {% include 'inventory/inventory-item.html' with MONO=True %}
-        {% include 'inventory/inventory-item.html' with MONO=True %}
-        {% include 'inventory/inventory-item.html' with MONO=True %}
-        {% include 'inventory/empty-inventory-item.html' %}
-        {% include 'inventory/empty-inventory-item.html' %}
-        {% include 'inventory/empty-inventory-item.html' %}
-        {% include 'inventory/empty-inventory-item.html' %}
-        {% include 'inventory/empty-inventory-item.html' %}
-        {% include 'inventory/empty-inventory-item.html' %}
-        {% include 'inventory/empty-inventory-item.html' %}
-        {% include 'inventory/empty-inventory-item.html' %}
+    <div class="inventory-items-table" id="inventory-items">
+
     </div>
 </section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/inventory.js' %}"></script>
 {% endblock %}

@@ -22,10 +22,10 @@ class ItemService(BaseReadOnlyService):
         result = self._model.objects.all().order_by("price")
 
         if min_price:
-            result.filter(price__gte=min_price)
+            result = result.filter(price__gte=min_price)
 
         if max_price:
-            result.filter(price__lte=max_price)
+            result = result.filter(price__lte=max_price)
 
         return result
 

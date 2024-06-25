@@ -10,7 +10,7 @@ async function getItems() {
     };
 
     const response = await fetch(
-        `http://localhost/products/inventory/all/`,
+        `http://localhost/products/inventory/contract/`,
         requestOptions
     );
 
@@ -20,17 +20,22 @@ async function getItems() {
         priceMapping.set(element.id, element.item.price)
     })
 
-    result.forEach((element) => {
-        document.getElementById('inventory-items').innerHTML += `
-            <article class="inventory-item dropped regular" style="cursor: pointer;" onclick="selectItem(${element.id})" id=${element.id}>
-                <div class="w-line"></div>
-                <div class="dropped-content">
-                    <span>${element.item.title}</span>
-                    <img src="${element.item.image_path}">
-                </div>
-            </article>
-        `
-    })
+    if (result.length) {
+        result.forEach((element) => {
+            document.getElementById('inventory-items').innerHTML += `
+                <article class="inventory-item dropped regular" style="cursor: pointer;" onclick="selectItem(${element.id})" id=${element.id}>
+                    <div class="w-line"></div>
+                    <div class="dropped-content">
+                        <span>${element.item.title}</span>
+                        <img src="${element.item.image_path}">
+                    </div>
+                </article>
+            `
+        })
+    } else {
+        document.getElementById('inventory-items').innerHTML = 'Items for upgrade not found';
+        document.getElementById('inventory-items').style = "display: flex;background: #0E0E0E;padding: 3ch;text-align: center";
+    }
 }
 
 function clearAll() {

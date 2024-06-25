@@ -17,15 +17,17 @@ class UpgradeRequestSerializer(serializers.Serializer):
 
 class UpgradeRequestApiViewSerializer(serializers.Serializer):
     granted_funds = serializers.IntegerField(required=False,
-                                             default=0,)
+                                             default=0,
+                                             allow_null=True)
     granted_item_id = serializers.IntegerField(required=False,
-                                               default=0)
+                                               default=0,
+                                               allow_null=True)
 
     receive_item_id = serializers.IntegerField(required=True)
 
     def validate(self, data: dict) -> dict:
-        if ((not (data['granted_item_id'] or data['granted_funds'])) or
-                (data['granted_item_id'] and data['granted_funds'])):
+        if ((not (data.get('granted_item_id') or data.get('granted_funds'))) or
+                (data.get('granted_item_id') and data.get('granted_funds'))):
             raise serializers.ValidationError("Not correct upgrade values")
 
         return data

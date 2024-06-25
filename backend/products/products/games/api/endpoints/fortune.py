@@ -15,10 +15,6 @@ class FortuneWheelGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):
 
     serializer_class = Serializer
 
-    @csrf_exempt
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(*args, request=request, **kwargs)
-
     def create(self, request, *args, **kwargs):
         user_data = self.user_repository.get(user_request=request)
 

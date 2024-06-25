@@ -17,7 +17,7 @@ class UpgradeGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):
         )
 
         result = self.upgrade_repository.make_upgrade(
-            data=request.data | user_funds,
+            data=request.data,
             user_funds=user_funds
         )
 

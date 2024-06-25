@@ -61,6 +61,7 @@ class UpgradeApiRepository(BaseApiRepository):
                 user_funds=user_funds
             )
             self._commit_win(
+                validated_data=serialized.data,
                 owner_id=user_funds.get("id"),
                 item_id=validated_data.get("receive_item_id")
             )
@@ -128,11 +129,15 @@ class UpgradeApiRepository(BaseApiRepository):
             self, data: dict, user_funds: float
     ) -> tuple[dict, dict]:
 
+        print(data, user_funds, data | user_funds)
+
         serialized = self._serializer_class(
             data=data | user_funds
         )
 
-        serialized.is_valid(raise_exception=True)
+        serialized.is_valid(raise_exception=False)
+
+        print("EEEE", serialized.data, serialized.errors)
 
         if serialized.data.get("granted_item_id"):
             if not self._inventory_service.check_ownership(

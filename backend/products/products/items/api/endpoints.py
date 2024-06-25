@@ -1,17 +1,19 @@
 from rest_framework.generics import RetrieveAPIView
+from rest_framework.request import Request
 
-from common.mixins.api import DetailedApiViewMixin
-from ..repositories.items import ItemPriceRepository
+from common.views.api import BaseListAPIView
+
+from ..repositories.items import ItemsRepository
 
 
-class ItemPriceApiView(DetailedApiViewMixin, RetrieveAPIView):
-    pk_url_kwarg = "item_id"
-    repository = ItemPriceRepository()
-    serializer_class = repository.default_serializer_class
+class ItemsListApiView(BaseListAPIView):
+    _repository = ItemsRepository()
+    serializer_class = _repository.default_serializer_class
 
-    def retrieve(self, request, *args, **kwargs):
+    def list(self, request: Request, *args, **kwargs):
         return self.get_200_response(
-            data=self.repository.get_price(
-                item_id=self.get_requested_pk()
+            data=self._repository.get_all(
+                min_price=request.query_params.get("min"),
+                max_price=request.query_params.get("max")
             )
         )

@@ -14,7 +14,7 @@ class InventoryItem(models.Model):
     item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
     locked_for = models.CharField(max_length=1,
                                   choices=Lockings.choices,
-                                  default=Lockings.UPGRADE,
+                                  default=Lockings.UNLOCK,
                                   blank=True)
 
     def __str__(self):

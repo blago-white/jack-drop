@@ -29,6 +29,7 @@ body {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: calc(100vw * calc(72 / var(--reference-display-w)));
+    min-width: -webkit-fill-available;
 }
 
 .w-line {

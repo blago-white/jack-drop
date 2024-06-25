@@ -9,17 +9,17 @@ from ..models import InventoryItem, Lockings
 class InventoryService(BaseReadOnlyService):
     default_model = InventoryItem
 
-    def get_all(self, user_id: int = None) -> models.QuerySet:
-        if user_id:
-            return self._model.objects.filter(user_id=user_id)
+    def get_all(self, user_id: int = None,
+                locked_for: Lockings = Lockings.UNLOCK) -> models.QuerySet:
 
-        return self._model.objects.all()
+        result = self._model.objects.all()
+
+        if user_id:
+            result = result.filter(user_id=user_id)
+
+        return result.filter(locked_for=locked_for)
 
     def check_ownership(self, owner_id: int, item_id: int) -> bool:
-        print(owner_id, item_id, self._model.objects.all().values(
-            "user_id", "item_id"
-        ))
-
         return self._model.objects.filter(
             user_id=owner_id,
             item_id=item_id

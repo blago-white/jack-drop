@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .endpoints import ItemPriceApiView
+from .endpoints import ItemsListApiView
 
 urlpatterns = [
-    path("api/v1/p/item_price/<int:item_id>/",
-         ItemPriceApiView.as_view(),
-         name="item-price")
+    path("all/",
+         ItemsListApiView.as_view(),
+         name="items-list")
 ]
