@@ -12,7 +12,7 @@ class DropItemSerializer(serializers.Serializer):
 
 
 class FundsState(serializers.Serializer):
-    user_funds = serializers.FloatField()
+    user_advantage = serializers.FloatField()
     site_active_funds = serializers.FloatField(
         min_value=0
     )

@@ -49,7 +49,7 @@ class MinesService:
             is_win=False,
             funds_diffirence=FundsDifference(
                 user_funds_diff=-game_request.user_deposit,
-                site_active_funds_diff=(
+                site_funds_diff=(
                     game_request.user_deposit
                 )
             ),
@@ -65,7 +65,7 @@ class MinesService:
             is_win=True,
             funds_diffirence=FundsDifference(
                 user_funds_diff=user_win_amount,
-                site_active_funds_diff=-user_win_amount
+                site_funds_diff=-user_win_amount
             )
         )
 

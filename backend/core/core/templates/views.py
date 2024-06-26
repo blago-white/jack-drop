@@ -40,6 +40,12 @@ def case_view(request, case_id):
                   context={"case_id": case_id})
 
 
+def case_drop_view(request, case_id):
+    return render(request,
+                  template_name="case-drop.html",
+                  context={"case_id": case_id})
+
+
 def inventory_view(request):
     return render(request,
                   template_name="inventory/inventory.html",

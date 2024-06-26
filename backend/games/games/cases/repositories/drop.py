@@ -28,6 +28,8 @@ class CaseItemDropRepository(BaseRepository):
 
         drop_request_data.is_valid(raise_exception=True)
 
+        print(drop_request_data, '------------------------')
+
         request = self._serialize_drop_request(data_json=drop_request_data)
         dropped = self._service.drop(request=request)
 

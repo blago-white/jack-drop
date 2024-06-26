@@ -87,7 +87,7 @@ class FortuneWheelPrizeRepository(BaseRepository):
         return PrizeSerializer(instance={
             "prize": result.winning_item.as_json(),
             "user_funds_diff": result.funds_diff.user_funds_diff,
-            "site_funds_diff": result.funds_diff.site_active_funds_diff,
+            "site_funds_diff": result.funds_diff.site_funds_diff,
             "type": result.winning_type
         }).data
 

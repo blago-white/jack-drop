@@ -65,7 +65,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -189,15 +189,15 @@ GAMES_SERVICE_ROUTES = {
 }
 
 USERS_MICROSERVICE_ROUTES = {
-    "get_advantage": "http://users/auth/api/v1/p/advantage/",
-    "get_info": "http://users/auth/api/v1/p/get_user_info_jwt/",
-    "get_balance": "http://users/auth/"
+    "get_advantage": "http://usersapp:8000/auth/api/v1/p/advantage/",
+    "get_info": "http://usersapp:8000/auth/api/v1/p/get_user_info_jwt/",
+    "get_balance": "http://usersapp:8000/auth/"
                    "balances/api/v1/p/displayed_balance_jwt/",
-    "update_balance_jwt": "http://users/auth/"
+    "update_balance_jwt": "http://usersapp:8000/auth/"
                    "balances/api/v1/p/displayed_balance_jwt/update/",
-    "update_balance": "http://users/auth/"
+    "update_balance": "http://usersapp:8000/auth/"
                    "balances/api/v1/p/displayed_balance/{client_id}/update/",
-    "update_hidden_balance": "http://users/auth/"
+    "update_hidden_balance": "http://usersapp:8000/auth/"
                    "balances/api/v1/p/hidden_balance/{client_id}/update/",
 }
 

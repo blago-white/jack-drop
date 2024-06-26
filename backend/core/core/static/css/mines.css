@@ -93,7 +93,7 @@ input {
 
 .bet-presets {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: calc(100vw * calc(11 / var(--reference-display-w)));
 }
 
@@ -115,8 +115,8 @@ input {
 
 .game-fieldset {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     padding: calc(100vw * calc(16 / var(--reference-display-w)));
     background: url('../img/mines.png');
     background-size: cover;
@@ -124,12 +124,13 @@ input {
 }
 
 .game-fieldset div {
-    width: calc(100vw * calc(210 / var(--reference-display-w)));
+    width: calc(100vw* calc(153 / var(--reference-display-w)));;
     aspect-ratio: 1/1;
     background: rgba(18, 18, 18, 0.2);
     border-radius: inherit;
     backdrop-filter: blur(3px);
     border: 0.95px solid rgba(151, 151, 151, 1);
+    display: flex;
 }
 
 @media (aspect-ratio < 1/1) {

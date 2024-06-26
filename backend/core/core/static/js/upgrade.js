@@ -217,15 +217,6 @@ function updatePercent() {
 
         console.log(document.getElementById('make-upgrade-bg').parentElement);
     }
-//        if ((newPercent) < 37.6) {
-//            chanceCicle.src = `/core/static/img/upgrade-chance-25.png`
-//        } else if (newPercent < 67.5) {
-//            chanceCicle.src = `/core/static/img/upgrade-chance-50.png`
-//        } else if (newPercent < 93.5) {
-//            chanceCicle.src = `/core/static/img/upgrade-chance-75.png`
-//        } else {
-//            chanceCicle.src = `/core/static/img/upgrade-chance-100.png`
-//        }
 }
 
 

@@ -1,6 +1,7 @@
 const caseImg = document.getElementById('case-img');
 const caseTitle = document.getElementById('case-title');
 const caseItems = document.getElementById('case-items');
+let caseId = null;
 
 
 async function getCase(id) {
@@ -9,6 +10,8 @@ async function getCase(id) {
       method: "GET",
       redirect: "follow"
     };
+
+    caseId = id;
 
     const response = await fetch(
         `http://localhost/products/cases/api/v1/case/${id}/items/`,
@@ -34,3 +37,5 @@ async function getCase(id) {
         `;
     });
 }
+
+document.getElementById('open-case-btn').addEventListener("click", () => {location.href = `/case/${caseId}/drop/`});

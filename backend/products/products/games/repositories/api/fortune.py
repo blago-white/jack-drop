@@ -104,8 +104,11 @@ class FortuneWheelApiRepository(BaseApiRepository):
             )
 
     def _get_additional(self, prize_type: str) -> dict:
+        print(prize_type.get("type"))
+
         if prize_type.get("type") in list(
                 self._LOCKINGS_FOR_PRIZE_TYPES.keys()):
+            print("SEND ITEMS")
             return ItemSerializer(instance=self._items_service.get_all(
                 *(FREE_SKIN_PRICE_RANGE
                   if prize_type == PrizeTypes.FREE_SKIN else

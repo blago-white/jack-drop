@@ -10,4 +10,4 @@ class FundsState:
 @dataclass
 class FundsDifference:
     user_funds_diff: float
-    site_active_funds_diff: float
+    site_funds_diff: float

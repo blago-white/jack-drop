@@ -17,7 +17,7 @@ class FortuneWheelModelService(BaseModelService):
             user_id=result.user_id,
             winning_type=result.winning_type,
             user_funds_diff=result.funds_diff.user_funds_diff,
-            site_funds_diff=result.funds_diff.site_active_funds_diff
+            site_funds_diff=result.funds_diff.site_funds_diff
         )
 
         return instance
@@ -43,7 +43,7 @@ class FortuneWheelService:
         return FortuneWheelGameResult(
             funds_diff=FundsDifference(
                 user_funds_diff=user_funds_diff,
-                site_active_funds_diff=site_funds_diff
+                site_funds_diff=site_funds_diff
             ),
             user_id=request.user_id,
             winning_type=request.winning_type,

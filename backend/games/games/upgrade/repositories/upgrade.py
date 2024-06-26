@@ -44,7 +44,7 @@ class UpgradeRepository(BaseRepository):
         return {
             "user_balance_diff": upgrade_result.user_balance_diff,
             "site_funds": {
-                "site_active_funds": upgrade_result.site_active_funds_diff
+                "site_active_funds": upgrade_result.site_funds_diff
             },
             "success": upgrade_result.success
         }

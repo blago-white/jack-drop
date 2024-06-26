@@ -55,16 +55,18 @@ class MinesGameApiRepository(BaseApiRepository):
             amount=funds_difference.get("site_funds_diff")
         )
 
-        self._users_service.update_user_balance_by_id(
-            delta_amount=funds_difference.get("user_funds_diff"),
-            user_id=user_id
-        )
+        # TODO: Uncomment
+        # self._users_service.update_user_balance_by_id(
+        #     delta_amount=funds_difference.get("user_funds_diff"),
+        #     user_id=user_id
+        # )
 
     @staticmethod
     def _validate_funds(user_balance: float, deposit: int):
         if float(user_balance) < float(deposit):
             raise ValidationError(
-                "There are not enough balance funds for action"
+                detail="There are not enough balance funds for action",
+                code=400
             )
 
     def _get_serialized(self, request_data: dict,

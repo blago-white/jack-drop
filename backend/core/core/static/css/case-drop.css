@@ -1,0 +1,67 @@
+@import 'variables.css';
+
+body {
+    background: black url('/core/static/svg/sharp.svg');
+}
+
+.bg-filter {
+    display: none;
+}
+
+.case-drop-sec {
+    width: calc(100vw * calc(1337 / var(--reference-display-w)));
+    padding-bottom: calc(100vw * calc(54 / var(--reference-display-w)));
+    padding-inline: calc(100vw * calc(58 / var(--reference-display-w)));
+    border: 1px solid white;
+    border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.arrow {
+    height: calc(100vw * calc(32 / var(--reference-display-w)));
+    margin-bottom: calc(100vw * calc(21 / var(--reference-display-w)));
+}
+
+.dropped {
+    width: calc(100vw * calc(217 / var(--reference-display-w)))!important;
+    height: calc(100vw * calc(217 / var(--reference-display-w)))!important;
+    font-size: calc(100vw* calc(16 / var(--reference-display-w)))!important;
+}
+
+.case-items-string {
+    background: radial-gradient(50% 50% at 50% 50%, #474747 0%, #141414 100%);
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    padding-block: calc(100vw * calc(53 / var(--reference-display-w)));
+    overflow-x: scroll;
+}
+
+.dropped img {
+    left: -6%!important;
+    margin-top: 12%!important;
+}
+
+.items {
+    list-style: none;
+    display: flex;
+    gap: calc(100vw * calc(48 / var(--reference-display-w)));
+    min-width: max-content;
+    width: max-content;
+
+}
+
+.w-line {
+    height: calc(90vw * calc(196 / var(--reference-display-w)));
+}
+
+.case-items-string::-webkit-scrollbar {
+    display: none;
+}
+
+.open-case-btn {
+    margin-top: calc(100vw * calc(100 / var(--reference-display-w)));
+}

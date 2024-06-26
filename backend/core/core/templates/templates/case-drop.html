@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+Case Info
+{% endblock %}
+
+{% block links %}
+<link href="{% static 'css/latest-drops.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/case-drop.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block main %}
+<div style="display: flex;flex-direction: column;align-items: center">
+    <section class="case-drop-sec">
+        <img class="arrow" src="{% static 'img/case-string-arrow.png' %}">
+        <div class="case-items-string" id="items-string">
+            <ul class="items" id="items">
+            </ul>
+        </div>
+    </section>
+    <button class="open-case-btn super-button" onclick="location.href = '/case/{{case_id}}/'">
+        <span class="super-button-bg"></span>
+        <span class="super-button-text">{% trans "Case Payload" %}</span>
+    </button>
+</div>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/caseDrop.js' %}"></script>
+
+<script>
+    getCase({{ case_id }});
+</script>
+{% endblock %}

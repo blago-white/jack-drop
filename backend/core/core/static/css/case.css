@@ -15,6 +15,10 @@ body {
     border-radius: calc(100vw * calc(20 / var(--reference-display-w)));
 }
 
+#open-case-btn {
+    margin-top: calc(100vw * calc(34 / var(--reference-display-w)));
+}
+
 .case-img {
     width: calc(100vw * calc(358 / var(--reference-display-w)));
     max-width: calc(100vw * calc(358 / var(--reference-display-w)));

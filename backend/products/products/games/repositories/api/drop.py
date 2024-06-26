@@ -48,7 +48,7 @@ class CaseDropApiRepository(BaseApiRepository):
                     "case_id": case_data.get("id"),
                     "items": case_data.get("items"),
                     "funds": {
-                        "user_funds": user_funds.get("user_advantage"),
+                        "user_advantage": user_funds.get("user_advantage"),
                         "site_active_funds": self._site_funds_service.get()
                     },
                     "price": case_data.get("price")
@@ -78,10 +78,11 @@ class CaseDropApiRepository(BaseApiRepository):
     def _commit_funds(self, case_data: dict,
                       user_funds: dict,
                       funds_delta: dict) -> None:
-        self._users_service.update_user_balance_by_id(
-            delta_amount=-case_data.get("price") + funds_delta.get("user_funds_delta"),
-            user_id=user_funds.get("id")
-        )
+        # self._users_service.update_user_balance_by_id(
+        #     delta_amount=-case_data.get("price") + funds_delta.get("user_funds_delta"),
+        #     user_id=user_funds.get("id")
+        # )
+        # TODO: Uncomment
 
         self._site_funds_service.update(amount=funds_delta.get(
             "site_funds_delta"
