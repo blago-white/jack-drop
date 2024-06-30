@@ -115,8 +115,8 @@ class FortuneWheelApiRepository(BaseApiRepository):
                   GAME_SKIN_PRICE_RANGE)
             ), many=True).data
         elif prize_type.get("type") == PrizeTypes.CASE_DISCOUNT:
-            return CaseSerializer(instance=self._cases_service.get_all(),
-                                  many=True)
+            return CaseSerializer(instance=self._cases_service.get_paid(),
+                                  many=True).data
 
         return {}
 
@@ -124,6 +124,8 @@ class FortuneWheelApiRepository(BaseApiRepository):
             self, prize_type: str,
             user_data: dict,
             additional: dict = None) -> dict:
+        print("ADDITIONAL", additional)
+
         serialized = self._prize_api_service.default_endpoint_serializer_class(
             data={
                 "site_funds": {

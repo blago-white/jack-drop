@@ -32,7 +32,9 @@ class InventoryRepository(BaseRepository):
         return self._serializer_class(
             instance=self._service.get_all(
                 user_id=user_id, locked_for=Lockings.CONTRACT
-            ) | self._service.get_all(user_id=user_id),
+            ) | self._service.get_all(
+                user_id=user_id, locked_for=Lockings.UNLOCK
+            ),
             many=True
         ).data
 
@@ -40,9 +42,14 @@ class InventoryRepository(BaseRepository):
         return self._serializer_class(
             instance=self._service.get_all(
                 user_id=user_id, locked_for=Lockings.UPGRADE
-            ) | self._service.get_all(user_id=user_id),
+            ) | self._service.get_all(
+                user_id=user_id, locked_for=Lockings.UNLOCK
+            ),
             many=True
         ).data
+
+    def get_count(self, user_id: int) -> dict[str, int]:
+        return {"count": self._service.get_all(user_id=user_id).count()}
 
     def sell(self, user_id: int, item_id: int) -> dict:  # TODO: Make
         return {"ok": True}

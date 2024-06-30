@@ -111,18 +111,20 @@ async function dropCase() {
 
 function animateRoulette(to, count) {
     const vw = window.innerWidth / 100;
+    const gap = 100 * vw * (48 / 1920);
 
     if (gcd() > 1/1) {
-        const gap = 100 * vw * (48 / 1920);
-
         const partWith = 100 * vw * (217 / 1920);
 
         const biasVal = gap + partWith + 1;
 
-        console.log(count, count*5, to-3, to);
-
         dropItemsString.style.marginLeft = `-${((biasVal * count) * 5) + ((to-3) * biasVal)}px`;
+    } else {
+        const partWith = 100 * vw * (331 / 960);
 
+        const biasVal = gap + partWith;
+
+        dropItemsString.style.marginTop = `-${((biasVal * count) * 5) + ((to+1)* biasVal)}px`;
     }
 }
 

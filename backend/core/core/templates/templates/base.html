@@ -33,18 +33,19 @@
             <span class="c"><b>© 2018-2024 JackDrop</b><br>{% trans 'Best Cases' %}</span>
         </div>
         <span class="footer-mobile-info">
-            {% trans 'User Agreement' %}<br>
-            {% trans 'Site Contacts' %}<br>
-            {% trans 'FAQ' %}<br>
+            <a href="{% url 'privacy' %}" class="doc-link">{% trans 'Privacy Policy' %}</a><br>
+            <a href="{% url 'agreement' %}" class="doc-link">{% trans 'User Agreement' %}</a><br>
+            <a href="{% url 'ToS' %}" class="doc-link">{% trans 'ToS' %}</a><br>
+            <a href="{% url 'about' %}" class="doc-link">{% trans 'About' %}</a><br>
         </span>
         <ul class="footer-docs-list">
-           <li><a href="{% url 'privacy' %}" class="doc-link">Политика конфиденциальности</a></li>
-           <li><a href="{% url 'agreement' %}" class="doc-link">Пользовательское соглашение</a></li>
-           <li><a href="{% url 'ToS' %}" class="doc-link">Правила сервиса</a></li>
-           <li><a href="{% url 'about' %}" class="doc-link">О нас</a></li>
+           <li><a href="{% url 'privacy' %}" class="doc-link">{% trans 'Privacy Policy' %}</a></li>
+           <li><a href="{% url 'agreement' %}" class="doc-link">{% trans 'User Agreement' %}</a></li>
+           <li><a href="{% url 'ToS' %}" class="doc-link">{% trans 'ToS' %}</a></li>
+           <li><a href="{% url 'about' %}" class="doc-link">{% trans 'About' %}</a></li>
         </ul>
 
-        <div style="display: flex;justify-content: center;flex-direction: column;gap: 1ch;">
+        <div class="lang-switcher" style="display: flex;justify-content: center;flex-direction: column;gap: 1ch;">
             <button class="button" onclick="setLang('en')" style="border: none;">English</button>
             <button class="button" onclick="setLang('ru')" style="border: none;">Русский</button>
         </div>

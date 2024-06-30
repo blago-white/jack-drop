@@ -3,7 +3,7 @@
 
 body {
     background: black url('../svg/sharp.svg');
-    background-size: cover;
+    background-size: contain;
     background-repeat: repeat;
 }
 

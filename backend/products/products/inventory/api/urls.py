@@ -4,7 +4,8 @@ from .endpoints import (InventoryItemsListApiView,
                         ContractInventoryItemsListApiView,
                         UpgradeInventoryItemsListApiView,
                         SellInventoryItemApiView,
-                        WithdrawInventoryItemApiView)
+                        WithdrawInventoryItemApiView,
+                        CountInventoryItemsApiView)
 
 
 urlpatterns = [
@@ -22,5 +23,8 @@ urlpatterns = [
          name="sell-item"),
     path("withdraw/",
          WithdrawInventoryItemApiView.as_view(),
-         name="withdraw-item")
+         name="withdraw-item"),
+    path("count/",
+         CountInventoryItemsApiView.as_view(),
+         name="count-inventory-items")
 ]

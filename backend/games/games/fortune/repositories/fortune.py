@@ -64,7 +64,7 @@ class FortuneWheelPrizeRepository(BaseRepository):
 
     def __init__(self, *args,
                  model_service: FortuneWheelModelService = None,
-                 serializer_class: PrizeSerializer = None,
+                 serializer_class: PrizeRequestSerializer = None,
                  **kwargs):
         self._model_service = model_service or self.default_model_service
         self._serializer_class = serializer_class or self.default_serializer_class

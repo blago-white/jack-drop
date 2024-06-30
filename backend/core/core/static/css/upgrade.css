@@ -209,6 +209,11 @@ body {
         grid-column: 1;
     }
 
+    #granted-balance {
+        font-size: xx-large;
+        text-align: center;
+    }
+
     .upgrade-item-img-gun-second {
         display: block;
         position: relative;
@@ -231,11 +236,12 @@ body {
     .ugpgrade-hint {
         grid-row: 3;
         width: -webkit-fill-available;
-        font-size: calc(100vw* calc(20 / 960));
+        font-size: calc(100vw* calc(23 / 960));
         border-radius: calc(100vw* calc(18 / 960));
         padding-inline: 12.5%;
-        padding-block: 3%;
+        padding-block: 5%;
         margin: 0px;
+        gap: calc(100vw* calc(31 / 960));
     }
 
     .grant-items {

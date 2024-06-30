@@ -3,10 +3,12 @@ import random
 
 from common.services.base import BaseModelService
 from common.services.api.transfer import CaseData
-from common.services.api.states import FundsDifference
+from common.services.api.states import FundsDifference, FundsState
 
 from ..models import FortuneWheelWinning, WinningTypes
-from ..services.transfer import FortuneWheelGameResult, FortuneWheelGameRequest
+from ..services.transfer import (FortuneWheelGameResult,
+                                 FortuneWheelGameRequest,
+                                 CaseDiscountResult)
 
 
 class FortuneWheelModelService(BaseModelService):
@@ -40,6 +42,16 @@ class FortuneWheelService:
             user_funds_diff = 0
             site_funds_diff = 0
 
+        if request.winning_type == self.winning_types.CASE_DISCOUNT:
+            winning_item: CaseDiscountResult
+
+            diff = winning_item.case.price * (
+                winning_item.discount / 100
+            )
+
+            user_funds_diff = diff
+            site_funds_diff = -diff
+
         return FortuneWheelGameResult(
             funds_diff=FundsDifference(
                 user_funds_diff=user_funds_diff,
@@ -51,7 +63,8 @@ class FortuneWheelService:
         )
 
     def _get_win_item(
-            self, request: FortuneWheelGameRequest) -> dataclasses.dataclass:
+            self, request: FortuneWheelGameRequest
+    ) -> dataclasses.dataclass:
         print(request.data.items)
         print(request.data)
 
@@ -92,7 +105,13 @@ class FortuneWheelService:
                 )
 
         if request.winning_type == self.winning_types.CASE_DISCOUNT:
-            return self._get_case(cases=request.data.items)
+            result_case: CaseData = self._get_case(cases=request.data.items)
+
+            discount = self._get_case_discount(case=result_case,
+                                               funds=request.funds_state)
+
+            return CaseDiscountResult(case=result_case,
+                                      discount=discount)
 
     def get_type(
             self, request: FortuneWheelGameRequest
@@ -142,3 +161,18 @@ class FortuneWheelService:
         return random.choice(
             cases+cases[:len(cases)//2 if not count else count]
         )
+
+    @staticmethod
+    def _get_case_discount(case: CaseData,
+                           funds: FundsState) -> int:
+        if not funds.site_active_funds > case.price*2:
+            return random.randint(5, 10)
+
+        if funds.usr_advantage > case.price:
+            return random.randint(5, 15)
+
+        if funds.usr_advantage >= 0:
+            return random.randint(5, 25)
+
+        if funds.usr_advantage < case.price:
+            return random.randint(5, 50)

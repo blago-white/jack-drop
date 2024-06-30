@@ -267,4 +267,22 @@ button {
     .super-button-bg {
         border-radius: calc(100vw * calc(30 / 1920))!important;
     }
+
+    .prize-body {
+        width: 70vw;
+        gap: 2vh;
+        padding: 6vw;
+    }
+
+    .prize-body h3 {
+        text-align: center;
+    }
+
+    .prize-body span {
+        font-size: calc(100vw* calc(50 / var(--reference-display-w)))!important;
+    }
+
+    .prize-body .super-button {
+        height: calc(126vw* 0.081771);
+    }
 }

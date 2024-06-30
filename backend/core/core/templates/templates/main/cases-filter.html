@@ -30,8 +30,11 @@
         </form>
         <form class="price-range-form">
             <div style="display: flex;width: 100%;justify-content: space-between;">
-                <label id="range-price-1" for="pri">{% if min_case_price %}{{min_case_price}}{% else %}0{% endif %} ₽</label>
-                <label id="range-price-2" for="pri2">{% if min_case_price %}{{max_case_price}}{% else %}5000{% endif %} ₽</label>
+                <label id="range-price-1" for="pri">
+                    {% if min_case_price is not None %}{{min_case_price}}{% else %}0{% endif%} ₽
+                </label>
+                <label id="range-price-2" for="pri2">
+                    {% if min_case_price is not None %}{{max_case_price}}{% else %}5000{% endif%} ₽</label>
             </div>
             <div class="double-range-input" style="display: flex;">
                 <input type="range" value="{% if min_case_price %}{{min_case_price}}{% else %}0{% endif %}"

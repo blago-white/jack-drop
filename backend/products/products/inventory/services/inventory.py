@@ -10,14 +10,16 @@ class InventoryService(BaseReadOnlyService):
     default_model = InventoryItem
 
     def get_all(self, user_id: int = None,
-                locked_for: Lockings = Lockings.UNLOCK) -> models.QuerySet:
+                locked_for: Lockings = None) -> models.QuerySet:
 
         result = self._model.objects.all()
 
         if user_id:
             result = result.filter(user_id=user_id)
+        if locked_for:
+            return result.filter(locked_for=locked_for)
 
-        return result.filter(locked_for=locked_for)
+        return result
 
     def check_ownership(self, owner_id: int, item_id: int) -> bool:
         return self._model.objects.filter(
@@ -41,12 +43,12 @@ class InventoryService(BaseReadOnlyService):
         return True
 
     def remove_from_inventory(self, owner_id: int, item_id: int) -> bool:
-        return bool(self._model.objects.filter(
+        return self._model.objects.filter(
             pk__in=self._model.objects.filter(
                 user_id=owner_id,
                 item_id=item_id
             ).values_list("pk", flat=True)[:1]
-        ).delete())
+        ).delete()
 
     def add_item(self, owner_id: int,
                  item_id: int,

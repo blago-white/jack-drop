@@ -1,7 +1,8 @@
 from rest_framework.generics import CreateAPIView
+from rest_framework.views import APIView
 
 from common.views.api import BaseListAPIView
-from common.mixins.api import CreateAPIViewMixin
+from common.mixins.api import CreateAPIViewMixin, ApiViewMixin
 
 from games.repositories.api.users import UsersApiRepository
 from ..repositories.inventory import InventoryRepository
@@ -63,9 +64,21 @@ class WithdrawInventoryItemApiView(CreateAPIViewMixin, CreateAPIView):
     _users_repository = UsersApiRepository()
 
     def create(self, request, *args, **kwargs):
-        user_id = self._users_repository.get(user_request=request)
+        user_id = self._users_repository.get(user_request=request).get("id")
 
         return self.get_200_response(
             data=self._repository.withdraw(user_id=user_id,
                                            item_id=request.data.get("item_id"))
+        )
+
+
+class CountInventoryItemsApiView(ApiViewMixin, APIView):
+    _repository = InventoryRepository()
+    _users_repository = UsersApiRepository()
+
+    def get(self, request, *args, **kwargs):
+        user_id = self._users_repository.get(user_request=request).get("id")
+
+        return self.get_200_response(
+            data=self._repository.get_count(user_id=user_id)
         )

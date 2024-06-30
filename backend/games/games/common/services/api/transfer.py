@@ -49,6 +49,24 @@ class CaseData:
         }
 
 
+@dataclass
+class DetailedCaseData:
+    id: int
+    title: str
+    image_path: str
+    items: list[CaseItem]
+    price: int
+
+    def as_json(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "image_path": self.image_path,
+            "items": self.items,
+            "price": self.price
+        }
+
+
 @dataclass(frozen=True)
 class UserData:
     id: int

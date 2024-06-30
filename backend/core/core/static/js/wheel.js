@@ -34,6 +34,14 @@ const responseTypes = {
     "P": "promoCode",
 }
 
+const prizeTitlePrefixes = {
+    "F": "You win",
+    "C": "You win for contract",
+    "D": "You win discount",
+    "U": "You win for upgrade",
+    "P": "You win promocode"
+}
+
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -62,7 +70,22 @@ async function startRotate() {
         () => {
             document.getElementById(tiles[result_till]).classList.add('active');
             document.getElementById('wheel-canvas').src = `/core/static/img/wheel-${backgrounds[result_till]}.png`;
-            renderItemPrize(result.prize.title, result.prize.price, result.prize.image_path, "Amazing!");
+
+            if (result.prize_type == "D") {
+                renderItemPrize(
+                    `${prizeTitlePrefixes[result.prize_type]} ${result.prize.discount}% for  ${result.prize.case.title}`,
+                    `Is equial to -${result.prize.case.price * (result.prize.discount / 100)}`,
+                    result.prize.case.image_path,
+                    "Amazing!"
+                );
+            } else {
+                renderItemPrize(
+                    `${prizeTitlePrefixes[result.prize_type]} ${result.prize.title}`,
+                    result.prize.price,
+                    result.prize.image_path,
+                    "Amazing!"
+                );
+            }
         },
         10000
     )

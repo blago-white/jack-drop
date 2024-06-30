@@ -135,6 +135,7 @@ function selectItem(id) {
 
     if (lenBefore+1 == 10 && (!selected.has(id))) {
         alert("Maximum - 10 contract items");
+        return;
     }
 
     if (selected.has(id)) {

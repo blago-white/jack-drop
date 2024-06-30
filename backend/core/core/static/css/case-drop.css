@@ -53,7 +53,7 @@ body {
     width: max-content;
     padding-left: calc(100vw * calc(48 / var(--reference-display-w)));
 
-    transition: margin-left 5s ease-in-out;
+    transition: margin 5s ease-in-out;
 }
 
 .w-line {
@@ -122,5 +122,9 @@ body {
 
     .open-case-btn span {
         font-size: calc(100vw * calc(43 / 960));
+    }
+
+    .case-items-string {
+        overflow: hidden;
     }
 }

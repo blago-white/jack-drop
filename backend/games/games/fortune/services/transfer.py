@@ -2,12 +2,12 @@ from dataclasses import dataclass
 from abc import ABCMeta
 
 from common.services.api.states import FundsState, FundsDifference
-from common.services.api.transfer import DetailedCaseItem, CaseData
+from common.services.api.transfer import DetailedCaseItem, CaseData, DetailedCaseData
 
 
 @dataclass
 class WheelGameData:
-    items: list[DetailedCaseItem | CaseData]
+    items: list[DetailedCaseItem | DetailedCaseData]
 
 
 @dataclass
@@ -31,17 +31,19 @@ class FortuneWheelCaseItemData:
 
 @dataclass
 class FortuneWheelCaseData:
-    items: list[CaseData]
+    items: list[DetailedCaseData]
 
-    def __init__(self, items: list[CaseData]):
+    def __init__(self, items: list[DetailedCaseData]):
         self.items = self._convert_data(items=items)
 
     @staticmethod
-    def _convert_data(items: list[dict]) -> list[CaseData]:
+    def _convert_data(items: list[dict]) -> list[DetailedCaseData]:
         return [
-            CaseData(id=case.get("id"),
-                     price=case.get("price"),
-                     items=[]) for case in items
+            DetailedCaseData(id=case.get("id"),
+                             title=case.get("title"),
+                             image_path=case.get("image_path"),
+                             price=case.get("price"),
+                             items=[]) for case in items
         ]
 
 
@@ -60,9 +62,21 @@ class FortuneWheelGameRequest:
 
 
 @dataclass
+class CaseDiscountResult:
+    case: CaseData
+    discount: int
+
+    def as_json(self):
+        return {
+            "case": self.case.as_json(),
+            "discount": self.discount
+        }
+
+
+@dataclass
 class FortuneWheelGameResult:
     funds_diff: FundsDifference
-    winning_item: DetailedCaseItem | CaseData
+    winning_item: DetailedCaseItem | CaseDiscountResult
     user_id: int
     winning_type: str
 

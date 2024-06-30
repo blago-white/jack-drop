@@ -70,8 +70,22 @@
         margin-bottom: calc(100vw * calc(50 / var(--reference-display-w)));
     }
 
+    .footer-docs-list {
+        display: none;
+    }
+
+    .button {
+        font-size: calc(100vw* calc(36 / var(--reference-display-w)));
+        width: -webkit-fill-available;
+        padding-block: 1ch;
+    }
+
+    .lang-switcher {
+        flex-direction: row!important;
+    }
+
     .footer-mobile-info {
         display: block;
-        line-height: calc(100vw * calc(72 / var(--reference-display-w)));
+        line-height: calc(100vw * calc(53 / var(--reference-display-w)));
     }
 }

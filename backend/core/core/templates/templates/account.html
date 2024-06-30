@@ -43,7 +43,7 @@
     <div class="account-inventory">
         <div class="count-items">
             {% trans 'All Items' %}
-            <span>0</span>
+            <span id="total-inv-items-count"></span>
         </div>
         <div class="able-to-sell">
             {% trans 'Able To Sell' %}
@@ -60,10 +60,10 @@
     </div>
     <div class="inventory-items">
         <img src="{% static 'img/empty-inventory.png' %}">
-        <span class="empty-inv-desc">
-            <b>{% trans 'Empty Inventory' %}</b><span>{% trans 'Start Open Cases' %}</span>
+        <span class="empty-inv-desc" id="empty-sec">
+            <b>{% trans 'Empty Inventory' %}</b><span id="start-open">{% trans 'Start Open Cases' %}</span>
         </span>
-        <button class="super-button open-case-button">
+        <button class="super-button open-case-button" onclick="location.href = '/?min=1'">
             <span class="super-button-bg"></span>
             <span class="super-button-text">
                 {% trans 'Open' %} →
@@ -71,4 +71,21 @@
         </button>
     </div>
 </section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/inventoryCount.js' %}"></script>
+<script>
+    async function setCount() {
+        const result = await getCount();
+
+        if (result > 0) {
+            document.getElementById('empty-sec').innerHTML = '<b>{% trans 'Start Open Cases' %}</b>';
+        }
+
+        document.getElementById('total-inv-items-count').innerHTML = result;
+    };
+
+    setCount();
+</script>
 {% endblock %}

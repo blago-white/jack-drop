@@ -71,10 +71,12 @@ class UpgradeApiRepository(BaseApiRepository):
     def _commit_loss(self, validated_data: dict,
                      user_funds: dict) -> None:
         if validated_data.get("granted_item_id"):
-            self._inventory_service.remove_from_inventory(
+            result = self._inventory_service.remove_from_inventory(
                 owner_id=user_funds.get("id"),
                 item_id=validated_data.get("granted_item_id")
             )
+
+            print(result, "UPG RES")
 
         else:
             self._users_service.update_user_balance_by_request(
@@ -135,7 +137,7 @@ class UpgradeApiRepository(BaseApiRepository):
             data=data | user_funds
         )
 
-        serialized.is_valid(raise_exception=False)
+        serialized.is_valid(raise_exception=True)
 
         print("EEEE", serialized.data, serialized.errors)
 
