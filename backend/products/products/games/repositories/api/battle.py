@@ -1,4 +1,4 @@
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, APIException
 from rest_framework.serializers import Serializer
 from django.db.models import QuerySet
 
@@ -58,12 +58,12 @@ class BattleRequestApiRepository(_BaseBattleApiRepository):
 
         ok = self._api_service.create(serialized=serialized)
 
-        return {"ok": ok}
+        return {"success": ok}
 
     def cancel(self, initiator_id: int) -> dict:
         ok = self._api_service.cancel(initiator_id=initiator_id)
 
-        return {"ok": ok}
+        return {"success": ok}
 
 
 class BattleApiRepository(_BaseBattleApiRepository):
@@ -129,6 +129,9 @@ class BattleApiRepository(_BaseBattleApiRepository):
         battle_result = self._api_service.make(
             serialized=serialized
         )
+
+        if not battle_result:
+            raise APIException("Error with battle making")
 
         self._commit_result(battle_result=battle_result,
                             case_price=case_data.price)

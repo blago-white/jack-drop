@@ -10,6 +10,8 @@ class ContractApiService(BaseApiService):
     default_endpoint_serializer_class = CommitContractSerializer
 
     def get_shifted_amount(self, amount: float) -> float:
+        print(amount)
+
         response = requests.get(
             self._routes.get("contract_get_amount"),
             data=ShiftedContractAmountSerializer(instance={

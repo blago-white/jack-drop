@@ -68,7 +68,7 @@ class CaseItemDropModelService:
         rates = [((i.rate * 100) / percent) for i in items]
 
         for item, rate in zip(items, rates):
-            randoms.extend([item] * round(rate))
+            randoms.extend([item] * (round(rate) if rate > 0.5 else 1))
 
         randoms.reverse()
 
@@ -77,11 +77,9 @@ class CaseItemDropModelService:
                 raise ChancesValuesError("Not correct chances in case")
 
             if diff > 0:
-                randoms = randoms[:len(randoms) - 100]
-
-            if diff < 0:
-                randoms.reverse()
-                randoms = randoms[:abs(len(randoms) - 100) - 100]
+                randoms = randoms[len(randoms)-100:]
+            elif diff < 0:
+                randoms.extend([randoms[0]]*(100 - len(randoms)))
 
         return random.choice(randoms)
 

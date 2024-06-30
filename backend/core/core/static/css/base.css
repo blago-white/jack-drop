@@ -178,6 +178,73 @@ button {
     height: 95%;
 }
 
+#prize-wrappper {
+    position: fixed;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    background: red;
+    display: none;
+    z-index: 10000;
+    backdrop-filter: blur(.25ch);
+    background: rgba(26, 26, 26, 0.7);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.prize-body {
+    min-width: calc(100vw* calc(200 / var(--reference-display-w)));
+    padding: calc(100vw* calc(40 / var(--reference-display-w)));
+    background: black;
+    border: 2px solid #FF62CA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1ch;
+    transform: translateY(-90vh);
+
+    border-radius: calc(100vw* calc(32 / var(--reference-display-w)));
+
+    transition: transform 0.3s ease-in-out;
+}
+
+.prize-body h3 {
+    font-size: calc(100vw* calc(75 / var(--reference-display-w)));
+    font-family: 'Gilroy Bold';
+    margin: auto;
+}
+
+.prize-body span {
+    font-size: calc(100vw* calc(50 / var(--reference-display-w)));
+    padding: .1ch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prize-body img {
+    height: 100%;
+    max-height: 30vh;
+}
+
+.close-prize-btn {
+    margin-left: auto;
+    background: linear-gradient(180deg, #FF62CA 0%, #FF007A 100%);
+    border: none;
+    border-radius: 1ch;
+    height: 5vh;
+    aspect-ratio: 1 / 1;
+    padding: 1ch;
+}
+
 @media (aspect-ratio < 1/1) {
     .main-content {
         margin-top: 15vh;

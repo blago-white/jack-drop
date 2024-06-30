@@ -104,6 +104,8 @@ class ContractApiRepository(BaseApiRepository):
             inventory_items_ids=items
         )
 
+        print("ITREMS", items)
+
         return request_amount, self._api_service.get_shifted_amount(
             amount=request_amount
         )

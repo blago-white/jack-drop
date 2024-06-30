@@ -4,7 +4,7 @@ from common.repositories import BaseRepository
 from common.services.api.states import FundsState
 from ..serializers import DropCaseRequestSerializer, DropResultSerializer
 from ..services.drop import CaseItemDropModelService
-from ..states.request import DropRequest, CaseItem
+from ..states.request import DropRequest, DetailedCaseItem
 
 
 class CaseItemDropRepository(BaseRepository):
@@ -37,7 +37,7 @@ class CaseItemDropRepository(BaseRepository):
 
         return self._result_serializer_class(
             instance={
-                "item_id": dropped.dropped_item.id,
+                "item": dropped.dropped_item,
                 "funds": {
                     "user_funds_delta": dropped.user_funds_delta,
                     "site_funds_delta": dropped.site_funds_delta
@@ -49,10 +49,13 @@ class CaseItemDropRepository(BaseRepository):
     def _serialize_drop_request(data_json: dict) -> DropRequest:
         return DropRequest(
             items=[
-                CaseItem(
+                DetailedCaseItem(
                     id=i.get("id"),
+                    item_id=i.get("item_id"),
                     price=i.get("price"),
-                    rate=i.get("rate")
+                    rate=i.get("rate"),
+                    title=i.get("title"),
+                    image_path=i.get("image_path")
                 ) for i in data_json.data.get("items")
             ],
             state=FundsState(

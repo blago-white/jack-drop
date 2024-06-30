@@ -1,3 +1,5 @@
+import { renderItemPrize } from "./prize.js";
+
 const wheel = document.getElementById('wheel-canvas');
 
 const degrees = {
@@ -60,6 +62,7 @@ async function startRotate() {
         () => {
             document.getElementById(tiles[result_till]).classList.add('active');
             document.getElementById('wheel-canvas').src = `/core/static/img/wheel-${backgrounds[result_till]}.png`;
+            renderItemPrize(result.prize.title, result.prize.price, result.prize.image_path, "Amazing!");
         },
         10000
     )
@@ -85,3 +88,5 @@ async function getResult() {
 
     return await response.json();
 }
+
+window.startRotate = startRotate;

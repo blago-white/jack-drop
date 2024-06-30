@@ -3,8 +3,10 @@ const inputRight = document.getElementById("pri2");
 const inputedPrice1 = document.getElementById("range-price-1");
 const inputedPrice2 = document.getElementById("range-price-2");
 
-let leftValue = 0;
-let rightValue = 5000;
+const url = new URL(document.location.href);
+
+let leftValue = parseInt(inputLeft.value);
+let rightValue = parseInt(inputRight.value);
 
 function changeInputedPrice(event, iid) {
     if (iid == "l") {
@@ -27,7 +29,16 @@ function changeInputedPrice(event, iid) {
         }
     }
 
-    console.log(leftValue, rightValue);
+    return [leftValue, rightValue];
+}
+
+function reload() {
+    changed = changeInputedPrice();
+
+    url.searchParams.set("min", changed[0]);
+    url.searchParams.set("max", changed[1]);
+
+    location.href = url.href;
 }
 
 inputLeft.addEventListener("input", (e) => {
@@ -36,4 +47,12 @@ inputLeft.addEventListener("input", (e) => {
 
 inputRight.addEventListener("input", (e) => {
     changeInputedPrice(e, "r")
+})
+
+inputLeft.addEventListener("change", (e) => {
+    reload()
+})
+
+inputRight.addEventListener("change", (e) => {
+    reload()
 })

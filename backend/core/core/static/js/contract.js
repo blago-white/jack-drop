@@ -1,6 +1,14 @@
-let selected = new Set();
+import { renderItemPrize } from "./prize.js";
+
+let selected = new Map();
+
+let grantedItems = new Map();
 
 let priceMapping = new Map();
+
+function gcd (a, b) {
+    return (b == 0) ? a : gcd (b, a%b);
+}
 
 async function getItems() {
     const formdata = new FormData();
@@ -20,9 +28,13 @@ async function getItems() {
         priceMapping.set(element.id, element.item.price)
     })
 
+    const w = screen.width;
+    const h = screen.height;
+    const ratio = gcd (w, h);
+
     if (result.length) {
         result.forEach((element) => {
-            document.getElementById('inventory-items').innerHTML += `
+            const html = `
                 <article class="inventory-item dropped regular" style="cursor: pointer;" onclick="selectItem(${element.id})" id=${element.id}>
                     <div class="w-line"></div>
                     <div class="dropped-content">
@@ -31,27 +43,32 @@ async function getItems() {
                     </div>
                 </article>
             `
+
+            if (ratio > 1/1) {
+                document.getElementById('inventory-items').innerHTML += html;
+            } else {
+                document.getElementById('inventory-items-mob').innerHTML += html;
+            }
+
+            grantedItems.set(element.id, element.item);
         })
     } else {
-        document.getElementById('inventory-items').innerHTML = 'Items for upgrade not found';
-        document.getElementById('inventory-items').style = "display: flex;background: #0E0E0E;padding: 3ch;text-align: center";
+        if (ratio > 1/1) {
+            document.getElementById('inventory-items').innerHTML = 'Items for upgrade not found';
+            document.getElementById('inventory-items').style = "display: flex;background: #0E0E0E;padding: 3ch;text-align: center";
+        } else {
+            document.getElementById('inventory-items-mob').innerHTML = 'Items for upgrade not found';
+            document.getElementById('inventory-items-mob').style = "display: flex;background: #0E0E0E;padding: 3ch;text-align: center";
+        }
     }
 }
 
 function clearAll() {
-    selected.forEach((element) => {
-        unselectItem(element);
-    });
-
-    document.getElementById('contract-amount').innerHTML = "0";
+    location.href = location.href;
 }
 
 function unselectItem(id) {
-    const lenBefore = selected.size;
-
-    selected.delete(id);
-
-    if (lenBefore == selected.size) {
+    if (!selected.has(id)) {
         return false;
     }
 
@@ -60,13 +77,21 @@ function unselectItem(id) {
     const current_amount = parseInt(document.getElementById('contract-amount').innerHTML);
 
     document.getElementById('contract-amount').innerHTML = current_amount - priceMapping.get(id);
+
+    let pos = null;
+
+    console.log(selected.get(id), selected, id);
+
+    document.getElementById(`im${selected.get(id).pos}`).style = '';
+
+    selected.delete(id);
 }
 
 async function makeContract() {
     const myHeaders = new Headers();
 
-    selected.forEach((element) => {
-        document.getElementById(element).remove()
+    selected.forEach((element, element_id) => {
+        document.getElementById(element_id).remove()
     })
 
     document.getElementById('contract-amount').innerHTML = "0";
@@ -74,10 +99,12 @@ async function makeContract() {
     myHeaders.append("X-CSRFToken", document.cookie.split("=")[1].split(";")[0]);
     myHeaders.append("Content-Type", "application/json");
 
+    console.log(selected.keys());
+
     const requestOptions = {
       method: "POST",
       headers: myHeaders,
-      body: JSON.stringify({"granted_inventory_items": Array.from(selected)}),
+      body: JSON.stringify({"granted_inventory_items": Array.from(selected.keys())}),
       redirect: "follow"
     };
 
@@ -86,27 +113,53 @@ async function makeContract() {
         requestOptions
     );
 
+    if (!response.ok) {
+        alert("Error with operation, try again later");
+        location.href = location.href;
+    }
+
     const result = await response.json();
 
     console.log(result);
+
+    renderItemPrize(
+        result.title,
+        result.price,
+        result.image_path,
+        "Amazing!"
+    );
 }
 
 function selectItem(id) {
     const lenBefore = selected.size;
 
-    selected.add(id);
-
-    console.log(lenBefore, selected.size);
-
-    if (lenBefore === selected.size) {
-        return unselectItem(id);
+    if (lenBefore+1 == 10 && (!selected.has(id))) {
+        alert("Maximum - 10 contract items");
     }
 
-    document.getElementById(id).style.background = 'gray';
+    if (selected.has(id)) {
+        return unselectItem(id);
+    } else {
+        selected.set(id, {"pos": lenBefore+1});
+    }
 
     const current_amount = parseInt(document.getElementById('contract-amount').innerHTML);
 
     document.getElementById('contract-amount').innerHTML = current_amount + priceMapping.get(id);
+
+    document.getElementById(`im${selected.size}`).style = `
+        background: url("${grantedItems.get(id).image_path}") center center / cover;
+        color: transparent;
+    `;
+
+    selected.set(id, {pos: selected.size});
+
+    document.getElementById(id).style.background = 'gray';
 }
 
 getItems();
+
+window.selectItem = selectItem;
+window.makeContract = makeContract;
+window.unselectItem = unselectItem;
+window.clearAll = clearAll;

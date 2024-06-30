@@ -12,3 +12,6 @@ class CaseCategoriesService(DefaultModelService):
         categories_qs = self._model.objects.all().select_related()
 
         return [category.case_set.all() for category in categories_qs]
+
+    def bulk_get_titles(self, titles: list[str]) -> QuerySet:
+        return self._model.objects.filter(title__in=titles)

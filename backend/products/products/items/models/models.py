@@ -37,7 +37,7 @@ class Item(TitleModelMixin, BaseImageModel):
         super().__init__(*args, **kwargs)
 
     def __str__(self):
-        return f"{super().__str__()} ({self.price/100})"
+        return f"{super().__str__()} ({self.price} РУБ)"
 
     def save(
             self, force_insert=False,

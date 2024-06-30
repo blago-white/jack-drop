@@ -91,12 +91,15 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
             return {"success": False,
                     "error": f"Battle request now exists ({count_conns})"}
 
-        result = self._battle_request_api_repository.create(
-            battle_case_id=message.payload.battle_case_id,
-            user_data=user_data,
-        )
+        try:
+            result = self._battle_request_api_repository.create(
+                battle_case_id=message.payload.battle_case_id,
+                user_data=user_data,
+            )
+        except Exception as e:
+            result = {"success": False, "error": e.detail, "fatal": True}
 
-        if result.get("ok"):
+        if result.get("success"):
             async_to_sync(self.channel_layer.group_add)(
                 self.group_name,
                 self.channel_name
@@ -129,16 +132,12 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
         )
 
         if initiator_id is None:
-            print("INITIATOR IS NONE")
-            return {"success": "False", "error": "Battle request not found"}
+            return {"success": False, "error": "Battle request not found"}
 
         self.initiator_id = initiator_id
         self.group_name = self._get_group_name()
 
-        print(self.channel_layer.groups, self.group_name)
-
         if self._count_connections_for_group() != 1:
-            print("SMALL CONN")
             return {"success": False, "error": "Battle request not found"}
 
         async_to_sync(self.channel_layer.group_add)(
@@ -146,11 +145,21 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
             self.channel_name
         )
 
-        return self._battle_api_repository.make(
-            battle_case_id=self.battle_case_id,
-            initiator_id=self.initiator_id,
-            participant_data=self.scope.get("user")
-        )
+        try:
+            return {
+                "data": self._battle_api_repository.make(
+                    battle_case_id=self.battle_case_id,
+                    initiator_id=self.initiator_id,
+                    participant_data=self.scope.get("user")
+                ),
+                "success": True
+            }
+        except:
+            return {
+                "data": {},
+                "error": "Error with battle, try again",
+                "success": False
+            }
 
     def disconnect(self, code):
         if self.group_name:

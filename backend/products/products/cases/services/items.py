@@ -28,14 +28,18 @@ class BaseCaseItemsService(metaclass=ABCMeta):
 
 
 class CaseItemsService(BaseCaseItemsService):
+    def get_all(self) -> models.QuerySet:
+        return self._model.objects.all()
+
     def get_case_items_for_case(self, case_pk: str) -> models.QuerySet:
         return self._model.objects.filter(case=case_pk)
 
     def get_drop_case_items_for_case(self, case_pk: str) -> dict:
         return self.get_case_items_for_case(case_pk=case_pk).annotate(
             price=models.F("item__price")
-        ).values(
-            "id", "rate", "price"
+        ).annotate(title=models.F("item__title"),
+                   image_path=models.F("item__image_path")).values(
+            "id", "item_id", "rate", "price", "title", "image_path"
         )
 
     def bulk_update_rates(

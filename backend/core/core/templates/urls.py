@@ -3,7 +3,8 @@ from django.urls import path
 from .views import (main_page_view, account_view, mines_view, battle_view,
                     upgrade_view, contract_view, case_view, inventory_view,
                     replenish_view, fortune_wheel_view, privacy_policy_view,
-                    user_agreement_view, about_view, tos_view, case_drop_view)
+                    user_agreement_view, about_view, tos_view, case_drop_view,
+                    bonus_buy_view)
 
 
 urlpatterns = [
@@ -21,5 +22,6 @@ urlpatterns = [
     path("privacy/", privacy_policy_view, name="privacy"),
     path("agreement/", user_agreement_view, name="agreement"),
     path("about/", about_view, name="about"),
-    path("ToS/", tos_view, name="Tos")
+    path("ToS/", tos_view, name="ToS"),
+    path("bonus-buy/", bonus_buy_view, name="bonus-buy")
 ]

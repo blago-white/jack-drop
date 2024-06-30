@@ -7,6 +7,7 @@
     padding-block: calc(100vw * calc(77 / var(--reference-display-w)));
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .c {
@@ -24,6 +25,22 @@
     gap: calc(100vw * calc(64 / var(--reference-display-w)));
     height: calc(100vw * calc(56 / var(--reference-display-w)));
     list-style: none;
+}
+
+.footer-docs-list {
+    list-style: none;
+    text-transform: none;
+    border-left: 1px solid;
+    padding-inline: 2ch;
+}
+
+.doc-link {
+    color: #979797;
+    cursor: pointer;
+}
+
+.doc-link:hover {
+    color: white;
 }
 
 .footer-mobile-info {

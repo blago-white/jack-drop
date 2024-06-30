@@ -15,6 +15,13 @@
 <body>
     <div class="bg-filter"></div>
     <div class="global-sharp" style="height: auto;" id="global-sharp"></div>
+    <div id="prize-wrappper">
+        <div class="prize-body" id="prize-body">
+            <button class="close-prize-btn" onclick="closePrizeWindow()">
+                <img src="{% static 'img/cross.png' %}">
+            </button>
+        </div>
+    </div>
     {% include 'header.html' %}
     <main class="main-content">
         {% block main %}
@@ -30,14 +37,18 @@
             {% trans 'Site Contacts' %}<br>
             {% trans 'FAQ' %}<br>
         </span>
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <select name="language" class="button" style="width: -webkit-fill-available;margin-bottom: 1ch;border: 0px;">
-            <option value="en">English</option>
-            <option value="ru">Русский</option>
-        </select>
-        <input class="button" type="submit" style="border: 0px;" value="{% trans 'Change Language' %}">
-    </form>
+        <ul class="footer-docs-list">
+           <li><a href="{% url 'privacy' %}" class="doc-link">Политика конфиденциальности</a></li>
+           <li><a href="{% url 'agreement' %}" class="doc-link">Пользовательское соглашение</a></li>
+           <li><a href="{% url 'ToS' %}" class="doc-link">Правила сервиса</a></li>
+           <li><a href="{% url 'about' %}" class="doc-link">О нас</a></li>
+        </ul>
+
+        <div style="display: flex;justify-content: center;flex-direction: column;gap: 1ch;">
+            <button class="button" onclick="setLang('en')" style="border: none;">English</button>
+            <button class="button" onclick="setLang('ru')" style="border: none;">Русский</button>
+        </div>
+
         <ul class="media-list">
             <li><img src="{% static 'img/tg-logo.png' %}"></li>
             <li><img src="{% static 'img/vk-logo.png' %}"></li>
@@ -46,11 +57,20 @@
         </ul>
     </footer>
     <script src="{% static 'js/header.js' %}"></script>
-<!--    <script>-->
-<!--        document.addEventListener('DOMContentLoaded', function() {-->
-<!--            document.getElementById('global-sharp').style = `height: ${document.documentElement.scrollHeight};color: red;`;-->
-<!--        });-->
-<!--    </script>-->
+    <script src="{% static 'js/prize.js' %}" type="module"></script>
+    <script src="{% static 'js/langs.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const body = document.body;
+            const html = document.documentElement;
+
+            const height = Math.max( body.scrollHeight, body.offsetHeight,
+                                   html.clientHeight, html.scrollHeight, html.offsetHeight )
+
+            console.log(document.body.offsetHeight, document.body.scrollHeight, height);
+            document.getElementById('global-sharp').style.height = `${height}px`;
+        });
+    </script>
     {% block extrascripts %}
     {% endblock %}
 </body>

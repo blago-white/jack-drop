@@ -17,7 +17,10 @@ Mines | Jack Drop
         <form class="game-control-inputs" id="mines-game-form">
             <div class="game-bet-amount">
                 <h3 class="control-sec-title">{% trans 'Deposit Amount' %}</h3>
-                <input class="game-input" id="depo-input" type="number" name="user_deposit" step="0.1" value="0.1">
+                <input class="game-input" min="10" id="user_deposit" type="number" name="user_deposit"
+                       required
+                       step="0.1"
+                       value="50">
                 <div class="bet-presets">
                     <button class="bet-amount-preset-btn"
                             onclick="return multipleDeposit(1/2);">1/2</button>
@@ -30,25 +33,27 @@ Mines | Jack Drop
             <div class="game-mines-count">
                 <h3 class="control-sec-title">{% trans 'Mines Count' %}</h3>
                 <div class="mines-count-presets">
-                    <input class="game-input" id="mines-count" name="count_mines" type="number" value="3">
+                    <input class="game-input" min="1" max="24" id="count_mines" name="count_mines" type="number"
+                           required
+                           value="3">
                     <button class="mines-count-preset"
-                            onclick="document.getElementById('mines-count').value = 2;return changeGameVals();">
+                            onclick="document.getElementById('count_mines').value = 2;return changeGameVals();">
                         2
                     </button>
                     <button class="mines-count-preset"
-                            onclick="document.getElementById('mines-count').value = 4;return changeGameVals();">
+                            onclick="document.getElementById('count_mines').value = 4;return changeGameVals();">
                         4
                     </button>
                     <button class="mines-count-preset"
-                            onclick="document.getElementById('mines-count').value = 8;return changeGameVals();">
+                            onclick="document.getElementById('count_mines').value = 8;return changeGameVals();">
                         8
                     </button>
                     <button class="mines-count-preset"
-                            onclick="document.getElementById('mines-count').value = 12;return changeGameVals();">
+                            onclick="document.getElementById('count_mines').value = 12;return changeGameVals();">
                         12
                     </button>
                     <button class="mines-count-preset"
-                            onclick="document.getElementById('mines-count').value = 24;return changeGameVals();">
+                            onclick="document.getElementById('count_mines').value = 24;return changeGameVals();">
                         24
                     </button>
                 </div>
@@ -57,7 +62,7 @@ Mines | Jack Drop
                 <span class="super-button-bg noactive"></span>
                 <span class="super-button-text">{% trans 'Random' %}</span>
             </button>
-            <button class="super-button" onclick="makeMinesGame();return false;">
+            <button class="super-button" type="submit" onclick="makeMinesGame();return false;">
                 <span class="super-button-bg"></span>
                 <span class="super-button-text">{% trans 'Start Game' %}</span>
             </button>
@@ -77,5 +82,5 @@ Mines | Jack Drop
 {% endblock %}
 
 {% block extrascripts %}
-<script src="{% static 'js/mines.js' %}"></script>
+<script src="{% static 'js/mines.js' %}" type="module"></script>
 {% endblock %}

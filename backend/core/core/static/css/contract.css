@@ -111,7 +111,7 @@ body {
 
     .inventory-item {
         min-width: calc(100vw * calc(274 / var(--reference-display-w)));
-        font-size: calc(100vw * calc(17 / var(--reference-display-w)));
+        font-size: calc(100vw * calc(22 / var(--reference-display-w)));
     }
 
     .inventory-item span {
@@ -124,6 +124,10 @@ body {
 
     .inventory-items-mobile {
         display: flex;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        padding-bottom: 4ch;
+        padding-right: 0px;
     }
 
     .bg-filter {
@@ -135,7 +139,7 @@ body {
     }
 
     .inventory-item img {
-        width: calc(100vw* calc(277 / var(--reference-display-w)));
+        width: calc(100vw* calc(218 / var(--reference-display-w)));
     }
 
     .contract-circle {
@@ -184,7 +188,35 @@ body {
     }
 
     .contract-cells {
-        display: block
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: calc(100vw * calc(38 / var(--reference-display-w)));
+    }
+
+    .contract-cells span {
+        border-radius: 50%;
+        border: 2px solid #FF62CA;
+        color: #4A4A4A;
+        font-family: 'Gilroy Regular';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(calc(100vw * calc(20 / var(--reference-display-w))));
+        background: rgb(10, 10, 10, .7);
+        aspect-ratio: 1/1;
+        font-size: calc(100vw * calc(64 / var(--reference-display-w)));
+
+        background-size: cover;
+        background-position: center center;
+    }
+
+    #im9 {
+        grid-column: 2;
+    }
+
+    #im10 {
+        grid-column: 3;
     }
 
     .contract-hint-img {

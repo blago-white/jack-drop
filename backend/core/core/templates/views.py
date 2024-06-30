@@ -1,8 +1,24 @@
 from django.shortcuts import render
+from django.http.request import HttpRequest
 
 
-def main_page_view(request):
-    return render(request, template_name="mainpage.html")
+def main_page_view(request: HttpRequest):
+    context = {}
+
+    if request.GET.get("min"):
+        context.update(min_case_price=request.GET.get("min"))
+    if request.GET.get("max"):
+        context.update(max_case_price=request.GET.get("max"))
+    if request.GET.get("cat"):
+        context.update(case_category=request.GET.get("cat"))
+
+    return render(request,
+                  template_name="mainpage.html",
+                  context={
+                      "min_case_price": request.GET.get("min"),
+                      "max_case_price": request.GET.get("max"),
+                      "case_category": request.GET.get("cat")
+                  })
 
 
 def account_view(request):
@@ -83,4 +99,11 @@ def tos_view(request):
     return render(
         request=request,
         template_name="terms.html"
+    )
+
+
+def bonus_buy_view(request):
+    return render(
+        request=request,
+        template_name="account.html"
     )

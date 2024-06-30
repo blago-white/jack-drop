@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-20 16:16+0300\n"
+"POT-Creation-Date: 2024-06-29 00:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,29 +69,25 @@ msgstr "THERE ARE NO ITEMS"
 msgid "Start Open Cases"
 msgstr "Free Cases"
 
-#: .\templates\templates\account.html:69
+#: .\templates\templates\account.html:69 .\templates\templates\case.html:31
 msgid "Open"
 msgstr ""
 
-#: .\templates\templates\base.html:26
+#: .\templates\templates\base.html:33
 msgid "Best Cases"
 msgstr "Best rust cases"
 
-#: .\templates\templates\base.html:29
+#: .\templates\templates\base.html:36
 msgid "User Agreement"
 msgstr "User Agreement"
 
-#: .\templates\templates\base.html:30
+#: .\templates\templates\base.html:37
 msgid "Site Contacts"
 msgstr "Contacts"
 
-#: .\templates\templates\base.html:31
+#: .\templates\templates\base.html:38
 msgid "FAQ"
 msgstr "FAQ"
-
-#: .\templates\templates\base.html:39
-msgid "Change Language"
-msgstr "Change Language"
 
 #: .\templates\templates\battle.html:43
 msgid "Find Participant"
@@ -105,60 +101,57 @@ msgstr "Cancel Request"
 msgid "Case"
 msgstr ""
 
-#: .\templates\templates\battle.html:53
+#: .\templates\templates\battle.html:52
 #, fuzzy
 #| msgid "Battles"
 msgid "Active Battles"
 msgstr "Battles"
 
-#: .\templates\templates\battle.html:56
+#: .\templates\templates\battle.html:55
 msgid "Cost"
 msgstr ""
 
-#: .\templates\templates\battle.html:58
+#: .\templates\templates\battle.html:57
 msgid "Actions"
 msgstr ""
 
-#: .\templates\templates\battle.html:69 .\templates\templates\battle.html:80
-#: .\templates\templates\battle.html:91 .\templates\templates\battle.html:102
-#: .\templates\templates\battle.html:113 .\templates\templates\battle.html:124
-#: .\templates\templates\battle.html:135 .\templates\templates\battle.html:146
+#: .\templates\templates\battle.html:69
 msgid "Start"
 msgstr ""
 
-#: .\templates\templates\battle.html:155
+#: .\templates\templates\battle.html:78
 msgid "Wins"
 msgstr ""
 
-#: .\templates\templates\battle.html:159
+#: .\templates\templates\battle.html:82
 msgid "Loses"
 msgstr ""
 
-#: .\templates\templates\battle.html:163
+#: .\templates\templates\battle.html:86
 msgid "Draws"
 msgstr ""
 
-#: .\templates\templates\battle.html:169
+#: .\templates\templates\battle.html:92
 msgid "My Battles"
 msgstr "My Battles"
 
-#: .\templates\templates\battle.html:173
+#: .\templates\templates\battle.html:96
 msgid "Battle Hint Header"
 msgstr "How it works?"
 
-#: .\templates\templates\battle.html:178
+#: .\templates\templates\battle.html:101
 msgid "Battle Hint First"
 msgstr "Click “Create” or join an existing battle."
 
-#: .\templates\templates\battle.html:182
+#: .\templates\templates\battle.html:105
 msgid "Battle Hint Second"
 msgstr "The battle will begin as soon as both participants have joined."
 
-#: .\templates\templates\battle.html:186
+#: .\templates\templates\battle.html:109
 msgid "Battle Hint Third"
 msgstr "The participant who receives the more expensive item takes both."
 
-#: .\templates\templates\case.html:32
+#: .\templates\templates\case-drop.html:25 .\templates\templates\case.html:36
 msgid "Case Payload"
 msgstr ""
 
@@ -170,63 +163,67 @@ msgstr "Administration"
 msgid "Type Message"
 msgstr "Type Message"
 
-#: .\templates\templates\contract.html:98
+#: .\templates\templates\contract.html:44
 #, fuzzy
 #| msgid "Site Contacts"
 msgid "Sign Contract"
 msgstr "Contacts"
 
-#: .\templates\templates\contract.html:102
-#: .\templates\templates\main\cases-filter.html:41
+#: .\templates\templates\contract.html:48
+#: .\templates\templates\main\cases-filter.html:49
 msgid "Clear"
 msgstr "Clear"
 
-#: .\templates\templates\fortune.html:20 .\templates\templates\header.html:26
+#: .\templates\templates\fortune.html:22 .\templates\templates\header.html:26
 #: .\templates\templates\main\banners.html:5
 msgid "Fortune Wheel"
 msgstr "Fortune Wheel"
 
-#: .\templates\templates\fortune.html:21
+#: .\templates\templates\fortune.html:23
 msgid "Count Down Title"
 msgstr "We have until the free opening:"
 
-#: .\templates\templates\fortune.html:25
+#: .\templates\templates\fortune.html:27
 msgid "D"
 msgstr "DAY"
 
-#: .\templates\templates\fortune.html:29
+#: .\templates\templates\fortune.html:31
 msgid "H"
 msgstr "HRS"
 
-#: .\templates\templates\fortune.html:33
+#: .\templates\templates\fortune.html:35
 msgid "M"
 msgstr "MIN"
 
-#: .\templates\templates\fortune.html:37
+#: .\templates\templates\fortune.html:39
 msgid "S"
 msgstr "SEC"
 
-#: .\templates\templates\fortune.html:42
+#: .\templates\templates\fortune.html:44 .\templates\templates\mines.html:67
+msgid "Start Game"
+msgstr ""
+
+#: .\templates\templates\fortune.html:48
 msgid "Enter Code"
 msgstr "Enter Code"
 
-#: .\templates\templates\fortune.html:48
+#: .\templates\templates\fortune.html:54
 msgid "Promo For Dep"
 msgstr "Promo code for replenishment from 5 to 50%"
 
-#: .\templates\templates\fortune.html:52
+#: .\templates\templates\fortune.html:58
 msgid "Contract Skin"
 msgstr "Skins for the contract from 100-500₽"
 
-#: .\templates\templates\fortune.html:56
+#: .\templates\templates\fortune.html:62
 msgid "Free Skin"
 msgstr "Free skin from 20-1000₽"
 
-#: .\templates\templates\fortune.html:60
+#: .\templates\templates\fortune.html:66
 msgid "Case Discount"
 msgstr "Discounts for a specific case from 5-100%"
 
-#: .\templates\templates\fortune.html:64
+#: .\templates\templates\fortune.html:70
 msgid "Upgrade Skin"
 msgstr "Upgrade skins from 100-500₽"
 
@@ -246,11 +243,15 @@ msgstr "Battles"
 msgid "Mines"
 msgstr "Mines"
 
-#: .\templates\templates\header.html:35
+#: .\templates\templates\header.html:29
+msgid "Bonus Buy"
+msgstr ""
+
+#: .\templates\templates\header.html:38
 msgid "Enter Throught Steap"
 msgstr "Enter By Steam"
 
-#: .\templates\templates\header.html:36
+#: .\templates\templates\header.html:39
 msgid "Enter"
 msgstr "Enter"
 
@@ -258,30 +259,28 @@ msgstr "Enter"
 msgid "Go"
 msgstr "Go to"
 
-#: .\templates\templates\main\cases-filter.html:6
+#: .\templates\templates\main\bonus-buy.html:4
+#, fuzzy
+#| msgid "Count Down Title"
+msgid "Bonus By Title"
+msgstr "We have until the free opening:"
+
+#: .\templates\templates\main\cases-filter.html:7
 msgid "Fast Search"
 msgstr "Fast search"
-
-#: .\templates\templates\main\free-cases.html:5
-msgid "Free Cases"
-msgstr "Free Cases"
 
 #: .\templates\templates\mines.html:19
 msgid "Deposit Amount"
 msgstr ""
 
-#: .\templates\templates\mines.html:29
+#: .\templates\templates\mines.html:34
 #, fuzzy
 #| msgid "Mines"
 msgid "Mines Count"
 msgstr "Mines"
 
-#: .\templates\templates\mines.html:41
+#: .\templates\templates\mines.html:63
 msgid "Random"
-msgstr ""
-
-#: .\templates\templates\mines.html:45
-msgid "Start Game"
 msgstr ""
 
 #: .\templates\templates\replenish.html:15
@@ -295,7 +294,9 @@ msgstr ""
 
 #: .\templates\templates\replenish.html:33
 msgid "Replenish Info First"
-msgstr "Attention! send the specified amount to the nearest penny, otherwise the payment will not be counted"
+msgstr ""
+"Attention! send the specified amount to the nearest penny, otherwise the "
+"payment will not be counted"
 
 #: .\templates\templates\replenish.html:36
 msgid "Replenish Info Second"
@@ -309,24 +310,34 @@ msgstr "I accept the terms of the user agreement"
 msgid "Replenish Balance"
 msgstr "top up your balance"
 
-#: .\templates\templates\upgrade.html:24 .\templates\templates\upgrade.html:170
+#: .\templates\templates\upgrade.html:24 .\templates\templates\upgrade.html:58
 msgid "Left Part Descriprion"
 msgstr ""
 "Select one of your skins on the left to upgrade it and get a more expensive "
 "one"
 
-#: .\templates\templates\upgrade.html:31
+#: .\templates\templates\upgrade.html:34
 msgid "Right Part Desctiption"
 msgstr ""
 "Select one of your skins on the left to upgrade it and get a more expensive "
 "one"
 
-#: .\templates\templates\upgrade.html:78
+#: .\templates\templates\upgrade.html:38
 msgid "Hint First"
 msgstr ""
 "You will see the probability of a successful upgrade. In case of failure, "
 "you lose your skin/balance"
 
-#: .\templates\templates\upgrade.html:80 .\templates\templates\upgrade.html:128
+#: .\templates\templates\upgrade.html:40 .\templates\templates\upgrade.html:52
 msgid "Hint Second"
 msgstr "You can also use your account balance as input instead of a skin"
+
+#: .\templates\templates\upgrade.html:42
+msgid "Granted Balance Funds"
+msgstr ""
+
+#~ msgid "Change Language"
+#~ msgstr "Change Language"
+
+#~ msgid "Free Cases"
+#~ msgstr "Free Cases"

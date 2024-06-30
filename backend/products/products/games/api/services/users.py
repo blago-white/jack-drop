@@ -18,7 +18,7 @@ class UsersApiService(BaseApiService):
         return {
             "id": 1,
             "user_advantage": -200,
-            "displayed_balance": 1000,
+            "displayed_balance": 10000,
         }
 
         if user_request:

@@ -1,6 +1,8 @@
 import json
-
 import requests
+
+from requests.exceptions import JSONDecodeError
+from rest_framework.exceptions import ValidationError
 
 from games.serializers.battle import BattleRequestServiceEndpointSerializer, \
     MakeBattleServiceEndpointSerializer
@@ -16,11 +18,16 @@ class BattleRequestApiService(BaseApiService):
             data=serialized.data
         )
 
-        print(response.json(), "RESPONSE")
+        print("EERRRRRRRRRRRRRRRRRRRRRRRRRRR")
 
-        return response.json().get("ok") if (
-                response.status_code == 201
-        ) else False
+        try:
+            print(response.json(), "RESPONSE")
+
+            return response.json().get("ok") if (
+                    response.status_code == 201
+            ) else False
+        except requests.exceptions.JSONDecodeError:
+            raise ValidationError("Error with creating battle")
 
     def cancel(self, initiator_id: int) -> bool:
         response = requests.delete(
@@ -48,9 +55,11 @@ class BattleApiService(BaseApiService):
             }
         )
 
-        print("MAKE RESULT:", response.json())
-
         try:
+            print("MAKE RESULT:", response.json(), "|", response.status_code)
+            if response.status_code not in (201, 200):
+                raise ValueError()
+
             return response.json()
         except:
             return False

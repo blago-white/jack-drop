@@ -3,6 +3,8 @@ from rest_framework import serializers
 from .models.models import Item
 from .services.items import ItemService
 
+from cases.services.items import CaseItemsService
+
 
 class RawPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
     def to_representation(self, value):
@@ -23,6 +25,17 @@ class ItemPriceSerializer(serializers.Serializer):
 
 
 class ItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = "__all__"
+        read_only_fields = ["__all__"]
+
+
+class ItemWithCaseItemSerializer(serializers.ModelSerializer):
+    case_item_id = serializers.PrimaryKeyRelatedField(
+        queryset=CaseItemsService().get_all()
+    )
+
     class Meta:
         model = Item
         fields = "__all__"

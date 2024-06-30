@@ -1,3 +1,5 @@
+import { renderItemPrize } from "./prize.js";
+
 const available = document.getElementById('items-feed');
 const availableDesctop = document.getElementById('items-feed-desctop');
 
@@ -161,7 +163,7 @@ async function makeUpgrade() {
     myHeaders.append("X-CSRFToken", document.cookie.split("=")[1].split(";")[0]);
     myHeaders.append("Content-Type", "application/json");
 
-    if (!selectedGrantedBalance) {
+    if (!selectedGrantedBalance && document.getElementById(selectedGranted)) {
         document.getElementById(selectedGranted).remove();
     }
 
@@ -181,7 +183,33 @@ async function makeUpgrade() {
         requestOptions
     );
 
+    const responseSuccess = response.ok;
+
     const result = await response.json();
+
+    if (!responseSuccess) {
+        alert(result);
+        location.href = location.href;
+    }
+
+    let item = null;
+
+    if (result.success) {
+        item = receiveItems.get(parseInt(selectedReceive.slice(2)));
+        renderItemPrize(`You receice ${item.title}!`, item.price, item.image_path, "Amazing!");
+    } else {
+        if (selectedGrantedBalance) {
+            item = {
+                title: "scrap",
+                price: selectedGrantedBalance,
+                image_path: "/core/static/img/scrap.png"
+            };
+        } else {
+            item = grantedItems.get(parseInt(selectedGranted.slice(2)));
+        }
+        renderItemPrize(`You lose ${item.title}!`, item.price, item.image_path, "Ok!");
+    }
+
 }
 
 function updatePercent() {
@@ -240,3 +268,12 @@ grantedBalance.addEventListener('input', inputBalanceFunds)
 
 getInevntoryItems();
 getReceiveItems();
+
+window.inputBalanceFunds = inputBalanceFunds;
+window.clearInputBalance = clearInputBalance;
+window.updatePercent = updatePercent;
+window.makeUpgrade = makeUpgrade;
+window.selectReceiveItem = selectReceiveItem;
+window.selectGrantedItem = selectGrantedItem;
+window.getReceiveItems = getReceiveItems;
+window.getInevntoryItems = getInevntoryItems;

@@ -25,6 +25,9 @@
               <li class="navbar-item {% if section == 'fortune' %}navbar-item-active{% endif %}">
                   <a href="{% url 'fortune' %}">{% trans 'Fortune Wheel' %}</a>
               </li>
+              <li class="navbar-item {% if section == 'bonus-buy' %}navbar-item-active{% endif %}">
+                  <a href="{% url 'bonus-buy' %}">{% trans 'Bonus Buy' %}</a>
+              </li>
             </ol>
         </nav>
 

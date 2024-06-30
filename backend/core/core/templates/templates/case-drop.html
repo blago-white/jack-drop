@@ -28,9 +28,11 @@ Case Info
 {% endblock %}
 
 {% block extrascripts %}
-<script src="{% static 'js/caseDrop.js' %}"></script>
+<script src="{% static 'js/caseDrop.js' %}" type="module"></script>
 
-<script>
-    getCase({{ case_id }});
+<script type="module">
+import {getCase} from "{% static 'js/caseDrop.js' %}";
+
+getCase({{ case_id }});
 </script>
 {% endblock %}

@@ -15,72 +15,18 @@ Contract | Jack Drop
 {% block main %}
 <section class="contract">
     <div class="contract-cells">
-        <img style="height: 100%;pointer-events: none;" src="{% static 'img/contract-cells.png' %}">
+        <span id="im1">1</span>
+        <span id="im2">2</span>
+        <span id="im3">3</span>
+        <span id="im4">4</span>
+        <span id="im5">5</span>
+        <span id="im6">6</span>
+        <span id="im7">7</span>
+        <span id="im8">8</span>
+        <span id="im9">9</span>
+        <span id="im10">10</span>
     </div>
-    <div class="inventory-items inventory-items-mobile">
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
-        <article class="inventory-item dropped regular">
-            <div class="w-line"></div>
-            <div class="dropped-content">
-                <span>StatTrak™ MAC-10 | Neon Rider</span>
-                <img src="/static/img/testgun.png">
-            </div>
-        </article>
+    <div class="inventory-items inventory-items-mobile" id="inventory-items-mob">
     </div>
     <div class="side-info">
         <div class="contract-hint">
@@ -112,5 +58,5 @@ Contract | Jack Drop
 {% endblock %}
 
 {% block extrascripts %}
-<script src="{% static 'js/contract.js' %}"></script>
+<script src="{% static 'js/contract.js' %}" type="module"></script>
 {% endblock %}

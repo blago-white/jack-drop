@@ -18,14 +18,23 @@ class CasesRepository(DefaultRepository):
             many=True
         ).data
 
-    def get_all_by_categories(self):
-        categories = self._category_service.get_all()
+    def get_all_by_categories(self, min_price: int = None,
+                              max_price: int = None,
+                              category: str = None) -> dict:
+        if category is None:
+            categories = self._category_service.get_all()
+        else:
+            categories = self._category_service.bulk_get_titles(
+                titles=[category]
+            )
 
         result = dict.fromkeys(categories.values_list("title", flat=True))
 
         for cat in categories:
             result[cat.title] = list(self._service.get_all_for_category(
-                category=cat.title
+                category=cat.title,
+                min_price=min_price,
+                max_price=max_price
             ))
 
         json_result = []

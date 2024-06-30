@@ -25,13 +25,15 @@ function addCases(category, cases) {
 }
 
 async function getCases() {
+    let params = new URL(document.location.toString()).searchParams;
+
     const formdata = new FormData();
     const requestOptions = {
       method: "GET",
       redirect: "follow"
     };
 
-    const response = await fetch("http://localhost/products/cases/api/v1/by-categories/", requestOptions);
+    const response = await fetch("http://localhost/products/cases/api/v1/by-categories/?"+params, requestOptions);
 
     const result = await response.json();
 
@@ -44,6 +46,16 @@ async function getCases() {
     return result
 }
 
+function updateHeight() {
+    const body = document.body;
+    const html = document.documentElement;
+
+    const height = Math.max( body.scrollHeight, body.offsetHeight,
+                           html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+    document.getElementById('global-sharp').style.height = `${height}px`;
+}
+
 async function start() {
     const res = await getCases();
 
@@ -51,3 +63,4 @@ async function start() {
 }
 
 start();
+setTimeout(() => {updateHeight()}, 200);

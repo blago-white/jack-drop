@@ -3,8 +3,13 @@ from rest_framework import serializers
 
 class DropItemSerializer(serializers.Serializer):
     id = serializers.IntegerField(min_value=0)
+    item_id = serializers.IntegerField(default=None,
+                                       required=False,
+                                       allow_null=True)
     rate = serializers.FloatField(min_value=0, max_value=100)
     price = serializers.FloatField(min_value=0)
+    title = serializers.CharField()
+    image_path = serializers.CharField()
 
 
 class ResultFundsState(serializers.Serializer):
@@ -29,5 +34,5 @@ class DropCaseRequestSerializer(serializers.Serializer):
 
 
 class DropResultSerializer(serializers.Serializer):
-    item_id = serializers.IntegerField(min_value=0, read_only=True)
+    item = DropItemSerializer(read_only=True)
     funds = ResultFundsState(read_only=True)

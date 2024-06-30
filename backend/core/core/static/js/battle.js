@@ -1,3 +1,5 @@
+import { renderItemPrize } from "./prize.js";
+
 const battlesList = document.getElementById('battles');
 const battlesHead = document.getElementById('battles-head');
 const battlesTable = document.getElementById('battles-table');
@@ -19,18 +21,55 @@ battleSocket.onmessage = function(event) {
 
     console.log(jsondata);
 
-    if (jsondata["response_type"] == "result") {
-        if (!jsondata["result"]["ok"] && sendedRequestNow && !connected) {
+    if (!(jsondata["result"]["result"] && jsondata["result"]["result"]["success"])) {
+        if (jsondata["result"]["error"]) {
+            alert(jsondata["result"]["error"]);
+        }
+
+        if (jsondata["result"]["fatal"]) {
             hideRequestWindow();
             return
         }
+    }
 
-        alert(jsondata);
+    if (!jsondata["result"]["success"] && sendedRequestNow && connected) {
+        if (jsondata["result"]["error"]) {
+            alert(jsondata["result"]["error"]);
+        } else {
+            alert("Erorr with connect");
+        }
+
         hideRequestWindow();
+        return
+    }
+
+    if (jsondata["result"]["success"] && jsondata["response_type"] == "result") {
+        alert("Battle finished!");
+        console.log(jsondata);
+
+        hideRequestWindow();
+
+        const item = jsondata["result"]["data"]["dropped_item_winner_id"];
+
+        renderItemPrize(`You win ${item.title}!`, item.price, item.image_path, "Amazing!");
+
+        return
+    }
+
+    if (jsondata["response_type"] == "result" && !jsondata["result"]["success"]) {
+        alert(jsondata["result"]["error"]);
+
+        hideRequestWindow();
+        return
+    }
+
+    if (jsondata["result"]["success"] && jsondata["response_type"] == "create") {
+        return
     }
 
     if (!jsondata["result"]["ok"] && sendedRequestNow && !connected) {
         sendConnectRequest(requestCaseId);
+        console.log("SEND");
         connected = true;
     }
 }
@@ -193,3 +232,10 @@ async function showHistory() {
 
 getCases();
 getStats();
+
+window.showHistory = showHistory;
+window.cancelRequest = cancelRequest;
+window.hideRequestWindow = hideRequestWindow;
+window.onCreateBattle = onCreateBattle;
+window.sendCreateRequest = sendCreateRequest;
+window.sendConnectRequest = sendConnectRequest;

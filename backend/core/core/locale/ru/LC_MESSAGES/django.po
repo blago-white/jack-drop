@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-20 16:16+0300\n"
+"POT-Creation-Date: 2024-06-29 00:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,29 +69,25 @@ msgstr "Нет предметов"
 msgid "Start Open Cases"
 msgstr "Начните открывать кейсы"
 
-#: .\templates\templates\account.html:69
+#: .\templates\templates\account.html:69 .\templates\templates\case.html:31
 msgid "Open"
 msgstr "Открыть"
 
-#: .\templates\templates\base.html:26
+#: .\templates\templates\base.html:33
 msgid "Best Cases"
 msgstr "Лучшие кейсы rust"
 
-#: .\templates\templates\base.html:29
+#: .\templates\templates\base.html:36
 msgid "User Agreement"
 msgstr "Пользовательское соглашение"
 
-#: .\templates\templates\base.html:30
+#: .\templates\templates\base.html:37
 msgid "Site Contacts"
 msgstr "Контакты"
 
-#: .\templates\templates\base.html:31
+#: .\templates\templates\base.html:38
 msgid "FAQ"
 msgstr "FAQ"
-
-#: .\templates\templates\base.html:39
-msgid "Change Language"
-msgstr "Изменить язык"
 
 #: .\templates\templates\battle.html:43
 msgid "Find Participant"
@@ -105,60 +101,57 @@ msgstr "Отменить сражение"
 msgid "Case"
 msgstr "Кейс"
 
-#: .\templates\templates\battle.html:53
+#: .\templates\templates\battle.html:52
 #, fuzzy
 #| msgid "Battles"
 msgid "Active Battles"
 msgstr "Сражения"
 
-#: .\templates\templates\battle.html:56
+#: .\templates\templates\battle.html:55
 msgid "Cost"
 msgstr "Стоимость"
 
-#: .\templates\templates\battle.html:58
+#: .\templates\templates\battle.html:57
 msgid "Actions"
 msgstr "Действия"
 
-#: .\templates\templates\battle.html:69 .\templates\templates\battle.html:80
-#: .\templates\templates\battle.html:91 .\templates\templates\battle.html:102
-#: .\templates\templates\battle.html:113 .\templates\templates\battle.html:124
-#: .\templates\templates\battle.html:135 .\templates\templates\battle.html:146
+#: .\templates\templates\battle.html:69
 msgid "Start"
 msgstr "Начать"
 
-#: .\templates\templates\battle.html:155
+#: .\templates\templates\battle.html:78
 msgid "Wins"
 msgstr "Побед"
 
-#: .\templates\templates\battle.html:159
+#: .\templates\templates\battle.html:82
 msgid "Loses"
 msgstr "Поражений"
 
-#: .\templates\templates\battle.html:163
+#: .\templates\templates\battle.html:86
 msgid "Draws"
 msgstr "Ничей"
 
-#: .\templates\templates\battle.html:169
+#: .\templates\templates\battle.html:92
 msgid "My Battles"
 msgstr "Мои Сражения"
 
-#: .\templates\templates\battle.html:173
+#: .\templates\templates\battle.html:96
 msgid "Battle Hint Header"
 msgstr "Как это работает?"
 
-#: .\templates\templates\battle.html:178
+#: .\templates\templates\battle.html:101
 msgid "Battle Hint First"
 msgstr "КЛИКНИТЕ “СОЗДАТЬ” ИЛИ ПРИСОЕДИНИТЕСЬ К СУЩЕСТВУЮЩЕМУ СРАЖЕНИЮ."
 
-#: .\templates\templates\battle.html:182
+#: .\templates\templates\battle.html:105
 msgid "Battle Hint Second"
 msgstr "СРАЖЕНИЕ НАЧНЕТСЯ КАК ТОЛЬКО ОБА УЧАСТНИКА ПРИСОЕДИНИЛИСЬ."
 
-#: .\templates\templates\battle.html:186
+#: .\templates\templates\battle.html:109
 msgid "Battle Hint Third"
 msgstr "УЧАСТНИК, ПОЛУЧИВШИЙ ПРЕДМЕТ ДОРОЖЕ, ЗАБИРАЕТ ОБА."
 
-#: .\templates\templates\case.html:32
+#: .\templates\templates\case-drop.html:25 .\templates\templates\case.html:36
 msgid "Case Payload"
 msgstr "Содержимое кейса"
 
@@ -170,61 +163,65 @@ msgstr "Администрация"
 msgid "Type Message"
 msgstr "Введите сообщение"
 
-#: .\templates\templates\contract.html:98
+#: .\templates\templates\contract.html:44
 msgid "Sign Contract"
 msgstr "Подписать контракт"
 
-#: .\templates\templates\contract.html:102
-#: .\templates\templates\main\cases-filter.html:41
+#: .\templates\templates\contract.html:48
+#: .\templates\templates\main\cases-filter.html:49
 msgid "Clear"
 msgstr "Очистить"
 
-#: .\templates\templates\fortune.html:20 .\templates\templates\header.html:26
+#: .\templates\templates\fortune.html:22 .\templates\templates\header.html:26
 #: .\templates\templates\main\banners.html:5
 msgid "Fortune Wheel"
 msgstr "Колесо фортуны"
 
-#: .\templates\templates\fortune.html:21
+#: .\templates\templates\fortune.html:23
 msgid "Count Down Title"
 msgstr "До бесплатного открытия осталось:"
 
-#: .\templates\templates\fortune.html:25
+#: .\templates\templates\fortune.html:27
 msgid "D"
 msgstr "ДНЯ"
 
-#: .\templates\templates\fortune.html:29
+#: .\templates\templates\fortune.html:31
 msgid "H"
 msgstr "ЧАС"
 
-#: .\templates\templates\fortune.html:33
+#: .\templates\templates\fortune.html:35
 msgid "M"
 msgstr "МИН"
 
-#: .\templates\templates\fortune.html:37
+#: .\templates\templates\fortune.html:39
 msgid "S"
 msgstr "СЕК"
 
-#: .\templates\templates\fortune.html:42
+#: .\templates\templates\fortune.html:44 .\templates\templates\mines.html:67
+msgid "Start Game"
+msgstr "Начать"
+
+#: .\templates\templates\fortune.html:48
 msgid "Enter Code"
 msgstr "Введите код"
 
-#: .\templates\templates\fortune.html:48
+#: .\templates\templates\fortune.html:54
 msgid "Promo For Dep"
 msgstr "Промокод на пополнение от 5 до 50%"
 
-#: .\templates\templates\fortune.html:52
+#: .\templates\templates\fortune.html:58
 msgid "Contract Skin"
 msgstr "Скины для контракта от 100-500₽"
 
-#: .\templates\templates\fortune.html:56
+#: .\templates\templates\fortune.html:62
 msgid "Free Skin"
 msgstr "Бесплатный скин от 20-1000₽"
 
-#: .\templates\templates\fortune.html:60
+#: .\templates\templates\fortune.html:66
 msgid "Case Discount"
 msgstr "Скидки на определенный кейс от 5-100%"
 
-#: .\templates\templates\fortune.html:64
+#: .\templates\templates\fortune.html:70
 msgid "Upgrade Skin"
 msgstr "Скины для апрегрйда от 100-500₽"
 
@@ -244,11 +241,15 @@ msgstr "Сражения"
 msgid "Mines"
 msgstr "Мины"
 
-#: .\templates\templates\header.html:35
+#: .\templates\templates\header.html:29
+msgid "Bonus Buy"
+msgstr "Бонус Бай"
+
+#: .\templates\templates\header.html:38
 msgid "Enter Throught Steap"
 msgstr "Вход через Steam"
 
-#: .\templates\templates\header.html:36
+#: .\templates\templates\header.html:39
 msgid "Enter"
 msgstr "Вход"
 
@@ -256,31 +257,29 @@ msgstr "Вход"
 msgid "Go"
 msgstr "Перейти"
 
-#: .\templates\templates\main\cases-filter.html:6
+#: .\templates\templates\main\bonus-buy.html:4
+#, fuzzy
+#| msgid "Count Down Title"
+msgid "Bonus By Title"
+msgstr "До бесплатного открытия осталось:"
+
+#: .\templates\templates\main\cases-filter.html:7
 msgid "Fast Search"
 msgstr "Быстрый поиск"
-
-#: .\templates\templates\main\free-cases.html:5
-msgid "Free Cases"
-msgstr "Бесплатные кейсы"
 
 #: .\templates\templates\mines.html:19
 msgid "Deposit Amount"
 msgstr "Сумма ставки"
 
-#: .\templates\templates\mines.html:29
+#: .\templates\templates\mines.html:34
 #, fuzzy
 #| msgid "Mines"
 msgid "Mines Count"
 msgstr "Мины"
 
-#: .\templates\templates\mines.html:41
+#: .\templates\templates\mines.html:63
 msgid "Random"
 msgstr "Рандом"
-
-#: .\templates\templates\mines.html:45
-msgid "Start Game"
-msgstr "Начать"
 
 #: .\templates\templates\replenish.html:15
 msgid "Enter Replenish Data"
@@ -293,7 +292,9 @@ msgstr "Выбранный метод оплаты"
 
 #: .\templates\templates\replenish.html:33
 msgid "Replenish Info First"
-msgstr "внимание! отправляйте указанные сумму с точностью до копеек, иначе платёж не будет засчитан"
+msgstr ""
+"внимание! отправляйте указанные сумму с точностью до копеек, иначе платёж не "
+"будет засчитан"
 
 #: .\templates\templates\replenish.html:36
 msgid "Replenish Info Second"
@@ -307,24 +308,34 @@ msgstr "я принимаю условия пользовательского с
 msgid "Replenish Balance"
 msgstr "пополнить баланс"
 
-#: .\templates\templates\upgrade.html:24 .\templates\templates\upgrade.html:170
+#: .\templates\templates\upgrade.html:24 .\templates\templates\upgrade.html:58
 msgid "Left Part Descriprion"
 msgstr ""
 "Выберите один из ваших скинов слева, чтобы обновить его и получить более "
 "дорогой"
 
-#: .\templates\templates\upgrade.html:31
+#: .\templates\templates\upgrade.html:34
 msgid "Right Part Desctiption"
 msgstr "Выберите скин справа, до которого вы хотите выполнить апгрейд"
 
-#: .\templates\templates\upgrade.html:78
+#: .\templates\templates\upgrade.html:38
 msgid "Hint First"
 msgstr ""
 "Вы увидите вероятность успешного апгрейда. В случае неудачи, вы теряете свой "
 "скин/баланс"
 
-#: .\templates\templates\upgrade.html:80 .\templates\templates\upgrade.html:128
+#: .\templates\templates\upgrade.html:40 .\templates\templates\upgrade.html:52
 msgid "Hint Second"
 msgstr ""
 "Вы также можете использовать баланс вашего счета в качестве входных данных "
 "вместо скина"
+
+#: .\templates\templates\upgrade.html:42
+msgid "Granted Balance Funds"
+msgstr "Средства баланса"
+
+#~ msgid "Change Language"
+#~ msgstr "Изменить язык"
+
+#~ msgid "Free Cases"
+#~ msgstr "Бесплатные кейсы"

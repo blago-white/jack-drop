@@ -7,8 +7,11 @@ class DropItemGameApiViewSerializer(serializers.Serializer):
 
 class DropItemSerializer(serializers.Serializer):
     id = serializers.IntegerField(min_value=0)
+    item_id = serializers.IntegerField(min_value=0)
     rate = serializers.FloatField(min_value=0, max_value=100)
     price = serializers.FloatField(min_value=0)
+    title = serializers.CharField()
+    image_path = serializers.CharField()
 
 
 class FundsState(serializers.Serializer):
