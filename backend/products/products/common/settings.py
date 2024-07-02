@@ -185,7 +185,10 @@ GAMES_SERVICE_ROUTES = {
     "get_prize_type_wheel": "http://gamesapp:8000/games/private/fortune/prize-type/",
     "get_prize_wheel": "http://gamesapp:8000/games/private/fortune/make-prize/",
     "get_battle_stats": "http://gamesapp:8000/games/private/battle/stats/{user_id}/",
-    "get_battles": "http://gamesapp:8000/games/private/battle/all/{user_id}/"
+    "get_battles": "http://gamesapp:8000/games/private/battle/all/{user_id}/",
+    "get_timeout_wheel": "http://gamesapp:8000/games/private/fortune/get"
+                         "-timeout/{user_id}/",
+    "use_fortune_promo": "http://gamesapp:8000/games/private/fortune/use-promo/"
 }
 
 USERS_MICROSERVICE_ROUTES = {

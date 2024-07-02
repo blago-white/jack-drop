@@ -19,8 +19,6 @@ battleSocket.onmessage = function(event) {
         jsondata = JSON.parse(jsondata);
     }
 
-    console.log(jsondata);
-
     if (!(jsondata["result"]["result"] && jsondata["result"]["result"]["success"])) {
         if (jsondata["result"]["error"]) {
             alert(jsondata["result"]["error"]);
@@ -205,24 +203,27 @@ async function showHistory() {
     battlesTable.innerHTML = '';
 
     result.forEach((element) => {
-        battlesTable.innerHTML += `
-            <div class="battle" style="grid-template-columns: repeat(3, 1fr);font-size: medium;">
-                <div class="case-sign">
-                    <img class="battle-case" src="${element.battle_case.image_path}">
-                    <span>${element.battle_case.title}<br>[${element.battle_case.price} р]</span>
+        if ((!element.dropped_item_winner) || (!element.dropped_item_loser)) {
+        } else {
+            battlesTable.innerHTML += `
+                <div class="battle" style="grid-template-columns: repeat(3, 1fr);font-size: medium;">
+                    <div class="case-sign">
+                        <img class="battle-case" src="${element.battle_case.image_path}">
+                        <span>${element.battle_case.title}<br>[${element.battle_case.price} р]</span>
+                    </div>
+                    <span class="case-sign" style="justify-content: start">
+                        <img class="battle-case" src=${element.dropped_item_winner.image_path}>
+                        ${element.dropped_item_winner.title} <br>
+                        [${element.dropped_item_winner.price} р]
+                    </span>
+                    <span class="case-sign" style="text-align: end;justify-content: end;">
+                        <img class="battle-case" src=${element.dropped_item_loser.image_path}>
+                        ${element.dropped_item_loser.title} <br>
+                        [${element.dropped_item_loser.price} р]
+                    </span>
                 </div>
-                <span class="case-sign" style="justify-content: start">
-                    <img class="battle-case" src=${element.dropped_item_winner.image_path}>
-                    ${element.dropped_item_winner.title} <br>
-                    [${element.dropped_item_winner.price} р]
-                </span>
-                <span class="case-sign" style="text-align: end;justify-content: end;">
-                    <img class="battle-case" src=${element.dropped_item_loser.image_path}>
-                    ${element.dropped_item_loser.title} <br>
-                    [${element.dropped_item_loser.price} р]
-                </span>
-            </div>
-        `
+            `
+        }
     });
 
     document.getElementById('show-btn-text').innerHTML = 'скрыть';

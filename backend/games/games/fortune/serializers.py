@@ -30,3 +30,16 @@ class PrizeTypeSerializer(serializers.Serializer):
     type = serializers.ChoiceField(
         choices=WinningTypes.choices
     )
+
+
+class FortuneWheelTimeoutSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField(min_value=0)
+
+
+class FortuneWheelTimeoutValueSerializer(serializers.Serializer):
+    timeout = serializers.IntegerField(min_value=0)
+
+
+class UsePromocodeSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField(min_value=0)
+    promocode = serializers.CharField(max_length=8)

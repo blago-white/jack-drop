@@ -5,7 +5,15 @@ const hrsCount =  document.getElementById('hrs-count');
 const minCount =  document.getElementById('min-count');
 const secCount =  document.getElementById('sec-count');
 
-const timeLimits = [31, 24, 60, 60]
+const timeLimits = [31, 24, 60, 60];
+
+const dateWithoutTimezone = (date) => {
+   const tzoffset = date.getTimezoneOffset() * 60000; // Get the timezone offset in milliseconds
+   const withoutTimezone = new Date(date.valueOf() - tzoffset)
+      .toISOString()
+      .slice(0, -1); // Remove the trailing 'Z'
+   return withoutTimezone;
+};
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -18,6 +26,8 @@ function zFill(num, size) {
 }
 
 function saveTime(times) {
+    console.log(times);
+
     dayCount.innerHTML = times[0];
     hrsCount.innerHTML = times[1];
     minCount.innerHTML = times[2];
@@ -55,14 +65,7 @@ function getNewTime(times) {
     ];
 }
 
-function updateClock() {
-    current = getTime();
-
-    newTime = getNewTime(current);
-
-    console.log(newTime);
-
-    if (!newTime) {
+function hideCountDown() {
         document.getElementById('c-d-desc').style.display = 'none';
         counterClock.style.display = 'none';
         document.getElementById('start-btn').style.display = 'grid';
@@ -72,21 +75,66 @@ function updateClock() {
 
         document.getElementById('code-btn').style.display = 'none';
 
-        saveTime(newTime);
-
         return false;
+}
+
+function updateClock(time) {
+    current = getTime();
+
+    newTime = getNewTime(current);
+
+    if (!newTime) {
+        hideCountDown();
     }
 
     saveTime(newTime);
     return true;
 }
 
+async function setWheelTimeout() {
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow"
+    };
+
+    const response = await fetch("http://localhost/products/games/fortune-wheel/timeout/", requestOptions);
+
+    const result = await response.json();
+
+    let unix_timestamp = Math.floor(Date.now()/1000 - result.current) + result.timeout;
+
+    if (unix_timestamp < 1 || !unix_timestamp) {
+        hideCountDown();
+        return false;
+    }
+
+    const hours = Math.floor((unix_timestamp % (60 * 60 * 24)) / (60*60));
+
+    const minutes = Math.floor((unix_timestamp % (60 * 60)) / 60);
+
+    const seconds = Math.ceil(unix_timestamp % 60);
+
+    saveTime([
+        zFill(Math.floor(unix_timestamp / (60 * 60 * 24)), 2),
+        zFill(hours, 2),
+        zFill(minutes, 2),
+        zFill(seconds, 2)
+    ]);
+
+    return true;
+}
+
 async function main() {
+    if (!await setWheelTimeout()) {
+        return
+    }
+
     while (true) {
+        await sleep(1000);
+
         if (!updateClock()) {
             return
         }
-        await sleep(1000);
     }
 }
 

@@ -202,6 +202,7 @@ button {
 
 .prize-body {
     min-width: calc(100vw* calc(200 / var(--reference-display-w)));
+    max-width: calc(100vw* calc(865 / var(--reference-display-w)));
     padding: calc(100vw* calc(40 / var(--reference-display-w)));
     background: black;
     border: 2px solid #FF62CA;

@@ -58,7 +58,9 @@ Mines | Jack Drop
                     </button>
                 </div>
             </div>
-            <button class="super-button" style="margin-top: auto;" type="reset">
+            <button class="super-button"
+                    onclick="document.getElementById('count_mines').value = randomIntFromInterval(1, 24);return false;"
+                    style="margin-top: auto;">
                 <span class="super-button-bg noactive"></span>
                 <span class="super-button-text">{% trans 'Random' %}</span>
             </button>

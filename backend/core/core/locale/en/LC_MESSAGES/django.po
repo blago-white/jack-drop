@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-29 00:48+0300\n"
+"POT-Creation-Date: 2024-07-02 19:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgstr ""
 msgid "Empty Inventory"
 msgstr "THERE ARE NO ITEMS"
 
-#: .\templates\templates\account.html:64
+#: .\templates\templates\account.html:64 .\templates\templates\account.html:84
 #, fuzzy
 #| msgid "Free Cases"
 msgid "Start Open Cases"
@@ -77,17 +77,21 @@ msgstr ""
 msgid "Best Cases"
 msgstr "Best rust cases"
 
-#: .\templates\templates\base.html:36
+#: .\templates\templates\base.html:36 .\templates\templates\base.html:42
+msgid "Privacy Policy"
+msgstr ""
+
+#: .\templates\templates\base.html:37 .\templates\templates\base.html:43
 msgid "User Agreement"
 msgstr "User Agreement"
 
-#: .\templates\templates\base.html:37
-msgid "Site Contacts"
-msgstr "Contacts"
+#: .\templates\templates\base.html:38 .\templates\templates\base.html:44
+msgid "ToS"
+msgstr "Terms of service"
 
-#: .\templates\templates\base.html:38
-msgid "FAQ"
-msgstr "FAQ"
+#: .\templates\templates\base.html:39 .\templates\templates\base.html:45
+msgid "About"
+msgstr ""
 
 #: .\templates\templates\battle.html:43
 msgid "Find Participant"
@@ -170,7 +174,7 @@ msgid "Sign Contract"
 msgstr "Contacts"
 
 #: .\templates\templates\contract.html:48
-#: .\templates\templates\main\cases-filter.html:49
+#: .\templates\templates\main\cases-filter.html:52
 msgid "Clear"
 msgstr "Clear"
 
@@ -207,23 +211,29 @@ msgstr ""
 msgid "Enter Code"
 msgstr "Enter Code"
 
-#: .\templates\templates\fortune.html:54
+#: .\templates\templates\fortune.html:52
+#, fuzzy
+#| msgid "Cancel Battle"
+msgid "Cancel"
+msgstr "Cancel Request"
+
+#: .\templates\templates\fortune.html:58
 msgid "Promo For Dep"
 msgstr "Promo code for replenishment from 5 to 50%"
 
-#: .\templates\templates\fortune.html:58
+#: .\templates\templates\fortune.html:62
 msgid "Contract Skin"
 msgstr "Skins for the contract from 100-500₽"
 
-#: .\templates\templates\fortune.html:62
+#: .\templates\templates\fortune.html:66
 msgid "Free Skin"
 msgstr "Free skin from 20-1000₽"
 
-#: .\templates\templates\fortune.html:66
+#: .\templates\templates\fortune.html:70
 msgid "Case Discount"
 msgstr "Discounts for a specific case from 5-100%"
 
-#: .\templates\templates\fortune.html:70
+#: .\templates\templates\fortune.html:74
 msgid "Upgrade Skin"
 msgstr "Upgrade skins from 100-500₽"
 
@@ -335,6 +345,12 @@ msgstr "You can also use your account balance as input instead of a skin"
 #: .\templates\templates\upgrade.html:42
 msgid "Granted Balance Funds"
 msgstr ""
+
+#~ msgid "Site Contacts"
+#~ msgstr "Contacts"
+
+#~ msgid "FAQ"
+#~ msgstr "FAQ"
 
 #~ msgid "Change Language"
 #~ msgstr "Change Language"

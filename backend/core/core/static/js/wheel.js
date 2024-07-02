@@ -51,16 +51,23 @@ function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-async function startRotate() {
-    let d = 0;
-
+async function startRotate(promocode) {
     document.getElementById('start-btn').style.display = 'none';
+    document.getElementById('clock').style.display = 'none';
+    document.getElementById('code-btn').style.display = 'none';
+    document.getElementById('cancel-code-btn').style.display = 'none';
+    document.getElementById('inn-wheel').style.justifyContent = 'center';
+    document.getElementById('game-title').style.margin = '0px';
 
     wheel.style.transition = `all 10s cubic-bezier(0.42, 0, 0.18, 0.99) 0s`;
 
-    const result = await getResult();
+    const result = await getResult(promocode);
 
-    console.log(result);
+    console.log(result, 'RES');
+
+    if (!result) {
+        location.href = location.href;
+    }
 
     const result_till = responseTypes[result.prize_type];
 
@@ -92,24 +99,71 @@ async function startRotate() {
 }
 
 
-async function getResult() {
+async function getResult(promocode) {
     const myHeaders = new Headers();
     const formdata = new FormData();
 
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("X-CSRFToken", document.cookie.split("=")[1].split(";")[0]);
 
+    let body = {};
+
+    if (promocode) {
+        body = {"promocode": promocode}
+    }
+
     const requestOptions = {
       method: "POST",
       headers: myHeaders,
-      body: JSON.stringify({}),
+      body: JSON.stringify(body),
       redirect: "follow"
 
     };
 
     const response = await fetch("http://localhost/products/games/fortune-wheel/", requestOptions);
 
+    if (!response.ok) {
+        alert(await response.json());
+        return {};
+    }
+
     return await response.json();
 }
 
+
+async function startRotatePromo() {
+    const input = document.getElementById('code-inp');
+
+    const promocode = input.value.toUpperCase();
+
+    if (!true) {
+        input.value = '';
+        input.style.outline = '3px solid red';
+        alert("Only 8 symbols");
+    } else {
+        await startRotate(promocode)
+    }
+}
+
+
+function enterPromo() {
+    document.getElementById('c-d-desc').remove();
+    document.getElementById('clock').innerHTML = `
+        <input
+        type="text"
+        maxlength="8"
+        class="button"
+        id="code-inp"
+        style="padding-block: 1ch;text-align: center;"
+        oninput="this.style.outline = 'none';"
+        placeholder="Promocode">
+    `;
+
+    document.getElementById('code-btn').style.marginTop = 'calc(100vw * calc(24.1 / var(--reference-display-w)))';
+    document.getElementById('cancel-code-btn').style = 'display: grid;margin-top: calc(100vw * calc(24.1 / var(--reference-display-w)));';
+
+    document.getElementById('code-btn').onclick = startRotatePromo;
+}
+
 window.startRotate = startRotate;
+window.enterPromo = enterPromo;

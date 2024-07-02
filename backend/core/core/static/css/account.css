@@ -210,6 +210,14 @@ body {
     cursor: pointer;
 }
 
+#switch-input {
+    transition: all .2s ease-in-out;
+}
+
+#switch-inside-fig {
+    transition: all .2s ease-in-out;
+}
+
 @media (aspect-ratio < 1/1) {
     .account-empty {
         display: none;

@@ -25,12 +25,13 @@ Case Info
         <span class="super-button-text">{% trans "Case Payload" %}</span>
     </button>
 </div>
+<i id="DESTIGATION_ON_CLOSE_WINDOW" style="display: none;">{% url 'case' case_id %}</i>
 {% endblock %}
 
 {% block extrascripts %}
 <script src="{% static 'js/caseDrop.js' %}" type="module"></script>
 
-<script type="module">
+<script type="module" >
 import {getCase} from "{% static 'js/caseDrop.js' %}";
 
 getCase({{ case_id }});

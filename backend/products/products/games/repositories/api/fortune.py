@@ -1,9 +1,11 @@
 import json
+from rest_framework.exceptions import ValidationError
 
 from .base import BaseApiRepository
 
 from games.api.services.forutne import (FortuneWheelPrizeApiService,
                                         FortuneWheelPrizeTypeApiService,
+                                        FortuneWheelTimeoutApiService,
                                         PrizeTypes,
                                         GAME_SKIN_PRICE_RANGE,
                                         FREE_SKIN_PRICE_RANGE)
@@ -32,6 +34,8 @@ class FortuneWheelApiRepository(BaseApiRepository):
     default_inventory_service = InventoryService()
     default_cases_service = CaseService()
 
+    default_timeout_service = FortuneWheelTimeoutApiService()
+
     _LOCKINGS_FOR_PRIZE_TYPES = {
         PrizeTypes.FREE_SKIN: Lockings.UNLOCK,
         PrizeTypes.UPGRADE: Lockings.UPGRADE,
@@ -46,6 +50,7 @@ class FortuneWheelApiRepository(BaseApiRepository):
             items_service: ItemService = None,
             cases_service: CaseService = None,
             users_service: CaseService = None,
+            fortune_wheel_timeout_service: FortuneWheelTimeoutApiService = None,
             inventory_service: InventoryService = None,
             **kwargs):
         self._prize_api_service = (prize_api_service or
@@ -59,9 +64,33 @@ class FortuneWheelApiRepository(BaseApiRepository):
         self._users_service = users_service or self.default_users_service
         self._inventory_service = inventory_service or self.default_inventory_service
 
+        self._timeout_service = (fortune_wheel_timeout_service or
+                                 self.default_timeout_service)
+
         super().__init__(*args, **kwargs)
 
-    def make(self, user_data: dict):
+    def make(self, user_data: dict, promocode: str = None):
+        timeout = int(
+            self.get_timeout(user_id=user_data.get("id")).get("timeout")
+        )
+
+        if timeout and not promocode:
+            raise ValidationError(
+                detail=f"Timeout for next opening: {timeout} sec.",
+                code=403
+            )
+        elif promocode and timeout:
+            used = self._user_promo(
+                user_id=user_data.get("id"),
+                promocode=promocode
+            )
+
+            if not used:
+                raise ValidationError(
+                    detail=f"Given promocode does not exists!",
+                    code=403
+                )
+
         prize_type = self._get_prize_type(user_data=user_data)
 
         prize = self._get_prize(
@@ -103,12 +132,26 @@ class FortuneWheelApiRepository(BaseApiRepository):
                 )
             )
 
-    def _get_additional(self, prize_type: str) -> dict:
-        print(prize_type.get("type"))
+    def get_timeout(self, user_id: int) -> dict:
+        serialized = self._timeout_service.default_endpoint_serializer_class(
+            data={"user_id": user_id}
+        )
 
+        serialized.is_valid(raise_exception=True)
+
+        return self._timeout_service.get(
+            serialized=serialized
+        )
+
+    def _user_promo(self, user_id: int, promocode: str) -> bool:
+        return self._prize_api_service.use_promocode(
+            user_id=user_id,
+            promocode=promocode
+        )
+
+    def _get_additional(self, prize_type: str) -> dict:
         if prize_type.get("type") in list(
                 self._LOCKINGS_FOR_PRIZE_TYPES.keys()):
-            print("SEND ITEMS")
             return ItemSerializer(instance=self._items_service.get_all(
                 *(FREE_SKIN_PRICE_RANGE
                   if prize_type == PrizeTypes.FREE_SKIN else

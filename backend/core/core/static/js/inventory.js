@@ -1,5 +1,7 @@
 const inventoryItemsTable = document.getElementById('inventory-items');
 
+let switchActive = false;
+
 async function sellItem(id) {
     const headers = new Headers();
 
@@ -62,17 +64,7 @@ async function withdrawItem(id) {
     }
 }
 
-async function getInventoryItems() {
-    const requestOptions = {
-      method: "GET",
-    };
-
-    const response = await fetch(
-        `http://localhost/products/inventory/all/`,
-        requestOptions
-    );
-
-    const result = await response.json();
+function renderItems(result) {
     let c = 0;
 
     result.forEach((element) => {
@@ -109,5 +101,62 @@ async function getInventoryItems() {
     };
 }
 
+async function getInventoryItems() {
+    const requestOptions = {
+      method: "GET",
+    };
 
-getInventoryItems();
+    const response = await fetch(
+        `http://localhost/products/inventory/all/`,
+        requestOptions
+    );
+
+    const result = await response.json();
+
+    renderItems(result);
+}
+
+async function getBuyItems() {
+    const requestOptions = {
+      method: "GET",
+    };
+
+    const response = await fetch(
+        `http://localhost/products/inventory/unlock/`,
+        requestOptions
+    );
+
+    const result = await response.json();
+
+    renderItems(result);
+}
+
+async function buySwitch() {
+    if (!switchActive) {
+        document.getElementById('switch-input').style.background = 'linear-gradient(180deg, #FF62CA 0%, #FF007A 100%)';
+        document.getElementById('switch-inside-fig').style.marginLeft = '60%';
+
+        document.getElementById('see-all-btn').href = document.getElementById(
+            'see-all-btn'
+        ) + '?forsell=1';
+        switchActive = true;
+    } else {
+        document.getElementById('switch-input').style= '';
+        document.getElementById('switch-inside-fig').style = '';
+        document.getElementById('see-all-btn').href = document.getElementById('see-all-btn').href.slice(0, -10);
+        switchActive = false;
+    }
+}
+
+
+try {
+    document.getElementById('switch-input').addEventListener('click', buySwitch);
+} catch(error) {}
+
+const searchParams = new URL(location.href).searchParams;
+
+if (searchParams.get("forsell")) {
+    getBuyItems();
+} else {
+    getInventoryItems();
+}

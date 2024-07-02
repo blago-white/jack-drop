@@ -1,11 +1,16 @@
 import dataclasses
 import random
+import datetime
+import json
+
+from django.db import models
 
 from common.services.base import BaseModelService
 from common.services.api.transfer import CaseData
 from common.services.api.states import FundsDifference, FundsState
 
-from ..models import FortuneWheelWinning, WinningTypes
+from ..models import (FortuneWheelWinning, WinningTypes, FortuneWheelOpening,
+                      FortuneWheelTimeout, FortuneWheelPromocode)
 from ..services.transfer import (FortuneWheelGameResult,
                                  FortuneWheelGameRequest,
                                  CaseDiscountResult)
@@ -23,6 +28,59 @@ class FortuneWheelModelService(BaseModelService):
         )
 
         return instance
+
+
+class FortuneWheelOpeningModelService(BaseModelService):
+    default_model = FortuneWheelOpening
+
+    def get_opening_time_delta(self, user_id: int) -> datetime.timedelta:
+        try:
+            return datetime.datetime.now().replace(
+                tzinfo=None
+            ).timestamp() - self.get_latest(
+                user_id=user_id
+            ).date
+        except:
+            return None
+
+    def init_user(self, user_id: int):
+        return self._model.objects.create(user_id=user_id)
+
+    def get_latest(self, user_id: int) -> FortuneWheelOpening:
+        user_openings = self._model.objects.filter(user_id=user_id)
+
+        if not user_openings:
+            return
+
+        return user_openings.first()
+
+    def add(self, user_id: int, prize_data: dict):
+        return self._model.objects.create(
+            result=json.dumps(prize_data),
+            user_id=user_id
+        )
+
+
+class FortuneWheelPromocodeModelService(BaseModelService):
+    default_model = FortuneWheelPromocode
+
+    def use(self, user_id: int, promocode: str):
+        promo = self._model.objects.filter(
+            models.Q(for_user=user_id) | models.Q(for_user=None),
+            pk=promocode
+        )
+
+        if promo.count() and promo.first().count_usages > 0:
+            return bool(promo.update(count_usages=models.F("count_usages")-1))
+
+        return False
+
+
+class TimeoutValueService(BaseModelService):
+    default_model = FortuneWheelTimeout
+
+    def get(self) -> datetime:
+        return self._model.objects.first().timeout
 
 
 class FortuneWheelService:

@@ -19,7 +19,7 @@ body {
     border: 1.18px solid #979797;
     padding: calc(100vw * calc(50 / var(--reference-display-w)));
     border-radius: calc(100vw * calc(22 / var(--reference-display-w)));
-    width: max-content;
+    width: 41vw;
 
     display: flex;
     flex-direction: column;

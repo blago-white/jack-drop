@@ -18,24 +18,24 @@
         <img src="{% static 'img/wheel-arrow.png' %}" class="wheel-arrow">
         <img src="{% static 'img/wheel.png' %}" id="wheel-canvas" class="wheel-canvas"
              style="grid-row: 1;grid-column: 1;width: 100%;height: 100%;">
-        <div class="wheel inner-wheel" style="grid-row: 1;grid-column: 1;">
-            <h3 class="wheel-game-title">{% trans 'Fortune Wheel' %}</h3>
+        <div class="wheel inner-wheel" id="inn-wheel" style="grid-row: 1;grid-column: 1;">
+            <h3 id="game-title" class="wheel-game-title">{% trans 'Fortune Wheel' %}</h3>
             <span class="wheel-game-desc" id="c-d-desc">{% trans 'Count Down Title' %}</span>
             <div class="countdown-clock" id="clock">
                 <div class="countdown-component">
-                    <span id="day-count">00</span>
+                    <span id="day-count"></span>
                     {% trans 'D' %}
                 </div>
                 <div class="countdown-component">
-                    <span id="hrs-count">00</span>
+                    <span id="hrs-count"></span>
                     {% trans 'H' %}
                 </div>
                 <div class="countdown-component">
-                    <span id="min-count">00</span>
+                    <span id="min-count"></span>
                     {% trans 'M' %}
                 </div>
                 <div class="countdown-component">
-                    <span id="sec-count">03</span>
+                    <span id="sec-count"></span>
                     {% trans 'S' %}
                 </div>
             </div>
@@ -43,9 +43,13 @@
                 <span class="super-button-bg"></span>
                 <span id="start-btn-text" class="super-button-text">{% trans 'Start Game' %}</span>
             </button>
-            <button id="code-btn" class="super-button" style="">
+            <button id="code-btn" class="super-button" onclick="enterPromo()">
                 <span class="super-button-bg"></span>
                 <span id="code-btn-text" class="super-button-text">{% trans 'Enter Code' %}</span>
+            </button>
+            <button id="cancel-code-btn" class="super-button" onclick="location.href = location.href;">
+                <span class="super-button-bg noactive"></span>
+                <span id="cancel-code-btn-text" class="super-button-text">{% trans 'Cancel' %}</span>
             </button>
         </div>
     </div>

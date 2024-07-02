@@ -25,12 +25,40 @@ export function renderItemPrize(title, price, image_path, acceptText) {
 }
 
 
-function closePrizeWindow() {
-    document.getElementById('prize-body').style.transform = "translateY(-90vh)";
+export function renderPrize(html) {
+    if (expanded) {
+        return
+    }
+
+    document.getElementById('prize-wrappper').style.display = "flex";
+    document.getElementById('prize-wrappper').style.visibility = "visible";
+    expanded = true;
+
+    console.log(html);
 
     setTimeout(() => {
-        location.href = location.href;
+        document.getElementById('prize-wrappper').style.opacity = "1";
+        document.getElementById('prize-body').innerHTML += `
+            ${html}
+        `;
+        document.getElementById('prize-body').style.transform = "translateY(0vh)";
     }, 300)
+}
+
+function closePrizeWindow(redir) {
+    closeWindow();
+
+    const elem = document.getElementById(
+        'DESTIGATION_ON_CLOSE_WINDOW'
+    );
+
+    setTimeout(() => {
+        location.href = redir ? redir : (elem ? elem.innerHTML : location.href);
+    }, 300)
+}
+
+function closeWindow() {
+    document.getElementById('prize-body').style.transform = "translateY(-90vh)";
 }
 
 window.closePrizeWindow = closePrizeWindow;

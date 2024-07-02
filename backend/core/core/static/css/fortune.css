@@ -18,6 +18,10 @@ body {
     justify-content: space-between;
 }
 
+#cancel-code-btn {
+    display: none;
+}
+
 .wheel {
     height: calc(100vw * calc(993 / var(--reference-display-w)));
     aspect-ratio: 1/1;

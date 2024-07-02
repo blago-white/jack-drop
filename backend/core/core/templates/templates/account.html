@@ -47,11 +47,11 @@
         </div>
         <div class="able-to-sell">
             {% trans 'Able To Sell' %}
-            <i class="switch-input">
-                <i class="switch-inside-fig"></i>
+            <i class="switch-input" id="switch-input">
+                <i class="switch-inside-fig" id="switch-inside-fig"></i>
             </i>
         </div>
-        <a href="{% url 'inventory' %}" class="button button-colorized rose view-all-btn">
+        <a href="{% url 'inventory' %}" id="see-all-btn" class="button button-colorized rose view-all-btn">
             {% trans 'See All' %}
         </a>
         <button class="button button-colorized rose sell-all-btn">
@@ -75,6 +75,7 @@
 
 {% block extrascripts %}
 <script src="{% static 'js/inventoryCount.js' %}"></script>
+<script src="{% static 'js/inventory.js' %}"></script>
 <script>
     async function setCount() {
         const result = await getCount();
