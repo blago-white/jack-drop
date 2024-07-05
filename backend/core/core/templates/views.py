@@ -107,3 +107,17 @@ def bonus_buy_view(request):
         request=request,
         template_name="account.html"
     )
+
+
+def game_history_view(request):
+    return render(
+        request=request,
+        template_name="game-history.html"
+    )
+
+
+def withdraws_view(request):
+    return render(
+        request=request,
+        template_name="withdraws.html"
+    )

@@ -4,6 +4,9 @@ from rest_framework.serializers import Serializer
 from games.api.services.contract import ContractApiService
 from games.api.services.site import SiteFundsApiService
 from games.serializers.contract import GrantedInventoryItemsSerializer
+from games.services.transfer import GameResultData
+from games.services.result import GameResultService
+from games.models import Games
 from inventory.services.inventory import InventoryService
 from items.models.models import Item
 from items.serializers import ItemSerializer
@@ -16,6 +19,7 @@ class ContractApiRepository(BaseApiRepository):
     default_items_service = ItemService()
     default_api_service = ContractApiService()
     default_site_funds_service = SiteFundsApiService()
+    default_game_result_service = GameResultService()
 
     default_seriaizer_class = GrantedInventoryItemsSerializer
     default_item_serializer_class = ItemSerializer
@@ -30,18 +34,18 @@ class ContractApiRepository(BaseApiRepository):
                  site_funds_service: SiteFundsApiService = None,
                  items_service: ItemService = None,
                  item_serializer_class: ItemSerializer = None,
+                 game_result_service: GameResultService = None,
                  **kwargs):
         self._inventory_service = inventory_service or self.default_inventory_service
         self._seriaizer_class = seriaizer_class or self.default_seriaizer_class
         self._items_service = items_service or self.default_items_service
         self._item_serializer_class = item_serializer_class or self.default_item_serializer_class
         self._site_funds_service = site_funds_service or self.default_site_funds_service
+        self._game_result_service = game_result_service or self.default_game_result_service
 
         super().__init__(*args, **kwargs)
 
     def make_contract(self, request_data: dict, user_data: dict) -> dict:
-        print(request_data, "RRRRRRRRRRRRRR")
-
         serialized: Serializer = self._seriaizer_class(
             data=request_data
         )
@@ -93,6 +97,13 @@ class ContractApiRepository(BaseApiRepository):
             amount=granted_amount - result_item.price
         )
 
+        self._game_result_service.save(data=GameResultData(
+            user_id=user_id,
+            game=Games.CONTRACT,
+            is_win=True,
+            first_item_id=result_item.pk
+        ))
+
         return received
 
     def _get_shifted_amount(self, request_data: dict,
@@ -103,8 +114,6 @@ class ContractApiRepository(BaseApiRepository):
             owner_id=user_id,
             inventory_items_ids=items
         )
-
-        print("ITREMS", items)
 
         return request_amount, self._api_service.get_shifted_amount(
             amount=request_amount

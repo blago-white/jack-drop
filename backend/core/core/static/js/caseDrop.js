@@ -94,16 +94,16 @@ function showAgreement() {
                 ПОДТВЕРДИТЕ<br>СОГЛАСИЕ
             </h3>
             <div style="gap: calc(100vw * calc(16 / var(--reference-display-w)));margin-top: calc(100vw * calc(43 / var(--reference-display-w)));display: flex;justify-content: flex-start;width: 100%;">
-                <input type="checkbox" id="agreement" style="height: 3ch;width: 3ch;">
+                <input type="checkbox" id="agreement-1" style="height: 3ch;width: 3ch;">
                 <label class="agreement-label" style="color: #979797;font-size: calc(100vw * calc(24 / var(--reference-display-w)))" for="agreement">Я ЧТО МНЕ БОЛЬШЕ 18 ЛЕТ</label>
             </div>
             <div style="gap: calc(100vw * calc(16 / var(--reference-display-w)));margin-block: calc(100vw * calc(43 / var(--reference-display-w)));display: flex;justify-content: flex-start;width: 100%;">
-                <input type="checkbox" id="agreement" style="height: 3ch;width: 3ch;">
+                <input type="checkbox" id="agreement-2" style="height: 3ch;width: 3ch;">
                 <label class="agreement-label" style="color: #979797;font-size: calc(100vw * calc(24 / var(--reference-display-w)))" for="agreement">Я ПРИНИМАЮ УСЛОВИЯ <a style="color: #0047FF;" href="/agreement/">ПОЛЬЗОВАТЕЛЬСКОГО СОГЛАШЕНИЯ</a></label>
             </div>
         </div>
         <div style="display: flex;flex-direction: row;gap: 2ch;">
-            <button class="super-button" style="font-family: 'Gilroy SemiBold';" onclick="setCookie('agree-cases', 1);closePrizeWindow(location.href);">
+            <button class="super-button" style="font-family: 'Gilroy SemiBold';" onclick="agree();">
                 <span class="super-button-bg" style="background: radial-gradient(50% 50% at 50% 50%, rgba(79, 160, 255, 0.8) 0%, rgba(0, 71, 255, 0.8) 100%);"></span>
                 <span class="super-button-text" style="font-size: x-large">Agree</span>
             </button>
@@ -115,17 +115,26 @@ function showAgreement() {
     `);
 }
 
+function agree() {
+    if (!(document.getElementById('agreement-1').checked && document.getElementById('agreement-2').checked)) {
+        alert("Fill all fields");
+        return false;
+    }
+
+    setCookie('agree-cases', 1);
+    closePrizeWindow(location.href);
+}
+
 async function dropCase() {
     if (!getCookie('agree-cases')) {
         showAgreement();
-//        setCookie('agree-cases', 1);
         return;
     }
 
     const headers = new Headers();
 
     headers.append("Content-Type", "application/json");
-    headers.append("X-CSRFToken", document.cookie.split("=")[1].split(";")[0]);
+    headers.append("X-CSRFToken", getCookie("csrftoken"));
 
     const requestOptions = {
       method: "POST",
@@ -196,3 +205,4 @@ function animateRoulette(to, count) {
 window.getCase = getCase;
 window.dropCase = dropCase;
 window.setCookie = setCookie;
+window.agree = agree;

@@ -25,14 +25,23 @@ async function getCase(id) {
     caseTitle.innerHTML = result.case.title;
     caseImg.src = result.case.image_path;
 
+    document.getElementById('case-drop-data').style = "display: flex;gap: 1ch;"
+    document.getElementById('price-label-span').innerHTML = `${result.case.price} <img style="height: 2ch;" src="/core/static/img/scrap.png">`
+
     result.items.forEach((element) => {
         caseItems.innerHTML += `
-            <article class="dropped rare">
-                    <div class="w-line"></div>
-                    <div class="dropped-content">
-                        <span>${element.title}</span>
-                        <img src="${element.image_path}">
-                    </div>
+            <article style="display: flex;flex-direction: column;align-items: center; gap: 1ch;">
+                <div class="dropped rare">
+                        <div class="w-line"></div>
+                        <div class="dropped-content">
+                            <span>${element.title}</span>
+                            <div style="display: flex;flex-direction: row;gap: 1ch;">
+                                <span class="item-price blue"><span>${element.price}</span></span>
+                                <span class="item-price blue"><span>${(element.rate*100).toFixed(2)}%</span></span>
+                            </div>
+                            <img src="${element.image_path}">
+                        </div>
+                </div>
             </article>
         `;
     });

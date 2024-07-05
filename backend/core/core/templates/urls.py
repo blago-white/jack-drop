@@ -4,7 +4,7 @@ from .views import (main_page_view, account_view, mines_view, battle_view,
                     upgrade_view, contract_view, case_view, inventory_view,
                     replenish_view, fortune_wheel_view, privacy_policy_view,
                     user_agreement_view, about_view, tos_view, case_drop_view,
-                    bonus_buy_view)
+                    bonus_buy_view, game_history_view, withdraws_view)
 
 
 urlpatterns = [
@@ -23,5 +23,7 @@ urlpatterns = [
     path("agreement/", user_agreement_view, name="agreement"),
     path("about/", about_view, name="about"),
     path("ToS/", tos_view, name="ToS"),
-    path("bonus-buy/", bonus_buy_view, name="bonus-buy")
+    path("bonus-buy/", bonus_buy_view, name="bonus-buy"),
+    path("account/games/", game_history_view, name="game-history"),
+    path("account/withdraws/", withdraws_view, name="withdraw-history")
 ]

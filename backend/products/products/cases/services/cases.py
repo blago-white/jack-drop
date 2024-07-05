@@ -1,10 +1,10 @@
 from django.db import models
 
-from common.services.base import BaseReadOnlyService
+from common.services.base import BaseModelService
 from ..models.cases import Case
 
 
-class CaseService(BaseReadOnlyService):
+class CaseService(BaseModelService):
     default_model = Case
 
     def get_paid(self) -> models.QuerySet:

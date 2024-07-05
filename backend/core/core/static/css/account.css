@@ -1,15 +1,11 @@
 @import "variables.css";
 
-body {
-    background: black url('../svg/sharp.svg');
+.bg-filter-img {
+    background: black;
     height: 100%;
 }
 
 .bg-filter {
-    display: none;
-}
-
-.global-sharp {
     display: none;
 }
 

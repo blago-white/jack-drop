@@ -35,6 +35,10 @@ class ItemWithCaseItemSerializer(serializers.ModelSerializer):
     case_item_id = serializers.PrimaryKeyRelatedField(
         queryset=CaseItemsService().get_all()
     )
+    winrate = serializers.RelatedField(
+        source="rate",
+        read_only=True
+    )
 
     class Meta:
         model = Item

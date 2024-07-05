@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 from common.services import base
 
-from ..services.base import BaseReadOnlyService
+from ..services.base import BaseModelService
 
 
 RequestPostData = dict[str, int | str]
@@ -46,13 +46,13 @@ class BaseModelRepository(BaseCRUDRepository, metaclass=ABCMeta):
 
 
 class BaseRepository(metaclass=ABCMeta):
-    _service: BaseReadOnlyService
+    _service: BaseModelService
     _serializer_class: serializers.Serializer
-    default_service: BaseReadOnlyService | None
+    default_service: BaseModelService | None
     default_serializer_class: serializers.Serializer | None
 
     def __init__(self,
-                 service: BaseReadOnlyService = None,
+                 service: BaseModelService = None,
                  serializer_class: serializers.Serializer = None
                  ):
         self._service = service or self.default_service

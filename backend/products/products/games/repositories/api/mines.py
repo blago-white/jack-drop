@@ -4,6 +4,9 @@ from games.api.services.mines import MinesGameApiService
 from games.api.services.users import UsersApiService
 from games.api.services.site import SiteFundsApiService
 from games.serializers.mines import MinesGameRequestViewSerializer
+from games.services.transfer import GameResultData
+from games.services.result import GameResultService
+from games.models import Games
 from .base import BaseApiRepository
 
 
@@ -12,6 +15,7 @@ class MinesGameApiRepository(BaseApiRepository):
     default_serializer_class = MinesGameRequestViewSerializer
     default_site_funds_service = SiteFundsApiService()
     default_users_service = UsersApiService()
+    default_game_result_service = GameResultService()
 
     _site_funds_service: SiteFundsApiService
 
@@ -19,10 +23,12 @@ class MinesGameApiRepository(BaseApiRepository):
                  site_funds_service: SiteFundsApiService = None,
                  users_service: SiteFundsApiService = None,
                  serializer_class: MinesGameRequestViewSerializer = None,
+                 game_result_service: GameResultService = None,
                  **kwargs):
         self._serializer_class = serializer_class or self.default_serializer_class
         self._site_funds_service = site_funds_service or self.default_site_funds_service
         self._users_service = users_service or self.default_users_service
+        self._game_result_service = game_result_service or self.default_game_result_service
 
         super().__init__(*args, **kwargs)
 
@@ -54,6 +60,12 @@ class MinesGameApiRepository(BaseApiRepository):
         self._site_funds_service.update(
             amount=funds_difference.get("site_funds_diff")
         )
+
+        self._game_result_service.save(data=GameResultData(
+            user_id=user_id,
+            game=Games.MINES,
+            is_win=float(funds_difference.get("user_funds_diff")) > 0
+        ))
 
         # TODO: Uncomment
         # self._users_service.update_user_balance_by_id(

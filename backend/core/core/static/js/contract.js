@@ -39,6 +39,7 @@ async function getItems() {
                     <div class="w-line"></div>
                     <div class="dropped-content">
                         <span>${element.item.title}</span>
+                        <span class="item-price rose"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
                         <img src="${element.item.image_path}">
                     </div>
                 </article>
@@ -155,7 +156,7 @@ function selectItem(id) {
 
     selected.set(id, {pos: selected.size});
 
-    document.getElementById(id).style.background = 'gray';
+    document.getElementById(id).style.background = 'radial-gradient(50% 50% at 50% 50%, rgba(93, 93, 93, 0.8) 0%, rgba(35, 35, 35, 0.8) 100%)';
 }
 
 getItems();

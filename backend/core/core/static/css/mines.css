@@ -1,12 +1,11 @@
 @import "variables.css";
 
 body {
-    background: black;
     height: 139vh;
 }
 
-.global-sharp {
-    height: 139vh;
+.bg-filter-img {
+    background: black;
 }
 
 .mines-sec {
@@ -149,10 +148,6 @@ input {
 
     .game-controls {
         flex-direction: column-reverse
-    }
-
-    .global-sharp {
-       height: auto;
     }
 
     .game-info {

@@ -1,6 +1,6 @@
 @import 'variables.css';
 
-body {
+.bg-filter-img {
     background: black;
     max-height: 100vh;
 }
@@ -22,10 +22,6 @@ body {
 
 .long-doc-sec h1 {
     text-align: center;
-}
-
-.global-sharp {
-    display: none;
 }
 
 .bg-filter {

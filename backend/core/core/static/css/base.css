@@ -4,9 +4,6 @@
 
 body {
     font-family: 'Gilroy Regular', sans-serif;
-    background: url('../img/bg.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
     color: var(--fg-color);
     margin: 0px;
     height: auto;
@@ -14,6 +11,13 @@ body {
     font-size: calc(100vw * calc(22 / 1920));
     background-color: black;
     text-transform: uppercase!important;
+}
+
+.bg-filter-img {
+    background: url('/core/static/img/bg.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 109vh!important;
 }
 
 body a {
@@ -30,16 +34,6 @@ body a {
     top: 0px;
     left: 0px;
     z-index: -1;
-}
-
-.global-sharp {
-    background: url(../svg/sharp.svg);
-    background-repeat: repeat;
-    height: 117vw;
-    width: 100vw;
-    position: absolute;
-    z-index: -1;
-    top: 0px;
 }
 
 .main-content {
@@ -221,6 +215,7 @@ button {
     font-size: calc(100vw* calc(75 / var(--reference-display-w)));
     font-family: 'Gilroy Bold';
     margin: auto;
+    text-align: center;
 }
 
 .prize-body span {
@@ -251,10 +246,6 @@ button {
         margin-top: 15vh;
         margin-inline: calc(100vw * 0.055208);
         gap: calc(100vw* calc(0.0588));
-    }
-
-    .global-sharp {
-        height: 314vw;
     }
 
     body {

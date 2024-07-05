@@ -82,4 +82,21 @@ h3 {
     .free-cases-sec h2 {
         margin: 1.6%;
     }
+
+    .case-data span {
+        font-size: xx-large;
+    }
+
+    h3 {
+        font-size: xx-large;
+    }
+
+    .case-data {
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        height: 100%;
+    }
 }

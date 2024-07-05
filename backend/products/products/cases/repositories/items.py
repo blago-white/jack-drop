@@ -16,21 +16,26 @@ class CasesItemsRepository:
 
         case_items_qs, items_qs = list(case_items_qs), list(items_qs)
 
+        items_qs = {
+            i.id: i for i in items_qs
+        }
+
         case_items_ids = {
-            i.item_id: i.id
+            i.item_id: {"id": i.id, "rate": i.rate}
             for i in case_items_qs
         }
 
         data = []
 
-        for item in items_qs:
+        for item_id in case_items_ids:
             data.append({
-                "case_item_id": case_items_ids[item.id],
-                "id": item.id,
-                "market_link": item.market_link,
-                "title": item.title,
-                "image_path": item.image_path,
-                "price": item.price
+                "case_item_id": case_items_ids[item_id].get("id"),
+                "rate": case_items_ids[item_id].get("rate"),
+                "id": items_qs[item_id].id,
+                "market_link": items_qs[item_id].market_link,
+                "title": items_qs[item_id].title,
+                "image_path": items_qs[item_id].image_path,
+                "price": items_qs[item_id].price
             })
 
         return data

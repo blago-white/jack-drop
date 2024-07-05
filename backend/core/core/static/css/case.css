@@ -1,18 +1,27 @@
 @import "variables.css";
 
-body {
-    background: black url('../svg/sharp.svg');
+.bg-filter-img {
+    background: black;
     height: auto;
-}
-
-.global-sharp {
-    height: 120%;
 }
 
 .case-data-wrapper {
     background: url('../img/case-bg-circle.png');
     background-size: cover;
     border-radius: calc(100vw * calc(20 / var(--reference-display-w)));
+}
+
+#price-label {
+    margin-top: calc(100vw* calc(34 / var(--reference-display-w)));
+}
+
+#price-label .super-button-bg {
+    background: #4C4C4C;
+    box-shadow: none;
+}
+
+#price-label .super-button-text {
+    gap: 0px;
 }
 
 #open-case-btn {
@@ -64,6 +73,14 @@ body {
     text-transform: none;
 }
 
+.dropped span {
+    margin-left: 0px;
+}
+
+.item-price {
+    margin: 0px!important;
+}
+
 .case-data-wrapper {
     display: flex;
     flex-direction: column;
@@ -75,10 +92,6 @@ body {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: calc(100vw * calc(48 / var(--reference-display-w)));
-}
-
-.dropped span {
-    margin-right: 5.5ch;
 }
 
 .case-items-header {
@@ -121,5 +134,9 @@ body {
 
     .case-items-wrapper h3 {
         text-align: center;
+    }
+
+    .itm-rate {
+        font-size: calc(100vw * calc(72 / 1920));
     }
 }

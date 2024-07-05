@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-02 19:35+0300\n"
+"POT-Creation-Date: 2024-07-03 03:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,7 @@ msgid "Inventory"
 msgstr "Инвентарь"
 
 #: .\templates\templates\account.html:40
+#: .\templates\templates\game-history.html:16
 msgid "Game History"
 msgstr "История игр"
 
@@ -201,7 +202,7 @@ msgstr "МИН"
 msgid "S"
 msgstr "СЕК"
 
-#: .\templates\templates\fortune.html:44 .\templates\templates\mines.html:67
+#: .\templates\templates\fortune.html:44 .\templates\templates\mines.html:69
 msgid "Start Game"
 msgstr "Начать"
 
@@ -234,6 +235,14 @@ msgstr "Скидки на определенный кейс от 5-100%"
 #: .\templates\templates\fortune.html:74
 msgid "Upgrade Skin"
 msgstr "Скины для апрегрйда от 100-500₽"
+
+#: .\templates\templates\game-history.html:18
+msgid "Empty Games History"
+msgstr "Пока вы ни разу не сыграли в мини-игры, попробуйте!"
+
+#: .\templates\templates\game-history.html:21
+msgid "Play"
+msgstr "Играть"
 
 #: .\templates\templates\header.html:13
 msgid "Upgrade"
@@ -287,7 +296,7 @@ msgstr "Сумма ставки"
 msgid "Mines Count"
 msgstr "Мины"
 
-#: .\templates\templates\mines.html:63
+#: .\templates\templates\mines.html:65
 msgid "Random"
 msgstr "Рандом"
 

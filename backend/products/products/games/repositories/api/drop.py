@@ -7,6 +7,9 @@ from games.api.services.site import SiteFundsApiService
 from games.api.services.users import UsersApiService
 from games.serializers.drop import DropCaseRequestSerializer, \
     DropItemSerializer
+from games.services.transfer import GameResultData
+from games.services.result import GameResultService
+from games.models import Games
 from inventory.services.inventory import InventoryService
 
 from .base import BaseApiRepository
@@ -72,9 +75,6 @@ class CaseDropApiRepository(BaseApiRepository):
             serialized=serialized.data
         )
 
-        print(drop_result)
-        print(case_data.get("items"))
-
         self._commit_funds(
             case_data=case_data,
             user_funds=user_funds,
@@ -98,15 +98,12 @@ class CaseDropApiRepository(BaseApiRepository):
             "site_funds_delta"
         ))
 
-        print("FUNDS", user_funds)
-
         self._inventory_service.add_item(owner_id=user_funds.get("id"),
                                          item_id=int(dropped_item_id))
 
     @staticmethod
     def _validate_user_balance(balance: float, case_price: int) -> bool:
         if float(balance) < float(case_price):
-            print("Not Enought")
             raise ValidationError(
                 "There are not enough balance funds for action"
             )

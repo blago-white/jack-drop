@@ -2,11 +2,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.transaction import savepoint_rollback, savepoint
 
-from common.services.base import BaseReadOnlyService
+from common.services.base import BaseModelService
 from ..models import InventoryItem, Lockings
 
 
-class InventoryService(BaseReadOnlyService):
+class InventoryService(BaseModelService):
     default_model = InventoryItem
 
     def get_all(self, user_id: int = None,

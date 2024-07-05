@@ -6,11 +6,6 @@ from django.db import models
 
 
 class BaseModelService(metaclass=ABCMeta):
-    def __init__(self, model: models.Model = None):
-        self._model = model if model is not None else self._model
-
-
-class BaseReadOnlyService(metaclass=ABCMeta):
     _model: models.Model
     default_model: models.Model | None
 

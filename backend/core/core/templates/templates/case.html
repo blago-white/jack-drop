@@ -26,10 +26,16 @@ Case Info
                 Открывать этот кейс можно не более 1 раз за последние 24 часа
                 Кейс открыт: 0
             </span>
-            <button class="super-button" id="open-case-btn">
-                <span class="super-button-bg"></span>
-                <span class="super-button-text">{% trans 'Open' %}→</span>
-            </button>
+            <div id="case-drop-data">
+                <div class="super-button" id="price-label">
+                    <span class="super-button-bg"></span>
+                    <span class="super-button-text" id="price-label-span"></span>
+                </div>
+                <button class="super-button" id="open-case-btn">
+                    <span class="super-button-bg"></span>
+                    <span class="super-button-text">{% trans 'Open' %}→</span>
+                </button>
+            </div>
         </div>
     </div>
     <div class="case-items-wrapper">

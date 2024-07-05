@@ -13,8 +13,10 @@
     {% endblock %}
 </head>
 <body>
-    <div class="bg-filter"></div>
-    <div class="global-sharp" style="height: auto;" id="global-sharp"></div>
+    <div style="height: 0px;width: 100vw;position: sticky;top: 0px;z-index: -1;">
+        <div class="bg-filter-img"></div>
+        <div class="bg-filter" style="z-index: 0;"></div>
+    </div>
     <div id="prize-wrappper">
         <div class="prize-body" id="prize-body">
             <button class="close-prize-btn" onclick="closePrizeWindow()">
@@ -61,17 +63,6 @@
     <script src="{% static 'js/prize.js' %}" type="module"></script>
     <script src="{% static 'js/langs.js' %}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const body = document.body;
-            const html = document.documentElement;
-
-            const height = Math.max( body.scrollHeight, body.offsetHeight,
-                                   html.clientHeight, html.scrollHeight, html.offsetHeight )
-
-            console.log(document.body.offsetHeight, document.body.scrollHeight, height);
-            document.getElementById('global-sharp').style.height = `${height}px`;
-        });
-
         function randomIntFromInterval(min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min);
         };

@@ -32,10 +32,12 @@ class CaseItemsService(BaseCaseItemsService):
         return self._model.objects.all()
 
     def get_case_items_for_case(self, case_pk: str) -> models.QuerySet:
-        return self._model.objects.filter(case=case_pk)
+        return self._model.objects.filter(case=case_pk).order_by("rate")
 
     def get_drop_case_items_for_case(self, case_pk: str) -> dict:
-        return self.get_case_items_for_case(case_pk=case_pk).annotate(
+        return self.get_case_items_for_case(case_pk=case_pk).order_by(
+            "rate"
+        ).annotate(
             price=models.F("item__price")
         ).annotate(title=models.F("item__title"),
                    image_path=models.F("item__image_path")).values(

@@ -11,11 +11,42 @@
     align-items: flex-start;
     font-size: calc(100vw* calc(15 / var(--reference-display-w)));
     gap: 1.5ch;
+    font-family: 'Gilroy Semibold';
 }
 
 .dropped-content {
     display: flex;
     flex-direction: column  ;
+}
+
+.item-price {
+    margin-top: .2ch!important;
+    padding-inline: .25ch;
+    background: rgba(39, 39, 39, 1);
+    font-size: calc(100vw* calc(20 / var(--reference-display-w)));
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5ch;
+}
+
+.item-price.rose {
+    background: linear-gradient(180deg, #FF62CA 0%, #FF007A 100%);
+}
+
+.item-price.blue {
+    background: #5487FF;
+}
+
+.item-price span {
+    margin: 0px!important;
+}
+
+.item-price img {
+    max-height: 1.5ch!important;
+    max-width: 1.5ch!important;
+    margin: 0px!important;
 }
 
 .dropped.mono {

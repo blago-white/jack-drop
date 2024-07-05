@@ -1,6 +1,6 @@
 @import 'variables.css';
 
-body {
+.bg-filter-img {
     background: black url('/core/static/svg/sharp.svg');
 }
 

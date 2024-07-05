@@ -1,10 +1,6 @@
 @import "variables.css";
 
-.global-sharp {
-    display: none;
-}
-
-body {
+.bg-filter-img {
     background: url("../img/contract-bg.png");
     background-repeat: no-repeat;
     height: auto;
@@ -104,7 +100,7 @@ body {
 }
 
 @media (aspect-ratio < 1/1) {
-    body {
+    .bg-filter-img {
         background-size: initial;
         background-color: black;
     }
@@ -169,10 +165,6 @@ body {
 
     #cr-contract span[class="super-button-text"] {
         font-size: calc(100vw * calc(40 / var(--reference-display-w)))!important;
-    }
-
-    .global-sharp {
-        display: block;
     }
 
     #cl-contract span[class="super-button-text"] {

@@ -1,14 +1,10 @@
 @import "variables.css";
 
-body {
+.bg-filter-img {
     background: url(../img/battles-bg.png);
     height: auto;
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-.global-sharp {
-    display: none;
 }
 
 .bg-filter {

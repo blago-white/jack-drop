@@ -1,4 +1,4 @@
-from common.services.base import BaseReadOnlyService
+from common.services.base import BaseModelService
 
 from games.api.services.base import BaseApiService
 
@@ -16,11 +16,11 @@ class BaseApiRepository(BaseSimpleApiRepository):
 
 
 class BaseDualApiRepository(BaseApiRepository):
-    default_model_service: BaseReadOnlyService
-    _model_service: BaseReadOnlyService
+    default_model_service: BaseModelService
+    _model_service: BaseModelService
 
     def __init__(self, *args,
-                 model_service: BaseReadOnlyService = None,
+                 model_service: BaseModelService = None,
                  **kwargs):
         self._model_service = model_service or self.default_model_service
 

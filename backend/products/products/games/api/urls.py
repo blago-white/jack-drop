@@ -6,6 +6,7 @@ from .endpoints.mines import MinesGameApiView
 from .endpoints.upgrade import UpgradeGameApiView
 from .endpoints.fortune import FortuneWheelGameApiView, FortuneWheelTimeoutApiView
 from .endpoints.battle import BattleStatsApiView, BattlesHistoryApiView
+from .endpoints.result import GameResultsApiView
 
 urlpatterns = [
     path("drop/<int:case_id>/", DropItemGameApiView.as_view(), name="drop"),
@@ -22,4 +23,7 @@ urlpatterns = [
     path("battle-history/",
          BattlesHistoryApiView.as_view(),
          name="battle-history"),
+    path("history/<int:user_id>/",
+         GameResultsApiView.as_view(),
+         name="history"),
 ]

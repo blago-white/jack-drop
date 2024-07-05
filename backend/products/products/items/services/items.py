@@ -2,11 +2,11 @@ import random
 
 from django.db import models
 
-from common.services.base import BaseReadOnlyService
+from common.services.base import BaseModelService
 from ..models.models import Item
 
 
-class ItemService(BaseReadOnlyService):
+class ItemService(BaseModelService):
     default_model = Item
 
     def get_price(self, item_id: int) -> float:

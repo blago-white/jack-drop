@@ -38,6 +38,7 @@ async function getInevntoryItems() {
                     <div class="w-line"></div>
                     <div class="dropped-content">
                         <span>${element.item.title}</span>
+                        <span class="item-price rose"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
                         <img src="${element.item.image_path}">
                     </div>
                 </article>
@@ -48,6 +49,7 @@ async function getInevntoryItems() {
                     <div class="w-line"></div>
                     <div class="dropped-content">
                         <span>${element.item.title}</span>
+                        <span class="item-price rose"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
                         <img src="${element.item.image_path}">
                     </div>
                 </article>
@@ -88,6 +90,7 @@ async function getReceiveItems(minItemPrice) {
                     <div class="w-line"></div>
                     <div class="dropped-content">
                         <span>${element.title}</span>
+                        <span class="item-price rose"><span>${element.price}</span> <img src="/core/static/img/gear.png"></span>
                         <img src="${element.image_path}">
                     </div>
                 </article>
@@ -100,6 +103,7 @@ async function getReceiveItems(minItemPrice) {
                     <div class="w-line"></div>
                     <div class="dropped-content">
                         <span>${element.title}</span>
+                        <span class="item-price rose"><span>${element.price}</span> <img src="/core/static/img/gear.png"></span>
                         <img src="${element.image_path}">
                     </div>
                 </article>

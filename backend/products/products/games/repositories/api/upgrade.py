@@ -4,6 +4,9 @@ from games.api.services.upgrade import UpgradeService
 from games.api.services.users import UsersApiService
 from games.serializers.upgrade import UpgradeRequestApiViewSerializer
 from games.api.services.site import SiteFundsApiService
+from games.services.transfer import GameResultData
+from games.services.result import GameResultService
+from games.models import Games
 from inventory.services.inventory import InventoryService
 from items.services.items import ItemService
 from .base import BaseApiRepository
@@ -15,6 +18,7 @@ class UpgradeApiRepository(BaseApiRepository):
     default_items_service = ItemService()
     default_users_service = UsersApiService()
     default_site_funds_service = SiteFundsApiService()
+    default_game_result_service = GameResultService()
 
     default_serializer_class = UpgradeRequestApiViewSerializer
 
@@ -27,6 +31,7 @@ class UpgradeApiRepository(BaseApiRepository):
                  inventory_service: InventoryService = None,
                  items_service: ItemService = None,
                  users_service: UsersApiService = None,
+                 game_result_service: GameResultService = None,
                  serializer_class: UpgradeRequestApiViewSerializer = None,
                  **kwargs):
         self._inventory_service = inventory_service or self.default_inventory_service
@@ -34,6 +39,7 @@ class UpgradeApiRepository(BaseApiRepository):
         self._users_service = users_service or self.default_users_service
         self._serializer_class = serializer_class or self.default_serializer_class
         self._site_funds_service = site_funds_service or self.default_site_funds_service
+        self._game_result_service = game_result_service or self.default_game_result_service
 
         super().__init__(*args, **kwargs)
 
@@ -50,33 +56,35 @@ class UpgradeApiRepository(BaseApiRepository):
             serialized=serialized
         )
 
-        if not result:
-            self._commit_loss(
-                validated_data=validated_data,
-                user_funds=user_funds
-            )
-        else:
-            self._commit_loss(
-                validated_data=validated_data,
-                user_funds=user_funds
-            )
+        self._commit_loss(
+            validated_data=validated_data,
+            user_funds=user_funds
+        )
+
+        if result:
             self._commit_win(
                 validated_data=serialized.data,
                 owner_id=user_funds.get("id"),
                 item_id=validated_data.get("receive_item_id")
             )
 
+        self._game_result_service.save(data=GameResultData(
+            user_id=user_funds.get("id"),
+            is_win=bool(result),
+            game=Games.UPGRADE,
+            first_item_id=validated_data.get("receive_item_id"),
+            second_item_id=validated_data.get("granted_item_id")
+        ))
+
         return {"success": result}
 
     def _commit_loss(self, validated_data: dict,
                      user_funds: dict) -> None:
         if validated_data.get("granted_item_id"):
-            result = self._inventory_service.remove_from_inventory(
+            self._inventory_service.remove_from_inventory(
                 owner_id=user_funds.get("id"),
                 item_id=validated_data.get("granted_item_id")
             )
-
-            print(result, "UPG RES")
 
         else:
             self._users_service.update_user_balance_by_request(

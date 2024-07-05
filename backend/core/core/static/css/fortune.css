@@ -1,12 +1,8 @@
 @import 'variables.css';
 
-body {
+.bg-filter-img {
     background: url('../img/fortune-wheel.png');
     background-size: cover;
-}
-
-.global-sharp {
-    display: none;
 }
 
 .bg-filter {
@@ -187,7 +183,7 @@ body {
 }
 
 @media (aspect-ratio < 1/1) {
-    body {
+    .bg-filter-img {
         background: black;
     }
 

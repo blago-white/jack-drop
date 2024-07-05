@@ -11,6 +11,9 @@ from games.api.services.site import SiteFundsApiService
 from games.api.services.users import UsersApiService
 from games.serializers.battle import BattleRequestServiceEndpointSerializer
 from games.serializers.drop import DropItemSerializer
+from games.services.result import GameResultService
+from games.services.transfer import GameResultData
+from games.models import Games
 from inventory.services.inventory import InventoryService
 from .base import BaseApiRepository
 
@@ -73,6 +76,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
     default_inventory_service = InventoryService()
     default_users_service = UsersApiService()
     default_site_funds_service = SiteFundsApiService()
+    default_game_result_service = GameResultService()
 
     _api_service: BattleApiService
 
@@ -83,6 +87,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
             inventory_service: InventoryService = None,
             users_service: UsersApiService = None,
             site_funds_service: SiteFundsApiService = None,
+            game_result_service: GameResultService = None,
             **kwargs):
         self._cases_service = cases_service or self.default_cases_service
         self._case_items_service = (case_items_service or
@@ -90,6 +95,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
         self._inventory_service = inventory_service or self.default_inventory_service
         self._users_service = users_service or self.default_users_service
         self._site_funds_service = site_funds_service or self.default_site_funds_service
+        self._game_result_service = game_result_service or self.default_game_result_service
 
         super().__init__(*args, **kwargs)
 
@@ -206,8 +212,6 @@ class BattleApiRepository(_BaseBattleApiRepository):
 
         # TODO: Uncomment
 
-        print(battle_result)
-
         self._inventory_service.add_item(
             owner_id=battle_result.get("winner_id"),
             item_id=self._case_items_service.get(battle_result.get(
@@ -225,6 +229,26 @@ class BattleApiRepository(_BaseBattleApiRepository):
         self._site_funds_service.update(
             amount=battle_result.get("site_funds_diff")
         )
+
+        self._game_result_service.save(data=GameResultData(
+            user_id=battle_result.get("winner_id"),
+            game=Games.BATTLE,
+            is_win=True,
+            first_item_id=battle_result.get(
+                "dropped_item_winner_id"
+            ),
+            case_id=battle_result.get("battle_case_id"),
+        ))
+
+        self._game_result_service.save(data=GameResultData(
+            user_id=battle_result.get("loser_id"),
+            game=Games.BATTLE,
+            is_win=False,
+            first_item_id=battle_result.get(
+                "dropped_item_loser_id"
+            ),
+            case_id=battle_result.get("battle_case_id"),
+        ))
 
     def _validate_funds_participant(
             self, battle_case_id: int, participant_data: dict

@@ -45,8 +45,6 @@ class BattleApiService(BaseApiService):
     def make(self, serialized: MakeBattleServiceEndpointSerializer) -> (
             dict | bool
     ):
-        print("MAKE REQUEST:", serialized.data)
-
         response = requests.post(
             url=self._routes.get("make_battle"),
             data=json.dumps(serialized.data),
@@ -56,12 +54,11 @@ class BattleApiService(BaseApiService):
         )
 
         try:
-            print("MAKE RESULT:", response.json(), "|", response.status_code)
             if response.status_code not in (201, 200):
                 raise ValueError()
 
             return response.json()
-        except:
+        except Exception as e:
             return False
 
     def get_stats(self, user_id: int) -> dict:

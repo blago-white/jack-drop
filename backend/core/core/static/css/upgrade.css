@@ -66,10 +66,6 @@
     width: 80%;
 }
 
-.global-sharp {
-    display: none;
-}
-
 body {
     height: auto;
     background: url('../img/upgrade-bg.jpg');
@@ -157,6 +153,12 @@ body {
     font-size: calc(100vw* calc(13 / var(--reference-display-w)));
 }
 
+.item-price span {
+    margin-left: 0.5ch;
+    font-size: calc(100vw* calc(15 / var(--reference-display-w)))!important;
+}
+
+
 #granted-balance {
     background: transparent;
     border: 0px;
@@ -169,7 +171,7 @@ body {
 }
 
 @media (aspect-ratio < 1/1) {
-    body {
+    .bg-filter-img {
         background: black;
         min-height: 100vh;
         position: absolute;
@@ -177,7 +179,7 @@ body {
         width: 100vw
     }
 
-    .global-sharp, .bg-filter {
+    .bg-filter {
         display: none;
     }
 

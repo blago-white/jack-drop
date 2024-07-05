@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+Account Game History | JackDrop
+{% endblock %}
+
+{% block links %}
+<link href="{% static 'css/inventory.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/game-history.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block main %}
+<section class="game-history-sec">
+    <h3>{% trans 'Game History' %}</h3>
+    <span class="empty-history" style="display: none;">
+        {% trans 'Empty Games History' %}
+        <button class="super-button" style="margin-inline: auto;" onclick="location.href = '/'">
+            <span class="super-button-bg"></span>
+            <span class="super-button-text">{% trans 'Play' %}</span>
+        </button>
+    </span>
+    <ul class="game-history-table">
+        <li>
+            <span class="game-num">1</span><span class="game-name">Upgrade</span><span class="item-img"><img src="{% static 'img/testbattle.png' %}"></span><span class="is-win true"></span>
+        </li>
+        <li>
+            <span class="game-num">2</span><span class="game-name">Battle</span><span class="item-img"><img src="{% static 'img/testbattle.png' %}"></span><span class="is-win false"></span>
+        </li>
+        <li>
+            <span class="game-num">3</span><span class="game-name">Upgrade</span><span class="item-img"><img src="{% static 'img/testbattle.png' %}"></span><span class="is-win false"></span>
+        </li>
+        <li>
+            <span class="game-num">4</span><span class="game-name">Upgrade</span><span class="item-img"><img src="{% static 'img/testbattle.png' %}"></span><span class="is-win true"></span>
+        </li>
+        <li>
+            <span class="game-num">5</span><span class="game-name">Upgrade</span><span class="item-img"><img src="{% static 'img/testbattle.png' %}"></span><span class="is-win true"></span>
+        </li>
+    </ul>
+<!--    <ul class="game-history-table" id="inventory-items">-->
+<!--        <li class=""></li>-->
+<!--    </ul>-->
+</section>
+{% endblock %}

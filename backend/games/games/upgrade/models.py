@@ -42,7 +42,7 @@ class ChanceShift(CleanedSaveModel):
     active = models.BooleanField(default=False)
 
     def clean(self):
-        if self.active:
+        if self.active and (not self.pk):
             if ChanceShift.objects.filter(active=True).exists():
                 raise ValidationError(
                     "You can add only one active chance shift"

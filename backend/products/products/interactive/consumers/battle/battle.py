@@ -154,7 +154,8 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
                 ),
                 "success": True
             }
-        except:
+        except Exception as e:
+            raise e
             return {
                 "data": {},
                 "error": "Error with battle, try again",

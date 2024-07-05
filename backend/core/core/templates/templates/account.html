@@ -37,7 +37,7 @@
     <aside class="account-empty"></aside>
     <div class="account-controls">
         <a href="{% url 'inventory' %}" class="account-control" id="l-contr-acc">{% trans 'Inventory' %}</a>
-        <button class="account-control" id="c-contr-acc">{% trans 'Game History' %}</button>
+        <button class="account-control" onclick="location.href = '{% url 'game-history' %}'" id="c-contr-acc">{% trans 'Game History' %}</button>
         <button class="account-control" id="r-contr-acc">{% trans 'Withdraws' %}</button>
     </div>
     <div class="account-inventory">
