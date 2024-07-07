@@ -8,13 +8,24 @@
 }
 
 .contract-amount {
-    position: absolute;
-    width: 96.5%;
-    top: 54.5vh;
+    grid-row: 1;
+    grid-column: 1;
     display: flex;
-    left: 0px;
     font-size: calc(100vw * calc(44 / var(--reference-display-w)));
     justify-content: center;
+    z-index: 10;
+}
+
+.prize-price-range {
+    grid-row: 1;
+    grid-column: 1;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 1ch;
+    margin-top: 39vh;
+    font-size: calc(100vw * calc(44 / var(--reference-display-w)));
+    align-items: center;
 }
 
 .contract {
@@ -97,6 +108,14 @@
 
 .inventory-items-mobile {
     display: none;
+}
+
+.contract-circle {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
 }
 
 @media (aspect-ratio < 1/1) {

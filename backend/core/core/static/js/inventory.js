@@ -75,6 +75,7 @@ function renderItems(result) {
                 <div class="w-line"></div>
                 <div class="dropped-content">
                     <span>${element.item.title}</span>
+                    <span class="item-price rose"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
                     <img src="${element.item.image_path}" style="left: 0%;">
                 </div>
                 <div class="items-controls">

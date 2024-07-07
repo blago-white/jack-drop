@@ -1,5 +1,8 @@
 import { renderItemPrize } from "./prize.js";
 
+const startRange = document.getElementById('prst');
+const stopRange = document.getElementById('prsp');
+
 let selected = new Map();
 
 let grantedItems = new Map();
@@ -147,7 +150,12 @@ function selectItem(id) {
 
     const current_amount = parseInt(document.getElementById('contract-amount').innerHTML);
 
-    document.getElementById('contract-amount').innerHTML = current_amount + priceMapping.get(id);
+    const newAmount = current_amount + priceMapping.get(id);
+
+    startRange.innerHTML = `${Math.ceil(newAmount/2)}`;
+    stopRange.innerHTML = `${Math.ceil(newAmount*4)}`;
+
+    document.getElementById('contract-amount').innerHTML = newAmount;
 
     document.getElementById(`im${selected.size}`).style = `
         background: url("${grantedItems.get(id).image_path}") center center / cover;

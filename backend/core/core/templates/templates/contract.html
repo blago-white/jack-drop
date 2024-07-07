@@ -8,6 +8,7 @@ Contract | Jack Drop
 {% endblock %}
 
 {% block links %}
+<link href='https://unpkg.com/css.gg@2.0.0/icons/css/arrow-long-right.css' rel='stylesheet'>
 <link href="{% static 'css/latest-drops.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/contract.css' %}" type="text/css" rel="stylesheet">
 {% endblock %}
@@ -50,7 +51,12 @@ Contract | Jack Drop
     </div>
     <div class="contract-circle">
         <span class="contract-amount" id="contract-amount">0</span>
-        <img style="height: 76vh;pointer-events: none;" src="{% static 'img/contract-circle.png' %}">
+        <img style="height: 76vh;pointer-events: none;grid-row: 1;grid-column: 1;" src="{% static 'img/contract-circle.png' %}">
+        <span class="prize-price-range">
+            <span class="start" id="prst">10</span>
+            <i class="gg-arrow-long-right"></i>
+            <span class="stop" id="prsp">500</span>
+        </span>
     </div>
     <div class="inventory-items" id="inventory-items">
     </div>

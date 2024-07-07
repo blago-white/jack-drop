@@ -194,11 +194,11 @@ function animateRoulette(to, count) {
 
         dropItemsString.style.marginLeft = `-${((biasVal * count) * 5) + ((to-3) * biasVal)}px`;
     } else {
-        const partWith = 100 * vw * (331 / 960);
+        const partWith = 100 * vw * (331 / 960) + 5;
 
         const biasVal = gap + partWith;
 
-        dropItemsString.style.marginTop = `-${((biasVal * count) * 5) + ((to+1)* biasVal)}px`;
+        dropItemsString.style.marginTop = `-${((biasVal * count) * 5) + ((to) * biasVal)}px`;
     }
 }
 

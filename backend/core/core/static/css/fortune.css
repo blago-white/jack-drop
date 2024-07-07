@@ -21,7 +21,6 @@
 .wheel {
     height: calc(100vw * calc(993 / var(--reference-display-w)));
     aspect-ratio: 1/1;
-    background: #141414;
     border-radius: 50%;
     display: grid;
     grid-template-columns: 1fr;
@@ -179,7 +178,7 @@
 .wheel-arrow {
     position: absolute;
     z-index: 2;
-    margin-bottom: 46%;
+    margin-bottom: 48%;
 }
 
 @media (aspect-ratio < 1/1) {
@@ -217,6 +216,25 @@
 
     #code-btn {
         height: calc(88vw* 0.081771);
+    }
+
+    .button {
+        font-size: calc(100vw* calc(34 / var(--reference-display-w)));
+        padding-block: 1ch;
+        max-width: 24vw;
+        width: 24vw;
+    }
+
+    #cancel-code-btn {
+        display: none!important;
+    }
+
+    .inner-wheel {
+        justify-content: center
+    }
+
+    .wheel-game-title {
+        margin-top: 0px;
     }
 
     .wheel-arrow {

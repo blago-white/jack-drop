@@ -76,7 +76,7 @@ async function startRotate(promocode) {
     setTimeout(
         () => {
             document.getElementById(tiles[result_till]).classList.add('active');
-            document.getElementById('wheel-canvas').src = `/core/static/img/wheel-${backgrounds[result_till]}.png`;
+//            document.getElementById('wheel-canvas').src = `/core/static/img/wheel-${backgrounds[result_till]}.png`;
 
             if (result.prize_type == "D") {
                 renderItemPrize(

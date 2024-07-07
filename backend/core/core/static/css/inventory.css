@@ -17,6 +17,16 @@
     align-items: center;
 }
 
+.item-price span {
+    font-size: calc(100vw* calc(20 / var(--reference-display-w)))!important;
+}
+
+.item-price img {
+    font-size: calc(100vw* calc(20 / var(--reference-display-w)))!important;
+    position: initial!important;
+}
+
+
 .dropped.mono span {
     font-size: calc(100vw* calc(14 / var(--reference-display-w)));
 }
