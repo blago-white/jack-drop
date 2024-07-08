@@ -2,7 +2,9 @@ import { renderItemPrize } from "./prize.js";
 
 const startRange = document.getElementById('prst');
 const stopRange = document.getElementById('prsp');
+let newAmount;
 
+let emptyPos = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 let selected = new Map();
 
 let grantedItems = new Map();
@@ -33,7 +35,6 @@ async function getItems() {
 
     const w = screen.width;
     const h = screen.height;
-    const ratio = gcd (w, h);
 
     if (result.length) {
         result.forEach((element) => {
@@ -48,16 +49,14 @@ async function getItems() {
                 </article>
             `
 
-            if (ratio > 1/1) {
-                document.getElementById('inventory-items').innerHTML += html;
-            } else {
-                document.getElementById('inventory-items-mob').innerHTML += html;
+            if (w > h) {                document.getElementById('inventory-items').innerHTML += html;
+            } else {                document.getElementById('inventory-items-mob').innerHTML += html;
             }
 
             grantedItems.set(element.id, element.item);
         })
     } else {
-        if (ratio > 1/1) {
+        if (w > h) {
             document.getElementById('inventory-items').innerHTML = 'Items for upgrade not found';
             document.getElementById('inventory-items').style = "display: flex;background: #0E0E0E;padding: 3ch;text-align: center";
         } else {
@@ -80,13 +79,17 @@ function unselectItem(id) {
 
     const current_amount = parseInt(document.getElementById('contract-amount').innerHTML);
 
-    document.getElementById('contract-amount').innerHTML = current_amount - priceMapping.get(id);
+    newAmount = current_amount - priceMapping.get(id);
+
+    document.getElementById('contract-amount').innerHTML = newAmount;
+
+    startRange.innerHTML = `${Math.ceil(newAmount/2)}`;
+    stopRange.innerHTML = `${Math.ceil(newAmount*4)}`;
 
     let pos = null;
 
-    console.log(selected.get(id), selected, id);
-
     document.getElementById(`im${selected.get(id).pos}`).style = '';
+    document.getElementById(`id${selected.get(id).pos}`).innerHTML = '';
 
     selected.delete(id);
 }
@@ -102,8 +105,6 @@ async function makeContract() {
 
     myHeaders.append("X-CSRFToken", document.cookie.split("=")[1].split(";")[0]);
     myHeaders.append("Content-Type", "application/json");
-
-    console.log(selected.keys());
 
     const requestOptions = {
       method: "POST",
@@ -124,8 +125,6 @@ async function makeContract() {
 
     const result = await response.json();
 
-    console.log(result);
-
     renderItemPrize(
         result.title,
         result.price,
@@ -137,32 +136,42 @@ async function makeContract() {
 function selectItem(id) {
     const lenBefore = selected.size;
 
-    if (lenBefore+1 == 10 && (!selected.has(id))) {
+    if (lenBefore+1 == 11 && (!selected.has(id))) {
         alert("Maximum - 10 contract items");
         return;
     }
 
+    let empty;
+
     if (selected.has(id)) {
+        emptyPos.add(selected.get(id).pos);
         return unselectItem(id);
     } else {
-        selected.set(id, {"pos": lenBefore+1});
+        empty = Array.from(emptyPos.keys())[0];
+        selected.set(id, {pos: empty});
+        emptyPos.delete(empty);
     }
 
     const current_amount = parseInt(document.getElementById('contract-amount').innerHTML);
 
-    const newAmount = current_amount + priceMapping.get(id);
+    newAmount = current_amount + priceMapping.get(id);
 
     startRange.innerHTML = `${Math.ceil(newAmount/2)}`;
     stopRange.innerHTML = `${Math.ceil(newAmount*4)}`;
 
     document.getElementById('contract-amount').innerHTML = newAmount;
 
-    document.getElementById(`im${selected.size}`).style = `
+    document.getElementById(`im${empty}`).style = `
         background: url("${grantedItems.get(id).image_path}") center center / cover;
         color: transparent;
     `;
 
-    selected.set(id, {pos: selected.size});
+    document.getElementById(`id${empty}`).innerHTML = `
+    <img src="${grantedItems.get(id).image_path}"
+        style="height: 15vh;aspect-ratio: 1 / 1;">
+    `;
+
+    selected.set(id, {pos: empty});
 
     document.getElementById(id).style.background = 'radial-gradient(50% 50% at 50% 50%, rgba(93, 93, 93, 0.8) 0%, rgba(35, 35, 35, 0.8) 100%)';
 }

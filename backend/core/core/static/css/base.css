@@ -11,6 +11,8 @@ body {
     font-size: calc(100vw * calc(22 / 1920));
     background-color: black;
     text-transform: uppercase!important;
+    top: 0px;
+    position: absolute;
 }
 
 .bg-filter-img {

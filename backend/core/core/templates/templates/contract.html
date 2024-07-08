@@ -50,16 +50,38 @@ Contract | Jack Drop
         </button>
     </div>
     <div class="contract-circle">
+        <div class="desctop-items-cells" style="grid-row: 1;grid-column: 1;">
+            <div class="cells-row" id="cells-row-1">
+                <span id="id1"></span>
+                <span id="id2"></span>
+            </div>
+            <div class="cells-row" id="cells-row-2">
+                <span id="id10"></span>
+                <span id="id3"></span>
+            </div>
+            <div class="cells-row" id="cells-row-3">
+                <span id="id9"></span>
+                <span id="id4"></span>
+            </div>
+            <div class="cells-row" id="cells-row-4">
+                <span id="id8"></span>
+                <span id="id5"></span>
+            </div>
+            <div class="cells-row" id="cells-row-5">
+                <span id="id7"></span>
+                <span id="id6"></span>
+            </div>
+        </div>
         <span class="contract-amount" id="contract-amount">0</span>
         <img style="height: 76vh;pointer-events: none;grid-row: 1;grid-column: 1;" src="{% static 'img/contract-circle.png' %}">
         <span class="prize-price-range">
-            <span class="start" id="prst">10</span>
+            <span class="start" id="prst">0</span>
             <i class="gg-arrow-long-right"></i>
-            <span class="stop" id="prsp">500</span>
+            <span class="stop" id="prsp">0</span>
         </span>
     </div>
-    <div class="inventory-items" id="inventory-items">
-    </div>
+    <div class="inventory-items" id="inventory-items"></div>
+
 </section>
 {% endblock %}
 

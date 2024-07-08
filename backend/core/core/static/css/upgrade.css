@@ -78,6 +78,7 @@ body {
     position: absolute;
     margin-top: 5vh;
     width: 11vw;
+    transition: filter 5s linear, opacity .5s ease;
 }
 
 .item-card {
@@ -158,6 +159,9 @@ body {
     font-size: calc(100vw* calc(15 / var(--reference-display-w)))!important;
 }
 
+.upgrade-item-img-second {
+    transition: filter 5s linear, opacity .5s ease;
+}
 
 #granted-balance {
     background: transparent;
