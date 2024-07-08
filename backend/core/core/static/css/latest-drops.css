@@ -109,11 +109,12 @@
 
 .live-string {
     display: flex;
-    gap: calc(100vw * calc(48 / var(--reference-display-w)));
-    height: calc(100vw * calc(196 / var(--reference-display-w)));
-    overflow-x: scroll;
+    gap: calc(100vw* calc(48 / var(--reference-display-w)));
+    height: calc(100vw* calc(196 / var(--reference-display-w)));
+    overflow-x: visible;
     width: calc(100% + calc(86vw* 0.0588));
     padding-right: 1ch;
+    max-width: 87.6vw;
 }
 
 .live-string::-webkit-scrollbar {

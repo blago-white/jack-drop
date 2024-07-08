@@ -25,5 +25,5 @@ urlpatterns = [
     path("ToS/", tos_view, name="ToS"),
     path("bonus-buy/", bonus_buy_view, name="bonus-buy"),
     path("account/games/", game_history_view, name="game-history"),
-    path("account/withdraws/", withdraws_view, name="withdraw-history")
+    path("account/withdraws/", withdraws_view, name="withdraw-history"),
 ]

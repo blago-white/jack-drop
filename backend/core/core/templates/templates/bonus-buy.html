@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Privacy Policy | JackDrop
+{% endblock %}
+
+{% block links %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/bonus-buy.css' %}">
+{% endblock %}
+
+{% block main %}
+<section class="bonus-buy-sec">
+    <img class="astro-man" src="{% static 'img/astro-man-bonus-buy.png' %}">
+    <div class="bonus-buy-content">
+        <aside class="bonus-buy-hint">
+            Bonus Buy – система которая позволяет игроку получить бесплатный кейс
+            за оборот валюты, открывая другие кейсы. В этой системе, открытие бесплатных
+            кейсов не суммируется. Ниже вы увидите, сколько нужно сделать оборот металлолома,
+            чтобы открыть бесплатно другие кейсы.
+        </aside>
+
+        <span class="upgrade-hint">
+            <span class="bonus-level">
+                <img class="level-border" src="{% static 'img/bonus-level-border.png' %}">
+                <span class="level-digit">1</span>
+            </span>
+            Оборот 5000 металлалома, что бы получить Рудный кейс Дерево
+        </span>
+
+        <div class="benefits">
+            <img class="beenfit-case-img" src="{% static 'img/bonus-case.png' %}">
+            <div class="level-circle">
+                <img id="level-circle-img" src="/core/static/img/upgrade-chance-100.png">
+                <span class="level-passed-percent" id="upgrade-percent">0%</span>
+            </div>
+            <button class="super-button disabled" id="get-prize-btn">
+                <span class="super-button-bg"></span>
+                <span class="super-button-text">Получить</span>
+            </button>
+            <button class="super-button" id="next-level-btn">
+                <span class="super-button-bg"></span>
+                <span class="super-button-text">Перейти к 2 уровню</span>
+            </button>
+        </div>
+
+        <aside class="bonus-buy-bottom-hint">
+            Желаем дойти до последнего уровня. Успейте, акция ограниченна.<br>
+            P.S. После 8 уровня вас ждет еще один сюрприз.<br>
+            По любым вопросам обращаться по адресу: jackdrop@ro.ru<br>
+        </aside>
+    </div>
+</section>
+{% endblock %}

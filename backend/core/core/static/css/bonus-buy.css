@@ -1,0 +1,157 @@
+@import 'variables.css';
+
+.bonus-buy-sec {
+    width: -webkit-fill-available;
+    position: relative;
+
+    background: black;
+
+    display: grid;
+    grid-template-columns: 30% 70%;
+    align-items: center;
+    padding: calc(100vw * calc(25 / var(--reference-display-w)));
+
+    min-height: 60vh;
+}
+
+.bg-filter-img {
+    background: black;
+}
+
+.bonus-buy-content {
+    display: flex;
+    gap: calc(100vw * calc(70 / var(--reference-display-w)));
+    flex-direction: column;
+    margin-left: 5vw;
+    margin-right: calc(100vw * calc(130 / var(--reference-display-w)));
+}
+
+.beenfit-case-img {
+    max-height: calc(100vw * calc(370 / var(--reference-display-w)));
+}
+
+.astro-man {
+    max-height: calc(100vw * calc(900 / var(--reference-display-w)));
+    pointer-events: none;
+}
+
+.benefits {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    row-gap: calc(100vw * calc(54 / var(--reference-display-w)));
+    justify-items: start;
+}
+
+.bonus-buy-hint {
+    font-size: calc(100vw * calc(18 / var(--reference-display-w)));
+    color: #909090;
+}
+
+.bonus-buy-bottom-hint {
+    font-size: calc(100vw * calc(18 / var(--reference-display-w)));
+    color: #909090;
+}
+
+.super-button.disabled .super-button-bg {
+    background: linear-gradient(91.83deg, #5A5A5A 0%, #0E0E0E 100%);
+    box-shadow: none;
+}
+
+.level-circle {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+#level-circle-img {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.level-passed-percent {
+    grid-row: 1;
+    grid-column: 1;
+    font-size: calc(100vw* calc(80 / var(--reference-display-w)));
+    font-family: 'Gilroy Bold';
+}
+
+.upgrade-hint {
+    display: flex;
+    align-items: center;
+    gap: 1ch;
+}
+
+.bonus-level {
+    height: 2.5ch;
+    width: 2.5ch;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.level-border {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+}
+
+.level-digit {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+@media (aspect-ratio < 1/1) {
+    .bonus-buy-sec {
+        grid-template-columns: 40% 60%;
+        max-width: 100vw;
+    }
+
+    .astro-man {
+        width: 150%;
+        margin-left: -50%;
+    }
+
+    .benefits {
+        grid-template-rows: repeat(4, auto);
+        grid-template-columns: auto;
+        justify-items: stretch;
+    }
+
+    #get-prize-btn {
+        grid-row: 2;
+    }
+
+    .beenfit-case-img {
+        grid-row: 1;
+    }
+
+    #level-circle {
+        grid-row: 3;
+    }
+
+    .bonus-buy-hint {
+        font-size: calc(100vw * calc(14 / var(--reference-display-w)));
+    }
+
+    .upgrade-hint {
+        font-size: calc(100vw * calc(19 / var(--reference-display-w)));
+    }
+
+    .bonus-buy-bottom-hint {
+        display: none;
+    }
+
+    .beenfit-case-img {
+        height: calc(100vw* calc(298 / var(--reference-display-w)));
+        margin-inline: auto;
+    }
+
+    .bonus-buy-content {
+        margin-right: 0px;
+    }
+}

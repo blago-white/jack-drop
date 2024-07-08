@@ -102,13 +102,6 @@ def tos_view(request):
     )
 
 
-def bonus_buy_view(request):
-    return render(
-        request=request,
-        template_name="account.html"
-    )
-
-
 def game_history_view(request):
     return render(
         request=request,
@@ -120,4 +113,11 @@ def withdraws_view(request):
     return render(
         request=request,
         template_name="withdraws.html"
+    )
+
+
+def bonus_buy_view(request):
+    return render(
+        request=request,
+        template_name="bonus-buy.html"
     )
