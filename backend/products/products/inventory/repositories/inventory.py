@@ -49,7 +49,13 @@ class InventoryRepository(BaseRepository):
         ).data
 
     def get_count(self, user_id: int) -> dict[str, int]:
-        return {"count": self._service.get_all(user_id=user_id).count()}
+        return {
+            "total": self._service.get_all(user_id=user_id).count(),
+            "can_sell": self._service.get_all(
+                user_id=user_id,
+                locked_for=Lockings.UNLOCK
+            ).count()
+        }
 
     def sell(self, user_id: int, item_id: int) -> dict:  # TODO: Make
         return {"ok": True}

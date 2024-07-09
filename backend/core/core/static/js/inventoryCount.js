@@ -1,6 +1,10 @@
 let count = 0;
+let countItemsResult;
 
-async function getCount() {
+export async function getCount() {
+    if (countItemsResult) {
+        return countItemsResult;
+    }
 
     const requestOptions = {
       method: "GET",
@@ -17,7 +21,9 @@ async function getCount() {
 
     const result = await response.json();
 
-    console.log(result);
+    countItemsResult = result;
 
-    return result.count;
+    return result;
 }
+
+window.getCount = getCount;

@@ -1,3 +1,5 @@
+import { getCount } from "./inventoryCount.js";
+
 const inventoryItemsTable = document.getElementById('inventory-items');
 
 let switchActive = false;
@@ -133,15 +135,26 @@ async function getBuyItems() {
 }
 
 async function buySwitch() {
+    const countItemsResult = await getCount();
+
     if (!switchActive) {
+        if (countItemsResult) {
+            document.getElementById('total-inv-items-count').innerHTML = countItemsResult.can_sell;
+        }
+
         document.getElementById('switch-input').style.background = 'linear-gradient(180deg, #FF62CA 0%, #FF007A 100%)';
         document.getElementById('switch-inside-fig').style.marginLeft = '60%';
 
         document.getElementById('see-all-btn').href = document.getElementById(
             'see-all-btn'
         ) + '?forsell=1';
+
         switchActive = true;
     } else {
+        if (countItemsResult) {
+            document.getElementById('total-inv-items-count').innerHTML = countItemsResult.total;
+        }
+
         document.getElementById('switch-input').style= '';
         document.getElementById('switch-inside-fig').style = '';
         document.getElementById('see-all-btn').href = document.getElementById('see-all-btn').href.slice(0, -10);
@@ -149,15 +162,26 @@ async function buySwitch() {
     }
 }
 
+window.sellItem = sellItem;
+window.withdrawItem = withdrawItem;
+window.renderItems = renderItems;
+window.getInventoryItems = getInventoryItems;
+window.getBuyItems = getBuyItems;
+window.buySwitch = buySwitch;
 
 try {
     document.getElementById('switch-input').addEventListener('click', buySwitch);
 } catch(error) {}
 
-const searchParams = new URL(location.href).searchParams;
 
-if (searchParams.get("forsell")) {
-    getBuyItems();
-} else {
-    getInventoryItems();
+console.log(location.pathname.slice(0, 12));
+
+if (location.pathname.slice(0, 12) == '/inventory/') {
+    const searchParams = new URL(location.href).searchParams;
+
+    if (searchParams.get("forsell")) {
+        getBuyItems();
+    } else {
+        getInventoryItems();
+    }
 }

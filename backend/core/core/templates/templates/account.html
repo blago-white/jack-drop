@@ -74,19 +74,23 @@
 {% endblock %}
 
 {% block extrascripts %}
-<script src="{% static 'js/inventoryCount.js' %}"></script>
-<script src="{% static 'js/inventory.js' %}"></script>
-<script>
-    async function setCount() {
-        const result = await getCount();
+<script src="{% static 'js/inventoryCount.js' %}" type="module"></script>
+<script type="module">
+    import { getCount } from "{% static 'js/inventoryCount.js' %}";
 
-        if (result > 0) {
+    async function setCount() {
+        var countItemsResult = await getCount();
+
+        if (countItemsResult > 0) {
             document.getElementById('empty-sec').innerHTML = '<b>{% trans 'Start Open Cases' %}</b>';
         }
 
-        document.getElementById('total-inv-items-count').innerHTML = result;
+        console.log(countItemsResult, countItemsResult.total);
+
+        document.getElementById('total-inv-items-count').innerHTML = countItemsResult.total;
     };
 
     setCount();
 </script>
+<script src="{% static 'js/inventory.js' %}" type="module"></script>
 {% endblock %}
