@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'executor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,3 +130,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+WITHDRAW_MARKET_ENDPOINT_URL = ('https://rust.tm/api/v2/buy-for'
+                                '?key={apikey}'
+                                '&hash_name={hashname}'
+                                '&price={price}'
+                                '&{trandelink}')
