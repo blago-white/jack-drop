@@ -1,16 +1,10 @@
 @import "variables.css";
 
-body {
-    background: black url('../svg/sharp.svg');
+.bg-filter-img {
+    background: black url('../img/bg.jpg');
     background-size: cover;
     background-repeat: repeat;
 }
-
-
-.bg-filter {
-    display: none;
-}
-
 .replenish-form {
     background: black;
     border: 1.18px solid #979797;
