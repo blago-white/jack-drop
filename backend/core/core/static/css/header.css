@@ -20,6 +20,7 @@
     display: grid;
     gap: calc(100vw * 0.016);
     justify-content: flex-start;
+    flex-direction: column;
 }
 
 .navbar-items {
@@ -76,6 +77,14 @@
 
 #small-lg-text {
     display: none;
+}
+
+.lang-switcher {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1ch;
+    height: 100%;
 }
 
 @media (aspect-ratio < 1/1) {
@@ -166,5 +175,9 @@
 
     .navbar-item-active {
         background: transparent!important;
+    }
+
+    .lang-switcher {
+        display: none;
     }
 }

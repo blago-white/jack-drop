@@ -131,5 +131,6 @@
 @media (aspect-ratio < 1/1) {
     .live-string {
         width: 105.5%;
+        overflow: scroll;
     }
 }

@@ -6,6 +6,7 @@
         <a class="logo" href="/">
             <img src="{% static 'img/logo.png' %}">
         </a>
+
         <nav class="navbar" id="navbar">
             <ol class="navbar-items">
               <li class="navbar-item {% if section == 'upgrade' %}navbar-item-active{% endif %}">
@@ -30,6 +31,11 @@
               </li>
             </ol>
         </nav>
+
+        <div class="lang-switcher" id="lang-switch">
+            <button class="button" onclick="setLang('en')" style="border: none;height: 100%;">English</button>
+            <button class="button" onclick="setLang('ru')" style="border: none;height: 100%;">Русский</button>
+        </div>
 
         <button class="super-button" onclick="window.location.href = '{% url 'account' %}'">
             <span class="super-button-bg"></span>
