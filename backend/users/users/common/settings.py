@@ -188,8 +188,8 @@ REST_FRAMEWORK = {
 }
 
 AUTHENTICATION_BACKENDS = [
-    # 'django.contrib.auth.backends.ModelBackend',
-    'accounts.backends.jwt.JWTAuthenticationWithoutPassword',
+    'django.contrib.auth.backends.ModelBackend',
+    # 'accounts.backends.jwt.JWTAuthenticationWithoutPassword',
 ]
 
 SIMPLE_JWT = {

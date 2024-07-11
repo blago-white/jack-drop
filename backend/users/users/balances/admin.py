@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import ClientBalance
+
+
+@admin.register(ClientBalance)
+class ClientBalanceAdmin(admin.ModelAdmin):
+    list_display = ["client", "real_balance", "displayed_balance"]
