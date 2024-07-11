@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer, Serializer, FloatField
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from accounts.models import Client, ClientDeposit
 from accounts.services.users import UsersService
@@ -33,3 +34,14 @@ class ClientDepositSerializer(ModelSerializer):
 
 class UpdateAdvantageSerializer(Serializer):
     delta_amount = FloatField()
+
+
+class TokenObtainPairWithoutPasswordSerializer(TokenObtainPairSerializer):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password'].required = False
+
+    def validate(self, attrs):
+        attrs.update({'password': ''})
+        return super(TokenObtainPairWithoutPasswordSerializer, self).validate(attrs)

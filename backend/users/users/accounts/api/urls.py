@@ -11,5 +11,5 @@ private_urlpatterns = [
 ]
 
 urlpatterns = [
-    path("api/v1/p/", include((private_urlpatterns, "private-users")))
+    path("api/v1/p/", include((private_urlpatterns, "private-accounts"))),
 ]
