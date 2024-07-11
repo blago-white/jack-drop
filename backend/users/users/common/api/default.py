@@ -19,6 +19,12 @@ class DefaultApiView(APIView):
             status=400
         )
 
+    def get_200_response(self, data: dict = None) -> Response:
+        return self._response_class(
+            data=data,
+            status=200
+        )
+
 
 class DefaultRetrieveApiView(BaseRetrieveApiViewMixin,
                              RetrieveAPIView,
@@ -32,6 +38,6 @@ class DefaultCreateApiView(CreateAPIView,
 
 
 class DefaultUpdateApiView(BaseDetailedCreateApiViewMixin,
-                           UpdateAPIView,
-                           DefaultApiView):
+                           DefaultApiView,
+                           UpdateAPIView):
     pass

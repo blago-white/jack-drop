@@ -28,6 +28,7 @@ services:
     container_name: usersapp
     volumes:
       - ./users/debug.log:/home/app/users/debug.log
+      - ./users:/home/app/users
     restart: always
   usersnginx:
     build: nginx

@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["usersapp"]
 
 
 # Application definition
@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': os.environ.get("POSTGRES_DB"),
         'USER': os.environ.get("POSTGRES_USER"),
         'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-        # 'HOST': os.environ.get("POSTGRES_HOST"),
+        'HOST': os.environ.get("POSTGRES_HOST"),
     },
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

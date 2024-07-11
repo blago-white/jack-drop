@@ -46,7 +46,7 @@ class JWTUserDataPrivateApiView(DefaultRetrieveApiView):
 
 class TokenVerifyHeaderView(TokenVerifyView):
     def post(self, request: Request, *args, **kwargs) -> Response:
-        if request.META.get("HTTP_AUTHORIZATION") and not request.data.drop_item(
+        if request.META.get("HTTP_AUTHORIZATION") and not request.data.get(
             "token"
         ):
             data = dict(request.data)

@@ -19,7 +19,7 @@ class ReferralRepository(BaseRepository):
 
         data.is_valid()
 
-        return data.validated_data
+        return data.data
 
 
 class ReferrRepository(BaseRepository):

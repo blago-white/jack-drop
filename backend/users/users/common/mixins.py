@@ -6,10 +6,10 @@ class DetailedApiViewMixin:
     _response_class: Response = Response
 
     def get_requested_pk(self) -> int:
-        return self.kwargs.drop_item(self.pk_url_kwarg)
+        return self.kwargs.get(self.pk_url_kwarg)
 
     def get_requested_pk_body(self) -> int:
-        return self.request.data.drop_item(self.pk_url_kwarg)
+        return self.request.data.get(self.pk_url_kwarg)
 
 
 class BaseRetrieveApiViewMixin(DetailedApiViewMixin):

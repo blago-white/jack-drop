@@ -13,14 +13,6 @@ class UsersApiService(BaseApiService):
     def get_user_info(
             self, user_request: Request = None,
             jwt: str = None) -> dict:
-        # TODO: Remove on deploy
-
-        return {
-            "id": 1,
-            "user_advantage": -500,
-            "displayed_balance": 10000,
-        }
-
         if user_request:
             return self.send_auth_get_api_request(
                 path=self.routes.get("get_info"),
@@ -101,9 +93,6 @@ class UsersApiService(BaseApiService):
             auth_header: str = None,
             data: dict = None
     ) -> dict:
-        # TODO: Remove on deploy
-        return {}
-
         if not auth_header:
             auth_header = user_request.auth
 
