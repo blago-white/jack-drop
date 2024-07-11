@@ -1,8 +1,7 @@
 from django.db import models
 
-from common.models.mixins import TitleModelMixin
 from common.models.base import BaseModel
-
+from common.models.mixins import TitleModelMixin
 from ..config import MAX_CATEGORY_TITLE_NAME
 
 

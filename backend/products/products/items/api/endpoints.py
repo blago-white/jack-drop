@@ -1,8 +1,6 @@
-from rest_framework.generics import RetrieveAPIView
 from rest_framework.request import Request
 
 from common.views.api import BaseListAPIView
-
 from ..repositories.items import ItemsRepository
 
 

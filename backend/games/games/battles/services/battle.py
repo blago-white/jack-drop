@@ -1,13 +1,11 @@
 import random
+
 from django.db import models
 from rest_framework.exceptions import APIException
 
 from common.services.base import BaseModelService
-
-from ..models import BattleRequest, Battle
 from .transfer import BattleInfo, BattleMakeRequest, BattleResult, BattlesStats
-from common.services.api.states import FundsState
-from cases.services.drop import CaseItemDropModelService
+from ..models import BattleRequest, Battle
 
 
 class BattleRequestModelService(BaseModelService):

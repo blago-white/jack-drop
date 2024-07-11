@@ -1,7 +1,6 @@
 from common.repositories.base import BaseRepository
-
-from games.services.result import GameResultService
 from games.serializers.result import GameResultsSerializer
+from games.services.result import GameResultService
 
 
 class GameResultsRepository(BaseRepository):

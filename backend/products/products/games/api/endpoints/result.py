@@ -1,7 +1,6 @@
 from rest_framework.generics import RetrieveAPIView
 
 from common.views.api import DetailedApiViewMixin
-
 from games.repositories.result import GameResultsRepository
 
 

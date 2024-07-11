@@ -2,8 +2,8 @@ import random
 
 from common.services.api.states import FundsState
 from common.services.base import BaseModelService
-from .shift import ChanceShiftService
 from .result import UpgradeResult
+from .shift import ChanceShiftService
 from ..models import Upgrade
 
 

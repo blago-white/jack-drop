@@ -7,7 +7,6 @@ from .endpoints import (InventoryItemsListApiView,
                         WithdrawInventoryItemApiView,
                         CountInventoryItemsApiView)
 
-
 urlpatterns = [
     path("all/",
          InventoryItemsListApiView.as_view(),

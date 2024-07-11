@@ -1,8 +1,7 @@
 from django.db.models import QuerySet
 
-from ..models.category import CasesCategory
-
 from common.services.default import DefaultModelService
+from ..models.category import CasesCategory
 
 
 class CaseCategoriesService(DefaultModelService):

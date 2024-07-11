@@ -1,8 +1,7 @@
-import json
-
 from common.views.api import DefaultCreateApiView
 
-from battles.repositories.battle import BattleRequestRepository, BattleRepository
+from battles.repositories.battle import BattleRepository
+from common.views.api import DefaultCreateApiView
 
 
 class MakeBattleApiView(DefaultCreateApiView):

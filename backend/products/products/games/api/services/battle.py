@@ -1,7 +1,6 @@
 import json
-import requests
 
-from requests.exceptions import JSONDecodeError
+import requests
 from rest_framework.exceptions import ValidationError
 
 from games.serializers.battle import BattleRequestServiceEndpointSerializer, \

@@ -1,9 +1,8 @@
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
 
-from common.views.api import BaseListAPIView
 from common.mixins.api import CreateAPIViewMixin, ApiViewMixin
-
+from common.views.api import BaseListAPIView
 from games.repositories.api.users import UsersApiRepository
 from ..repositories.inventory import InventoryRepository
 

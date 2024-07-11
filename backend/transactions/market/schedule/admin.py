@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+
+@admin.register(models.ScheduledItem)
+class ScheduledItemAdmin(admin.ModelAdmin):
+    pass

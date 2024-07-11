@@ -1,7 +1,6 @@
 from items.serializers import ItemWithCaseItemSerializer
-
-from ..services.items import CaseItemsService
 from ..models.items import CaseItem
+from ..services.items import CaseItemsService
 
 
 class CasesItemsRepository:

@@ -1,15 +1,11 @@
-from django.views.decorators.csrf import csrf_exempt
-
-from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
 
-from common.mixins.api import CreateAPIViewMixin
 from common.mixins.api import ApiViewMixin
-from .base import BaseGameProxyCreateApiView
-
-from games.serializers.fortune import WheelPrizeApiViewSerializer
-from games.repositories.api.users import UsersApiRepository
+from common.mixins.api import CreateAPIViewMixin
 from games.repositories.api.fortune import FortuneWheelApiRepository
+from games.repositories.api.users import UsersApiRepository
+from games.serializers.fortune import WheelPrizeApiViewSerializer
+from .base import BaseGameProxyCreateApiView
 
 
 class FortuneWheelGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):

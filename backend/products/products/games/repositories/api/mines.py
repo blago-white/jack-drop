@@ -1,12 +1,12 @@
 from rest_framework.exceptions import ValidationError
 
 from games.api.services.mines import MinesGameApiService
-from games.api.services.users import UsersApiService
 from games.api.services.site import SiteFundsApiService
-from games.serializers.mines import MinesGameRequestViewSerializer
-from games.services.transfer import GameResultData
-from games.services.result import GameResultService
+from games.api.services.users import UsersApiService
 from games.models import Games
+from games.serializers.mines import MinesGameRequestViewSerializer
+from games.services.result import GameResultService
+from games.services.transfer import GameResultData
 from .base import BaseApiRepository
 
 

@@ -1,8 +1,6 @@
 from abc import ABCMeta
 
 from django.db import models
-from django.core.exceptions import ValidationError
-from django.db import models
 
 
 class BaseModelService(metaclass=ABCMeta):

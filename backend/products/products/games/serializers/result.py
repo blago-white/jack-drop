@@ -1,9 +1,8 @@
 from rest_framework.serializers import ModelSerializer
 
-from items.serializers import ItemSerializer
 from cases.serializers.case import CaseSerializer
-
 from games.models import GameResult
+from items.serializers import ItemSerializer
 
 
 class GameResultsSerializer(ModelSerializer):

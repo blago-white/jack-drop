@@ -1,7 +1,7 @@
 import datetime
 
-from django.db import models
 from django.core.exceptions import ValidationError
+from django.db import models
 
 
 def get_now_unix_time():

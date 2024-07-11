@@ -3,8 +3,7 @@ from abc import ABCMeta, abstractmethod
 from django.db import models
 
 from market.models import apikey
-
-from  .exceptions import APIKeyNotConfiguredException
+from .exceptions import APIKeyNotConfiguredException
 
 
 class AbstractMarketAPIKeyService(metaclass=ABCMeta):

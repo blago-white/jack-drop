@@ -1,7 +1,6 @@
 from django.db import models
 
 from common.services.base import BaseService
-
 from ..models import DinamicSiteProfit
 
 

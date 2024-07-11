@@ -1,6 +1,5 @@
+from battles.repositories.battle import BattleRequestRepository
 from common.views.api import DefaultCreateApiView, DefaultDeleteApiView
-
-from battles.repositories.battle import BattleRequestRepository, BattleRepository
 
 
 class StartBattleRequestApiView(DefaultCreateApiView):

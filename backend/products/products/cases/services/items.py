@@ -2,9 +2,8 @@ from abc import ABCMeta, abstractmethod
 
 from django.db import models
 
-from items.models.models import Item
-
 from cases.models.items import CaseItem
+from items.models.models import Item
 
 
 class BaseCaseItemsService(metaclass=ABCMeta):

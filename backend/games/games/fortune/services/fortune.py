@@ -1,14 +1,13 @@
 import dataclasses
-import random
 import datetime
 import json
+import random
 
 from django.db import models
 
-from common.services.base import BaseModelService
-from common.services.api.transfer import CaseData
 from common.services.api.states import FundsDifference, FundsState
-
+from common.services.api.transfer import CaseData
+from common.services.base import BaseModelService
 from ..models import (FortuneWheelWinning, WinningTypes, FortuneWheelOpening,
                       FortuneWheelTimeout, FortuneWheelPromocode)
 from ..services.transfer import (FortuneWheelGameResult,

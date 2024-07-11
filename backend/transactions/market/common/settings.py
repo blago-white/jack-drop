@@ -37,6 +37,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'executor',
+    'schedule',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -136,3 +137,5 @@ WITHDRAW_MARKET_ENDPOINT_URL = ('https://rust.tm/api/v2/buy-for'
                                 '&hash_name={hashname}'
                                 '&price={price}'
                                 '&{trandelink}')
+
+BALANCE_MARKET_ENDPOINT_URL = 'https://rust.tm/api/v2/get-money?key={apikey}'

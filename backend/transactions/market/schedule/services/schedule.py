@@ -2,7 +2,6 @@ from django.core.exceptions import ValidationError
 from django.db.models import QuerySet
 
 from common.services.base import BaseModelService
-
 from schedule.models import ScheduledItem
 from .transfer import ItemInfo
 

@@ -1,5 +1,9 @@
 from abc import ABCMeta
 
+from rest_framework import serializers
+
+from common.services.base import BaseModelService
+
 
 class BaseRepository(metaclass=ABCMeta):
     _service: BaseModelService

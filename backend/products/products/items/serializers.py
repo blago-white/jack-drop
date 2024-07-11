@@ -1,9 +1,8 @@
 from rest_framework import serializers
 
+from cases.services.items import CaseItemsService
 from .models.models import Item
 from .services.items import ItemService
-
-from cases.services.items import CaseItemsService
 
 
 class RawPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):

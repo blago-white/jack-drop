@@ -1,7 +1,6 @@
 from common.views.api import BaseListAPIView
-
-from games.repositories.api.users import UsersApiRepository
 from games.repositories.api.battle import BattleApiRepository
+from games.repositories.api.users import UsersApiRepository
 
 
 class BattleStatsApiView(BaseListAPIView):

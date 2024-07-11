@@ -1,8 +1,6 @@
 from abc import ABCMeta
 
 from django.db import models
-from django.core.exceptions import ValidationError
-from django.db import models
 
 
 class BaseModelService(metaclass=ABCMeta):
@@ -20,3 +18,10 @@ class BaseModelService(metaclass=ABCMeta):
 
         else:
             self._model = model
+
+
+class BaseMarketApiService:
+    _apikey: str
+
+    def __init__(self, apikey: str):
+        self._apikey = apikey

@@ -1,9 +1,8 @@
 from django.urls import path
 
-from .request import StartBattleRequestApiView, DropBattleRequestApiView
 from .game import MakeBattleApiView
+from .request import StartBattleRequestApiView, DropBattleRequestApiView
 from .stats import BattlesStatsApiView, BattlesHistoryApiView
-
 
 urlpatterns = [
     path("make-request/",

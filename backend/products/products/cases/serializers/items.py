@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from items.serializers import ItemSerializer
-from ..models.items import CaseItem
 from .case import CaseSerializer
 
 
