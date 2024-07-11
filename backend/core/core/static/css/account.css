@@ -1,0 +1,313 @@
+@import "variables.css";
+
+.bg-filter-img {
+    background: black;
+    height: 100%;
+}
+
+.bg-filter {
+    display: none;
+}
+
+.account-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: calc(100vw* calc(178 / var(--reference-display-w)))
+                        calc(100vw* calc(178 / var(--reference-display-w)))
+                        calc(100vw* calc(118 / var(--reference-display-w)))
+                        calc(100vw* calc(118 / var(--reference-display-w)))
+                        calc(100vw* calc(160 / var(--reference-display-w)));
+    gap: calc(100vw * calc(16 / var(--reference-display-w)));
+    border-radius: calc(100vw * calc(20 / var(--reference-display-w)));
+}
+
+.account-id {
+    grid-column: 1;
+    grid-row: 1;
+    background: url('../img/bg-circle-acc.png');
+    background-repeat: no-repeat;
+    background-color: #0E0E0E;
+    display: flex;
+    align-items: center;
+    padding-inline: calc(100vw* calc(50/ var(--reference-display-w)));
+    padding-right: calc(100vw* calc(41/ var(--reference-display-w)));
+    border-radius: inherit;
+}
+
+.account-empty {
+    grid-column: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    background: url('../img/bg-circle-acc.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #0E0E0E;
+    border-radius: inherit;
+}
+
+.account-level {
+    grid-column: 1;
+    grid-row: 2;
+    background: #0e0e0e;
+    border-radius: inherit;
+    padding-inline: calc(100vw* calc(50/ var(--reference-display-w)));
+}
+
+.illustr-desc {
+    display: flex;
+    justify-content: space-between;
+}
+
+.lvl-illustr {
+    display: flex;
+    flex-direction: column;
+    gap: calc(100vw* calc(12 / var(--reference-display-w)));
+}
+
+.diagram {
+    width: 100%;
+    height: calc(100vw* calc(9 / var(--reference-display-w)));
+    background: #333;
+    border-radius: calc(100vw* calc(16 / var(--reference-display-w)));
+}
+
+.diagram-filled {
+    height: 100%;
+    background: #ff007a;
+    border-radius: inherit;
+}
+
+.account-controls {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: calc(100vw * calc(13 / var(--reference-display-w)));
+    border-radius: inherit;
+}
+
+.account-inventory {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 4;
+    background: url('../img/bg-circle-acc.png');
+    background-repeat: no-repeat;
+    background-color: #0E0E0E;
+    padding-inline: calc(100vw* calc(50/ var(--reference-display-w)));
+    display: flex;
+    align-items: center;
+    border-radius: inherit;
+}
+
+.count-items {
+    color: rgb(131, 131, 131);
+    font-family: 'Gilroy Bold';
+    font-size: calc(100vw* calc(24 / var(--reference-display-w)));
+}
+
+.count-items span {
+    padding-inline: calc(100vw* calc(10 / var(--reference-display-w)));
+    background: rgba(39, 39, 39, 1);
+    width: calc(100vw* calc(43 / var(--reference-display-w)));
+    border-radius: 0.33ch;
+    aspect-ratio: 1 / 1;
+    padding-block: calc(100vw* calc(5 / var(--reference-display-w)));
+    margin-left: 1ch;
+}
+
+.able-to-sell {
+    margin-left: auto;
+    display: flex;
+    gap: 1ch;
+    font-family: "Gilroy Bold";
+    color: #838383;
+}
+
+.inventory-items {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 5;
+    background-color: #0E0E0E;
+    padding-inline: calc(100vw* calc(50/ var(--reference-display-w)));
+    padding-block: calc(100vw * calc(25 / var(--reference-display-w)));
+
+    display: flex;
+    align-items: center;
+    gap: calc(100vw * calc(25 / var(--reference-display-w)));
+
+    border-radius: inherit;
+}
+
+.open-case-button {
+    margin-left: auto;
+    width: 13vw;
+}
+
+.empty-inv-desc {
+    font-family: "Gilroy Regular";
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5ch;
+}
+
+.empty-inv-desc span {
+    color: rgba(131, 131, 131, 1);
+}
+
+.account-control {
+    background: url('../img/bg-circle-acc.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #0E0E0E;
+
+    border: 0px;
+    border-radius: inherit;
+    color: white;
+    font-size: calc(100vw * calc(24 / var(--reference-display-w)));
+    text-transform: uppercase!important;
+    font-family: 'Gilroy Bold';
+
+    cursor: pointer;
+}
+
+.donate-btn-acc {
+    margin-left: auto;
+}
+
+.sell-all-btn {
+    margin-left: calc(100vw * calc(20 / var(--reference-display-w)));
+}
+
+.view-all-btn {
+    margin-left: calc(100vw * calc(70 / var(--reference-display-w)));
+}
+
+.account-name {
+    margin-left: calc(100vw * calc(29 / var(--reference-display-w)));
+}
+
+.account-usrname {
+    display: flex;
+    gap: 1ch;
+    font-size: calc(100vw* calc(28 / var(--reference-display-w)));
+}
+
+.account-id-val {
+    font-size: calc(100vw * calc(16 / var(--reference-display-w)));
+    background: #272727;
+    color: rgba(131, 131, 131, 1);
+    border-radius: calc(100vw * calc(9 / var(--reference-display-w)));
+    width: calc(100vw * calc(145 / var(--reference-display-w)));
+    padding-left: calc(100vw * calc(11 / var(--reference-display-w)));
+    padding-block: calc(100vw * calc(7  / var(--reference-display-w)));
+    cursor: pointer;
+}
+
+#switch-input {
+    transition: all .2s ease-in-out;
+}
+
+#switch-inside-fig {
+    transition: all .2s ease-in-out;
+}
+
+@media (aspect-ratio < 1/1) {
+    .account-empty {
+        display: none;
+    }
+
+    .account-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: calc(100vw* calc(178 / var(--reference-display-w)))
+                            calc(100vw* calc(178 / var(--reference-display-w)))
+                            calc(100vw* calc(118 / var(--reference-display-w)))
+                            calc(100vw* calc(231 / var(--reference-display-w)))
+                            calc(100vw* calc(160 / var(--reference-display-w)));
+    }
+
+    .account-controls {
+        gap: 0px;
+        background: url('../img/bg-circle-acc.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #0E0E0E;
+    }
+
+    .account-control {
+        background: transparent;
+    }
+
+    #l-contr-acc {
+        border-bottom-right-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+
+    #c-contr-acc {
+        border-radius: 0px;
+    }
+
+    .account-inventory {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: 1fr 1fr;
+        justify-items: start;
+        align-items: start;
+
+        padding-block: calc(100vw * calc(38 / var(--reference-display-w)));
+
+        font-size: calc(100vw * calc(24 / var(--reference-display-w)));
+
+        background-size: cover;
+    }
+
+    .able-to-sell {
+        align-items: center;
+    }
+
+    .sell-all-btn {
+        grid-column: 2;
+        margin-left: auto;
+        height: 100%;
+    }
+
+    .view-all-btn {
+        grid-column: 1;
+        height: -webkit-fill-available;
+        margin-left: 0px;
+    }
+
+    #r-contr-acc {
+        border-bottom-left-radius: 0px;
+        border-top-left-radius: 0px;
+    }
+
+    .account-id {
+        width: 91.4%;
+    }
+
+    .account-data {
+        font-size: calc(100vw * calc(30 / var(--reference-display-w)));
+    }
+
+    .account-level {
+        font-size: calc(100vw * calc(26 / var(--reference-display-w)));
+        width: 90%;
+    }
+
+    .account-level h3 {
+        margin-top: calc(100vw * calc(30 / var(--reference-display-w)));
+    }
+
+    .open-case-button {
+        width: 25vw;
+        height: calc(92vw* 0.081771);
+    }
+
+    .empty-inv-desc {
+        font-size: calc(100vw * calc(24 / var(--reference-display-w)));
+    }
+}

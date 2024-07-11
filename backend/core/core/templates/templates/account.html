@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Account{% endblock %}
+
+{% block links %}
+<link href="{% static 'css/account.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+<section class="account-layout">
+    <main class="account-id">
+        <span class="profile-avatar-border">
+            <img src="{% static 'img/account-avatar.png' %}">
+        </span>
+        <div class="account-data">
+            <div class="account-name">
+                <span class="account-usrname">
+                    ПОЧТА
+                    <span class="account-id-val">ID 49853498</span>
+                </span>
+                <span class="account-lvl">0</span>
+            </div>
+        </div>
+        <a href="{% url 'replenish' %}" class="button button-colorized blue donate-btn-acc">{% trans 'Replenish' %}</a>
+    </main>
+    <div class="account-level">
+        <h3>{% trans 'Your Level' %}</h3>
+        <div class="lvl-illustr">
+            <div class="illustr-desc"><span>{% trans 'Points' %}</span><span><b>500/1750 xp</b></span></div>
+            <div class="diagram">
+                <div style="width: 35%" class="diagram-filled"></div>
+            </div>
+        </div>
+    </div>
+    <aside class="account-empty"></aside>
+    <div class="account-controls">
+        <a href="{% url 'inventory' %}" class="account-control" id="l-contr-acc">{% trans 'Inventory' %}</a>
+        <button class="account-control" onclick="location.href = '{% url 'game-history' %}'" id="c-contr-acc">{% trans 'Game History' %}</button>
+        <button class="account-control" id="r-contr-acc">{% trans 'Withdraws' %}</button>
+    </div>
+    <div class="account-inventory">
+        <div class="count-items">
+            {% trans 'All Items' %}
+            <span id="total-inv-items-count"></span>
+        </div>
+        <div class="able-to-sell">
+            {% trans 'Able To Sell' %}
+            <i class="switch-input" id="switch-input">
+                <i class="switch-inside-fig" id="switch-inside-fig"></i>
+            </i>
+        </div>
+        <a href="{% url 'inventory' %}" id="see-all-btn" class="button button-colorized rose view-all-btn">
+            {% trans 'See All' %}
+        </a>
+        <button class="button button-colorized rose sell-all-btn">
+            {% trans 'Sell All' %}
+        </button>
+    </div>
+    <div class="inventory-items">
+        <img src="{% static 'img/empty-inventory.png' %}">
+        <span class="empty-inv-desc" id="empty-sec">
+            <b>{% trans 'Empty Inventory' %}</b><span id="start-open">{% trans 'Start Open Cases' %}</span>
+        </span>
+        <button class="super-button open-case-button" onclick="location.href = '/?min=1'">
+            <span class="super-button-bg"></span>
+            <span class="super-button-text">
+                {% trans 'Open' %} →
+            </span>
+        </button>
+    </div>
+</section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/inventoryCount.js' %}" type="module"></script>
+<script type="module">
+    import { getCount } from "{% static 'js/inventoryCount.js' %}";
+
+    async function setCount() {
+        var countItemsResult = await getCount();
+
+        if (countItemsResult > 0) {
+            document.getElementById('empty-sec').innerHTML = '<b>{% trans 'Start Open Cases' %}</b>';
+        }
+
+        console.log(countItemsResult, countItemsResult.total);
+
+        document.getElementById('total-inv-items-count').innerHTML = countItemsResult.total;
+    };
+
+    setCount();
+</script>
+<script src="{% static 'js/inventory.js' %}" type="module"></script>
+{% endblock %}

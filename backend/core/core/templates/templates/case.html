@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+Case Info
+{% endblock %}
+
+{% block links %}
+<link href="{% static 'css/latest-drops.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/case.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block main %}
+<section class="case-data-wrapper">
+    <div class="case-info">
+        <img class="case-img" id="case-img">
+        <div class="case-border-line"></div>
+        <div class="case-text-info">
+            <h3 class="case-title" id="case-title"></h3>
+            <h4 class="case-short-title">Lorem ipsum dolor sit amet</h4>
+            <span class="case-description">
+                Чтобы открыть этот кейс вам необходимо
+                Пополнение баланса за последние 24 часа не менее, чем на 2000.00
+                За последние 24 часа вы пополнили баланс на 0.00
+                Открывать этот кейс можно не более 1 раз за последние 24 часа
+                Кейс открыт: 0
+            </span>
+            <div id="case-drop-data">
+                <div class="super-button" id="price-label">
+                    <span class="super-button-bg"></span>
+                    <span class="super-button-text" id="price-label-span"></span>
+                </div>
+                <button class="super-button" id="open-case-btn">
+                    <span class="super-button-bg"></span>
+                    <span class="super-button-text">{% trans 'Open' %}→</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="case-items-wrapper">
+        <h3 class="case-title case-items-header">{% trans 'Case Payload' %}</h3>
+        <div class="case-items" id="case-items">
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/case.js' %}"></script>
+
+<script>
+    getCase({{ case_id }});
+</script>
+{% endblock %}

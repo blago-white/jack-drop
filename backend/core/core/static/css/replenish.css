@@ -1,0 +1,138 @@
+@import "variables.css";
+
+.bg-filter-img {
+    background: black url('../img/bg.jpg');
+    background-size: cover;
+    background-repeat: repeat;
+}
+.replenish-form {
+    background: black;
+    border: 1.18px solid #979797;
+    padding: calc(100vw * calc(50 / var(--reference-display-w)));
+    border-radius: calc(100vw * calc(22 / var(--reference-display-w)));
+    width: 41vw;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.info {
+    padding-left: 5ch;
+    width: 80%;
+    display: block;
+    font-size: calc(100vw * calc(19 / var(--reference-display-w)));
+    margin-bottom: calc(100vw * calc(35 / var(--reference-display-w)));
+}
+
+h3 {
+    margin-top: 0px;
+    margin-bottom: calc(100vw * calc(23 / var(--reference-display-w)));
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    background: #272727;
+    padding-inline: calc(100vw * calc(23 / var(--reference-display-w)));
+    padding-block: calc(100vw * calc(30 / var(--reference-display-w)));
+    border-radius: calc(100vw * calc(10 / var(--reference-display-w)));
+    color: white;
+    font-size: calc(100vw * calc(19 / var(--reference-display-w)));
+    border: 0px;
+    text-transform: uppercase;
+    width: 100%;
+
+    margin-bottom: 2ch;
+}
+
+.form-field.active {
+    background: #111;
+    border: 1px solid white;
+}
+
+.data-input {
+    background: #272727;
+    width: -webkit-fill-available;
+    border: 0px;
+    font-size: calc(100vw * calc(19 / var(--reference-display-w)));
+    border-radius: calc(100vw * calc(10 / var(--reference-display-w)));
+    padding-inline: calc(100vw * calc(23 / var(--reference-display-w)));
+    padding-block: calc(100vw * calc(30 / var(--reference-display-w)));
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 2ch;
+}
+
+.replenish-btn {
+    margin-top: calc(100vw * calc(65 / var(--reference-display-w)));
+    width: 100%;
+    height: calc(100vw * calc(85 / var(--reference-display-w)));;
+}
+
+.form-field:focus {
+    background: #111;
+    border: 1px solid white;
+}
+
+.agreement-label {
+    color: #979797;
+}
+
+.form-field label {
+    color: #979797;
+    line-height: calc(100vw * calc(25 / var(--reference-display-w)));
+}
+
+.form-field span {
+    font-size: calc(100vw * calc(27 / var(--reference-display-w)));
+    font-family: "Gilroy SemiBold";
+}
+
+#agreement {
+    height: 2.5ch;
+    width: 2.5ch;
+}
+
+
+@media (aspect-ratio < 1/1) {
+    .replenish-form {
+        width: -webkit-fill-available;
+        margin-inline: auto;
+    }
+
+    h3 {
+        font-size: -webkit-xxx-large;
+    }
+
+    .agreement-label {
+        font-size: xx-large;
+    }
+
+    .agreement-field {
+        display: flex;
+        flex-direction: row;
+        gap: 3ch;
+    }
+
+    #agreement {
+        height: 8.5ch;
+        width: 7.5ch;
+    }
+
+    .data-input {
+        font-size: calc(100vw* calc(32 / var(--reference-display-w)));
+    }
+
+    .form-field label {
+        font-size: calc(100vw* calc(27 / var(--reference-display-w)));
+    }
+
+    .form-field span {
+        font-size: calc(100vw* calc(32 / var(--reference-display-w)));
+    }
+
+    .info {
+        font-size: xx-large;
+        padding-left: 2ch;
+    }
+}

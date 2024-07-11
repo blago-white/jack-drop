@@ -1,0 +1,78 @@
+version: '3.7'
+
+services:
+  coredb:
+    image: postgres:16.2-bookworm
+    container_name: coredb
+    env_file:
+      - .env
+    expose:
+      - 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+        test: [ "CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}" ]
+        interval: 20s
+        timeout: 5s
+        retries: 5
+    restart: always
+  coreredis:
+    image: redis:7.2.4-bookworm
+    env_file:
+      - .env
+    expose:
+      - 6379
+    container_name: coreredis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: always
+  coreapp:
+    build:
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+    depends_on:
+      - coredb
+      - coreredis
+    env_file:
+      - .env
+    container_name: coreapp
+    volumes:
+#      - ./core/debug.log:/home/app/core/debug.log
+      - ./core/:/home/app/core/
+    restart: always
+  corecelery:
+    build:
+      dockerfile: Dockerfile.celery
+    restart: always
+    command: celery -A common beat -l info -f /home/app/core/celery.log
+    container_name: corecelery
+    volumes:
+      - ./core/celery.log:/home/app/core/celery.log
+    env_file:
+      - .env
+    depends_on:
+      - coredb
+      - coreredis
+      - coreapp
+  corenginx:
+    build: nginx
+    expose:
+      - 80
+    depends_on:
+      - corecelery
+      - coreapp
+    container_name: corenginx
+    volumes:
+      - ./core/static/:/core/static
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+
+volumes:
+  postgres_data:
+
+networks:
+  mainnetwork:
+    external: true

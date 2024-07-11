@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts',
     'promocodes',
     'referrals',
+    'balances',
     'admin_interface',
     'colorfield',
     'django.contrib.admin',
@@ -180,6 +181,9 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
     ]
 }
 

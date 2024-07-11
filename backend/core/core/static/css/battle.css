@@ -1,0 +1,418 @@
+@import "variables.css";
+
+.bg-filter-img {
+    background: url(../img/battles-bg.png);
+    height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-filter {
+    height: 103ch;
+}
+
+.battle-hint-header {
+    font-size: calc(100vw* calc(20 / var(--reference-display-w)));
+    margin-top: 0px;
+    font-family: 'Gilroy SemiBold';
+}
+
+.battle-request-controls {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: calc(100vw* calc(32mo / 1920));
+}
+
+.battles-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-items: center;
+
+    border: 1px solid linear-gradient(90deg, rgba(151, 151, 151, 0) 0%, #979797 49.5%, rgba(151, 151, 151, 0) 100%);
+    border-radius: 0px!important;
+}
+
+.my-battles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: calc(100vw* calc(28 / var(--reference-display-w)));
+    padding-top: calc(100vw* calc(24 / var(--reference-display-w)));
+    padding-bottom: calc(100vw* calc(19 / var(--reference-display-w)));
+    flex-direction: column;
+    gap: 1ch;
+}
+
+.show-my-buttles {
+    font-size: calc(100vw* calc(16 / var(--reference-display-w)));
+    width: 100%;
+    height: 100%;
+}
+
+.battles-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(100vw* calc(6 / var(--reference-display-w)));
+}
+
+.battles-stat span {
+    font-size: calc(100vw* calc(10 / var(--reference-display-w)));
+    color: rgba(151, 151, 151, 1);
+}
+
+.stats-num {
+    font-size: calc(100vw* calc(26 / var(--reference-display-w)));
+}
+
+.battle-sec {
+    display: grid;
+    grid-template-columns: calc(100vw* calc(386 / var(--reference-display-w))) auto;
+    grid-template-rows: calc(100vw* calc(623 / var(--reference-display-w))) calc(100vw* calc(177 / var(--reference-display-w)));
+    height: calc(100vw* calc(834 / var(--reference-display-w)));
+    width: 100%;
+    gap: calc(100vw* calc(34 / var(--reference-display-w)));
+}
+
+.last-battle {
+    background: url('../img/last-battle.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.last-battle-info {
+    position: relative;
+    margin-inline: auto;
+    top: calc(100vw* calc(87 / var(--reference-display-w)));
+    height: calc(100vw* calc(125 / var(--reference-display-w)));
+    width: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1ch;
+}
+
+.last-battle-drop-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.last-battle-drop-item img {
+    max-height: 7ch;
+}
+
+.last-battle-case img {
+    max-height: 5ch;
+}
+
+.b-win-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.b-win-item-price {
+    font-size: calc(100vw* calc(15 / var(--reference-display-w)));
+    font-family: 'Gilroy Regular';
+}
+
+.battle-hint {
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(151, 151, 151, 1);
+    background: rgba(0, 0, 0, 0.3);
+    padding-inline: calc(100vw* calc(60 / var(--reference-display-w)));
+    padding-block: calc(100vw* calc(34 / var(--reference-display-w)));
+
+    display: flex;
+    flex-direction: column;
+}
+
+.hint-steps {
+    display: grid;
+    list-style: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 0px;
+    gap: calc(100vw* calc(81 / var(--reference-display-w)));
+    margin: 0px;
+}
+
+.hint-steps li {
+    font-size: calc(100vw* calc(16 / var(--reference-display-w)));
+    display: flex;
+    gap: calc(100vw* calc(20 / var(--reference-display-w)));
+}
+
+.hint-steps li img {
+    height: 5.5vh!important;
+    aspect-ratio: 1/1;
+    width: auto;
+}
+
+.my-battles {
+    background: url('../img/my-battles-bg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #0E0E0E;
+}
+
+.battles {
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(151, 151, 151, 1);
+    background: rgba(0, 0, 0, 0.3);
+    padding: calc(100vw* calc(40 / var(--reference-display-w)));
+    width: 90%;
+}
+
+.battle {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    align-items: center;
+    border-top: 1px solid rgba(151, 151, 151, 1);
+    padding-right: calc(100vw* calc(16 / var(--reference-display-w)));
+    padding-block: calc(100vw* calc(11 / var(--reference-display-w)));
+    border-radius: 0px!important;
+}
+
+.battle-case {
+    max-height: calc(100vw* calc(75 / var(--reference-display-w)));
+}
+
+.battle-sec div {
+    border-radius: calc(100vw* calc(18 / var(--reference-display-w)));
+}
+
+.battles-table-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    text-align: center;
+    margin-bottom: calc(100vw* calc(29 / var(--reference-display-w)));
+    padding-right: calc(100vw* calc(27 / var(--reference-display-w)));
+    text-align: center;
+}
+
+.battles-table {
+    overflow-y: scroll;
+    height: 92%;
+    padding-right: 6ch;
+    width: 100%;
+    border-radius: 0px!important;
+}
+
+.battles-table::-webkit-scrollbar {
+    width: .75ch;
+    padding-left: 1ch;
+}
+
+.battles-table::-webkit-scrollbar-track {
+    background: rgba(51, 51, 51, 1);
+    border-radius: 20px;
+}
+
+.battles-table::-webkit-scrollbar-thumb {
+    background-color: rgba(151, 151, 151, 1);
+    border-radius: 20px;
+}
+
+.mobile-last-battle-img {
+    display: none;
+}
+
+.mobile-hint-steps {
+    display: none;
+}
+
+.case-sign {
+    display: flex;
+    align-items: center;
+    gap: 1ch;
+}
+
+.case-battle-name {
+    text-align: justify;
+}
+
+.count-battles {
+    text-align: center;
+}
+
+.price {
+    text-align: center;
+}
+
+#create-battle {
+    margin-left: auto;
+}
+
+@media (aspect-ratio < 1/1) {
+    .bg-filter {
+        height: 170vh;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.6) 270%, rgba(0, 0, 0, 1) 90%);
+    }
+
+    .battle-sec {
+        display: grid;
+        grid-template-columns: 1fr;
+        height: auto;
+        grid-template-rows: calc(100vw* calc(683 / var(--reference-display-w)))
+                            calc(100vw* calc(256 / var(--reference-display-w)))
+                            calc(100vw* calc(366 / var(--reference-display-w)))
+                            calc(100vw* calc(789 / var(--reference-display-w)))
+    }
+
+    .case-sign {
+        font-size: calc(100vw* calc(24   / var(--reference-display-w)))
+    }
+
+    .price {
+        font-size: calc(100vw* calc(32 / var(--reference-display-w)))
+    }
+
+    .create-battle {
+        font-size: calc(100vw* calc(48 / 1920));
+    }
+
+    .battle-request-controls {
+        font-size: calc(100vw* calc(55 / 1920));
+    }
+
+    .battle {
+        padding-right: 0px;
+        border-radius: calc(100vw* calc(10 / var(--reference-display-w)));
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .battles {
+        grid-row: 1;
+    }
+
+    .my-battles {
+        grid-row: 2;
+        width: 59%;
+    }
+
+    .hint-steps {
+        grid-template-columns: 1fr;
+        grid-row: 2;
+    }
+
+    .mobile-hint-steps {
+        grid-row: 2;
+        grid-column: 1;
+        display: block;
+        width: 75%;
+    }
+
+    .count-battles, .count-battles-f {
+        display: none;
+    }
+
+    .battles-table-header span {
+        margin: 0px!important;
+    }
+
+    .battles-table-header {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        font-size: calc(100vw* calc(29 / var(--reference-display-w)));
+        padding: 0px;
+    }
+
+    .case-battle-name {
+        text-align: left;
+    }
+
+    .actions-battles-f {
+        text-align: right;
+    }
+
+    .last-battle {
+        background: url('../img/last-battle-mob.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: rgba(14, 14, 14, 1);
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: calc(100vw* calc(32 / var(--reference-display-w)));
+
+        padding-block: calc(100vw* calc(41 / var(--reference-display-w)));
+        padding-left: calc(100vw* calc(41 / var(--reference-display-w)));
+
+        align-items: flex-start;
+    }
+
+    .stats-num {
+        font-size: calc(100vw* calc(40 / var(--reference-display-w)))!important;
+    }
+
+    .battles-stat span {
+        font-size: calc(100vw* calc(16 / var(--reference-display-w)))!important;
+    }
+
+    .show-my-buttles {
+        height: 70%;
+        width: 70%;
+        margin-block: 1ch;
+    }
+
+    .last-battle-info {
+        margin: 0px;
+        margin-right: auto;
+    }
+
+    .last-battle-case img {
+        max-height: 3.5ch;
+    }
+
+    .b-win-info {
+        justify-content: center!important;
+    }
+
+    .b-win-info img {
+        width: 1ch!important;
+
+        left: -2.5ch!important;
+        bottom: -0.8ch!important;
+        height: 1ch!important;
+    }
+
+    .mobile-last-battle-img {
+        display: block;
+        position: absolute;
+        right: -109%;
+        bottom: -90%;
+        z-index: 100;
+    }
+
+    .battle-hint {
+        height: fit-content;
+        display: grid;
+        grid-template-columns: 24% 76%;
+    }
+
+   .hint-steps li {
+        font-size: calc(100vw* calc(32 / var(--reference-display-w)));
+    }
+
+   .hint-steps li img {
+        display: none;
+   }
+
+    .battle-hint-header {
+        font-size: calc(100vw* calc(36 / var(--reference-display-w)))!important;
+        text-wrap: nowrap;
+    }
+}

@@ -1,51 +1,38 @@
-import typing
-from abc import ABCMeta, abstractmethod
-
 from django.db import models
 
-from items.models.models import Item
-
-if typing.TYPE_CHECKING:
-    from cases.models.items import CaseItem
-else:
-    CaseItem = models.Model
+from common.services.base import BaseModelService
+from ..models.cases import Case
 
 
-class BaseCaseItemsService(metaclass=ABCMeta):
-    _model: CaseItem
+class CaseService(BaseModelService):
+    default_model = Case
 
-    def __init__(self, model: CaseItem):
-        self._model = model
+    def get_paid(self) -> models.QuerySet:
+        return self.get_all().filter(price__gt=0)
 
-    @abstractmethod
-    def get_case_items_for_case(self, case):
-        pass
+    def get_all(self) -> models.QuerySet:
+        return self._model.objects.all().alias(count_items=models.Count(
+            "items"
+        )).filter(count_items__gt=0)
 
-    @abstractmethod
-    def bulk_update_chances(self, chances, case_items):
-        pass
+    def bulk_get(self, case_ids: list[int]) -> models.QuerySet[Case]:
+        return self._model.objects.filter(pk__in=case_ids)
 
-    @staticmethod
-    @abstractmethod
-    def get_related_items(case_items_queryset):
-        pass
+    def get(self, case_id: int) -> Case:
+        return self._model.objects.get(pk=case_id)
 
+    def get_price(self, case_id: int) -> int | float:
+        return self.get(case_id=case_id).price
 
-class CaseItemsService(BaseCaseItemsService):
-    def get_case_items_for_case(self, case: models.Model):
-        return self._model.objects.filter(case=case)
+    def get_all_for_category(self, category: str,
+                             min_price: int = None,
+                             max_price: int = None) -> models.QuerySet:
+        result = self._model.objects.filter(category__title=category)
 
-    def bulk_update_chances(self, chances: list[float],
-                            case_items: models.QuerySet[CaseItem]) -> int:
-        for values in zip(chances, case_items, strict=True):
-            values[1].chance = values[0]
+        if min_price is not None:
+            result = result.filter(price__gte=min_price)
 
-        self._model.objects.bulk_update(case_items, ["chance"])
+        if max_price is not None:
+            result = result.filter(price__lte=max_price)
 
-    @staticmethod
-    def get_related_items(
-            case_items_queryset: models.QuerySet[CaseItem]
-    ) -> models.QuerySet:
-        return Item.objects.filter(
-            pk__in=case_items_queryset.values_list("item", flat=True)
-        )
+        return result

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/base.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/header.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/footer.css' %}" type="text/css" rel="stylesheet">
+    {% block links %}
+    {% endblock %}
+</head>
+<body>
+    <div style="height: 0px;width: 100vw;position: sticky;top: 0px;z-index: -1;">
+        <div class="bg-filter-img"></div>
+        <div class="bg-filter" style="z-index: 0;"></div>
+    </div>
+    <div id="prize-wrappper">
+        <div class="prize-body" id="prize-body">
+            <button class="close-prize-btn" onclick="closePrizeWindow()">
+                <img src="{% static 'img/cross.png' %}">
+            </button>
+        </div>
+    </div>
+    {% include 'header.html' %}
+    <main class="main-content">
+        {% block main %}
+        {% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="site-info">
+            <img src="{% static 'img/JD-mono.png' %}">
+            <span class="c"><b>© 2018-2024 JackDrop</b><br>{% trans 'Best Cases' %}</span>
+        </div>
+        <span class="footer-mobile-info">
+            <a href="{% url 'privacy' %}" class="doc-link">{% trans 'Privacy Policy' %}</a><br>
+            <a href="{% url 'agreement' %}" class="doc-link">{% trans 'User Agreement' %}</a><br>
+            <a href="{% url 'ToS' %}" class="doc-link">{% trans 'ToS' %}</a><br>
+            <a href="{% url 'about' %}" class="doc-link">{% trans 'About' %}</a><br>
+        </span>
+        <ul class="footer-docs-list">
+           <li><a href="{% url 'privacy' %}" class="doc-link">{% trans 'Privacy Policy' %}</a></li>
+           <li><a href="{% url 'agreement' %}" class="doc-link">{% trans 'User Agreement' %}</a></li>
+           <li><a href="{% url 'ToS' %}" class="doc-link">{% trans 'ToS' %}</a></li>
+           <li><a href="{% url 'about' %}" class="doc-link">{% trans 'About' %}</a></li>
+        </ul>
+
+        <ul class="media-list">
+            <li><img src="{% static 'img/tg-logo.png' %}"></li>
+            <li><img src="{% static 'img/vk-logo.png' %}"></li>
+            <li><img src="{% static 'img/ig-logo.png' %}"></li>
+            <li><img src="{% static 'img/tw-logo.png' %}"></li>
+        </ul>
+    </footer>
+    <script src="{% static 'js/header.js' %}"></script>
+    <script src="{% static 'js/prize.js' %}" type="module"></script>
+    <script src="{% static 'js/langs.js' %}"></script>
+    <script>
+        function randomIntFromInterval(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        };
+
+    </script>
+    {% block extrascripts %}
+    {% endblock %}
+</body>
+</html>

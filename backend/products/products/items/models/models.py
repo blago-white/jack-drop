@@ -1,11 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from common.models.mixins import TitleModelMixin
 from common.models.base import BaseImageModel
-
+from common.models.mixins import TitleModelMixin
 from market.services.items import MarketItemParser
-
 from . import validators
 
 
@@ -37,6 +35,9 @@ class Item(TitleModelMixin, BaseImageModel):
         self._market_parser = market_parser
 
         super().__init__(*args, **kwargs)
+
+    def __str__(self):
+        return f"{super().__str__()} ({self.price} РУБ)"
 
     def save(
             self, force_insert=False,

@@ -13,6 +13,8 @@ python-dotenv = "^1.0.1"
 channels = "^4.0.0"
 djangorestframework = "^3.15.1"
 daphne = "^4.1.0"
+channels-redis = "^4.2.0"
+psycopg2 = "^2.9.9"
 
 
 [build-system]

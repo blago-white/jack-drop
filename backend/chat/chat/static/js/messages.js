@@ -1,7 +1,7 @@
 const messages = document.getElementById('messages');
 
 async function fetchMessages() {
-    const response = await fetch("http://127.0.0.1:8000/api/v1/messages/")
+    const response = await fetch(`http://${window.location.hostname}/chat/api/v1/messages/`)
     const result = await response.json();
 
     result.forEach((message) => {

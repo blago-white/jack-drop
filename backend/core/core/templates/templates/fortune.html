@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+Колесо Фортуны
+{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/fortune.css' %}">
+{% endblock %}
+
+{% block main %}
+{% csrf_token %}
+
+<section class="fortune-sec">
+    <div class="wheel">
+        <img src="{% static 'img/wheel-arrow.png' %}" class="wheel-arrow">
+        <img src="{% static 'img/wheel-s.png' %}" id="wheel-canvas" class="wheel-canvas"
+             style="grid-row: 1;grid-column: 1;width: 100%;height: 100%;">
+        <div class="wheel inner-wheel" id="inn-wheel" style="grid-row: 1;grid-column: 1;">
+            <h3 id="game-title" class="wheel-game-title">{% trans 'Fortune Wheel' %}</h3>
+            <span class="wheel-game-desc" id="c-d-desc">{% trans 'Count Down Title' %}</span>
+            <div class="countdown-clock" id="clock">
+                <div class="countdown-component">
+                    <span id="day-count"></span>
+                    {% trans 'D' %}
+                </div>
+                <div class="countdown-component">
+                    <span id="hrs-count"></span>
+                    {% trans 'H' %}
+                </div>
+                <div class="countdown-component">
+                    <span id="min-count"></span>
+                    {% trans 'M' %}
+                </div>
+                <div class="countdown-component">
+                    <span id="sec-count"></span>
+                    {% trans 'S' %}
+                </div>
+            </div>
+            <button id="start-btn" onclick="startRotate();" class="super-button" style="display: none;">
+                <span class="super-button-bg"></span>
+                <span id="start-btn-text" class="super-button-text">{% trans 'Start Game' %}</span>
+            </button>
+            <button id="code-btn" class="super-button" onclick="enterPromo()">
+                <span class="super-button-bg"></span>
+                <span id="code-btn-text" class="super-button-text">{% trans 'Enter Code' %}</span>
+            </button>
+            <button id="cancel-code-btn" class="super-button" onclick="location.href = location.href;">
+                <span class="super-button-bg noactive"></span>
+                <span id="cancel-code-btn-text" class="super-button-text">{% trans 'Cancel' %}</span>
+            </button>
+        </div>
+    </div>
+    <div class="wheel-info">
+        <div class="wheel-info-part" id="f_t">
+            <span>{% trans 'Promo For Dep' %}</span>
+            <img id="perc-img" src="{% static 'img/wheel-info-perc.png' %}">
+        </div>
+        <div class="wheel-info-part" id="s_d">
+            <span>{% trans 'Contract Skin' %}</span>
+            <img id="report-img" src="{% static 'img/wheel-report-img.png' %}">
+        </div>
+        <div class="wheel-info-part" id="t_e">
+            <span>{% trans 'Free Skin' %}</span>
+            <img id="gift-img" src="{% static 'img/wheel-gift-img.png' %}">
+        </div>
+        <div class="wheel-info-part" id="f_r">
+            <span>{% trans 'Case Discount' %}</span>
+            <img id="case-img" src="{% static 'img/wheel-case-img.png' %}">
+        </div>
+        <div class="wheel-info-part" id="f_v">
+            <span id="bar-text">{% trans 'Upgrade Skin' %}</span>
+            <img id="bar-img" src="{% static 'img/wheel-bar-img.png' %}">
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/countDown.js' %}"></script>
+<script src="{% static 'js/wheel.js' %}" type="module"></script>
+{% endblock %}

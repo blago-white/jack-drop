@@ -1,15 +1,10 @@
-import typing
 from abc import abstractmethod, ABCMeta
 
 from django.db import models
 
+from cases.models.items import CaseItem
 from items.models.models import Item
-from .cases import BaseCaseItemsService, CaseItemsService
-
-if typing.TYPE_CHECKING:
-    from cases.models.items import CaseItem
-else:
-    CaseItem = models.Model
+from .items import BaseCaseItemsService, CaseItemsService
 
 
 class BaseCaseItemsChancesService(metaclass=ABCMeta):
@@ -22,34 +17,34 @@ class BaseCaseItemsChancesService(metaclass=ABCMeta):
 
 
 class CaseItemsChancesService(BaseCaseItemsChancesService):
-    _model: models.Model
+    _model: models.Model = CaseItem
     _service: BaseCaseItemsService
 
-    def __init__(self, *args,
-                 model: CaseItem,
-                 service: BaseCaseItemsService = None,
-                 **kwargs):
-        self._model = model
-        self._service = (service
-                         if service is not None else
-                         CaseItemsService(model=model))
+    def __init__(
+            self, *args,
+            model: CaseItem = None,
+            service: BaseCaseItemsService = None,
+            **kwargs):
+        self._model = model or self._model
+        self._service = service or CaseItemsService(model=model)
 
         super().__init__(*args, **kwargs)
 
     def update_chanses(self, case: models.Model) -> None:
-        case_items = self._service.get_case_items_for_case(case=case)
+        case_items = self._service.get_case_items_for_case(case_pk=case.pk)
         items = self._service.get_related_items(
             case_items_queryset=case_items
         )
 
         percentage = self._calculate_chanses(items_of_case=items)
 
-        self._service.bulk_update_chances(chances=percentage,
-                                          case_items=case_items)
+        self._service.bulk_update_rates(rates=percentage,
+                                        case_items=case_items)
 
-    def _calculate_chanses(self,
-                           items_of_case: models.QuerySet[Item]
-                           ) -> list[int]:
+    def _calculate_chanses(
+            self,
+            items_of_case: models.QuerySet[Item]
+            ) -> list[int]:
         pricing: list[float] = items_of_case.values_list(
             self._price_field_name, flat=True
         )

@@ -1,0 +1,291 @@
+@import "variables.css";
+
+.bg-filter-img {
+    background: url("../img/contract-bg.png");
+    background-repeat: no-repeat;
+    height: auto;
+    background-color: black;
+}
+
+.contract-amount {
+    grid-row: 1;
+    grid-column: 1;
+    display: flex;
+    font-size: calc(100vw * calc(44 / var(--reference-display-w)));
+    justify-content: center;
+    z-index: 10;
+}
+
+.prize-price-range {
+    grid-row: 1;
+    grid-column: 1;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 1ch;
+    margin-top: 39vh;
+    font-size: calc(100vw * calc(44 / var(--reference-display-w)));
+    align-items: center;
+}
+
+.contract {
+    display: flex;
+    flex-direction: row;
+    gap: calc(100vw * calc(90 / var(--reference-display-w)));
+}
+
+.side-info {
+    width: calc(100vw * calc(367 / var(--reference-display-w)));
+    display: flex;
+    flex-direction: column;
+    gap: calc(100vw * calc(24 / var(--reference-display-w)));
+}
+
+.contract-hint {
+    display: flex;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(20px);
+    padding-block: calc(100vw * calc(43 / var(--reference-display-w)));
+    padding-inline: calc(100vw * calc(25 / var(--reference-display-w)));
+    border-radius: calc(100vw * calc(18 / var(--reference-display-w)));
+    border: 1px solid rgba(151, 151, 151, 1);
+    pointer-events: none;
+}
+
+.contract-cells {
+    display: none;
+}
+
+.inventory-items img {
+    max-height: 76vh;
+    pointer-events: none;
+}
+
+.inventory-items {
+    column-gap: calc(100vw * calc(14 / var(--reference-display-w)));
+    row-gap: calc(100vw * calc(30 / var(--reference-display-w)));
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: max-content;
+
+    border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
+
+
+    max-height: 76.6vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    padding-right: 23.5vw;
+}
+
+.inventory-items::-webkit-scrollbar {
+    width: .75ch;
+    padding-left: 1ch;
+}
+
+.inventory-items::-webkit-scrollbar-track {
+    background: rgba(51, 51, 51, 1);
+    border-radius: 20px;
+}
+
+.inventory-items::-webkit-scrollbar-thumb {
+    background-color: rgba(151, 151, 151, 1);
+    border-radius: 20px;
+}
+
+.contract-hint-img {
+    display: block;
+}
+
+.contract-mobile-hint-img {
+    display: none;
+}
+
+.dropped span {
+    margin-left: 0px;
+}
+
+.inventory-items-mobile {
+    display: none;
+}
+
+.contract-circle {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.desctop-items-cells {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: 1fr;
+    width: 100%;
+    height: 100%;
+    justify-items: center;
+    align-items: center;
+}
+
+.cells-row {
+    display: flex;
+}
+
+.cells-row span {
+    max-width: 0px;
+    max-height: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+#cells-row-1, #cells-row-5 {
+    gap: calc(76vh * 0.25);
+}
+
+#cells-row-2, #cells-row-4 {
+    gap: calc(76vh * 0.69);
+}
+
+#cells-row-2 {
+    margin-bottom: calc(76vh* 0.1);
+}
+
+#cells-row-4 {
+    margin-top: calc(76vh* 0.117);
+}
+
+#cells-row-3 {
+    gap: calc(76vh * 0.85);
+}
+
+@media (aspect-ratio < 1/1) {
+    .bg-filter-img {
+        background-size: initial;
+        background-color: black;
+    }
+
+    .inventory-item {
+        min-width: calc(100vw * calc(274 / var(--reference-display-w)));
+        font-size: calc(100vw * calc(22 / var(--reference-display-w)));
+    }
+
+    .inventory-item span {
+        margin-right: 1.5ch;
+        font-size: calc(100vw * calc(25 / var(--reference-display-w)));
+    }
+
+    .inventory-items {
+        display: none;
+    }
+
+    .inventory-items-mobile {
+        display: flex;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        padding-bottom: 4ch;
+        padding-right: 0px;
+        max-width: 90vw;
+    }
+
+    .bg-filter {
+        height: 64vh;
+    }
+
+    .w-line {
+        height: 85%;
+    }
+
+    .inventory-item img {
+        width: calc(100vw* calc(218 / var(--reference-display-w)));
+    }
+
+    .contract-circle {
+        display: none;
+    }
+
+    .side-info {
+        display: grid;
+        justify-items: stretch;
+        grid-template-rows: auto auto auto;
+        width: 100%;
+    }
+
+    #cr-contract {
+        grid-row: 1;
+        width: calc(100%*calc(6 / 8));
+        height: calc(100vw * calc(110 / var(--reference-display-w)));
+        margin-inline: auto;
+    }
+
+    #cl-contract {
+        grid-row: 2;
+        width: calc(100%*calc(6 / 8));
+        height: calc(100vw * calc(110 / var(--reference-display-w)));
+        margin-inline: auto;
+    }
+
+    #cr-contract span[class="super-button-text"] {
+        font-size: calc(100vw * calc(40 / var(--reference-display-w)))!important;
+    }
+
+    #cl-contract span[class="super-button-text"] {
+        font-size: calc(100vw * calc(40 / var(--reference-display-w)))!important;
+    }
+
+    .contract-hint {
+        grid-row: 3;
+    }
+
+    .contract {
+        flex-direction: column;
+    }
+
+    .contract-cells {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: calc(100vw * calc(38 / var(--reference-display-w)));
+    }
+
+    .contract-cells span {
+        border-radius: 50%;
+        border: 2px solid #FF62CA;
+        color: #4A4A4A;
+        font-family: 'Gilroy Regular';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(calc(100vw * calc(20 / var(--reference-display-w))));
+        background: rgb(10, 10, 10, .7);
+        aspect-ratio: 1/1;
+        font-size: calc(100vw * calc(64 / var(--reference-display-w)));
+
+        background-size: cover;
+        background-position: center center;
+    }
+
+    #im9 {
+        grid-column: 2;
+    }
+
+    #im10 {
+        grid-column: 3;
+    }
+
+    .contract-hint-img {
+        display: none;
+    }
+
+    .contract-mobile-hint-img {
+        display: block;
+    }
+
+    .contract-hint {
+        background: transparent;
+        border: none;
+        backdrop-filter: none;
+    }
+}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Jack Drop{% endblock %}
+{% block links %}
+<link href="{% static 'css/cases-filter.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/latest-drops.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/banners.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/free-cases.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/chat.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/mainpage.css' %}" type="text/css" rel="stylesheet">
+<style>
+    .dropped img {
+        width: calc(100vw* calc(150 / var(--reference-display-w)));
+        position: relative;
+        left: 0%;
+        margin-top: 10%;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+    {% include 'main/cases-filter.html' %}
+    {% include 'main/latest-drops.html' %}
+    {% include 'main/banners.html' %}
+    {% include 'main/free-cases.html' %}
+
+    {% include 'chat/chat.html' %}
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/pricesRange.js' %}"></script>
+<script src="{% static 'js/caseCategorySetter.js' %}"></script>
+<script src="{% static 'js/chat.js' %}"></script>
+<script src="{% static 'js/liveFeed.js' %}"></script>
+<script src="{% static 'js/casesCategories.js' %}"></script>
+{% endblock %}

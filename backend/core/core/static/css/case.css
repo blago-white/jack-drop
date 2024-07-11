@@ -1,0 +1,142 @@
+@import "variables.css";
+
+.bg-filter-img {
+    background: black;
+    height: auto;
+}
+
+.case-data-wrapper {
+    background: url('../img/case-bg-circle.png');
+    background-size: cover;
+    border-radius: calc(100vw * calc(20 / var(--reference-display-w)));
+}
+
+#price-label {
+    margin-top: calc(100vw* calc(34 / var(--reference-display-w)));
+}
+
+#price-label .super-button-bg {
+    background: #4C4C4C;
+    box-shadow: none;
+}
+
+#price-label .super-button-text {
+    gap: 0px;
+}
+
+#open-case-btn {
+    margin-top: calc(100vw * calc(34 / var(--reference-display-w)));
+}
+
+.case-img {
+    width: calc(100vw * calc(358 / var(--reference-display-w)));
+    max-width: calc(100vw * calc(358 / var(--reference-display-w)));
+}
+
+.case-title {
+    font-size: calc(100vw * calc(48 / var(--reference-display-w)));
+    font-family: "Gilroy Bold";
+    margin-bottom: calc(100vw * calc(18 / var(--reference-display-w)));
+    margin-top: 0px;
+}
+
+.case-short-title {
+    font-size: calc(100vw * calc(30 / var(--reference-display-w)));
+    font-family: "Gilroy Thin";
+    margin-bottom: calc(100vw * calc(34 / var(--reference-display-w)));
+    margin-top: 0px;
+    font-size: 100;
+    text-transform: none;
+}
+
+.case-border-line {
+    background: #2E2E2E;
+    width: calc(100vw * calc(3 / var(--reference-display-w)));
+    height: calc(100vw * calc(320 / var(--reference-display-w)));
+    margin-inline: calc(100vw * calc(67 / var(--reference-display-w)));
+}
+
+.case-info {
+    display: flex;
+    align-items: center;
+}
+
+.case-text-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.case-description {
+    font-family: "Gilroy Thin";
+    color: #4C4C4C;
+    max-width: calc(100vw * calc(826 / var(--reference-display-w)));
+    text-transform: none;
+}
+
+.dropped span {
+    margin-left: 0px;
+}
+
+.item-price {
+    margin: 0px!important;
+}
+
+.case-data-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: calc(100vw * calc(113 / var(--reference-display-w)));
+    gap: calc(100vw * calc(50 / var(--reference-display-w)));
+}
+
+.case-items {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: calc(100vw * calc(48 / var(--reference-display-w)));
+}
+
+.case-items-header {
+    margin-bottom: calc(100vw * calc(64 / var(--reference-display-w)));
+}
+
+@media (aspect-ratio < 1/1) {
+    .case-items {
+        grid-template-columns: repeat(3, 1fr);
+        gap: calc(100vw* calc(48 / 1920));
+        justify-items: center;
+    }
+
+    .case-info {
+        flex-direction: column;
+        gap: calc(100vw* calc(50 / var(--reference-display-w)));
+    }
+
+    #case-title {
+        font-size: calc(100vw* calc(110 / var(--reference-display-w)));
+    }
+
+    .case-short-title {
+        font-size: calc(100vw* calc(50 / var(--reference-display-w)));
+    }
+
+    .case-description {
+        font-size: calc(100vw* calc(30 / var(--reference-display-w)));
+        color: #979797;
+    }
+
+    .case-text-info {
+        align-items: center;
+        text-align: center;
+    }
+
+    .case-border-line {
+        display: none;
+    }
+
+    .case-items-wrapper h3 {
+        text-align: center;
+    }
+
+    .itm-rate {
+        font-size: calc(100vw * calc(72 / 1920));
+    }
+}

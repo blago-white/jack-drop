@@ -1,9 +1,9 @@
 import requests
 
-from market.services.market import AbstractMarketAPIKeyService, MarketAPIKeyService
 from items.config import MAIN_RETRIEVE_ITEM_URL, MAIN_RETRIEVE_ITEM_IMAGE_URL
-
 from market.items import ItemMarketParams, ItemInfo
+from market.services.market import AbstractMarketAPIKeyService, \
+    MarketAPIKeyService
 
 
 class MarketItemParser:
@@ -24,7 +24,7 @@ class MarketItemParser:
         self._market_params_dataclass = market_params_dataclass
         self._item_info_dataclass = item_info_dataclass
 
-    def get_info(self, url: str) -> dict:
+    def get_info(self, url: str) -> ItemInfo:
         item_params = self._extract_item_params(crud_url=url)
 
         response = requests.get(
@@ -40,7 +40,7 @@ class MarketItemParser:
             image_path=self._get_item_image_path(
                 json.get("market_name")
             ),
-            price=float(json.get("min_price"))
+            price=float(json.get("min_price"))//100
         )
 
     def _complete_info_api_request(self, item_params: ItemMarketParams) -> str:

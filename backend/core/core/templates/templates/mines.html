@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+Mines | Jack Drop
+{% endblock %}
+
+{% block links %}
+<link href="{% static 'css/mines.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+<section class="mines-sec">
+    <div class="game-controls" id="controls">
+        <form class="game-control-inputs" id="mines-game-form">
+            <div class="game-bet-amount">
+                <h3 class="control-sec-title">{% trans 'Deposit Amount' %}</h3>
+                <input class="game-input" min="10" id="user_deposit" type="number" name="user_deposit"
+                       required
+                       step="0.1"
+                       value="50">
+                <div class="bet-presets">
+                    <button class="bet-amount-preset-btn"
+                            onclick="return multipleDeposit(1/2);">1/2</button>
+                    <button class="bet-amount-preset-btn"
+                            onclick="return multipleDeposit(2);">X2</button>
+                    <button class="bet-amount-preset-btn"
+                            onclick="return multipleDeposit(10);">MAX</button>
+                </div>
+            </div>
+            <div class="game-mines-count">
+                <h3 class="control-sec-title">{% trans 'Mines Count' %}</h3>
+                <div class="mines-count-presets">
+                    <input class="game-input" min="1" max="24" id="count_mines" name="count_mines" type="number"
+                           required
+                           value="3">
+                    <button class="mines-count-preset"
+                            onclick="document.getElementById('count_mines').value = 2;return changeGameVals();">
+                        2
+                    </button>
+                    <button class="mines-count-preset"
+                            onclick="document.getElementById('count_mines').value = 4;return changeGameVals();">
+                        4
+                    </button>
+                    <button class="mines-count-preset"
+                            onclick="document.getElementById('count_mines').value = 8;return changeGameVals();">
+                        8
+                    </button>
+                    <button class="mines-count-preset"
+                            onclick="document.getElementById('count_mines').value = 12;return changeGameVals();">
+                        12
+                    </button>
+                    <button class="mines-count-preset"
+                            onclick="document.getElementById('count_mines').value = 24;return changeGameVals();">
+                        24
+                    </button>
+                </div>
+            </div>
+            <button class="super-button"
+                    onclick="document.getElementById('count_mines').value = randomIntFromInterval(1, 24);return false;"
+                    style="margin-top: auto;">
+                <span class="super-button-bg noactive"></span>
+                <span class="super-button-text">{% trans 'Random' %}</span>
+            </button>
+            <button class="super-button" type="submit" onclick="makeMinesGame();return false;">
+                <span class="super-button-bg"></span>
+                <span class="super-button-text">{% trans 'Start Game' %}</span>
+            </button>
+        </form>
+        <div class="game-info">
+            <span class="game-info-field">
+                <img src="{% static 'img/pumpkin.png' %}"><span id="count-pumpkin">13</span>
+            </span>
+            <span class="game-info-field">
+                <img src="{% static 'img/seeds.png' %}"><span id="count-seeds">3</span>
+            </span>
+        </div>
+    </div>
+    <div class="game-fieldset" id="game-fields">
+    </div>
+</section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/mines.js' %}" type="module"></script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+Account Game History | JackDrop
+{% endblock %}
+
+{% block links %}
+<link href="{% static 'css/inventory.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/game-history.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block main %}
+<section class="game-history-sec">
+    <h3>{% trans 'Game History' %}</h3>
+    <span class="empty-history" style="display: none;">
+        {% trans 'Empty Games History' %}
+        <button class="super-button" style="margin-inline: auto;" onclick="location.href = '/'">
+            <span class="super-button-bg"></span>
+            <span class="super-button-text">{% trans 'Play' %}</span>
+        </button>
+    </span>
+    <ul class="game-history-table"></ul>
+<!--    <ul class="game-history-table" id="inventory-items">-->
+<!--        <li class=""></li>-->
+<!--    </ul>-->
+</section>
+{% endblock %}

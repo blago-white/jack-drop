@@ -1,0 +1,48 @@
+@import 'variables.css';
+
+.bg-filter-img {
+    background: black;
+    max-height: 100vh;
+}
+
+.long-doc-sec {
+    height: 60vh;
+    width: -webkit-fill-available;
+    position: relative;
+
+    background: #0E0E0E;
+
+    border-radius: calc(100vw * calc(20 / var(--reference-display-w)));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: calc(100vw * calc(51 / var(--reference-display-w)));
+    overflow-y: scroll;
+}
+
+.long-doc-sec h1 {
+    text-align: center;
+}
+
+.bg-filter {
+    display: none;
+}
+
+.long-doc-sec span {
+    text-transform: none;
+    text-indent: 5ch;
+}
+
+.long-doc-sec::-webkit-scrollbar {
+    display: none;
+}
+
+@media (aspect-ratio < 1/1) {
+    .long-doc-sec span {
+        font-size: calc(100vw * calc(30 / var(--reference-display-w)));
+    }
+
+    .long-doc-sec h1 {
+        font-size: calc(100vw * calc(50 / var(--reference-display-w)));
+    }
+}

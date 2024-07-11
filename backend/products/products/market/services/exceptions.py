@@ -1,0 +1,2 @@
+class APIKeyNotConfiguredException(BaseException):
+    pass

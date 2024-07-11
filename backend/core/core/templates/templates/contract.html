@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+Contract | Jack Drop
+{% endblock %}
+
+{% block links %}
+<link href='https://unpkg.com/css.gg@2.0.0/icons/css/arrow-long-right.css' rel='stylesheet'>
+<link href="{% static 'css/latest-drops.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/contract.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+<section class="contract">
+    <div class="contract-cells">
+        <span id="im1">1</span>
+        <span id="im2">2</span>
+        <span id="im3">3</span>
+        <span id="im4">4</span>
+        <span id="im5">5</span>
+        <span id="im6">6</span>
+        <span id="im7">7</span>
+        <span id="im8">8</span>
+        <span id="im9">9</span>
+        <span id="im10">10</span>
+    </div>
+    <div class="inventory-items inventory-items-mobile" id="inventory-items-mob">
+    </div>
+    <div class="side-info">
+        <div class="contract-hint">
+            {% if request.LANGUAGE_CODE == 'ru' %}
+                <img class="contract-hint-img" style="width: 100%;" src="{% static 'img/contract-hint.png' %}">
+                <img class="contract-mobile-hint-img" style="width: 100%;" src="{% static 'img/contract-hint-mob.png' %}">
+            {% else %}
+                <img class="contract-hint-img" style="width: 100%;" src="{% static 'img/contract-hint-ru.png' %}">
+                <img class="contract-mobile-hint-img" style="width: 100%;"
+                     src="{% static 'img/contract-hint-mob-ru.png' %}">
+            {% endif %}
+        </div>
+        <button class="super-button" id="cr-contract" onclick="makeContract();">
+            <span class="super-button-bg"></span>
+            <span class="super-button-text">{% trans 'Sign Contract' %}</span>
+        </button>
+        <button class="super-button" id="cl-contract" onclick="clearAll();">
+            <span class="super-button-bg noactive"></span>
+            <span class="super-button-text">{% trans 'Clear' %}</span>
+        </button>
+    </div>
+    <div class="contract-circle">
+        <div class="desctop-items-cells" style="grid-row: 1;grid-column: 1;">
+            <div class="cells-row" id="cells-row-1">
+                <span id="id1"></span>
+                <span id="id2"></span>
+            </div>
+            <div class="cells-row" id="cells-row-2">
+                <span id="id10"></span>
+                <span id="id3"></span>
+            </div>
+            <div class="cells-row" id="cells-row-3">
+                <span id="id9"></span>
+                <span id="id4"></span>
+            </div>
+            <div class="cells-row" id="cells-row-4">
+                <span id="id8"></span>
+                <span id="id5"></span>
+            </div>
+            <div class="cells-row" id="cells-row-5">
+                <span id="id7"></span>
+                <span id="id6"></span>
+            </div>
+        </div>
+        <span class="contract-amount" id="contract-amount">0</span>
+        <img style="height: 76vh;pointer-events: none;grid-row: 1;grid-column: 1;" src="{% static 'img/contract-circle.png' %}">
+        <span class="prize-price-range">
+            <span class="start" id="prst">0</span>
+            <i class="gg-arrow-long-right"></i>
+            <span class="stop" id="prsp">0</span>
+        </span>
+    </div>
+    <div class="inventory-items" id="inventory-items"></div>
+
+</section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/contract.js' %}" type="module"></script>
+{% endblock %}

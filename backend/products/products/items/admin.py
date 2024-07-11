@@ -1,5 +1,5 @@
-from django.contrib.admin import ModelAdmin
 from django.contrib import admin
+from django.contrib.admin import ModelAdmin
 from django.utils.html import mark_safe
 
 from .models.models import Item
@@ -28,5 +28,5 @@ class ItemAdmin(ModelAdmin):
     @admin.display()
     def price_of_item(self, instance: Item):
         return mark_safe(
-            f"<b>{instance.price // 100} RUB</b>"
+            f"<b>{instance.price} RUB</b>"
         )

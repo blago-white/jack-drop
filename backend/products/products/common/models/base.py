@@ -1,8 +1,7 @@
 from abc import abstractmethod
 
-from django.utils.html import escape, mark_safe
-
 from django.db import models
+from django.utils.html import escape, mark_safe
 
 
 class BaseModel(models.Model):
@@ -10,14 +9,17 @@ class BaseModel(models.Model):
         abstract = True
 
     def save(
-        self, force_insert=False, force_update=False, using=None, update_fields=None
+            self, force_insert=False, force_update=False, using=None,
+            update_fields=None
     ):
         self.full_clean()
 
-        return super().save(force_insert=force_insert,
-                            force_update=force_update,
-                            using=using,
-                            update_fields=update_fields)
+        super().save(force_insert=force_insert,
+                     force_update=force_update,
+                     using=using,
+                     update_fields=update_fields)
+
+        return self
 
 
 class BaseImageModel(models.Model):

@@ -9,11 +9,11 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 import sys
+from pathlib import Path
 
 import dotenv
-import os
-from pathlib import Path
 
 dotenv.load_dotenv()
 
@@ -37,18 +37,29 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'cases',
-    'categories',
     'items',
     'market',
+    'refresher',
+    'games',
+    'inventory',
+    'interactive',
+
+    'daphne',
+    'rest_framework',
     'admin_interface',
     'colorfield',
-    'common.apps.JackDropAdminConfig',
+
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost/',
+                        'http://localhost:80/',
+                        'http://127.0.0.1:800/']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,7 +77,9 @@ ROOT_URLCONF = 'common.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,7 +92,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'common.wsgi.application'
+ASGI_APPLICATION = 'common.asgi.application'
 
 
 # Database
@@ -101,28 +114,6 @@ DATABASES = {
 
 if "test" in sys.argv:
     DATABASES["default"] = DATABASES["test"]
-
-LOGGING = {
-    'version': 1,
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-        }
-    },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'filters': ['require_debug_true'],
-            'class': 'logging.StreamHandler',
-        }
-    },
-    'loggers': {
-        'django.db.backends': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-        }
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -158,7 +149,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/products/static/'
+
+STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = 'uploads/'
 
@@ -172,3 +165,56 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CELERY_BROKER_URL = f"redis://productsredis:6379/0"
+
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+
+GAMES_SERVICE_ROUTES = {
+    "drop": "http://gamesapp:8000/games/private/case/drop/",
+    "upgrade": "http://gamesapp:8000/games/private/upgrade/new/",
+    "contract_get_amount":
+        "http://gamesapp:8000/games/private/contract/get_shifted_amount/",
+    "contract_save": "http://gamesapp:8000/games/private/contract/save/",
+    "create_battle_request":
+        "http://gamesapp:8000/games/private/battle/make-request/",
+    "drop_battle_request": "http://gamesapp:8000/games/private/battle/drop-request"
+                           "/{initiator_id}/",
+    "make_battle": "http://gamesapp:8000/games/private/battle/make-battle/",
+    "make_mines_game": "http://gamesapp:8000/games/private/mines/make/",
+    "get_prize_type_wheel": "http://gamesapp:8000/games/private/fortune/prize-type/",
+    "get_prize_wheel": "http://gamesapp:8000/games/private/fortune/make-prize/",
+    "get_battle_stats": "http://gamesapp:8000/games/private/battle/stats/{user_id}/",
+    "get_battles": "http://gamesapp:8000/games/private/battle/all/{user_id}/",
+    "get_timeout_wheel": "http://gamesapp:8000/games/private/fortune/get"
+                         "-timeout/{user_id}/",
+    "use_fortune_promo": "http://gamesapp:8000/games/private/fortune/use-promo/"
+}
+
+USERS_MICROSERVICE_ROUTES = {
+    "get_advantage": "http://usersapp:8000/auth/api/v1/p/advantage/",
+    "get_info": "http://usersapp:8000/auth/api/v1/p/get_user_info_jwt/",
+    "get_balance": "http://usersapp:8000/auth/"
+                   "balances/api/v1/p/displayed_balance_jwt/",
+    "update_balance_jwt": "http://usersapp:8000/auth/"
+                   "balances/api/v1/p/displayed_balance_jwt/update/",
+    "update_balance": "http://usersapp:8000/auth/"
+                   "balances/api/v1/p/displayed_balance/{client_id}/update/",
+    "update_hidden_balance": "http://usersapp:8000/auth/"
+                   "balances/api/v1/p/hidden_balance/{client_id}/update/",
+}
+
+CORE_MICROSERVICE_ROUTES = {
+    "get_funds": "http://coreapp:8000/private/api/v1/funds/get"
+                 "-displayed/",
+    "increase_site_funds": "http://coreapp:8000/private/api/v1/funds"
+                           "/increase/",
+    "decrease_site_funds": "http://coreapp:8000/private/api/v1/funds"
+                           "/decrease/",
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    },
+}
