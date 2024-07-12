@@ -257,7 +257,7 @@
 
 @media (aspect-ratio < 1/1) {
     .bg-filter {
-        height: 170vh;
+        height: 100vh;
         background: linear-gradient(0deg, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.6) 270%, rgba(0, 0, 0, 1) 90%);
     }
 

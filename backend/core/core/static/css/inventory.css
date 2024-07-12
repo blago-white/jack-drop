@@ -1,20 +1,13 @@
 @import "variables.css";
 
-
-.bg-filter-img {
-    background: black url('../svg/sharp.svg');
-    background-size: contain;
-    background-repeat: repeat;
-}
-
-.bg-filter {
-    display: none;
-}
-
 .inventory-sec {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.dropped.mono {
+    background: radial-gradient(50% 50% at 50% 50%, rgba(79, 160, 255, 0.8) 0%, rgba(0, 71, 255, 0.8) 100%);
 }
 
 .item-price span {

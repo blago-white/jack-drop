@@ -1,11 +1,9 @@
 @import 'variables.css';
 
 .bg-filter-img {
-    background: black url('/core/static/svg/sharp.svg');
-}
+    background: url('/core/static/img/bg.jpg');
+    background-size: cover;
 
-.bg-filter {
-    display: none;
 }
 
 .case-drop-sec {
@@ -23,6 +21,10 @@
     height: 26.7ch;
     position: absolute;
     z-index: 100;
+}
+
+.prize-body {
+    background: transparent;
 }
 
 .dropped {
@@ -52,7 +54,7 @@
     width: max-content;
     padding-left: calc(100vw * calc(48 / var(--reference-display-w)));
 
-    transition: margin 5s ease-in-out;
+    transition: margin 7s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 
 .w-line {

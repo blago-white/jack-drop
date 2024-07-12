@@ -33,8 +33,12 @@
         </nav>
 
         <div class="lang-switcher" id="lang-switch">
-            <button class="button" onclick="setLang('en')" style="border: none;height: 100%;">English</button>
-            <button class="button" onclick="setLang('ru')" style="border: none;height: 100%;">Русский</button>
+            <button class="button" onclick="setLang('en')" id="en" style="border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;">
+                <img src="{% static 'img/en.png' %}"> English
+            </button>
+            <button class="button" onclick="setLang('ru')" id="ru">
+                <img src="{% static 'img/ru.png' %}"> Русский
+            </button>
         </div>
 
         <button class="super-button" onclick="window.location.href = '{% url 'account' %}'">

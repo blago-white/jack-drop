@@ -49,8 +49,10 @@ async function getItems() {
                 </article>
             `
 
-            if (w > h) {                document.getElementById('inventory-items').innerHTML += html;
-            } else {                document.getElementById('inventory-items-mob').innerHTML += html;
+            if (w > h) {
+                document.getElementById('inventory-items').innerHTML += html;
+            } else {
+                document.getElementById('inventory-items-mob').innerHTML += html;
             }
 
             grantedItems.set(element.id, element.item);
@@ -147,7 +149,7 @@ function selectItem(id) {
         emptyPos.add(selected.get(id).pos);
         return unselectItem(id);
     } else {
-        empty = Array.from(emptyPos.keys())[0];
+        empty = Math.min(...Array.from(emptyPos.keys()));
         selected.set(id, {pos: empty});
         emptyPos.delete(empty);
     }

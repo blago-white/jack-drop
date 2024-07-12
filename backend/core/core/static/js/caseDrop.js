@@ -158,8 +158,6 @@ async function dropCase() {
 
     const dropped = result.dropped_item;
 
-    console.log('---R', result);
-
     const position = dropItemsPositions.get(dropped.id);
 
     console.log(position);
@@ -180,7 +178,7 @@ async function dropCase() {
         setTimeout(() => {
             renderItemPrize(dropped.title, dropped.price, dropped.image_path, "Amazing!")
         }, 500);
-    }, 5000);
+    }, 7000);
 }
 
 function animateRoulette(to, count) {

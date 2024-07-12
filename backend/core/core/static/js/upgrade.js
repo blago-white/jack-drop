@@ -218,21 +218,26 @@ async function animateResult(result) {
     document.getElementById('u-m-2').style.filter = 'brightness(250)';
     document.getElementById('u-d-2').style.filter = 'brightness(250)';
 
-    let m = 40;
+    let m = 100;
     let c = 0;
     let wChanged = false;
     let randomYfactor1 = 0;
     let randomYfactor2 = 0;
+
+    let maxFactor = 40;
+
     let item;
 
     while ((Date.now() - start) < 3000) {
-        await sleep(30);
+        await sleep(15);
 
-        let factor = randomIntFromInterval(0, 40);
+        let factor = randomIntFromInterval(Math.ceil(maxFactor/2), maxFactor);
+
+        maxFactor = 5 * Math.min((Date.now() - start) / 50, 8)
 
         if (!wChanged) {
-            randomYfactor1 = randomIntFromInterval(-40, 40);
-            randomYfactor2 = randomIntFromInterval(-40, 40);
+            randomYfactor1 = randomIntFromInterval(-maxFactor, maxFactor);
+            randomYfactor2 = randomIntFromInterval(-maxFactor, maxFactor);
         } else {
             randomYfactor1 = 0;
             randomYfactor2 = 0;
@@ -299,7 +304,7 @@ function updatePercent() {
         ))
     }
 
-    console.log(newPercent, (((selectedGrantedBalance>0) | (selectedGranted != null)) && (selectedReceive != null)), "---")
+    chanceCicle.src = `/core/static/img/upgrade-chance-${25*(Math.ceil(newPercent / 25))}.png`;
 
     if (((selectedGrantedBalance>0) | (selectedGranted != null)) && (selectedReceive != null)) {
         document.getElementById('upgrade-percent').innerHTML = `${newPercent}%`;

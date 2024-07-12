@@ -86,7 +86,18 @@ async function makeMinesGame() {
         gameStarted = true;
         fundsDiff = result.user_funds_diff;
 
-        document.getElementById('controls').style = 'opacity: .2;cursor: default;pointer-events: none;';
+        document.getElementById('mines-game-form').innerHTML = `
+            <div class="super-button">
+                <span class="super-button-bg noactive"></span>
+                <span class="super-button-text" style="gap: 0px;">Receive: 0.0 <img src="/core/static/img/scrap.png" style="width: 3ch"></span>
+            </div>
+            <button class="super-button" type="submit" onclick="location.href = location.href">
+                <span class="super-button-bg"></span>
+                <span class="super-button-text">End game!</span>
+            </button>
+        `;
+
+//        document.getElementById('controls').style = 'opacity: .2;cursor: default;pointer-events: none;';
     } else {
         const resultJson = await result.json();
 

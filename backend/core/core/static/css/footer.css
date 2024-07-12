@@ -37,6 +37,11 @@
 .doc-link {
     color: #979797;
     cursor: pointer;
+    text-transform: uppercase;
+}
+
+.footer-docs-list li {
+    padding-bottom: .25ch;
 }
 
 .doc-link:hover {
