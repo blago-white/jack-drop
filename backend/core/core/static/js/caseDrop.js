@@ -53,7 +53,7 @@ export async function getCase(id) {
 
     caseId = id;
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/cases/api/v1/case/${id}/items/`,
         requestOptions
     );
@@ -143,7 +143,7 @@ async function dropCase() {
       redirect: "follow"
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/games/drop/${caseId}/`,
         requestOptions
     );

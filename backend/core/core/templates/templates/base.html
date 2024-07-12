@@ -29,7 +29,7 @@
         {% block main %}
         {% endblock %}
     </main>
-    <footer class="footer">
+    <footer class="footer" id="footer-w">
         <div class="site-info">
             <img src="{% static 'img/JD-mono.png' %}">
             <span class="c"><b>© 2018-2024 JackDrop</b><br>{% trans 'Best Cases' %}</span>
@@ -57,11 +57,11 @@
     <script src="{% static 'js/header.js' %}"></script>
     <script src="{% static 'js/prize.js' %}" type="module"></script>
     <script src="{% static 'js/langs.js' %}"></script>
+    <script src="{% static 'js/auth.js' %}"></script>
     <script>
         function randomIntFromInterval(min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min);
         };
-
     </script>
     {% block extrascripts %}
     {% endblock %}

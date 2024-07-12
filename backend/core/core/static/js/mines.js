@@ -57,7 +57,7 @@ async function sendMakeRequest(formData) {
       redirect: "follow"
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/games/mines/`,
         requestOptions
     );

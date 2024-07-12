@@ -33,7 +33,7 @@ async function getCases() {
       redirect: "follow"
     };
 
-    const response = await fetch("http://localhost/products/cases/api/v1/by-categories/?"+params, requestOptions);
+    const response = await sendRequest("http://localhost/products/cases/api/v1/by-categories/?"+params, requestOptions);
 
     const result = await response.json();
 

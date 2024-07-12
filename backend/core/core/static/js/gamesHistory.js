@@ -9,7 +9,7 @@ const gamesMapping = {
 };
 
 async function getHistory() {
-    const response = await fetch("/products/games/history/1/");
+    const response = await sendRequest("/products/games/history/1/");
 
     if (!response.ok) {
         alert('Error with history')

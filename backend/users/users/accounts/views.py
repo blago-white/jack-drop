@@ -14,9 +14,12 @@ from .repositories.users import UsersRepository
 class SteamAuthView(RedirectView):
     def get(self, request: HttpRequest, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect("/")
+            return redirect("http://localhost/")
 
-        return auth(response_url=reverse("login-callback"), use_ssl=False)
+        return auth(
+            response_url="http://localhost" + reverse("login-callback"),
+            use_ssl=False
+        )
 
 
 class SteamAuthProcessView(RedirectView):
@@ -26,7 +29,7 @@ class SteamAuthProcessView(RedirectView):
         steam_uid = get_uid(results=request.GET)
 
         if steam_uid is None:
-            return redirect(to="/?loginfail=1")
+            return redirect(to="http://localhost/?loginfail=1")
 
         token = self.repository.get(
             steam_id=steam_uid
@@ -38,10 +41,10 @@ class SteamAuthProcessView(RedirectView):
             )
 
         response = HttpResponseRedirect(
-            redirect_to="/",
+            redirect_to="http://localhost/",  # TODO: Remove localhost
         )
 
-        response.set_cookie('authjwtaccess', token.get("access"))
-        response.set_cookie('authjwtrefresh', token.get("refresh"))
+        response.set_cookie('access', token.get("access"))
+        response.set_cookie('refresh', token.get("refresh"))
 
         return response
