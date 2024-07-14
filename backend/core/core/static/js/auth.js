@@ -54,7 +54,7 @@ async function refreshJWT() {
 
         setCookie("access", result.access);
 
-        return true;
+        return result.access;
     }
 }
 
@@ -71,18 +71,17 @@ async function sendRequest(url, requestOptions, __req = false) {
         requestOptions.headers = new Headers();
     }
 
-    console.log(getAccess());
-
     if (getAccess()) {
-        console.log("ADD HEADER");
-        requestOptions.headers.append("Authorization", getAccess());
-    }
+        if (requestOptions.headers.has("Authorization")) {
+            requestOptions.headers.delete("Authorization");
+        }
 
-    console.log(requestOptions.headers, "|||||");
+        requestOptions.headers.append("Authorization", "Bearer "+getAccess());
+    }
 
     response = await fetch(url, requestOptions);
 
-    if (response.status == 401) {
+    if (response.status == 401 || response.status == 403) {
         const resultRefresh = await refreshJWT();
 
         if (resultRefresh && (!__req)) {
@@ -92,3 +91,36 @@ async function sendRequest(url, requestOptions, __req = false) {
 
     return response;
 }
+
+async function getUserData() {
+    const response = await sendRequest("/auth/api/v1/public/user/", {method: "GET", headers: new Headers()});
+
+    if (!response.ok) {
+        return false;
+    } else {
+        return await response.json();
+    }
+}
+
+async function getAuthenticated() {
+    if (getRefresh()) {
+        return await getUserData();
+    } else {
+        return false;
+    }
+}
+
+async function transformButton() {
+    const authenticated = await getAuthenticated();
+
+    if (authenticated) {
+        document.getElementById('acc-username-header').innerHTML = authenticated.username;
+        document.getElementById('acc-balance-header').innerHTML = `${authenticated.balance} <img src="/core/static/img/gear.png">`;
+        document.getElementById('account-info-btn').style = "";
+        document.getElementById('auth-required-btn').style.display = "none";
+    } else {
+        document.getElementById('auth-required-btn').style = "";
+    }
+}
+
+transformButton();

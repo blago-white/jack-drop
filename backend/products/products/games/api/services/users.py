@@ -1,7 +1,8 @@
 import requests
 from django.conf import settings
 from rest_framework.request import Request
-
+from rest_framework.exceptions import AuthenticationFailed
+code=401
 from games.serializers.users import GetUserInfoEndpointSerializer
 from .base import BaseApiService
 
@@ -13,6 +14,8 @@ class UsersApiService(BaseApiService):
     def get_user_info(
             self, user_request: Request = None,
             jwt: str = None) -> dict:
+        print("|_____", user_request, jwt, "|", user_request.auth, "|", user_request.headers)
+
         if user_request:
             return self.send_auth_get_api_request(
                 path=self.routes.get("get_info"),
@@ -79,12 +82,26 @@ class UsersApiService(BaseApiService):
             user_request: Request = None,
             auth_header: str = None
     ) -> dict:
-        auth_header = user_request.auth if auth_header is None else auth_header
+        if not (user_request or auth_header):
+            print("RAISED!!!")
+            raise AuthenticationFailed()
 
-        return requests.get(
+        auth_header = (
+            user_request.headers.get("Authorization")
+        ) if auth_header is None else (
+            auth_header
+        )
+
+        response = requests.get(
             path,
             headers={"Authorization": auth_header},
-        ).json()
+        )
+
+        if response.status_code == 401:
+            print("RAISED!!!")
+            raise AuthenticationFailed()
+
+        return response.json()
 
     @staticmethod
     def send_auth_patch_api_request(
@@ -93,11 +110,19 @@ class UsersApiService(BaseApiService):
             auth_header: str = None,
             data: dict = None
     ) -> dict:
-        if not auth_header:
-            auth_header = user_request.auth
+        if not (user_request or auth_header):
+            raise AuthenticationFailed()
 
-        return requests.patch(
+        if not auth_header:
+            auth_header = user_request.headers.get("Authorization")
+
+        response = requests.patch(
             path,
             headers={"Authorization": auth_header},
             data=data or {}
-        ).json()
+        )
+
+        if not response.ok:
+            raise AuthenticationFailed()
+
+        return response.json()

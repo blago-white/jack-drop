@@ -9,13 +9,13 @@ from rest_framework.permissions import IsAuthenticated
 from common.mixins import BaseDetailedCreateApiViewMixin
 from common.api.default import DefaultRetrieveApiView, DefaultCreateApiView
 
-from accounts.repositories.users import UsersRepository
+from accounts.repositories.users import PrivateUsersRepository
 from accounts.repositories.deposits import DepositRepository
 
 
 class UserDataPrivateApiView(DefaultRetrieveApiView):
     lookup_url_kwarg = "user_id"
-    repository = UsersRepository()
+    repository = PrivateUsersRepository()
     serializer_class = repository.default_serializer_class
 
     def retrieve(self, request: Request, **kwargs):
@@ -30,10 +30,12 @@ class UserDataPrivateApiView(DefaultRetrieveApiView):
 
 
 class JWTUserDataPrivateApiView(DefaultRetrieveApiView):
-    repository = UsersRepository()
+    repository = PrivateUsersRepository()
     serializer_class = repository.default_serializer_class
 
     def retrieve(self, request: Request, **kwargs):
+        print(request.auth, request, "DDE")
+
         user_data = self.repository.get_user_info_by_jwt(
             request=request
         )

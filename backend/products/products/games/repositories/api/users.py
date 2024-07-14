@@ -15,6 +15,8 @@ class UsersApiRepository(BaseApiRepository):
             user_request=user_request
         )
 
+        print("FROM USERS:", data)
+
         return DetailedUserFundsSerializer(instance=data).data
 
     def get_by_jwt(self, jwt_token: str) -> dict:

@@ -20,7 +20,7 @@ from rest_framework_simplejwt.views import (TokenObtainPairView,
                                             TokenRefreshView,
                                             TokenVerifyView)
 
-from accounts.api.endpoints import TokenVerifyHeaderView
+from accounts.api.private import TokenVerifyHeaderView
 
 urlpatterns = [
     path('auth/admin/', admin.site.urls),

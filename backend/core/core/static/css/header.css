@@ -75,7 +75,7 @@
     aspect-ratio: 1 / 1;
 }
 
-#small-lg-text {
+.small-lg-text {
     display: none;
 }
 
@@ -129,11 +129,11 @@
         width: 100%;
     }
 
-    #small-lg-text {
+    .small-lg-text {
         display: initial;
     }
 
-    #large-lg-text {
+    .large-lg-text {
         display: none;
     }
 

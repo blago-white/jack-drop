@@ -14,10 +14,13 @@ class ReadOnlyModelSerializer(ModelSerializer):
         raise NotImplementedError()
 
 
-class ClientSerializer(ReadOnlyModelSerializer):
+class PrivateClientSerializer(ReadOnlyModelSerializer):
+    displayed_balance = serializers.FloatField(allow_null=True, default=0)
+    user_advantage = serializers.FloatField(source="advantage")
+
     class Meta:
         model = Client
-        fields = ["id", "username", "promocode"]
+        fields = ["id", "username", "promocode", "user_advantage", "displayed_balance"]
         read_only_fields = ["id"]
 
 
@@ -34,6 +37,17 @@ class ClientDepositSerializer(ModelSerializer):
 
 class UpdateAdvantageSerializer(Serializer):
     delta_amount = FloatField()
+
+
+class PublicClientSerializer(ReadOnlyModelSerializer):
+    balance = serializers.FloatField(allow_null=True,
+                                     default=0,
+                                     source="displayed_balance")
+
+    class Meta:
+        model = Client
+        fields = ["username", "promocode", "balance"]
+        read_only_fields = ["__all__"]
 
 
 class TokenObtainPairWithoutPasswordSerializer(TokenObtainPairSerializer):

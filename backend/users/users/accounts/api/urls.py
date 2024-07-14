@@ -1,7 +1,8 @@
 from django.urls import path, include
 
-from .endpoints import (UserDataPrivateApiView, AddDepositApiView,
-                        UserAdvantageRetrieveAPIView, JWTUserDataPrivateApiView)
+from .private import (UserDataPrivateApiView, AddDepositApiView,
+                      UserAdvantageRetrieveAPIView, JWTUserDataPrivateApiView)
+from .public import UserDataApiView
 
 private_urlpatterns = [
     path("get_user_info/<int:user_id>/", UserDataPrivateApiView.as_view()),
@@ -10,6 +11,11 @@ private_urlpatterns = [
     path("advantage/", UserAdvantageRetrieveAPIView.as_view()),
 ]
 
+public_urlpatterns = [
+    path("user/", UserDataApiView.as_view()),
+]
+
 urlpatterns = [
     path("api/v1/p/", include((private_urlpatterns, "private-accounts"))),
+    path("api/v1/public/", include((public_urlpatterns, "private-accounts"))),
 ]

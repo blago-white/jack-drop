@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 
-from .repositories.users import UsersRepository
+from .repositories.users import PrivateUsersRepository
 
 
 class SteamAuthView(RedirectView):
@@ -23,7 +23,7 @@ class SteamAuthView(RedirectView):
 
 
 class SteamAuthProcessView(RedirectView):
-    repository = UsersRepository()
+    repository = PrivateUsersRepository()
 
     def get(self, request, *args, **kwargs):
         steam_uid = get_uid(results=request.GET)
