@@ -61,9 +61,11 @@ class UsersApiService(BaseApiService):
                 client_id=user_id
             ),
             data={"delta_amount": delta_amount}
-        ).json()
+        )
 
-        return response.get("ok")
+        print("UPDATE RESPONSE:", response, response.json())
+
+        return response.json().get("ok")
 
     def update_user_hiden_balance(self, user_id: int,
                                   delta_amount: float):

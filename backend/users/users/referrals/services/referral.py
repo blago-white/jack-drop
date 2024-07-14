@@ -44,6 +44,9 @@ class ReferralService(BaseService):
 
         self._model.objects.filter(pk=referr_id).update(benefit=level)
 
+    def user_exists(self, user_id: int) -> bool:
+        return self._model.objects.filter(user_id=user_id).exists()
+
     def create(self, user_id: int,
                referr: int = None,
                benefit: Model = None) -> Model:

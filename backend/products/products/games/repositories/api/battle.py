@@ -200,17 +200,15 @@ class BattleApiRepository(_BaseBattleApiRepository):
         return result
 
     def _commit_result(self, battle_result: dict, case_price: float | int):
-        # self._users_service.update_user_balance_by_id(
-        #     delta_amount=-case_price,
-        #     user_id=battle_result.get("winner_id")
-        # )
+        self._users_service.update_user_balance_by_id(
+            delta_amount=-case_price,
+            user_id=battle_result.get("winner_id")
+        )
 
-        # self._users_service.update_user_balance_by_id(
-        #     delta_amount=-case_price,
-        #     user_id=battle_result.get("loser_id")
-        # )
-
-        # TODO: Uncomment
+        self._users_service.update_user_balance_by_id(
+            delta_amount=-case_price,
+            user_id=battle_result.get("loser_id")
+        )
 
         self._inventory_service.add_item(
             owner_id=battle_result.get("winner_id"),

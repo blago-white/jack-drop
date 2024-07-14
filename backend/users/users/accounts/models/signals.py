@@ -14,17 +14,23 @@ def update_referral_level(sender, instance, **kwargs) -> None:
 
 
 def create_referral(sender, instance, **kwargs) -> None:
-    ReferralService(
-        deposit_model=instance.__class__
-    ).create(
-        user_id=instance.pk,
-    )
+    if not ReferralService(deposit_model=instance.__class__).user_exists(
+        user_id=instance.pk
+    ):
+        ReferralService(
+            deposit_model=instance.__class__
+        ).create(
+            user_id=instance.pk,
+        )
 
 
 def create_balance(sender, instance, **kwargs) -> None:
-    ClientBalanceService().create(
-        client_id=instance.pk,
-    )
+    if not ClientBalanceService().get_balance(
+        client_id=instance.pk
+    ):
+        ClientBalanceService().create(
+            client_id=instance.pk,
+        )
 
 
 post_save.connect(update_referral_level,

@@ -191,7 +191,7 @@ async function makeUpgrade() {
       redirect: "follow"
     };
 
-    const response = sendRequest(
+    const response = await sendRequest(
         `http://localhost/products/games/upgrade/`,
         requestOptions
     );
