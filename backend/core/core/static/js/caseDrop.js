@@ -80,7 +80,7 @@ export async function getCase(id) {
         dropItemsPositions.set(element.case_item_id, c);
     });
 
-    dropItemsString.innerHTML += line + line + line + line + line + line + line;
+    dropItemsString.innerHTML += line + line + line + line + line + line + line + line + line;
 
     await dropCase();
 }
@@ -190,13 +190,18 @@ function animateRoulette(to, count) {
 
         const biasVal = gap + partWith + 1;
 
-        dropItemsString.style.marginLeft = `-${((biasVal * count) * 5) + ((to-3) * biasVal)}px`;
+        dropItemsString.style.marginLeft = `-${((biasVal * count) * 7) + ((to-3) * biasVal)}px`;
+
+        dropItemsString.style.transition = `filter 3s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.09, 0.16, 0.9)`;
+        dropItemsString.style.filter = `blur(.5ch)`;
+
+        setTimeout(() => {dropItemsString.style.transition = `filter 4s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.09, 0.16, 0.9)`;dropItemsString.style.filter = `blur(0ch)`}, 3000)
     } else {
         const partWith = 100 * vw * (331 / 960) + 5;
 
         const biasVal = gap + partWith;
 
-        dropItemsString.style.marginTop = `-${((biasVal * count) * 5) + ((to) * biasVal)}px`;
+        dropItemsString.style.marginTop = `-${((biasVal * count) * 7) + ((to) * biasVal)}px`;
     }
 }
 

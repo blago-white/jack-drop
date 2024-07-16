@@ -66,6 +66,52 @@
     width: 80%;
 }
 
+@keyframes glow-rotate {
+    0% {
+        rotate: 0deg;
+    }
+
+    50% {
+        rotate: 2.5deg;
+    }
+
+    100% {
+        rotate: 0deg;
+    }
+}
+
+@keyframes glow-flickering {
+    0% {
+        filter: brightness(1) hue-rotate(0deg);
+        transform: scale(1);
+    }
+
+    25% {
+        filter: brightness(.95) hue-rotate(90deg);
+        transform: scale(1.05);
+    }
+
+    50% {
+        filter: brightness(.9) hue-rotate(180deg);
+        transform: scale(1.1);
+    }
+    100% {
+        filter: brightness(1) hue-rotate(0deg);
+        transform: scale(1);
+    }
+}
+
+.receive-item-glow {
+    position: absolute;
+    height: 47vh;
+    rotate: 180deg;
+    z-index: 1000;
+    top: 17vh;
+    filter: brightness(1);
+    pointer-events: none;
+    transition: transform 3s ease, opacity 3s ease-in-out;
+}
+
 body {
     height: auto;
     background: url('../img/upgrade-bg.jpg');

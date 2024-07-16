@@ -54,7 +54,7 @@
     width: max-content;
     padding-left: calc(100vw * calc(48 / var(--reference-display-w)));
 
-    transition: margin 7s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+    transition: margin 7s cubic-bezier(0.02, 0.29, 0.31, 0.77);
 }
 
 .w-line {

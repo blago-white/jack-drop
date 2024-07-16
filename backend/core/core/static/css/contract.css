@@ -130,6 +130,9 @@
 
 .cells-row {
     display: flex;
+    z-index: 0;
+
+    transition: all 5s ease-in-out;
 }
 
 .cells-row span {

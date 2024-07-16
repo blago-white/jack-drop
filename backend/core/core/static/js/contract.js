@@ -15,6 +15,10 @@ function gcd (a, b) {
     return (b == 0) ? a : gcd (b, a%b);
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function getItems() {
     const formdata = new FormData();
     const requestOptions = {
@@ -96,6 +100,20 @@ function unselectItem(id) {
     selected.delete(id);
 }
 
+async function animateContract() {
+    document.getElementById('cells-row-1').style = 'transform: translateY(31vh);gap: 0px;';
+
+    document.getElementById('cells-row-2').style = 'transform: translateY(16vh);gap: 0px;';
+
+    document.getElementById('cells-row-3').style = 'gap: 0px;';
+
+    document.getElementById('cells-row-4').style = 'transform: translateY(-21vh);gap: 0px;';
+
+    document.getElementById('cells-row-5').style = 'transform: translateY(-31vh);gap: 0px;';
+
+    await sleep(5000);
+}
+
 async function makeContract() {
     const myHeaders = new Headers();
 
@@ -119,6 +137,8 @@ async function makeContract() {
         `http://localhost/products/games/contract/`,
         requestOptions
     );
+
+    await animateContract();
 
     if (!response.ok) {
         alert("Error with operation, try again later");
