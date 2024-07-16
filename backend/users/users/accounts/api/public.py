@@ -1,7 +1,6 @@
 from rest_framework.generics import RetrieveAPIView
 
 from common.mixins import BaseRetrieveApiViewMixin
-
 from ..repositories.users import PublicUsersRepository
 
 

@@ -2,7 +2,7 @@ from rest_framework.serializers import ModelSerializer, Serializer, FloatField
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from accounts.models import Client, ClientDeposit
+from accounts.models import Client
 from accounts.services.users import UsersService
 
 
@@ -24,17 +24,6 @@ class PrivateClientSerializer(ReadOnlyModelSerializer):
         read_only_fields = ["id"]
 
 
-class ClientDepositSerializer(ModelSerializer):
-    user_id = serializers.PrimaryKeyRelatedField(
-        queryset=UsersService().get_all()
-    )
-
-    class Meta:
-        fields = ["user_id", "amount", "datetime"]
-        read_only_fields = ["datetime"]
-        model = ClientDeposit
-
-
 class UpdateAdvantageSerializer(Serializer):
     delta_amount = FloatField()
 
@@ -46,7 +35,7 @@ class PublicClientSerializer(ReadOnlyModelSerializer):
 
     class Meta:
         model = Client
-        fields = ["username", "promocode", "balance"]
+        fields = ["id", "username", "promocode", "balance"]
         read_only_fields = ["__all__"]
 
 

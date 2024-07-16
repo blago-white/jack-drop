@@ -1,16 +1,8 @@
 from django.db.models.signals import post_save
 
-from .client import ClientDeposit, Client
+from .client import Client
 from referrals.services.referral import ReferralService
 from balances.serivces.balance import ClientBalanceService
-
-
-def update_referral_level(sender, instance, **kwargs) -> None:
-    ReferralService(
-        deposit_model=instance.__class__
-    ).update_referral_level(
-        referr_id=instance.user.referral.first().referr
-    )
 
 
 def create_referral(sender, instance, **kwargs) -> None:
@@ -32,10 +24,6 @@ def create_balance(sender, instance, **kwargs) -> None:
             client_id=instance.pk,
         )
 
-
-post_save.connect(update_referral_level,
-                  sender=ClientDeposit,
-                  dispatch_uid="update_referral_level")
 
 post_save.connect(create_referral,
                   sender=Client,

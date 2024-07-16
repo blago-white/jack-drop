@@ -16,11 +16,10 @@
         </span>
         <div class="account-data">
             <div class="account-name">
-                <span class="account-usrname">
-                    ПОЧТА
-                    <span class="account-id-val">ID 49853498</span>
+                <span class="account-usrname" id="usr-name">
+<!--                    <span class="account-id-val">ID 49853498</span>-->
                 </span>
-                <span class="account-lvl">0</span>
+                <span class="account-lvl" id="balance"></span>
             </div>
         </div>
         <a href="{% url 'replenish' %}" class="button button-colorized blue donate-btn-acc">{% trans 'Replenish' %}</a>
@@ -113,5 +112,6 @@
 
     setCount();
 </script>
+<script src="{% static 'js/account.js' %}"></script>
 <script src="{% static 'js/inventory.js' %}" type="module"></script>
 {% endblock %}

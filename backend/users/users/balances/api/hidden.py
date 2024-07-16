@@ -1,7 +1,8 @@
-from common.api.default import DefaultRetrieveApiView, DefaultUpdateApiView
-
-from ..repositories.balance import BalanceRepository
 from accounts.repositories.advantage import AdvantageRepository
+from common.api.default import DefaultUpdateApiView, DefaultCreateApiView
+from common.mixins import BaseDetailedCreateApiViewMixin
+from ..repositories.balance import BalanceRepository
+from ..repositories.deposits import DepositRepository
 from ..serializers import UpdateClientBalanceSerializer
 
 
@@ -28,3 +29,24 @@ class DisplayedBalanceUpdateApiView(DefaultUpdateApiView):
             ))
 
         return self.get_201_response(data=balance_result)
+
+
+class AddDepositApiView(BaseDetailedCreateApiViewMixin, DefaultCreateApiView):
+    repository = DepositRepository()
+    serializer_class = repository.default_serializer_class
+    _client_id_param_name = "user_id"
+    _deposit_amount_param_name = "amount"
+
+    def create(self, request, *args, **kwargs):
+        return self.get_201_response(
+            data=self.repository.create(
+                client_id=self.get_requested_pk(),
+                amount=self._get_deposit_amount()
+            )
+        )
+
+    def get_requested_pk(self) -> int:
+        return self.request.data.get(self._client_id_param_name)
+
+    def _get_deposit_amount(self) -> int:
+        return self.request.data.get(self._deposit_amount_param_name)

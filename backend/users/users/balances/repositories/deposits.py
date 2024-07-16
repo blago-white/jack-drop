@@ -1,7 +1,7 @@
 from common.repositories import BaseRepository
 
-from ..services.deposits import DepositsService
-from ..serializers import ClientDepositSerializer
+from balances.serivces.deposits import DepositsService
+from balances.serializers import ClientDepositSerializer
 
 
 class DepositRepository(BaseRepository):

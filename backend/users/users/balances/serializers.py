@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
-from .models import ClientBalance
+from accounts.services.users import UsersService
+
+from .models import ClientBalance, ClientDeposit
 
 
 class ClientBalanceSerializer(serializers.ModelSerializer):
@@ -12,3 +14,14 @@ class ClientBalanceSerializer(serializers.ModelSerializer):
 
 class UpdateClientBalanceSerializer(serializers.Serializer):
     delta_amount = serializers.FloatField(required=True)
+
+
+class ClientDepositSerializer(serializers.ModelSerializer):
+    user_id = serializers.PrimaryKeyRelatedField(
+        queryset=UsersService().get_all()
+    )
+
+    class Meta:
+        fields = ["user_id", "amount", "datetime"]
+        read_only_fields = ["datetime"]
+        model = ClientDeposit

@@ -1,4 +1,4 @@
-from accounts.models import ClientDeposit
+from balances.models import ClientDeposit
 from common.repositories import BaseRepository
 from referrals.serializers import ReferralStatusSerializer, ReferralLinkSerializer
 from referrals.services import referral

@@ -107,6 +107,7 @@ class PublicUsersRepository(BaseUsersRepository):
 
         serialized: PublicClientSerializer = self._serializer_class(
             instance={
+                "id": user.pk,
                 "username": user.username,
                 "promocode": user.promocode,
                 "displayed_balance": self._balance_service.get_balance(
