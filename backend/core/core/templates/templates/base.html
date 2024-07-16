@@ -18,10 +18,8 @@
         <div class="bg-filter" style="z-index: 0;"></div>
     </div>
     <div id="prize-wrappper">
+        <img class="prize-glow" id="prize-glow" src="{% static 'img/glow.png' %}">
         <div class="prize-body" id="prize-body">
-            <button class="close-prize-btn" onclick="closePrizeWindow()">
-                <img src="{% static 'img/cross.png' %}">
-            </button>
         </div>
     </div>
     {% include 'header.html' %}

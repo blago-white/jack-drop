@@ -109,7 +109,7 @@
     top: 17vh;
     filter: brightness(1);
     pointer-events: none;
-    transition: transform 3s ease, opacity 3s ease-in-out;
+    transition: transform 3s ease, opacity 3s 1s ease-in-out;
 }
 
 body {

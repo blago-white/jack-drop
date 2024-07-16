@@ -184,33 +184,92 @@ button {
     height: 100vh;
     top: 0px;
     left: 0px;
-    background: red;
     display: none;
     z-index: 10000;
-    backdrop-filter: blur(.25ch);
-    background: rgba(26, 26, 26, 0.7);
 
-    opacity: 0;
     visibility: hidden;
 
-    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+    transition: opacity 0.3s ease, visibility 1s linear, backdrop-filter .5s ease;
+}
+
+@keyframes glow-rotate {
+    0% {
+        rotate: 0deg;
+    }
+
+    50% {
+        rotate: 25deg;
+    }
+
+    100% {
+        rotate: 0deg;
+    }
+}
+
+@keyframes glow-flickering {
+    0% {
+        filter: brightness(1) hue-rotate(0deg);
+    }
+
+    25% {
+        filter: brightness(.95) hue-rotate(90deg);
+    }
+
+    50% {
+        filter: brightness(.9) hue-rotate(180deg);
+    }
+    100% {
+        filter: brightness(1) hue-rotate(0deg);
+    }
+}
+
+@keyframes glow-sizing {
+    0% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.05);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.prize-glow {
+    position: fixed;
+    height: 100vh;
+    margin-inline:auto;
+    opacity: 0;
+    transform: scale(0);
+    pointer-events: none;
+
+    transition: transform 1.5s ease, opacity 1.5s ease-in-out, animation 1.5s ease-in-out;
+}
+
+.prize-glow.active {
+    opacity: 1;
+    transform: scale(1);
+    animation: infinite ease-in-out 0s glow-flickering, infinite ease-in-out 0s glow-rotate, infinite ease-in-out 1.5s glow-sizing;
 }
 
 .prize-body {
     min-width: calc(100vw* calc(200 / var(--reference-display-w)));
     max-width: calc(100vw* calc(865 / var(--reference-display-w)));
     padding: calc(100vw* calc(25 / var(--reference-display-w)));
-    background: black;
-    border: 2px solid #FF62CA;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1ch;
-    transform: translateY(-90vh);
+    transform: scale(0);
 
     border-radius: calc(100vw* calc(32 / var(--reference-display-w)));
 
-    transition: transform 0.3s ease-in-out;
+    transition: transform 1s ease-in-out;
 }
 
 .prize-body h3 {
@@ -260,6 +319,11 @@ button {
 
     .super-button-bg {
         border-radius: calc(100vw * calc(30 / 1920))!important;
+    }
+
+    .prize-glow {
+        height: 100vw;
+        rotate: 90deg!important;
     }
 
     .prize-body {

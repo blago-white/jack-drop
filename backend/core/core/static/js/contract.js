@@ -11,8 +11,11 @@ let grantedItems = new Map();
 
 let priceMapping = new Map();
 
-function gcd (a, b) {
-    return (b == 0) ? a : gcd (b, a%b);
+function gcd () {
+    const w = screen.width;
+    const h = screen.height;
+
+    return w/h;
 }
 
 function sleep(ms) {
@@ -101,17 +104,44 @@ function unselectItem(id) {
 }
 
 async function animateContract() {
-    document.getElementById('cells-row-1').style = 'transform: translateY(31vh);gap: 0px;';
+    if (gcd() > 1/1) {
 
-    document.getElementById('cells-row-2').style = 'transform: translateY(16vh);gap: 0px;';
+        document.getElementById('cells-row-1').style = 'transform: translateY(31vh);gap: 0px;';
 
-    document.getElementById('cells-row-3').style = 'gap: 0px;';
+        document.getElementById('cells-row-2').style = 'transform: translateY(16vh);gap: 0px;';
 
-    document.getElementById('cells-row-4').style = 'transform: translateY(-21vh);gap: 0px;';
+        document.getElementById('cells-row-3').style = 'gap: 0px;';
 
-    document.getElementById('cells-row-5').style = 'transform: translateY(-31vh);gap: 0px;';
+        document.getElementById('cells-row-4').style = 'transform: translateY(-21vh);gap: 0px;';
 
-    await sleep(5000);
+        document.getElementById('cells-row-5').style = 'transform: translateY(-31vh);gap: 0px;';
+
+
+        document.getElementById('contract-glow').style.transform = 'scale(1.5)';
+
+        setTimeout(() => {
+            document.getElementById('contract-glow').style.transform = 'scale(1)';
+        }, 1000)
+
+        setTimeout(() => {
+            document.getElementById('contract-glow').style.animation = 'infinite ease-in-out 0s glow-flickering, infinite ease-in-out 0s glow-rotate, infinite ease-in-out 1.5s glow-sizing';
+        }, 2000)
+
+        await declineAmount();
+        await sleep(5000);
+    }
+}
+
+async function declineAmount() {
+    let val = parseInt(document.getElementById('contract-amount').innerHTML);
+
+    while (val>0) {
+        document.getElementById('contract-amount').innerHTML = `${val}`;
+        val -= 10;
+        await sleep(1);
+    }
+
+    document.getElementById('contract-amount').innerHTML = `0`;
 }
 
 async function makeContract() {
@@ -120,8 +150,6 @@ async function makeContract() {
     selected.forEach((element, element_id) => {
         document.getElementById(element_id).remove()
     })
-
-    document.getElementById('contract-amount').innerHTML = "0";
 
     myHeaders.append("X-CSRFToken", document.cookie.split("=")[1].split(";")[0]);
     myHeaders.append("Content-Type", "application/json");

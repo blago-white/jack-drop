@@ -22,6 +22,13 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function gcd () {
+    const w = screen.width;
+    const h = screen.height;
+
+    return w/h;
+}
+
 function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -211,66 +218,14 @@ async function makeUpgrade() {
 }
 
 async function animateResult(result) {
-    document.getElementById('receive-item-glow').style.transform = "scale(1)";
-    document.getElementById('receive-item-glow').style.opacity = "1";
-    document.getElementById('receive-item-glow').style.animation = "1s ease-in-out 2s infinite glow-flickering, ease-in-out 2s infinite glow-rotate";
-    await sleep(4000);
+    if (gcd() > 1/1) {
+        document.getElementById('receive-item-glow').style.transform = "scale(1)";
+        document.getElementById('receive-item-glow').style.opacity = "1";
+        document.getElementById('receive-item-glow').style.animation = "1s ease-in-out 2s infinite glow-flickering, ease-in-out 2s infinite glow-rotate";
+        await sleep(3000);
 
-//    const start = Date.now();
-//
-//    document.getElementById('u-m-1').style.filter = 'brightness(250)';
-//    document.getElementById('u-d-1').style.filter = 'brightness(250)';
-//    document.getElementById('u-m-2').style.filter = 'brightness(250)';
-//    document.getElementById('u-d-2').style.filter = 'brightness(250)';
-//
-//    let m = 100;
-//    let c = 0;
-//    let wChanged = false;
-//    let randomYfactor1 = 0;
-//    let randomYfactor2 = 0;
-//
-//    let maxFactor = 40;
-//
-//    let item;
-//
-//    while ((Date.now() - start) < 3000) {
-//        await sleep(15);
-//
-//        let factor = randomIntFromInterval(Math.ceil(maxFactor/2), maxFactor);
-//
-//        maxFactor = 5 * Math.min((Date.now() - start) / 50, 8)
-//
-//        if (!wChanged) {
-//            randomYfactor1 = randomIntFromInterval(-maxFactor, maxFactor);
-//            randomYfactor2 = randomIntFromInterval(-maxFactor, maxFactor);
-//        } else {
-//            randomYfactor1 = 0;
-//            randomYfactor2 = 0;
-//        }
-//
-//        if (c > m) {
-//            document.getElementById('u-m-1').style.transform = `translateY(${-factor}px translateX(${randomYfactor1}px))`;
-//            document.getElementById('u-d-1').style.transform = `translateY(${-factor}px translateX(${randomYfactor1}px))`;
-//            document.getElementById('u-m-2').style.transform = `translateY(${-factor}px translateX(${randomYfactor2}px))`;
-//            document.getElementById('u-d-2').style.transform = `translateY(${-factor}px translateX(${randomYfactor2}px))`;
-//
-//            c -= factor;
-//        } else {
-//            document.getElementById('u-m-1').style.transform = `translateY(${factor}px) translateX(${randomYfactor2}px)`;
-//            document.getElementById('u-d-1').style.transform = `translateY(${factor}px) translateX(${randomYfactor2}px)`;
-//            document.getElementById('u-m-2').style.transform = `translateY(${factor}px) translateX(${randomYfactor1}px)`;
-//            document.getElementById('u-d-2').style.transform = `translateY(${factor}px) translateX(${randomYfactor1}px)`;
-//
-//            c += factor;
-//        }
-//
-//        wChanged = !wChanged;
-//    };
-//
-//    document.getElementById('u-m-1').style.opacity = `0`;
-//    document.getElementById('u-d-1').style.opacity = `0`;
-//    document.getElementById('u-m-2').style.opacity = `0`;
-//    document.getElementById('u-d-2').style.opacity = `0`;
+        document.getElementById('receive-item-glow').style.opacity = "0";
+    }
 
     let item;
 

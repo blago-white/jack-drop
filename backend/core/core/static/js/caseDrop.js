@@ -186,22 +186,22 @@ function animateRoulette(to, count) {
     const gap = 100 * vw * (48 / 1920);
 
     if (gcd() > 1/1) {
-        const partWith = 100 * vw * (217 / 1920);
-
-        const biasVal = gap + partWith + 1;
-
-        dropItemsString.style.marginLeft = `-${((biasVal * count) * 7) + ((to-3) * biasVal)}px`;
-
-        dropItemsString.style.transition = `filter 3s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.09, 0.16, 0.9)`;
-        dropItemsString.style.filter = `blur(.5ch)`;
-
-        setTimeout(() => {dropItemsString.style.transition = `filter 4s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.09, 0.16, 0.9)`;dropItemsString.style.filter = `blur(0ch)`}, 3000)
-    } else {
-        const partWith = 100 * vw * (331 / 960) + 5;
+        const partWith = 100 * vw * (326 / 1920);
 
         const biasVal = gap + partWith;
 
-        dropItemsString.style.marginTop = `-${((biasVal * count) * 7) + ((to) * biasVal)}px`;
+        dropItemsString.style.marginLeft = `-${((biasVal * count) * 7) + ((to-2) * biasVal)}px`;
+
+        dropItemsString.style.transition = `filter .5s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;
+        dropItemsString.style.filter = `blur(.1ch)`;
+
+        setTimeout(() => {dropItemsString.style.transition = `filter 4s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;dropItemsString.style.filter = `blur(0ch)`}, 1000)
+    } else {
+        const partWith = 100 * vw * (331 / 960) + 7;
+
+        const biasVal = gap + partWith;
+
+        dropItemsString.style.marginTop = `-${((biasVal * count) * 7) + ((to+1) * biasVal)}px`;
     }
 }
 
