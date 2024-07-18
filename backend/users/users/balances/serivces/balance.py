@@ -19,6 +19,7 @@ class ClientBalanceService(BaseService):
 
     def udpdate_displayed_balance(self, client_id: int,
                                   delta_balance: float) -> bool:
+        print("UPDATE", client_id, delta_balance)
         return self._model.objects.filter(client_id=client_id).update(
             displayed_balance=F("displayed_balance") + Value(delta_balance)
         ) > 0

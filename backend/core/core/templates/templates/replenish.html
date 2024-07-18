@@ -11,11 +11,13 @@ Replenish
 {% endblock %}
 
 {% block main %}
-<form class="replenish-form">
+<form class="replenish-form" id="replenish-form" onsubmit="addDeposit();return false;">
     <h3>{% trans 'Enter Replenish Data' %}</h3>
     <button class="form-field"
             onclick="document.getElementById('payment-type-2').classList.remove('active');
                      document.getElementById('payment-type-1').classList.add('active');
+                     document.getElementById('payment-type-3').classList.remove('active');
+                     setPaymentMethod(1);
                      return false;"
             id="payment-type-1">
         <label for="payment-type-1">{% trans 'Selected Payment Method' %}</label>
@@ -23,11 +25,23 @@ Replenish
     </button>
     <button class="form-field"
             onclick="document.getElementById('payment-type-1').classList.remove('active');
+                     document.getElementById('payment-type-3').classList.remove('active');
                      document.getElementById('payment-type-2').classList.add('active');
+                     setPaymentMethod(2);
                      return false;"
             id="payment-type-2">
         <label for="payment-type-2">{% trans 'Selected Payment Method' %}</label>
         <span>Crypto #2</span>
+    </button>
+    <button class="form-field"
+            onclick="document.getElementById('payment-type-1').classList.remove('active');
+                     document.getElementById('payment-type-2').classList.remove('active');
+                     document.getElementById('payment-type-3').classList.add('active');
+                     setPaymentMethod(3);
+                     return false;"
+            id="payment-type-3">
+        <label for="payment-type-2">{% trans 'Selected Payment Method' %}</label>
+        <span>Skinify #3</span>
     </button>
     <span class="info">
         {% trans 'Replenish Info First' %}
@@ -36,15 +50,19 @@ Replenish
         {% trans 'Replenish Info Second' %}
     </span>
     <input class="data-input" placeholder="Промокод" type="text">
-    <input class="data-input" placeholder="Введите сумму" type="number" min=500>
+    <input class="data-input" placeholder="Введите сумму" id="amount" type="number" min=500>
     <div class="agreement-field">
         <input type="checkbox" id="agreement">
         <label class="agreement-label" for="agreement">{% trans 'Argeement String' %}</label>
     </div>
 
-    <button class="super-button replenish-btn" type="submit">
-        <span class="super-button-bg"></span>
+    <button class="super-button replenish-btn" onclick="return false;" type="submit">
+        <span id="replenish-btn-bg" class="super-button-bg noactive"></span>
         <span class="super-button-text">{% trans 'Replenish Balance' %}</span>
     </button>
 </form>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/replenish.js' %}" type="module"></script>
 {% endblock %}

@@ -18,8 +18,11 @@ class UpdateClientBalanceSerializer(serializers.Serializer):
 
 class ClientDepositSerializer(serializers.ModelSerializer):
     user_id = serializers.PrimaryKeyRelatedField(
-        queryset=UsersService().get_all()
+        queryset=UsersService().get_all(),
+        required=False
     )
+
+    amount = serializers.FloatField(min_value=500)
 
     class Meta:
         fields = ["user_id", "amount", "datetime"]

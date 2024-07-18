@@ -79,9 +79,11 @@ async function sendRequest(url, requestOptions, __req = false) {
         requestOptions.headers.append("Authorization", "Bearer "+getAccess());
     }
 
-    response = await fetch(url, requestOptions);
+    const response = await fetch(url, requestOptions);
 
     if (response.status == 401 || response.status == 403) {
+        console.log("RECURSION REQUEST");
+
         const resultRefresh = await refreshJWT();
 
         if (resultRefresh && (!__req)) {

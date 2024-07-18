@@ -2,7 +2,8 @@ import requests
 from django.conf import settings
 from rest_framework.request import Request
 from rest_framework.exceptions import AuthenticationFailed
-code=401
+
+code = 401
 from games.serializers.users import GetUserInfoEndpointSerializer
 from .base import BaseApiService
 
@@ -14,7 +15,8 @@ class UsersApiService(BaseApiService):
     def get_user_info(
             self, user_request: Request = None,
             jwt: str = None) -> dict:
-        print("|_____", user_request, jwt, "|", user_request.auth, "|", user_request.headers)
+        print("|_____", user_request, jwt, "|", user_request.auth, "|",
+              user_request.headers)
 
         if user_request:
             return self.send_auth_get_api_request(
@@ -31,26 +33,24 @@ class UsersApiService(BaseApiService):
             self, delta_amount: int,
             user_id: int = None,
             user_request: int = None) -> bool:
-        serialized = self._endpoint_serializer_class(
-            instance={
+        if user_id:
+            path = self.routes.get("update_balance").format(
+                client_id=user_id
+            )
+        elif user_request:
+            path = self.routes.get("update_balance_jwt"),
+
+        else:
+            raise AuthenticationFailed()
+
+        response = requests.patch(
+            url=path,
+            data={
                 "delta_amount": delta_amount
             }
-        )
+        ).json()
 
-        if user_id:
-            return self.send_auth_patch_api_request(
-                path=self.routes.get("update_balance").format(
-                    client_id=user_id
-                ),
-                user_request=user_request,
-                data=serialized.data
-            ).get("ok")
-        elif user_request:
-            return self.send_auth_patch_api_request(
-                path=self.routes.get("update_balance_jwt"),
-                user_request=user_request,
-                data=serialized.data
-            ).get("ok")
+        return response
 
     def update_user_balance_by_id(
             self, delta_amount: int,
@@ -63,12 +63,16 @@ class UsersApiService(BaseApiService):
             data={"delta_amount": delta_amount}
         )
 
-        print("UPDATE RESPONSE:", response, response.json())
+        print("DELTA AMOUNT", delta_amount)
+
+        print("UPDATE RESPONSE:", response)
+        print("UPDATE RESPONSE:", response.json())
 
         return response.json().get("ok")
 
-    def update_user_hiden_balance(self, user_id: int,
-                                  delta_amount: float):
+    def update_user_hiden_balance(
+            self, user_id: int,
+            delta_amount: float):
         response = requests.patch(
             url=self.routes.get("update_hidden_balance").format(
                 client_id=user_id
@@ -85,7 +89,6 @@ class UsersApiService(BaseApiService):
             auth_header: str = None
     ) -> dict:
         if not (user_request or auth_header):
-            print("RAISED!!!")
             raise AuthenticationFailed()
 
         auth_header = (
@@ -93,14 +96,12 @@ class UsersApiService(BaseApiService):
         ) if auth_header is None else (
             auth_header
         )
-
         response = requests.get(
             path,
             headers={"Authorization": auth_header},
         )
 
-        if response.status_code == 401:
-            print("RAISED!!!")
+        if (not response.ok) or (response.status_code in (401, 403)):
             raise AuthenticationFailed()
 
         return response.json()
@@ -113,6 +114,8 @@ class UsersApiService(BaseApiService):
             data: dict = None
     ) -> dict:
         if not (user_request or auth_header):
+            print("NO HEADER")
+
             raise AuthenticationFailed()
 
         if not auth_header:
@@ -124,7 +127,9 @@ class UsersApiService(BaseApiService):
             data=data or {}
         )
 
-        if not response.ok:
+        if (not response.ok) or (response.status_code in (401, 403)):
+            print("NO RESPONSE")
+
             raise AuthenticationFailed()
 
         return response.json()
