@@ -40,7 +40,7 @@ async function getInevntoryItems() {
       redirect: "follow"
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/inventory/upgrade/`,
         requestOptions
     );
@@ -92,7 +92,7 @@ async function getReceiveItems(minItemPrice) {
       redirect: "follow"
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/items/all/`,
         requestOptions
     );
@@ -198,7 +198,7 @@ async function makeUpgrade() {
       redirect: "follow"
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/games/upgrade/`,
         requestOptions
     );

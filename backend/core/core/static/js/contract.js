@@ -29,7 +29,7 @@ async function getItems() {
       redirect: "follow"
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/inventory/contract/`,
         requestOptions
     );
@@ -161,7 +161,7 @@ async function makeContract() {
       redirect: "follow"
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/games/contract/`,
         requestOptions
     );

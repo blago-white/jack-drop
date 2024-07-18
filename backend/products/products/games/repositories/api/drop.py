@@ -88,11 +88,17 @@ class CaseDropApiRepository(BaseApiRepository):
                       user_funds: dict,
                       funds_delta: dict,
                       dropped_item_id: int) -> None:
+        print("COMMIT")
+
         # self._users_service.update_user_balance_by_id(
         #     delta_amount=-case_data.get("price") + funds_delta.get("user_funds_delta"),
         #     user_id=user_funds.get("id")
-        # )
-        # TODO: Uncomment
+        # ) # TODO: ONLY ADVANTAGE
+
+        self._users_service.update_user_balance_by_id(
+            delta_amount=-case_data.get("price"),
+            user_id=user_funds.get("id")
+        )
 
         self._site_funds_service.update(amount=funds_delta.get(
             "site_funds_delta"

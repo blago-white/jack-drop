@@ -33,7 +33,7 @@ class ReferralService(BaseService):
 
         deposits = self._deposits_model.objects.filter(
             user_id__in=refferals
-        ).aggregate(deposits=Sum("amount")).drop_item("deposits", 0)
+        ).aggregate(deposits=Sum("amount")).get("deposits", 0)
 
         return deposits if deposits is not None else 0
 
@@ -43,6 +43,9 @@ class ReferralService(BaseService):
         level = ReferralBenefitService().get_level(required_deposits=deposits)
 
         self._model.objects.filter(pk=referr_id).update(benefit=level)
+
+    def user_exists(self, user_id: int) -> bool:
+        return self._model.objects.filter(user_id=user_id).exists()
 
     def create(self, user_id: int,
                referr: int = None,

@@ -1,38 +1,34 @@
 from django.db.models.signals import post_save
 
-from .client import ClientDeposit, Client
+from .client import Client
 from referrals.services.referral import ReferralService
-from balances.models import ClientBalance
-
-
-def update_referral_level(sender, instance, **kwargs) -> None:
-    ReferralService(
-        deposit_model=instance.__class__
-    ).update_referral_level(
-        referr_id=instance.user.referral.first().referr
-    )
+from balances.serivces.balance import ClientBalanceService
 
 
 def create_referral(sender, instance, **kwargs) -> None:
-    ReferralService(
-        deposit_model=instance.__class__
-    ).create(
-        user_id=instance.pk,
-    )
+    if not ReferralService(deposit_model=instance.__class__).user_exists(
+        user_id=instance.pk
+    ):
+        ReferralService(
+            deposit_model=instance.__class__
+        ).create(
+            user_id=instance.pk,
+        )
 
 
 def create_balance(sender, instance, **kwargs) -> None:
-    ReferralService(
-        deposit_model=instance.__class__
-    ).create(
-        user_id=instance.pk,
-    )
+    if not ClientBalanceService().get_balance(
+        client_id=instance.pk
+    ):
+        ClientBalanceService().create(
+            client_id=instance.pk,
+        )
 
-
-post_save.connect(update_referral_level,
-                  sender=ClientDeposit,
-                  dispatch_uid="update_referral_level")
 
 post_save.connect(create_referral,
                   sender=Client,
                   dispatch_uid="create_referral")
+
+post_save.connect(create_balance,
+                  sender=Client,
+                  dispatch_uid="create_balance")

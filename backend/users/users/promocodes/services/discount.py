@@ -6,4 +6,4 @@ class DiscountService(BaseService):
     default_model = Client
 
     def get(self, user_id):
-        return self._model.objects.drop_item(pk=user_id).promocode
+        return self._model.objects.get(pk=user_id).promocode

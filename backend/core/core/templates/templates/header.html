@@ -41,12 +41,22 @@
             </button>
         </div>
 
-        <button class="super-button" onclick="window.location.href = '{% url 'account' %}'">
+        <button class="super-button" onclick="window.location.href = '{% url 'account' %}'" id="auth-required-btn">
             <span class="super-button-bg"></span>
             <span class="super-button-text">
                 <img src="{% static 'img/steam.png' %}" style="height: 2.5ch;filter: invert(1)">
-                <span id="large-lg-text">{% trans 'Enter Throught Steap' %}</span>
-                <span id="small-lg-text">{% trans 'Enter' %}</span>
+                <span class="large-lg-text">{% trans 'Enter Throught Steap' %}</span>
+                <span class="small-lg-text">{% trans 'Enter' %}</span>
+            </span>
+        </button>
+
+        <button class="super-button" onclick="window.location.href = '/account/'" id="account-info-btn" style="display: none;">
+            <span class="super-button-bg" style="background: #FF007A;"></span>
+            <span class="super-button-text"><img src="/core/static/img/account-avatar.png" style="height: 3ch;">
+                <span style="list-style: none;display: flex;flex-direction: column;align-items: flex-start;padding: 0px;margin: 0px;">
+                    <span id="acc-username-header"></span>
+                    <span id="acc-balance-header" style="font-size: medium;color: #e7e7e7;display: flex;gap: .5ch;align-items: center;background: #0064ff;border-radius: .4ch;padding-inline: .5ch;"></span>
+                </span>
             </span>
         </button>
 

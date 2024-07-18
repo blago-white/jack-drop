@@ -37,11 +37,4 @@ class DropItemGameApiView(DetailedApiViewMixin,
             case_data=case_data | {"items": case_items}
         )
 
-        print(result, "DROP RESULT")
-
-        self.users_api_repository.update_balance(
-            user_request=request,
-            delta_amount=(-case_data.get("price"))
-        )
-
         return self.get_201_response(data=result)

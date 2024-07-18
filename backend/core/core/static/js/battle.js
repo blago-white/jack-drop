@@ -136,7 +136,7 @@ async function getCases() {
       method: "GET",
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/cases/api/v1/paid-cases/`,
         requestOptions
     );
@@ -168,7 +168,7 @@ async function getStats() {
       method: "GET",
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/games/battle-stats/`,
         requestOptions
     );
@@ -193,7 +193,7 @@ async function showHistory() {
       method: "GET",
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/games/battle-history/`,
         requestOptions
     );

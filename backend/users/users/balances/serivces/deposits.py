@@ -2,7 +2,7 @@ from django.db import models
 
 from common.services import BaseService
 
-from ..models.client import ClientDeposit
+from balances.models import ClientDeposit
 
 
 class DepositsService(BaseService):
