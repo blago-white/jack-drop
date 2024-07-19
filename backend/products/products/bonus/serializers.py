@@ -4,7 +4,7 @@ from .models import UserBonusBuyProfile
 
 
 class BonusBuyProfileSerializer(serializers.ModelSerializer):
-    target = serializers.IntegerField(source="get_level_display")
+    target = serializers.IntegerField(source="level.target")
 
     class Meta:
         model = UserBonusBuyProfile

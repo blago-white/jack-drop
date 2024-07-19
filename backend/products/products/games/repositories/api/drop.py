@@ -10,6 +10,7 @@ from games.serializers.drop import DropCaseRequestSerializer, \
 from games.services.transfer import GameResultData
 from games.services.result import GameResultService
 from games.models import Games
+from bonus.services.bonus import BonusBuyService
 from inventory.services.inventory import InventoryService
 
 from .base import BaseApiRepository
@@ -35,6 +36,7 @@ class CaseDropApiRepository(BaseApiRepository):
     default_users_service = UsersApiService()
     default_inventory_service = InventoryService()
     default_game_results_service = GameResultService()
+    default_bonus_service = BonusBuyService()
 
     _api_service: CaseDropApiService
     _site_funds_service: SiteFundsApiService
@@ -45,11 +47,13 @@ class CaseDropApiRepository(BaseApiRepository):
                  users_service: UsersApiService = None,
                  inventoy_service: InventoryService = None,
                  game_results_service: GameResultService = None,
+                 bonus_service: BonusBuyService = None,
                  **kwargs) -> None:
         self._users_service = users_service or self.default_users_service
         self._site_funds_service = site_funds_service or self.default_site_funds_service
         self._inventory_service = inventoy_service or self.default_inventory_service
         self._game_results_service = game_results_service or self.default_game_results_service
+        self._bonus_service = bonus_service or self.default_bonus_service
 
         super().__init__(*args, **kwargs)
 
@@ -115,6 +119,11 @@ class CaseDropApiRepository(BaseApiRepository):
                                 game=Games.DROP,
                                 first_item_id=dropped_item_id,
                                 case_id=case_data.get("id"))
+        )
+
+        self._bonus_service.add_points(
+            user_id=user_funds.get("id"),
+            points=case_data.get("price")
         )
 
     @staticmethod
