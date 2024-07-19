@@ -121,10 +121,14 @@ class CaseDropApiRepository(BaseApiRepository):
                                 case_id=case_data.get("id"))
         )
 
-        self._bonus_service.add_points(
-            user_id=user_funds.get("id"),
-            points=case_data.get("price")
-        )
+        if case_data.get("price") == 0:
+            self._bonus_service.mark_case_as_used(user_id=user_funds.get("id"),
+                                                  case_id=case_data.get("id"))
+        else:
+            self._bonus_service.add_points(
+                user_id=user_funds.get("id"),
+                points=case_data.get("price")
+            )
 
     @staticmethod
     def _validate_user_balance(balance: float, case_price: int) -> bool:

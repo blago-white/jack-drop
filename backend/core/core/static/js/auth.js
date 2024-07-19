@@ -1,3 +1,5 @@
+let USERDATA;
+
 function getCookie(name) {
     let matches = document.cookie.match(new RegExp(
       "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
@@ -82,8 +84,6 @@ async function sendRequest(url, requestOptions, __req = false) {
     const response = await fetch(url, requestOptions);
 
     if (response.status == 401 || response.status == 403) {
-        console.log("RECURSION REQUEST");
-
         const resultRefresh = await refreshJWT();
 
         if (resultRefresh && (!__req)) {
@@ -95,12 +95,17 @@ async function sendRequest(url, requestOptions, __req = false) {
 }
 
 async function getUserData() {
+    if (USERDATA) {
+        return USERDATA;
+    }
+
     const response = await sendRequest("/auth/api/v1/public/user/", {method: "GET", headers: new Headers()});
 
     if (!response.ok) {
         return false;
     } else {
-        return await response.json();
+        USERDATA = await response.json();
+        return USERDATA;
     }
 }
 

@@ -1,10 +1,17 @@
 from rest_framework import serializers
 
-from .models import UserBonusBuyProfile
+from .models import UserBonusBuyProfile, BonusBuyLevel
+
+
+class BonusBuyLevelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BonusBuyLevel
+        fields = "__all__"
 
 
 class BonusBuyProfileSerializer(serializers.ModelSerializer):
-    target = serializers.IntegerField(source="level.target")
+    level = BonusBuyLevelSerializer()
+    can_withdraw_case = serializers.BooleanField(required=False, default=False)
 
     class Meta:
         model = UserBonusBuyProfile

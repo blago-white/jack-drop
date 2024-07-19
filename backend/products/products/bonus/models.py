@@ -18,10 +18,11 @@ class UserBonusBuyProfile(models.Model):
     level = models.ForeignKey("bonus.BonusBuyLevel",
                               on_delete=models.SET_DEFAULT,
                               default=1)
-    active_free_cases = models.ForeignKey(to="cases.Case",
-                                          on_delete=models.SET_NULL,
-                                          null=True,
-                                          blank=True)
+    active_free_cases = models.ManyToManyField(to="cases.Case",
+                                               null=True,
+                                               blank=True,
+                                               editable=True)
+    withdraw_current = models.BooleanField(blank=True, default=False)
 
     def __str__(self):
         return f"Level {self.user_id} [{self.level.level}:{self.points}xp]"
