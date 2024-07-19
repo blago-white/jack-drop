@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': os.environ.get("POSTGRES_DB"),
         'USER': os.environ.get("POSTGRES_USER"),
         'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-        # 'HOST': os.environ.get("POSTGRES_HOST"),
+        'HOST': os.environ.get("POSTGRES_HOST"),
     }
 }
 
@@ -139,3 +139,7 @@ WITHDRAW_MARKET_ENDPOINT_URL = ('https://rust.tm/api/v2/buy-for'
                                 '&{trandelink}')
 
 BALANCE_MARKET_ENDPOINT_URL = 'https://rust.tm/api/v2/get-money?key={apikey}'
+
+CELERY_BROKER_URL = f"redis://tmarketredis:6379/0"
+
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL

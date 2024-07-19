@@ -1,0 +1,73 @@
+version: '3.7'
+
+services:
+  tmarketdb:
+    image: postgres:16.2-bookworm
+    container_name: tmarketdb
+    env_file:
+      - .env
+    expose:
+      - 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+        test: [ "CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}" ]
+        interval: 20s
+        timeout: 5s
+        retries: 5
+    restart: always
+  tmarketapp:
+    build: .
+    expose:
+      - 8000
+    depends_on:
+      - tmarketdb
+    env_file:
+      - .env
+    container_name: tmarketapp
+    volumes:
+      - ./:/home/app
+    restart: always
+  tmarketnginx:
+    build: nginx
+    expose:
+      - 80
+    depends_on:
+      - tmarketapp
+    container_name: tmarketnginx
+    volumes:
+      - ./nginx/market.nginx.conf:/etc/nginx/conf.d/default.conf
+  tmarketredis:
+    image: redis:7.2.4-bookworm
+    env_file:
+      - .env
+    expose:
+      - 6379
+    container_name: tmarketredis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: always
+  tmarketcelery:
+    build:
+      dockerfile: Dockerfile.celery
+    restart: always
+    command: celery -A common beat
+    container_name: tmarketcelery
+    volumes:
+      - ./:/home/app
+    env_file:
+      - .env
+    depends_on:
+      - tmarketdb
+      - tmarketredis
+      - tmarketapp
+
+volumes:
+  postgres_data:
+
+networks:
+  mainnetwork:
+    external: true
