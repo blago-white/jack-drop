@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models.models import Item
+from .models.models import Item, ItemsSet
 from .services.items import ItemService
 
 from cases.services.items import CaseItemsService
@@ -44,3 +44,9 @@ class ItemWithCaseItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = "__all__"
         read_only_fields = ["__all__"]
+
+
+class ItemsSetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ItemsSet
+        fields = ["__all__", "price"]

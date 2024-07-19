@@ -31,7 +31,6 @@
     width: calc(100vw* calc(326 / var(--reference-display-w))) !important;
     height: calc(100vw* calc(326 / var(--reference-display-w))) !important;
     font-size: calc(100vw* calc(25 / var(--reference-display-w))) !important;
-    border: 2px solid #979797!important;
 }
 
 .case-items-string {

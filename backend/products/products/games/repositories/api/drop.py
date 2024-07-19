@@ -34,18 +34,22 @@ class CaseDropApiRepository(BaseApiRepository):
     default_site_funds_service = SiteFundsApiService()
     default_users_service = UsersApiService()
     default_inventory_service = InventoryService()
+    default_game_results_service = GameResultService()
 
     _api_service: CaseDropApiService
     _site_funds_service: SiteFundsApiService
+    _game_results_service: GameResultService
 
     def __init__(self, *args,
                  site_funds_service: SiteFundsApiService = None,
                  users_service: UsersApiService = None,
                  inventoy_service: InventoryService = None,
+                 game_results_service: GameResultService = None,
                  **kwargs) -> None:
         self._users_service = users_service or self.default_users_service
         self._site_funds_service = site_funds_service or self.default_site_funds_service
         self._inventory_service = inventoy_service or self.default_inventory_service
+        self._game_results_service = game_results_service or self.default_game_results_service
 
         super().__init__(*args, **kwargs)
 
@@ -88,8 +92,6 @@ class CaseDropApiRepository(BaseApiRepository):
                       user_funds: dict,
                       funds_delta: dict,
                       dropped_item_id: int) -> None:
-        print("COMMIT")
-
         # self._users_service.update_user_balance_by_id(
         #     delta_amount=-case_data.get("price") + funds_delta.get("user_funds_delta"),
         #     user_id=user_funds.get("id")
@@ -106,6 +108,14 @@ class CaseDropApiRepository(BaseApiRepository):
 
         self._inventory_service.add_item(owner_id=user_funds.get("id"),
                                          item_id=int(dropped_item_id))
+
+        self._game_results_service.save(
+            data=GameResultData(user_id=user_funds.get("id"),
+                                is_win=True,
+                                game=Games.DROP,
+                                first_item_id=dropped_item_id,
+                                case_id=case_data.get("id"))
+        )
 
     @staticmethod
     def _validate_user_balance(balance: float, case_price: int) -> bool:

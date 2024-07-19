@@ -54,7 +54,8 @@ class FeedWebsocketConsumer(JsonWebsocketConsumer):
                 "type": "feed_drop_message",
                 "message": json.dumps({
                     "title": item.title,
-                    "image": item.image_path
+                    "image": item.image_path,
+                    "price": item.price
                 })
             }
         )

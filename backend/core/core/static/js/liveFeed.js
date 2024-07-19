@@ -14,6 +14,7 @@ feedSocket.onmessage = function(event) {
                 <div class="w-line"></div>
                 <div class="dropped-content">
                     <span>${jsondata.title}</span>
+                    <span style="margin-left: .5vw;" class="item-price rose"><span>${jsondata.price}</span> <img style="left: 0px;" src="/core/static/img/gear.png"></span>
                     <img src="${jsondata.image}">
                 </div>
             </article>
@@ -26,6 +27,7 @@ feedSocket.onmessage = function(event) {
                 <div class="w-line"></div>
                 <div class="dropped-content">
                     <span>${jsondata.title}</span>
+                    <span style="margin-left: .5vw;" class="item-price rose"><span>${jsondata.price}</span> <img style="left: 0px;" src="/core/static/img/gear.png"></span>
                     <img src="${jsondata.image}">
                 </div>
             </article>

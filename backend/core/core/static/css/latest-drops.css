@@ -22,7 +22,6 @@
 .item-price {
     margin-top: .2ch!important;
     padding-inline: .25ch;
-    background: rgba(39, 39, 39, 1);
     font-size: calc(100vw* calc(20 / var(--reference-display-w)));
     width: max-content;
     display: flex;
@@ -50,12 +49,10 @@
 }
 
 .dropped.mono {
-    background: radial-gradient(50% 50% at 50% 50%, rgba(93, 93, 93, 0.8) 0%, rgba(35, 35, 35, 0.8) 100%);
     min-width: auto;
     aspect-ratio: 1 / 1;
     width: auto;
     font-size: calc(100vw* calc(10 / var(--reference-display-w)));
-    border: 1.33px solid #979797;
 }
 
 .dropped.mono span {
@@ -76,13 +73,11 @@
 }
 
 .dropped.regular {
-    background: url('../img/JD.png'), radial-gradient(50% 50% at 50% 50%, rgba(79, 160, 255, 0.8) 0%, rgba(0, 71, 255, 0.8) 100%);
     background-repeat: no-repeat;
     background-position-y: bottom;
 }
 
 .dropped.rare {
-    background: url('../img/JD.png'), radial-gradient(50% 50% at 50% 50%, rgba(255, 98, 202, 0.8) 0%, rgba(255, 0, 122, 0.8) 100%);
     background-repeat: no-repeat;
     background-position-y: bottom;
 }

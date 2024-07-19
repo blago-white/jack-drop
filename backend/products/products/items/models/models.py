@@ -63,3 +63,8 @@ class Item(TitleModelMixin, BaseImageModel):
 
     def _get_image(self) -> models.URLField:
         return self.image_path
+
+
+class ItemsSet(models.Model):
+    title = models.CharField(max_length=70)
+    items = models.ForeignKey(to=Item, on_delete=models.SET_NULL, null=True)

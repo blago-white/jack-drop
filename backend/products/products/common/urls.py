@@ -26,6 +26,7 @@ urlpatterns = [
     path('products/games/', include("games.urls")),
     path('products/interactive/', include("interactive.urls")),
     path('products/inventory/', include("inventory.urls")),
+    path('products/bonus-buy/', include("bonus.urls")),
 ]
 
 if settings.DEBUG:

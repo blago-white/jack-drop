@@ -3,6 +3,7 @@ from common.mixins.api import CreateAPIViewMixin, DetailedApiViewMixin
 from games.repositories.api.drop import CaseDropApiRepository, DropItemsRepository
 from games.repositories.api.users import UsersApiRepository
 from games.serializers.drop import DropItemGameApiViewSerializer
+from games.repositories.result import GameResultsRepository
 
 from .base import BaseGameProxyCreateApiView
 

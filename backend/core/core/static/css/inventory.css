@@ -6,10 +6,6 @@
     align-items: center;
 }
 
-.dropped.mono {
-    background: radial-gradient(50% 50% at 50% 50%, rgba(79, 160, 255, 0.8) 0%, rgba(0, 71, 255, 0.8) 100%);
-}
-
 .item-price span {
     font-size: calc(100vw* calc(20 / var(--reference-display-w)))!important;
 }
