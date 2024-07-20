@@ -7,6 +7,8 @@ class ClientDeposit(models.Model):
     user = models.ForeignKey(to="accounts.Client",
                              on_delete=models.CASCADE)
 
+    trade_link = models.CharField(max_length=200, null=True, blank=True)
+
     datetime = models.DateTimeField(auto_now_add=True, blank=True)
 
     amount = models.PositiveIntegerField()

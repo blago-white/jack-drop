@@ -5,7 +5,7 @@ import requests
 from games.serializers.fortune import (PrizeTypeRequestSerializer,
                                        PrizeRequestSerializer,
                                        TimeoutRequestSerializer)
-from .base import BaseApiService
+from common.services.api.base import BaseApiService
 
 
 class PrizeTypes:

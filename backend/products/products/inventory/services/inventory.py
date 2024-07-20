@@ -75,3 +75,6 @@ class InventoryService(BaseModelService):
         return items.aggregate(prices_sum=models.Sum("item__price")).get(
             "prices_sum"
         )
+
+    def get_item(self, inventory_item_id: int) -> InventoryItem:
+        return self._model.objects.filter(pk=inventory_item_id).first()

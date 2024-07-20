@@ -16,7 +16,7 @@ class ReadOnlyModelSerializer(ModelSerializer):
 class ClientSerializer(ReadOnlyModelSerializer):
     class Meta:
         model = Client
-        fields = ["id", "username", "promocode"]
+        fields = ["id", "username", "promocode", "trade_link"]
         read_only_fields = ["id"]
 
 

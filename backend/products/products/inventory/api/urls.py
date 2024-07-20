@@ -23,10 +23,10 @@ urlpatterns = [
     path("sell/",
          SellInventoryItemApiView.as_view(),
          name="sell-item"),
-    path("withdraw/",
-         WithdrawInventoryItemApiView.as_view(),
-         name="withdraw-item"),
     path("count/",
          CountInventoryItemsApiView.as_view(),
-         name="count-inventory-items")
+         name="count-inventory-items"),
+    path("withdraw/<int:item_id>/",
+         WithdrawInventoryItemApiView.as_view(),
+         name="withdraw-item")
 ]

@@ -26,6 +26,10 @@ async def _apply_withdraw(items: list[ScheduledItem]) -> bool:
 
 @shared_task(name="withdraw")
 def withdraw():
+    print("_DDDDD")
+
     items = list(ScheduleModelService().pop_schedule())
 
-    async_to_sync(_apply_withdraw)(items)
+    # async_to_sync(_apply_withdraw)(items)
+
+    return items

@@ -14,6 +14,7 @@ class ItemInfo:
     title: str
     image_path: str
     price: float
+    market_hash_name: str
 
 
 @dataclass

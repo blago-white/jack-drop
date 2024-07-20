@@ -27,7 +27,6 @@ services:
     container_name: tmarketapp
     volumes:
       - ./:/home/app
-    restart: always
   tmarketnginx:
     build: nginx
     expose:
@@ -37,6 +36,7 @@ services:
     container_name: tmarketnginx
     volumes:
       - ./nginx/market.nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./market/static:/home/app/static/
   tmarketredis:
     image: redis:7.2.4-bookworm
     env_file:
@@ -52,9 +52,8 @@ services:
     restart: always
   tmarketcelery:
     build:
-      dockerfile: Dockerfile.celery
-    restart: always
-    command: celery -A common beat
+      dockerfile: ./celery/Dockerfile
+    command: celery -A common beat -f /home/app/market/celery.log -l DEBUG
     container_name: tmarketcelery
     volumes:
       - ./:/home/app

@@ -3,7 +3,7 @@ import json
 import requests
 
 from games.serializers.upgrade import UpgradeRequestSerializer
-from .base import BaseApiService
+from common.services.api.base import BaseApiService
 
 
 class UpgradeService(BaseApiService):

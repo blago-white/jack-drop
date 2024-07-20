@@ -5,5 +5,5 @@ from .endpoints import ItemsListApiView
 urlpatterns = [
     path("all/",
          ItemsListApiView.as_view(),
-         name="items-list")
+         name="items-list"),
 ]

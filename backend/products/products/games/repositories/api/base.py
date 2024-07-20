@@ -1,6 +1,6 @@
 from common.services.base import BaseModelService
 
-from games.api.services.base import BaseApiService
+from common.services.api.base import BaseApiService
 
 
 class BaseSimpleApiRepository:

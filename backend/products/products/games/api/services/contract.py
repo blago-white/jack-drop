@@ -3,7 +3,7 @@ from requests.models import Response
 
 from games.serializers.contract import CommitContractSerializer, \
     ShiftedContractAmountSerializer
-from .base import BaseApiService
+from common.services.api.base import BaseApiService
 
 
 class ContractApiService(BaseApiService):

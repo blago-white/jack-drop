@@ -43,14 +43,12 @@ async function withdrawItem(id) {
 
     const requestOptions = {
       method: "POST",
-      body: JSON.stringify({
-        "item_id": id
-      }),
+      body: JSON.stringify({}),
       headers: headers
     };
 
     const response = await fetch(
-        `http://localhost/products/inventory/withdraw/`,
+        `http://localhost/products/inventory/withdraw/${id}/`,
         requestOptions
     );
 

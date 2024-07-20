@@ -5,7 +5,7 @@ from rest_framework.exceptions import ValidationError
 
 from games.serializers.battle import BattleRequestServiceEndpointSerializer, \
     MakeBattleServiceEndpointSerializer
-from .base import BaseApiService
+from common.services.api.base import BaseApiService
 
 
 class BattleRequestApiService(BaseApiService):

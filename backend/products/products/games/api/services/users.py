@@ -3,7 +3,7 @@ from django.conf import settings
 from rest_framework.request import Request
 
 from games.serializers.users import GetUserInfoEndpointSerializer
-from .base import BaseApiService
+from common.services.api.base import BaseApiService
 
 
 class UsersApiService(BaseApiService):
