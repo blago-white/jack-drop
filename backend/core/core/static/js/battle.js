@@ -181,17 +181,14 @@ battleSocket.onmessage = async function(event) {
     }
 
     if (jsondata["result"]["success"] && jsondata["response_type"] == "result") {
-        console.log(jsondata, "JSD");
-
         hideRequestWindow();
 
         const item = jsondata.result.data.dropped_item_winner_id;
 
-        console.log(jsondata.result.case_items, "JDS2");
-
-        renderDrops('Lorem Ipsum', 'Lorem Ipsum', currentCaseImage, jsondata.result.case_items, jsondata.result.data.dropped_item_winner_id, jsondata.result.data.dropped_item_loser_id);
-
-        await sleep(7000);
+        if (gcd() > 1/1) {
+            renderDrops('Lorem Ipsum', 'Lorem Ipsum', currentCaseImage, jsondata.result.case_items, jsondata.result.data.dropped_item_winner_id, jsondata.result.data.dropped_item_loser_id);
+            await sleep(7000);
+        }
 
         renderItemPrize(`You win ${item.title}!`, item.price, item.image_path, "Amazing!");
 

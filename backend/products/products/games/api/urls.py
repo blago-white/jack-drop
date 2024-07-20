@@ -13,6 +13,8 @@ urlpatterns = [
     path("upgrade/", UpgradeGameApiView.as_view(), name="upgrade"),
     path("contract/", ContractGameApiView.as_view(), name="contract"),
     path("mines/", MinesGameApiView.as_view(), name="mines"),
+    path("mines/next/", MinesGameApiView.as_view(), name="mines"),
+    path("mines/stop/", MinesGameApiView.as_view(), name="mines"),
 
     path("fortune-wheel/", FortuneWheelGameApiView.as_view(), name="fortune-wheel"),
     path("fortune-wheel/timeout/",

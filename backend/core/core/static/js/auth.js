@@ -81,6 +81,11 @@ async function sendRequest(url, requestOptions, __req = false) {
         requestOptions.headers.append("Authorization", "Bearer "+getAccess());
     }
 
+    console.log(getCookie("csrftoken"));
+
+    requestOptions.headers.delete("X-CSRFToken");
+    requestOptions.headers.append("X-CSRFToken", getCookie("csrftoken"));
+
     const response = await fetch(url, requestOptions);
 
     if (response.status == 401 || response.status == 403) {

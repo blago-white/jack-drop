@@ -245,6 +245,9 @@ class BattleApiRepository(_BaseBattleApiRepository):
                 "dropped_item_winner_id"
             ),
             case_id=battle_result.get("battle_case_id"),
+            second_item_id=battle_result.get(
+                "dropped_item_loser_id"
+            ),
         ))
 
         self._game_result_service.save(data=GameResultData(
@@ -255,6 +258,9 @@ class BattleApiRepository(_BaseBattleApiRepository):
                 "dropped_item_loser_id"
             ),
             case_id=battle_result.get("battle_case_id"),
+            second_item_id=battle_result.get(
+                "dropped_item_winner_id"
+            ),
         ))
 
     def _validate_funds_participant(

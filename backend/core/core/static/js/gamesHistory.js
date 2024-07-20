@@ -134,7 +134,7 @@ function renderBattles(result) {
             <article class="battle-result" id="${element.id}">
                 <div class="item-left">
                     <img src="${element.related_item_first.image_path}" class="item-battle-img">
-                    <span class="extra-info"><img src="/core/static/img/account-avatar.png" class="avatar"><span class="price">${element.related_item_second.price}</span></span>
+                    <span class="extra-info"><img src="/core/static/img/account-avatar.png" class="avatar"><span class="price">${element.related_item_first.price}</span></span>
                 </div>
                 <img src="${element.related_case.image_path}" class="case-img">
                 <div class="item-left">
