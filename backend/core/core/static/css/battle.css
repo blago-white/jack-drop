@@ -11,6 +11,89 @@
     height: 103ch;
 }
 
+.drops-window {
+    background: #0E0E0E;
+    border-radius: 3ch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: calc(100vw* calc(100 / 1920));
+    gap: calc(100vw* calc(25 / var(--reference-display-w)));
+
+    transition: opacity .5s ease;
+}
+
+.drop-roulette {
+    width: 29vw;
+    padding-inline: calc(100vw * calc(58 / var(--reference-display-w)));
+    border: 2px solid white;
+    border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.drops-roulette-window {
+    display: flex;
+    width: 100%;
+    gap: calc(100vw* calc(100 / var(--reference-display-w)));
+    min-height: 31vh;
+}
+
+.case-items-string::-webkit-scrollbar {
+    display: none;
+}
+
+.arrow {
+    height: 25.4ch;
+    position: absolute;
+    z-index: 100;
+}
+
+.case-items-string {
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    padding-block: calc(100vw * calc(53 / var(--reference-display-w)));
+    overflow-x: scroll;
+    display: flex;
+}
+
+.dropped {
+    width: calc(100vw* calc(200 / var(--reference-display-w))) !important;
+    height: calc(100vw* calc(200 / var(--reference-display-w))) !important;
+    font-size: calc(100vw* calc(15 / var(--reference-display-w))) !important;
+}
+
+.items {
+    list-style: none;
+    display: flex;
+    gap: calc(100vw * calc(40 / var(--reference-display-w)));
+    min-width: max-content;
+    width: max-content;
+    padding-left: calc(100vw * calc(48 / var(--reference-display-w)));
+
+    transition: margin 7s cubic-bezier(0.02, 0.29, 0.31, 0.77);
+}
+
+.battle-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.battle-case-img {
+    height: 29vh;
+}
+
 .battle-hint-header {
     font-size: calc(100vw* calc(20 / var(--reference-display-w)));
     margin-top: 0px;
@@ -24,7 +107,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    font-size: calc(100vw* calc(32mo / 1920));
+    font-size: calc(100vw* calc(32 / 1920));
 }
 
 .battles-stats {

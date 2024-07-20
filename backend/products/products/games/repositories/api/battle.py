@@ -5,6 +5,7 @@ from django.db.models import QuerySet
 from cases.services.cases import CaseService
 from cases.services.items import CaseItemsService
 from cases.serializers.case import CaseSerializer
+
 from cases.serializers.items import ItemSerializer
 from games.api.services.battle import BattleRequestApiService, BattleApiService
 from games.api.services.site import SiteFundsApiService
@@ -77,6 +78,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
     default_users_service = UsersApiService()
     default_site_funds_service = SiteFundsApiService()
     default_game_result_service = GameResultService()
+    default_case_serializer = CaseSerializer
 
     _api_service: BattleApiService
 
@@ -88,6 +90,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
             users_service: UsersApiService = None,
             site_funds_service: SiteFundsApiService = None,
             game_result_service: GameResultService = None,
+            case_serializer: CaseSerializer = None,
             **kwargs):
         self._cases_service = cases_service or self.default_cases_service
         self._case_items_service = (case_items_service or
@@ -96,6 +99,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
         self._users_service = users_service or self.default_users_service
         self._site_funds_service = site_funds_service or self.default_site_funds_service
         self._game_result_service = game_result_service or self.default_game_result_service
+        self._case_serializer = case_serializer or self.default_case_serializer
 
         super().__init__(*args, **kwargs)
 
@@ -155,15 +159,20 @@ class BattleApiRepository(_BaseBattleApiRepository):
             "winner_id": battle_result.get("winner_id"),
             "loser_id": battle_result.get("loser_id"),
             "dropped_item_winner_id": {
+                "case_item_id": dropped_items[0].id,
                 "title": dropped_items[0].item.title,
                 "image_path": dropped_items[0].item.image_path,
                 "price": dropped_items[0].item.price
             },
             "dropped_item_loser_id": {
+                "case_item_id": dropped_items[-1].id,
                 "title": dropped_items[-1].item.title,
                 "image_path": dropped_items[-1].item.image_path,
                 "price": dropped_items[-1].item.price
-            }
+            },
+            "battle_case": self._case_serializer(
+                instance=case_data
+            ).data
         }
 
     def get_stats(self, user_id: int) -> dict:

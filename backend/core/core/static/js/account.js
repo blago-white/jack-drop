@@ -2,8 +2,6 @@ async function renderBonusBuy() {
     const response = await sendRequest("/products/bonus-buy/info/", {method: "GET"});
 
     if (!response.ok) {
-        alert("Error");
-        location.href = "/";
         return
     }
 

@@ -161,12 +161,6 @@ async function dropCase() {
 
     const position = dropItemsPositions.get(dropped.id);
 
-    console.log(position);
-
-    console.log(dropped);
-
-    console.log(dropItemsPositions);
-
     animateRoulette(position, dropItems.size);
 
     setTimeout(() => {
