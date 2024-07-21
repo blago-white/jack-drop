@@ -8,7 +8,14 @@ export function renderItemPrize(title, price, image_path, acceptText) {
 
     document.getElementById('prize-wrappper').style.display = "flex";
     document.getElementById('prize-wrappper').style.visibility = "visible";
+
+    setTimeout(() => {
+        document.getElementById('prize-wrappper').style.backdropFilter = "blur(1ch)";
+        document.getElementById('prize-glow').classList.toggle("active");
+    }, 50);
+
     expanded = true;
+
     setTimeout(() => {
         document.getElementById('prize-wrappper').style.opacity = "1";
         document.getElementById('prize-body').innerHTML += `
@@ -20,8 +27,12 @@ export function renderItemPrize(title, price, image_path, acceptText) {
                 <span class="super-button-text" style="font-size: x-large">${acceptText}</span>
             </button>
         `;
-        document.getElementById('prize-body').style.transform = "translateY(0vh)";
-    }, 300)
+        document.getElementById('prize-body').style.transform = "scale(1)";
+    }, 3000)
+
+    setTimeout(() => {
+        document.getElementById('prize-glow').style.opacity = ".5";
+    }, 3500)
 }
 
 
@@ -54,11 +65,11 @@ function closePrizeWindow(redir) {
 
     setTimeout(() => {
         location.href = redir ? redir : (elem ? elem.innerHTML : location.href);
-    }, 300)
+    }, 1000)
 }
 
 function closeWindow() {
-    document.getElementById('prize-body').style.transform = "translateY(-90vh)";
+    document.getElementById('prize-body').style.transform = "scale(0)";
 }
 
 window.closePrizeWindow = closePrizeWindow;

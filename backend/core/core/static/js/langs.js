@@ -20,7 +20,7 @@ async function setLang(lang) {
       redirect: "follow"
     };
 
-    response = await fetch("http://localhost/i18n/setlang/", requestOptions);
+    response = await sendRequest("http://localhost/i18n/setlang/", requestOptions);
 
     location.href = location.href;
 }

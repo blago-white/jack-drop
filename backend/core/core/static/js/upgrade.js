@@ -22,6 +22,13 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function gcd () {
+    const w = screen.width;
+    const h = screen.height;
+
+    return w/h;
+}
+
 function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -33,7 +40,7 @@ async function getInevntoryItems() {
       redirect: "follow"
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/inventory/upgrade/`,
         requestOptions
     );
@@ -85,7 +92,7 @@ async function getReceiveItems(minItemPrice) {
       redirect: "follow"
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/items/all/`,
         requestOptions
     );
@@ -191,7 +198,7 @@ async function makeUpgrade() {
       redirect: "follow"
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/games/upgrade/`,
         requestOptions
     );
@@ -211,56 +218,16 @@ async function makeUpgrade() {
 }
 
 async function animateResult(result) {
-    const start = Date.now();
+    if (gcd() > 1/1) {
+        document.getElementById('receive-item-glow').style.transform = "scale(1)";
+        document.getElementById('receive-item-glow').style.opacity = "1";
+        document.getElementById('receive-item-glow').style.animation = "1s ease-in-out 2s infinite glow-flickering, ease-in-out 2s infinite glow-rotate";
+        await sleep(3000);
 
-    document.getElementById('u-m-1').style.filter = 'brightness(250)';
-    document.getElementById('u-d-1').style.filter = 'brightness(250)';
-    document.getElementById('u-m-2').style.filter = 'brightness(250)';
-    document.getElementById('u-d-2').style.filter = 'brightness(250)';
+        document.getElementById('receive-item-glow').style.opacity = "0";
+    }
 
-    let m = 40;
-    let c = 0;
-    let wChanged = false;
-    let randomYfactor1 = 0;
-    let randomYfactor2 = 0;
     let item;
-
-    while ((Date.now() - start) < 3000) {
-        await sleep(30);
-
-        let factor = randomIntFromInterval(0, 40);
-
-        if (!wChanged) {
-            randomYfactor1 = randomIntFromInterval(-40, 40);
-            randomYfactor2 = randomIntFromInterval(-40, 40);
-        } else {
-            randomYfactor1 = 0;
-            randomYfactor2 = 0;
-        }
-
-        if (c > m) {
-            document.getElementById('u-m-1').style.transform = `translateY(${-factor}px translateX(${randomYfactor1}px))`;
-            document.getElementById('u-d-1').style.transform = `translateY(${-factor}px translateX(${randomYfactor1}px))`;
-            document.getElementById('u-m-2').style.transform = `translateY(${-factor}px translateX(${randomYfactor2}px))`;
-            document.getElementById('u-d-2').style.transform = `translateY(${-factor}px translateX(${randomYfactor2}px))`;
-
-            c -= factor;
-        } else {
-            document.getElementById('u-m-1').style.transform = `translateY(${factor}px) translateX(${randomYfactor2}px)`;
-            document.getElementById('u-d-1').style.transform = `translateY(${factor}px) translateX(${randomYfactor2}px)`;
-            document.getElementById('u-m-2').style.transform = `translateY(${factor}px) translateX(${randomYfactor1}px)`;
-            document.getElementById('u-d-2').style.transform = `translateY(${factor}px) translateX(${randomYfactor1}px)`;
-
-            c += factor;
-        }
-
-        wChanged = !wChanged;
-    };
-
-    document.getElementById('u-m-1').style.opacity = `0`;
-    document.getElementById('u-d-1').style.opacity = `0`;
-    document.getElementById('u-m-2').style.opacity = `0`;
-    document.getElementById('u-d-2').style.opacity = `0`;
 
     if (result.success) {
         item = receiveItems.get(parseInt(selectedReceive.slice(2)));
@@ -299,7 +266,7 @@ function updatePercent() {
         ))
     }
 
-    console.log(newPercent, (((selectedGrantedBalance>0) | (selectedGranted != null)) && (selectedReceive != null)), "---")
+    chanceCicle.src = `/core/static/img/upgrade-chance-${25*(Math.ceil(newPercent / 25))}.png`;
 
     if (((selectedGrantedBalance>0) | (selectedGranted != null)) && (selectedReceive != null)) {
         document.getElementById('upgrade-percent').innerHTML = `${newPercent}%`;

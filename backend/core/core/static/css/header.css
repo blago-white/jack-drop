@@ -20,6 +20,7 @@
     display: grid;
     gap: calc(100vw * 0.016);
     justify-content: flex-start;
+    flex-direction: column;
 }
 
 .navbar-items {
@@ -74,8 +75,43 @@
     aspect-ratio: 1 / 1;
 }
 
-#small-lg-text {
+.small-lg-text {
     display: none;
+}
+
+.lang-switcher {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    gap: 0px;
+    font-size: calc(100vw * calc(10 / 1920));
+    height: 10ch;
+}
+
+.lang-switcher img {
+    width: 2ch;
+    height: 2ch;
+}
+
+.lang-switcher button {
+    border: none;
+    height: 100%;
+    font-size: calc(100vw * calc(15 / 1920));
+}
+
+#ru {
+    border-bottom-left-radius: calc(100vw * calc(16 / var(--reference-display-w)));
+    border-bottom-right-radius: calc(100vw * calc(16 / var(--reference-display-w)));
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+#en {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: calc(100vw * calc(16 / var(--reference-display-w)));
+    border-top-right-radius: calc(100vw * calc(16 / var(--reference-display-w)));
 }
 
 @media (aspect-ratio < 1/1) {
@@ -95,6 +131,33 @@
         z-index: 1000;
 
         min-height: 9.25vh;
+    }
+
+    #ru {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+
+    .lang-switcher button {
+        font-size: calc(100vw * calc(69 / 1920));
+        width: 100%!important;
+        justify-content: center;
+        max-width: -webkit-fill-available;
+    }
+
+    .lang-switcher {
+        height: auto;
+        border-radius: calc(100vw* calc(40 / 1920));
+        overflow: hidden;
+    }
+
+    #en {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
     }
 
     .header-main-part {
@@ -120,11 +183,11 @@
         width: 100%;
     }
 
-    #small-lg-text {
+    .small-lg-text {
         display: initial;
     }
 
-    #large-lg-text {
+    .large-lg-text {
         display: none;
     }
 
@@ -166,5 +229,9 @@
 
     .navbar-item-active {
         background: transparent!important;
+    }
+
+    .lang-switcher {
+        display: none;
     }
 }

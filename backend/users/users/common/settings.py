@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["usersapp", "usersapp:8000", "127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': os.environ.get("POSTGRES_DB"),
         'USER': os.environ.get("POSTGRES_USER"),
         'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-        # 'HOST': os.environ.get("POSTGRES_HOST"),
+        'HOST': os.environ.get("POSTGRES_HOST"),
     },
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -165,7 +165,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/auth/static/'
 STATIC_ROOT = BASE_DIR / 'static/'
 
 # Default primary key field type
@@ -187,8 +187,13 @@ REST_FRAMEWORK = {
     ]
 }
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    # 'accounts.backends.jwt.JWTAuthenticationWithoutPassword',
+]
+
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
@@ -205,8 +210,8 @@ SIMPLE_JWT = {
 
     "AUTH_HEADER_TYPES": ("Bearer",),
     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
-    "USER_ID_FIELD": "id",
-    "USER_ID_CLAIM": "user_id",
+    "USER_ID_FIELD": "steam_id",
+    "USER_ID_CLAIM": "steam_uid",
     "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
 
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
@@ -219,7 +224,7 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=15),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
 
-    "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
+    "TOKEN_OBTAIN_SERIALIZER": "accounts.serializers.TokenObtainPairWithoutPasswordSerializer",
     "TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
     "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
     "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",

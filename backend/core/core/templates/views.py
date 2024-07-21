@@ -103,9 +103,12 @@ def tos_view(request):
 
 
 def game_history_view(request):
+    section = request.GET.get("sec")
+
     return render(
         request=request,
-        template_name="game-history.html"
+        template_name="game-history.html",
+        context={"section": section}
     )
 
 

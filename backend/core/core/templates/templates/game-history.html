@@ -7,8 +7,8 @@ Account Game History | JackDrop
 {% endblock %}
 
 {% block links %}
-<link href="{% static 'css/inventory.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'css/game-history.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/latest-drops.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block main %}
@@ -21,46 +21,13 @@ Account Game History | JackDrop
             <span class="super-button-text">{% trans 'Play' %}</span>
         </button>
     </span>
-    <ul class="game-history-table" id="game-history-table" style="display: none;">
-<!--        <li>-->
-<!--            <span class="game-num">1</span>-->
-<!--            <span class="game-name">Upgrade</span>-->
-<!--            <span class="item-img"><img src="{% static 'img/testbattle.png' %}"></span>-->
-<!--            <span class="is-win true"></span>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--            <span class="game-num">2</span>-->
-<!--            <span class="game-name">Battle</span>-->
-<!--            <span class="case-drop-items">-->
-<!--                <a href="/" class="case-img"><img src="https://rcases.b-cdn.net/4ukMYUaSg.webp"></a>-->
-<!--                <span class="item-img"><img src="{% static 'img/testbattle.png' %}"></span>-->
-<!--            </span>-->
-<!--            <span class="is-win false"></span>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--            <span class="game-num">3</span>-->
-<!--            <span class="game-name">Upgrade</span>-->
-<!--            <span class="case-drop-items">-->
-<!--                <span class="case-img"><img src="{% static 'img/testbattle.png' %}"></span>-->
-<!--                <span class="item-img"><img src="{% static 'img/testbattle.png' %}"></span>-->
-<!--            </span>-->
-<!--            <span class="is-win false"></span>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--            <span class="game-num">4</span>-->
-<!--            <span class="game-name">Upgrade</span>-->
-<!--            <span class="item-img"><img src="{% static 'img/testbattle.png' %}"></span>-->
-<!--            <span class="is-win true"></span>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--            <span class="game-num">5</span>-->
-<!--            <span class="game-name">Upgrade</span>-->
-<!--            <span class="item-img"><img src="{% static 'img/testbattle.png' %}"></span>-->
-<!--            <span class="is-win true"></span>-->
-<!--        </li>-->
-<!--    </ul>-->
-<!--    <ul class="game-history-table" id="inventory-items">-->
-<!--        <li class=""></li>-->
+    <nav class="game-history-nav" id="main-nav">
+        <a class="game-history-nav-item {% if section == 'drop' %}active{% endif %}" href="?sec=drop">Дропы</a>
+        <a class="game-history-nav-item {% if section == 'battles' %}active{% endif %}" href="?sec=battles">Сражения</a>
+        <a class="game-history-nav-item {% if section == 'contract' %}active{% endif %}" href="?sec=contract">Контракты</a>
+        <a class="game-history-nav-item {% if section == 'bonuse' %}active{% endif %}" href="?sec=bonuse">Ежедневные бонусы</a>
+    </nav>
+    <ul class="game-history-table {{section}}" id="game-history-table" style="display: none;">
     </ul>
 </section>
 {% endblock %}

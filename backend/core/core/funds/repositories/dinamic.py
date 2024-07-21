@@ -35,6 +35,8 @@ class DinamicFundsRepository(BaseRepository):
             data=request_data
         )
 
+        print("DINAMIC", request_data)
+
         serialized.is_valid(raise_exception=True)
 
         return serialized

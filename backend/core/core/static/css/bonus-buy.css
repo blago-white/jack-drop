@@ -3,19 +3,14 @@
 .bonus-buy-sec {
     width: -webkit-fill-available;
     position: relative;
-
     background: black;
-
     display: grid;
     grid-template-columns: 30% 70%;
     align-items: center;
-    padding: calc(100vw * calc(25 / var(--reference-display-w)));
-
+    padding: calc(100vw* calc(25 / var(--reference-display-w)));
     min-height: 60vh;
-}
 
-.bg-filter-img {
-    background: black;
+    border-radius: 3ch;
 }
 
 .bonus-buy-content {

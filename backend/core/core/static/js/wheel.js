@@ -81,13 +81,13 @@ async function startRotate(promocode) {
             if (result.prize_type == "D") {
                 renderItemPrize(
                     `${prizeTitlePrefixes[result.prize_type]} ${result.prize.discount}% for  ${result.prize.case.title}`,
-                    `Is equial to -${result.prize.case.price * (result.prize.discount / 100)}`,
+                    ``,
                     result.prize.case.image_path,
                     "Amazing!"
                 );
             } else {
                 renderItemPrize(
-                    `${prizeTitlePrefixes[result.prize_type]} ${result.prize.title}`,
+                    `${prizeTitlePrefixes[result.prize_type]} "${result.prize.title}"`,
                     result.prize.price,
                     result.prize.image_path,
                     "Amazing!"
@@ -120,7 +120,7 @@ async function getResult(promocode) {
 
     };
 
-    const response = await fetch("http://localhost/products/games/fortune-wheel/", requestOptions);
+    const response = await sendRequest("http://localhost/products/games/fortune-wheel/", requestOptions);
 
     if (!response.ok) {
         alert(await response.json());
@@ -149,14 +149,13 @@ async function startRotatePromo() {
 function enterPromo() {
     document.getElementById('c-d-desc').remove();
     document.getElementById('clock').innerHTML = `
-        <input
-        type="text"
-        maxlength="8"
-        class="button"
-        id="code-inp"
-        style="padding-block: 1ch;text-align: center;"
-        oninput="this.style.outline = 'none';"
-        placeholder="Promocode">
+        <input type="text"
+               maxlength="8"
+               class="button"
+               id="code-inp"
+               style="padding-block: 1ch;text-align: center;"
+               oninput="this.style.outline = 'none';"
+               placeholder="Promocode">
     `;
 
     document.getElementById('code-btn').style.marginTop = 'calc(100vw * calc(24.1 / var(--reference-display-w)))';

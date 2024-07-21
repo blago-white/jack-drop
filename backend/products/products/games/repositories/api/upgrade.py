@@ -56,16 +56,19 @@ class UpgradeApiRepository(BaseApiRepository):
             serialized=serialized
         )
 
-        self._commit_loss(
-            validated_data=validated_data,
-            user_funds=user_funds
-        )
+        print("RESULT:", result)
 
         if result:
             self._commit_win(
                 validated_data=serialized.data,
                 owner_id=user_funds.get("id"),
-                item_id=validated_data.get("receive_item_id")
+                item_id=validated_data.get("receive_item_id"),
+                user_funds=user_funds
+            )
+        else:
+            self._commit_loss(
+                validated_data=validated_data,
+                user_funds=user_funds
             )
 
         self._game_result_service.save(data=GameResultData(
@@ -80,6 +83,28 @@ class UpgradeApiRepository(BaseApiRepository):
 
     def _commit_loss(self, validated_data: dict,
                      user_funds: dict) -> None:
+        print(validated_data, "DDD")
+
+        if validated_data.get("granted_item_id"):
+            self._inventory_service.remove_from_inventory(
+                owner_id=user_funds.get("id"),
+                item_id=validated_data.get("granted_item_id")
+            )
+
+        elif validated_data.get("granted_funds"):
+            self._users_service.update_user_balance_by_request(
+                user_id=user_funds.get("id"),
+                delta_amount=-validated_data.get("granted_funds")
+            )
+
+        print("INCRES", self._site_funds_service.increase(
+            amount=validated_data.get("granted_funds")
+        ))
+
+    def _commit_win(self, validated_data: dict,
+                    user_funds: dict,
+                    owner_id: int,
+                    item_id: int) -> None:
         if validated_data.get("granted_item_id"):
             self._inventory_service.remove_from_inventory(
                 owner_id=user_funds.get("id"),
@@ -92,13 +117,6 @@ class UpgradeApiRepository(BaseApiRepository):
                 delta_amount=-validated_data.get("granted_funds")
             )
 
-        self._site_funds_service.increase(
-            amount=validated_data.get("granted_funds")
-        )
-
-    def _commit_win(self, validated_data: dict,
-                    owner_id: int,
-                    item_id: int) -> None:
         self._inventory_service.add_item(
             owner_id=owner_id,
             item_id=item_id

@@ -4,7 +4,7 @@ from ..services.advantage import AdvantageService
 
 
 class AdvantageRepository(BaseRepository):
-    default_service = AdvantageService
+    default_service = AdvantageService()
     default_serializer_class = UpdateAdvantageSerializer
 
     def update(self, user_id: int, delta_amount: float):

@@ -10,7 +10,7 @@ export async function getCount() {
       method: "GET",
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/inventory/count/`,
         requestOptions
     );

@@ -9,18 +9,17 @@
 {% endblock %}
 
 {% block main %}
-<section class="account-layout">
+<section class="account-layout" id="account" style="display: none;">
     <main class="account-id">
         <span class="profile-avatar-border">
             <img src="{% static 'img/account-avatar.png' %}">
         </span>
         <div class="account-data">
             <div class="account-name">
-                <span class="account-usrname">
-                    ПОЧТА
-                    <span class="account-id-val">ID 49853498</span>
+                <span class="account-usrname" id="usr-name">
+<!--                    <span class="account-id-val">ID 49853498</span>-->
                 </span>
-                <span class="account-lvl">0</span>
+                <span class="account-lvl" id="balance"></span>
             </div>
         </div>
         <a href="{% url 'replenish' %}" class="button button-colorized blue donate-btn-acc">{% trans 'Replenish' %}</a>
@@ -28,9 +27,9 @@
     <div class="account-level">
         <h3>{% trans 'Your Level' %}</h3>
         <div class="lvl-illustr">
-            <div class="illustr-desc"><span>{% trans 'Points' %}</span><span><b>500/1750 xp</b></span></div>
+            <div class="illustr-desc"><span>{% trans 'Points' %}</span><span><b id="bonus">... xp</b></span></div>
             <div class="diagram">
-                <div style="width: 35%" class="diagram-filled"></div>
+                <div style="width: 35%" id="diagram" class="diagram-filled"></div>
             </div>
         </div>
     </div>
@@ -78,6 +77,8 @@
 <script type="module">
     import { getCount } from "{% static 'js/inventoryCount.js' %}";
 
+    document.getElementById('footer-w').style.display = "none";
+
     async function setCount() {
         var countItemsResult = await getCount();
 
@@ -85,12 +86,32 @@
             document.getElementById('empty-sec').innerHTML = '<b>{% trans 'Start Open Cases' %}</b>';
         }
 
-        console.log(countItemsResult, countItemsResult.total);
-
         document.getElementById('total-inv-items-count').innerHTML = countItemsResult.total;
     };
 
+    async function checkAuth() {
+        const data = new FormData();
+
+        data.append('token', getAccess());
+
+        const response = await sendRequest('/auth/api/token/verify/', {
+            headers: new Headers(),
+            method: "POST",
+            body: data,
+        });
+
+        if (!response.ok) {
+            location.href = '/auth/';
+        } else {
+            document.getElementById('account').style = '';
+            document.getElementById('footer-w').style = '';
+        }
+    };
+
+    checkAuth();
+
     setCount();
 </script>
+<script src="{% static 'js/account.js' %}"></script>
 <script src="{% static 'js/inventory.js' %}" type="module"></script>
 {% endblock %}

@@ -35,6 +35,14 @@ class InventoryRepository(BaseRepository):
             many=True
         ).data
 
+    def get_all_unlock(self, user_id: int) -> dict:
+        return self._serializer_class(
+            instance=self._service.get_all(
+                user_id=user_id, locked_for=Lockings.UNLOCK
+            ),
+            many=True
+        ).data
+
     def get_all_for_contract(self, user_id: int) -> dict:
         return self._serializer_class(
             instance=self._service.get_all(

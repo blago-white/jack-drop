@@ -1,14 +1,5 @@
 @import "variables.css";
 
-.bg-filter-img {
-    background: black;
-    height: 100%;
-}
-
-.bg-filter {
-    display: none;
-}
-
 .account-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;

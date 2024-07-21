@@ -3,6 +3,31 @@ const caseTitle = document.getElementById('case-title');
 const caseItems = document.getElementById('case-items');
 let caseId = null;
 
+function unlockOpen(id) {
+    document.getElementById('open-case-btn').addEventListener("click", () => {location.href = `/case/${caseId}/drop/`});
+
+    Array.from(document.getElementById('open-case-btn').children).forEach((child) => {
+        child.classList.remove("noactive")
+        return;
+    });
+}
+
+async function checkFreeCaseAvailable(id) {
+    const formdata = new FormData();
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow"
+    };
+
+    const response = await sendRequest(
+        `http://localhost/products/bonus-buy/has-case/${id}/`,
+        requestOptions
+    );
+
+    const result = await response.json();
+
+    return result.ok;
+}
 
 async function getCase(id) {
     const formdata = new FormData();
@@ -13,14 +38,24 @@ async function getCase(id) {
 
     caseId = id;
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/cases/api/v1/case/${id}/items/`,
         requestOptions
     );
 
     const result = await response.json();
 
-    console.log(result);
+    console.log(await getUserData());
+
+    if ((result.case.price) == 0) {
+        if (await checkFreeCaseAvailable(id)) {
+            unlockOpen(caseId);
+        }
+    } else {
+        if (result.case.price <= (await getUserData()).balance) {
+            unlockOpen(caseId);
+        }
+    }
 
     caseTitle.innerHTML = result.case.title;
     caseImg.src = result.case.image_path;
@@ -46,5 +81,3 @@ async function getCase(id) {
         `;
     });
 }
-
-document.getElementById('open-case-btn').addEventListener("click", () => {location.href = `/case/${caseId}/drop/`});

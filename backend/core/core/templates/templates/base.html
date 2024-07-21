@@ -18,10 +18,8 @@
         <div class="bg-filter" style="z-index: 0;"></div>
     </div>
     <div id="prize-wrappper">
+        <img class="prize-glow" id="prize-glow" src="{% static 'img/glow.png' %}">
         <div class="prize-body" id="prize-body">
-            <button class="close-prize-btn" onclick="closePrizeWindow()">
-                <img src="{% static 'img/cross.png' %}">
-            </button>
         </div>
     </div>
     {% include 'header.html' %}
@@ -29,7 +27,7 @@
         {% block main %}
         {% endblock %}
     </main>
-    <footer class="footer">
+    <footer class="footer" id="footer-w">
         <div class="site-info">
             <img src="{% static 'img/JD-mono.png' %}">
             <span class="c"><b>© 2018-2024 JackDrop</b><br>{% trans 'Best Cases' %}</span>
@@ -47,26 +45,22 @@
            <li><a href="{% url 'about' %}" class="doc-link">{% trans 'About' %}</a></li>
         </ul>
 
-        <div class="lang-switcher" style="display: flex;justify-content: center;flex-direction: column;gap: 1ch;">
-            <button class="button" onclick="setLang('en')" style="border: none;">English</button>
-            <button class="button" onclick="setLang('ru')" style="border: none;">Русский</button>
-        </div>
-
         <ul class="media-list">
             <li><img src="{% static 'img/tg-logo.png' %}"></li>
             <li><img src="{% static 'img/vk-logo.png' %}"></li>
             <li><img src="{% static 'img/ig-logo.png' %}"></li>
             <li><img src="{% static 'img/tw-logo.png' %}"></li>
         </ul>
+        {% csrf_token %}
     </footer>
     <script src="{% static 'js/header.js' %}"></script>
     <script src="{% static 'js/prize.js' %}" type="module"></script>
     <script src="{% static 'js/langs.js' %}"></script>
+    <script src="{% static 'js/auth.js' %}"></script>
     <script>
         function randomIntFromInterval(min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min);
         };
-
     </script>
     {% block extrascripts %}
     {% endblock %}

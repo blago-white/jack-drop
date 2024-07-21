@@ -1,19 +1,13 @@
 @import "variables.css";
 
-body {
-    background: black url('../svg/sharp.svg');
+.bg-filter-img {
+    background: black url('../img/bg.jpg');
     background-size: cover;
     background-repeat: repeat;
 }
-
-
-.bg-filter {
-    display: none;
-}
-
 .replenish-form {
     background: black;
-    border: 1.18px solid #979797;
+    outline: 1.18px solid #979797;
     padding: calc(100vw * calc(50 / var(--reference-display-w)));
     border-radius: calc(100vw * calc(22 / var(--reference-display-w)));
     width: 41vw;

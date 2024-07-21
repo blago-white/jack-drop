@@ -22,6 +22,18 @@ class InventoryItemsListApiView(BaseListAPIView):
         )
 
 
+class UnlockInventoryItemsListApiView(BaseListAPIView):
+    _repository = InventoryRepository()
+    _users_repository = UsersApiRepository()
+
+    def list(self, request, *args, **kwargs):
+        user_id = self._users_repository.get(user_request=request).get("id")
+
+        return self.get_200_response(
+            data=self._repository.get_all_unlock(user_id=user_id)
+        )
+
+
 class UpgradeInventoryItemsListApiView(BaseListAPIView):
     _repository = InventoryRepository()
     _users_repository = UsersApiRepository()
@@ -44,7 +56,6 @@ class ContractInventoryItemsListApiView(BaseListAPIView):
         return self.get_200_response(
             data=self._repository.get_all_for_contract(user_id=user_id)
         )
-
 
 class SellInventoryItemApiView(CreateAPIViewMixin, CreateAPIView):
     _repository = InventoryRepository()

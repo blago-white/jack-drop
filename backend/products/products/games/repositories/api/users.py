@@ -15,12 +15,16 @@ class UsersApiRepository(BaseApiRepository):
             user_request=user_request
         )
 
+        print("FROM USERS:", data)
+
         return DetailedUserFundsSerializer(instance=data).data
 
     def get_by_jwt(self, jwt_token: str) -> dict:
         data: float = self._api_service.get_user_info(
             jwt=jwt_token
         )
+
+        print("WOWWW", data)
 
         return DetailedUserFundsSerializer(instance=data).data
 
@@ -31,9 +35,6 @@ class UsersApiRepository(BaseApiRepository):
         return self.get(user_request=user_request).get("user_advantage")
 
     def update_balance(self, user_request: Request, delta_amount: float):
-        print(user_request, delta_amount)  # TODO: Remove
-        return
-
         self._api_service.update_user_balance_by_request(
             user_request=user_request,
             delta_amount=delta_amount

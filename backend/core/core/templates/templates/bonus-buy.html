@@ -23,9 +23,11 @@ Privacy Policy | JackDrop
         <span class="upgrade-hint">
             <span class="bonus-level">
                 <img class="level-border" src="{% static 'img/bonus-level-border.png' %}">
-                <span class="level-digit">1</span>
+                <span class="level-digit" id="level-digit">1</span>
             </span>
-            Оборот 5000 металлалома, что бы получить Рудный кейс Дерево
+            <span id="level-desc">
+                Оборот металлалома, что бы получить Рудный кейс Дерево
+            </span>
         </span>
 
         <div class="benefits">
@@ -34,13 +36,13 @@ Privacy Policy | JackDrop
                 <img id="level-circle-img" src="/core/static/img/upgrade-chance-100.png">
                 <span class="level-passed-percent" id="upgrade-percent">0%</span>
             </div>
-            <button class="super-button disabled" id="get-prize-btn">
+            <button class="super-button" id="get-prize-btn">
                 <span class="super-button-bg"></span>
                 <span class="super-button-text">Получить</span>
             </button>
             <button class="super-button" id="next-level-btn">
-                <span class="super-button-bg"></span>
-                <span class="super-button-text">Перейти к 2 уровню</span>
+                <span class="super-button-bg" id="next-level-btn-bg"></span>
+                <span class="super-button-text" id="next-lvl-desc">Перейти к 2 уровню</span>
             </button>
         </div>
 
@@ -51,4 +53,8 @@ Privacy Policy | JackDrop
         </aside>
     </div>
 </section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/bonusBuy.js' %}" type="module"></script>
 {% endblock %}

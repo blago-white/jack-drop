@@ -11,3 +11,13 @@ class MakeGameView(DefaultCreateApiView):
         return self.get_201_response(
             data=self.repository.make(request_data=request.data)
         )
+
+
+class NextStepMinesGameView(DefaultCreateApiView):
+    repository = MinesGameRepository()
+    serializer_class = repository.default_serializer_class
+
+
+class StopMinesGameView(DefaultCreateApiView):
+    repository = MinesGameRepository()
+    serializer_class = repository.default_serializer_class

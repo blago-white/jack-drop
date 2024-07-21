@@ -3,6 +3,7 @@ from common.mixins.api import CreateAPIViewMixin, DetailedApiViewMixin
 from games.repositories.api.drop import CaseDropApiRepository, DropItemsRepository
 from games.repositories.api.users import UsersApiRepository
 from games.serializers.drop import DropItemGameApiViewSerializer
+from games.repositories.result import GameResultsRepository
 
 from .base import BaseGameProxyCreateApiView
 
@@ -35,13 +36,6 @@ class DropItemGameApiView(DetailedApiViewMixin,
         result = self.drop_api_repository.drop(
             user_funds=user_funds,
             case_data=case_data | {"items": case_items}
-        )
-
-        print(result, "DROP RESULT")
-
-        self.users_api_repository.update_balance(
-            user_request=request,
-            delta_amount=(-case_data.get("price"))
         )
 
         return self.get_201_response(data=result)

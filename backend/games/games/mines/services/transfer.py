@@ -9,10 +9,10 @@ class MinesGameRequest:
     user_advantage: float
     user_deposit: float | int
     site_active_funds: float
+    step: int
 
 
 @dataclass
 class MinesGameResult:
     is_win: bool
     funds_diffirence: FundsDifference
-    loss_step: int = None

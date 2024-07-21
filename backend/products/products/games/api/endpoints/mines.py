@@ -20,9 +20,8 @@ class MinesGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):
             user_data=user_data
         )
 
-        user_balance_diff = result.get("funds_difference").get("user_funds_diff")
         mines_game = result.get("mines_game")
 
         return self.get_201_response(
-            data={"user_funds_diff": user_balance_diff} | mines_game
+            data=mines_game
         )

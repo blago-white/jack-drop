@@ -18,7 +18,7 @@ async function sellItem(id) {
       headers: headers
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/inventory/sell/`,
         requestOptions
     );
@@ -107,7 +107,7 @@ async function getInventoryItems() {
       method: "GET",
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/inventory/all/`,
         requestOptions
     );
@@ -122,7 +122,7 @@ async function getBuyItems() {
       method: "GET",
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/inventory/unlock/`,
         requestOptions
     );

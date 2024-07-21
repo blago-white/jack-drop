@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'games',
     'inventory',
     'interactive',
+    'bonus',
 
     'daphne',
     'rest_framework',

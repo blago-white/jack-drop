@@ -1,16 +1,5 @@
 @import "variables.css";
 
-
-.bg-filter-img {
-    background: black url('../svg/sharp.svg');
-    background-size: contain;
-    background-repeat: repeat;
-}
-
-.bg-filter {
-    display: none;
-}
-
 .inventory-sec {
     display: flex;
     flex-direction: column;

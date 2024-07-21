@@ -11,8 +11,15 @@ let grantedItems = new Map();
 
 let priceMapping = new Map();
 
-function gcd (a, b) {
-    return (b == 0) ? a : gcd (b, a%b);
+function gcd () {
+    const w = screen.width;
+    const h = screen.height;
+
+    return w/h;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function getItems() {
@@ -22,7 +29,7 @@ async function getItems() {
       redirect: "follow"
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/inventory/contract/`,
         requestOptions
     );
@@ -49,8 +56,10 @@ async function getItems() {
                 </article>
             `
 
-            if (w > h) {                document.getElementById('inventory-items').innerHTML += html;
-            } else {                document.getElementById('inventory-items-mob').innerHTML += html;
+            if (w > h) {
+                document.getElementById('inventory-items').innerHTML += html;
+            } else {
+                document.getElementById('inventory-items-mob').innerHTML += html;
             }
 
             grantedItems.set(element.id, element.item);
@@ -94,14 +103,53 @@ function unselectItem(id) {
     selected.delete(id);
 }
 
+async function animateContract() {
+    if (gcd() > 1/1) {
+
+        document.getElementById('cells-row-1').style = 'transform: translateY(31vh);gap: 0px;';
+
+        document.getElementById('cells-row-2').style = 'transform: translateY(16vh);gap: 0px;';
+
+        document.getElementById('cells-row-3').style = 'gap: 0px;';
+
+        document.getElementById('cells-row-4').style = 'transform: translateY(-21vh);gap: 0px;';
+
+        document.getElementById('cells-row-5').style = 'transform: translateY(-31vh);gap: 0px;';
+
+
+        document.getElementById('contract-glow').style.transform = 'scale(1.5)';
+
+        setTimeout(() => {
+            document.getElementById('contract-glow').style.transform = 'scale(1)';
+        }, 1000)
+
+        setTimeout(() => {
+            document.getElementById('contract-glow').style.animation = 'infinite ease-in-out 0s glow-flickering, infinite ease-in-out 0s glow-rotate, infinite ease-in-out 1.5s glow-sizing';
+        }, 2000)
+
+        await declineAmount();
+        await sleep(5000);
+    }
+}
+
+async function declineAmount() {
+    let val = parseInt(document.getElementById('contract-amount').innerHTML);
+
+    while (val>0) {
+        document.getElementById('contract-amount').innerHTML = `${val}`;
+        val -= 10;
+        await sleep(1);
+    }
+
+    document.getElementById('contract-amount').innerHTML = `0`;
+}
+
 async function makeContract() {
     const myHeaders = new Headers();
 
     selected.forEach((element, element_id) => {
         document.getElementById(element_id).remove()
     })
-
-    document.getElementById('contract-amount').innerHTML = "0";
 
     myHeaders.append("X-CSRFToken", document.cookie.split("=")[1].split(";")[0]);
     myHeaders.append("Content-Type", "application/json");
@@ -113,10 +161,12 @@ async function makeContract() {
       redirect: "follow"
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/games/contract/`,
         requestOptions
     );
+
+    await animateContract();
 
     if (!response.ok) {
         alert("Error with operation, try again later");
@@ -147,7 +197,7 @@ function selectItem(id) {
         emptyPos.add(selected.get(id).pos);
         return unselectItem(id);
     } else {
-        empty = Array.from(emptyPos.keys())[0];
+        empty = Math.min(...Array.from(emptyPos.keys()));
         selected.set(id, {pos: empty});
         emptyPos.delete(empty);
     }

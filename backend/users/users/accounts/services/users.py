@@ -16,7 +16,16 @@ class BaseUsersService(BaseService, metaclass=ABCMeta):
 
 class UsersService(BaseUsersService):
     def get_user_info(self, user_id: int) -> models.Model:
-        return self._model.objects.drop_item(pk=user_id)
+        return self._model.objects.get(pk=user_id)
+
+    def get_user_info_by_steam(self, steam_id: int) -> models.Model:
+        return self._model.objects.get(steam_id=steam_id)
 
     def get_all(self) -> models.QuerySet:
         return self._model.objects.all()
+
+    def create(self, steam_id: int, username: str):
+        return self._model.objects.create(
+            steam_id=steam_id,
+            username=username
+        )

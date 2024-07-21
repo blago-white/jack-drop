@@ -76,12 +76,19 @@
     overflow-y: scroll;
     overflow-x: hidden;
 
-    padding-right: 23.5vw;
+    padding-right: 1ch;
 }
 
 .inventory-items::-webkit-scrollbar {
     width: .75ch;
     padding-left: 1ch;
+}
+
+.glow {
+    width: 100%;
+    z-index: -1;
+    transform: scale(0);
+    transition: transform 1s ease;
 }
 
 .inventory-items::-webkit-scrollbar-track {
@@ -116,6 +123,8 @@
     grid-template-columns: 1fr;
     justify-items: center;
     align-items: center;
+    height: 76vh;
+    aspect-ratio: 1 / 1;
 }
 
 .desctop-items-cells {
@@ -130,6 +139,9 @@
 
 .cells-row {
     display: flex;
+    z-index: 0;
+
+    transition: all 5s ease-in-out;
 }
 
 .cells-row span {

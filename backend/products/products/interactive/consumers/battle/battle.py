@@ -3,6 +3,7 @@ import json
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import JsonWebsocketConsumer
 
+from cases.repositories.items import CasesItemsRepository
 from games.repositories.api.battle import BattleRequestApiRepository, \
     BattleApiRepository
 from .messages import InputMessage, CreateBattleRequest, ConnectToRequest, \
@@ -25,9 +26,11 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
             self, *args,
             battle_api_repository: BattleApiRepository = BattleApiRepository(),
             battle_request_api_repository: BattleRequestApiRepository = BattleRequestApiRepository(),
+            cases_items_repository: CasesItemsRepository = CasesItemsRepository(),
             **kwargs):
         self._battle_request_api_repository = battle_request_api_repository
         self._battle_api_repository = battle_api_repository
+        self._case_items_repository = cases_items_repository
 
         super().__init__(*args, **kwargs)
 
@@ -152,10 +155,12 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
                     initiator_id=self.initiator_id,
                     participant_data=self.scope.get("user")
                 ),
+                "case_items": self._case_items_repository.get_all_by_case(
+                    case_pk=self.battle_case_id
+                ),
                 "success": True
             }
         except Exception as e:
-            raise e
             return {
                 "data": {},
                 "error": "Error with battle, try again",

@@ -11,8 +11,147 @@ const battleSocket = new WebSocket("ws://localhost/products/ws/battle/");
 let sendedRequestNow = false;
 let connected = false;
 let requestCaseId = null;
+let itemsPositions = new Map();
 
-battleSocket.onmessage = function(event) {
+let currentCaseImage;
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function gcd () {
+    const w = screen.width;
+    const h = screen.height;
+
+    return w/h;
+}
+
+function animateRoulette(toid, caseItems, dropItemsString) {
+    const vw = window.innerWidth / 100;
+    const gap = 100 * vw * (40 / 1920);
+
+    let to;
+    let c = 0;
+
+    caseItems.forEach((element) => {
+        if (element.case_item_id == toid) {
+            to = c;
+        }
+
+        c++;
+    });
+
+    const count = caseItems.length;
+
+    if (gcd() > 1/1) {
+        const partWith = 100 * vw * (200 / 1920);
+
+        const biasVal = gap + partWith - count;
+
+        dropItemsString.style.transition = `filter .5s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;
+
+        dropItemsString.style.filter = `blur(.1ch)`;
+
+        setTimeout(() => {
+            dropItemsString.style.marginLeft = `-${(biasVal * count) + ((to) * biasVal)}px`;
+        })
+
+        setTimeout(() => {dropItemsString.style.transition = `filter 4s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;dropItemsString.style.filter = `blur(0ch)`}, 1000)
+    } else {
+        const partWith = 100 * vw * (200 / 960) + 7;
+
+        const biasVal = gap + partWith;
+
+        dropItemsString.style.marginTop = `-${((biasVal * count) * 7) + ((to+1) * biasVal)}px`;
+    }
+}
+
+async function renderDrops(username1, username2, battleImgPath, caseItems, dropped1, dropped2) {
+    document.getElementById('battle-sec').innerHTML = `
+            <div class="drops-window" id="drops" style="opacity: 0;">
+                <div class="battle-info">
+                    <span class="user-info">
+                        <img src="/core/static/img/account-avatar.png">
+                        <span>${username1}</span>
+                    </span>
+
+                    <img src="${battleImgPath}" class="battle-case-img">
+
+                    <span class="user-info">
+                        <img src="/core/static/img/account-avatar.png">
+                        <span>${username2}</span>
+                    </span>
+                </div>
+                <div class="drops-roulette-window">
+                    <div class="drop-roulette" id="roulette1">
+                        <img class="arrow" src="/core/static/img/case-string-arrow.png">
+                        <div class="case-items-string" id="items-string">
+                            <ul class="items" id="items1">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="drop-roulette" id="roulette2">
+                        <img class="arrow" src="/core/static/img/case-string-arrow.png">
+                        <div class="case-items-string" id="items-string">
+                            <ul class="items" id="items2">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    `;
+
+    for (let i = 0;i<7;i++) {
+        caseItems.forEach((element) => {
+            console.log( document.getElementsByClassName('items')[0]);
+
+            document.getElementsByClassName('items')[0].innerHTML += `
+                <article class="dropped mono 1-itm-${element.case_item_id}">
+                    <div class="w-line"></div>
+                    <div class="dropped-content">
+                        <span>${element.title}</span>
+                        <img src="${element.image_path}">
+                    </div>
+                </article>
+            `;
+
+            document.getElementsByClassName('items')[1].innerHTML += `
+                <article class="dropped mono 2-itm-${element.case_item_id}">
+                    <div class="w-line"></div>
+                    <div class="dropped-content">
+                        <span>${element.title}</span>
+                        <img src="${element.image_path}">
+                    </div>
+                </article>
+            `;
+        })
+    };
+
+    const r1 = document.getElementById('items1');
+    const r2 = document.getElementById('items2');
+
+//    r1.margin-left
+
+    console.log(dropped1, '_DDD')
+
+    animateRoulette(dropped1.case_item_id, caseItems, r1);
+    animateRoulette(dropped2.case_item_id, caseItems, r2);
+
+    Array.from(document.getElementsByClassName(`1-itm-${dropped1.case_item_id}`)).forEach((elem) => {
+        elem.style.background = "radial-gradient(50% 50% at 50% 50%, rgba(79, 160, 255, 0.8) 0%, rgba(0, 71, 255, 0.8) 100%)";
+    });
+    Array.from(document.getElementsByClassName(`2-itm-${dropped2.case_item_id}`)).forEach((elem) => {
+        elem.style.background = "radial-gradient(50% 50% at 50% 50%, rgba(79, 160, 255, 0.8) 0%, rgba(0, 71, 255, 0.8) 100%)";
+    });
+
+    document.getElementById("battle-sec").style = 'grid-template-columns: 1fr;grid-template-rows: 2fr;';
+
+    setTimeout(() => {
+        document.getElementById("drops").style.opacity = 1;
+    })
+}
+
+battleSocket.onmessage = async function(event) {
     let jsondata = JSON.parse(event.data);
 
     if (typeof jsondata === 'string') {
@@ -42,12 +181,14 @@ battleSocket.onmessage = function(event) {
     }
 
     if (jsondata["result"]["success"] && jsondata["response_type"] == "result") {
-        alert("Battle finished!");
-        console.log(jsondata);
-
         hideRequestWindow();
 
-        const item = jsondata["result"]["data"]["dropped_item_winner_id"];
+        const item = jsondata.result.data.dropped_item_winner_id;
+
+        if (gcd() > 1/1) {
+            renderDrops('Lorem Ipsum', 'Lorem Ipsum', currentCaseImage, jsondata.result.case_items, jsondata.result.data.dropped_item_winner_id, jsondata.result.data.dropped_item_loser_id);
+            await sleep(7000);
+        }
 
         renderItemPrize(`You win ${item.title}!`, item.price, item.image_path, "Amazing!");
 
@@ -72,11 +213,6 @@ battleSocket.onmessage = function(event) {
     }
 }
 
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function sendConnectRequest(case_id) {
     sendedRequestNow = true;
 
@@ -94,6 +230,8 @@ function sendCreateRequest(case_id) {
 }
 
 async function onCreateBattle(case_id) {
+    currentCaseImage = document.getElementById(`case-img-${case_id}`).src;
+
     battlesHead.style.display = 'none';
     battlesTable.style.display = 'none';
 
@@ -136,7 +274,7 @@ async function getCases() {
       method: "GET",
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/cases/api/v1/paid-cases/`,
         requestOptions
     );
@@ -149,7 +287,7 @@ async function getCases() {
         battlesTable.innerHTML += `
             <div class="battle">
                 <div class="case-sign">
-                    <img class="battle-case" src="${element.image_path}">
+                    <img class="battle-case" src="${element.image_path}" id="case-img-${element.id}">
                     <span>${element.title}</span>
                 </div>
                 <span class="count-battles">0</span>
@@ -168,16 +306,16 @@ async function getStats() {
       method: "GET",
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/games/battle-stats/`,
         requestOptions
     );
 
     const result = await response.json();
 
-    document.getElementById('wins').innerHTML = result.wins;
-    document.getElementById('draw').innerHTML = result.draw;
-    document.getElementById('loses').innerHTML = result.loses;
+    document.getElementById('wins').innerHTML = result.wins || 0;
+    document.getElementById('draw').innerHTML = result.draw || 0;
+    document.getElementById('loses').innerHTML = result.loses || 0;
 }
 
 async function showHistory() {
@@ -193,7 +331,7 @@ async function showHistory() {
       method: "GET",
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/games/battle-history/`,
         requestOptions
     );

@@ -27,5 +27,5 @@ class GameResultService(BaseModelService):
 
         return self._model.objects.create(**args)
 
-    def get_for_user(self, user_id: int) -> GameResult:
-        return self._model.objects.filter(user_id=user_id)
+    def get_for_user(self, user_id: int, game: str) -> GameResult:
+        return self._model.objects.filter(user_id=user_id, game=game)

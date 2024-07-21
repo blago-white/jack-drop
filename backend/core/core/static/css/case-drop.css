@@ -1,17 +1,15 @@
 @import 'variables.css';
 
 .bg-filter-img {
-    background: black url('/core/static/svg/sharp.svg');
-}
+    background: url('/core/static/img/bg.jpg');
+    background-size: cover;
 
-.bg-filter {
-    display: none;
 }
 
 .case-drop-sec {
     width: calc(100vw * calc(1337 / var(--reference-display-w)));
     padding-inline: calc(100vw * calc(58 / var(--reference-display-w)));
-    border: 1px solid white;
+    border: 2px solid white;
     border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
     margin-inline: auto;
     display: flex;
@@ -20,15 +18,19 @@
 }
 
 .arrow {
-    height: 26.7ch;
+    height: 34.5ch;
     position: absolute;
     z-index: 100;
 }
 
+.prize-body {
+    background: transparent;
+}
+
 .dropped {
-    width: calc(100vw * calc(217 / var(--reference-display-w)))!important;
-    height: calc(100vw * calc(217 / var(--reference-display-w)))!important;
-    font-size: calc(100vw* calc(16 / var(--reference-display-w)))!important;
+    width: calc(100vw* calc(326 / var(--reference-display-w))) !important;
+    height: calc(100vw* calc(326 / var(--reference-display-w))) !important;
+    font-size: calc(100vw* calc(25 / var(--reference-display-w))) !important;
 }
 
 .case-items-string {
@@ -40,8 +42,9 @@
 }
 
 .dropped img {
-    left: -6%!important;
+    left: 0%!important;
     margin-top: 12%!important;
+    width: 105%!important;
 }
 
 .items {
@@ -52,11 +55,17 @@
     width: max-content;
     padding-left: calc(100vw * calc(48 / var(--reference-display-w)));
 
-    transition: margin 5s ease-in-out;
+    transition: margin 7s cubic-bezier(0.02, 0.29, 0.31, 0.77);
 }
 
 .w-line {
-    height: calc(90vw * calc(196 / var(--reference-display-w)));
+    height: calc(90vw* calc(290 / var(--reference-display-w)));
+    min-width: 2px;
+    margin-top: calc(10vw* calc(321 / var(--reference-display-w)));
+}
+
+.dropped.mono span {
+    margin-top: 11.5% !important;
 }
 
 .case-items-string::-webkit-scrollbar {

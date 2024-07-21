@@ -1,1 +1,1 @@
-from .client import Client, ClientDeposit
+from .client import Client

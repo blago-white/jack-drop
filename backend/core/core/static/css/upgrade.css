@@ -66,6 +66,52 @@
     width: 80%;
 }
 
+@keyframes glow-rotate {
+    0% {
+        rotate: 0deg;
+    }
+
+    50% {
+        rotate: 2.5deg;
+    }
+
+    100% {
+        rotate: 0deg;
+    }
+}
+
+@keyframes glow-flickering {
+    0% {
+        filter: brightness(1) hue-rotate(0deg);
+        transform: scale(1);
+    }
+
+    25% {
+        filter: brightness(.95) hue-rotate(90deg);
+        transform: scale(1.05);
+    }
+
+    50% {
+        filter: brightness(.9) hue-rotate(180deg);
+        transform: scale(1.1);
+    }
+    100% {
+        filter: brightness(1) hue-rotate(0deg);
+        transform: scale(1);
+    }
+}
+
+.receive-item-glow {
+    position: absolute;
+    height: 47vh;
+    rotate: 180deg;
+    z-index: 1000;
+    top: 17vh;
+    filter: brightness(1);
+    pointer-events: none;
+    transition: transform 3s ease, opacity 3s 1s ease-in-out;
+}
+
 body {
     height: auto;
     background: url('../img/upgrade-bg.jpg');
@@ -78,7 +124,7 @@ body {
     position: absolute;
     margin-top: 5vh;
     width: 11vw;
-    transition: filter 5s linear, opacity .5s ease;
+    transition: filter 5s linear, opacity .5s ease, transform .03s ease-out;
 }
 
 .item-card {
@@ -160,14 +206,16 @@ body {
 }
 
 .upgrade-item-img-second {
-    transition: filter 5s linear, opacity .5s ease;
+    transition: filter 20s linear, opacity .5s ease;
 }
 
 #granted-balance {
     background: transparent;
     border: 0px;
     color: white;
-    font-size: medium;
+    font-size: x-large;
+    text-align: center;
+    font-family: 'Gilroy Semibold';
 }
 
 #granted-balance:focus-visible {
@@ -176,15 +224,11 @@ body {
 
 @media (aspect-ratio < 1/1) {
     .bg-filter-img {
-        background: black;
-        min-height: 100vh;
-        position: absolute;
-        top: 0px;
-        width: 100vw
-    }
-
-    .bg-filter {
-        display: none;
+        background: url(/core/static/img/bg.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100vh;
+        background-position: center;
     }
 
     .upgrade-sec {

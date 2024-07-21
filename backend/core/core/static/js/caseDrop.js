@@ -53,7 +53,7 @@ export async function getCase(id) {
 
     caseId = id;
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/cases/api/v1/case/${id}/items/`,
         requestOptions
     );
@@ -80,7 +80,7 @@ export async function getCase(id) {
         dropItemsPositions.set(element.case_item_id, c);
     });
 
-    dropItemsString.innerHTML += line + line + line + line + line + line + line;
+    dropItemsString.innerHTML += line + line + line + line + line + line + line + line + line;
 
     await dropCase();
 }
@@ -143,13 +143,14 @@ async function dropCase() {
       redirect: "follow"
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/games/drop/${caseId}/`,
         requestOptions
     );
 
+    console.log(response, "FROM DROP");
+
     if (!response.ok) {
-        alert(await response.json());
         window.history.back();
         return false;
     }
@@ -158,15 +159,7 @@ async function dropCase() {
 
     const dropped = result.dropped_item;
 
-    console.log('---R', result);
-
     const position = dropItemsPositions.get(dropped.id);
-
-    console.log(position);
-
-    console.log(dropped);
-
-    console.log(dropItemsPositions);
 
     animateRoulette(position, dropItems.size);
 
@@ -180,7 +173,7 @@ async function dropCase() {
         setTimeout(() => {
             renderItemPrize(dropped.title, dropped.price, dropped.image_path, "Amazing!")
         }, 500);
-    }, 5000);
+    }, 7000);
 }
 
 function animateRoulette(to, count) {
@@ -188,17 +181,22 @@ function animateRoulette(to, count) {
     const gap = 100 * vw * (48 / 1920);
 
     if (gcd() > 1/1) {
-        const partWith = 100 * vw * (217 / 1920);
-
-        const biasVal = gap + partWith + 1;
-
-        dropItemsString.style.marginLeft = `-${((biasVal * count) * 5) + ((to-3) * biasVal)}px`;
-    } else {
-        const partWith = 100 * vw * (331 / 960) + 5;
+        const partWith = 100 * vw * (326 / 1920);
 
         const biasVal = gap + partWith;
 
-        dropItemsString.style.marginTop = `-${((biasVal * count) * 5) + ((to) * biasVal)}px`;
+        dropItemsString.style.marginLeft = `-${((biasVal * count) * 7) + ((to-2) * biasVal)}px`;
+
+        dropItemsString.style.transition = `filter .5s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;
+        dropItemsString.style.filter = `blur(.1ch)`;
+
+        setTimeout(() => {dropItemsString.style.transition = `filter 4s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;dropItemsString.style.filter = `blur(0ch)`}, 1000)
+    } else {
+        const partWith = 100 * vw * (331 / 960) + 7;
+
+        const biasVal = gap + partWith;
+
+        dropItemsString.style.marginTop = `-${((biasVal * count) * 7) + ((to+1) * biasVal)}px`;
     }
 }
 

@@ -67,11 +67,10 @@ class MinesGameApiRepository(BaseApiRepository):
             is_win=float(funds_difference.get("user_funds_diff")) > 0
         ))
 
-        # TODO: Uncomment
-        # self._users_service.update_user_balance_by_id(
-        #     delta_amount=funds_difference.get("user_funds_diff"),
-        #     user_id=user_id
-        # )
+        self._users_service.update_user_balance_by_id(
+            delta_amount=funds_difference.get("user_funds_diff"),
+            user_id=user_id
+        )
 
     @staticmethod
     def _validate_funds(user_balance: float, deposit: int):

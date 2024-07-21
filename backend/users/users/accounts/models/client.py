@@ -26,4 +26,6 @@ class Client(AbstractUser):
                                   null=True,
                                   blank=True)
 
+    steam_id = models.IntegerField(unique=True)
+
     advantage = models.FloatField(default=0)
