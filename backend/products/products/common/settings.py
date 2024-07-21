@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["productsapp", "localhost"]
+ALLOWED_HOSTS = ["productsapp", "localhost", "95.163.231.175"]
 
 # Application definition
 
@@ -58,7 +58,8 @@ INSTALLED_APPS = [
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost/',
                         'http://localhost:80/',
-                        'http://127.0.0.1:800/']
+                        'http://127.0.0.1:800/',
+                        "http://95.163.231.175/"]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
