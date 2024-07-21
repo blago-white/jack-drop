@@ -10,7 +10,9 @@ RUN adduser -D -u 1000 app --home /home/app/
 
 WORKDIR /home/app/
 
-COPY . .
+COPY ../market /home/app/market/
+COPY ../requirements.txt /home/app/requirements.txt
+COPY ../.env /home/app/.env
 
 RUN pip install --upgrade pip
 RUN pip install -r ./requirements.txt
