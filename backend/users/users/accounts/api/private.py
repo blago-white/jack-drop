@@ -7,7 +7,9 @@ from rest_framework_simplejwt.tokens import TokenError
 from rest_framework_simplejwt.views import TokenVerifyView
 
 from accounts.repositories.users import PrivateUsersRepository
-from common.api.default import DefaultRetrieveApiView
+from accounts.repositories.advantage import AdvantageRepository
+from common.api.default import DefaultRetrieveApiView, DefaultUpdateApiView
+from common.mixins import DetailedApiViewMixin
 
 
 class UserDataPrivateApiView(DefaultRetrieveApiView):
@@ -76,4 +78,21 @@ class UserAdvantageRetrieveAPIView(DefaultRetrieveApiView):
     def retrieve(self, request, *args, **kwargs):
         return self.get_200_response(
             data={"advantage": request.user.advantage}
+        )
+
+
+class UserAdvantageUpdateAPIView(DefaultUpdateApiView):
+    pk_url_kwarg = "user_id"
+    repository = AdvantageRepository()
+
+    def update(self, request, *args, **kwargs):
+        print("DDDERRRRR", request)
+
+        updated = self.repository.update(
+            user_id=self.get_requested_pk() or request.user.id,
+            delta_amount=request.data.get("delta_advantage")
+        )
+
+        return self.get_201_response(
+            data=updated
         )

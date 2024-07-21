@@ -124,3 +124,14 @@ def bonus_buy_view(request):
         request=request,
         template_name="bonus-buy.html"
     )
+
+
+def items_set(request, set_id):
+    return render(
+        request=request,
+        template_name="case.html",
+        context={
+            "IS_SET": True,
+            "set_id": set_id
+        }
+    )

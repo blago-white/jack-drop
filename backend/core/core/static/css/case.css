@@ -6,8 +6,6 @@
 }
 
 .case-data-wrapper {
-    background: url('../img/case-bg-circle.png');
-    background-size: cover;
     border-radius: calc(100vw * calc(20 / var(--reference-display-w)));
 }
 

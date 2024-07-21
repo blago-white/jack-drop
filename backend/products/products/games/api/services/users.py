@@ -15,9 +15,6 @@ class UsersApiService(BaseApiService):
     def get_user_info(
             self, user_request: Request = None,
             jwt: str = None) -> dict:
-        print("|_____", user_request, jwt, "|", user_request.auth, "|",
-              user_request.headers)
-
         if user_request:
             return self.send_auth_get_api_request(
                 path=self.routes.get("get_info"),
@@ -63,11 +60,6 @@ class UsersApiService(BaseApiService):
             data={"delta_amount": delta_amount}
         )
 
-        print("DELTA AMOUNT", delta_amount)
-
-        print("UPDATE RESPONSE:", response)
-        print("UPDATE RESPONSE:", response.json())
-
         return response.json().get("ok")
 
     def update_user_hiden_balance(
@@ -79,6 +71,28 @@ class UsersApiService(BaseApiService):
             ),
             data={"delta_amount": delta_amount}
         ).json()
+
+        return response.get("ok")
+
+    def update_user_advantage(self, delta_advantage: float,
+                              user_id: int = None,
+                              user_request: Request = None):
+        if user_id:
+            response = requests.put(
+                url=self.routes.get("update_advantage_by_id").format(
+                    user_id=user_id
+                ),
+                data={"delta_advantage": delta_advantage}
+            ).json()
+
+        else:
+            response = requests.put(
+                url=self.routes.get("update_advantage"),
+                headers={"Authorization": user_request.headers.get(
+                    "Authorization"
+                )},
+                data={"delta_advantage": delta_advantage}
+            ).json()
 
         return response.get("ok")
 

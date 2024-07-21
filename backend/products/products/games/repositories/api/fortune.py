@@ -103,18 +103,15 @@ class FortuneWheelApiRepository(BaseApiRepository):
                 "prize": prize.get("prize")}
 
     def commit(self, prize: dict, user_id: int) -> None:
-        print(prize, "RESULT")
-
         if float(prize.get("site_funds_diff")):
-            print(self._site_funds_service.update(prize.get(
+            self._site_funds_service.update(prize.get(
                 "site_funds_diff"
-            )), "WOOOOOWWW")
+            ))
         if float(prize.get("user_funds_diff")):
-            pass
-            # self._users_service.update_user_hiden_balance(
-            #     user_id=user_id,
-            #     delta_amount=float(prize.get("user_funds_diff"))
-            # )
+            self._users_service.update_user_advantage(
+                user_id=user_id,
+                delta_advantage=float(prize.get("user_funds_diff"))
+            )
 
         prize_item = prize.get("prize")
 

@@ -67,6 +67,11 @@ class MinesGameApiRepository(BaseApiRepository):
             is_win=float(funds_difference.get("user_funds_diff")) > 0
         ))
 
+        self._users_service.update_user_advantage(
+            delta_advantage=funds_difference.get("user_funds_diff"),
+            user_id=user_id
+        )
+
         self._users_service.update_user_balance_by_id(
             delta_amount=funds_difference.get("user_funds_diff"),
             user_id=user_id

@@ -19,13 +19,6 @@ Case Info
         <div class="case-text-info">
             <h3 class="case-title" id="case-title"></h3>
             <h4 class="case-short-title">Lorem ipsum dolor sit amet</h4>
-            <span class="case-description">
-                Чтобы открыть этот кейс вам необходимо
-                Пополнение баланса за последние 24 часа не менее, чем на 2000.00
-                За последние 24 часа вы пополнили баланс на 0.00
-                Открывать этот кейс можно не более 1 раз за последние 24 часа
-                Кейс открыт: 0
-            </span>
             <div id="case-drop-data">
                 <div class="super-button" id="price-label">
                     <span class="super-button-bg"></span>
@@ -33,7 +26,7 @@ Case Info
                 </div>
                 <button class="super-button" id="open-case-btn">
                     <span class="super-button-bg noactive"></span>
-                    <span class="super-button-text">{% trans 'Open' %}→</span>
+                    <span class="super-button-text">{% if IS_SET %}{% trans 'Buy' %}→{% else %}{% trans 'Open' %}→DD{% endif %}</span>
                 </button>
             </div>
         </div>
@@ -48,8 +41,14 @@ Case Info
 
 {% block extrascripts %}
 <script src="{% static 'js/case.js' %}"></script>
+<script src="{% static 'js/itemsSet.js' %}" type="module"></script>
+<script type="module">
+    import { getSet } from "{% static 'js/itemsSet.js' %}";
 
-<script>
-    getCase({{ case_id }});
+    {% if IS_SET %}
+        window.getSet({{ set_id }});
+    {% else %}
+        getCase({{ case_id }});
+    {% endif %}
 </script>
 {% endblock %}

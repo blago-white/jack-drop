@@ -46,6 +46,8 @@ class ItemWithCaseItemSerializer(serializers.ModelSerializer):
 
 
 class ItemsSetSerializer(serializers.ModelSerializer):
+    items = ItemSerializer(many=True)
+
     class Meta:
         model = ItemsSet
-        fields = ["__all__", "price"]
+        fields = "__all__"

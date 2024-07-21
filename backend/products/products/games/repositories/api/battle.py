@@ -209,6 +209,14 @@ class BattleApiRepository(_BaseBattleApiRepository):
         return result
 
     def _commit_result(self, battle_result: dict, case_price: float | int):
+        loser_case_item = self._case_items_service.get(battle_result.get(
+            "dropped_item_loser_id")
+        )
+
+        winner_case_item = self._case_items_service.get(battle_result.get(
+            "dropped_item_winner_id")
+        )
+
         self._users_service.update_user_balance_by_id(
             delta_amount=-case_price,
             user_id=battle_result.get("winner_id")
@@ -219,18 +227,24 @@ class BattleApiRepository(_BaseBattleApiRepository):
             user_id=battle_result.get("loser_id")
         )
 
-        self._inventory_service.add_item(
-            owner_id=battle_result.get("winner_id"),
-            item_id=self._case_items_service.get(battle_result.get(
-                "dropped_item_winner_id")
-            ).item.pk
+        self._users_service.update_user_advantage(
+            delta_advantage=-case_price,
+            user_id=battle_result.get("loser_id")
+        )
+
+        self._users_service.update_user_advantage(
+            delta_advantage=(winner_case_item - case_price) + loser_case_item.item.price,
+            user_id=battle_result.get("winner_id")
         )
 
         self._inventory_service.add_item(
             owner_id=battle_result.get("winner_id"),
-            item_id=self._case_items_service.get(battle_result.get(
-                "dropped_item_loser_id")
-            ).item.pk
+            item_id=winner_case_item.item.pk
+        )
+
+        self._inventory_service.add_item(
+            owner_id=battle_result.get("winner_id"),
+            item_id=loser_case_item.item.pk
         )
 
         self._site_funds_service.update(

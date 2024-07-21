@@ -9,10 +9,10 @@ from . import validators
 
 class Item(TitleModelMixin, BaseImageModel):
     market_link = models.URLField(verbose_name=_(
-                                      "URL of this products on rust.rm"
-                                  ),
-                                  blank=False,
-                                  default="unknown")
+        "URL of this products on rust.rm"
+    ),
+        blank=False,
+        default="unknown")
 
     title = models.CharField(verbose_name=_("Item title"),
                              max_length=100,
@@ -25,14 +25,16 @@ class Item(TitleModelMixin, BaseImageModel):
                                   validators.MIN_ITEM_PRICE_VALIDATOR
                               ],
                               blank=True)
-    market_hash_name = models.CharField(verbose_name="Hash name", null=True, blank=True)
+    market_hash_name = models.CharField(verbose_name="Hash name", null=True,
+                                        blank=True)
 
     class Meta:
         db_table = "items_items"
 
-    def __init__(self, *args,
-                 market_parser: MarketItemParser = MarketItemParser(),
-                 **kwargs):
+    def __init__(
+            self, *args,
+            market_parser: MarketItemParser = MarketItemParser(),
+            **kwargs):
         self._market_parser = market_parser
 
         super().__init__(*args, **kwargs)
@@ -69,4 +71,15 @@ class Item(TitleModelMixin, BaseImageModel):
 
 class ItemsSet(models.Model):
     title = models.CharField(max_length=70)
-    items = models.ForeignKey(to=Item, on_delete=models.SET_NULL, null=True)
+    image_path = models.URLField(verbose_name=_("Item set image path"))
+    items = models.ManyToManyField(to=Item,
+                                   null=True,
+                                   related_name="sets")
+    price = models.FloatField(default=0, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.price = self.items.all().aggregate(
+            s=models.Sum("price")
+        ).get("s") * 1.15
+
+        return super().save(*args, **kwargs)

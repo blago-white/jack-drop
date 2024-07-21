@@ -198,6 +198,8 @@ USERS_MICROSERVICE_ROUTES = {
                       "balances/api/v1/p/displayed_balance/{client_id}/update/",
     "update_hidden_balance": "http://usersapp:8000/auth/"
                              "balances/api/v1/p/hidden_balance/{client_id}/update/",
+    "update_advantage": "http://usersapp:8000/auth/api/v1/p/advantage/update/",
+    "update_advantage_by_id": "http://usersapp:8000/auth/api/v1/p/advantage/update/{user_id}/"
 }
 
 CORE_MICROSERVICE_ROUTES = {

@@ -91,6 +91,16 @@ class InventoryService(BaseModelService):
             locked_for=locking
         )
 
+    def bulk_add_item(self, items_ids: list[int], owner_id: int) -> list[InventoryItem]:
+        created = self._model.objects.bulk_create(
+            [self._model(
+                user_id=owner_id,
+                item_id=item_id
+            ) for item_id in items_ids]
+        )
+
+        return created
+
     def bulk_get_items_amount(
             self, owner_id: int,
             inventory_items_ids: list[int]) -> float:

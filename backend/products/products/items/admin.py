@@ -1,8 +1,9 @@
+import django.db.models
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.utils.html import mark_safe
 
-from .models.models import Item
+from .models.models import Item, ItemsSet
 
 
 @admin.register(Item)
@@ -32,3 +33,15 @@ class ItemAdmin(ModelAdmin):
         return mark_safe(
             f"<b>{instance.price} RUB</b>"
         )
+
+
+@admin.register(ItemsSet)
+class ItemAdmin(ModelAdmin):
+    list_display = ["title", "price"]
+
+    fields = ["title",
+              "image_path",
+              "items",
+              "price"]
+
+    search_fields = ["title"]

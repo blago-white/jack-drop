@@ -3,6 +3,7 @@ from rest_framework.exceptions import ValidationError
 from common.repositories.base import BaseRepository
 
 from games.api.services.users import UsersApiService
+from games.api.services.site import SiteFundsApiService
 from ..services.api.withdraw import WithdrawScheduleApiService
 
 from ..models import Lockings
@@ -14,6 +15,7 @@ class InventoryRepository(BaseRepository):
     default_service = InventoryService()
     default_users_api_service = UsersApiService()
     default_schedule_service = WithdrawScheduleApiService()
+    default_site_funds_service = SiteFundsApiService()
 
     default_serializer_class = InventoryItemSerializer
 
@@ -23,9 +25,11 @@ class InventoryRepository(BaseRepository):
             self, *args,
             users_api_service: UsersApiService = None,
             schedule_service: WithdrawScheduleApiService = None,
+            site_funds_service: SiteFundsApiService = None,
             **kwargs):
         self._schedule_service = schedule_service or self.default_schedule_service
         self._users_api_service = users_api_service or self.default_users_api_service
+        self._site_api_service = site_funds_service or self.default_site_funds_service
 
         super().__init__(*args, **kwargs)
 
@@ -84,11 +88,11 @@ class InventoryRepository(BaseRepository):
                 delta_amount=item.item.price
             )
 
+            self._site_api_service.increase(item.item.price)
+
         return {"ok": ok}
 
     def withdraw(self, user_data: int, item_id: int) -> dict:
-        print(user_data, item_id, "_)DDDD")
-
         if not self._service.check_ownership(owner_id=user_data.get("id"),
                                              inventory_item_id=item_id):
             raise ValidationError("You not owner of item!")
@@ -96,8 +100,6 @@ class InventoryRepository(BaseRepository):
         item = self._service.get_item(inventory_item_id=item_id)
 
         if item.locked_for != Lockings.UNLOCK:
-            print("LOCKED")
-
             raise ValidationError("Item locked!")
 
         serialized = self._schedule_service.default_endpoint_serializer_class(

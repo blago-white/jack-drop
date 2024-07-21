@@ -2,13 +2,16 @@ from django.urls import path, include
 
 from .private import (UserDataPrivateApiView,
                       UserAdvantageRetrieveAPIView,
-                      JWTUserDataPrivateApiView)
+                      JWTUserDataPrivateApiView,
+                      UserAdvantageUpdateAPIView)
 from .public import UserDataApiView
 
 private_urlpatterns = [
     path("get_user_info/<int:user_id>/", UserDataPrivateApiView.as_view()),
     path("get_user_info_jwt/", JWTUserDataPrivateApiView.as_view()),
     path("advantage/", UserAdvantageRetrieveAPIView.as_view()),
+    path("advantage/update/", UserAdvantageUpdateAPIView.as_view()),
+    path("advantage/update/<int:user_id>/", UserAdvantageUpdateAPIView.as_view()),
 ]
 
 public_urlpatterns = [

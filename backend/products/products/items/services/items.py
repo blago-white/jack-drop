@@ -12,6 +12,11 @@ class ItemService(BaseModelService):
     def get_price(self, item_id: int) -> float:
         return self._model.objects.get(pk=item_id).price
 
+    def bulk_get_price(self, items_ids: list[int]) -> float:
+        return self._model.objects.filter(pk__in=items_ids).aggregate(
+            total=models.Sum("price")
+        ).get("total")
+
     def set_price(self, item_id: int, item_price: float) -> bool:
         return self._model.objects.filter(pk=item_id).update(
             price=item_price

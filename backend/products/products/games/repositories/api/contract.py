@@ -7,6 +7,7 @@ from games.models import Games
 from games.serializers.contract import GrantedInventoryItemsSerializer
 from games.services.result import GameResultService
 from games.services.transfer import GameResultData
+from games.api.services.users import UsersApiService
 from inventory.services.inventory import InventoryService
 from items.models.models import Item
 from items.serializers import ItemSerializer
@@ -20,6 +21,7 @@ class ContractApiRepository(BaseApiRepository):
     default_api_service = ContractApiService()
     default_site_funds_service = SiteFundsApiService()
     default_game_result_service = GameResultService()
+    default_users_service = UsersApiService()
 
     default_seriaizer_class = GrantedInventoryItemsSerializer
     default_item_serializer_class = ItemSerializer
@@ -31,6 +33,7 @@ class ContractApiRepository(BaseApiRepository):
     def __init__(self, *args,
                  seriaizer_class: GrantedInventoryItemsSerializer = None,
                  inventory_service: InventoryService = None,
+                 users_service: UsersApiService = None,
                  site_funds_service: SiteFundsApiService = None,
                  items_service: ItemService = None,
                  item_serializer_class: ItemSerializer = None,
@@ -42,6 +45,7 @@ class ContractApiRepository(BaseApiRepository):
         self._item_serializer_class = item_serializer_class or self.default_item_serializer_class
         self._site_funds_service = site_funds_service or self.default_site_funds_service
         self._game_result_service = game_result_service or self.default_game_result_service
+        self._users_service = users_service or self.default_users_service
 
         super().__init__(*args, **kwargs)
 
@@ -91,6 +95,11 @@ class ContractApiRepository(BaseApiRepository):
         received = self._inventory_service.add_item(
             owner_id=user_id,
             item_id=result_item.pk
+        )
+
+        self._users_service.update_user_advantage(
+            delta_advantage=result_item.price - granted_amount,
+            user_id=user_id
         )
 
         self._site_funds_service.update(

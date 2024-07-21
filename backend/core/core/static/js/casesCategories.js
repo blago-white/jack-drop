@@ -24,6 +24,33 @@ function addCases(category, cases) {
     casesSec.innerHTML += html;
 }
 
+
+async function addItemSets() {
+    const itemSet = await sendRequestJson("http://localhost/products/items/sets/", {method: "GET"})
+
+    console.log(itemSet);
+
+    let html = `
+        <section class="free-cases-sec">
+            <h2 id="cases-category">НАБОРЫ</h2>
+            <ul class="cases-row" id="cases-row">
+    `;
+
+    itemSet.forEach((element) => {
+        html += `
+            <li class="case-data" onclick="location.href = 'set/${element.id}/'">
+                <img src="${ element.image_path }" class="case-image">
+                <h3>${ element.title }</h3>
+                <span>${ element.price }р</span>
+            </li>
+        `
+    });
+
+    html += `</ul></section>`;
+
+    casesSec.innerHTML += html;
+}
+
 async function getCases() {
     let params = new URL(document.location.toString()).searchParams;
 
@@ -39,21 +66,17 @@ async function getCases() {
 
     console.log(result);
 
-    result.forEach((element) => {
+    c = false;
+
+    addCases(result[0].category, result[0].cases)
+
+    await addItemSets();
+
+    result.slice(1).forEach((element) => {
         addCases(element.category, element.cases)
     })
 
     return result
-}
-
-function updateHeight() {
-    const body = document.body;
-    const html = document.documentElement;
-
-    const height = Math.max( body.scrollHeight, body.offsetHeight,
-                           html.clientHeight, html.scrollHeight, html.offsetHeight );
-
-    document.getElementById('global-sharp').style.height = `${height}px`;
 }
 
 async function start() {
@@ -63,4 +86,3 @@ async function start() {
 }
 
 start();
-setTimeout(() => {updateHeight()}, 200);

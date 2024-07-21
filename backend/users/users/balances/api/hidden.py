@@ -26,12 +26,6 @@ class DisplayedBalanceUpdateApiView(DefaultUpdateApiView):
         if not balance_result.get("ok"):
             return self.get_400_response(data=balance_result)
 
-        self.advantage_repository.update(
-            user_id=self.get_requested_pk(),
-            delta_amount=self.request.data.get(
-                "delta_amount"
-            ))
-
         return self.get_201_response(data=balance_result)
 
 
