@@ -39,4 +39,4 @@ class WithdrawResultService:
                 url=self._callback_url,
                 data=data
             ) as response:
-                return await response.ok
+                return response.ok

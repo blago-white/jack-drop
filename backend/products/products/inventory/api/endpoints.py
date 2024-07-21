@@ -96,6 +96,6 @@ class WithdrawedItemsApiView(CreateAPIViewMixin, CreateAPIView):
 
         return self.get_201_response(
             data=self._repository.commit_withdraw_results(
-                results=request.DATA
+                results=request.data
             )
         )
