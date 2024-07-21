@@ -40,7 +40,6 @@ class BonusBuyRepository(BaseRepository):
         result = self._service.next_level(user_id=user_id)
 
         if not result:
-            print("NOT NOT")
             raise ValidationError("Not enought points!")
 
         return {"ok": result, "receive": case}

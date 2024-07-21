@@ -57,12 +57,13 @@ class ContractInventoryItemsListApiView(BaseListAPIView):
             data=self._repository.get_all_for_contract(user_id=user_id)
         )
 
+
 class SellInventoryItemApiView(CreateAPIViewMixin, CreateAPIView):
     _repository = InventoryRepository()
     _users_repository = UsersApiRepository()
 
     def create(self, request, *args, **kwargs):
-        user_id = self._users_repository.get(user_request=request)
+        user_id = self._users_repository.get(user_request=request).get("id")
 
         return self.get_200_response(
             data=self._repository.sell(user_id=user_id,
@@ -103,8 +104,6 @@ class WithdrawedItemsApiView(CreateAPIViewMixin, CreateAPIView):
     _repository = InventoryRepository()
 
     def create(self, request, *args, **kwargs):
-        print("WWWOWW")
-
         return self.get_201_response(
             data=self._repository.commit_withdraw_results(
                 results=request.data

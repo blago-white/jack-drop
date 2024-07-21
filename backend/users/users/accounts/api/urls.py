@@ -17,5 +17,5 @@ public_urlpatterns = [
 
 urlpatterns = [
     path("api/v1/p/", include((private_urlpatterns, "private-accounts"))),
-    path("api/v1/public/", include((public_urlpatterns, "private-accounts"))),
+    path("api/v1/public/", include((public_urlpatterns, "public-accounts"))),
 ]

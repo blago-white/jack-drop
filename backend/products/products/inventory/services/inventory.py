@@ -21,12 +21,20 @@ class InventoryService(BaseModelService):
 
         return result
 
-    def check_ownership(self, owner_id: int, item_id: int) -> bool:
-        return self._model.objects.filter(
+    def check_ownership(self, owner_id: int,
+                        item_id: int = None,
+                        inventory_item_id: int = None) -> bool:
+        qs = self._model.objects.filter(
             user_id=owner_id,
-            item_id=item_id,
             frozen=False
-        ).exists()
+        )
+
+        if item_id:
+            qs = qs.filter(item_id=item_id)
+        elif inventory_item_id:
+            qs = qs.filter(pk=inventory_item_id)
+
+        return qs.exists()
 
     def bulk_remove_from_inventory(self, inventory_items_ids: list[int],
                                    owner_id: int = None) -> bool:
@@ -47,13 +55,20 @@ class InventoryService(BaseModelService):
 
         return True
 
-    def remove_from_inventory(self, owner_id: int, item_id: int) -> bool:
+    def remove_from_inventory(self, owner_id: int,
+                              item_id: int = None,
+                              inventory_item_id: int = None) -> bool:
+        if item_id:
+            return self._model.objects.filter(
+                pk__in=self._model.objects.filter(
+                    user_id=owner_id,
+                    item_id=item_id
+                ).values_list("pk", flat=True)[:1],
+            ).delete()[0]
+
         return self._model.objects.filter(
-            pk__in=self._model.objects.filter(
-                user_id=owner_id,
-                item_id=item_id
-            ).values_list("pk", flat=True)[:1],
-        ).delete()
+            user_id=owner_id, pk=inventory_item_id
+        ).delete()[0]
 
     def freeze_inventory_item(self, owner_id: int, item_id: int) -> bool:
         item: InventoryItem = self._model.objects.get(

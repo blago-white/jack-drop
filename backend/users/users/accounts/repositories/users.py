@@ -33,8 +33,6 @@ class PrivateUsersRepository(BaseUsersRepository):
         super().__init__(*args, **kwargs)
 
     def get_user_info(self, user_id: int) -> dict:
-        print("GET INFO USER ID:", user_id)
-
         try:
             user = self._service.get_user_info(user_id=user_id)
         except:
@@ -46,13 +44,12 @@ class PrivateUsersRepository(BaseUsersRepository):
                 "username": user.username,
                 "promocode": user.promocode,
                 "advantage": user.advantage,
+                "trade_link": user.trade_link,
                 "displayed_balance": self._balance_service.get_balance(
                     client_id=user.id
                 ).displayed_balance
             }
         )
-
-        print(serialized.data, "_)EEEE")
 
         return serialized.data
 
@@ -110,6 +107,7 @@ class PublicUsersRepository(BaseUsersRepository):
                 "id": user.pk,
                 "username": user.username,
                 "promocode": user.promocode,
+                "trade_link": user.trade_link,
                 "displayed_balance": self._balance_service.get_balance(
                     client_id=user.id
                 ).displayed_balance

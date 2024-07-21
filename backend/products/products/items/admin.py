@@ -13,13 +13,15 @@ class ItemAdmin(ModelAdmin):
               "image_path",
               "price",
               "market_link",
-              "preview"]
+              "preview",
+              "market_hash_name"]
 
     readonly_fields = ['preview',
                        "preview_short",
                        "title",
                        "image_path",
-                       "price"]
+                       "price",
+                       "market_hash_name"]
 
     search_fields = ["title"]
 

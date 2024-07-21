@@ -35,7 +35,7 @@ class PublicClientSerializer(ReadOnlyModelSerializer):
 
     class Meta:
         model = Client
-        fields = ["id", "username", "promocode", "balance"]
+        fields = ["id", "username", "trade_link", "promocode", "balance"]
         read_only_fields = ["__all__"]
 
 

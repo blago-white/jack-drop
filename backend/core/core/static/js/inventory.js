@@ -4,10 +4,17 @@ const inventoryItemsTable = document.getElementById('inventory-items');
 
 let switchActive = false;
 
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
 async function sellItem(id) {
     const headers = new Headers();
 
-    headers.append("X-CSRFToken", document.cookie.split("=")[1].split(";")[0]);
+    headers.append("X-CSRFToken", getCookie("csrftoken"));
     headers.append("Content-Type", "application/json");
 
     const requestOptions = {
@@ -38,7 +45,7 @@ async function sellItem(id) {
 async function withdrawItem(id) {
     const headers = new Headers();
 
-    headers.append("X-CSRFToken", document.cookie.split("=")[1].split(";")[0]);
+    headers.append("X-CSRFToken", getCookie("csrftoken"));
     headers.append("Content-Type", "application/json");
 
     const requestOptions = {
@@ -47,7 +54,7 @@ async function withdrawItem(id) {
       headers: headers
     };
 
-    const response = await fetch(
+    const response = await sendRequest(
         `http://localhost/products/inventory/withdraw/${id}/`,
         requestOptions
     );

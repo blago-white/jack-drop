@@ -9,7 +9,7 @@ class WithdrawScheduleApiService(BaseApiService):
 
     def add(self, serialized: ScheduledItemSerializer) -> dict:
         response = requests.post(
-            url=self._routes.get("add_schedule_info"),
+            url=self._routes.get("add_schedule_item"),
             data=serialized.data
         )
 

@@ -25,7 +25,7 @@ class Item(TitleModelMixin, BaseImageModel):
                                   validators.MIN_ITEM_PRICE_VALIDATOR
                               ],
                               blank=True)
-    hash_name = models.CharField(verbose_name="Hash name", null=True, blank=True)
+    market_hash_name = models.CharField(verbose_name="Hash name", null=True, blank=True)
 
     class Meta:
         db_table = "items_items"
@@ -61,7 +61,7 @@ class Item(TitleModelMixin, BaseImageModel):
         self.title = item_info.title
         self.image_path = item_info.image_path
         self.price = item_info.price
-        self.hash_name = item_info.market_hash_name
+        self.market_hash_name = item_info.market_hash_name
 
     def _get_image(self) -> models.URLField:
         return self.image_path

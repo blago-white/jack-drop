@@ -73,16 +73,31 @@ class InventoryRepository(BaseRepository):
         }
 
     def sell(self, user_id: int, item_id: int) -> dict:  # TODO: Make
-        return {"ok": True}
+        item = self._service.get_item(inventory_item_id=item_id)
+
+        ok = self._service.remove_from_inventory(owner_id=user_id,
+                                                 inventory_item_id=item_id)
+
+        if ok:
+            self._users_api_service.update_user_balance_by_id(
+                user_id=user_id,
+                delta_amount=item.item.price
+            )
+
+        return {"ok": ok}
 
     def withdraw(self, user_data: int, item_id: int) -> dict:
+        print(user_data, item_id, "_)DDDD")
+
         if not self._service.check_ownership(owner_id=user_data.get("id"),
-                                             item_id=item_id):
+                                             inventory_item_id=item_id):
             raise ValidationError("You not owner of item!")
 
         item = self._service.get_item(inventory_item_id=item_id)
 
         if item.locked_for != Lockings.UNLOCK:
+            print("LOCKED")
+
             raise ValidationError("Item locked!")
 
         serialized = self._schedule_service.default_endpoint_serializer_class(
@@ -90,7 +105,7 @@ class InventoryRepository(BaseRepository):
                 inventory_item_id=item_id,
                 inventory_item_hash_name=item.item.market_hash_name,
                 owner_trade_link=user_data.get("trade_link"),
-                item_price=item.price,
+                item_price=item.item.price,
             )
         )
 
@@ -98,11 +113,11 @@ class InventoryRepository(BaseRepository):
 
         success = self._schedule_service.add(serialized=serialized)
 
-        if success.get("ok"):
+        if success:
             self._service.freeze_inventory_item(owner_id=user_data.get("id"),
                                                 item_id=item_id)
 
-        return {"ok": success.get("ok")}
+        return {"ok": success}
 
     def commit_withdraw_results(self, results: dict):
         error = results.get("error_items_ids")

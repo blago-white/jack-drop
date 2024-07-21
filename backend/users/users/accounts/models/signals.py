@@ -17,9 +17,11 @@ def create_referral(sender, instance, **kwargs) -> None:
 
 
 def create_balance(sender, instance, **kwargs) -> None:
-    if not ClientBalanceService().get_balance(
-        client_id=instance.pk
-    ):
+    try:
+        ClientBalanceService().get_balance(
+            client_id=instance.pk
+        )
+    except:
         ClientBalanceService().create(
             client_id=instance.pk,
         )

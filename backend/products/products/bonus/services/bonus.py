@@ -80,12 +80,10 @@ class BonusBuyService(BaseModelService):
     def withdraw_case(self, user_id: int) -> Case:
         profile = self.get_or_create(user_id=user_id)
 
-        prev = self._level_service.get_prev(level=profile.level)
-
-        if (not prev) and (profile.points < profile.level.target):
+        if profile.points < profile.level.target:
             return False
 
-        case = prev.free_case
+        case = profile.level.free_case
 
         if profile.active_free_cases.filter(id=case.id):
             return False

@@ -18,3 +18,4 @@ class DetailedUserFundsSerializer(serializers.Serializer):
     id = serializers.IntegerField(min_value=0)
     user_advantage = serializers.FloatField()
     displayed_balance = serializers.FloatField(required=True, min_value=0)
+    trade_link = serializers.CharField()
