@@ -1,6 +1,6 @@
+from .dinamic import DinamicFundsService
 from .frozen import FrozenFundsService
 from .percent import FreezeFundsService
-from .dinamic import DinamicFundsService
 
 
 def convert_dinamic_to_frozen(

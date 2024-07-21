@@ -1,6 +1,6 @@
 from dataclasses import dataclass
+
 from common.services.api.transfer import CaseItem
-from common.services.api.states import FundsState
 
 
 @dataclass

@@ -1,7 +1,5 @@
 from abc import ABCMeta
-from rest_framework.serializers import ModelSerializer
 
-from common.services import base
 from common.repositories.base import (BaseModelRepository, PrimaryKey,
                                       RequestPostData)
 

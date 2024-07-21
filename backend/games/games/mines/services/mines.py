@@ -1,7 +1,6 @@
 import random
 
 from common.services.base import BaseModelService
-
 from .transfer import MinesGameRequest, MinesGameResult, FundsDifference
 from ..models import MinesGame
 

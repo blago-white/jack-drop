@@ -5,7 +5,7 @@ from rest_framework.exceptions import AuthenticationFailed
 
 code = 401
 from games.serializers.users import GetUserInfoEndpointSerializer
-from .base import BaseApiService
+from common.services.api.base import BaseApiService
 
 
 class UsersApiService(BaseApiService):

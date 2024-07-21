@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from django.http.request import HttpRequest
+from django.shortcuts import render
 
 
 def main_page_view(request: HttpRequest):

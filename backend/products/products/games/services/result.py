@@ -1,9 +1,6 @@
-from django.db import models
-
 from common.services.base import BaseModelService
-
-from ..models import GameResult
 from .transfer import GameResultData
+from ..models import GameResult
 
 
 class GameResultService(BaseModelService):

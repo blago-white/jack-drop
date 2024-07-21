@@ -6,4 +6,4 @@ class CasesConfig(AppConfig):
     name = 'cases'
 
     def ready(self):
-        from .models import signals
+        pass

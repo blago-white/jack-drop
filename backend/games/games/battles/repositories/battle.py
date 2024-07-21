@@ -1,13 +1,12 @@
-from rest_framework.exceptions import ValidationError
 from django.forms.models import model_to_dict
+from rest_framework.exceptions import ValidationError
 
-from common.repositories import BaseRepository
-
-from battles.services.transfer import BattleMakeRequest, BattleResult, CaseItem
+from battles.serializers import BattleRequestSerializer, BattleSerializer, \
+    MakeBattleSerializer
 from battles.services.battle import (BattleRequestModelService,
                                      BattleModelService, BattleService)
-from battles.serializers import BattleRequestSerializer, BattleSerializer, MakeBattleSerializer
-from battles.services.transfer import BattleInfo
+from battles.services.transfer import BattleMakeRequest, BattleResult, CaseItem
+from common.repositories import BaseRepository
 
 
 class BattleRequestRepository(BaseRepository):

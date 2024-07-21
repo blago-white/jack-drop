@@ -1,12 +1,13 @@
 from django.urls import path
 
+from .endpoints.battle import BattleStatsApiView, BattlesHistoryApiView
 from .endpoints.contract import ContractGameApiView
 from .endpoints.drop import DropItemGameApiView
+from .endpoints.fortune import FortuneWheelGameApiView, \
+    FortuneWheelTimeoutApiView
 from .endpoints.mines import MinesGameApiView
-from .endpoints.upgrade import UpgradeGameApiView
-from .endpoints.fortune import FortuneWheelGameApiView, FortuneWheelTimeoutApiView
-from .endpoints.battle import BattleStatsApiView, BattlesHistoryApiView
 from .endpoints.result import GameResultsApiView
+from .endpoints.upgrade import UpgradeGameApiView
 
 urlpatterns = [
     path("drop/<int:case_id>/", DropItemGameApiView.as_view(), name="drop"),

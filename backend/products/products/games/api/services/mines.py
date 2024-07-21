@@ -3,7 +3,7 @@ import json
 import requests
 
 from games.serializers.mines import MinesGameRequestSerializer
-from .base import BaseApiService
+from common.services.api.base import BaseApiService
 
 
 class MinesGameApiService(BaseApiService):

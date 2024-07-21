@@ -16,6 +16,7 @@ class InventoryItem(models.Model):
                                   choices=Lockings.choices,
                                   default=Lockings.UNLOCK,
                                   blank=True)
+    frozen = models.BooleanField(default=False, blank=True)
 
     def __str__(self):
         return f"Inventory item: {self.item}"

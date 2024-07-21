@@ -5,11 +5,8 @@ from django.utils.html import mark_safe
 
 from . import actions
 from .models.cases import Case
-from .models.items import CaseItem
 from .models.category import CasesCategory
-
-from . import actions
-
+from .models.items import CaseItem
 
 
 @admin.register(CasesCategory)

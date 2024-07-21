@@ -1,9 +1,10 @@
-from rest_framework.generics import RetrieveAPIView, CreateAPIView, DestroyAPIView
+from rest_framework.generics import RetrieveAPIView, CreateAPIView, \
+    DestroyAPIView
 from rest_framework.views import APIView
 
 from ..mixins.api.create import CreateApiViewMixin
-from ..mixins.api.detail import DetailedApiViewMixin
 from ..mixins.api.delete import DeleteApiViewMixin
+from ..mixins.api.detail import DetailedApiViewMixin
 from ..repositories import BaseRepository
 
 

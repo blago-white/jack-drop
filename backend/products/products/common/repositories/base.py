@@ -1,10 +1,8 @@
 from abc import ABCMeta, abstractmethod
+
 from rest_framework import serializers
 
-from common.services import base
-
 from ..services.base import BaseModelService
-
 
 RequestPostData = dict[str, int | str]
 PrimaryKey = int

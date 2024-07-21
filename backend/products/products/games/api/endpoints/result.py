@@ -2,7 +2,6 @@ from rest_framework.generics import RetrieveAPIView
 from rest_framework.exceptions import ValidationError
 
 from common.views.api import DetailedApiViewMixin
-
 from games.repositories.result import GameResultsRepository
 from games.repositories.api.users import UsersApiRepository
 

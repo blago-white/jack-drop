@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from common.serializers import UserFundsStateSerializer, SiteFundsSerializer
-
 from .models import MinesGame
 
 

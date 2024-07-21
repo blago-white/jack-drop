@@ -6,7 +6,6 @@ from .views import (main_page_view, account_view, mines_view, battle_view,
                     user_agreement_view, about_view, tos_view, case_drop_view,
                     bonus_buy_view, game_history_view, withdraws_view)
 
-
 urlpatterns = [
     path("", main_page_view),
     path("account/", account_view, name="account"),

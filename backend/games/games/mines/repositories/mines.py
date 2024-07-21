@@ -1,8 +1,7 @@
 from common.repositories import BaseRepository
-
+from ..serializers import MinesGameRequestSerializer, MinesGameResultSerializer
 from ..services.mines import MinesService, MinesModelService
 from ..services.transfer import MinesGameRequest, MinesGameResult
-from ..serializers import MinesGameRequestSerializer, MinesGameResultSerializer
 
 
 class MinesGameRepository(BaseRepository):

@@ -1,8 +1,6 @@
-from common.mixins.api import ModelAPIViewMixin
-from common.views.api import BaseListAPIView
-
-from cases.repositories.items import CasesItemsRepository
 from cases.repositories.cases import CasesRepository
+from cases.repositories.items import CasesItemsRepository
+from common.views.api import BaseListAPIView
 
 
 class CaseItemsListAPIView(BaseListAPIView):

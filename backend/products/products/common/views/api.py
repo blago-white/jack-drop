@@ -1,6 +1,5 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
-from ..repositories.base import BaseCRUDRepository
 from ..mixins.api import ModelAPIViewMixin, DetailedApiViewMixin
 
 

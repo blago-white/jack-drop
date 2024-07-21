@@ -1,8 +1,8 @@
 from dataclasses import dataclass
-from abc import ABCMeta
 
 from common.services.api.states import FundsState, FundsDifference
-from common.services.api.transfer import DetailedCaseItem, CaseData, DetailedCaseData
+from common.services.api.transfer import DetailedCaseItem, CaseData, \
+    DetailedCaseData
 
 
 @dataclass

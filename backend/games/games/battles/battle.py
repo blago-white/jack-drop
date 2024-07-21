@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 
-from common.services.api.transfer import CaseData, CaseItem
-
 
 @dataclass
 class UserAdvantage:

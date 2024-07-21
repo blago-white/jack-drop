@@ -1,7 +1,7 @@
 from django.contrib import admin
+
 from .models import (FortuneWheelWinning, FortuneWheelOpening,
                      FortuneWheelTimeout, FortuneWheelPromocode)
-
 
 admin.site.register(FortuneWheelWinning)
 admin.site.register(FortuneWheelOpening)

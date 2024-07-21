@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from .models import WinningTypes
 from common.serializers import SiteFundsSerializer, UserFundsStateSerializer
+from .models import WinningTypes
 
 
 class PrizeRequestSerializer(serializers.Serializer):

@@ -1,7 +1,7 @@
 import requests
 
 from games.serializers.site import UpdateDinamicSiteFundsEndpointSerializer
-from .base import BaseApiService
+from common.services.api.base import BaseApiService
 
 
 class SiteFundsApiService(BaseApiService):

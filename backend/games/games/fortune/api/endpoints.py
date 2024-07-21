@@ -4,7 +4,6 @@ from ..repositories.fortune import (FortuneWheelPrizeTypeRepository,
                                     FortuneWheelPrizeRepository,
                                     FortuneWheelRepository,
                                     WheelPromocodeRepository)
-from ..serializers import FortuneWheelTimeoutSerializer
 
 
 class FortuneWheelPrizeTypeApiView(DefaultRetrieveApiView):

@@ -1,7 +1,6 @@
 from common.repositories.base import BaseRepository
-
-from ..services.dinamic import DinamicFundsService
 from ..serializers import UpdateDinamicSiteProfitSerializer
+from ..services.dinamic import DinamicFundsService
 
 
 class DinamicFundsRepository(BaseRepository):

@@ -3,7 +3,7 @@ import json
 import requests
 
 from games.serializers.drop import DropCaseRequestSerializer
-from .base import BaseApiService
+from common.services.api.base import BaseApiService
 
 
 class CaseDropApiService(BaseApiService):

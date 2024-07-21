@@ -1,7 +1,4 @@
-from rest_framework.generics import ListAPIView
-
 from common.views.api import DefaultRetrieveApiView
-from common.mixins.api.base import ApiViewMixin
 
 from ..repositories.battle import BattleRepository
 
