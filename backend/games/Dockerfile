@@ -18,6 +18,7 @@ RUN pip install -r ./requirements.txt
 WORKDIR /home/app/games/
 
 RUN chown -R app:app /home/app/games/
+RUN chmod -R 777 ./start.sh
 
 USER app
 

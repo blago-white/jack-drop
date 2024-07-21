@@ -20,6 +20,7 @@ RUN pip install -r ./requirements.txt
 WORKDIR /home/app/payments/
 
 RUN chown -R app:app /home/app/payments/
+RUN chmod -R 777 ./start.sh
 
 USER app
 

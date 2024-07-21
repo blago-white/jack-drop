@@ -19,6 +19,7 @@ WORKDIR /home/app/products/
 
 RUN chown -R app:app /home/app/products/
 RUN chmod -R 744 /home/app/products/debug.log
+RUN chmod -R 777 ./start.sh
 
 USER app
 
