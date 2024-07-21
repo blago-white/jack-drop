@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1:8000", "127.0.0.1", "localhost", "coreapp",
-                 "localhost:81"]
+                 "localhost:81", "95.163.231.175"]
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:81']
 
