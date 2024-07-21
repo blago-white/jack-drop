@@ -20,10 +20,12 @@ class WithdrawResultService:
 
         return result
 
-    async def send_fail_callback(self, items_ids: list[int]) -> bool:
+    async def send_result(self, error_items_ids: list[int],
+                          success_items_ids: list[int]
+                          ) -> bool:
         result = await self._send_callback(
-            data={"success": False,
-                  "error_items_ids": items_ids},
+            data={"error_items_ids": error_items_ids,
+                  "succes_items_ids": success_items_ids},
         )
 
         return result

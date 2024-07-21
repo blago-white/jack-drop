@@ -5,7 +5,8 @@ from .endpoints import (InventoryItemsListApiView,
                         UpgradeInventoryItemsListApiView,
                         SellInventoryItemApiView,
                         WithdrawInventoryItemApiView,
-                        CountInventoryItemsApiView)
+                        CountInventoryItemsApiView,
+                        WithdrawedItemsApiView)
 
 urlpatterns = [
     path("all/",
@@ -28,5 +29,8 @@ urlpatterns = [
          name="count-inventory-items"),
     path("withdraw/<int:item_id>/",
          WithdrawInventoryItemApiView.as_view(),
-         name="withdraw-item")
+         name="withdraw-item"),
+    path("withdrawed/",
+         WithdrawedItemsApiView.as_view(),
+         name="withdrawed-callback")
 ]

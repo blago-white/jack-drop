@@ -12,7 +12,7 @@ class InventoryService(BaseModelService):
     def get_all(self, user_id: int = None,
                 locked_for: Lockings = None) -> models.QuerySet:
 
-        result = self._model.objects.all()
+        result = self._model.objects.all().filter(frozen=False)
 
         if user_id:
             result = result.filter(user_id=user_id)
@@ -24,17 +24,22 @@ class InventoryService(BaseModelService):
     def check_ownership(self, owner_id: int, item_id: int) -> bool:
         return self._model.objects.filter(
             user_id=owner_id,
-            item_id=item_id
+            item_id=item_id,
+            frozen=False
         ).exists()
 
-    def bulk_remove_from_inventory(self, owner_id: int,
-                                   inventory_items_ids: list[int]) -> bool:
+    def bulk_remove_from_inventory(self, inventory_items_ids: list[int],
+                                   owner_id: int = None) -> bool:
         sid = savepoint()
 
-        deleted, _ = self._model.objects.filter(
-            pk__in=inventory_items_ids,
-            user_id=owner_id
-        ).delete()
+        qs = self._model.objects.filter(
+            pk__in=inventory_items_ids
+        )
+
+        if owner_id:
+            qs = qs.filter(user_id=owner_id)
+
+        deleted, _ = qs.delete()
 
         if len(inventory_items_ids) != deleted:
             savepoint_rollback(sid)
@@ -47,8 +52,20 @@ class InventoryService(BaseModelService):
             pk__in=self._model.objects.filter(
                 user_id=owner_id,
                 item_id=item_id
-            ).values_list("pk", flat=True)[:1]
+            ).values_list("pk", flat=True)[:1],
         ).delete()
+
+    def freeze_inventory_item(self, owner_id: int, item_id: int) -> bool:
+        item: InventoryItem = self._model.objects.get(
+            user_id=owner_id,
+            id=item_id
+        )
+
+        item.frozen = True
+
+        item.save()
+
+        return True
 
     def add_item(self, owner_id: int,
                  item_id: int,
@@ -64,7 +81,8 @@ class InventoryService(BaseModelService):
             inventory_items_ids: list[int]) -> float:
         items = self._model.objects.filter(
             user_id=owner_id,
-            id__in=inventory_items_ids
+            id__in=inventory_items_ids,
+            frozen=False
         )
 
         if items.count() < len(inventory_items_ids):
@@ -76,5 +94,13 @@ class InventoryService(BaseModelService):
             "prices_sum"
         )
 
-    def get_item(self, inventory_item_id: int) -> InventoryItem:
-        return self._model.objects.filter(pk=inventory_item_id).first()
+    def get_item(self, inventory_item_id: int, apply_frozen: bool = False) -> InventoryItem:
+        return self._model.objects.filter(
+            models.Q(frozen=False) | models.Q(frozen=apply_frozen),
+            pk=inventory_item_id,
+        ).first()
+
+    def bulk_unfreeze(self, items_ids: list[int]):
+        return bool(self._model.objects.filter(id__in=items_ids).update(
+            frozen=False
+        ))

@@ -86,3 +86,16 @@ class WithdrawInventoryItemApiView(DetailedApiViewMixin, CreateAPIViewMixin,
         return self.get_201_response(
             data=result
         )
+
+
+class WithdrawedItemsApiView(CreateAPIViewMixin, CreateAPIView):
+    _repository = InventoryRepository()
+
+    def create(self, request, *args, **kwargs):
+        print("WWWOWW")
+
+        return self.get_201_response(
+            data=self._repository.commit_withdraw_results(
+                results=request.DATA
+            )
+        )

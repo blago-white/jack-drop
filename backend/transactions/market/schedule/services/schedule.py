@@ -18,11 +18,8 @@ class ScheduleModelService(BaseModelService):
         )
 
     def pop_schedule(self) -> QuerySet:
-        result = self._model.objects.all()
+        result = list(self._model.objects.all())
 
-        result_ok = result.delete()[0]
-
-        if not result_ok:
-            raise ValidationError("Empty sequence")
+        self._model.objects.all().delete()
 
         return result

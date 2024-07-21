@@ -141,6 +141,12 @@ WITHDRAW_MARKET_ENDPOINT_URL = ('https://rust.tm/api/v2/buy-for'
 
 BALANCE_MARKET_ENDPOINT_URL = 'https://rust.tm/api/v2/get-money?key={apikey}'
 
-CELERY_BROKER_URL = f"redis://tmarketredis:6379/0"
+CELERY_TIMEZONE = 'Europe/London'
 
-CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_BROKER_URL = "redis://tmarketredis:6379"
+CELERY_RESULT_BACKEND = "redis://tmarketredis:6379"
+
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = True
+
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True

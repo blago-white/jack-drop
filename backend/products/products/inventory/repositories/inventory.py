@@ -91,7 +91,17 @@ class InventoryRepository(BaseRepository):
         success = self._schedule_service.add(serialized=serialized)
 
         if success.get("ok"):
-            self._service.remove_from_inventory(owner_id=user_data.get("id"),
+            self._service.freeze_inventory_item(owner_id=user_data.get("id"),
                                                 item_id=item_id)
 
         return {"ok": success.get("ok")}
+
+    def commit_withdraw_results(self, results: dict):
+        error = results.get("error_items_ids")
+        success = results.get("error_items_ids")
+
+        self._service.bulk_unfreeze(items_ids=error)
+
+        self._service.bulk_remove_from_inventory(
+            inventory_items_ids=success
+        )

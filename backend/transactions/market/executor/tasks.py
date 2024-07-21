@@ -1,4 +1,4 @@
-from asgiref.sync import async_to_sync
+from asgiref.sync import async_to_sync, sync_to_async
 from celery import shared_task
 
 from schedule.models import ScheduledItem
@@ -8,28 +8,28 @@ from .services.callback import WithdrawResultService
 from .services.withdraw import ItemWithdrawService
 
 
-async def _apply_withdraw(items: list[ScheduledItem]) -> bool:
-    apikey = ApiKeyService().apikey
-    callback_service = WithdrawResultService()
+async def _apply_withdraw(items: list[ScheduledItem], apikey: str) -> bool:
+    callback_service = await sync_to_async(WithdrawResultService)()
 
-    ok, error_items = await ItemWithdrawService(
+    ok, error_items_ids = await ItemWithdrawService(
         apikey=apikey
     ).bulk_withdraw(items=items)
 
-    if not ok:
-        return await callback_service.send_fail_callback(
-            items_ids=items
-        )
+    success_items_ids = set([i.inventory_item_id for i in items]).difference(
+        set(error_items_ids)
+    )
 
-    return await callback_service.send_success_callback()
+    await callback_service.send_result(
+        error_items_ids=error_items_ids,
+        success_items_ids=success_items_ids
+    )
 
 
 @shared_task(name="withdraw")
 def withdraw():
-    print("_DDDDD")
-
     items = list(ScheduleModelService().pop_schedule())
 
-    # async_to_sync(_apply_withdraw)(items)
+    if items:
+        async_to_sync(_apply_withdraw)(items, ApiKeyService().apikey)
 
-    return items
+        return items
