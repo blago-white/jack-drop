@@ -30,8 +30,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1:8000", "127.0.0.1", "localhost", "coreapp",
-                 "localhost:81", "95.163.231.175"]
+ALLOWED_HOSTS = ["localhost", "coreapp", "95.163.231.175", "jackdrop.online"]
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:81']
 
