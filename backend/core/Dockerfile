@@ -20,6 +20,7 @@ WORKDIR /home/app/core/
 RUN chown -R app:app /home/app/core/
 #RUN chmod -R 744 /home/app/core/debug.log
 RUN chmod -R 777 ./start.sh
+RUN chown app -R /home/app/core/locale/en/LC_MESSAGES
 
 USER app
 
