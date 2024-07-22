@@ -30,8 +30,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1:8000", "127.0.0.1", "localhost", "coreapp",
-                 "localhost:81"]
+ALLOWED_HOSTS = ["localhost", "coreapp", "95.163.231.175", "jackdrop.online"]
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:81']
 
@@ -87,17 +86,17 @@ WSGI_APPLICATION = 'common.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': os.environ.get("POSTGRES_DB"),
-    #     'USER': os.environ.get("POSTGRES_USER"),
-    #     'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-    #     'HOST': os.environ.get("POSTGRES_HOST"),
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get("POSTGRES_DB"),
+        'USER': os.environ.get("POSTGRES_USER"),
+        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
+        'HOST': os.environ.get("POSTGRES_HOST"),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
 
 
@@ -141,11 +140,11 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'core/static/'
-# STATIC_ROOT = BASE_DIR / "static"
+STATIC_ROOT = BASE_DIR / "static"
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static"
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static"
+# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
