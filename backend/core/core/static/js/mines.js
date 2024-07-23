@@ -58,7 +58,7 @@ async function sendMakeRequest(formData) {
     };
 
     const response = await sendRequest(
-        `http://localhost/products/games/mines/`,
+        `http://jackdrop.online/products/games/mines/`,
         requestOptions
     );
 

@@ -6,7 +6,7 @@ let set;
 
 async function buySet() {
     const result = await sendRequest(
-        `http://localhost/products/items/set/${setId}/buy/`,
+        `http://jackdrop.online/products/items/set/${setId}/buy/`,
         {method: "POST"}
     );
 
@@ -27,7 +27,7 @@ export async function getSet(id) {
     setId = id;
 
     const result = await sendRequestJson(
-        `http://localhost/products/items/set/${id}/`,
+        `http://jackdrop.online/products/items/set/${id}/`,
         {method: "GET"}
     );
 

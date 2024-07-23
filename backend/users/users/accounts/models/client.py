@@ -9,7 +9,7 @@ class Client(AbstractUser):
                                   null=True,
                                   blank=True)
 
-    steam_id = models.IntegerField(unique=True, default=0)
+    steam_id = models.PositiveBigIntegerField(unique=True, default=0)
 
     advantage = models.FloatField(default=0)
 
