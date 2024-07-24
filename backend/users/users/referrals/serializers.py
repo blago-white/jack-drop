@@ -30,18 +30,11 @@ class ReferralStatusSerializer(serializers.Serializer):
         queryset=UsersService().get_all()
     )
 
-    deposits = serializers.IntegerField(allow_null=False,
-                                        initial=0,
-                                        default=0)
+    referr_link = serializers.CharField(max_length=REFERR_LINK_MAX_LENGTH)
 
-    level = serializers.ChoiceField(
-        choices=ReferralLevels.choices,
-        default=ClaculatedLevel()
-    )
+    is_blogger = serializers.BooleanField(allow_null=True, default=False)
 
-    personal_discount = serializers.IntegerField(allow_null=True,
-                                                 initial=0,
-                                                 default=ClaculatedDiscount())
+    benefit_percent = serializers.IntegerField(allow_null=True, default=15)
 
 
 class ReferralLinkSerializer(serializers.Serializer):
