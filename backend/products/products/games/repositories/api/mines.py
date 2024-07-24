@@ -18,13 +18,15 @@ class MinesGameApiRepository(BaseApiRepository):
     default_game_result_service = GameResultService()
 
     _site_funds_service: SiteFundsApiService
+    _api_service: MinesGameApiService
 
-    def __init__(self, *args,
-                 site_funds_service: SiteFundsApiService = None,
-                 users_service: SiteFundsApiService = None,
-                 serializer_class: MinesGameRequestViewSerializer = None,
-                 game_result_service: GameResultService = None,
-                 **kwargs):
+    def __init__(
+            self, *args,
+            site_funds_service: SiteFundsApiService = None,
+            users_service: SiteFundsApiService = None,
+            serializer_class: MinesGameRequestViewSerializer = None,
+            game_result_service: GameResultService = None,
+            **kwargs):
         self._serializer_class = serializer_class or self.default_serializer_class
         self._site_funds_service = site_funds_service or self.default_site_funds_service
         self._users_service = users_service or self.default_users_service
@@ -32,7 +34,7 @@ class MinesGameApiRepository(BaseApiRepository):
 
         super().__init__(*args, **kwargs)
 
-    def make(self, request_data: dict, user_data: dict):
+    def init(self, request_data: dict, user_data: dict):
         serialized = self._get_serialized(
             request_data=request_data,
             user_data=user_data
@@ -49,12 +51,35 @@ class MinesGameApiRepository(BaseApiRepository):
             serialized=serialized
         )
 
-        self._commit_result(
-            funds_difference=result.get("funds_difference"),
-            user_id=user_data.get("id")
-        )
+        if result:
+            self._users_service.update_user_balance_by_id(
+                user_id=user_data.get("id"),
+                delta_amount=-result.data.get("user_deposit")
+            )
 
         return result
+
+    def next(self, user_id: int) -> dict:
+        site_active_funds = self._site_funds_service.get()
+
+        result = self._api_service.next(user_id=user_id,
+                                        site_funds=site_active_funds)
+
+        if result.get("game_ended"):
+            self._commit_result(user_id=user_id,
+                                funds_difference=result.get(
+                                    "funds_difference"))
+
+            return self._deserialize_result(result_json=result)
+
+        return {"win_amount": result.get("mines_game").get("new_amount")}
+
+    def stop(self, user_id: int) -> dict:
+        result = self._api_service.stop(user_id=user_id)
+
+        return {
+            "win_amount": result.get("mines_game").get("game_amount")
+        }
 
     def _commit_result(self, user_id: int, funds_difference: dict) -> None:
         self._site_funds_service.update(
@@ -85,8 +110,22 @@ class MinesGameApiRepository(BaseApiRepository):
                 code=400
             )
 
-    def _get_serialized(self, request_data: dict,
-                        user_data: dict):
+    @staticmethod
+    def _deserialize_result(result_json: dict) -> dict:
+        return {
+            "is_win": result_json.get("mines_game").get("is_win"),
+            "win_amount": (
+                float(
+                    result_json.get("mines_game").get("game_amount")
+                ) - float(
+                    result_json.get("mines_game").get("deposit")
+                )
+            )
+        }
+
+    def _get_serialized(
+            self, request_data: dict,
+            user_data: dict):
         return self._api_service.default_endpoint_serializer_class(
             data={
                 "count_mines": request_data.get("count_mines"),

@@ -179,6 +179,8 @@ GAMES_SERVICE_ROUTES = {
                            "/{initiator_id}/",
     "make_battle": "http://gamesapp:8000/games/private/battle/make-battle/",
     "make_mines_game": "http://gamesapp:8000/games/private/mines/make/",
+    "next_mines_game": "http://gamesapp:8000/games/private/mines/next/",
+    "stop_mines_game": "http://gamesapp:8000/games/private/mines/stop/",
     "get_prize_type_wheel": "http://gamesapp:8000/games/private/fortune/prize-type/",
     "get_prize_wheel": "http://gamesapp:8000/games/private/fortune/make-prize/",
     "get_battle_stats": "http://gamesapp:8000/games/private/battle/stats/{user_id}/",

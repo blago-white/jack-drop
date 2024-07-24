@@ -9,7 +9,7 @@ class MakeGameView(DefaultCreateApiView):
 
     def create(self, request, *args, **kwargs):
         return self.get_201_response(
-            data=self.repository.make(request_data=request.data)
+            data=self.repository.init(data=request.data)
         )
 
 
@@ -17,7 +17,21 @@ class NextStepMinesGameView(DefaultCreateApiView):
     repository = MinesGameRepository()
     serializer_class = repository.default_serializer_class
 
+    def create(self, request, *args, **kwargs):
+        return self.get_201_response(
+            data=self.repository.next(
+                request_data=request.data
+            )
+        )
+
 
 class StopMinesGameView(DefaultCreateApiView):
     repository = MinesGameRepository()
     serializer_class = repository.default_serializer_class
+
+    def create(self, request, *args, **kwargs):
+        return self.get_201_response(
+            data=self.repository.stop(
+                user_id=self.request.data.get("user_id")
+            )
+        )

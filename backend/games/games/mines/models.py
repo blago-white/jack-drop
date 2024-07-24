@@ -1,11 +1,17 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
 class MinesGame(models.Model):
     user_id = models.PositiveIntegerField()
+
     count_mines = models.PositiveIntegerField()
-    is_win = models.BooleanField()
-    loss_step = models.IntegerField(null=True, blank=True)
+    is_win = models.BooleanField(null=True, blank=True)
+    step = models.IntegerField(blank=True, default=0)
+
+    game_amount = models.IntegerField()
+    deposit = models.FloatField()
+    commited = models.BooleanField(blank=True, default=False)
 
     class Meta:
         constraints = [
@@ -15,7 +21,18 @@ class MinesGame(models.Model):
                 ),
                 name="count_mines_gte_1_lte_24"
             ),
+            models.CheckConstraint(
+                check=models.Q(step__gte=0) & models.Q(step__lte=23),
+                name="step_gte_0_lte_23"
+            ),
+            models.CheckConstraint(
+                check=models.Q(deposit__gt=0),
+                name="deposit_positive"
+            ),
         ]
 
-    def get_multiplier(self):
-        return self.count_mines / 24
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.game_amount = self.deposit
+
+        return super().save(*args, **kwargs)
