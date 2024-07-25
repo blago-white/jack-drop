@@ -57,8 +57,6 @@ class MinesGameApiRepository(BaseApiRepository):
                 delta_amount=-result.get("deposit")
             )
 
-            print("UPD", -result.get("deposit"))
-
         return result
 
     def next(self, user_id: int) -> dict:
@@ -66,8 +64,6 @@ class MinesGameApiRepository(BaseApiRepository):
 
         result = self._api_service.next(user_id=user_id,
                                         site_funds=site_active_funds)
-
-        print(result.get("game_ended"), "RESUKKT", result)
 
         if result.get("game_ended"):
             self._commit_result(user_id=user_id,

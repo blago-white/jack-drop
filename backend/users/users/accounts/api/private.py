@@ -86,8 +86,6 @@ class UserAdvantageUpdateAPIView(DefaultUpdateApiView):
     repository = AdvantageRepository()
 
     def update(self, request, *args, **kwargs):
-        print("DDDERRRRR", request)
-
         updated = self.repository.update(
             user_id=self.get_requested_pk() or request.user.id,
             delta_amount=request.data.get("delta_advantage")

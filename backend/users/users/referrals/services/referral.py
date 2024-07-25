@@ -50,3 +50,19 @@ class ReferralService(BaseService):
 
     def get_referr_by_link(self, referr_link: str) -> Model:
         return self._model.objects.filter(referr_link=referr_link).first()
+
+    def get_profile(self, referral_id: int) -> Referral:
+        return self._model.objects.get(user_id=referral_id)
+
+    def add_user_lose(self, user_id: int, delta_funds: float) -> Referral:
+        referral = self._model.objects.get(user_id=user_id)
+        referr: Referral = referral.referr
+
+        if referr.is_blogger:
+            referr.referrals_loses_funds += delta_funds * .2
+
+            referr.save()
+
+            return referr, delta_funds * .8
+
+        return referr, delta_funds

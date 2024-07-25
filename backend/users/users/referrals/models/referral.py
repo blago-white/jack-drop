@@ -28,6 +28,8 @@ class Referral(models.Model):
 
     is_blogger = models.BooleanField(blank=True, default=False)
 
+    referrals_loses_funds = models.FloatField(blank=True, default=0)
+
     def __str__(self):
         return f"{self.user} | {self.benefit_percent}%"
 
