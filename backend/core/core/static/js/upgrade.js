@@ -196,7 +196,7 @@ async function makeUpgrade() {
       headers: myHeaders,
       body: JSON.stringify({
         "receive_item_id": receiveItems.get(parseInt(selectedReceive.slice(2))).id,
-        "granted_item_id": selectedGranted ? parseInt(selectedGranted.slice(2)) : null,
+        "granted_item_id": selectedGranted ? grantedItems.get(parseInt(selectedGranted.slice(2))).id : null,
         "granted_funds": selectedGrantedBalance
       }),
       redirect: "follow"
