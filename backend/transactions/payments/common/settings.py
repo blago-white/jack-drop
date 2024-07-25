@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-@d46ezas)fjd8r)m-3vdzp@6!h28!s)a-723_snl@0zq85d-*g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "tpaymentsapp", "95.163.231.175"]
+ALLOWED_HOSTS = ["localhost", "tpaymentsapp", "95.163.231.175", "jackdrop.online"]
 
 
 # Application definition
