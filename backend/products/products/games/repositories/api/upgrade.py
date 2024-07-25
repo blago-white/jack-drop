@@ -203,7 +203,7 @@ class UpgradeApiRepository(BaseApiRepository):
         if serialized.data.get("granted_item_id"):
             if not self._inventory_service.check_ownership(
                 owner_id=user_funds.get("id"),
-                item_id=serialized.data.get("granted_item_id")
+                inventory_item_id=serialized.data.get("granted_item_id")
             ):
                 raise ValidationError(
                     detail="Restricted access for this item, you are not owner",
