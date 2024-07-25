@@ -24,7 +24,7 @@ class ClientBalanceService(BaseService):
 
         current = self.get_balance(client_id=client_id)
 
-        if (current.displayed_balance + delta_balance < 0) and (delta_balance < 0):
+        if (current.displayed_balance + float(delta_balance) < 0) and (float(delta_balance) < 0):
             raise ValidationError("Not correct data for update")
 
         return self._model.objects.filter(client_id=client_id).update(
