@@ -161,8 +161,6 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
                 "success": True
             }
         except Exception as e:
-            raise e
-
             return {
                 "data": {
                     "detail": e
