@@ -96,17 +96,13 @@ class MinesGameApiRepository(BaseApiRepository):
                        funds_difference: dict,
                        deposit: float,
                        is_win: bool) -> None:
-        self._site_funds_service.update(
-            amount=funds_difference.get("site_funds_diff")
-        )
-
         self._game_result_service.save(data=GameResultData(
             user_id=user_id,
             game=Games.MINES,
             is_win=float(funds_difference.get("user_funds_diff")) > 0
         ))
 
-        self._users_service.update_user_advantage(
+        ok, to_blogger_advantage = self._users_service.update_user_advantage(
             delta_advantage=funds_difference.get("user_funds_diff"),
             user_id=user_id
         )
@@ -114,6 +110,10 @@ class MinesGameApiRepository(BaseApiRepository):
         self._users_service.update_user_balance_by_id(
             delta_amount=funds_difference.get("user_funds_diff") + (0 if not is_win else deposit),
             user_id=user_id
+        )
+
+        self._site_funds_service.update(
+            amount=funds_difference.get("site_funds_diff") - to_blogger_advantage
         )
 
     @staticmethod

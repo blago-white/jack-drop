@@ -93,7 +93,8 @@ class UsersApiService(BaseApiService):
 
     def update_user_advantage(self, delta_advantage: float,
                               user_id: int = None,
-                              user_request: Request = None):
+                              user_request: Request = None
+                              ) -> tuple[bool, float]:
         if user_id:
             response = requests.put(
                 url=self.routes.get("update_advantage_by_id").format(
@@ -111,7 +112,7 @@ class UsersApiService(BaseApiService):
                 data={"delta_advantage": delta_advantage}
             ).json()
 
-        return response.get("ok")
+        return response.get("ok"), response.get("to_blogger")
 
     @staticmethod
     def send_auth_get_api_request(

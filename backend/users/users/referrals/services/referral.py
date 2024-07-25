@@ -63,6 +63,6 @@ class ReferralService(BaseService):
 
             referr.save()
 
-            return referr, delta_funds * .8
+            return referr, delta_funds * .2
 
-        return referr, delta_funds
+        return referr, 0

@@ -97,13 +97,13 @@ class ContractApiRepository(BaseApiRepository):
             item_id=result_item.pk
         )
 
-        self._users_service.update_user_advantage(
+        ok, to_blogger_advantage = self._users_service.update_user_advantage(
             delta_advantage=result_item.price - granted_amount,
             user_id=user_id
         )
 
         self._site_funds_service.update(
-            amount=granted_amount - result_item.price
+            amount=(granted_amount - result_item.price) - to_blogger_advantage
         )
 
         self._game_result_service.save(data=GameResultData(

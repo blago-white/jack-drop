@@ -95,7 +95,7 @@ class CaseDropApiRepository(BaseApiRepository):
                       user_funds: dict,
                       funds_delta: dict,
                       dropped_item_id: int) -> None:
-        self._users_service.update_user_advantage(
+        ok, to_blogger_advantage = self._users_service.update_user_advantage(
             delta_advantage=funds_delta.get("user_funds_delta"),
             user_id=user_funds.get("id")
         )
@@ -107,7 +107,7 @@ class CaseDropApiRepository(BaseApiRepository):
 
         self._site_funds_service.update(amount=funds_delta.get(
             "site_funds_delta"
-        ))
+        ) - to_blogger_advantage)
 
         self._inventory_service.add_item(owner_id=user_funds.get("id"),
                                          item_id=int(dropped_item_id))
