@@ -41,7 +41,7 @@ async function getInevntoryItems() {
     };
 
     const response = await sendRequest(
-        `http://jackdrop.online/products/inventory/upgrade/`,
+        `http://localhost/products/inventory/upgrade/`,
         requestOptions
     );
 
@@ -93,7 +93,7 @@ async function getReceiveItems(minItemPrice) {
     };
 
     const response = await sendRequest(
-        `http://jackdrop.online/products/items/all/`,
+        `http://localhost/products/items/all/`,
         requestOptions
     );
 
@@ -199,7 +199,7 @@ async function makeUpgrade() {
     };
 
     const response = await sendRequest(
-        `http://jackdrop.online/products/games/upgrade/`,
+        `http://localhost/products/games/upgrade/`,
         requestOptions
     );
 

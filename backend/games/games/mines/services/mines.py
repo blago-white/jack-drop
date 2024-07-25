@@ -44,6 +44,8 @@ class MinesService:
 
         self.win_amount = factor * game_request.user_current_ammount
 
+        print(f"FACTOR: {factor} * {game_request.user_current_ammount}")
+
     def _get_step_result(self, additional_rate_factor: float,
                          game_request: MinesGameNextStepRequest) -> MinesGameStepResult:
         win = (random.randint(1, 100) <
@@ -79,6 +81,8 @@ class MinesModelService(BaseModelService):
             commited=False
         )
 
+        print(user_id, active, self._model.objects.all().values())
+
         if not active.exists():
             if raise_exception:
                 raise ValidationError("Game not found!")
@@ -87,13 +91,17 @@ class MinesModelService(BaseModelService):
         return active.first()
 
     def init(self, data: MinesGameInitParams) -> MinesGame:
-        if active := self.get_active(user_id=MinesGameInitParams.user_id):
+        if active := self.get_active(user_id=data.user_id):
             return False, active
+
+        print(f"CREATED: {data.user_id} - {data.count_mines}")
 
         return True, self._model.objects.create(
             user_id=data.user_id,
             count_mines=data.count_mines,
             deposit=data.deposit,
+            user_advantage=data.advantage,
+            game_amount=data.deposit
         )
 
     def next_win_step(self, user_id: int, new_game_amount: float, step: int):
@@ -107,17 +115,12 @@ class MinesModelService(BaseModelService):
         return active
 
     def commit(
-            self, user_id: int,
-            mines_game_result: MinesGameNextStepRequest = None
+            self, user_id: int, is_win: bool
     ) -> MinesGame:
         active = self.get_active(user_id=user_id,
                                  raise_exception=True)
 
-        if mines_game_result:
-            active.step = mines_game_result.step
-            active.is_win = mines_game_result.is_win
-            active.game_amount = mines_game_result.user_current_ammount
-
+        active.is_win = is_win
         active.commited = True
 
         active.save()

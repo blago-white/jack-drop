@@ -11,54 +11,119 @@ let fundsDiff = 0;
 let selected = new Set();
 
 
-function iterField(id) {
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
+
+async function iterField(id) {
     if (!gameStarted) {
         return false;
     }
 
-    console.log(currentStep, lossStep);
-    console.log(currentStep, 23-countMines, countMines);
-
     if (selected.has(id)) {return} else {selected.add(id)}
 
-    if (currentStep == lossStep) {
+    const myHeaders = new Headers();
+
+    myHeaders.append("X-CSRFToken", getCookie("csrftoken"));
+    myHeaders.append("Content-Type", "application/json");
+
+    const requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: JSON.stringify({}),
+      redirect: "follow"
+    };
+
+    const response = await sendRequestJson(
+        `http://localhost/products/games/mines/next/`,
+        requestOptions
+    );
+
+    if (response.game_ended) {
         document.getElementById(id).innerHTML = `
             <img src="/core/static/img/seeds.png" style="width: 90%;margin-inline: 5%;">
         `;
         renderItemPrize("You lose scrap!", -deposit, "/core/static/img/scrap.png", "Ok");
 
         gameStarted = false;
-    } else if (currentStep == (24-countMines)) {
+    } else if (currentStep == (25 - countMines - 1)) {
+        const requestOptions = {
+          method: "DELETE",
+          headers: myHeaders,
+          body: JSON.stringify({}),
+          redirect: "follow"
+        };
+
+        const response = await sendRequest(
+            `http://localhost/products/games/mines/stop/`,
+            requestOptions
+        );
+
         renderItemPrize("You win scrap!", fundsDiff, "/core/static/img/scrap.png", "Amazing!");
 
         document.getElementById(id).innerHTML = `
             <img src="/core/static/img/pumpkin.png" style="width: 90%;margin-inline: 5%;">
         `
-    } else {
+    } else if (!response.game_ended) {
+        console.log("EO", response, response.win_amount);
+
         document.getElementById(id).innerHTML = `
             <img src="/core/static/img/pumpkin.png" style="width: 90%;margin-inline: 5%;">
-        `
+        `;
+        document.getElementById('receive').innerHTML = `
+            Receive: ${response.win_amount} <img src="/core/static/img/scrap.png" style="width: 3ch">
+        `;
     }
 
     currentStep++;
 }
 
+async function stopGame() {
+    const myHeaders = new Headers();
+
+    myHeaders.append("X-CSRFToken", getCookie("csrftoken"));
+    myHeaders.append("Content-Type", "application/json");
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: JSON.stringify({}),
+      redirect: "follow"
+    };
+
+    const response = await sendRequestJson(
+        `http://localhost/products/games/mines/stop/`,
+        requestOptions
+    );
+
+    console.log(response);
+
+    renderItemPrize("You win scrap!", response.win_amount, "/core/static/img/scrap.png", "Ok");
+
+    gameStarted = false;
+}
 
 async function sendMakeRequest(formData) {
     const myHeaders = new Headers();
 
-    myHeaders.append("X-CSRFToken", document.cookie.split("=")[1].split(";")[0]);
+    myHeaders.append("X-CSRFToken", getCookie("csrftoken"));
     myHeaders.append("Content-Type", "application/json");
 
     const requestOptions = {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify(formData),
-      redirect: "follow"
+      redirect: "follow",
     };
 
+    console.log("WOW");
+
     const response = await sendRequest(
-        `http://jackdrop.online/products/games/mines/`,
+        `http://localhost/products/games/mines/`,
         requestOptions
     );
 
@@ -89,11 +154,11 @@ async function makeMinesGame() {
         document.getElementById('mines-game-form').innerHTML = `
             <div class="super-button">
                 <span class="super-button-bg noactive"></span>
-                <span class="super-button-text" style="gap: 0px;">Receive: 0.0 <img src="/core/static/img/scrap.png" style="width: 3ch"></span>
+                <span class="super-button-text" style="gap: 0px;" id="receive">Receive: 0.0 <img src="/core/static/img/scrap.png" style="width: 3ch"></span>
             </div>
-            <button class="super-button" type="submit" onclick="location.href = location.href">
+            <button class="super-button" type="submit" onclick="stopGame();return false;">
                 <span class="super-button-bg"></span>
-                <span class="super-button-text">End game!</span>
+                <span class="super-button-text">Stop game!</span>
             </button>
         `;
 
@@ -153,6 +218,8 @@ function changeGameVals() {
 
 renderFields();
 
+addEventListener("beforeunload", (event) => {stopGame()});
+
 document.getElementById('count_mines').addEventListener('input', changeGameVals);
 
 window.makeMinesGame = makeMinesGame;
@@ -160,3 +227,4 @@ window.sendMakeRequest = sendMakeRequest;
 window.changeGameVals = changeGameVals;
 window.iterField = iterField;
 window.multipleDeposit = multipleDeposit;
+window.stopGame = stopGame;

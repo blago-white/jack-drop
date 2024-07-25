@@ -1,20 +1,7 @@
 from django.db.models import Sum, Model
 
 from common.services import BaseService
-from ..models.referral import ReferralBenefit, Referral
-
-
-class ReferralBenefitService(BaseService):
-    default_model = ReferralBenefit
-
-    def get_discount(self, deposits_amount: int) -> int:
-        level = self.get_level(required_deposits=deposits_amount)
-        return level.discount_per_referral
-
-    def get_level(self, required_deposits: int) -> ReferralBenefit:
-        return self._model.objects.filter(
-            required_deposits__lte=required_deposits
-        ).order_by("level").last()
+from ..models.referral import Referral
 
 
 class ReferralService(BaseService):
@@ -49,11 +36,11 @@ class ReferralService(BaseService):
 
     def create(self, user_id: int,
                referr: int = None,
-               benefit: Model = None) -> Model:
+               is_blogger: Model = False) -> Model:
         self._model.objects.create(
             user_id=user_id,
             referr=referr,
-            benefit=benefit
+            is_blogger=is_blogger
         )
 
     def add_referr(self, user_id: int, referr: Model) -> bool:

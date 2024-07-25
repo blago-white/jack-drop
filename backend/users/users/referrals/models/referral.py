@@ -17,8 +17,7 @@ class Referral(models.Model):
     referr = models.ForeignKey(to="self",
                                on_delete=models.SET_NULL,
                                null=True,
-                               blank=True,
-                               related_name="referr")
+                               blank=True)
 
     benefit_percent = models.IntegerField(blank=True, default=15)
 

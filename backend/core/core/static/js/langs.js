@@ -20,7 +20,7 @@ async function setLang(lang) {
       redirect: "follow"
     };
 
-    response = await sendRequest("http://jackdrop.online/i18n/setlang/", requestOptions);
+    response = await sendRequest("http://localhost/i18n/setlang/", requestOptions);
 
     location.href = location.href;
 }

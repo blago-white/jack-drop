@@ -13,9 +13,13 @@ class MinesGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):
     serializer_class = MinesGameRequestViewSerializer
 
     def create(self, request, *args, **kwargs):
+        print("START")
+
         user_data = self.users_api_repository.get(
             user_request=request
         )
+
+        print("FUNDS")
 
         result = self._repository.init(
             request_data=request.data,

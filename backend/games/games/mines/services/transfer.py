@@ -22,5 +22,6 @@ class MinesGameStepResult:
 @dataclass
 class MinesGameInitParams:
     user_id: int
+    advantage: float
     count_mines: int
     deposit: int

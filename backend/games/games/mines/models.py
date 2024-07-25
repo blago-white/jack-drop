@@ -4,13 +4,14 @@ from django.db import models
 
 class MinesGame(models.Model):
     user_id = models.PositiveIntegerField()
+    user_advantage = models.IntegerField()
 
     count_mines = models.PositiveIntegerField()
     is_win = models.BooleanField(null=True, blank=True)
     step = models.IntegerField(blank=True, default=0)
 
-    game_amount = models.IntegerField()
-    deposit = models.FloatField()
+    game_amount = models.IntegerField(default=1)
+    deposit = models.FloatField(default=1)
     commited = models.BooleanField(blank=True, default=False)
 
     class Meta:
@@ -34,5 +35,7 @@ class MinesGame(models.Model):
     def save(self, *args, **kwargs):
         if not self.pk:
             self.game_amount = self.deposit
+
+        print(f"CREATED: {self.user_id} - {self.count_mines} - {self.game_amount}")
 
         return super().save(*args, **kwargs)

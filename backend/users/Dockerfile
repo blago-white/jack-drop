@@ -23,4 +23,4 @@ RUN chmod -R 777 ./start.sh
 
 USER app
 
-ENTRYPOINT ./start.sh
+ENTRYPOINT /home/app/users/start.sh
