@@ -1,0 +1,5 @@
+./products/dump.json
+.env
+.flake8
+./products/test.py
+./products/debug.log
