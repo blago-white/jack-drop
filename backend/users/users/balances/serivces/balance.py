@@ -1,4 +1,5 @@
 from django.db.models import F, Value
+from django.core.exceptions import ValidationError
 
 from common.services import BaseService
 
@@ -20,6 +21,12 @@ class ClientBalanceService(BaseService):
     def udpdate_displayed_balance(self, client_id: int,
                                   delta_balance: float) -> bool:
         print("UPDATE", client_id, delta_balance)
+
+        current = self.get_balance(client_id=client_id)
+
+        if (current.displayed_balance + delta_balance < 0) and (delta_balance < 0):
+            raise ValidationError("Not correct data for update")
+
         return self._model.objects.filter(client_id=client_id).update(
             displayed_balance=F("displayed_balance") + Value(delta_balance)
         ) > 0
