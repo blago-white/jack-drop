@@ -64,7 +64,7 @@ class UpgradeApiRepository(BaseApiRepository):
 
         if result:
             self._commit_win(
-                validated_data=serialized.data,
+                validated_data=validated_data,
                 owner_id=user_funds.get("id"),
                 item_id=validated_data.get("receive_item_id"),
                 user_funds=user_funds
