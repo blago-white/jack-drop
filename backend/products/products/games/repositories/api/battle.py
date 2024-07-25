@@ -269,13 +269,9 @@ class BattleApiRepository(_BaseBattleApiRepository):
             user_id=battle_result.get("loser_id"),
             game=Games.BATTLE,
             is_win=False,
-            first_item_id=battle_result.get(
-                "dropped_item_loser_id"
-            ),
+            first_item_id=loser_case_item.item.id,
             case_id=battle_result.get("battle_case_id"),
-            second_item_id=battle_result.get(
-                "dropped_item_winner_id"
-            ),
+            second_item_id=winner_case_item.item.id
         ))
 
     def _validate_funds_participant(
