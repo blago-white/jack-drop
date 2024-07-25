@@ -8,8 +8,8 @@
 .admin-chat {
     border-top-right-radius: calc(100vw * calc(18 / var(--reference-display-w)));
     border-top-left-radius: calc(100vw * calc(18 / var(--reference-display-w)));
-    height: calc(100vw * calc(752 / var(--reference-display-w)));
-    width: calc(100vw * calc(576 / var(--reference-display-w)));
+    height: calc(100vw * calc(475 / var(--reference-display-w)));
+    width: calc(100vw * calc(495 / var(--reference-display-w)));
     background: white;
     position: fixed;
     bottom: 0px;
@@ -137,7 +137,7 @@
 @media (aspect-ratio < 1/1) {
     .admin-chat {
         width: 90vw;
-        height: 70vh;
+        height: 55vh;
         right: 5vw;
     }
 

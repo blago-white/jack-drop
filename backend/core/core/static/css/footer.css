@@ -4,7 +4,7 @@
     background: #0E0E0E;
     margin-top: calc(100vw * calc(160 / var(--reference-display-w)));
     padding-inline: calc(100vw * calc(132 / var(--reference-display-w)));
-    padding-block: calc(100vw * calc(77 / var(--reference-display-w)));
+    padding-block: calc(100vw * calc(25 / var(--reference-display-w)));
     display: flex;
     justify-content: space-between;
     align-items: center;

@@ -14,7 +14,7 @@ function addCases(category, cases) {
             <li class="case-data" onclick="location.href = 'case/${element.id}/'">
                 <img src="${ element.image_path }" class="case-image">
                 <h3>${ element.title }</h3>
-                <span>${ element.price }р</span>
+                <span>${ element.price } <img src="/core/static/img/gear.png"></span>
             </li>
         `
     });

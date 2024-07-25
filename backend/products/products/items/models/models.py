@@ -74,6 +74,7 @@ class ItemsSet(models.Model):
     image_path = models.URLField(verbose_name=_("Item set image path"))
     items = models.ManyToManyField(to=Item,
                                    null=True,
+                                   blank=True,
                                    related_name="sets")
     price = models.FloatField(default=0, blank=True)
 
