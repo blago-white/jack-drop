@@ -14,6 +14,8 @@ class CaseItemDropModelService:
         self._win_service = win_service or self._win_service
 
     def drop(self, request: DropRequest) -> ResultState:
+        print("DROP REQUEST::::", request)
+
         if request.case_price == 0:
             item = self._drop_free_case(request=request)
         else:
