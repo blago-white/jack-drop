@@ -19,3 +19,32 @@ class MinesGameApiService(BaseApiService):
         print("MAKE MINES RESPONSE", response.text, serialized.data)
 
         return response.json()
+
+    def next(self, user_id: int, site_funds: float):
+        response = requests.post(
+            self._routes.get("next_mines_game"),
+            data=json.dumps({
+                "user_id": user_id,
+                "site_funds": {
+                    "site_active_funds": site_funds
+                }
+            }),
+            headers={"Content-Type": "application/json"}
+        )
+
+        print("NEXT MINES RESPONSE", response.text)
+
+        return response.json()
+
+    def stop(self, user_id: int):
+        response = requests.post(
+            self._routes.get("stop_mines_game"),
+            data=json.dumps({
+                "user_id": user_id,
+            }),
+            headers={"Content-Type": "application/json"}
+        )
+
+        print("STOP MINES RESPONSE", response.text)
+
+        return response.json()

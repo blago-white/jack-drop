@@ -1,20 +1,7 @@
 from django.db.models import Sum, Model
 
 from common.services import BaseService
-from ..models.referral import ReferralBenefit, Referral
-
-
-class ReferralBenefitService(BaseService):
-    default_model = ReferralBenefit
-
-    def get_discount(self, deposits_amount: int) -> int:
-        level = self.get_level(required_deposits=deposits_amount)
-        return level.discount_per_referral
-
-    def get_level(self, required_deposits: int) -> ReferralBenefit:
-        return self._model.objects.filter(
-            required_deposits__lte=required_deposits
-        ).order_by("level").last()
+from ..models.referral import Referral
 
 
 class ReferralService(BaseService):
@@ -49,11 +36,11 @@ class ReferralService(BaseService):
 
     def create(self, user_id: int,
                referr: int = None,
-               benefit: Model = None) -> Model:
+               is_blogger: Model = False) -> Model:
         self._model.objects.create(
             user_id=user_id,
             referr=referr,
-            benefit=benefit
+            is_blogger=is_blogger
         )
 
     def add_referr(self, user_id: int, referr: Model) -> bool:
@@ -63,3 +50,19 @@ class ReferralService(BaseService):
 
     def get_referr_by_link(self, referr_link: str) -> Model:
         return self._model.objects.filter(referr_link=referr_link).first()
+
+    def get_profile(self, referral_id: int) -> Referral:
+        return self._model.objects.get(user_id=referral_id)
+
+    def add_user_lose(self, user_id: int, delta_funds: float) -> Referral:
+        referral = self._model.objects.get(user_id=user_id)
+        referr: Referral = referral.referr
+
+        if referr.is_blogger:
+            referr.referrals_loses_funds += delta_funds * .2
+
+            referr.save()
+
+            return referr, delta_funds * .2
+
+        return referr, 0

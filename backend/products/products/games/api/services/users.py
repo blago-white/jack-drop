@@ -74,9 +74,27 @@ class UsersApiService(BaseApiService):
 
         return response.get("ok")
 
+    def add_user_lose(
+            self, user_request: Request,
+            advantage_diff: float) -> tuple[bool, float]:
+        header = user_request.headers.get(
+            "Authorization"
+        )
+
+        response = requests.post(
+            url=self.routes.get("add_user_lose"),
+            headers={
+                "Authorization": header
+            },
+            data={"advantage_diff": advantage_diff}
+        ).json()
+
+        return response.get("ok"), response.get("user_advantage")
+
     def update_user_advantage(self, delta_advantage: float,
                               user_id: int = None,
-                              user_request: Request = None):
+                              user_request: Request = None
+                              ) -> tuple[bool, float]:
         if user_id:
             response = requests.put(
                 url=self.routes.get("update_advantage_by_id").format(
@@ -94,7 +112,7 @@ class UsersApiService(BaseApiService):
                 data={"delta_advantage": delta_advantage}
             ).json()
 
-        return response.get("ok")
+        return response.get("ok"), response.get("to_blogger")
 
     @staticmethod
     def send_auth_get_api_request(

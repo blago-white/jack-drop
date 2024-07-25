@@ -3,16 +3,17 @@ from rest_framework.permissions import IsAuthenticated
 from common.mixins import BaseDetailedCreateApiViewMixin
 from common.api.default import DefaultRetrieveApiView, DefaultCreateApiView
 
-from referrals.repositories.referral import ReferralRepository, ReferrRepository
+from referrals.repositories.referral import ReferralRepository, \
+    ReferrRepository
 
 
 class ReferalStatusRetrieveAPIView(DefaultRetrieveApiView):
     repository = ReferralRepository()
-    pk_url_kwarg = "referr_id"
+    permission_classes = [IsAuthenticated]
 
     def retrieve(self, request, *args, **kwargs):
         return self.get_200_response(
-            data=self.repository.get(referral_id=self.get_requested_pk())
+            data=self.repository.get(referral_id=self.request.user.id)
         )
 
 
@@ -29,5 +30,16 @@ class AddReferrApiView(BaseDetailedCreateApiViewMixin,
 
         return self.get_201_response(data=saved)
 
-    def get_queryset(self):
-        return
+
+class AddLoseFundsApiView(BaseDetailedCreateApiViewMixin,
+                          DefaultCreateApiView):
+    repository = ReferrRepository()
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        saved = self.repository.add_referr_funds(
+            referral_id=request.user.id,
+                advantage_diff=request.data.get("advantage_diff")
+        )
+
+        return self.get_201_response(data=saved)

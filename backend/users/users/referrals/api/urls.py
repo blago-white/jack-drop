@@ -1,10 +1,10 @@
 from django.urls import path
 
-from .endpoints import ReferalStatusRetrieveAPIView, AddReferrApiView
+from .endpoints import ReferalStatusRetrieveAPIView, AddReferrApiView, AddLoseFundsApiView
 
 urlpatterns = [
-    path("api/v1/p/status/<int:referr_id>/",
+    path("api/v1/public/status/",
          ReferalStatusRetrieveAPIView.as_view()),
-    path("api/v1/add_referr/",
-         AddReferrApiView.as_view())
+    path("api/v1/p/add-lose/",
+         AddLoseFundsApiView.as_view()),
 ]

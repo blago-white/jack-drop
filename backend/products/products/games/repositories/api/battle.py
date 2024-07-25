@@ -227,12 +227,12 @@ class BattleApiRepository(_BaseBattleApiRepository):
             user_id=battle_result.get("loser_id")
         )
 
-        self._users_service.update_user_advantage(
+        _, loser_to_blogger_funds = self._users_service.update_user_advantage(
             delta_advantage=-case_price,
             user_id=battle_result.get("loser_id")
         )
 
-        self._users_service.update_user_advantage(
+        _, winner_to_blogger_funds = self._users_service.update_user_advantage(
             delta_advantage=(winner_case_item - case_price) + loser_case_item.item.price,
             user_id=battle_result.get("winner_id")
         )
@@ -248,7 +248,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
         )
 
         self._site_funds_service.update(
-            amount=battle_result.get("site_funds_diff")
+            amount=battle_result.get("site_funds_diff") - (loser_to_blogger_funds + winner_to_blogger_funds)
         )
 
         self._game_result_service.save(data=GameResultData(

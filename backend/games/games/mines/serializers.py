@@ -4,7 +4,7 @@ from common.serializers import UserFundsStateSerializer, SiteFundsSerializer
 from .models import MinesGame
 
 
-class MinesGameRequestSerializer(serializers.Serializer):
+class MinesGameInitSerializer(serializers.Serializer):
     count_mines = serializers.IntegerField(allow_null=False,
                                            required=True,
                                            min_value=1)
@@ -15,9 +15,15 @@ class MinesGameRequestSerializer(serializers.Serializer):
     site_funds = SiteFundsSerializer(required=True)
 
 
+class MinesGameNextStepSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField()
+    site_funds = SiteFundsSerializer(required=True)
+
+
 class FundsDifferenceSerializer(serializers.Serializer):
     user_funds_diff = serializers.FloatField()
     site_funds_diff = serializers.FloatField()
+    game_ended = serializers.BooleanField(default=True, allow_null=True)
 
 
 class GameResultSerializer(serializers.ModelSerializer):

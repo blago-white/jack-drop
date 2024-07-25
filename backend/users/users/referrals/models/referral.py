@@ -5,24 +5,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
-from .utils import ReferralLevels
 from ..config import REFERR_LINK_MAX_LENGTH
-
-
-class ReferralBenefit(models.Model):
-    level = models.IntegerField(choices=ReferralLevels.choices)
-    discount_per_referral = models.IntegerField(
-        validators=[
-            MinValueValidator(0),
-            MaxValueValidator(100)
-        ]
-    )
-    required_deposits = models.IntegerField(
-        "Sum of deps for up to this level"
-    )
-
-    def __str__(self):
-        return f"Level: {self.level} ({self.discount_per_referral}%)"
 
 
 class Referral(models.Model):
@@ -31,28 +14,24 @@ class Referral(models.Model):
                                 related_name="referral",
                                 primary_key=True)
 
-    referr = models.ForeignKey(to=get_user_model(),
-                               on_delete=models.CASCADE,
+    referr = models.ForeignKey(to="self",
+                               on_delete=models.SET_NULL,
                                null=True,
-                               blank=True,
-                               related_name="referr")
+                               blank=True)
 
-    benefit = models.ForeignKey(to=ReferralBenefit,
-                                on_delete=models.SET_NULL,
-                                null=True,
-                                blank=True)
+    benefit_percent = models.IntegerField(blank=True, default=15)
 
     referr_link = models.CharField(max_length=REFERR_LINK_MAX_LENGTH,
                                    null=False,
                                    blank=True,
                                    unique=True)
 
-    def __str__(self):
-        return f"{self.user} {self.benefit}"
+    is_blogger = models.BooleanField(blank=True, default=False)
 
-    def clean(self):
-        if self.referr and not self.benefit:
-            raise ValidationError("Cannot set reffer without benefit")
+    referrals_loses_funds = models.FloatField(blank=True, default=0)
+
+    def __str__(self):
+        return f"{self.user} | {self.benefit_percent}%"
 
     def save(
             self, *args, **kwargs
@@ -60,5 +39,7 @@ class Referral(models.Model):
         self.referr_link = sha256(self.user.username.encode(
             "utf-8"
         )).hexdigest()[:REFERR_LINK_MAX_LENGTH]
+
+        self.benefit_percent = 20 if self.is_blogger else 15
 
         return super().save(*args, **kwargs)

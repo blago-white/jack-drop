@@ -4,25 +4,6 @@ from accounts.services.users import UsersService
 
 from .config import REFERR_LINK_MAX_LENGTH
 from .models.utils import ReferralLevels
-from .services.referral import ReferralBenefitService
-
-
-class ClaculatedDiscount(serializers.CurrentUserDefault):
-    def __call__(self, serializer_field):
-        deposits_amount = serializer_field.parent.initial_data.get("deposits")
-
-        return ReferralBenefitService().get_discount(
-            deposits_amount=deposits_amount
-        )
-
-
-class ClaculatedLevel(serializers.CurrentUserDefault):
-    def __call__(self, serializer_field):
-        deposits_amount = serializer_field.parent.initial_data.get("deposits")
-
-        return ReferralBenefitService().get_level(
-            required_deposits=deposits_amount
-        ).level
 
 
 class ReferralStatusSerializer(serializers.Serializer):
@@ -30,18 +11,11 @@ class ReferralStatusSerializer(serializers.Serializer):
         queryset=UsersService().get_all()
     )
 
-    deposits = serializers.IntegerField(allow_null=False,
-                                        initial=0,
-                                        default=0)
+    referr_link = serializers.CharField(max_length=REFERR_LINK_MAX_LENGTH)
 
-    level = serializers.ChoiceField(
-        choices=ReferralLevels.choices,
-        default=ClaculatedLevel()
-    )
+    is_blogger = serializers.BooleanField(allow_null=True, default=False)
 
-    personal_discount = serializers.IntegerField(allow_null=True,
-                                                 initial=0,
-                                                 default=ClaculatedDiscount())
+    benefit_percent = serializers.IntegerField(allow_null=True, default=15)
 
 
 class ReferralLinkSerializer(serializers.Serializer):

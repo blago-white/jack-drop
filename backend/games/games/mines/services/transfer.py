@@ -4,15 +4,24 @@ from common.services.api.states import FundsDifference
 
 
 @dataclass
-class MinesGameRequest:
+class MinesGameNextStepRequest:
     count_mines: int
     user_advantage: float
     user_deposit: float | int
+    user_current_ammount: float
     site_active_funds: float
     step: int
 
 
 @dataclass
-class MinesGameResult:
+class MinesGameStepResult:
     is_win: bool
     funds_diffirence: FundsDifference
+
+
+@dataclass
+class MinesGameInitParams:
+    user_id: int
+    advantage: float
+    count_mines: int
+    deposit: int

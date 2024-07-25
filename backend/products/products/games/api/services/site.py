@@ -12,8 +12,6 @@ class SiteFundsApiService(BaseApiService):
             url=self.default_routes.get("get_funds"),
         )
 
-        print(response.text)
-
         response = response.json()
 
         return float(response.get("amount"))

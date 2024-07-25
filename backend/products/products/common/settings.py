@@ -179,6 +179,8 @@ GAMES_SERVICE_ROUTES = {
                            "/{initiator_id}/",
     "make_battle": "http://gamesapp:8000/games/private/battle/make-battle/",
     "make_mines_game": "http://gamesapp:8000/games/private/mines/make/",
+    "next_mines_game": "http://gamesapp:8000/games/private/mines/next/",
+    "stop_mines_game": "http://gamesapp:8000/games/private/mines/stop/",
     "get_prize_type_wheel": "http://gamesapp:8000/games/private/fortune/prize-type/",
     "get_prize_wheel": "http://gamesapp:8000/games/private/fortune/make-prize/",
     "get_battle_stats": "http://gamesapp:8000/games/private/battle/stats/{user_id}/",
@@ -200,7 +202,8 @@ USERS_MICROSERVICE_ROUTES = {
     "update_hidden_balance": "http://usersapp:8000/auth/"
                              "balances/api/v1/p/hidden_balance/{client_id}/update/",
     "update_advantage": "http://usersapp:8000/auth/api/v1/p/advantage/update/",
-    "update_advantage_by_id": "http://usersapp:8000/auth/api/v1/p/advantage/update/{user_id}/"
+    "update_advantage_by_id": "http://usersapp:8000/auth/api/v1/p/advantage/update/{user_id}/",
+    "add_user_lose": "http://usersapp:8000/auth/referrals/api/v1/p/add-lose/"
 }
 
 CORE_MICROSERVICE_ROUTES = {

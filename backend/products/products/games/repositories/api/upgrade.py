@@ -91,9 +91,13 @@ class UpgradeApiRepository(BaseApiRepository):
                 item_id=validated_data.get("granted_item_id")
             )
 
-            self._users_service.update_user_advantage(
+            ok, to_blogger_advantage = self._users_service.update_user_advantage(
                 user_id=user_funds.get("id"),
                 delta_advantage=-item.item.price
+            )
+
+            self._site_funds_service.increase(
+                amount=to_blogger_advantage
             )
 
         elif validated_data.get("granted_funds"):
@@ -102,9 +106,13 @@ class UpgradeApiRepository(BaseApiRepository):
                 delta_amount=-validated_data.get("granted_funds")
             )
             
-            self._users_service.update_user_advantage(
+            ok, to_blogger_advantage = self._users_service.update_user_advantage(
                 user_id=user_funds.get("id"),
                 delta_advantage=-validated_data.get("granted_funds")
+            )
+
+            self._site_funds_service.increase(
+                amount=to_blogger_advantage
             )
 
     def _commit_win(self, validated_data: dict,
@@ -134,7 +142,7 @@ class UpgradeApiRepository(BaseApiRepository):
             item_id=item_id
         )
 
-        self._users_service.update_user_advantage(
+        ok, to_blogger_advantage = self._users_service.update_user_advantage(
             user_id=user_funds.get("id"),
             delta_advantage=item.item.price - granted
         )
@@ -142,7 +150,7 @@ class UpgradeApiRepository(BaseApiRepository):
         self._site_funds_service.update(
             amount=validated_data.get("granted_funds") - validated_data.get(
                 "receive_funds"
-            )
+            ) - to_blogger_advantage,
         )
 
     def _complete_serializer(

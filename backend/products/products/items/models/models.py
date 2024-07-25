@@ -78,8 +78,11 @@ class ItemsSet(models.Model):
     price = models.FloatField(default=0, blank=True)
 
     def save(self, *args, **kwargs):
-        self.price = self.items.all().aggregate(
-            s=models.Sum("price")
-        ).get("s") * 1.15
+        if not self.items.all().exists():
+            self.price = 0
+        else:
+            self.price = self.items.all().aggregate(
+                s=models.Sum("price")
+            ).get("s") * 1.15
 
         return super().save(*args, **kwargs)

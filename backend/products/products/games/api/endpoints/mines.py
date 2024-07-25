@@ -1,3 +1,5 @@
+from rest_framework.generics import UpdateAPIView, DestroyAPIView
+
 from common.mixins.api import CreateAPIViewMixin
 from games.repositories.api.mines import MinesGameApiRepository
 from games.repositories.api.users import UsersApiRepository
@@ -11,17 +13,55 @@ class MinesGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):
     serializer_class = MinesGameRequestViewSerializer
 
     def create(self, request, *args, **kwargs):
+        print("START")
+
         user_data = self.users_api_repository.get(
             user_request=request
         )
 
-        result = self._repository.make(
+        print("FUNDS")
+
+        result = self._repository.init(
             request_data=request.data,
             user_data=user_data
         )
 
-        mines_game = result.get("mines_game")
+        return self.get_201_response(
+            data=result
+        )
+
+
+class MinesGameNextStepApiView(CreateAPIViewMixin, UpdateAPIView):
+    _repository = MinesGameApiRepository()
+    users_api_repository = UsersApiRepository()
+
+    def update(self, request, *args, **kwargs):
+        user_data = self.users_api_repository.get(
+            user_request=request
+        )
+
+        result = self._repository.next(
+            user_id=user_data.get("id")
+        )
 
         return self.get_201_response(
-            data=mines_game
+            data=result
+        )
+
+
+class MinesGameStopApiView(CreateAPIViewMixin, DestroyAPIView):
+    _repository = MinesGameApiRepository()
+    users_api_repository = UsersApiRepository()
+
+    def destroy(self, request, *args, **kwargs):
+        user_data = self.users_api_repository.get(
+            user_request=request
+        )
+
+        result = self._repository.stop(
+            user_id=user_data.get("id")
+        )
+
+        return self.get_201_response(
+            data=result
         )
