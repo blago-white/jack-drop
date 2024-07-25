@@ -54,7 +54,7 @@ export async function getCase(id) {
     caseId = id;
 
     const response = await sendRequest(
-        `http://localhost/products/cases/api/v1/case/${id}/items/`,
+        `http://jackdrop.online/products/cases/api/v1/case/${id}/items/`,
         requestOptions
     );
 
@@ -144,7 +144,7 @@ async function dropCase() {
     };
 
     const response = await sendRequest(
-        `http://localhost/products/games/drop/${caseId}/`,
+        `http://jackdrop.online/products/games/drop/${caseId}/`,
         requestOptions
     );
 

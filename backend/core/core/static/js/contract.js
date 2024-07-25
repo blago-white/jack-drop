@@ -30,7 +30,7 @@ async function getItems() {
     };
 
     const response = await sendRequest(
-        `http://localhost/products/inventory/contract/`,
+        `http://jackdrop.online/products/inventory/contract/`,
         requestOptions
     );
 
@@ -162,7 +162,7 @@ async function makeContract() {
     };
 
     const response = await sendRequest(
-        `http://localhost/products/games/contract/`,
+        `http://jackdrop.online/products/games/contract/`,
         requestOptions
     );
 
