@@ -15,6 +15,7 @@ from games.serializers.battle import BattleRequestServiceEndpointSerializer
 from games.serializers.drop import DropItemSerializer
 from games.services.result import GameResultService
 from games.services.transfer import GameResultData
+from items.services.items import ItemService
 from inventory.services.inventory import InventoryService
 from .base import BaseApiRepository
 
@@ -78,6 +79,8 @@ class BattleApiRepository(_BaseBattleApiRepository):
     default_users_service = UsersApiService()
     default_site_funds_service = SiteFundsApiService()
     default_game_result_service = GameResultService()
+    default_items_service = ItemService()
+
     default_case_serializer = CaseSerializer
 
     _api_service: BattleApiService
@@ -91,6 +94,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
             site_funds_service: SiteFundsApiService = None,
             game_result_service: GameResultService = None,
             case_serializer: CaseSerializer = None,
+            item_service: ItemService = None,
             **kwargs):
         self._cases_service = cases_service or self.default_cases_service
         self._case_items_service = (case_items_service or
@@ -100,6 +104,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
         self._site_funds_service = site_funds_service or self.default_site_funds_service
         self._game_result_service = game_result_service or self.default_game_result_service
         self._case_serializer = case_serializer or self.default_case_serializer
+        self._item_service = item_service or self.default_items_service
 
         super().__init__(*args, **kwargs)
 
@@ -255,13 +260,9 @@ class BattleApiRepository(_BaseBattleApiRepository):
             user_id=battle_result.get("winner_id"),
             game=Games.BATTLE,
             is_win=True,
-            first_item_id=battle_result.get(
-                "dropped_item_winner_id"
-            ),
+            first_item_id=winner_case_item.item.id,
             case_id=battle_result.get("battle_case_id"),
-            second_item_id=battle_result.get(
-                "dropped_item_loser_id"
-            ),
+            second_item_id=loser_case_item.item.id
         ))
 
         self._game_result_service.save(data=GameResultData(
