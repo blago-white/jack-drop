@@ -11,4 +11,6 @@ class DropCaseItemApiView(CreateApiViewMixin, CreateAPIView):
     def create(self, request, *args, **kwargs):
         dropped = self.repository.drop_item(request=request)
 
+        print("DROPPEDD", dropped)
+
         return self.get_201_response(data=dropped)
