@@ -48,13 +48,19 @@ class UpgradeApiRepository(BaseApiRepository):
             self._validate_funds(data=data, user_funds=user_funds)
         )
 
+        print("SERIALIZED1", validated_data)
+
         serialized = self._complete_serializer(
             data=validated_data, user_funds=user_funds
         )
 
+        print("SERIALIZED2", serialized.data)
+
         result = self._api_service.make_upgrade(
             serialized=serialized
         )
+
+        print("SERIALIZED3", result)
 
         if result:
             self._commit_win(
