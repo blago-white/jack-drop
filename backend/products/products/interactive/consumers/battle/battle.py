@@ -162,7 +162,9 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
             }
         except Exception as e:
             return {
-                "data": {},
+                "data": {
+                    "detail": e
+                },
                 "error": "Error with battle, try again",
                 "success": False
             }
