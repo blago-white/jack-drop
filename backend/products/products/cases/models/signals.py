@@ -5,10 +5,13 @@ from cases.services.chances import (CaseItemsChancesService,
 from .items import CaseItem
 
 
-def update_case_items_rates(*args,
-                              instance: CaseItem,
-                              case_items_service: BaseCaseItemsChancesService = None,
-                              **kwargs):
+def update_case_items_rates(
+        *args,
+        instance: CaseItem,
+        case_items_service: BaseCaseItemsChancesService = None,
+        **kwargs):
+    print("UPDATE CHANCES")
+
     manager = case_items_service or CaseItemsChancesService()
 
     manager.update_chanses(case=instance.case)

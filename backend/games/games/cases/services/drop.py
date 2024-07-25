@@ -85,6 +85,8 @@ class CaseItemDropModelService:
     def _get_random(items: list[CaseItem]) -> CaseItem:
         randoms = []
 
+        print(items, "CASE ITEMS FOR DROP")
+
         percent = sum([i.rate * 100 for i in items]) / 100
         rates = [((i.rate * 100) / percent) for i in items]
 
