@@ -97,7 +97,7 @@ async function getReceiveItems(minItemPrice) {
         requestOptions
     );
 
-    const result = await response.json();
+    const result = await    response.json();
 
     if (result) {
         result.forEach((element) => {
@@ -174,6 +174,8 @@ function selectReceiveItem(elem) {
 }
 
 async function makeUpgrade() {
+    console.log("EEEE");
+
     if (selectedGrantedBalance && selectedGranted) {
         return false;
     }
@@ -186,6 +188,8 @@ async function makeUpgrade() {
     if (!selectedGrantedBalance && document.getElementById(selectedGranted)) {
         document.getElementById(selectedGranted).remove();
     }
+
+    console.log("WOW", selectedGranted, grantedItems, parseInt(selectedGranted.slice(2)), grantedItems.get(parseInt(selectedGranted.slice(2))));
 
     const requestOptions = {
       method: "POST",
