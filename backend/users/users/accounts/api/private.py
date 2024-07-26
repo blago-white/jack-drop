@@ -47,25 +47,27 @@ class JWTUserDataPrivateApiView(DefaultRetrieveApiView):
 
 class TokenVerifyHeaderView(TokenVerifyView):
     def post(self, request: Request, *args, **kwargs) -> Response:
-        if request.META.get("HTTP_AUTHORIZATION") and not request.data.get(
+        print("TOKEN", self.get_serializer_class())
+
+        print(request.data, request.headers)
+
+        if request.headers.get("Authorization") and not request.data.get(
             "token"
         ):
-            data = dict(request.data)
-
-            data.update(
-                token=request.META.get("HTTP_AUTHORIZATION").split()[-1]
-            )
-
-            serializer = self.get_serializer(
-                data=data
+            print("EEDDD")
+            serializer = self.get_serializer_class()(
+                data={"token": request.headers.get("Authorization").split()[-1]}
             )
 
         else:
-            serializer = self.get_serializer(data=request.data)
+            serializer = self.get_serializer_class()(data=request.data)
 
         try:
-            serializer.is_valid(raise_exception=True)
+            print("EEERO1")
+            serializer.is_valid(raise_exception=False)
+            print("EEERO2", serializer.errors, serializer.data)
         except TokenError as e:
+            print("ERROR TOKEN ")
             raise InvalidToken(e.args[0])
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)

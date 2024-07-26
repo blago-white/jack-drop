@@ -10,12 +10,9 @@
         {% trans 'Administration' %}
         <button id="close-chat-btn" class="close-chat-button"></button>
     </aside>
-    <main class="chat-messages">
-        {% include './chat-message.html' with OPPOSITE=True %}
-        {% include './chat-message.html' %}
-        {% include './chat-message.html' with OPPOSITE=True %}
+    <main class="chat-messages" id="chat-messages">
     </main>
-    <div class="chat-controls">
+    <div class="chat-controls" id="controls">
         <div class="message-text-input-fields">
             <input type="text" placeholder="{% trans 'Type Message' %}"
                    id="message-text"

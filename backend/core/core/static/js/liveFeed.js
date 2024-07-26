@@ -1,4 +1,4 @@
-const feedSocket = new WebSocket("ws://jackdrop.online/products/ws/feed/");
+const feedSocket = new WebSocket("ws://localhost/products/ws/feed/");
 const feed = document.getElementById('live-string');
 
 feedSocket.onmessage = function(event) {

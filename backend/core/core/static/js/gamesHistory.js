@@ -193,7 +193,7 @@ async function getItems() {
     };
 
     const response = await sendRequest(
-        `http://jackdrop.online/products/games/history/${_requestSection}/`,
+        `http://localhost/products/games/history/${_requestSection}/`,
         requestOptions
     );
 

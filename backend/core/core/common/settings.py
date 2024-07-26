@@ -32,7 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = ['http://jackdrop.online:81']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:81']
 
 # Application definition
 

@@ -26,7 +26,7 @@ async function sellItem(id) {
     };
 
     const response = await sendRequest(
-        `http://jackdrop.online/products/inventory/sell/`,
+        `http://localhost/products/inventory/sell/`,
         requestOptions
     );
 
@@ -55,7 +55,7 @@ async function withdrawItem(id) {
     };
 
     const response = await sendRequest(
-        `http://jackdrop.online/products/inventory/withdraw/${id}/`,
+        `http://localhost/products/inventory/withdraw/${id}/`,
         requestOptions
     );
 
@@ -115,7 +115,7 @@ async function getInventoryItems() {
     };
 
     const response = await sendRequest(
-        `http://jackdrop.online/products/inventory/all/`,
+        `http://localhost/products/inventory/all/`,
         requestOptions
     );
 
@@ -130,7 +130,7 @@ async function getBuyItems() {
     };
 
     const response = await sendRequest(
-        `http://jackdrop.online/products/inventory/unlock/`,
+        `http://localhost/products/inventory/unlock/`,
         requestOptions
     );
 

@@ -97,7 +97,7 @@ async function setWheelTimeout() {
       redirect: "follow"
     };
 
-    const response = await sendRequest("http://jackdrop.online/products/games/fortune-wheel/timeout/", requestOptions);
+    const response = await sendRequest("http://localhost/products/games/fortune-wheel/timeout/", requestOptions);
 
     const result = await response.json();
 
