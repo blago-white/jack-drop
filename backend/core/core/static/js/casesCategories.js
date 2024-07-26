@@ -14,7 +14,7 @@ function addCases(category, cases) {
             <li class="case-data" onclick="location.href = 'case/${element.id}/'">
                 <img src="${ element.image_path }" class="case-image">
                 <h3>${ element.title }</h3>
-                <span>${ element.price }р</span>
+                <span>${ element.price } <img src="/core/static/img/gear.png"></span>
             </li>
         `
     });
@@ -26,7 +26,7 @@ function addCases(category, cases) {
 
 
 async function addItemSets() {
-    const itemSet = await sendRequestJson("http://localhost/products/items/sets/", {method: "GET"})
+    const itemSet = await sendRequestJson("http://jackdrop.online/products/items/sets/", {method: "GET"})
 
     console.log(itemSet);
 
@@ -41,7 +41,7 @@ async function addItemSets() {
             <li class="case-data" onclick="location.href = 'set/${element.id}/'">
                 <img src="${ element.image_path }" class="case-image">
                 <h3>${ element.title }</h3>
-                <span>${ element.price }р</span>
+                <span>${ element.price } <img src="/core/static/img/gear.png"></span>
             </li>
         `
     });
@@ -60,7 +60,7 @@ async function getCases() {
       redirect: "follow"
     };
 
-    const response = await sendRequest("http://localhost/products/cases/api/v1/by-categories/?"+params, requestOptions);
+    const response = await sendRequest("http://jackdrop.online/products/cases/api/v1/by-categories/?"+params, requestOptions);
 
     const result = await response.json();
 

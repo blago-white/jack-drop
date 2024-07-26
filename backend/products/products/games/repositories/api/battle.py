@@ -15,6 +15,7 @@ from games.serializers.battle import BattleRequestServiceEndpointSerializer
 from games.serializers.drop import DropItemSerializer
 from games.services.result import GameResultService
 from games.services.transfer import GameResultData
+from items.services.items import ItemService
 from inventory.services.inventory import InventoryService
 from .base import BaseApiRepository
 
@@ -78,6 +79,8 @@ class BattleApiRepository(_BaseBattleApiRepository):
     default_users_service = UsersApiService()
     default_site_funds_service = SiteFundsApiService()
     default_game_result_service = GameResultService()
+    default_items_service = ItemService()
+
     default_case_serializer = CaseSerializer
 
     _api_service: BattleApiService
@@ -91,6 +94,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
             site_funds_service: SiteFundsApiService = None,
             game_result_service: GameResultService = None,
             case_serializer: CaseSerializer = None,
+            item_service: ItemService = None,
             **kwargs):
         self._cases_service = cases_service or self.default_cases_service
         self._case_items_service = (case_items_service or
@@ -100,6 +104,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
         self._site_funds_service = site_funds_service or self.default_site_funds_service
         self._game_result_service = game_result_service or self.default_game_result_service
         self._case_serializer = case_serializer or self.default_case_serializer
+        self._item_service = item_service or self.default_items_service
 
         super().__init__(*args, **kwargs)
 
@@ -217,25 +222,25 @@ class BattleApiRepository(_BaseBattleApiRepository):
             "dropped_item_winner_id")
         )
 
-        self._users_service.update_user_balance_by_id(
-            delta_amount=-case_price,
-            user_id=battle_result.get("winner_id")
-        )
-
-        self._users_service.update_user_balance_by_id(
-            delta_amount=-case_price,
-            user_id=battle_result.get("loser_id")
-        )
-
-        _, loser_to_blogger_funds = self._users_service.update_user_advantage(
-            delta_advantage=-case_price,
-            user_id=battle_result.get("loser_id")
-        )
-
-        _, winner_to_blogger_funds = self._users_service.update_user_advantage(
-            delta_advantage=(winner_case_item - case_price) + loser_case_item.item.price,
-            user_id=battle_result.get("winner_id")
-        )
+        # self._users_service.update_user_balance_by_id(
+        #     delta_amount=-case_price,
+        #     user_id=battle_result.get("winner_id")
+        # )
+        #
+        # self._users_service.update_user_balance_by_id(
+        #     delta_amount=-case_price,
+        #     user_id=battle_result.get("loser_id")
+        # )
+        #
+        # _, loser_to_blogger_funds = self._users_service.update_user_advantage(
+        #     delta_advantage=-case_price,
+        #     user_id=battle_result.get("loser_id")
+        # )
+        #
+        # _, winner_to_blogger_funds = self._users_service.update_user_advantage(
+        #     delta_advantage=(winner_case_item - case_price) + loser_case_item.item.price,
+        #     user_id=battle_result.get("winner_id")
+        # )
 
         self._inventory_service.add_item(
             owner_id=battle_result.get("winner_id"),
@@ -246,35 +251,27 @@ class BattleApiRepository(_BaseBattleApiRepository):
             owner_id=battle_result.get("winner_id"),
             item_id=loser_case_item.item.pk
         )
-
-        self._site_funds_service.update(
-            amount=battle_result.get("site_funds_diff") - (loser_to_blogger_funds + winner_to_blogger_funds)
-        )
+        # TODO: Uncomment
+        # self._site_funds_service.update(
+        #     amount=battle_result.get("site_funds_diff") - (loser_to_blogger_funds + winner_to_blogger_funds)
+        # )
 
         self._game_result_service.save(data=GameResultData(
             user_id=battle_result.get("winner_id"),
             game=Games.BATTLE,
             is_win=True,
-            first_item_id=battle_result.get(
-                "dropped_item_winner_id"
-            ),
+            first_item_id=winner_case_item.item.id,
             case_id=battle_result.get("battle_case_id"),
-            second_item_id=battle_result.get(
-                "dropped_item_loser_id"
-            ),
+            second_item_id=loser_case_item.item.id
         ))
 
         self._game_result_service.save(data=GameResultData(
             user_id=battle_result.get("loser_id"),
             game=Games.BATTLE,
             is_win=False,
-            first_item_id=battle_result.get(
-                "dropped_item_loser_id"
-            ),
+            first_item_id=loser_case_item.item.id,
             case_id=battle_result.get("battle_case_id"),
-            second_item_id=battle_result.get(
-                "dropped_item_winner_id"
-            ),
+            second_item_id=winner_case_item.item.id
         ))
 
     def _validate_funds_participant(

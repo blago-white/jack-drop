@@ -58,7 +58,7 @@ class ReferralService(BaseService):
         referral = self._model.objects.get(user_id=user_id)
         referr: Referral = referral.referr
 
-        if referr.is_blogger:
+        if referr and referr.is_blogger:
             referr.referrals_loses_funds += delta_funds * .2
 
             referr.save()

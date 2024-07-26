@@ -74,15 +74,16 @@ class ItemsSet(models.Model):
     image_path = models.URLField(verbose_name=_("Item set image path"))
     items = models.ManyToManyField(to=Item,
                                    null=True,
+                                   blank=True,
                                    related_name="sets")
-    price = models.FloatField(default=0, blank=True)
+    price = models.FloatField(default=0, blank=False)
 
     def save(self, *args, **kwargs):
-        if not self.items.all().exists():
-            self.price = 0
-        else:
-            self.price = self.items.all().aggregate(
-                s=models.Sum("price")
-            ).get("s") * 1.15
+        # if self.pk and not self.items.all().exists():
+        #     self.price = 0
+        # else:
+        #     self.price = self.items.all().aggregate(
+        #         s=models.Sum("price")
+        #     ).get("s") * 1.15
 
         return super().save(*args, **kwargs)

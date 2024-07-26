@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost/',
+CSRF_TRUSTED_ORIGINS = ['http://jackdrop.online/',
                         'http://localhost:80/',
                         'http://127.0.0.1:800/',
                         "http://95.163.231.175/"]

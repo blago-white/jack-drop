@@ -20,7 +20,7 @@ async function checkFreeCaseAvailable(id) {
     };
 
     const response = await sendRequest(
-        `http://localhost/products/bonus-buy/has-case/${id}/`,
+        `http://jackdrop.online/products/bonus-buy/has-case/${id}/`,
         requestOptions
     );
 
@@ -39,7 +39,7 @@ async function getCase(id) {
     caseId = id;
 
     const response = await sendRequest(
-        `http://localhost/products/cases/api/v1/case/${id}/items/`,
+        `http://jackdrop.online/products/cases/api/v1/case/${id}/items/`,
         requestOptions
     );
 

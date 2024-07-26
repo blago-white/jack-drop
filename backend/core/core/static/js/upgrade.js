@@ -41,7 +41,7 @@ async function getInevntoryItems() {
     };
 
     const response = await sendRequest(
-        `http://localhost/products/inventory/upgrade/`,
+        `http://jackdrop.online/products/inventory/upgrade/`,
         requestOptions
     );
 
@@ -93,11 +93,11 @@ async function getReceiveItems(minItemPrice) {
     };
 
     const response = await sendRequest(
-        `http://localhost/products/items/all/`,
+        `http://jackdrop.online/products/items/all/`,
         requestOptions
     );
 
-    const result = await response.json();
+    const result = await    response.json();
 
     if (result) {
         result.forEach((element) => {
@@ -174,6 +174,8 @@ function selectReceiveItem(elem) {
 }
 
 async function makeUpgrade() {
+    console.log("EEEE");
+
     if (selectedGrantedBalance && selectedGranted) {
         return false;
     }
@@ -187,6 +189,8 @@ async function makeUpgrade() {
         document.getElementById(selectedGranted).remove();
     }
 
+    console.log("WOW", selectedGranted, grantedItems, parseInt(selectedGranted.slice(2)), grantedItems.get(parseInt(selectedGranted.slice(2))));
+
     const requestOptions = {
       method: "POST",
       headers: myHeaders,
@@ -199,7 +203,7 @@ async function makeUpgrade() {
     };
 
     const response = await sendRequest(
-        `http://localhost/products/games/upgrade/`,
+        `http://jackdrop.online/products/games/upgrade/`,
         requestOptions
     );
 

@@ -10,6 +10,8 @@ class MakeBattleApiView(DefaultCreateApiView):
     pk_url_kwarg = "initiator_id"
 
     def create(self, request, *args, **kwargs):
+        print("MAKE BATTLE")
+
         return self.get_200_response(
             data=self.repository.make(
                 request_data=request.data

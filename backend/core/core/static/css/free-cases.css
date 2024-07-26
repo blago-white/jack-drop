@@ -38,6 +38,7 @@
     align-items: center;
     justify-content: center;
     grid-template-columns: repeat(4, auto);
+    row-gap: 5vh;
 }
 
 .case-data {

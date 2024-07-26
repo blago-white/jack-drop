@@ -48,17 +48,23 @@ class UpgradeApiRepository(BaseApiRepository):
             self._validate_funds(data=data, user_funds=user_funds)
         )
 
+        print("SERIALIZED1", validated_data)
+
         serialized = self._complete_serializer(
             data=validated_data, user_funds=user_funds
         )
+
+        print("SERIALIZED2", serialized.data)
 
         result = self._api_service.make_upgrade(
             serialized=serialized
         )
 
+        print("SERIALIZED3", result)
+
         if result:
             self._commit_win(
-                validated_data=serialized.data,
+                validated_data=validated_data,
                 owner_id=user_funds.get("id"),
                 item_id=validated_data.get("receive_item_id"),
                 user_funds=user_funds
@@ -119,6 +125,8 @@ class UpgradeApiRepository(BaseApiRepository):
                     user_funds: dict,
                     owner_id: int,
                     item_id: int) -> None:
+        print(validated_data, "UPGRADE DATA")
+
         if validated_data.get("granted_item_id"):
             granted = self._inventory_service.get_item(
                 inventory_item_id=validated_data.get("granted_item_id")
@@ -195,7 +203,7 @@ class UpgradeApiRepository(BaseApiRepository):
         if serialized.data.get("granted_item_id"):
             if not self._inventory_service.check_ownership(
                 owner_id=user_funds.get("id"),
-                item_id=serialized.data.get("granted_item_id")
+                inventory_item_id=serialized.data.get("granted_item_id")
             ):
                 raise ValidationError(
                     detail="Restricted access for this item, you are not owner",
