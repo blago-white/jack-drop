@@ -17,20 +17,6 @@ services:
         retries: 5
     restart: always
 
-  chatredis:
-    image: redis:7.2.4-bookworm
-    env_file:
-      - .env
-    expose:
-      - 6379
-    container_name: chatredis
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
-    restart: always
-
   chatapp:
     build:
       dockerfile: Dockerfile
@@ -39,13 +25,11 @@ services:
     depends_on:
       chatdb:
         condition: service_healthy
-      chatredis:
-        condition: service_healthy
     env_file:
       - .env
     container_name: chatapp
     volumes:
-      - ./chat/debug.log:/home/chat/chat/debug.log
+      - ./chat/:/home/chat/chat/
     restart: always
 
   chatnginx:

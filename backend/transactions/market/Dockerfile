@@ -20,7 +20,7 @@ RUN pip install -r ./requirements.txt
 WORKDIR /home/app/market/
 
 RUN chown -R app:app /home/app/market/
-RUN chmod -R 777 ./start.sh
+RUN chmod 744 ./start.sh
 
 USER app
 

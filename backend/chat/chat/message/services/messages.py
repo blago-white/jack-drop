@@ -1,36 +1,34 @@
 from abc import ABCMeta, abstractmethod
 
-from message.models import Message
+from common.services.base import BaseModelService
+from ..models import Chat, ChatMessage
+from .transfer import MessageData
 
 
-class BaseMessagesService(metaclass=ABCMeta):
-    _model: Message
+class MessagesService(BaseModelService):
+    default_model = Chat
+    default_chat_message = ChatMessage
 
-    def __init__(self, model: Message = Message):
-        self._model = model
+    def __init__(self, *args, chat_message: ChatMessage = None, **kwargs):
+        self._chat_message = chat_message or self.default_chat_message
 
-    @abstractmethod
-    async def get(self, pk: int):
-        pass
+        super().__init__(*args, **kwargs)
 
-    @abstractmethod
-    async def save(self, username: str, text: str):
-        pass
-
-    @abstractmethod
-    async def get_all(self):
-        pass
-
-
-class MessagesService(BaseMessagesService):
-    async def get(self, pk: int) -> Message:
-        return self._model.objects.get(pk=pk)
-
-    async def save(self, username: str, text: str) -> Message:
-        return await self._model.objects.acreate(
-            username=username,
-            text=text
+    def add(self, message: MessageData) -> ChatMessage:
+        chat, created = self._model.objects.get_or_create(
+            user_id=message.user_id,
+            defaults={"username": message.username}
         )
 
-    def get_all(self):
-        return self._model.objects.all()
+        message = self._chat_message.objects.create(
+            text=message.text,
+            username=message.username,
+            from_admin=False
+        )
+
+        chat.messages.add(message)
+
+        return message
+
+    def get_all_by_user(self, user_id: int):
+        return self._model.objects.filter(user_id=user_id).first().messages.all()

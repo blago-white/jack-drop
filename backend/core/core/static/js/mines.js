@@ -39,7 +39,7 @@ async function iterField(id) {
     };
 
     const response = await sendRequestJson(
-        `http://jackdrop.online/products/games/mines/next/`,
+        `http://${location.hostname}/products/games/mines/next/`,
         requestOptions
     );
 
@@ -59,7 +59,7 @@ async function iterField(id) {
         };
 
         const response = await sendRequest(
-            `http://jackdrop.online/products/games/mines/stop/`,
+            `http://${location.hostname}/products/games/mines/stop/`,
             requestOptions
         );
 
@@ -96,7 +96,7 @@ async function stopGame() {
     };
 
     const response = await sendRequestJson(
-        `http://jackdrop.online/products/games/mines/stop/`,
+        `http://${location.hostname}/products/games/mines/stop/`,
         requestOptions
     );
 
@@ -123,7 +123,7 @@ async function sendMakeRequest(formData) {
     console.log("WOW");
 
     const response = await sendRequest(
-        `http://jackdrop.online/products/games/mines/`,
+        `http://${location.hostname}/products/games/mines/`,
         requestOptions
     );
 

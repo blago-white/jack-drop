@@ -11,7 +11,7 @@ export async function getCount() {
     };
 
     const response = await sendRequest(
-        `http://jackdrop.online/products/inventory/count/`,
+        `http://${location.hostname}/products/inventory/count/`,
         requestOptions
     );
 
