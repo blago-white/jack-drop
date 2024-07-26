@@ -19,7 +19,10 @@ class ChatMessagesListApiView(MessagesApiViewMixin, ListAPIView):
         user_data = self.users_repository.get(user_request=request)
 
         return Response(
-            data=self.repository.get_all(user_id=user_data.get("id"))
+            data=self.repository.get_all(
+                user_id=user_data.get("id"),
+                username=user_data.get("username")
+            )
         )
 
 
