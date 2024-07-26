@@ -14,10 +14,11 @@ class SteamAccountsService:
             _apikey = apikey
 
         else:
-            _apikey = self._apikey_model.objects.all().first()
+            # _apikey = self._apikey_model.objects.all().first()
+            pass
 
-        if not _apikey:
-            raise ValidationError("Add steam api key!")
+        # if not _apikey:
+        #     raise ValidationError("Add steam api key!")
 
         self._steam_service = Steam(key=_apikey)
 
