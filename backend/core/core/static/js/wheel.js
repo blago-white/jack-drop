@@ -120,7 +120,7 @@ async function getResult(promocode) {
 
     };
 
-    const response = await sendRequest("http://localhost/products/games/fortune-wheel/", requestOptions);
+    const response = await sendRequest(`http://${location.hostname}/products/games/fortune-wheel/`, requestOptions);
 
     if (!response.ok) {
         alert(await response.json());
