@@ -10,11 +10,13 @@ class SteamAccountsService:
     _apikey_model = SteamApiKey
 
     def __init__(self, apikey: str = None):
+        print("APIKEY FROM MODEL:", self._apikey_model.objects.all().first())
+
         if apikey:
             _apikey = apikey
 
         else:
-            _apikey = self._apikey_model.objects.all().first()
+            _apikey = self._apikey_model.objects.all().first().apikey
 
         if _apikey:
             self._steam_service = Steam(key=_apikey)
