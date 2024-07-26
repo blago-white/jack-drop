@@ -20,7 +20,7 @@ class SteamAccountsService:
         # if not _apikey:
         #     raise ValidationError("Add steam api key!")
 
-        self._steam_service = Steam(key=_apikey)
+        # self._steam_service = Steam(key=_apikey)
 
     def get_username(self, steam_id: str | int) -> str:
         return self._steam_service.users.get_user_details(
