@@ -19,6 +19,7 @@ WORKDIR /home/chat/chat/
 
 RUN chown -R app:app /home/chat/chat/
 RUN chmod 744 /home/chat/chat/debug.log
+RUN chmod 744 /home/chat/chat/start.sh
 
 USER app
 
