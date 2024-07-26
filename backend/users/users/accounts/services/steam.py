@@ -14,13 +14,10 @@ class SteamAccountsService:
             _apikey = apikey
 
         else:
-            # _apikey = self._apikey_model.objects.all().first()
-            pass
+            _apikey = self._apikey_model.objects.all().first()
 
-        # if not _apikey:
-        #     raise ValidationError("Add steam api key!")
-
-        # self._steam_service = Steam(key=_apikey)
+        if _apikey:
+            self._steam_service = Steam(key=_apikey)
 
     def get_username(self, steam_id: str | int) -> str:
         return self._steam_service.users.get_user_details(
