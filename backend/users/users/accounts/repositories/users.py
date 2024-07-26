@@ -6,6 +6,7 @@ from rest_framework.exceptions import ValidationError
 
 from accounts.serializers import PrivateClientSerializer, PublicClientSerializer
 from accounts.services.users import UsersService
+from accounts.services.steam import SteamAccountsService
 from balances.serivces.balance import ClientBalanceService
 
 from common.repositories import BaseRepository
@@ -22,13 +23,17 @@ class BaseUsersRepository(BaseRepository, metaclass=ABCMeta):
 
 class PrivateUsersRepository(BaseUsersRepository):
     default_balance_service = ClientBalanceService()
+    default_steam_service = SteamAccountsService()
+
     default_serializer_class = PrivateClientSerializer
     _serializer_class: PrivateClientSerializer
 
     def __init__(self, *args,
                  balance_service: ClientBalanceService = None,
+                 steam_service: SteamAccountsService = None,
                  **kwargs):
         self._balance_service = balance_service or self.default_balance_service
+        self._steam_service = steam_service or self.default_steam_service
 
         super().__init__(*args, **kwargs)
 
@@ -72,8 +77,8 @@ class PrivateUsersRepository(BaseUsersRepository):
     def create(self, steam_uid: int) -> dict:
         result = self._service.create(
             steam_id=steam_uid,
-            username="testuser"
-        )  # TODO: Get username
+            username=self._steam_service.get_username(steam_id=steam_uid)
+        )
 
         refresh = RefreshToken.for_user(user=result)
 

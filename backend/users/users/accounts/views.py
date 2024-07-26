@@ -28,8 +28,6 @@ class SteamAuthProcessView(RedirectView):
     def get(self, request, *args, **kwargs):
         steam_uid = get_uid(results=request.GET)
 
-        print(steam_uid, 'STEAM UID -----------------------')
-
         if steam_uid is None:
             return redirect(to="http://jackdrop.online/?loginfail=1")
 
