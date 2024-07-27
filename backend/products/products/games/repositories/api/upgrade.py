@@ -22,6 +22,9 @@ class UpgradeApiRepository(BaseApiRepository):
 
     default_serializer_class = UpgradeRequestApiViewSerializer
 
+    _granted_amount: float = 0
+    _receive_amount: float = 0
+
     _inventory_service: InventoryService()
     _api_service: UpgradeService
     _site_funds_service: SiteFundsApiService
@@ -62,6 +65,13 @@ class UpgradeApiRepository(BaseApiRepository):
 
         print("SERIALIZED3", result)
 
+        if validated_data.get("granted_item_id"):
+            granted_pk = self._inventory_service.get_item(
+                inventory_item_id=validated_data.get("granted_item_id")
+            ).pk
+        else:
+            granted_pk = None
+
         if result:
             self._commit_win(
                 validated_data=validated_data,
@@ -72,29 +82,43 @@ class UpgradeApiRepository(BaseApiRepository):
         else:
             self._commit_loss(
                 validated_data=validated_data,
-                user_funds=user_funds
+                user_funds=user_funds,
+                granted_item_id=granted_pk,
             )
 
-        self._game_result_service.save(data=GameResultData(
-            user_id=user_funds.get("id"),
-            is_win=bool(result),
-            game=Games.UPGRADE,
-            first_item_id=validated_data.get("receive_item_id"),
-            second_item_id=validated_data.get("granted_item_id")
-        ))
+        if validated_data.get("granted_item_id"):
+            secont_item_id = self._inventory_service.get_item(
+                inventory_item_id=validated_data.get("granted_item_id")
+            ).item.id
+
+            self._game_result_service.save(data=GameResultData(
+                user_id=user_funds.get("id"),
+                is_win=bool(result),
+                game=Games.UPGRADE,
+                first_item_id=validated_data.get("receive_item_id"),
+                second_item_id=secont_item_id
+            ))
+        else:
+            self._game_result_service.save(data=GameResultData(
+                user_id=user_funds.get("id"),
+                is_win=bool(result),
+                game=Games.UPGRADE,
+                first_item_id=validated_data.get("receive_item_id"),
+            ))
 
         return {"success": result}
 
     def _commit_loss(self, validated_data: dict,
-                     user_funds: dict) -> None:
-        if validated_data.get("granted_item_id"):
+                     user_funds: dict,
+                     granted_item_id: int) -> None:
+        if granted_item_id:
             item = self._inventory_service.get_item(
-                inventory_item_id=validated_data.get("granted_item_id")
+                inventory_item_id=granted_item_id
             )
             
             self._inventory_service.remove_from_inventory(
                 owner_id=user_funds.get("id"),
-                item_id=validated_data.get("granted_item_id")
+                inventory_item_id=granted_item_id
             )
 
             ok, to_blogger_advantage = self._users_service.update_user_advantage(
@@ -156,29 +180,28 @@ class UpgradeApiRepository(BaseApiRepository):
         )
 
         self._site_funds_service.update(
-            amount=validated_data.get("granted_funds") - validated_data.get(
-                "receive_funds"
-            ) - to_blogger_advantage,
+            amount=self._granted_amount - self._receive_amount - to_blogger_advantage,
         )
 
     def _complete_serializer(
             self, data: dict, user_funds: dict
     ) -> UpgradeRequestApiViewSerializer:
-        receive_item_price = self._items_service.get_price(
+        self._receive_amount = self._items_service.get_price(
             item_id=data.get("receive_item_id")
         )
 
         if data.get("granted_item_id"):
-            granted_item_price = self._items_service.get_price(
-                item_id=data.get("granted_item_id")
-            )
+            self._granted_amount = self._inventory_service.get_item(
+                inventory_item_id=data.get("granted_item_id")
+            ).item.price
+
         else:
-            granted_item_price = data.get("granted_funds")
+            self._granted_amount = data.get("granted_funds")
 
         return self._api_service.default_endpoint_serializer_class(
             instance={
-                "granted_funds": granted_item_price,
-                "receive_funds": receive_item_price,
+                "granted_funds": self._granted_amount,
+                "receive_funds": self._receive_amount,
                 "user_funds": user_funds,
                 "site_funds": {
                     "site_active_funds": self._site_funds_service.get()
@@ -198,7 +221,7 @@ class UpgradeApiRepository(BaseApiRepository):
 
         serialized.is_valid(raise_exception=True)
 
-        print("EEEE", serialized.data, serialized.errors)
+        print("EEEE", serialized.data)
 
         if serialized.data.get("granted_item_id"):
             if not self._inventory_service.check_ownership(

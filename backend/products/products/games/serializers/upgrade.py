@@ -26,8 +26,10 @@ class UpgradeRequestApiViewSerializer(serializers.Serializer):
     receive_item_id = serializers.IntegerField(required=True)
 
     def validate(self, data: dict) -> dict:
-        if ((not (data.get('granted_item_id') or data.get('granted_funds'))) or
-                (data.get('granted_item_id') and data.get('granted_funds'))):
+        if (not (data.get("granted_funds") or data.get("granted_item_id"))) or (
+            data.get("granted_funds") and data.get("granted_item_id")
+        ):
+            print("INVALID UPGRATE", data)
             raise serializers.ValidationError("Not correct upgrade values")
 
         return data

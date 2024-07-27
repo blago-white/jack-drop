@@ -151,8 +151,6 @@ async function dropCase() {
         requestOptions
     );
 
-    console.log(response, "FROM DROP");
-
     if (!response.ok) {
         window.history.back();
         return false;

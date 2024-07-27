@@ -91,6 +91,10 @@
     transition: transform 1s ease;
 }
 
+#prsp {
+    font-family: 'Gilroy Bold';
+}
+
 .inventory-items::-webkit-scrollbar-track {
     background: rgba(51, 51, 51, 1);
     border-radius: 20px;

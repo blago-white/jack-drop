@@ -189,15 +189,13 @@ async function makeUpgrade() {
         document.getElementById(selectedGranted).remove();
     }
 
-    console.log("WOW", selectedGranted, grantedItems, parseInt(selectedGranted.slice(2)), grantedItems.get(parseInt(selectedGranted.slice(2))));
-
     const requestOptions = {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify({
+        "granted_item_id": (selectedGranted ? parseInt(selectedGranted.slice(2)) : null),
+        "granted_funds": selectedGrantedBalance,
         "receive_item_id": receiveItems.get(parseInt(selectedReceive.slice(2))).id,
-        "granted_item_id": selectedGranted ? grantedItems.get(parseInt(selectedGranted.slice(2))).id : null,
-        "granted_funds": selectedGrantedBalance
       }),
       redirect: "follow"
     };
