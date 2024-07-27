@@ -4,6 +4,7 @@ from common.views.api import BaseRetreiveAPIView
 from common.mixins.api import CreateAPIViewMixin
 
 from ..repositories.bonus import BonusBuyRepository
+from ..repositories.free import FreeCasesRepository
 from games.repositories.api.users import UsersApiRepository
 
 
@@ -43,7 +44,7 @@ class GetBonusBuyCaseApiView(CreateAPIViewMixin, CreateAPIView):
         )
 
 
-class HasFreeCaseApiView(BaseRetreiveAPIView):
+class HasBonusCaseApiView(BaseRetreiveAPIView):
     _repository = BonusBuyRepository()
     users_repository = UsersApiRepository()
     pk_url_kwarg = "case_pk"
@@ -57,3 +58,17 @@ class HasFreeCaseApiView(BaseRetreiveAPIView):
                 case_id=self.get_requested_pk()
             )
         )
+
+
+class AddFreeCaseForDeposit(CreateAPIViewMixin, CreateAPIView):
+    _repository = FreeCasesRepository()
+    users_repository = UsersApiRepository()
+    serializer_class = _repository.default_serializer_class
+
+    def create(self, request, *args, **kwargs):
+        user_data = self.users_repository.get(user_request=request)
+
+        result = self._repository.add(request_data=request.data,
+                                      user_data=user_data)
+
+        return self.get_201_response(data=result)

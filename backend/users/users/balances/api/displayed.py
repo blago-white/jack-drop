@@ -30,8 +30,6 @@ class DisplayedBalanceUpdateJWTApiView(DefaultUpdateApiView):
     def update(self, request, *args, **kwargs):
         client_id = request.user.pk
 
-        print(self.request.data, "UPDATE BALANCE")
-
         data = self.repository.update_displayed_balance(
             client_id=client_id,
             delta_amount=self.request.data.get("delta_amount")

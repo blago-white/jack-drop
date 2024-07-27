@@ -1,7 +1,7 @@
 import rest_framework.exceptions
 
 from accounts.repositories.advantage import AdvantageRepository
-from common.api.default import DefaultUpdateApiView, DefaultCreateApiView
+from common.api.default import DefaultUpdateApiView, DefaultCreateApiView, DefaultRetrieveApiView
 from common.mixins import BaseDetailedCreateApiViewMixin
 from ..repositories.balance import BalanceRepository
 from ..repositories.deposits import DepositRepository
@@ -16,8 +16,6 @@ class DisplayedBalanceUpdateApiView(DefaultUpdateApiView):
     pk_url_kwarg = "client_id"
 
     def partial_update(self, request, *args, **kwargs):
-        print(self.request.data, "UPDATE BALANCE")
-
         balance_result = self.balance_repository.update_displayed_balance(
             client_id=self.get_requested_pk(),
             delta_amount=self.request.data.get("delta_amount")
@@ -59,3 +57,15 @@ class AddDepositApiView(BaseDetailedCreateApiViewMixin, DefaultCreateApiView):
 
     def _get_deposit_amount(self) -> int:
         return float(self.request.data.get(self._deposit_amount_param_name))
+
+
+class ValidateUserDepositApiView(DefaultRetrieveApiView):
+    repository = DepositRepository()
+
+    def retrieve(self, request, *args, **kwargs):
+        return self.get_200_response(
+            data=self.repository.validate(
+                deposit_id=request.data.get("deposit_id"),
+                deposit_amount=request.data.get("deposit_amount")
+            )
+        )

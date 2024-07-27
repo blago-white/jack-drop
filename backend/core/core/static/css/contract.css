@@ -14,6 +14,7 @@
     font-size: calc(100vw * calc(44 / var(--reference-display-w)));
     justify-content: center;
     z-index: 10;
+    margin-bottom: .5ch;
 }
 
 .prize-price-range {
@@ -89,6 +90,10 @@
     z-index: -1;
     transform: scale(0);
     transition: transform 1s ease;
+}
+
+#prsp {
+    font-family: 'Gilroy Bold';
 }
 
 .inventory-items::-webkit-scrollbar-track {

@@ -1,7 +1,7 @@
 @import "variables.css";
 
 body {
-    height: 139vh;
+    height: auto;
 }
 
 .bg-filter-img {

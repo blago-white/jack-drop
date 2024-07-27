@@ -43,6 +43,12 @@ export function renderPrize(html) {
 
     document.getElementById('prize-wrappper').style.display = "flex";
     document.getElementById('prize-wrappper').style.visibility = "visible";
+
+    setTimeout(() => {
+        document.getElementById('prize-wrappper').style.backdropFilter = "blur(1ch)";
+        document.getElementById('prize-glow').classList.toggle("active");
+    }, 50);
+
     expanded = true;
 
     console.log(html);
@@ -52,8 +58,12 @@ export function renderPrize(html) {
         document.getElementById('prize-body').innerHTML += `
             ${html}
         `;
-        document.getElementById('prize-body').style.transform = "translateY(0vh)";
-    }, 300)
+        document.getElementById('prize-body').style.transform = "scale(1) translateY(0vh)";
+    }, 3000)
+
+    setTimeout(() => {
+        document.getElementById('prize-glow').style.opacity = ".5";
+    }, 3500)
 }
 
 function closePrizeWindow(redir) {

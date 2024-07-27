@@ -77,6 +77,13 @@ class BonusBuyService(BaseModelService):
 
         return bool(count)
 
+    def add_case(self, user_id: int, case: Case) -> bool:
+        profile = self.get_or_create(user_id=user_id)
+
+        profile.active_free_cases.add(case)
+
+        return True
+
     def withdraw_case(self, user_id: int) -> Case:
         profile = self.get_or_create(user_id=user_id)
 

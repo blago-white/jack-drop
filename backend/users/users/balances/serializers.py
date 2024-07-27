@@ -25,6 +25,6 @@ class ClientDepositSerializer(serializers.ModelSerializer):
     amount = serializers.FloatField(min_value=500)
 
     class Meta:
-        fields = ["user_id", "amount", "datetime"]
+        fields = ["id", "user_id", "amount", "datetime"]
         read_only_fields = ["datetime"]
         model = ClientDeposit

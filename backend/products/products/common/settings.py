@@ -203,7 +203,8 @@ USERS_MICROSERVICE_ROUTES = {
                              "balances/api/v1/p/hidden_balance/{client_id}/update/",
     "update_advantage": "http://usersapp:8000/auth/api/v1/p/advantage/update/",
     "update_advantage_by_id": "http://usersapp:8000/auth/api/v1/p/advantage/update/{user_id}/",
-    "add_user_lose": "http://usersapp:8000/auth/referrals/api/v1/p/add-lose/"
+    "add_user_lose": "http://usersapp:8000/auth/referrals/api/v1/p/add-lose/",
+    "validate_deposit": "http://usersapp:8000/auth/balances/api/v1/p/validate-dep/"
 }
 
 CORE_MICROSERVICE_ROUTES = {

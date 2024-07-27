@@ -2,9 +2,18 @@ const caseImg = document.getElementById('case-img');
 const caseTitle = document.getElementById('case-title');
 const caseItems = document.getElementById('case-items');
 let caseId = null;
+let USE_BONUS_CASE = false;
 
 function unlockOpen(id) {
-    document.getElementById('open-case-btn').addEventListener("click", () => {location.href = `/case/${caseId}/drop/`});
+    if (USE_BONUS_CASE) {
+        document.getElementById('open-case-btn').addEventListener("click", () => {
+            location.href = `/case/${caseId}/drop/?bonus=1`
+        });
+    } else {
+        document.getElementById('open-case-btn').addEventListener("click", () => {
+            location.href = `/case/${caseId}/drop/`
+        });
+    }
 
     Array.from(document.getElementById('open-case-btn').children).forEach((child) => {
         child.classList.remove("noactive")
@@ -12,7 +21,7 @@ function unlockOpen(id) {
     });
 }
 
-async function checkFreeCaseAvailable(id) {
+async function checkBonusCaseAvailable(id) {
     const formdata = new FormData();
     const requestOptions = {
       method: "GET",
@@ -47,11 +56,11 @@ async function getCase(id) {
 
     console.log(await getUserData());
 
-    if ((result.case.price) == 0) {
-        if (await checkFreeCaseAvailable(id)) {
-            unlockOpen(caseId);
-        }
-    } else {
+    if (await checkBonusCaseAvailable(id)) {
+        USE_BONUS_CASE = true;
+
+        unlockOpen(caseId);
+    } else if (result.case.price > 0) {
         if (result.case.price <= (await getUserData()).balance) {
             unlockOpen(caseId);
         }
@@ -60,8 +69,13 @@ async function getCase(id) {
     caseTitle.innerHTML = result.case.title;
     caseImg.src = result.case.image_path;
 
-    document.getElementById('case-drop-data').style = "display: flex;gap: 1ch;"
-    document.getElementById('price-label-span').innerHTML = `${result.case.price} <img style="height: 2ch;" src="/core/static/img/scrap.png">`
+    document.getElementById('case-drop-data').style = "display: flex;gap: 1ch;";
+
+    if (USE_BONUS_CASE) {
+        document.getElementById('price-label-span').innerHTML = `<del style="color: #aaa;">${result.case.price}</del>&nbsp;0 <img style="height: 2ch;" src="/core/static/img/scrap.png">`
+    } else {
+        document.getElementById('price-label-span').innerHTML = `${result.case.price} <img style="height: 2ch;" src="/core/static/img/scrap.png">`
+    }
 
     result.items.forEach((element) => {
         caseItems.innerHTML += `

@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block title %}
-Case Info
+Case Info | Jack Drop
 {% endblock %}
 
 {% block links %}
@@ -26,7 +26,7 @@ Case Info
                 </div>
                 <button class="super-button" id="open-case-btn">
                     <span class="super-button-bg noactive"></span>
-                    <span class="super-button-text">{% if IS_SET %}{% trans 'Buy' %}→{% else %}{% trans 'Open' %}→DD{% endif %}</span>
+                    <span class="super-button-text">{% if IS_SET %}{% trans 'Buy' %}→{% else %}{% trans 'Open' %}→{% endif %}</span>
                 </button>
             </div>
         </div>

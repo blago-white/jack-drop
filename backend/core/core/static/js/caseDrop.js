@@ -131,6 +131,9 @@ async function dropCase() {
         return;
     }
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const bonusCase = urlParams.get('bonus');
+
     const headers = new Headers();
 
     headers.append("Content-Type", "application/json");
@@ -144,11 +147,9 @@ async function dropCase() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/games/drop/${caseId}/`,
+        `http://${location.hostname}/products/games/drop/${caseId}/${bonusCase ? '?bonus=1' : ''}`,
         requestOptions
     );
-
-    console.log(response, "FROM DROP");
 
     if (!response.ok) {
         window.history.back();
