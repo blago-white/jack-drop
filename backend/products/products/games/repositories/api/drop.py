@@ -91,6 +91,39 @@ class CaseDropApiRepository(BaseApiRepository):
 
         return {"dropped_item": drop_result.get("item")}
 
+    def drop_bonus(self, user_funds: dict, case_data: dict) -> dict:
+        serialized: DropCaseRequestSerializer = (
+            self._api_service.default_endpoint_serializer_class(
+                data={
+                    "case_id": case_data.get("id"),
+                    "items": case_data.get("items"),
+                    "funds": {
+                        "user_advantage": user_funds.get("user_advantage"),
+                        "site_active_funds": self._site_funds_service.get()
+                    },
+                    "price": case_data.get("price")
+                }
+            )
+        )
+
+        serialized.is_valid(raise_exception=True)
+
+        self._validate_user_bonus(
+            user_id=user_funds.get("id"),
+            case_id=case_data.get("id")
+        )
+
+        drop_result = self._api_service.drop(
+            serialized=serialized.data
+        )
+
+        self._remove_used_bonus(
+            user_id=user_funds.get("id"),
+            case_id=case_data.get("id")
+        )
+
+        return {"dropped_item": drop_result.get("item")}
+
     def _commit_funds(self, case_data: dict,
                       user_funds: dict,
                       funds_delta: dict,
@@ -127,6 +160,21 @@ class CaseDropApiRepository(BaseApiRepository):
             self._bonus_service.add_points(
                 user_id=user_funds.get("id"),
                 points=case_data.get("price")
+            )
+
+    def _remove_used_bonus(self, user_id: int, case_id: int) -> bool:
+        self._bonus_service.mark_case_as_used(
+            user_id=user_id,
+            case_id=case_id
+        )
+
+    def _validate_user_bonus(self, user_id: int, case_id: int):
+        if not self._bonus_service.has_withdrawed_case(
+            user_id=user_id,
+            case_id=case_id
+        ):
+            raise ValidationError(
+                "Not found bonus case!"
             )
 
     @staticmethod

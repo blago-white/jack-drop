@@ -33,9 +33,15 @@ class DropItemGameApiView(DetailedApiViewMixin,
             case_pk=case_data.get("id")
         )
 
-        result = self.drop_api_repository.drop(
-            user_funds=user_funds,
-            case_data=case_data | {"items": case_items}
-        )
+        if self.request.GET.get("bonus"):
+            result = self.drop_api_repository.drop_bonus(
+                user_funds=user_funds,
+                case_data=case_data | {"items": case_items}
+            )
+        else:
+            result = self.drop_api_repository.drop(
+                user_funds=user_funds,
+                case_data=case_data | {"items": case_items}
+            )
 
         return self.get_201_response(data=result)
