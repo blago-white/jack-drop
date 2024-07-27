@@ -8,6 +8,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 10vh;
+
+    position: absolute;
+    width: -webkit-fill-available;
+    bottom: 0px;
 }
 
 .c {
@@ -38,10 +43,7 @@
     color: #979797;
     cursor: pointer;
     text-transform: uppercase;
-}
-
-.footer-docs-list li {
-    padding-bottom: .25ch;
+    font-size: medium;
 }
 
 .doc-link:hover {
@@ -60,15 +62,20 @@
         align-items: center;
         gap: 1vh;
         font-size: calc(100vw* calc(36 / var(--reference-display-w)));
+        height: auto!important;
     }
 
     .c {
-        font-size: calc(100vw * calc(32 / var(--reference-display-w)));
+        font-size: calc(100vw * calc(40 / var(--reference-display-w)));
     }
 
     .site-info img {
         filter: brightness(0.5);
         width: 15.8vw;
+    }
+
+    .doc-link {
+        font-size: revert;
     }
 
     .site-info {

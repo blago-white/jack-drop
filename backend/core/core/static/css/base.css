@@ -7,6 +7,7 @@ body {
     color: var(--fg-color);
     margin: 0px;
     height: auto;
+    min-height: 120vh;
     overflow-x: hidden;
     font-size: calc(100vw * calc(22 / 1920));
     background-color: black;
@@ -44,6 +45,8 @@ body a {
     display: flex;
     gap: calc(100vw * calc(0.0588 * 0.690));
     flex-direction: column;
+
+    margin-bottom: 23vh;
 }
 
 button {
@@ -307,6 +310,7 @@ button {
         margin-top: 15vh;
         margin-inline: calc(100vw * 0.055208);
         gap: calc(100vw* calc(0.0588));
+        margin-bottom: 38vh;
     }
 
     body {

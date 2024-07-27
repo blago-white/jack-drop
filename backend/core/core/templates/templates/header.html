@@ -33,10 +33,10 @@
         </nav>
 
         <div class="lang-switcher" id="lang-switch">
-            <button class="button" onclick="setLang('en')" id="en" style="border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;">
+            <button class="button" onselect="setLang('en')" onclick="setLang('en')" id="en" style="border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;">
                 <img src="{% static 'img/en.png' %}"> English
             </button>
-            <button class="button" onclick="setLang('ru')" id="ru">
+            <button class="button" onselect="setLang('ru')" onclick="setLang('ru')" id="ru">
                 <img src="{% static 'img/ru.png' %}"> Русский
             </button>
         </div>
@@ -53,7 +53,7 @@
         <button class="super-button" onclick="window.location.href = '/account/'" id="account-info-btn" style="display: none;">
             <span class="super-button-bg" style="background: #FF007A;"></span>
             <span class="super-button-text"><img src="/core/static/img/account-avatar.png" style="height: 3ch;">
-                <span style="list-style: none;display: flex;flex-direction: column;align-items: flex-start;padding: 0px;margin: 0px;">
+                <span id="user-data-h" style="list-style: none;display: flex;flex-direction: column;align-items: flex-start;padding: 0px;margin: 0px;">
                     <span id="acc-username-header"></span>
                     <span id="acc-balance-header" style="font-size: medium;color: #e7e7e7;display: flex;gap: .5ch;align-items: center;background: #0064ff;border-radius: .4ch;padding-inline: .5ch;"></span>
                 </span>

@@ -176,7 +176,7 @@
         width: 20%;
         align-items: center;
         justify-content: center;
-        margin-right: 30%;
+        margin-right: -5%;
     }
 
     .logo img {
@@ -192,7 +192,20 @@
     }
 
     .super-button-text {
-        font-size: calc(100vw * calc(26 / 960));
+        font-size: calc(100vw * calc(32 / 960));
+    }
+
+    #user-data-h {
+        gap: 1ch!important;
+        flex-direction: row!important;
+    }
+
+    #acc-balance-header img {
+        height: 1.2vh;
+    }
+
+    #acc-balance-header {
+        font-size: calc(100vw * calc(32 / 960))!important;
     }
 
     .navbar {
@@ -221,6 +234,7 @@
     .super-button {
         height: calc(100vw* 0.081771);
         aspect-ratio: 240 / 71;
+        width: 56vw;
     }
 
     .super-button-bg {
