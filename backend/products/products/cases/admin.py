@@ -27,13 +27,17 @@ class CaseFilter(RelatedFieldListFilter):
 
 @admin.register(Case)
 class CaseAdmin(ModelAdmin):
-    list_display = ["__str__", "preview_short", "count_items"]
+    list_display = ["__str__", "preview_short", "count_items", "free"]
     fields = ["title", "category", "price", "image_path", "preview"]
     readonly_fields = ["preview"]
 
     @admin.display
     def count_items(self, instance: Case):
         return instance.items.all().count()
+
+    @admin.display(boolean=TypeError)
+    def free(self, instance: Case):
+        return instance.price == 0
 
 
 @admin.register(CaseItem)

@@ -1,5 +1,7 @@
 from django.db import models
 
+from cases.models.cases import Case
+
 
 class BonusBuyLevels(models.IntegerChoices):
     FIRST = 1
@@ -42,3 +44,12 @@ class BonusBuyLevel(models.Model):
 
     def __str__(self):
         return f"Level {self.level} (req. {self.target})"
+
+
+class FreeCase(models.Model):
+    target_deposit_amount = models.FloatField()
+    case = models.ForeignKey(to=Case, on_delete=models.CASCADE)
+
+
+class UsedDeposit(models.Model):
+    deposit_id = models.BigIntegerField(primary_key=True)

@@ -15,3 +15,9 @@ class DepositsService(BaseService):
 
     def get_all(self) -> models.QuerySet:
         return self._model.objects.all()
+
+    def validate(self, deposit_id: int, amount: int) -> bool:
+        return self._model.objects.filter(
+            pk=deposit_id,
+            amount=amount
+        ).exists()

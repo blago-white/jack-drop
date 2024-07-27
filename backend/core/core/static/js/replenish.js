@@ -1,4 +1,4 @@
-import { renderItemPrize } from "./prize.js";
+import { renderItemPrize, renderPrize } from "./prize.js";
 
 const paymentsMethodsMapping = {
     1: "card",
@@ -59,7 +59,34 @@ async function addDeposit() {
     if (!response.ok) {
         document.getElementById('replenish-form').style.outline = '5px solid firebrick'
     } else {
-        renderItemPrize("Scrap", amount, "/core/static/img/scrap.png", "Receive")
+        const result = await response.json();
+
+        const responseAddCase = await sendRequest('/products/bonus-buy/add-for-deposit/', {
+            method: "POST",
+            body: JSON.stringify({"deposit_id": result.id, "deposit_amount": amount}),
+            headers: headers
+        });
+
+        if (!responseAddCase.ok) {
+            renderItemPrize(
+            "Scrap", amount, "/core/static/img/scrap.png", "Receive"
+            );
+            return;
+        }
+
+        const resultAddCase = await responseAddCase.json();
+
+        renderPrize(`
+            <img src="/core/static/img/scrap.png">
+            <h3 style="text-transform: none;">Scrap</h3>
+            <span style="font-size: xx-large;">${amount}<img src="/core/static/img/scrap.png" style="width: 3ch"></span>
+            <button class="super-button"
+                    style="font-family: 'Gilroy SemiBold'"
+                    onclick="location.href += '?fc=1&ci=${resultAddCase.case.image_path}&ct=${resultAddCase.case.title}';">
+                <span class="super-button-bg"></span>
+                <span class="super-button-text" style="font-size: x-large">Receive</span>
+            </button>
+        `);
     }
 
     return false;
@@ -70,3 +97,26 @@ window.setPaymentMethod = setPaymentMethod;
 
 document.getElementById("agreement").addEventListener('input', updateSubmitBtn);
 document.getElementById("amount").addEventListener('input', updateSubmitBtn);
+
+function renderFreeCase() {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const freeCase = urlParams.get('fc');
+
+    if (freeCase) {
+        const caseImg = urlParams.get('ci');
+        const caseTitle = urlParams.get('ct');
+
+        renderPrize(`
+            <img src="${caseImg}">
+            <h3 style="text-transform: none;">${caseTitle}</h3>
+            <span style="font-size: xx-large;">0<img src="/core/static/img/scrap.png" style="width: 3ch"></span>
+            <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow('http://${location.hostname}')">
+                <span class="super-button-bg"></span>
+                <span class="super-button-text" style="font-size: x-large">Receive</span>
+            </button>
+        `);
+    }
+}
+
+renderFreeCase();
