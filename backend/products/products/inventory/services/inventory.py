@@ -120,10 +120,16 @@ class InventoryService(BaseModelService):
         )
 
     def get_item(self, inventory_item_id: int, apply_frozen: bool = False) -> InventoryItem:
-        return self._model.objects.filter(
+        print("GET INV ITEM", inventory_item_id, self._model.objects.all().order_by("-pk").values("pk"))
+
+        result = self._model.objects.filter(
             models.Q(frozen=False) | models.Q(frozen=apply_frozen),
             pk=inventory_item_id,
         ).first()
+
+        print(result)
+
+        return result
 
     def bulk_unfreeze(self, items_ids: list[int]):
         return bool(self._model.objects.filter(id__in=items_ids).update(

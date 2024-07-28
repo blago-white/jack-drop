@@ -66,11 +66,11 @@ class UpgradeApiRepository(BaseApiRepository):
         print("SERIALIZED3", result)
 
         if validated_data.get("granted_item_id"):
-            granted_pk = self._inventory_service.get_item(
+            granted = self._inventory_service.get_item(
                 inventory_item_id=validated_data.get("granted_item_id")
-            ).pk
+            )
         else:
-            granted_pk = None
+            granted = None
 
         if result:
             self._commit_win(
@@ -83,20 +83,16 @@ class UpgradeApiRepository(BaseApiRepository):
             self._commit_loss(
                 validated_data=validated_data,
                 user_funds=user_funds,
-                granted_item_id=granted_pk,
+                granted_item_id=granted.pk,
             )
 
         if validated_data.get("granted_item_id"):
-            secont_item_id = self._inventory_service.get_item(
-                inventory_item_id=validated_data.get("granted_item_id")
-            ).item.id
-
             self._game_result_service.save(data=GameResultData(
                 user_id=user_funds.get("id"),
                 is_win=bool(result),
                 game=Games.UPGRADE,
                 first_item_id=validated_data.get("receive_item_id"),
-                second_item_id=secont_item_id
+                second_item_id=granted.item.id
             ))
         else:
             self._game_result_service.save(data=GameResultData(
@@ -155,10 +151,10 @@ class UpgradeApiRepository(BaseApiRepository):
             granted = self._inventory_service.get_item(
                 inventory_item_id=validated_data.get("granted_item_id")
             ).item.price
-            
+
             self._inventory_service.remove_from_inventory(
                 owner_id=user_funds.get("id"),
-                item_id=validated_data.get("granted_item_id")
+                inventory_item_id=validated_data.get("granted_item_id")
             )
 
         else:

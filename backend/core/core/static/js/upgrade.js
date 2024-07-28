@@ -174,8 +174,6 @@ function selectReceiveItem(elem) {
 }
 
 async function makeUpgrade() {
-    console.log("EEEE");
-
     if (selectedGrantedBalance && selectedGranted) {
         return false;
     }
@@ -267,6 +265,8 @@ function updatePercent() {
             (selectedGrantedBalance / rawSelectedReceive)*100, 100
         ))
     }
+
+    if (newPercent > 100) {newPercent = 100} else if (newPercent < 0) {newPercent = 0};
 
     chanceCicle.src = `/core/static/img/upgrade-chance-${25*(Math.ceil(newPercent / 25))}.png`;
 

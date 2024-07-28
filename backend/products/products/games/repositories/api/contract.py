@@ -1,4 +1,4 @@
-from rest_framework.exceptions import APIException
+from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import Serializer
 
 from games.api.services.contract import ContractApiService
@@ -56,6 +56,10 @@ class ContractApiRepository(BaseApiRepository):
 
         serialized.is_valid(raise_exception=True)
 
+        self._validate_items_count(
+            items=request_data.get("granted_inventory_items")
+        )
+
         granted_amount, shifted_amount = self._get_shifted_amount(
             request_data=serialized.data,
             user_id=user_data.get("id")
@@ -90,7 +94,7 @@ class ContractApiRepository(BaseApiRepository):
         )
 
         if not delete:
-            raise APIException("Error with inventory")
+            raise ValidationError("Error with inventory")
 
         received = self._inventory_service.add_item(
             owner_id=user_id,
@@ -136,4 +140,9 @@ class ContractApiRepository(BaseApiRepository):
         )
 
         if not success:
-            raise APIException("Cannot complete contract", code=404)
+            raise ValidationError("Cannot complete contract", code=404)
+
+    @staticmethod
+    def _validate_items_count(items: list):
+        if len(items) < 4:
+            raise ValidationError("Not enought items in contract!")

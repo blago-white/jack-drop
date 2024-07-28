@@ -41,7 +41,7 @@ Contract | Jack Drop
             {% endif %}
         </div>
         <button class="super-button" id="cr-contract" onclick="makeContract();">
-            <span class="super-button-bg"></span>
+            <span class="super-button-bg noactive" id="sign-contract-btn"></span>
             <span class="super-button-text">{% trans 'Sign Contract' %}</span>
         </button>
         <button class="super-button" id="cl-contract" onclick="clearAll();">
@@ -83,7 +83,6 @@ Contract | Jack Drop
         </span>
     </div>
     <div class="inventory-items" id="inventory-items"></div>
-
 </section>
 {% endblock %}
 

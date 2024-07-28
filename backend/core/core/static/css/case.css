@@ -113,6 +113,10 @@
         font-size: calc(100vw* calc(110 / var(--reference-display-w)));
     }
 
+    #case-drop-data {
+        flex-direction: column
+    }
+
     .case-short-title {
         font-size: calc(100vw* calc(50 / var(--reference-display-w)));
     }
