@@ -101,11 +101,12 @@ function unselectItem(id) {
     document.getElementById(`id${selected.get(id).pos}`).innerHTML = '';
 
     selected.delete(id);
+
+    updateBtnBg();
 }
 
 async function animateContract() {
     if (gcd() > 1/1) {
-
         document.getElementById('cells-row-1').style = 'transform: translateY(31vh);gap: 0px;';
 
         document.getElementById('cells-row-2').style = 'transform: translateY(16vh);gap: 0px;';
@@ -115,7 +116,6 @@ async function animateContract() {
         document.getElementById('cells-row-4').style = 'transform: translateY(-21vh);gap: 0px;';
 
         document.getElementById('cells-row-5').style = 'transform: translateY(-31vh);gap: 0px;';
-
 
         document.getElementById('contract-glow').style.transform = 'scale(1.5)';
 
@@ -224,6 +224,18 @@ function selectItem(id) {
     selected.set(id, {pos: empty});
 
     document.getElementById(id).style.background = 'radial-gradient(50% 50% at 50% 50%, rgba(93, 93, 93, 0.8) 0%, rgba(35, 35, 35, 0.8) 100%)';
+
+    updateBtnBg();
+}
+
+function updateBtnBg() {
+    console.log("123D", selected.size, selected);
+
+    if (selected.size < 4) {
+        document.getElementById('sign-contract-btn').classList.add('noactive')
+    } else {
+        document.getElementById('sign-contract-btn').classList.remove('noactive')
+    }
 }
 
 getItems();
