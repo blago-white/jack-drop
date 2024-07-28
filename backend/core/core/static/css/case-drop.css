@@ -102,6 +102,10 @@
         height: 6vh;
     }
 
+    #agree-btns {
+        width: 100%;
+    }
+
     #items {
         flex-direction: column;
         margin-inline: auto;

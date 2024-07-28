@@ -155,10 +155,10 @@ class UpgradeApiRepository(BaseApiRepository):
             granted = self._inventory_service.get_item(
                 inventory_item_id=validated_data.get("granted_item_id")
             ).item.price
-            
+
             self._inventory_service.remove_from_inventory(
                 owner_id=user_funds.get("id"),
-                item_id=validated_data.get("granted_item_id")
+                inventory_item_id=validated_data.get("granted_item_id")
             )
 
         else:
