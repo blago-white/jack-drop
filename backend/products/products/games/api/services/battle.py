@@ -17,16 +17,21 @@ class BattleRequestApiService(BaseApiService):
             data=serialized.data
         )
 
-        print("EERRRRRRRRRRRRRRRRRRRRRRRRRRR")
-
         try:
-            print(response.json(), "RESPONSE")
-
             return response.json().get("ok") if (
                     response.status_code == 201
             ) else False
         except requests.exceptions.JSONDecodeError:
             raise ValidationError("Error with creating battle")
+
+    def get_by_case(self, case_id: int) -> list[dict]:
+        response = requests.get(
+            self._routes.get("get_battle_requests").format(
+                case_id=case_id
+            ),
+        ).json()
+
+        return response
 
     def cancel(self, initiator_id: int) -> bool:
         response = requests.delete(
@@ -53,11 +58,11 @@ class BattleApiService(BaseApiService):
         )
 
         try:
-            if response.status_code not in (201, 200):
+            if not response.ok:
                 raise ValueError()
 
             return response.json()
-        except Exception as e:
+        except:
             return False
 
     def get_stats(self, user_id: int) -> dict:
@@ -69,7 +74,16 @@ class BattleApiService(BaseApiService):
 
     def get_all(self, user_id: int) -> dict:
         response = requests.get(
-            url=self._routes.get("get_battles").format(user_id=user_id),
+            url=self._routes.get("get_battles").format(
+                user_id=user_id
+            ),
+        )
+
+        return response.json()
+
+    def get_count_by_case(self):
+        response = requests.get(
+            url=self._routes.get("get_battle_requests_count"),
         )
 
         return response.json()

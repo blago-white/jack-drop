@@ -1,3 +1,5 @@
+import json
+
 import requests
 from django.conf import settings
 from rest_framework.request import Request
@@ -25,6 +27,17 @@ class UsersApiService(BaseApiService):
             path=self.routes.get("get_info"),
             auth_header=jwt
         )
+
+    def get_users_info(self, users_ids: list[int]) -> tuple[bool, list]:
+        response = requests.get(
+            url=self.routes.get("bulk_get_info"),
+            data=json.dumps({"users": users_ids}),
+            headers={
+                "Content-Type": "application/json"
+            }
+        )
+
+        return response.json()
 
     def update_user_balance_by_request(
             self, delta_amount: int,

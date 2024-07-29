@@ -1,3 +1,5 @@
+import json
+
 from django.db.models import QuerySet
 from rest_framework.exceptions import ValidationError, APIException
 from rest_framework.serializers import Serializer
@@ -33,20 +35,24 @@ class _BaseBattleApiRepository(BaseApiRepository):
 class BattleRequestApiRepository(_BaseBattleApiRepository):
     default_api_service = BattleRequestApiService()
     default_cases_service = CaseService()
+    default_users_service = UsersApiService()
 
     _api_service: BattleRequestApiService
 
     def __init__(
             self, *args,
             cases_service: CaseService = None,
+            users_service: UsersApiService = None,
             **kwargs):
         self._cases_service = cases_service or self.default_cases_service
+        self._users_service = users_service or self.default_users_service
 
         super().__init__(*args, **kwargs)
 
     def create(
             self, battle_case_id: int,
-            user_data: dict) -> dict:
+            user_data: dict
+    ) -> dict:
         serialized: BattleRequestServiceEndpointSerializer = (
             self.default_api_service.default_endpoint_serializer_class(
                 data={
@@ -64,6 +70,32 @@ class BattleRequestApiRepository(_BaseBattleApiRepository):
         ok = self._api_service.create(serialized=serialized)
 
         return {"success": ok}
+
+    def get_by_case(self, case_id: int) -> list[dict]:
+        request = self._api_service.get_by_case(case_id=case_id)
+
+        if not request:
+            return []
+
+        initiators = [i.get("initiator_id") for i in request]
+
+        users = self._users_service.get_users_info(users_ids=initiators)
+
+        case_requests_dates = {
+            i.get("initiator_id"): (i.get("start_find_time"))
+            for i in request
+        }
+
+        result = list()
+
+        for user in users.get("users"):
+            result.append({
+                "user_id": user.get("id"),
+                "username": user.get("username"),
+                "start_date": case_requests_dates.get(user.get("id"))
+            })
+
+        return result
 
     def cancel(self, initiator_id: int) -> dict:
         ok = self._api_service.cancel(initiator_id=initiator_id)
@@ -160,9 +192,13 @@ class BattleApiRepository(_BaseBattleApiRepository):
             )
         ]
 
+        winner, loser = self._users_service.get_users_info(
+            users_ids=[battle_result.get("winner_id"), battle_result.get("loser_id")]
+        ).get("users")
+
         return {
-            "winner_id": battle_result.get("winner_id"),
-            "loser_id": battle_result.get("loser_id"),
+            "winner_data": winner,
+            "loser_data": loser,
             "dropped_item_winner_id": {
                 "case_item_id": dropped_items[0].id,
                 "title": dropped_items[0].item.title,
@@ -209,6 +245,23 @@ class BattleApiRepository(_BaseBattleApiRepository):
                 "dropped_item_loser": items.get(
                     battle["dropped_item_loser_id"]
                 ),
+            })
+
+        return result
+
+    def get_battles(self):
+        cases = self._cases_service.get_paid()
+        battles_count = self._api_service.get_count_by_case()
+
+        result = list()
+
+        for case in cases:
+            result.append({
+                "id": case.id,
+                "title": case.title,
+                "image_path": case.image_path,
+                "price": case.price,
+                "battles_count": battles_count.get(str(case.id)) or 0
             })
 
         return result

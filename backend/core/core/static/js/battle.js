@@ -12,6 +12,8 @@ let sendedRequestNow = false;
 let connected = false;
 let requestCaseId = null;
 let itemsPositions = new Map();
+let battleCases = new Map();
+let activeCase;
 
 let currentCaseImage;
 
@@ -103,8 +105,6 @@ async function renderDrops(username1, username2, battleImgPath, caseItems, dropp
 
     for (let i = 0;i<7;i++) {
         caseItems.forEach((element) => {
-            console.log( document.getElementsByClassName('items')[0]);
-
             document.getElementsByClassName('items')[0].innerHTML += `
                 <article class="dropped mono 1-itm-${element.case_item_id}">
                     <div class="w-line"></div>
@@ -130,10 +130,6 @@ async function renderDrops(username1, username2, battleImgPath, caseItems, dropp
     const r1 = document.getElementById('items1');
     const r2 = document.getElementById('items2');
 
-//    r1.margin-left
-
-    console.log(dropped1, '_DDD')
-
     animateRoulette(dropped1.case_item_id, caseItems, r1);
     animateRoulette(dropped2.case_item_id, caseItems, r2);
 
@@ -156,6 +152,11 @@ battleSocket.onmessage = async function(event) {
 
     if (typeof jsondata === 'string') {
         jsondata = JSON.parse(jsondata);
+    }
+
+    if (jsondata.response_type == "list") {
+        renderActiveRequests(jsondata.result);
+        return;
     }
 
     if (!(jsondata["result"]["result"] && jsondata["result"]["result"]["success"])) {
@@ -186,7 +187,7 @@ battleSocket.onmessage = async function(event) {
         const item = jsondata.result.data.dropped_item_winner_id;
 
         if (gcd() > 1/1) {
-            renderDrops('Lorem Ipsum', 'Lorem Ipsum', currentCaseImage, jsondata.result.case_items, jsondata.result.data.dropped_item_winner_id, jsondata.result.data.dropped_item_loser_id);
+            renderDrops(jsondata.result.data.winner_data.username, jsondata.result.data.loser_data.username, jsondata.result.data.battle_case.image_path, jsondata.result.case_items, jsondata.result.data.dropped_item_winner_id, jsondata.result.data.dropped_item_loser_id);
             await sleep(7000);
         }
 
@@ -205,18 +206,21 @@ battleSocket.onmessage = async function(event) {
     if (jsondata["result"]["success"] && jsondata["response_type"] == "create") {
         return
     }
-
-    if (!jsondata["result"]["ok"] && sendedRequestNow && !connected) {
-        sendConnectRequest(requestCaseId);
-        console.log("SEND");
-        connected = true;
-    }
 }
 
-function sendConnectRequest(case_id) {
+function sendConnectRequest(case_id, initiator_id) {
     sendedRequestNow = true;
 
     battleSocket.send(JSON.stringify({"type": "ctr", "payload": {
+        "battle_case_id": case_id,
+        "initiator_id": initiator_id
+    }}));
+}
+
+function onListBattles(case_id) {
+    activeCase = battleCases.get(case_id);
+
+    battleSocket.send(JSON.stringify({"type": "lbc", "payload": {
         "battle_case_id": case_id
     }}));
 }
@@ -275,7 +279,7 @@ async function getCases() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/cases/api/v1/paid-cases/`,
+        `http://${location.hostname}/products/games/battles/`,
         requestOptions
     );
 
@@ -284,18 +288,30 @@ async function getCases() {
     const startButtonText = document.getElementById('create-battle').innerHTML;
 
     result.forEach((element) => {
+        battleCases.set(element.id, element);
+
+        const count = element.battles_count;
+
         battlesTable.innerHTML += `
             <div class="battle">
                 <div class="case-sign">
                     <img class="battle-case" src="${element.image_path}" id="case-img-${element.id}">
                     <span>${element.title}</span>
                 </div>
-                <span class="count-battles">0</span>
+                <span class="count-battles">${element.battles_count}</span>
                 <span class="price">${element.price}</span>
-                <button onclick="onCreateBattle(${element.id});" id="create-battle"
-                        class="button button-colorized blue create-battle">
+                <div style="display: flex;flex-direction: row;">
+                    <button onclick="onListBattles(${element.id});"
+                            id="create-battle"
+                            class="button button-colorized rose create-battle">
+                    ПОДКЛ.
+                    </button>
+                    <button onclick="onCreateBattle(${element.id});"
+                            id="create-battle"
+                            class="button button-colorized blue create-battle">
                     ${startButtonText}
-                </button>
+                    </button>
+                </div>
             </div>
         `
     })
@@ -316,6 +332,47 @@ async function getStats() {
     document.getElementById('wins').innerHTML = result.wins || 0;
     document.getElementById('draw').innerHTML = result.draw || 0;
     document.getElementById('loses').innerHTML = result.loses || 0;
+}
+
+function renderActiveRequests(requests) {
+    battlesHead.innerHTML = `
+        <span style="text-align: start;">Кейс</span>
+        <span>Игрок</span>
+        <span style="text-align: end;">Действия</span>
+    `
+
+    battlesHead.style = 'grid-template-columns: repeat(3, 1fr);';
+
+    battlesTable.innerHTML = '';
+
+    if (requests.length > 0) {
+        requests.forEach((element) => {
+            battlesTable.innerHTML += `
+                <div class="battle" style="grid-template-columns: repeat(3, 1fr);font-size: medium;">
+                    <div class="case-sign">
+                        <img class="battle-case" src="${activeCase.image_path}">
+                        <span>${activeCase.title}<br>[${activeCase.price} р]</span>
+                    </div>
+                    <span class="case-sign" style="justify-content: start">
+                        <img class="battle-case" src="/core/static/img/account-avatar.png">
+                        <span>${element.username}</span>
+                    </span>
+                    <button onclick="sendConnectRequest(${activeCase.id}, ${element.user_id});"
+                            id="create-battle"
+                            class="button button-colorized rose create-battle">
+                    ПОДКЛ.
+                    </button>
+                </div>
+                `
+        });
+    } else {
+        battlesTable.innerHTML = "Запросы на сражения не найдены!"
+        battlesTable.style = `display: flex;align-items: center;justify-content: center;font-family: 'Gilroy SemiBold'`;
+    }
+
+    document.getElementById('show-btn-text').innerHTML = 'назад';
+    document.getElementById('show-btn-bg').style = 'background: gray;box-shadow: none;';
+    document.getElementById('show-btn').onclick = () => {location.href = location.href};
 }
 
 async function showHistory() {
@@ -378,3 +435,4 @@ window.hideRequestWindow = hideRequestWindow;
 window.onCreateBattle = onCreateBattle;
 window.sendCreateRequest = sendCreateRequest;
 window.sendConnectRequest = sendConnectRequest;
+window.onListBattles = onListBattles;

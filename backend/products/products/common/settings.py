@@ -184,6 +184,10 @@ GAMES_SERVICE_ROUTES = {
         "http://gamesapp:8000/games/private/battle/make-request/",
     "drop_battle_request": "http://gamesapp:8000/games/private/battle/drop-request"
                            "/{initiator_id}/",
+    "get_battle_requests":  "http://gamesapp:8000/games/private/battle/drop-request"
+                           "/all/{case_id}/",
+    "get_battle_requests_count": "http://gamesapp:8000/games/private/battle/drop-request"
+                           "/all/",
     "make_battle": "http://gamesapp:8000/games/private/battle/make-battle/",
     "make_mines_game": "http://gamesapp:8000/games/private/mines/make/",
     "next_mines_game": "http://gamesapp:8000/games/private/mines/next/",
@@ -200,6 +204,7 @@ GAMES_SERVICE_ROUTES = {
 USERS_MICROSERVICE_ROUTES = {
     "get_advantage": "http://usersapp:8000/auth/api/v1/p/advantage/",
     "get_info": "http://usersapp:8000/auth/api/v1/p/get_user_info_jwt/",
+    "bulk_get_info": "http://usersapp:8000/auth/api/v1/p/get_users_info/",
     "get_balance": "http://usersapp:8000/auth/"
                    "balances/api/v1/p/displayed_balance_jwt/",
     "update_balance_jwt": "http://usersapp:8000/auth/"

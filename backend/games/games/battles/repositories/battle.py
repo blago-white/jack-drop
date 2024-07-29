@@ -34,6 +34,20 @@ class BattleRequestRepository(BaseRepository):
 
         return {"ok": result}
 
+    def all(self, case_id: int) -> dict:
+        result = self._service.all(case_id=case_id)
+
+        return self._serializer_class(instance=result, many=True).data
+
+    def count_by_case(self):
+        result = self._service.count_for_case()
+
+        print("RESULT", result)
+
+        return {int(case.get("battle_case_id")): int(
+            case.get("count")
+        ) for case in result}
+
 
 class BattleRepository(BaseRepository):
     default_service = BattleModelService()

@@ -58,6 +58,25 @@ class PrivateUsersRepository(BaseUsersRepository):
 
         return serialized.data
 
+    def get_users_info(self, users_ids: list[int]) -> dict:
+        complete, users = self._service.get_users_info(users_ids=users_ids)
+
+        # TODO: Remove on deploy
+        users = [
+            {
+                "id": user_id,
+                "username": f"someuser-{user_id}",
+            } for user_id in users_ids
+        ]
+
+        print(complete, users, "USERS LIST DATA", users_ids)
+
+        return {
+            "full": complete,
+            "users": users
+            # "users": self._serializer_class(instance=users, many=True).data
+        }
+
     def get_user_info_by_jwt(self, request: Request) -> dict:
         return self.get_user_info(user_id=request.user.id)
 

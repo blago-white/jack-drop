@@ -7,7 +7,7 @@ from cases.repositories.items import CasesItemsRepository
 from games.repositories.api.battle import BattleRequestApiRepository, \
     BattleApiRepository
 from .messages import InputMessage, CreateBattleRequest, ConnectToRequest, \
-    CancelBattleRequest
+    CancelBattleRequest, ListBattleRequests
 from .utils import get_serialized_message
 
 
@@ -52,8 +52,15 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
         elif message.message_type == ConnectToRequest:
             self.battle_case_id = message.payload.get("battle_case_id")
 
-            result = self.on_start_battle()
+            result = self.on_start_battle(
+                initiator_id=message.payload.get("initiator_id")
+            )
             response_type = "result"
+        elif message.message_type == ListBattleRequests:
+            self.battle_case_id = message.payload.get("battle_case_id")
+            result = self.on_retrieve_battles()
+            response_type = "list"
+
         else:
             result = {"success": False, "error": "Not correct msg type"}
 
@@ -84,15 +91,7 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
 
         self.group_name = self._get_group_name()
 
-        if count_conns := self._count_connections_for_group():
-            async_to_sync(self.channel_layer.group_discard)(
-                self.group_name,
-                self.channel_name
-            )
-            self.group_name = None
-
-            return {"success": False,
-                    "error": f"Battle request now exists ({count_conns})"}
+        print("CONNECT GROUP NAME", self.group_name, self.initiator_id, self.battle_case_id)
 
         try:
             result = self._battle_request_api_repository.create(
@@ -129,18 +128,14 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
             initiator_id=self.initiator_id
         )
 
-    def on_start_battle(self):
-        initiator_id = self._get_initiator_by_case_id(
-            battle_case_id=self.battle_case_id
-        )
-
+    def on_start_battle(self, initiator_id: int):
         if initiator_id is None:
             return {"success": False, "error": "Battle request not found"}
 
         self.initiator_id = initiator_id
         self.group_name = self._get_group_name()
 
-        if self._count_connections_for_group() != 1:
+        if self._count_connections_for_group() == 0:
             return {"success": False, "error": "Battle request not found"}
 
         async_to_sync(self.channel_layer.group_add)(
@@ -161,8 +156,6 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
                 "success": True
             }
         except Exception as e:
-            raise e
-
             return {
                 "data": {
                     "detail": repr(e)
@@ -170,6 +163,11 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
                 "error": "Error with battle, try again",
                 "success": False
             }
+
+    def on_retrieve_battles(self) -> list[dict]:
+        return self._battle_request_api_repository.get_by_case(
+            case_id=self.battle_case_id
+        )
 
     def disconnect(self, code):
         if self.group_name:
@@ -186,24 +184,18 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
     def _count_connections_for_group(self):
         count = list(self.channel_layer.groups.keys())
 
+        print("G", self.channel_layer.groups)
+
         return len(
             self.channel_layer.groups.get(self.group_name) or []
         )
 
     def _get_group_name(self) -> str:
         if not (self.battle_case_id and self.initiator_id):
+            print("FAIL GROUP NAME", self.battle_case_id, self.initiator_id)
             return
 
+
+        print(f"GN {self.battle_case_id}-{self.initiator_id}")
+
         return f"{self.battle_case_id}-{self.initiator_id}"
-
-    def _get_initiator_by_case_id(self, battle_case_id: int) -> int | None:
-        initiator_list = [
-            i.split("-")[-1]
-            for i in self.channel_layer.groups.keys()
-            if i.split("-")[0] == str(battle_case_id)
-        ]
-
-        if not initiator_list:
-            return None
-
-        return initiator_list.pop()

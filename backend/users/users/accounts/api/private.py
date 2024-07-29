@@ -5,10 +5,11 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework_simplejwt.tokens import TokenError
 from rest_framework_simplejwt.views import TokenVerifyView
+from rest_framework.generics import ListAPIView
 
 from accounts.repositories.users import PrivateUsersRepository
 from accounts.repositories.advantage import AdvantageRepository
-from common.api.default import DefaultRetrieveApiView, DefaultUpdateApiView
+from common.api.default import DefaultRetrieveApiView, DefaultUpdateApiView, DefaultApiView
 from common.mixins import DetailedApiViewMixin
 
 
@@ -26,6 +27,18 @@ class UserDataPrivateApiView(DefaultRetrieveApiView):
 
     def get_view_description(self, html=False):
         return "Private view for retrieving user info"
+
+
+class UsersDataPrivateListApiView(DefaultApiView, ListAPIView):
+    repository = PrivateUsersRepository()
+    serializer_class = repository.default_serializer_class
+
+    def list(self, request: Request, **kwargs):
+        user_data = self.repository.get_users_info(
+            users_ids=self.request.data.get("users")
+        )
+
+        return self.get_200_response(data=user_data)
 
 
 class JWTUserDataPrivateApiView(DefaultRetrieveApiView):
