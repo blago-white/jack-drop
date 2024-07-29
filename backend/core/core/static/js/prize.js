@@ -1,7 +1,7 @@
 let expanded = false;
 
 
-export function renderItemPrize(title, price, image_path, acceptText) {
+export function renderItemPrize(title, price, image_path, acceptText, timeout=3000) {
     if (expanded) {
         return
     }
@@ -28,11 +28,11 @@ export function renderItemPrize(title, price, image_path, acceptText) {
             </button>
         `;
         document.getElementById('prize-body').style.transform = "scale(1)";
-    }, 3000)
+    }, timeout)
 
     setTimeout(() => {
         document.getElementById('prize-glow').style.opacity = ".5";
-    }, 3500)
+    }, timeout + 500)
 }
 
 

@@ -87,7 +87,7 @@
     }
 
     .button {
-        font-size: calc(100vw* calc(36 / var(--reference-display-w)));
+        font-size: calc(100vw* calc(26 / var(--reference-display-w)));
         padding-block: 1ch;
     }
 

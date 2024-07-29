@@ -48,8 +48,10 @@ services:
     build:
       dockerfile: Dockerfile.celery
     restart: always
-    command: celery -A common beat
+    command: celery -A common beat -l info -f /home/app/products/celery.log
     container_name: productscelery
+    volumes:
+      - ./products/:/home/app/products/
     env_file:
       - .env
     depends_on:

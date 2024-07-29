@@ -1,5 +1,7 @@
 .bg-filter-img {
-    background: url("/core/static/img/history-bg.jfif");
+    background: url(/core/static/img/history-bg.jfif);
+    background-size: cover;
+    background-position: bottom;
 }
 
 .game-history-table {
@@ -232,6 +234,10 @@ h3 {
 }
 
 @media (aspect-ratio < 1/1) {
+    .game-history-table.drop {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
     h3 {
         font-size: calc(100vw * calc(82 / var(--reference-display-w)));
     }

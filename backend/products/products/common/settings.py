@@ -167,6 +167,13 @@ CELERY_BROKER_URL = f"redis://productsredis:6379/0"
 
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 
+CELERY_TIMEZONE = 'Europe/London'
+
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = True
+
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
 GAMES_SERVICE_ROUTES = {
     "drop": "http://gamesapp:8000/games/private/case/drop/",
     "upgrade": "http://gamesapp:8000/games/private/upgrade/new/",

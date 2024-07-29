@@ -172,7 +172,7 @@ async function dropCase() {
         });
 
         setTimeout(() => {
-            renderItemPrize(dropped.title, dropped.price, dropped.image_path, "Amazing!")
+            renderItemPrize(dropped.title, dropped.price, dropped.image_path, "Receive!", 200)
         }, 500);
     }, 7000);
 }
@@ -193,7 +193,7 @@ function animateRoulette(to, count) {
 
         setTimeout(() => {dropItemsString.style.transition = `filter 4s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;dropItemsString.style.filter = `blur(0ch)`}, 1000)
     } else {
-        const partWith = 100 * vw * (331 / 960) + 7;
+        const partWith = 100 * vw * (331 / 960) + 3.5;
 
         const biasVal = gap + partWith;
 
