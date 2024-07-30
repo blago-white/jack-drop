@@ -30,7 +30,8 @@ class UserBonusBuyProfile(models.Model):
                                                blank=True,
                                                editable=True)
     cases_discounts = models.ManyToManyField(to=CaseDiscount,
-                                             blank=True)
+                                             blank=True,
+                                             editable=True)
     withdraw_current = models.BooleanField(blank=True, default=False)
 
     def __str__(self):
