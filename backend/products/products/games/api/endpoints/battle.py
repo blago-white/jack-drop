@@ -25,3 +25,12 @@ class BattlesHistoryApiView(BaseListAPIView):
         return self.get_200_response(
             data=self._battle_repository.get_all(user_id=user_data.get("id"))
         )
+
+
+class BattlesListApiView(BaseListAPIView):
+    _battle_repository = BattleApiRepository()
+
+    def list(self, request, *args, **kwargs):
+        return self.get_200_response(
+            data=self._battle_repository.get_battles()
+        )

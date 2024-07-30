@@ -53,10 +53,16 @@ class HasBonusCaseApiView(BaseRetreiveAPIView):
         user_id = self.users_repository.get(user_request=request).get("id")
 
         return self.get_200_response(
-            data=self._repository.has_withdrawed_case(
-                user_id=user_id,
-                case_id=self.get_requested_pk()
-            )
+            data={
+                "free": self._repository.has_withdrawed_case(
+                    user_id=user_id,
+                    case_id=self.get_requested_pk()
+                ).get("ok"),
+                "discount": self._repository.get_discount(
+                    user_id=user_id,
+                    case_id=self.get_requested_pk()
+                ).get("discount")
+            }
         )
 
 

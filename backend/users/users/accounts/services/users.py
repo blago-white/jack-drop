@@ -29,3 +29,8 @@ class UsersService(BaseUsersService):
             steam_id=steam_id,
             username=username
         )
+
+    def get_users_info(self, users_ids: list[int]) -> models.QuerySet:
+        qs = self._model.objects.filter(pk__in=users_ids)
+
+        return len(users_ids) == len(qs), qs

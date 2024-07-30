@@ -41,6 +41,8 @@ class CaseDropApiRepository(BaseApiRepository):
     _site_funds_service: SiteFundsApiService
     _game_results_service: GameResultService
 
+    _discount: int = 0
+
     def __init__(self, *args,
                  site_funds_service: SiteFundsApiService = None,
                  users_service: UsersApiService = None,
@@ -57,6 +59,11 @@ class CaseDropApiRepository(BaseApiRepository):
         super().__init__(*args, **kwargs)
 
     def drop(self, user_funds: dict, case_data: dict) -> dict:
+        self._discount = self._bonus_service.get_discount(
+            user_id=user_funds.get("id"),
+            case_id=case_data.get("id")
+        )
+
         serialized: DropCaseRequestSerializer = (
             self._api_service.default_endpoint_serializer_class(
                 data={
@@ -78,8 +85,14 @@ class CaseDropApiRepository(BaseApiRepository):
             case_price=serialized.data.get("price")
         )
 
+        data: dict = serialized.data
+
+        data.update({
+            "price": self._discounted_case_price(raw_price=data.get("price"))
+        })
+
         drop_result = self._api_service.drop(
-            serialized=serialized.data
+            serialized=data
         )
 
         self._commit_funds(
@@ -133,8 +146,16 @@ class CaseDropApiRepository(BaseApiRepository):
             user_id=user_funds.get("id")
         )
 
+        if self._discount:
+            self._bonus_service.pop_discount(user_id=user_funds.get("id"),
+                                             case_id=case_data.get("id"))
+
+        price = self._discounted_case_price(
+            raw_price=case_data.get("price")
+        )
+
         self._users_service.update_user_balance_by_id(
-            delta_amount=-case_data.get("price"),
+            delta_amount=-price,
             user_id=user_funds.get("id")
         )
 
@@ -153,17 +174,17 @@ class CaseDropApiRepository(BaseApiRepository):
                                 case_id=case_data.get("id"))
         )
 
-        if case_data.get("price") == 0:
-            self._bonus_service.mark_case_as_used(user_id=user_funds.get("id"),
-                                                  case_id=case_data.get("id"))
+        if price == 0:
+            self._bonus_service.user_bonus_case(user_id=user_funds.get("id"),
+                                                case_id=case_data.get("id"))
         else:
             self._bonus_service.add_points(
                 user_id=user_funds.get("id"),
-                points=case_data.get("price")
+                points=price
             )
 
     def _remove_used_bonus(self, user_id: int, case_id: int) -> bool:
-        self._bonus_service.mark_case_as_used(
+        self._bonus_service.user_bonus_case(
             user_id=user_id,
             case_id=case_id
         )
@@ -177,9 +198,11 @@ class CaseDropApiRepository(BaseApiRepository):
                 "Not found bonus case!"
             )
 
-    @staticmethod
-    def _validate_user_balance(balance: float, case_price: int) -> bool:
-        if float(balance) < float(case_price):
+    def _validate_user_balance(self, balance: float, case_price: int) -> bool:
+        if float(balance) < self._discounted_case_price(raw_price=case_price):
             raise ValidationError(
                 "There are not enough balance funds for action"
             )
+
+    def _discounted_case_price(self, raw_price: float) -> float:
+        return raw_price * ((100 - self._discount) / 100)

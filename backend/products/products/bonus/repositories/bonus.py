@@ -59,3 +59,10 @@ class BonusBuyRepository(BaseRepository):
         )
 
         return {"ok": has}
+
+    def get_discount(self, user_id: int, case_id: int) -> dict:
+        return {
+            "discount": self._service.get_discount(
+                user_id=user_id, case_id=case_id
+            )
+        }

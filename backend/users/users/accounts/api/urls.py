@@ -3,7 +3,8 @@ from django.urls import path, include
 from .private import (UserDataPrivateApiView,
                       UserAdvantageRetrieveAPIView,
                       JWTUserDataPrivateApiView,
-                      UserAdvantageUpdateAPIView)
+                      UserAdvantageUpdateAPIView,
+                      UsersDataPrivateListApiView)
 from .public import UserDataApiView
 
 private_urlpatterns = [
@@ -12,6 +13,7 @@ private_urlpatterns = [
     path("advantage/", UserAdvantageRetrieveAPIView.as_view()),
     path("advantage/update/", UserAdvantageUpdateAPIView.as_view()),
     path("advantage/update/<int:user_id>/", UserAdvantageUpdateAPIView.as_view()),
+    path("get_users_info/", UsersDataPrivateListApiView.as_view()),
 ]
 
 public_urlpatterns = [

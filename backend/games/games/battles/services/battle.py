@@ -25,6 +25,14 @@ class BattleRequestModelService(BaseModelService):
     def is_initiator(self, initiator_id: int) -> bool:
         return self._model.objects.filter(initiator_id=initiator_id).exists()
 
+    def all(self, case_id: int) -> models.QuerySet:
+        return self._model.objects.filter(battle_case_id=case_id)
+
+    def count_for_case(self):
+        return self._model.objects.values("battle_case_id").annotate(
+            count=models.Count("initiator_id")
+        )
+
 
 class BattleModelService(BaseModelService):
     default_model = Battle

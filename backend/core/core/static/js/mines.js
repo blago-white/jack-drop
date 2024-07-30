@@ -69,8 +69,6 @@ async function iterField(id) {
             <img src="/core/static/img/pumpkin.png" style="width: 90%;margin-inline: 5%;">
         `
     } else if (!response.game_ended) {
-        console.log("EO", response, response.win_amount);
-
         document.getElementById(id).innerHTML = `
             <img src="/core/static/img/pumpkin.png" style="width: 90%;margin-inline: 5%;">
         `;
@@ -100,8 +98,6 @@ async function stopGame() {
         requestOptions
     );
 
-    console.log(response);
-
     renderItemPrize("You win scrap!", response.win_amount, "/core/static/img/scrap.png", "Ok");
 
     gameStarted = false;
@@ -119,8 +115,6 @@ async function sendMakeRequest(formData) {
       body: JSON.stringify(formData),
       redirect: "follow",
     };
-
-    console.log("WOW");
 
     const response = await sendRequest(
         `http://${location.hostname}/products/games/mines/`,
@@ -143,8 +137,6 @@ async function makeMinesGame() {
 
     if (result.ok) {
         result = await result.json();
-
-        console.log(result);
 
         lossStep = Math.min(25-countMines, result.loss_step);
 
@@ -170,9 +162,6 @@ async function makeMinesGame() {
             if (errorkey >= "0" && errorkey <= "9") {
                 alert(resultJson[errorkey]);
             } else {
-                console.log(Object.keys(resultJson)[0]);
-                console.log(document.getElementById(errorkey));
-
                 document.getElementById(errorkey).style.outline = '2px solid red';
                 alert(resultJson[errorkey][0]);
             }

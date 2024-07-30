@@ -8,7 +8,7 @@ from common.repositories import BaseRepository
 
 class DefaultApiView(APIView):
     repository: BaseRepository
-    _response_class: Response
+    _response_class: Response = Response
 
     def get_queryset(self):
         return

@@ -4,7 +4,7 @@ from common.services.base import BaseModelService
 from cases.models.cases import Case
 from cases.services.cases import CaseService
 
-from ..models import UserBonusBuyProfile, BonusBuyLevel
+from ..models import UserBonusBuyProfile, BonusBuyLevel, CaseDiscount
 
 
 class BonusBuyLevelService(BaseModelService):
@@ -118,7 +118,7 @@ class BonusBuyService(BaseModelService):
         else:
             return False
 
-    def mark_case_as_used(self, user_id: int, case_id: int) -> bool:
+    def user_bonus_case(self, user_id: int, case_id: int) -> bool:
         profile = self.get_or_create(user_id=user_id)
 
         profile.active_free_cases.remove(
@@ -126,3 +126,27 @@ class BonusBuyService(BaseModelService):
         )
 
         return True
+
+    def get_discount(self, user_id: int, case_id: int) -> int:
+        try:
+            return self._model.objects.get(
+                user_id=user_id,
+            ).cases_discounts.filter(case_id=case_id).first().discount
+        except:
+            return 0
+
+    def add_discount(self, user_id: int, case_id: int, discount: int):
+        self._model.objects.get(
+                user_id=user_id,
+            ).cases_discounts.add(
+                CaseDiscount.objects.create(
+                    case_id=case_id,
+                    user_id=user_id,
+                    discount=discount
+            )
+        )
+
+    def pop_discount(self, user_id: int, case_id: int) -> int:
+        return self._model.objects.get(
+                user_id=user_id,
+            ).cases_discounts.filter(case_id=case_id).first().delete()

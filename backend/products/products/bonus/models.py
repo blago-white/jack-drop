@@ -14,6 +14,12 @@ class BonusBuyLevels(models.IntegerChoices):
     EIGHT = 8
 
 
+class CaseDiscount(models.Model):
+    case = models.ForeignKey(to="cases.Case", on_delete=models.CASCADE)
+    user_id = models.IntegerField()
+    discount = models.IntegerField(verbose_name="Discount in percent [0-100]")
+
+
 class UserBonusBuyProfile(models.Model):
     user_id = models.IntegerField(primary_key=True)
     points = models.IntegerField(default=0, blank=True)
@@ -21,9 +27,11 @@ class UserBonusBuyProfile(models.Model):
                               on_delete=models.SET_DEFAULT,
                               default=1)
     active_free_cases = models.ManyToManyField(to="cases.Case",
-                                               null=True,
                                                blank=True,
                                                editable=True)
+    cases_discounts = models.ManyToManyField(to=CaseDiscount,
+                                             blank=True,
+                                             editable=True)
     withdraw_current = models.BooleanField(blank=True, default=False)
 
     def __str__(self):

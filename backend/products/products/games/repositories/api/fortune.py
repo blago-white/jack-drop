@@ -11,6 +11,7 @@ from games.api.services.forutne import (FortuneWheelPrizeApiService,
                                         GAME_SKIN_PRICE_RANGE,
                                         FREE_SKIN_PRICE_RANGE)
 from games.api.services.site import SiteFundsApiService
+from bonus.services.bonus import BonusBuyService
 from inventory.models import Lockings
 from inventory.services.inventory import InventoryService
 from items.serializers import ItemSerializer
@@ -29,6 +30,7 @@ class FortuneWheelApiRepository(BaseApiRepository):
     default_items_service = ItemService()
     default_inventory_service = InventoryService()
     default_cases_service = CaseService()
+    default_bonus_service = BonusBuyService()
 
     default_timeout_service = FortuneWheelTimeoutApiService()
 
@@ -48,6 +50,7 @@ class FortuneWheelApiRepository(BaseApiRepository):
             users_service: CaseService = None,
             fortune_wheel_timeout_service: FortuneWheelTimeoutApiService = None,
             inventory_service: InventoryService = None,
+            bonus_buy_service: BonusBuyService = None,
             **kwargs):
         self._prize_api_service = (prize_api_service or
                                    self.default_prize_api_service)
@@ -59,6 +62,7 @@ class FortuneWheelApiRepository(BaseApiRepository):
         self._cases_service = cases_service or self.default_cases_service
         self._users_service = users_service or self.default_users_service
         self._inventory_service = inventory_service or self.default_inventory_service
+        self._bonus_service = bonus_buy_service or self.default_bonus_service
 
         self._timeout_service = (fortune_wheel_timeout_service or
                                  self.default_timeout_service)
@@ -125,6 +129,12 @@ class FortuneWheelApiRepository(BaseApiRepository):
                 locking=self._LOCKINGS_FOR_PRIZE_TYPES.get(
                     prize.get("type")
                 )
+            )
+        elif prize.get("type") == PrizeTypes.CASE_DISCOUNT:
+            self._bonus_service.add_discount(
+                user_id=user_id,
+                case_id=prize_item.get("case").get("id"),
+                discount=prize_item.get("discount")
             )
 
     def get_timeout(self, user_id: int) -> dict:

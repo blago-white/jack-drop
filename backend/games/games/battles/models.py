@@ -3,7 +3,7 @@ from django.db import models
 
 class BattleRequest(models.Model):
     initiator_id = models.PositiveIntegerField(unique=True)
-    battle_case_id = models.PositiveIntegerField(unique=True)
+    battle_case_id = models.PositiveIntegerField()
     start_find_time = models.DateTimeField(auto_now=True, blank=True)
 
 

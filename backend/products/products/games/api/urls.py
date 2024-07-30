@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .endpoints.battle import BattleStatsApiView, BattlesHistoryApiView
+from .endpoints.battle import BattleStatsApiView, BattlesHistoryApiView, BattlesListApiView
 from .endpoints.contract import ContractGameApiView
 from .endpoints.drop import DropItemGameApiView
 from .endpoints.fortune import FortuneWheelGameApiView, \
@@ -29,6 +29,9 @@ urlpatterns = [
     path("battle-history/",
          BattlesHistoryApiView.as_view(),
          name="battle-history"),
+    path("battles/",
+         BattlesListApiView.as_view(),
+         name="battle-all"),
     path("history/<str:section>/",
          GameResultsApiView.as_view(),
          name="history"),
