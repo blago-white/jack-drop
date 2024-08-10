@@ -18,7 +18,10 @@ RUN pip install -r ./requirements.txt
 WORKDIR /home/chat/chat/
 
 RUN chown -R app:app /home/chat/chat/
+RUN chmod -R 744 /home/chat/chat/static/
+
 RUN chmod 744 /home/chat/chat/debug.log
+RUN chmod 744 /home/chat/chat/start.sh
 
 USER app
 

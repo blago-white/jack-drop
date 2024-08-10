@@ -13,8 +13,9 @@ class MessagesRepository(BaseRepository):
 
     _service: MessagesService
 
-    def get_all(self, user_id: int) -> list[dict]:
-        data = self._service.get_all_by_user(user_id=user_id)
+    def get_all(self, user_id: int, username: str) -> list[dict]:
+        data = self._service.get_all_by_user(user_id=user_id,
+                                             username=username)
 
         return self._serializer_class(instance=data, many=True).data
 

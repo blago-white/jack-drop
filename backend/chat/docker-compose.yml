@@ -23,8 +23,7 @@ services:
     expose:
       - 8000
     depends_on:
-      chatdb:
-        condition: service_healthy
+      - chatdb
     env_file:
       - .env
     container_name: chatapp
