@@ -300,10 +300,33 @@ function inputBalanceFunds() {
     updatePercent();
 }
 
+async function changeBtn() {
+    console.log("WAW", (await getAuthenticated()), !(await getAuthenticated()));
+
+    if (!(await getAuthenticated())) {
+        let c = false;
+        Array.from(document.getElementById('make-upgrade').children).forEach((element) => {
+            if (c) {
+                element.innerHTML = document.getElementById('long-enter-text').innerHTML;
+            } else {
+                element.style = '';
+            }
+
+            c = true;
+        })
+
+        document.getElementById('make-upgrade').onclick = () => {
+            location.href = '/auth/';
+        };
+    }
+}
+
 grantedBalance.addEventListener('input', inputBalanceFunds)
 
 getInevntoryItems();
 getReceiveItems();
+changeBtn();
+
 
 window.inputBalanceFunds = inputBalanceFunds;
 window.clearInputBalance = clearInputBalance;
