@@ -30,5 +30,12 @@ class MessagesService(BaseModelService):
 
         return message
 
-    def get_all_by_user(self, user_id: int):
-        return self._model.objects.filter(user_id=user_id).first().messages.all()
+    def get_all_by_user(self, user_id: int, username: str):
+        chat, created = self._model.objects.get_or_create(
+            user_id=user_id,
+            defaults={
+                "username": username
+            }
+        )
+
+        return chat.messages.all()
