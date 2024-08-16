@@ -301,8 +301,6 @@ function inputBalanceFunds() {
 }
 
 async function changeBtn() {
-    console.log("WAW", (await getAuthenticated()), !(await getAuthenticated()));
-
     if (!(await getAuthenticated())) {
         let c = false;
         Array.from(document.getElementById('make-upgrade').children).forEach((element) => {

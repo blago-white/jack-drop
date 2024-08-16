@@ -1,4 +1,4 @@
-import { renderItemPrize } from "./prize.js";
+import { renderItemPrize, renderPrize } from "./prize.js";
 
 const gameFields = document.getElementById('game-fields');
 
@@ -205,7 +205,26 @@ function changeGameVals() {
     return false;
 }
 
+async function changeBtn() {
+    if (!(await getAuthenticated())) {
+        document.getElementById('count-pumpkin').innerHTML = "???";
+        document.getElementById('count-seeds').innerHTML = "???";
+
+        renderPrize(
+            `
+                <img src="/core/static/img/banner-man.png">
+                <h3 style="text-transform: none;">${document.getElementById('long-enter-text').innerHTML}</h3>
+                <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="location.href = '/auth/'">
+                    <span class="super-button-bg"></span>
+                    <span class="super-button-text" style="font-size: x-large">${document.getElementById('short-enter-text').innerHTML}</span>
+                </button>
+            `
+        );
+    }
+}
+
 renderFields();
+changeBtn();
 
 addEventListener("beforeunload", (event) => {stopGame()});
 
