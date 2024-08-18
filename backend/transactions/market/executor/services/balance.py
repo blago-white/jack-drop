@@ -14,6 +14,8 @@ from selenium.webdriver.chrome.options import Options
 
 from common.services.base import BaseMarketApiService
 
+from executor.services.wallet import TronWalletApiService
+
 
 @dataclasses.dataclass
 class PaymentDetails:
@@ -153,9 +155,11 @@ class ApiBotBalanceService(BaseMarketApiService):
             self,
             *args,
             payment_service: _BotPaymentsService = _BotPaymentsService(),
+            wallet_service: TronWalletApiService = TronWalletApiService(),
             **kwargs
     ):
         self._payment_service = payment_service
+        self._wallet_service = wallet_service
 
         super().__init__(*args, **kwargs)
 
@@ -176,4 +180,7 @@ class ApiBotBalanceService(BaseMarketApiService):
     async def replenish(self, amount: float):
         payment = await self._payment_service.create(amount=amount)
 
-        return payment
+        await self._wallet_service.pay(
+            amount=payment.amount_trx,
+            to=payment.address
+        )

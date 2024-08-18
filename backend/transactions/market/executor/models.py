@@ -4,12 +4,14 @@ from django.db import models
 
 class WithdrawedItem(models.Model):
     market_link = models.URLField()
+    owner_trade_link = models.CharField()
+    success = models.BooleanField(default=False)
 
 
 class Withdraw(models.Model):
     items = models.ForeignKey(to=WithdrawedItem, on_delete=models.SET_NULL, null=True)
-
     date = models.DateTimeField(auto_now=True, editable=False)
+    success = models.BooleanField(default=False)
 
 
 class BotBalanceReplenish(models.Model):
