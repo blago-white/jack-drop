@@ -8,6 +8,7 @@ services:
     container_name: nginx
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/d2e62726-d582-420f-98a1-4db7ced1d929.txt:/home/app/d2e62726-d582-420f-98a1-4db7ced1d929.txt
 
 networks:
   mainnetwork:

@@ -145,8 +145,6 @@ class UpgradeApiRepository(BaseApiRepository):
                     user_funds: dict,
                     owner_id: int,
                     item_id: int) -> None:
-        print(validated_data, "UPGRADE DATA")
-
         if validated_data.get("granted_item_id"):
             granted = self._inventory_service.get_item(
                 inventory_item_id=validated_data.get("granted_item_id")
