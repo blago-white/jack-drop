@@ -78,6 +78,7 @@ services:
       - tmarketdb
       - tmarketredis
       - tmarketapp
+    shm_size: '1gb'
 
 volumes:
   postgres_data:

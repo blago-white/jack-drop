@@ -150,3 +150,11 @@ CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
 
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
+MARKET_BOT_PASSWORD = os.environ.get("MARKET_PASSWORD")
+MARKET_BOT_LOGIN = os.environ.get("MARKET_LOGIN")
+MARKET_LOGIN_URL = "https://rust.tm/login/"
+
+PAYMENT_API_SERVICE_METHODS = {
+    "pay": "http://tpaymentsapp:8000/transactions/payments/wallet/pay"
+}

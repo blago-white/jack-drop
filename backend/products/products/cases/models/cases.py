@@ -16,6 +16,10 @@ class Case(TitleModelMixin, BaseImageModel):
                              max_length=CASE_TITLE_MAX_LEN,
                              unique=True)
 
+    description = models.CharField(verbose_name="Case description",
+                                   max_length=500,
+                                   default="Кейс")
+
     category = models.ForeignKey(verbose_name=_("Name of category"),
                                  to=CasesCategory,
                                  on_delete=models.SET_NULL,
@@ -28,6 +32,7 @@ class Case(TitleModelMixin, BaseImageModel):
                                  unique=True)
 
     price = models.PositiveIntegerField(default=0)
+
 
     class Meta:
         db_table = "cases_cases"

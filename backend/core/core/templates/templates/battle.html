@@ -42,9 +42,9 @@ Battles | Jack Drop
     <div class="battles" id="battles">
         <div style="display: none;" class="battle-request-controls" id="battle-request-controls">
             <h2 id="founding-label">{% trans 'Find Participant' %}</h2>
-            <button class="super-button" onclick="cancelRequest()">
+            <button class="super-button" id="battle-login-btn" onclick="cancelRequest()">
                 <span class="super-button-bg"></span>
-                <span class="super-button-text">{% trans 'Cancel Battle' %}</span>
+                <span class="super-button-text" id="battle-login">{% trans 'Cancel Battle' %}</span>
             </button>
         </div>
         <div class="battles-table-header" id="battles-head">

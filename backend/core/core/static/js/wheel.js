@@ -164,5 +164,30 @@ function enterPromo() {
     document.getElementById('code-btn').onclick = startRotatePromo;
 }
 
+async function addLoginRequire() {
+    if (!(await getAuthenticated())) {
+        let c = false;
+
+        document.getElementById('game-title').innerHTML = document.getElementById('long-enter-text').innerHTML;
+        document.getElementById('game-title').style = 'padding: 0px';
+
+        Array.from(document.getElementById('start-btn').children).forEach((element) => {
+            if (c) {
+                element.innerHTML = document.getElementById('short-enter-text').innerHTML;
+            } else {
+                element.style = '';
+            }
+
+            c = true;
+        })
+
+        document.getElementById('start-btn').onclick = () => {
+            location.href = '/auth/';
+        };
+    }
+}
+
 window.startRotate = startRotate;
 window.enterPromo = enterPromo;
+
+addLoginRequire();

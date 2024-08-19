@@ -108,3 +108,27 @@ async function getCase(id) {
         `;
     });
 }
+
+
+async function changeBtn() {
+    if (!(await getAuthenticated())) {
+        let c = false;
+
+        Array.from(document.getElementById('open-case-btn').children).forEach((element) => {
+            if (c) {
+                element.innerHTML = document.getElementById('long-enter-text').innerHTML;
+            } else {
+                element.classList.remove("noactive");
+            }
+
+            c = true;
+        })
+
+        document.getElementById('open-case-btn').onclick = () => {
+            location.href = '/auth/';
+        };
+    }
+}
+
+
+changeBtn();

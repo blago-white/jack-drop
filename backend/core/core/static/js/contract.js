@@ -238,7 +238,27 @@ function updateBtnBg() {
     }
 }
 
+async function changeBtn() {
+    if (!(await getAuthenticated())) {
+        let c = false;
+        Array.from(document.getElementById('cr-contract').children).forEach((element) => {
+            if (c) {
+                element.innerHTML = document.getElementById('long-enter-text').innerHTML;
+            } else {
+                element.classList.remove("noactive");
+            }
+
+            c = true;
+        })
+
+        document.getElementById('cr-contract').onclick = () => {
+            location.href = '/auth/';
+        };
+    }
+}
+
 getItems();
+changeBtn();
 
 window.selectItem = selectItem;
 window.makeContract = makeContract;

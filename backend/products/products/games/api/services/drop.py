@@ -18,4 +18,7 @@ class CaseDropApiService(BaseApiService):
             }
         )
 
+        print("DROP RESP", response.text)
+        print("DROP PLD", serialized)
+
         return response.json()

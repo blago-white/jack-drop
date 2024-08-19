@@ -132,5 +132,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CHANGELLY_API_URLS = {
     "create": "https://api.changelly.com/v2/#createTransaction"
-
 }
+
+WALLET_ADDRESS = "TBuJ5sCGDzqNgYvzZC67zoTK3eTsDYfKq8"

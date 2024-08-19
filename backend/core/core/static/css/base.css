@@ -135,8 +135,8 @@ button {
     position: fixed;
     bottom: 0px;
     right: 6%;
-    width: 8%;
     z-index: 1000;
+    width: 8em;
 }
 
 .button-colorized {

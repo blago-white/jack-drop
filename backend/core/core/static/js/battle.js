@@ -426,8 +426,25 @@ async function showHistory() {
     document.getElementById('show-btn').onclick = () => {location.href = location.href};
 }
 
+async function changeBtn() {
+    if (!(await getAuthenticated())) {
+        battlesHead.style.display = 'none';
+        battlesTable.style.display = 'none';
+        battlesRequest.style.display = 'flex';
+
+        document.getElementById('battle-login-btn').onclick = () => {
+            location.href = '/auth/';
+        };
+
+        document.getElementById('founding-label').innerHTML = document.getElementById('long-enter-text').innerHTML;
+
+        document.getElementById('battle-login').innerHTML = document.getElementById('long-enter-text').innerHTML;
+    }
+}
+
 getCases();
 getStats();
+changeBtn();
 
 window.showHistory = showHistory;
 window.cancelRequest = cancelRequest;
