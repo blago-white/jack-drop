@@ -13,9 +13,9 @@ class CardPaymentsRepository(BaseRepository):
     _service: TransactionApiService
 
     def __init__(self, *args,
-                 config_service: ConfigService,
+                 config_service: ConfigService = ConfigService(),
                  **kwargs):
-        self._config_service = config_service or ConfigService()
+        self._config_service = config_service
 
         super().__init__(*args, **kwargs)
 
@@ -26,10 +26,8 @@ class CardPaymentsRepository(BaseRepository):
             )
         )
 
-    def create(self, user_steam_id: int, request_data: dict):
-        serialized: TransactionCreationSerializer = self._serializer_class(data={
-            "user_id": user_steam_id
-        } | request_data)
+    def create(self, request_data: dict):
+        serialized: TransactionCreationSerializer = self._serializer_class(data=request_data)
 
         serialized.is_valid(raise_exception=True)
 
@@ -48,5 +46,5 @@ class CardPaymentsRepository(BaseRepository):
             amount_from=serialized.data.get("amount"),
             from_=serialized.data.get("payin"),
             to=self._config_service.get().bank_currency_code,
-            recipient_addres=self._config_service.get().recipient_addres
+            recipient_address=self._config_service.get().recipient_addres
         )

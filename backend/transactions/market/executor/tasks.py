@@ -11,7 +11,7 @@ from .services.balance import ApiBotBalanceService
 
 
 async def _apply_withdraw(items: list[ScheduledItem], apikey: str) -> bool:
-    await _update_balance(items=items)
+    await _update_balance(items=items, apikey=apikey)
 
     callback_service = await sync_to_async(WithdrawResultService)()
 
@@ -29,12 +29,15 @@ async def _apply_withdraw(items: list[ScheduledItem], apikey: str) -> bool:
     )
 
 
-async def _update_balance(items: list[ScheduledItem]):
-    balance_service = ApiBotBalanceService()
+async def _update_balance(items: list[ScheduledItem], apikey: str):
+    balance_service = ApiBotBalanceService(apikey=apikey)
 
     current = await balance_service.get_current()
 
     summ = sum([i.price for i in items])
+
+    if not summ or int(current) > summ:
+        return
 
     await balance_service.replenish(amount=summ - int(current))
 

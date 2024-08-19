@@ -13,4 +13,4 @@ class CreateTransactionData:
     from_: str
     to: str
     amount_from: float
-    recipient_addres: str
+    recipient_address: str

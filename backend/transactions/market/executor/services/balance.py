@@ -14,7 +14,7 @@ from selenium.webdriver.chrome.options import Options
 
 from common.services.base import BaseMarketApiService
 
-from executor.services.wallet import TronWalletApiService
+from executor.services.api.wallet import TronWalletApiService
 
 
 @dataclasses.dataclass
@@ -39,10 +39,14 @@ class _BotPaymentsService:
     @property
     def _driver(self):
         if not self.__driver:
+            print("WIOWIWIWIW")
+
             chrome_options = Options()
 
             chrome_options.add_argument('--headless')
             chrome_options.add_argument('--disable-gpu')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
 
             self.__driver = webdriver.Chrome(options=chrome_options)
 
@@ -50,6 +54,9 @@ class _BotPaymentsService:
 
     async def create(self, amount: float):
         self._authenticate()
+
+        print("INITTI")
+
         payment = await self._init_payment(amount=amount)
 
         return payment
@@ -59,11 +66,13 @@ class _BotPaymentsService:
         self._select_account()
 
     async def _init_payment(self, amount: float) -> PaymentDetails:
+        print("W", f"https://rust.tm/checkin/pay/{abs(amount)}/tron/?currency=RUB")
+
         self._driver.get(
-            f"https://rust.tm/checkin/pay/{amount}/tron/?currency=RUB"
+            f"https://rust.tm/checkin/pay/{abs(amount)}/tron/?currency=RUB"
         )
 
-        WebDriverWait(self._driver, 10).until(
+        WebDriverWait(self._driver, 60).until(
             expected_conditions.presence_of_element_located(
                 (By.ID, "address_val"),
             )
@@ -94,24 +103,30 @@ class _BotPaymentsService:
         )
 
     def _select_account(self):
-        WebDriverWait(self._driver, 10).until(
+        print("WWWW")
+
+        WebDriverWait(self._driver, 60).until(
             expected_conditions.presence_of_element_located(
-                (By.XPATH,
-                 "/html/body/div[1]/div[7]/div[4]/div/div[2]/div[2]/div/form/input[5]"),
+                (By.ID,
+                 "imageLogin"),
             )
         )
 
+        print("EEE", self._driver.page_source)
+
         throught_submit = self._driver.find_element(
-            By.XPATH,
-            "/html/body/div[1]/div[7]/div[4]/div/div[2]/div[2]/div/form/input[5]"
+            By.ID,
+            "imageLogin"
         )
 
         throught_submit.click()
 
+        print("CLICKED")
+
     def _pass_login_form(self):
         self._driver.get(self._market_login_url)
 
-        WebDriverWait(self._driver, 10).until(
+        WebDriverWait(self._driver, 60).until(
             expected_conditions.presence_of_element_located(
                 (By.CLASS_NAME, "_2GBWeup5cttgbTw8FM3tfx"),
             ),
@@ -175,10 +190,14 @@ class ApiBotBalanceService(BaseMarketApiService):
         if not result.get("success"):
             return 0.0
 
+        print(result, "RESULT")
+
         return result.get("money")
 
     async def replenish(self, amount: float):
         payment = await self._payment_service.create(amount=amount)
+
+        print("PAYMENT", payment)
 
         await self._wallet_service.pay(
             amount=payment.amount_trx,

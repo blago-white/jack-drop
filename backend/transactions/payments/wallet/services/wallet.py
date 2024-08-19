@@ -4,9 +4,9 @@ from tronpy.tron import Tron
 
 
 class TronWalletApiService:
-    def __init__(self, wallet_addres: str = None,
+    def __init__(self, wallet_address: str = None,
                  private_key: str = None):
-        self._self_wallet_addres = wallet_addres or settings.WALLET_ADDRES
+        self._self_wallet_address = wallet_address or settings.WALLET_ADDRESS
         self._private_kry = private_key or settings.PRIVATE_KEY
         self._client = Tron(network="nile")  # TODO: SET MAINNETWORK
 
@@ -15,7 +15,7 @@ class TronWalletApiService:
             private = PrivateKey(bytes.fromhex(self._private_kry))
 
             transaction = (
-                self._client.trx.transfer(self._self_wallet_addres, amount, wallet)
+                self._client.trx.transfer(self._self_wallet_address, amount, wallet)
                 .memo("Transaction Description")
                 .build()
                 .inspect()
