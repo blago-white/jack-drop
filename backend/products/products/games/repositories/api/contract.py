@@ -144,5 +144,5 @@ class ContractApiRepository(BaseApiRepository):
 
     @staticmethod
     def _validate_items_count(items: list):
-        if len(items) < 4:
+        if len(items) < 3:
             raise ValidationError("Not enought items in contract!")
