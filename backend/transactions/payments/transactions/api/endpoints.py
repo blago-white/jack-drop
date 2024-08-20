@@ -1,14 +1,15 @@
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.request import Request
 
-from common.views.api import BaseCreateApiView
+from common.views.api import BaseCreateApiView, BaseApiView
 from common.repositories.users import UsersRepository
 
-from ..repositories.transactions import CardPaymentsRepository
+from ..repositories.transactions import PaymentsRepository
 from ..serializers import TransactionCreationPubllicSerializer
 
 
 class InitReplenishApiView(BaseCreateApiView):
-    payments_repository = CardPaymentsRepository()
+    payments_repository = PaymentsRepository()
     users_repository = UsersRepository()
 
     serializer_class = TransactionCreationPubllicSerializer
@@ -40,3 +41,21 @@ class InitReplenishApiView(BaseCreateApiView):
         else:
             return self.request.META.get('REMOTE_ADDR')
 
+
+class TransactionCallbackApiView(BaseApiView, RetrieveAPIView):
+    payments_repository = PaymentsRepository()
+    users_repository = UsersRepository()
+
+    def retrieve(self, request: Request, *args, **kwargs):
+        result = self.payments_repository.close(callback_data=request.data)
+
+        if not result.get("aborted"):
+            self.users_repository.add_depo(
+                amount=result.get("amount"),
+                user_id=self.payments_repository.get_payeer_id(
+                    tid=request.get("tid"),
+                    amount=result.get("amount")
+                )
+            )
+
+        return result

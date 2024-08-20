@@ -2,6 +2,7 @@ from rest_framework.exceptions import ValidationError
 
 from common.repositories.base import BaseRepository
 
+from ..models import PaymentStatus
 from ..services.transactions import TransactionApiService
 from ..services.config import ConfigService
 from ..services.transfer import CreateTransactionData, ApiCredentals
@@ -9,7 +10,7 @@ from ..serializers import TransactionCreationSerializer
 from ..services.payments import PaymentsService
 
 
-class CardPaymentsRepository(BaseRepository):
+class PaymentsRepository(BaseRepository):
     default_serializer_class = TransactionCreationSerializer
     default_service = TransactionApiService
     default_payment_service = PaymentsService()
@@ -39,21 +40,42 @@ class CardPaymentsRepository(BaseRepository):
             serialized=serialized
         )
 
+        inited = self.default_payment_service.init(data=serialized_dataclass)
+
         method = self._service.create_card \
             if serialized_dataclass.mehtod == "R" \
             else self._service.create_crypto
 
-        ok, response = method(data=serialized_dataclass)
+        ok, response = method(data=serialized_dataclass, tid=inited.pk)
 
         if ok:
-            self.default_payment_service.init(data=None)
-
             return {
-                "form_url": data.get("data").get("form_url"),
+                "form_url": response.get("data").get("form_url"),
             }
 
         raise ValidationError(code=400,
                               detail="Erorr with creating transaction")
+
+    def close(self, callback_data: dict):
+        tid = callback_data.get("merchant_id")
+
+        success = callback_data.get("status")
+
+        amount = callback_data.get("old_fiat_amount")
+
+        if success:
+            self.default_payment_service.complete(tid=tid, amount=amount)
+
+            return {"aborted": False, "amount": amount, "tid": tid}
+        else:
+            self.default_payment_service.abort(tid=tid, amount=amount)
+
+            return {"aborted": True, "amount": amount, "tid": tid}
+
+    def get_payeer_id(self, tid: int, amount: float):
+        return self.default_payment_service.get(
+            tid=tid, amount=amount
+        ).user_id
 
     @staticmethod
     def _serialize_create_request(serialized: dict):

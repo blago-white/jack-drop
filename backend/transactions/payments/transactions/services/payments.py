@@ -15,15 +15,23 @@ class PaymentsService(BaseModelService):
             payin_currency=data.currency
         )
 
-    def complete(self, tid: int):
-        item: Payment = self._get(tid=tid)
+    def complete(self, tid: int, amount: float):
+        item: Payment = self.get(tid=tid, amount=amount, status=PaymentStatus.PROGRESS)
 
         item.status = PaymentStatus.SUCCESS
 
-    def abort(self, tid: int):
-        item: Payment = self._get(tid=tid)
+    def abort(self, tid: int, amount: float):
+        item: Payment = self.get(tid=tid, amount=amount, status=PaymentStatus.PROGRESS)
 
         item.status = PaymentStatus.FAIL
 
-    def _get(self, tid: int) -> Payment:
-        return self._model.objects.filter(pk=tid).first()
+    def get(self, tid: int, amount: float, status=None) -> Payment:
+        qs = self._model.objects.filter(
+            pk=tid,
+            payin_amount=amount,
+        )
+
+        if status:
+            qs = qs.filter(status=status)
+
+        return qs.first()
