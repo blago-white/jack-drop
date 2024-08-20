@@ -7,7 +7,7 @@ const battlesTable = document.getElementById('battles-table');
 const foundingLabel = document.getElementById('founding-label');
 const battlesRequest = document.getElementById('battle-request-controls');
 
-const battleSocket = new WebSocket(`ws://${location.hostname}/products/ws/battle/`);
+const battleSocket = new WebSocket(`wss://${location.hostname}/products/ws/battle/`);
 let sendedRequestNow = false;
 let connected = false;
 let requestCaseId = null;
