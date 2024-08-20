@@ -25,4 +25,3 @@ class ContractShift(models.Model):
                 raise ValidationError(
                     "You can add only one active contract shift"
                 )
-

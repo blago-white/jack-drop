@@ -16,32 +16,20 @@ Replenish Account | Jack Drop
     <button class="form-field"
             onclick="document.getElementById('payment-type-2').classList.remove('active');
                      document.getElementById('payment-type-1').classList.add('active');
-                     document.getElementById('payment-type-3').classList.remove('active');
                      setPaymentMethod(1);
                      return false;"
             id="payment-type-1">
         <label for="payment-type-1">{% trans 'Selected Payment Method' %}</label>
-        <span>Bank card #1</span>
+        <span class="method-label"><img src="{% static 'img/atm-card.png' %}">Bank card #1</span>
     </button>
     <button class="form-field"
             onclick="document.getElementById('payment-type-1').classList.remove('active');
-                     document.getElementById('payment-type-3').classList.remove('active');
                      document.getElementById('payment-type-2').classList.add('active');
                      setPaymentMethod(2);
                      return false;"
             id="payment-type-2">
         <label for="payment-type-2">{% trans 'Selected Payment Method' %}</label>
-        <span>Crypto #2</span>
-    </button>
-    <button class="form-field"
-            onclick="document.getElementById('payment-type-1').classList.remove('active');
-                     document.getElementById('payment-type-2').classList.remove('active');
-                     document.getElementById('payment-type-3').classList.add('active');
-                     setPaymentMethod(3);
-                     return false;"
-            id="payment-type-3">
-        <label for="payment-type-2">{% trans 'Selected Payment Method' %}</label>
-        <span>Skinify #3</span>
+        <span class="method-label"><img src="{% static 'img/credit-card.png' %}">Crypto #2</span>
     </button>
     <span class="info">
         {% trans 'Replenish Info First' %}

@@ -182,9 +182,15 @@ function renderFields() {
     }
 }
 
-function multipleDeposit(factor) {
+async function multipleDeposit(factor=-1) {
     const current = document.getElementById('user_deposit');
-    current.value = parseFloat(current.value) * parseFloat(factor);
+
+    if (factor == -1) {
+        current.value = (await getAuthenticated()).balance;
+    } else {
+        current.value = parseFloat(current.value) * parseFloat(factor);
+    }
+
     return false;
 }
 

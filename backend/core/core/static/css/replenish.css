@@ -45,6 +45,16 @@ h3 {
     margin-bottom: 2ch;
 }
 
+.method-label {
+    display: flex;
+    gap: 1ch;
+    align-items: center;
+}
+
+.method-label img {
+    height: 2ch;
+}
+
 .form-field.active {
     background: #111;
     border: 1px solid white;

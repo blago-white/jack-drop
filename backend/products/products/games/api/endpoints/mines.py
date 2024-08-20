@@ -26,6 +26,8 @@ class MinesGameApiView(CreateAPIViewMixin, BaseGameProxyCreateApiView):
             user_data=user_data
         )
 
+        print("INITED")
+
         return self.get_201_response(
             data=result
         )
