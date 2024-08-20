@@ -229,9 +229,7 @@ function selectItem(id) {
 }
 
 function updateBtnBg() {
-    console.log("123D", selected.size, selected);
-
-    if (selected.size < 4) {
+    if (selected.size < 3) {
         document.getElementById('sign-contract-btn').classList.add('noactive')
     } else {
         document.getElementById('sign-contract-btn').classList.remove('noactive')
