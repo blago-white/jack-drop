@@ -23,10 +23,11 @@ class Config(models.Model):
 
 class Payment(models.Model):
     user_id = models.IntegerField()
+    user_ip = models.GenericIPAddressField()
     status = models.CharField(choices=PaymentStatus.choices,
                               default=PaymentStatus.PROGRESS,
                               blank=True)
-    amount = models.FloatField()
+    payin_amount = models.FloatField()
     payin_currency = models.CharField()
     start_at = models.DateTimeField(auto_now=True,
                                     editable=False)

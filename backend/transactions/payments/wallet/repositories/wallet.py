@@ -5,7 +5,8 @@ from ..services.wallet import TronWalletApiService
 
 class WalletRepository(BaseRepository):
     _ONE_TRON = 1000000
-    _service = TronWalletApiService()
+    default_service = TronWalletApiService()
+    default_serializer_class = None
 
     def pay(self, to: str, amount_trx: float):
         amount = self._ONE_TRON * amount_trx

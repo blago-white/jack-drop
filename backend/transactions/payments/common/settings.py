@@ -36,6 +36,8 @@ ALLOWED_HOSTS = ["localhost", "tpaymentsapp", "95.163.231.175", "jackdrop.online
 # Application definition
 
 INSTALLED_APPS = [
+    'transactions',
+    'wallet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -134,4 +136,10 @@ BOVA_API_URLS = {
     "create": "https://bovatech.cc/merchant/v1/deposits"
 }
 
+USERS_MICROSERVICE_ROUTES = {
+    "add-depo": "http://usersapp:8000/auth/balances/api/v1/p/add_deposit/",
+    "get-info": "http://usersapp:8000/auth/accounts/api/v1/p/get_user_info_jwt/"
+}
+
 WALLET_ADDRESS = "TBuJ5sCGDzqNgYvzZC67zoTK3eTsDYfKq8"
+PRIVATE_KEY = os.environ.get("PRIVATE_KEY")

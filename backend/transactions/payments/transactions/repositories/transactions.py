@@ -1,14 +1,18 @@
+from rest_framework.exceptions import ValidationError
+
 from common.repositories.base import BaseRepository
 
 from ..services.transactions import TransactionApiService
 from ..services.config import ConfigService
 from ..services.transfer import CreateTransactionData, ApiCredentals
 from ..serializers import TransactionCreationSerializer
+from ..services.payments import PaymentsService
 
 
 class CardPaymentsRepository(BaseRepository):
     default_serializer_class = TransactionCreationSerializer
     default_service = TransactionApiService
+    default_payment_service = PaymentsService()
 
     _service: TransactionApiService
 
@@ -26,25 +30,37 @@ class CardPaymentsRepository(BaseRepository):
             )
         )
 
-    def create(self, request_data: dict):
-        serialized: TransactionCreationSerializer = self._serializer_class(data=request_data)
+    def create(self, data: dict):
+        serialized: TransactionCreationSerializer = self._serializer_class(data=data)
 
         serialized.is_valid(raise_exception=True)
 
-        ok, response = self._service.create(
-            data=self._serialize_create_request(
-                serialized=serialized
-            )
+        serialized_dataclass = self._serialize_create_request(
+            serialized=serialized
         )
 
-        if ok:
-            return response
+        method = self._service.create_card \
+            if serialized_dataclass.mehtod == "R" \
+            else self._service.create_crypto
 
-    def _serialize_create_request(self, serialized: dict):
+        ok, response = method(data=serialized_dataclass)
+
+        if ok:
+            self.default_payment_service.init(data=None)
+
+            return {
+                "form_url": data.get("data").get("form_url"),
+            }
+
+        raise ValidationError(code=400,
+                              detail="Erorr with creating transaction")
+
+    @staticmethod
+    def _serialize_create_request(serialized: dict):
         return CreateTransactionData(
+            user_ip=serialized.get("user_ip"),
             user_id=serialized.get("user_id"),
+            username=serialized.get("username"),
             amount_from=serialized.data.get("amount"),
-            from_=serialized.data.get("payin"),
-            to=self._config_service.get().bank_currency_code,
-            recipient_address=self._config_service.get().recipient_addres
+            mehtod=serialized.data.get("pay_method"),
         )

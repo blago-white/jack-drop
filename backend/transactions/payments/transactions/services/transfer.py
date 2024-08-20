@@ -11,7 +11,6 @@ class ApiCredentals:
 class CreateTransactionData:
     user_id: int
     user_ip: str
-    from_: str
-    to: str
+    username: str
+    mehtod: str
     amount_from: float
-    recipient_address: str
