@@ -14,6 +14,6 @@ urlpatterns = [
          name="update-displayed-balance"),
     path("api/v1/p/displayed_balance/<int:client_id>/update/",
          DisplayedBalanceUpdateApiView.as_view()),
-    path("api/v1/public/add_deposit/", AddDepositApiView.as_view()),
+    path("api/v1/p/add_deposit/", AddDepositApiView.as_view()),
     path("api/v1/p/validate-dep/", ValidateUserDepositApiView.as_view())
 ]
