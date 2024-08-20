@@ -193,7 +193,7 @@ async function getItems() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/games/history/${_requestSection}/`,
+        `https://${location.hostname}/products/games/history/${_requestSection}/`,
         requestOptions
     );
 

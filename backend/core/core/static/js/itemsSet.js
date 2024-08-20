@@ -6,7 +6,7 @@ let set;
 
 async function buySet() {
     const result = await sendRequest(
-        `http://${location.hostname}/products/items/set/${setId}/buy/`,
+        `https://${location.hostname}/products/items/set/${setId}/buy/`,
         {method: "POST"}
     );
 
@@ -27,7 +27,7 @@ export async function getSet(id) {
     setId = id;
 
     const result = await sendRequestJson(
-        `http://${location.hostname}/products/items/set/${id}/`,
+        `https://${location.hostname}/products/items/set/${id}/`,
         {method: "GET"}
     );
 

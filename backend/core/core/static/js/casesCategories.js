@@ -26,7 +26,7 @@ function addCases(category, cases) {
 
 
 async function addItemSets() {
-    const itemSet = await sendRequestJson(`http://${location.hostname}/products/items/sets/`, {method: "GET"})
+    const itemSet = await sendRequestJson(`https://${location.hostname}/products/items/sets/`, {method: "GET"})
 
     console.log(itemSet);
 
@@ -60,7 +60,7 @@ async function getCases() {
       redirect: "follow"
     };
 
-    const response = await sendRequest(`http://${location.hostname}/products/cases/api/v1/by-categories/?`+params, requestOptions);
+    const response = await sendRequest(`https://${location.hostname}/products/cases/api/v1/by-categories/?`+params, requestOptions);
 
     const result = await response.json();
 

@@ -279,7 +279,7 @@ async function getCases() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/games/battles/`,
+        `https://${location.hostname}/products/games/battles/`,
         requestOptions
     );
 
@@ -323,7 +323,7 @@ async function getStats() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/games/battle-stats/`,
+        `https://${location.hostname}/products/games/battle-stats/`,
         requestOptions
     );
 
@@ -389,7 +389,7 @@ async function showHistory() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/games/battle-history/`,
+        `https://${location.hostname}/products/games/battle-history/`,
         requestOptions
     );
 

@@ -11,7 +11,7 @@ export async function getCount() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/inventory/count/`,
+        `https://${location.hostname}/products/inventory/count/`,
         requestOptions
     );
 
