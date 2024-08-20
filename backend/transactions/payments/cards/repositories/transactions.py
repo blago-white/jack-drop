@@ -21,8 +21,8 @@ class CardPaymentsRepository(BaseRepository):
 
         self._service = self.default_service(
             credentals=ApiCredentals(
-                pub=self._config_service.get().public_apikey,
-                private=self._config_service.get().private_apikey
+                apikey=self._config_service.get().apikey,
+                api_user_id=self._config_service.get().api_user_id
             )
         )
 

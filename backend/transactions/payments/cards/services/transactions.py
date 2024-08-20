@@ -6,28 +6,31 @@ from .transfer import ApiCredentals, CreateTransactionData
 
 
 class TransactionApiService:
-    CREATE_ENDPOINT = settings.CHANGELLY_API_URLS["create"]
+    CREATE_ENDPOINT = settings.BOVA_API_URLS["create"]
 
     def __init__(self, credentals: ApiCredentals):
         self._credentals = credentals
 
-    def create(self, data: CreateTransactionData):
+    def create_card(self, data: CreateTransactionData):
         response = requests.post(
             url=self.CREATE_ENDPOINT,
             headers={
-                "X-Api-Key": self._credentals.pub,
-                "X-Api-Signature": self._credentals.private
+                "Content-Type": "application/json",
+                "Signature": self._credentals.private
             },
             data={
-                "jsonrpc": "2.0",
-                "id": data.user_id,
-                "method": "createTransaction",
-                "params": {
-                    "from": data.from_,
-                    "to": data.to,
-                    "amountFrom": data.amount_from,
-                    "address": data.recipient_addres
-                }
+                "user_uuid": self._credentals.api_user_id,
+                "merchant_id": "string",
+                "amount": 1000,
+                "callback_url": "https://jackdrop.online/transactions/payments/cb/",
+                "redirect_url": "https://jackdrop.online/account/",
+                # "email": "test@mail.ru",
+                # "customer_name": data,
+                "currency": "rub",
+                "payeer_identifier": data.user_id,
+                "payeer_ip": data.user_ip,
+                "payeer_type": "ftd",
+                "payment_method": "card"
             }
         )
 

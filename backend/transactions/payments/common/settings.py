@@ -130,8 +130,8 @@ STATIC_ROOT = BASE_DIR / "static"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CHANGELLY_API_URLS = {
-    "create": "https://api.changelly.com/v2/#createTransaction"
+BOVA_API_URLS = {
+    "create": "https://bovatech.cc/merchant/v1/deposits"
 }
 
 WALLET_ADDRESS = "TBuJ5sCGDzqNgYvzZC67zoTK3eTsDYfKq8"

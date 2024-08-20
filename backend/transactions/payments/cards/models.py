@@ -10,10 +10,9 @@ class PaymentStatus(models.TextChoices):
 
 
 class Config(models.Model):
-    public_apikey = models.BinaryField(max_length=512)
-    private_apikey = models.BinaryField(max_length=512)
+    apikey = models.CharField(max_length=512)
+    api_user_id = models.CharField(max_length=512)
     bank_address = models.CharField(max_length=512)
-    bank_currency_code = models.CharField()
 
     def save(self, *args, **kwargs):
         if (not self.pk) and Config.objects.all().exists():
