@@ -19,11 +19,11 @@ class BonusBuyProfileSerializer(serializers.ModelSerializer):
 
 
 class UserDepositValidationSerializer(serializers.Serializer):
-    deposit_id = serializers.IntegerField(min_value=0)
-    deposit_amount = serializers.FloatField(min_value=0)
+    transaction_id = serializers.IntegerField(min_value=0)
+    amount = serializers.FloatField(min_value=0)
     user_id = serializers.IntegerField(min_value=0)
 
 
 class UserFreeCaseAddSerializer(serializers.Serializer):
-    deposit_id = serializers.IntegerField(min_value=0)
-    deposit_amount = serializers.FloatField(min_value=0)
+    transaction_id = serializers.IntegerField(min_value=0)
+    amount = serializers.FloatField(min_value=0)

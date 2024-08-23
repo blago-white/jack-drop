@@ -77,12 +77,19 @@ class PaymentsRepository(BaseRepository):
             tid=tid, amount=amount
         ).user_id
 
+    def transaction_exists(self, tid: int, amount: float, user_id: int):
+        transaction = self.default_payment_service.get(
+            tid=tid, amount=amount
+        )
+
+        return transaction and (transaction.user_id == user_id)
+
     @staticmethod
     def _serialize_create_request(serialized: dict):
         return CreateTransactionData(
-            user_ip=serialized.get("user_ip"),
-            user_id=serialized.get("user_id"),
-            username=serialized.get("username"),
+            user_ip=serialized.data.get("user_ip"),
+            user_id=serialized.data.get("user_id"),
+            username=serialized.data.get("username"),
             amount_from=serialized.data.get("amount"),
             mehtod=serialized.data.get("pay_method"),
         )

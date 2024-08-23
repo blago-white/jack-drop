@@ -1,5 +1,6 @@
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.request import Request
+from rest_framework.exceptions import ValidationError
 
 from common.views.api import BaseCreateApiView, BaseApiView
 from common.repositories.users import UsersRepository
@@ -26,7 +27,7 @@ class InitReplenishApiView(BaseCreateApiView):
         )
 
     def _complete_dataset(self, user_data: dict):
-        return self.repository.default_serializer_class(
+        return dict(
             user_id=user_data.get("id"),
             username=user_data.get("username"),
             user_ip=self._get_ip(),
@@ -53,9 +54,24 @@ class TransactionCallbackApiView(BaseApiView, RetrieveAPIView):
             self.users_repository.add_depo(
                 amount=result.get("amount"),
                 user_id=self.payments_repository.get_payeer_id(
-                    tid=request.get("tid"),
+                    tid=request.data.get("tid"),
                     amount=result.get("amount")
                 )
             )
 
         return result
+
+
+class TransactionValidationApiView(BaseApiView, RetrieveAPIView):
+    repository = PaymentsRepository()
+    serializer_class = None
+
+    def retrieve(self, request, *args, **kwargs):
+        if self.repository.transaction_exists(
+            tid=request.data.get("transaction_id"),
+            amount=request.data.get("amount"),
+            user_id=request.data.get("user_id")
+        ):
+            return self.get_200_response()
+
+        raise ValidationError(code=400, detail="Transaction does not exists!")

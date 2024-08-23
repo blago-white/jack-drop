@@ -61,7 +61,7 @@ class FreeCasesRepository(BaseRepository):
             )
 
         free_case = self._service.get_for_deposit(
-            amount=float(data.data.get("deposit_amount"))
+            amount=float(data.data.get("amount"))
         )
 
         self._bonus_buy_service.add_case(

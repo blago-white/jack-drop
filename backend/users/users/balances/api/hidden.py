@@ -36,7 +36,8 @@ class AddDepositApiView(BaseDetailedCreateApiViewMixin, DefaultCreateApiView):
     def create(self, request, *args, **kwargs):
         created_deposit = self.repository.create(
             client_id=self.get_requested_pk(),
-            amount=self._get_deposit_amount()
+            amount=self._get_deposit_amount(),
+            promocode=request.data.get("promocode")
         )
 
         update_balance = self.balance_repository.update_displayed_balance(

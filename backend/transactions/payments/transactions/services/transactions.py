@@ -1,3 +1,5 @@
+import pprint
+
 import requests
 import hashlib
 
@@ -21,10 +23,10 @@ class TransactionApiService:
             "merchant_id": tid,
             "amount": data.amount_from,
             "callback_url": "https://jackdrop.online/transactions/payments/callback/",
-            "redirect_url": f"https://jackdrop.online/pay-success/?a={data.amount_from}",
+            "redirect_url": f"https://jackdrop.online/replenish/?d=1&s=1&a={data.amount_from}&id={tid}",
             "customer_name": data.username,
             "currency": "rub",
-            "payeer_identifier": data.user_id,
+            "payeer_identifier": str(data.user_id),
             "payeer_ip": data.user_ip,
             "payeer_type": payeer_type,
             "payment_method": "card"
@@ -40,6 +42,8 @@ class TransactionApiService:
         )
 
         if not response.ok:
+            print(response.status_code, response.headers, response.raw)
+
             raise ValidationError("Error with payment creating")
 
         result = response.json()
@@ -51,17 +55,20 @@ class TransactionApiService:
                       payeer_type: str = "ftd"):
         body = {
             "user_uuid": self._credentals.api_user_id,
-            "merchant_id": tid,
-            "amount": data.amount_from,
+            "merchant_id": str(tid),
+            "amount": int(data.amount_from),
             "callback_url": "https://jackdrop.online/transactions/payments/callback/",
-            "redirect_url": f"https://jackdrop.online/pay-success/?a={data.amount_from}",
+            "redirect_url": f"https://jackdrop.online/replenish/?d=1&s=1&a={data.amount_from}&id={tid}",
             "customer_name": data.username,
             "currency": "crypto",
-            "payeer_identifier": data.user_id,
+            "payeer_identifier": str(data.user_id),
             "payeer_ip": data.user_ip,
             "payeer_type": payeer_type,
             "payment_method": "crypto"
         }
+
+        pprint.pprint(body)
+        print(self.CREATE_ENDPOINT)
 
         response = requests.post(
             url=self.CREATE_ENDPOINT,
@@ -72,7 +79,11 @@ class TransactionApiService:
             data=body
         )
 
+        print(body, self._get_signature(body=body))
+
         if not response.ok:
+            print(response.status_code, response.text)
+
             raise ValidationError("Error with payment creating")
 
         result = response.json()
@@ -80,4 +91,4 @@ class TransactionApiService:
         return response.ok, result
 
     def _get_signature(self, body: dict) -> str:
-        return hashlib.sha1(self._credentals.apikey + str(body).replace(" ", ""))
+        return hashlib.sha1((self._credentals.apikey + str(body).replace(" ", "")).encode()).hexdigest()

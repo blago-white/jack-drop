@@ -12,7 +12,7 @@ class PaymentsService(BaseModelService):
             user_id=data.user_id,
             user_ip=data.user_ip,
             payin_amount=data.amount_from,
-            payin_currency=data.currency
+            payin_currency=data.mehtod
         )
 
     def complete(self, tid: int, amount: float):

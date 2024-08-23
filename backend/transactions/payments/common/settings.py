@@ -138,7 +138,7 @@ BOVA_API_URLS = {
 
 USERS_MICROSERVICE_ROUTES = {
     "add-depo": "http://usersapp:8000/auth/balances/api/v1/p/add_deposit/",
-    "get-info": "http://usersapp:8000/auth/accounts/api/v1/p/get_user_info_jwt/"
+    "get-info": "http://usersapp:8000/auth/api/v1/p/get_user_info_jwt/"
 }
 
 WALLET_ADDRESS = "TBuJ5sCGDzqNgYvzZC67zoTK3eTsDYfKq8"

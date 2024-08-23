@@ -17,6 +17,8 @@ class ClientDeposit(models.Model):
 
     amount = models.PositiveIntegerField()
 
+    bonused = models.PositiveIntegerField(default=0)
+
     def __str__(self):
         return f"Deposit {self.user}"
 
