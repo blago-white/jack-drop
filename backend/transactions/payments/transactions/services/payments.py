@@ -20,10 +20,14 @@ class PaymentsService(BaseModelService):
 
         item.status = PaymentStatus.SUCCESS
 
+        item.save()
+
     def abort(self, tid: int, amount: float):
         item: Payment = self.get(tid=tid, amount=amount, status=PaymentStatus.PROGRESS)
 
         item.status = PaymentStatus.FAIL
+
+        item.save()
 
     def get(self, tid: int, amount: float, status=None) -> Payment:
         qs = self._model.objects.filter(

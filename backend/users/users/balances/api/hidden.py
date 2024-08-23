@@ -31,6 +31,7 @@ class AddDepositApiView(BaseDetailedCreateApiViewMixin, DefaultCreateApiView):
     repository = DepositRepository()
     balance_repository = BalanceRepository()
     serializer_class = repository.default_serializer_class
+    pk_url_kwarg = "user_id"
     _deposit_amount_param_name = "amount"
 
     def create(self, request, *args, **kwargs):
@@ -41,7 +42,7 @@ class AddDepositApiView(BaseDetailedCreateApiViewMixin, DefaultCreateApiView):
         )
 
         update_balance = self.balance_repository.update_displayed_balance(
-            client_id=request.user.id,
+            client_id=self.get_requested_pk(),
             delta_amount=self._get_deposit_amount()
         )
 
@@ -54,7 +55,7 @@ class AddDepositApiView(BaseDetailedCreateApiViewMixin, DefaultCreateApiView):
         )
 
     def get_requested_pk(self) -> int:
-        return self.request.user.id
+        return self.request.data.get(self.pk_url_kwarg)
 
     def _get_deposit_amount(self) -> int:
         return float(self.request.data.get(self._deposit_amount_param_name))

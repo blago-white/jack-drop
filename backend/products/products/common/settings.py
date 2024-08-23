@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'inventory',
     'interactive',
     'bonus',
+    'webhook',
 
     'daphne',
     'rest_framework',
@@ -216,6 +217,7 @@ USERS_MICROSERVICE_ROUTES = {
     "update_advantage": "http://usersapp:8000/auth/api/v1/p/advantage/update/",
     "update_advantage_by_id": "http://usersapp:8000/auth/api/v1/p/advantage/update/{user_id}/",
     "add_user_lose": "http://usersapp:8000/auth/referrals/api/v1/p/add-lose/",
+    "validate_deposit": "http://usersapp:8000/auth/balances/api/v1/p/validate-dep/"
 }
 
 CORE_MICROSERVICE_ROUTES = {
@@ -229,7 +231,6 @@ CORE_MICROSERVICE_ROUTES = {
 
 TRANSACTIONS_MICROSERVICE_ROUTES = {
     "add_schedule_item": "http://tmarketapp:8000/transactions/market/schedule/add/",
-    "validate_deposit": "http://usersapp:8000/transactions/payments/validate/"
 }
 
 CHANNEL_LAYERS = {

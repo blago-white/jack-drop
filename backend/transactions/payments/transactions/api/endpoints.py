@@ -4,6 +4,7 @@ from rest_framework.exceptions import ValidationError
 
 from common.views.api import BaseCreateApiView, BaseApiView
 from common.repositories.users import UsersRepository
+from common.repositories.products import ProductsApiRepository
 
 from ..repositories.transactions import PaymentsRepository
 from ..serializers import TransactionCreationPubllicSerializer
@@ -43,23 +44,32 @@ class InitReplenishApiView(BaseCreateApiView):
             return self.request.META.get('REMOTE_ADDR')
 
 
-class TransactionCallbackApiView(BaseApiView, RetrieveAPIView):
+class TransactionCallbackApiView(BaseCreateApiView):
     payments_repository = PaymentsRepository()
     users_repository = UsersRepository()
+    products_repository = ProductsApiRepository()
 
-    def retrieve(self, request: Request, *args, **kwargs):
+    def create(self, request: Request, *args, **kwargs):
         result = self.payments_repository.close(callback_data=request.data)
 
         if not result.get("aborted"):
-            self.users_repository.add_depo(
+            deposit = self.users_repository.add_depo(
                 amount=result.get("amount"),
                 user_id=self.payments_repository.get_payeer_id(
-                    tid=request.data.get("tid"),
+                    tid=result.get("tid"),
                     amount=result.get("amount")
                 )
             )
 
-        return result
+            self.products_repository.send_deposit_callback(data={
+                "user_id": deposit.get("user_id"),
+                "deposit_id": deposit.get("id"),
+                "amount": deposit.get("amount")
+            })
+
+        return self.get_200_response(
+            data=result
+        )
 
 
 class TransactionValidationApiView(BaseApiView, RetrieveAPIView):

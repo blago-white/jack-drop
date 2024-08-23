@@ -19,8 +19,10 @@ class PaymentsRepository(BaseRepository):
 
     def __init__(self, *args,
                  config_service: ConfigService = ConfigService(),
+                 payment_service: PaymentsService = PaymentsService(),
                  **kwargs):
         self._config_service = config_service
+        self._payment_service = payment_service or self.default_payment_service
 
         super().__init__(*args, **kwargs)
 
@@ -40,7 +42,7 @@ class PaymentsRepository(BaseRepository):
             serialized=serialized
         )
 
-        inited = self.default_payment_service.init(data=serialized_dataclass)
+        inited = self._payment_service.init(data=serialized_dataclass)
 
         method = self._service.create_card \
             if serialized_dataclass.mehtod == "R" \
@@ -53,32 +55,41 @@ class PaymentsRepository(BaseRepository):
                 "form_url": response.get("data").get("form_url"),
             }
 
+        self._payment_service.abort(tid=inited.pk, amount=inited.payin_amount)
+
         raise ValidationError(code=400,
                               detail="Erorr with creating transaction")
 
     def close(self, callback_data: dict):
         tid = callback_data.get("merchant_id")
 
-        success = callback_data.get("status")
+        success = callback_data.get("status") in (
+            "successed", "accepted_successed", "repeated_accepted_successed"
+        )
 
         amount = callback_data.get("old_fiat_amount")
 
-        if success:
-            self.default_payment_service.complete(tid=tid, amount=amount)
-
-            return {"aborted": False, "amount": amount, "tid": tid}
-        else:
-            self.default_payment_service.abort(tid=tid, amount=amount)
-
+        if not self._payment_service.get(
+            tid=tid, amount=amount, status=PaymentStatus.PROGRESS
+        ):
             return {"aborted": True, "amount": amount, "tid": tid}
 
+        closing_method = self._payment_service.abort
+
+        if success:
+            closing_method = self._payment_service.complete
+
+        closing_method(tid=tid, amount=amount)
+
+        return {"aborted": not success, "amount": amount, "tid": tid}
+
     def get_payeer_id(self, tid: int, amount: float):
-        return self.default_payment_service.get(
+        return self._payment_service.get(
             tid=tid, amount=amount
         ).user_id
 
     def transaction_exists(self, tid: int, amount: float, user_id: int):
-        transaction = self.default_payment_service.get(
+        transaction = self._payment_service.get(
             tid=tid, amount=amount
         )
 

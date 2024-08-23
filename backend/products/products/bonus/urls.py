@@ -1,1 +1,1 @@
-from .api.urls import urlpatterns
+from bonus.api.urls import urlpatterns

@@ -51,7 +51,7 @@ class MarketItemParser:
         )
 
     def _extract_item_params(self, crud_url: str) -> ItemMarketParams:
-        classid, instanceid, _ = crud_url.split("/")[-2].split("-")
+        classid, instanceid, *_ = crud_url.split("/")[-2].split("-")
 
         return self._market_params_dataclass(
             classid=classid,
