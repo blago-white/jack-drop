@@ -273,6 +273,10 @@ function updatePercent() {
     if (((selectedGrantedBalance>0) | (selectedGranted != null)) && (selectedReceive != null)) {
         document.getElementById('upgrade-percent').innerHTML = `${newPercent}%`;
 
+        if (newPercent == 100) {
+            return false;
+        }
+
         document.getElementById('make-upgrade-bg').style = '';
         document.getElementById('make-upgrade').addEventListener(
             'click',

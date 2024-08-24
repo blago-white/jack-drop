@@ -28,7 +28,7 @@ class CaseFilter(RelatedFieldListFilter):
 @admin.register(Case)
 class CaseAdmin(ModelAdmin):
     list_display = ["__str__", "preview_short", "count_items", "free"]
-    fields = ["title", "category", "price", "image_path", "preview"]
+    fields = ["title", "category", "price", "image_path", "preview", "description"]
     readonly_fields = ["preview"]
 
     @admin.display

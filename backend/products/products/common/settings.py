@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'inventory',
     'interactive',
     'bonus',
+    'webhook',
 
     'daphne',
     'rest_framework',

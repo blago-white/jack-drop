@@ -64,17 +64,3 @@ class HasBonusCaseApiView(BaseRetreiveAPIView):
                 ).get("discount")
             }
         )
-
-
-class AddFreeCaseForDeposit(CreateAPIViewMixin, CreateAPIView):
-    _repository = FreeCasesRepository()
-    users_repository = UsersApiRepository()
-    serializer_class = _repository.default_serializer_class
-
-    def create(self, request, *args, **kwargs):
-        user_data = self.users_repository.get(user_request=request)
-
-        result = self._repository.add(request_data=request.data,
-                                      user_data=user_data)
-
-        return self.get_201_response(data=result)

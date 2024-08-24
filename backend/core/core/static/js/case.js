@@ -1,6 +1,8 @@
 const caseImg = document.getElementById('case-img');
 const caseTitle = document.getElementById('case-title');
 const caseItems = document.getElementById('case-items');
+const caseDescription = document.getElementById('case-desc');
+
 let caseId = null;
 let USE_BONUS_CASE = false;
 
@@ -80,6 +82,7 @@ async function getCase(id) {
     }
 
     caseTitle.innerHTML = result.case.title;
+    caseDescription.innerHTML = result.case.description;
     caseImg.src = result.case.image_path;
 
     document.getElementById('case-drop-data').style = "display: flex;gap: 1ch;";

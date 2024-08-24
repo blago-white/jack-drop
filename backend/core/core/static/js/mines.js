@@ -78,9 +78,17 @@ async function iterField(id) {
     }
 
     currentStep++;
+
+    if (currentStep == 1) {
+        document.getElementById('stop-btn-bg').classList.remove("noactive");
+    }
 }
 
 async function stopGame() {
+    if (currentStep == 0) {
+        return false;
+    }
+
     const myHeaders = new Headers();
 
     myHeaders.append("X-CSRFToken", getCookie("csrftoken"));
@@ -149,7 +157,7 @@ async function makeMinesGame() {
                 <span class="super-button-text" style="gap: 0px;" id="receive">Receive: 0.0 <img src="/core/static/img/scrap.png" style="width: 3ch"></span>
             </div>
             <button class="super-button" type="submit" onclick="stopGame();return false;">
-                <span class="super-button-bg"></span>
+                <span class="super-button-bg noactive" id="stop-btn-bg"></span>
                 <span class="super-button-text">Stop game!</span>
             </button>
         `;

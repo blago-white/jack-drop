@@ -27,6 +27,7 @@ urlpatterns = [
     path('products/interactive/', include("interactive.urls")),
     path('products/inventory/', include("inventory.urls")),
     path('products/bonus-buy/', include("bonus.urls")),
+    path('products/private/webhook/', include("webhook.urls")),
 ]
 
 if settings.DEBUG:

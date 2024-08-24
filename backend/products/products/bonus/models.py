@@ -19,6 +19,9 @@ class CaseDiscount(models.Model):
     user_id = models.IntegerField()
     discount = models.IntegerField(verbose_name="Discount in percent [0-100]")
 
+    def __str__(self):
+        return f"{self.discount} | {self.user_id}"
+
 
 class UserBonusBuyProfile(models.Model):
     user_id = models.IntegerField(primary_key=True)
@@ -58,6 +61,12 @@ class FreeCase(models.Model):
     target_deposit_amount = models.FloatField()
     case = models.ForeignKey(to=Case, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.case} | {self.target_deposit_amount}"
+
 
 class UsedDeposit(models.Model):
     deposit_id = models.BigIntegerField(primary_key=True)
+
+    def __str__(self):
+        return f"Deposit №{self.deposit_id}"
