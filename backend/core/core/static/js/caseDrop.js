@@ -89,27 +89,27 @@ export async function getCase(id) {
 function showAgreement() {
     renderPrize(`
         <div style="margin-inline: 4vw;display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;justify-items: center;align-items: end;">
-            <img src="/core/static/img/banner-man-agree.png" style="grid-row: 1;grid-column: 1;max-height: 45vh;">
-            <h3 style="margin: 0px;grid-row: 1;grid-column: 1;font-size: calc(100vw* calc(54 / var(--reference-display-w)));text-align: center;">
+            <img src="/core/static/img/banner-man.png" style="grid-row: 1;grid-column: 1;max-height: 45vh;">
+            <h3 style="margin: 0px;grid-row: 2;grid-column: 1;font-size: calc(100vw* calc(54 / var(--reference-display-w)));text-align: center;">
                 ПОДТВЕРДИТЕ<br>СОГЛАСИЕ
             </h3>
-            <div style="gap: calc(100vw * calc(16 / var(--reference-display-w)));margin-top: calc(100vw * calc(43 / var(--reference-display-w)));display: flex;justify-content: flex-start;width: 100%;">
+            <div style="gap: .5ch;margin-top: calc(100vw * calc(13 / var(--reference-display-w)));display: flex;justify-content: flex-start;width: 100%;">
                 <input type="checkbox" id="agreement-1" style="height: 3ch;width: 3ch;">
-                <label class="agreement-label" style="color: #979797;font-size: calc(100vw * calc(24 / var(--reference-display-w)))" for="agreement">Я ЧТО МНЕ БОЛЬШЕ 18 ЛЕТ</label>
+                <label class="agreement-label" style="color: #f3f3f3;font-size: calc(100vw * calc(24 / var(--reference-display-w)))" for="agreement">ЧТО МНЕ БОЛЬШЕ 18 ЛЕТ</label>
             </div>
-            <div style="gap: calc(100vw * calc(16 / var(--reference-display-w)));margin-block: calc(100vw * calc(43 / var(--reference-display-w)));display: flex;justify-content: flex-start;width: 100%;">
+            <div style="gap: .5ch;margin-block: calc(100vw * calc(43 / var(--reference-display-w)));display: flex;justify-content: flex-start;width: 100%;margin-top: 1ch;">
                 <input type="checkbox" id="agreement-2" style="height: 3ch;width: 3ch;">
-                <label class="agreement-label" style="color: #979797;font-size: calc(100vw * calc(24 / var(--reference-display-w)))" for="agreement">Я ПРИНИМАЮ УСЛОВИЯ <a style="color: #0047FF;" href="/agreement/">ПОЛЬЗОВАТЕЛЬСКОГО СОГЛАШЕНИЯ</a></label>
+                <label class="agreement-label" style="color: #f3f3f3;font-size: calc(100vw * calc(24 / var(--reference-display-w)))" for="agreement">Я ПРИНИМАЮ УСЛОВИЯ <a style="color: #0047FF;" href="/agreement/">ПОЛЬЗОВАТЕЛЬСКОГО СОГЛАШЕНИЯ</a></label>
             </div>
         </div>
         <div style="display: flex;flex-direction: row;gap: 2ch;" id="agree-btns">
             <button class="super-button" style="font-family: 'Gilroy SemiBold';" onclick="agree();">
                 <span class="super-button-bg" style="background: radial-gradient(50% 50% at 50% 50%, rgba(79, 160, 255, 0.8) 0%, rgba(0, 71, 255, 0.8) 100%);"></span>
-                <span class="super-button-text" style="font-size: x-large">Agree</span>
+                <span class="super-button-text" style="font-size: x-large">Согласен</span>
             </button>
             <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow();">
                 <span class="super-button-bg" style="background: #979797;box-shadow: none;"></span>
-                <span class="super-button-text" style="font-size: x-large">Cancel</span>
+                <span class="super-button-text" style="font-size: x-large">Это не так</span>
             </button>
         </div>
     `);
