@@ -25,6 +25,10 @@
     border-radius: inherit;
 }
 
+.user-avatar {
+    max-height: 12vh;
+}
+
 .account-empty {
     grid-column: 2;
     grid-row-start: 1;

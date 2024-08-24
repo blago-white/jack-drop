@@ -24,10 +24,11 @@ class UsersService(BaseUsersService):
     def get_all(self) -> models.QuerySet:
         return self._model.objects.all()
 
-    def create(self, steam_id: int, username: str):
+    def create(self, steam_id: int, username: str, avatar_url: str = None):
         return self._model.objects.create(
             steam_id=steam_id,
-            username=username
+            username=username,
+            avatar=avatar_url
         )
 
     def get_users_info(self, users_ids: list[int]) -> models.QuerySet:

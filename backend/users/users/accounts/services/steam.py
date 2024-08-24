@@ -20,6 +20,12 @@ class SteamAccountsService:
             self._steam_service = Steam(key=_apikey)
 
     def get_username(self, steam_id: str | int) -> str:
+        return self._get_user(steam_id=steam_id).get("personaname")
+
+    def get_avatar(self, steam_id: str | int) -> str:
+        return self._get_user(steam_id=steam_id).get("avatar")
+
+    def _get_user(self, steam_id: str | int) -> dict:
         return self._steam_service.users.get_user_details(
             steam_id=steam_id
-        ).get("player").get("personaname")
+        ).get("player")

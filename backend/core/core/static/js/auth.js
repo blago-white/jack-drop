@@ -122,10 +122,12 @@ async function getAuthenticated() {
     }
 }
 
-async function transformButton() {
+async function processUserAuthStatus() {
     const authenticated = await getAuthenticated();
 
     if (authenticated) {
+        Array.from(document.getElementsByClassName('user-avatar')).forEach((elem) => {elem.src = authenticated.avatar});
+
         document.getElementById('acc-username-header').innerHTML = authenticated.username;
         document.getElementById('acc-balance-header').innerHTML = `${authenticated.balance} <img src="/core/static/img/gear.png">`;
         document.getElementById('account-info-btn').style = "";
@@ -135,4 +137,4 @@ async function transformButton() {
     }
 }
 
-transformButton();
+processUserAuthStatus();

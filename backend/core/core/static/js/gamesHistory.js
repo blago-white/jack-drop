@@ -102,28 +102,6 @@ function renderItems(result) {
     table.style.display = "grid";
 }
 
-function renderItems(result) {
-    let c = 0;
-
-    result.forEach((element) => {
-        c += 1;
-
-        table.innerHTML += `
-            <article class="dropped mono" style="width: calc(100vw * calc(196 / var(--reference-display-w)));" id="${element.id}">
-                <div class="w-line"></div>
-                <div class="dropped-content">
-                    <span style="margin-left: .5vw;font-size: small;margin-right: 0.5ch;">${element.related_item_first.title}</span>
-                    <span style="margin-left: .5vw;" class="item-price rose"><span>${element.related_item_first.price}</span> <img style="left: 0px;" src="/core/static/img/gear.png"></span>
-                    <img style="width: 81%;position: relative;left: 2%;margin-top: 4%;" src="${element.related_item_first.image_path}" style="left: 0%;">
-                </div>
-            </article>
-        `;
-    });
-
-    table.style = "";
-    table.style.display = "grid";
-}
-
 function renderBattles(result) {
     let c = 0;
 
@@ -151,8 +129,6 @@ function renderBattles(result) {
 
 
 function renderContracts(result) {
-    console.log("EEE");
-
     let c = 0;
 
     result.forEach((element) => {
@@ -161,7 +137,7 @@ function renderContracts(result) {
         table.innerHTML += `
             <article class="contract-result" id="${element.id}">
                 <div class="contract-amount">
-                    ${element.related_item_first.price} <img src="/core/static/img/gear.png" style="width: 1.5ch;">
+                    ${element.related_item_first.price} <img src="/core/static/img/scrap.png" style="width: 3.5ch;">
                 </div>
                 <div class="contract-info">
                     <span class="contract-result-price">${element.related_item_first.title}</span>

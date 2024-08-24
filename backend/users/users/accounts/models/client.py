@@ -9,3 +9,9 @@ class Client(AbstractUser):
     advantage = models.FloatField(default=0)
 
     trade_link = models.CharField(null=True, blank=True, max_length=200)
+
+    avatar = models.CharField(
+        default="/core/static/img/account-avatar.png",
+        max_length=1000,
+        blank=True
+    )

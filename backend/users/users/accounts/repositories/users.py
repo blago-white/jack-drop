@@ -47,7 +47,7 @@ class PrivateUsersRepository(BaseUsersRepository):
             instance={
                 "id": user.id,
                 "username": user.username,
-                "promocode": user.promocode,
+                "avatar": user.avatar,
                 "advantage": user.advantage,
                 "trade_link": user.trade_link,
                 "displayed_balance": self._balance_service.get_balance(
@@ -96,7 +96,8 @@ class PrivateUsersRepository(BaseUsersRepository):
     def create(self, steam_uid: int) -> dict:
         result = self._service.create(
             steam_id=steam_uid,
-            username=self._steam_service.get_username(steam_id=steam_uid)
+            username=self._steam_service.get_username(steam_id=steam_uid),
+            avatar_url=self._steam_service.get_avatar(steam_id=steam_uid)
         )
 
         refresh = RefreshToken.for_user(user=result)
@@ -130,7 +131,7 @@ class PublicUsersRepository(BaseUsersRepository):
             instance={
                 "id": user.pk,
                 "username": user.username,
-                "promocode": user.promocode,
+                "avatar": user.avatar,
                 "trade_link": user.trade_link,
                 "displayed_balance": self._balance_service.get_balance(
                     client_id=user.id
