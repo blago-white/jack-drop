@@ -3,8 +3,9 @@ from django.db import models
 from common.services.base import BaseModelService
 from cases.models.cases import Case
 from cases.services.cases import CaseService
+from items.models.models import Item
 
-from ..models import UserBonusBuyProfile, BonusBuyLevel, CaseDiscount
+from ..models import UserBonusBuyProfile, BonusBuyLevel, BonusCase, UserBonus, BonusTypes
 
 
 class BonusBuyLevelService(BaseModelService):
@@ -27,6 +28,71 @@ class BonusBuyLevelService(BaseModelService):
         return self._model.objects.filter(
             pk=max(level.level - 1, 1)
         ).first()
+
+
+class BonusCaseService(BaseModelService):
+    default_model = BonusCase
+
+    def create(self, case_id: int,
+               discount: int = 0,
+               free: str = False) -> BonusCase:
+        return self._model.objects.create(
+            case_id=case_id,
+            discount=discount,
+            is_free=free
+        )
+
+
+class UserBonusesService(BaseModelService):
+    default_model = UserBonus
+
+    def get_discount(self, user_id: int, case_id: int) -> int:
+        try:
+            return self._model.objects.select_related("related_case").filter(
+                user_id=user_id,
+                related_case__case__id=case_id,
+                active=True
+            ).first().discount
+        except:
+            return 0
+
+    def add_discount(self, user_id: int, bonus_case: BonusCase):
+        return self._model.objects.create(
+            related_case=bonus_case,
+            user_id=user_id,
+            bonus_type=BonusTypes.CASE_DISCOUNT,
+        )
+
+    def pop_discount(self, user_id: int, case_id: int) -> int:
+        return self._model.objects.filter(
+            user_id=user_id,
+            related_case__case__id=case_id,
+            active=True
+        ).first().delete()
+
+    def add_upgrade_item(self, user_id: int, item: Item) -> UserBonus:
+        return self._add_item(user_id=user_id,
+                              item=item,
+                              type_=BonusTypes.FREE_UPGRADE_SKIN)
+
+    def add_contract_item(self, user_id: int, item: Item) -> UserBonus:
+        return self._add_item(user_id=user_id,
+                              item=item,
+                              type_=BonusTypes.FREE_CONTRACT_SKIN)
+
+    def add_free_item(self, user_id: int, item: Item) -> UserBonus:
+        return self._add_item(user_id=user_id,
+                              item=item,
+                              type_=BonusTypes.FREE_SKIN)
+
+    def _add_item(self, user_id: int,
+                  item: Item,
+                  type_: BonusTypes) -> UserBonus:
+        return self._model.objects.create(
+            user_id=user_id,
+            related_item=item,
+            bonus_type=type_
+        )
 
 
 class BonusBuyService(BaseModelService):
@@ -63,8 +129,6 @@ class BonusBuyService(BaseModelService):
         if not profile.level:
             return False
 
-        profile.withdraw_current = False
-
         profile.full_clean()
         profile.save()
 
@@ -78,9 +142,12 @@ class BonusBuyService(BaseModelService):
         return bool(count)
 
     def add_case(self, user_id: int, case: Case) -> bool:
-        profile = self.get_or_create(user_id=user_id)
+        profile: UserBonusBuyProfile = self.get_or_create(user_id=user_id)
 
-        profile.active_free_cases.add(case)
+        if self.has_withdrawed_case(user_id=user_id, case_id=case.id):
+            return True
+
+        profile.free_cases.add(case)
 
         return True
 
@@ -92,11 +159,10 @@ class BonusBuyService(BaseModelService):
 
         case = profile.level.free_case
 
-        if profile.active_free_cases.filter(id=case.id):
+        if self.has_withdrawed_case(user_id=user_id, case_id=case.pk):
             return False
 
-        profile.withdraw_current = True
-        profile.active_free_cases.add(case)
+        profile.free_cases.add(case)
 
         profile.full_clean()
         profile.save()
@@ -104,49 +170,24 @@ class BonusBuyService(BaseModelService):
         return case
 
     def has_withdrawed_case(self, user_id: int, case_id: int) -> bool:
-        return self.get_or_create(user_id=user_id).active_free_cases.filter(
-            id=case_id
+        return self.get_or_create(user_id=user_id).free_cases.filter(
+            related_case_id=case_id
         ).exists()
 
     def can_withdraw(self, user_id: int) -> bool:
         profile: UserBonusBuyProfile = self.get_or_create(user_id=user_id)
+        already_withdrawed = profile.free_cases.filter(
+            case=profile.level.free_case
+        )
 
-        if (not profile.withdraw_current and
-                profile.points > profile.level.target):
-            return True
+        return ((profile.points > profile.level.target) and
+                not already_withdrawed)
 
-        else:
-            return False
-
-    def user_bonus_case(self, user_id: int, case_id: int) -> bool:
+    def use_bonus_case(self, user_id: int, case_id: int) -> bool:
         profile = self.get_or_create(user_id=user_id)
 
-        profile.active_free_cases.remove(
+        profile.free_cases.remove(
             self._case_service.get(case_id=case_id)
         )
 
         return True
-
-    def get_discount(self, user_id: int, case_id: int) -> int:
-        try:
-            return self._model.objects.get(
-                user_id=user_id,
-            ).cases_discounts.filter(case_id=case_id).first().discount
-        except:
-            return 0
-
-    def add_discount(self, user_id: int, case_id: int, discount: int):
-        self._model.objects.get(
-                user_id=user_id,
-            ).cases_discounts.add(
-                CaseDiscount.objects.create(
-                    case_id=case_id,
-                    user_id=user_id,
-                    discount=discount
-            )
-        )
-
-    def pop_discount(self, user_id: int, case_id: int) -> int:
-        return self._model.objects.get(
-                user_id=user_id,
-            ).cases_discounts.filter(case_id=case_id).first().delete()

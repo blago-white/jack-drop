@@ -18,7 +18,7 @@ body {
 
 .bg-filter-img {
     background: url('/core/static/img/bg.jpg');
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     height: 109vh!important;
 }
@@ -315,6 +315,7 @@ button {
 
     body {
         height: auto;
+        max-width: 100vw;
     }
 
     .chat-btn {

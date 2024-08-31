@@ -175,8 +175,8 @@ class CaseDropApiRepository(BaseApiRepository):
         )
 
         if price == 0:
-            self._bonus_service.user_bonus_case(user_id=user_funds.get("id"),
-                                                case_id=case_data.get("id"))
+            self._bonus_service.use_bonus_case(user_id=user_funds.get("id"),
+                                               case_id=case_data.get("id"))
         else:
             self._bonus_service.add_points(
                 user_id=user_funds.get("id"),
@@ -184,7 +184,7 @@ class CaseDropApiRepository(BaseApiRepository):
             )
 
     def _remove_used_bonus(self, user_id: int, case_id: int) -> bool:
-        self._bonus_service.user_bonus_case(
+        self._bonus_service.use_bonus_case(
             user_id=user_id,
             case_id=case_id
         )

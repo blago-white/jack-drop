@@ -4,7 +4,7 @@ from django.forms import model_to_dict
 from common.repositories.base import BaseRepository
 from cases.serializers.case import CaseSerializer
 
-from ..services.bonus import BonusBuyService
+from ..services.bonus import BonusBuyService, UserBonusesService
 from ..serializers import BonusBuyProfileSerializer
 
 
@@ -59,6 +59,13 @@ class BonusBuyRepository(BaseRepository):
         )
 
         return {"ok": has}
+
+
+class UserBonusesRepository(BaseRepository):
+    default_service = UserBonusesService
+    default_serializer_class = None
+
+    _service: UserBonusesService
 
     def get_discount(self, user_id: int, case_id: int) -> dict:
         return {
