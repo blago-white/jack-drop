@@ -19,11 +19,9 @@ class FeedWebsocketConsumer(JsonWebsocketConsumer):
                 **kwargs):
         self._items_service = items_service or self._items_service
 
-        super().__int__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def connect(self):
-        print("___##")
-
         async_to_sync(self.channel_layer.group_add)(
             self._DROPS_FEED_GROUP,
             self.channel_name

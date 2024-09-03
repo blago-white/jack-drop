@@ -25,5 +25,5 @@ urlpatterns = [
     path('games/private/contract/', include("contract.urls")),
     path('games/private/battle/', include("battles.urls")),
     path('games/private/mines/', include("mines.urls")),
-    path('games/private/fortune/', include("fortune.urls"))
+    path('games/private/fortune/', include("fortune.urls")),
 ]
