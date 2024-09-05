@@ -3,7 +3,7 @@
 {% block title %}Jack Drop{% endblock %}
 {% block links %}
 <link href="{% static 'css/cases-filter.css' %}" type="text/css" rel="stylesheet">
-<link href="{% static 'css/latest-drops.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/stats.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/banners.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/free-cases.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/chat.css' %}" type="text/css" rel="stylesheet">
@@ -20,6 +20,7 @@
 
 {% block main %}
     {% include 'main/cases-filter.html' %}
+    {% include 'main/stats.html' %}
     {% include 'main/banners.html' %}
     {% include 'main/free-cases.html' %}
 
@@ -30,6 +31,6 @@
 <script src="{% static 'js/pricesRange.js' %}"></script>
 <script src="{% static 'js/caseCategorySetter.js' %}"></script>
 <script src="{% static 'js/chat.js' %}"></script>
-<script src="{% static 'js/liveFeed.js' %}"></script>
+<script src="{% static 'js/stats.js' %}"></script>
 <script src="{% static 'js/casesCategories.js' %}"></script>
 {% endblock %}

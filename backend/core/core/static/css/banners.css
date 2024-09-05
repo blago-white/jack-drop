@@ -40,7 +40,7 @@
 .banner-content h2 {
     font-family: 'Gilroy Bold';
     margin: 0px;
-    font-size: calc(100vw * calc(96 / var(--reference-display-w)));
+    font-size: calc(100vw * calc(39 / var(--reference-display-w)));
 }
 
 .banner-content h3 {

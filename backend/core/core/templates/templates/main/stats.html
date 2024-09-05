@@ -1,0 +1,77 @@
+{% load static %}
+{% load i18n %}
+
+<section class="stats">
+    <div class="stats-table">
+        <div class="stats-row">
+            <div class="stat">
+                <img src="{% static 'img/онлайн.png' %}">
+                <div class="stat-data">
+                    <span>
+                        {% trans 'Online' %}
+                    </span>
+                    <span id="online-val">
+                        --
+                    </span>
+                </div>
+            </div>
+            <div class="stat">
+                <img src="{% static 'img/пользователи.png' %}">
+                <div class="stat-data">
+                    <span>
+                        {% trans 'Users' %}
+                    </span>
+                    <span id="users-val">
+                        --
+                    </span>
+                </div>
+            </div>
+            <div class="stat">
+                <img src="{% static 'img/кейс1.png' %}">
+                <div class="stat-data">
+                    <span>
+                        {% trans 'Cases' %}
+                    </span>
+                    <span id="cases-val">
+                        --
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="stats-row">
+            <div class="stat">
+                <img src="{% static 'img/Контракты.png' %}">
+                <div class="stat-data">
+                    <span>
+                        {% trans 'Contracts' %}
+                    </span>
+                    <span id="contracts-val">
+                        --
+                    </span>
+                </div>
+            </div>
+            <div class="stat">
+                <img src="{% static 'img/буст 2.png' %}">
+                <div class="stat-data">
+                    <span>
+                        {% trans 'Upgrades' %}
+                    </span>
+                    <span id="upgrades-val">
+                        --
+                    </span>
+                </div>
+            </div>
+            <div class="stat">
+                <img src="{% static 'img/битва.png' %}">
+                <div class="stat-data">
+                    <span>
+                        {% trans 'Battles' %}
+                    </span>
+                    <span id="battles-val">
+                        --
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
