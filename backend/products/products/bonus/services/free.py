@@ -1,11 +1,11 @@
 from common.services.base import BaseModelService
 
 from cases.models.cases import Case
-from ..models import FreeCase, UsedDeposit
+from ..models import FreeDepositCase, UsedDeposit
 
 
 class FreeCasesService(BaseModelService):
-    default_model = FreeCase
+    default_model = FreeDepositCase
 
     def get_for_deposit(self, amount: float) -> Case | None:
         return self._model.objects.filter(

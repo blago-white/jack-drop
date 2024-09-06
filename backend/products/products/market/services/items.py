@@ -1,3 +1,5 @@
+import math
+
 import requests
 
 from items.config import MAIN_RETRIEVE_ITEM_URL, MAIN_RETRIEVE_ITEM_IMAGE_URL
@@ -40,7 +42,7 @@ class MarketItemParser:
             image_path=self._get_item_image_path(
                 json.get("market_name")
             ),
-            price=float(json.get("min_price"))//100,
+            price=round(float(json.get("min_price"))//100 * 1.05, 2),
             market_hash_name=json.get("market_hash_name")
         )
 

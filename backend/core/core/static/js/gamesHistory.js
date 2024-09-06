@@ -141,7 +141,30 @@ function renderContracts(result) {
                 </div>
                 <div class="contract-info">
                     <span class="contract-result-price">${element.related_item_first.title}</span>
-                    <img src="${element.related_item_first.image_path}" style="    height: 110%;margin-top: 12%;margin-left: 0%;" class="contract-result-item">
+                    <img src="${element.related_item_first.image_path}" style="height: 110%;margin-top: 12%;margin-left: 0%;" class="contract-result-item">
+                </div>
+            </article>
+        `;
+    });
+
+    table.style = "";
+    table.style.display = "grid";
+}
+
+function renderBonuses(result) {
+    let c = 0;
+
+    result.forEach((element) => {
+        c += 1;
+
+        table.innerHTML += `
+            <article class="contract-result" id="${element.id}">
+                <div class="contract-amount">
+                    ${element.related_item_first.price} <img src="/core/static/img/scrap.png" style="width: 3.5ch;">
+                </div>
+                <div class="contract-info">
+                    <span class="contract-result-price">${element.related_item_first.title}</span>
+                    <img src="${element.related_item_first.image_path}" style="height: 110%;margin-top: 12%;margin-left: 0%;" class="contract-result-item">
                 </div>
             </article>
         `;
@@ -162,6 +185,8 @@ async function getItems() {
         _requestSection = "B"
     } else if (section == "bonuse") {
         _requestSection = "S"
+    } else if (section == "bonuse") {
+        _requestSection = "E"
     }
 
     const requestOptions = {
@@ -186,6 +211,8 @@ async function getItems() {
         renderBattles(result)
     } else if (_requestSection == "C") {
         renderContracts(result)
+    } else if (_requestSection == "E") {
+        renderBonuses(result)
     }
 }
 

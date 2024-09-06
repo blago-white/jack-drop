@@ -2,7 +2,6 @@ import { renderItemPrize, renderPrize } from "./prize.js";
 
 const gameFields = document.getElementById('game-fields');
 
-let lossStep = 26;
 let gameStarted = false;
 let currentStep = 0;
 let countMines = 0;
@@ -47,7 +46,18 @@ async function iterField(id) {
         document.getElementById(id).innerHTML = `
             <img src="/core/static/img/seeds.png" style="width: 90%;margin-inline: 5%;">
         `;
+
         renderItemPrize("You lose scrap!", -deposit, "/core/static/img/scrap.png", "Ok");
+
+        document.getElementById('info-banner').innerHTML = 'Не повезло, попробуйте еще раз!'
+        document.getElementById('info-banner-bg').style.background = '#FF007A';
+
+
+        document.getElementById('action-button').onclick = () => {
+            location.href = location.href
+        };
+
+        document.getElementById('action-button-text').innerHTML = 'Мне повезет!'
 
         gameStarted = false;
     } else if (currentStep == (25 - countMines - 1)) {
@@ -146,23 +156,21 @@ async function makeMinesGame() {
     if (result.ok) {
         result = await result.json();
 
-        lossStep = Math.min(25-countMines, result.loss_step);
-
         gameStarted = true;
         fundsDiff = result.user_funds_diff;
 
         document.getElementById('mines-game-form').innerHTML = `
             <div class="super-button">
-                <span class="super-button-bg noactive"></span>
-                <span class="super-button-text" style="gap: 0px;" id="receive">Receive: 0.0 <img src="/core/static/img/scrap.png" style="width: 3ch"></span>
+                <span class="super-button-bg noactive" id="info-banner-bg"></span>
+                <span class="super-button-text" id="info-banner" style="gap: 0px;" id="receive">Receive: 0.0 <img src="/core/static/img/scrap.png" style="width: 3ch"></span>
             </div>
-            <button class="super-button" type="submit" onclick="stopGame();return false;">
+            <button class="super-button" id="action-button" type="submit" onclick="stopGame();return false;">
                 <span class="super-button-bg noactive" id="stop-btn-bg"></span>
-                <span class="super-button-text">Stop game!</span>
+                <span class="super-button-text" id="action-button-text">Stop game!</span>
             </button>
         `;
 
-//        document.getElementById('controls').style = 'opacity: .2;cursor: default;pointer-events: none;';
+        document.getElementById('controls').style = 'opacity: .2;cursor: default;pointer-events: none;';
     } else {
         const resultJson = await result.json();
 

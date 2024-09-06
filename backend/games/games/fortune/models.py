@@ -22,7 +22,7 @@ class FortuneWheelWinning(models.Model):
     site_funds_diff = models.FloatField()
     user_funds_diff = models.FloatField()
 
-    winning_type = models.CharField(choices=WinningTypes.choices)
+    winning_type = models.CharField(choices=WinningTypes.choices, max_length=1)
     win_time = models.DateTimeField(blank=True, auto_now=True)
 
     def __str__(self):

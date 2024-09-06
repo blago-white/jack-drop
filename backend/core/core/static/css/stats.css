@@ -1,0 +1,32 @@
+.stats-table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: url('/core/static/img/case-bg-circle.png');
+    background-size: cover;
+    border-radius: calc(100vw* calc(16 / 1920));
+}
+
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    width: 83%;
+    padding-block: 1ch;
+}
+
+.stat {
+    display: flex;
+    width: 10vw;
+}
+
+.stat img {
+    max-height: 8ch;
+}
+
+.stat-data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}

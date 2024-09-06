@@ -16,7 +16,7 @@ class ChatMessage(models.Model):
         ordering = ["view_this", "date"]
 
     def __str__(self):
-        return f"{'admin' if self.from_admin else self.username}: {self.text}"
+        return f"{'✅' if self.view_this else '🚩'} {'admin' if self.from_admin else self.username} | {self.text}"
 
     def save(self, *args, **kwargs):
         if self.from_admin:

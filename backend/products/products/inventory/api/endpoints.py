@@ -109,3 +109,17 @@ class WithdrawedItemsApiView(CreateAPIViewMixin, CreateAPIView):
                 results=request.data
             )
         )
+
+
+class SellAllItemsApiView(CreateAPIViewMixin, CreateAPIView):
+    _repository = InventoryRepository()
+    _users_repository = UsersApiRepository()
+
+    def create(self, request, *args, **kwargs):
+        user_id = self._users_repository.get(user_request=request).get("id")
+
+        return self.get_201_response(
+            data=self._repository.sell_all(
+                user_id=user_id
+            )
+        )

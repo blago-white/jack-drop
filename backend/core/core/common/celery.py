@@ -18,11 +18,18 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     # Scheduler Name
-    'print-message-ten-seconds': {
+    'update-funds-ten-seconds': {
         # Task Name (Name Specified in Decorator)
         'task': 'update_funds',
         # Schedule
         'schedule': 10.0,
+        # Function Arguments
+    },
+    'increase-stats-five-seconds': {
+        # Task Name (Name Specified in Decorator)
+        'task': 'increase_stats',
+        # Schedule
+        'schedule': 5.0,
         # Function Arguments
     }
 }

@@ -33,9 +33,9 @@ class Case(TitleModelMixin, BaseImageModel):
 
     price = models.PositiveIntegerField(default=0)
 
-
     class Meta:
         db_table = "cases_cases"
+        ordering = ["price", "title"]
 
     def _get_image(self) -> models.URLField:
         return self.image_path

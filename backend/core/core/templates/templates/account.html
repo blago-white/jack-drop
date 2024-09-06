@@ -53,11 +53,11 @@
         <a href="{% url 'inventory' %}" id="see-all-btn" class="button button-colorized rose view-all-btn">
             {% trans 'See All' %}
         </a>
-        <button class="button button-colorized rose sell-all-btn">
+        <button class="button button-colorized rose sell-all-btn" id="sell-all">
             {% trans 'Sell All' %}
         </button>
     </div>
-    <div class="inventory-items">
+    <div class="inventory-items" id="empty-inventory-banner">
         <img src="{% static 'img/empty-inventory.png' %}">
         <span class="empty-inv-desc" id="empty-sec">
             <b>{% trans 'Empty Inventory' %}</b><span id="start-open">{% trans 'Start Open Cases' %}</span>
@@ -87,6 +87,7 @@
         }
 
         document.getElementById('total-inv-items-count').innerHTML = countItemsResult.total;
+        if (countItemsResult.total) {document.getElementById("empty-inventory-banner").remove()}
     };
 
     async function checkAuth() {
