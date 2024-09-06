@@ -76,14 +76,7 @@ class ItemsSet(models.Model):
                                    null=True,
                                    blank=True,
                                    related_name="sets")
-    price = models.FloatField(default=0, blank=False)
-
-    def save(self, *args, **kwargs):
-        # if self.pk and not self.items.all().exists():
-        #     self.price = 0
-        # else:
-        #     self.price = self.items.all().aggregate(
-        #         s=models.Sum("price")
-        #     ).get("s") * 1.15
-
-        return super().save(*args, **kwargs)
+    price = models.FloatField(default=0)
+    description = models.CharField(verbose_name="Case description",
+                                   max_length=500,
+                                   default="Кейс")
