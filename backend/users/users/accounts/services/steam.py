@@ -9,7 +9,7 @@ class SteamAccountsService:
 
     _apikey_model = SteamApiKey
 
-    def __init__(self, apikey: str = None):
+    def __init__(self, apikey: str = "123"):
         if apikey:
             _apikey = apikey
 
