@@ -14,7 +14,7 @@ def increase_all(increase_frequency: int = 5) -> None:
 
         increase_amount = (increase_amount_per_h / 60 / 60) * increase_frequency
 
-        current += increase_amount
+        stats.__setattr__(stat_name, current + increase_amount)
 
     stats.save()
 
