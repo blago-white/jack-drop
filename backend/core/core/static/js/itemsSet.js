@@ -38,6 +38,7 @@ export async function getSet(id) {
 
     document.getElementById('case-drop-data').style = "display: flex;gap: 1ch;"
     document.getElementById('price-label-span').innerHTML = `${result.price} <img style="height: 2ch;" src="/core/static/img/scrap.png">`
+    document.getElementById('case-desc').innerHTML = result.description;
 
     result.items.forEach((element) => {
         setItems.innerHTML += `

@@ -10,7 +10,9 @@ statsWebSocket.onmessage = function(event) {
     Object.entries(jsondata).forEach(([key, value]) => {
         if (key != 'id') {
             console.log(`${key}-val`);
+            document.getElementById(`${key}-val`).style.opacity = 0;
             document.getElementById(`${key}-val`).innerHTML = value;
+            document.getElementById(`${key}-val`).style.opacity = 1;
         }
     });
 };
