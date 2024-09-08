@@ -18,6 +18,6 @@ RUN pip install -r ./requirements.txt
 WORKDIR /home/app/games/
 
 RUN chown -R app:app /home/app/games/
-RUN chmod -R 744 /home/app/games/debug.log
+RUN chmod -R 755 /home/app/games/debug.log
 
 USER app
