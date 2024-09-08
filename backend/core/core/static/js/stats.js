@@ -2,7 +2,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const statsWebSocket = new WebSocket(`ws://${location.hostname}/games/ws/stats/`);
+const statsWebSocket = new WebSocket(`wss://${location.hostname}/games/ws/stats/`);
 
 statsWebSocket.onmessage = function(event) {
     const jsondata =  JSON.parse(JSON.parse(event.data));
