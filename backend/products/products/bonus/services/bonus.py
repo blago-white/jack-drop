@@ -177,7 +177,7 @@ class BonusBuyService(BaseModelService):
     def can_withdraw(self, user_id: int) -> bool:
         profile: UserBonusBuyProfile = self.get_or_create(user_id=user_id)
         already_withdrawed = profile.free_cases.filter(
-            case=profile.level.free_case
+            pk=profile.level.free_case.pk
         )
 
         return ((profile.points > profile.level.target) and
