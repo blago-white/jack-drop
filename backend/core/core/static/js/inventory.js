@@ -168,7 +168,7 @@ async function buySwitch() {
 }
 
 async function sellAll() {
-    const response = await sendRequestJson("/products/inventory/sell/all/", {mehtod: "POST", headers: new Headers()})
+    const response = await sendRequestJson("/products/inventory/sell/all/", {method: "POST", headers: new Headers()})
     if (response.ok) {
         const data = await response.json();
 
