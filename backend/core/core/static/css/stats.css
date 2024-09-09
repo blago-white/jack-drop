@@ -30,3 +30,8 @@
     align-items: flex-start;
     justify-content: center;
 }
+
+.stat-val {
+    color: #FF007A;
+    transition: opacity .2s ease;
+}
