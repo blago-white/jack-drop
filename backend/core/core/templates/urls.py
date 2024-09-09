@@ -16,6 +16,7 @@ urlpatterns = [
     path("case/<int:case_id>/", case_view, name="case"),
     path("case/<int:case_id>/drop/", case_drop_view, name="case-drop"),
     path("inventory/", inventory_view, name="inventory"),
+    path("replenish/<str:promo>/", replenish_view, name="replenish-promo"),
     path("replenish/", replenish_view, name="replenish"),
     path("fortune/", fortune_wheel_view, name="fortune"),
     path("privacy/", privacy_policy_view, name="privacy"),
