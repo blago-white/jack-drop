@@ -8,7 +8,7 @@
             <h3>{{ LONGHEAD }}</h3>
         {% endif %}
         {% if REFCODE %}
-            <a class="refcode" href="/replenish/">{{ REFCODE }}</a>
+            <a class="refcode" href="{% url 'replenish-promo' REFCODE %}">{{ REFCODE }}</a>
         {% elif BUTTON %}
             <button class="super-button">
                 <span class="super-button-bg"></span>

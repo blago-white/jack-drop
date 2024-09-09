@@ -8,6 +8,9 @@ const paymentsMethodsMapping = {
 
 const depoAmountField = document.getElementById('amount');
 const agreementInput = document.getElementById('agreement');
+const usedPromocode = document.getElementById('used-promo').innerHTML;
+const hasPresetedPromocode = usedPromocode.length > 0;
+
 let paymentMethodId;
 
 

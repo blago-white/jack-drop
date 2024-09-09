@@ -68,9 +68,10 @@ def inventory_view(request):
                   context={"case_id": "inventory"})
 
 
-def replenish_view(request):
+def replenish_view(request, promo=None):
     return render(request,
-                  template_name="replenish.html")
+                  template_name="replenish.html",
+                  context={"PROMOCODE": promo})
 
 
 def fortune_wheel_view(request):
