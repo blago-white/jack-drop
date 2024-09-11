@@ -138,7 +138,7 @@ class InventoryRepository(BaseRepository):
         items_price_sum = sum([i.item.price for i in items])
 
         self._service.bulk_remove_from_inventory(
-            inventory_items_ids=[i.item.id for i in items],
+            inventory_items_ids=[i.pk for i in items],
             owner_id=user_id
         )
 
