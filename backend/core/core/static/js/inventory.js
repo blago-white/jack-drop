@@ -168,13 +168,9 @@ async function buySwitch() {
 }
 
 async function sellAll() {
-    const response = await sendRequestJson("/products/inventory/sell/all/", {method: "POST", headers: new Headers()})
-    if (response.ok) {
-        const data = await response.json();
-
-        if (data.ok) {
-            renderItemPrize(`Receive ${data.receive} scrap!`, data.receive, "/core/static/img/scrap.png", "Receive!")
-        }
+    const data = await sendRequestJson("/products/inventory/sell/all/", {method: "POST", headers: new Headers()})
+    if (data.ok) {
+        renderItemPrize(`Receive ${data.receive} scrap!`, data.receive, "/core/static/img/scrap.png", "Receive!")
     }
 }
 
