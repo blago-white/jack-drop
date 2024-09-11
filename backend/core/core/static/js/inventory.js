@@ -185,7 +185,9 @@ window.getInventoryItems = getInventoryItems;
 window.getBuyItems = getBuyItems;
 window.buySwitch = buySwitch;
 
-document.getElementById('sell-all').addEventListener("click", sellAll);
+if (document.getElementById('sell-all')) {
+    document.getElementById('sell-all').addEventListener("click", sellAll);
+}
 
 try {
     document.getElementById('switch-input').addEventListener('click', buySwitch);
