@@ -11,8 +11,10 @@ statsWebSocket.onmessage = function(event) {
         if (key != 'id') {
             console.log(`${key}-val`);
             document.getElementById(`${key}-val`).style.opacity = 0;
-            document.getElementById(`${key}-val`).innerHTML = value;
-            document.getElementById(`${key}-val`).style.opacity = 1;
+            setTimeout(() => {
+                document.getElementById(`${key}-val`).innerHTML = value;
+                document.getElementById(`${key}-val`).style.opacity = 1;
+            }, 200)
         }
     });
 };
@@ -33,5 +35,13 @@ async function start() {
         await sleep(3000);
     }
 }
+
+const windowInnerWidth = document.documentElement.clientWidth
+const windowInnerHeight = document.documentElement.clientHeight
+
+if (windowInnerWidth / windowInnerHeight < 1) {
+    document.getElementsByClassName("")
+}
+
 
 start();

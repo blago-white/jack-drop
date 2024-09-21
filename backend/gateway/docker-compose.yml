@@ -9,7 +9,6 @@ services:
     container_name: nginx
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./nginx/merchant001.txt:/home/app/merchant001.txt
       - /etc/letsencrypt/live/jackdrop.online/fullchain.pem:/etc/letsencrypt/live/jackdrop.online/fullchain.pem
       - /etc/letsencrypt/live/jackdrop.online/privkey.pem:/etc/letsencrypt/live/jackdrop.online/privkey.pem
 

@@ -3,7 +3,7 @@
 
 <section class="stats">
     <div class="stats-table">
-        <div class="stats-row">
+        <div class="stats-row" id="sr1">
             <div class="stat">
                 <img src="{% static 'img/онлайн.png' %}">
                 <div class="stat-data">
@@ -26,7 +26,7 @@
                     </span>
                 </div>
             </div>
-            <div class="stat">
+            <div class="stat flex-stat">
                 <img src="{% static 'img/кейс1.png' %}">
                 <div class="stat-data">
                     <span>
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="stats-row">
+        <div class="stats-row" id="sr2">
             <div class="stat">
                 <img src="{% static 'img/Контракты.png' %}">
                 <div class="stat-data">
@@ -61,11 +61,35 @@
                     </span>
                 </div>
             </div>
-            <div class="stat">
+            <div class="stat flex-stat">
                 <img src="{% static 'img/Битва.png' %}">
                 <div class="stat-data">
                     <span>
                         {% trans 'Battles' %}
+                    </span>
+                    <span id="battles-val" class="stat-val">
+                        --
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="stats-row" id="sr3">
+            <div class="stat">
+                <img src="{% static 'img/Контракты.png' %}">
+                <div class="stat-data">
+                    <span>
+                        {% trans 'Contracts' %}
+                    </span>
+                    <span id="cases-val" class="stat-val">
+                        --
+                    </span>
+                </div>
+            </div>
+            <div class="stat">
+                <img src="{% static 'img/буст 2.png' %}">
+                <div class="stat-data">
+                    <span>
+                        {% trans 'Upgrades' %}
                     </span>
                     <span id="battles-val" class="stat-val">
                         --

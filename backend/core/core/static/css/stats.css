@@ -34,3 +34,26 @@
     color: #FF007A;
     transition: opacity .2s ease;
 }
+
+@media (aspect-ratio < 1/1) {
+    .stats-row {
+        display: flex;
+        justify-content: space-between;
+        width: 83%;
+        padding-block: 1ch;
+        width: 100%;
+        gap: 19%;
+    }
+
+    .stat {
+        display: flex;
+        width: auto;
+        gap: 1ch;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .stats-table {
+        font-size: 3.1vw;
+    }
+}
