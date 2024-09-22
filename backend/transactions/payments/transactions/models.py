@@ -4,9 +4,15 @@ from django.core.exceptions import ValidationError
 
 
 class PaymentStatus(models.TextChoices):
-    SUCCESS = ("S", "Success")
-    FAIL = ("F", "Fail")
+    INITED = ("I", "Created")
+    PENDING = ("D", "Pending")
     PROGRESS = ("P", "Progress")
+    PAID = ("Y", "Payd")
+    CONFIRMED = ("C", "Confirmed")
+
+    FAILED = ("F", "Failed")
+    CANCELED = ("L", "Canceled")
+    EXPIRED = ("E", "Expired")
 
 
 class Config(models.Model):
@@ -27,8 +33,9 @@ class Payment(models.Model):
     status = models.CharField(choices=PaymentStatus.choices,
                               default=PaymentStatus.PROGRESS,
                               blank=True)
-    payin_amount = models.FloatField()
-    payin_currency = models.CharField()
-    start_at = models.DateTimeField(auto_now=True,
-                                    editable=False)
-    ended_at = models.DateTimeField(null=True, blank=True)
+    payment_method = models.UUIDField()
+    amount_local = models.FloatField()
+    currency = models.CharField()
+    expired_at = models.DateTimeField()
+
+

@@ -137,14 +137,15 @@ class InventoryRepository(BaseRepository):
 
         items_price_sum = sum([i.item.price for i in items])
 
-        self._service.bulk_remove_from_inventory(
-            inventory_items_ids=[i.item.id for i in items],
+        result = self._service.bulk_remove_from_inventory(
+            inventory_items_ids=[i.pk for i in items],
             owner_id=user_id
         )
 
-        self._users_api_service.update_user_balance_by_id(
-            delta_amount=items_price_sum * 0.99,
-            user_id=user_id
-        )
+        if result:
+            self._users_api_service.update_user_balance_by_id(
+                delta_amount=items_price_sum * 0.99,
+                user_id=user_id
+            )
 
-        return {"ok": True, "received": items_price_sum}
+        return {"ok": result, "received": items_price_sum}

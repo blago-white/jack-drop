@@ -3,7 +3,7 @@ from rest_framework.generics import CreateAPIView
 from common.views.api import BaseRetreiveAPIView
 from common.mixins.api import CreateAPIViewMixin
 
-from ..repositories.bonus import BonusBuyRepository
+from ..repositories.bonus import BonusBuyRepository, UserBonusesRepository
 from ..repositories.free import FreeCasesRepository
 from games.repositories.api.users import UsersApiRepository
 
@@ -46,6 +46,7 @@ class GetBonusBuyCaseApiView(CreateAPIViewMixin, CreateAPIView):
 
 class HasBonusCaseApiView(BaseRetreiveAPIView):
     _repository = BonusBuyRepository()
+    _user_bonuses_repository = UserBonusesRepository()
     users_repository = UsersApiRepository()
     pk_url_kwarg = "case_pk"
 
@@ -58,7 +59,7 @@ class HasBonusCaseApiView(BaseRetreiveAPIView):
                     user_id=user_id,
                     case_id=self.get_requested_pk()
                 ).get("ok"),
-                "discount": self._repository.get_discount(
+                "discount": self._user_bonuses_repository.get_discount(
                     user_id=user_id,
                     case_id=self.get_requested_pk()
                 ).get("discount")

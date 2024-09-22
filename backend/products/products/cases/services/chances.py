@@ -45,6 +45,9 @@ class CaseItemsChancesService(BaseCaseItemsChancesService):
             self,
             items_of_case: models.QuerySet[Item]
             ) -> list[int]:
+        if not items_of_case:
+            return []
+
         pricing: list[float] = items_of_case.values_list(
             self._price_field_name, flat=True
         )

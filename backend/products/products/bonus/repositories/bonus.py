@@ -62,7 +62,7 @@ class BonusBuyRepository(BaseRepository):
 
 
 class UserBonusesRepository(BaseRepository):
-    default_service = UserBonusesService
+    default_service = UserBonusesService()
     default_serializer_class = None
 
     _service: UserBonusesService

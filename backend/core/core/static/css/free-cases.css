@@ -39,6 +39,7 @@
     justify-content: center;
     grid-template-columns: repeat(4, auto);
     row-gap: 5vh;
+    overflow: hidden;
 }
 
 .case-data {

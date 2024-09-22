@@ -147,3 +147,7 @@ USERS_MICROSERVICE_ROUTES = {
 
 WALLET_ADDRESS = "TBuJ5sCGDzqNgYvzZC67zoTK3eTsDYfKq8"
 PRIVATE_KEY = os.environ.get("PRIVATE_KEY")
+
+SUCCESS_URL = "/transactions/success/"
+FAILED_URL = "/transactions/fail/"
+WEBHOOK_URL = "/transactions/payments/callback/"

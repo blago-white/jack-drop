@@ -171,7 +171,7 @@ class BonusBuyService(BaseModelService):
 
     def has_withdrawed_case(self, user_id: int, case_id: int) -> bool:
         return self.get_or_create(user_id=user_id).free_cases.filter(
-            related_case_id=case_id
+            pk=case_id
         ).exists()
 
     def can_withdraw(self, user_id: int) -> bool:
