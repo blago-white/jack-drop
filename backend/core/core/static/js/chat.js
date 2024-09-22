@@ -17,7 +17,7 @@ async function renderMessages() {
 
     const headers = new Headers();
 
-    const response = await sendRequest(`https://${location.hostname}/chat/api/v1/messages/`, {method: "GET"});
+    const response = await sendRequest(`http://${location.hostname}/chat/api/v1/messages/`, {method: "GET"});
 
     if (!response.ok) {return}
 
@@ -41,7 +41,7 @@ async function sendChatMessage() {
 
     headers.append("Content-Type", "application/json");
 
-    const response = await sendRequest(`https://${location.hostname}/chat/api/v1/messages/create/`, {
+    const response = await sendRequest(`http://${location.hostname}/chat/api/v1/messages/create/`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
