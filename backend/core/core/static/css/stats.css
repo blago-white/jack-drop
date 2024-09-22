@@ -15,7 +15,7 @@
 
 .stat {
     display: flex;
-    width: 10vw;
+    width: 28%;
     gap: 1ch;
 }
 
@@ -33,6 +33,12 @@
 .stat-val {
     color: #FF007A;
     transition: opacity .2s ease;
+    font-size: 1.5vw;
+    font-weight: bolder;
+}
+
+.stat-name {
+    font-size: 1.8vw;
 }
 
 @media (aspect-ratio < 1/1) {
@@ -46,14 +52,24 @@
     }
 
     .stat {
-        display: flex;
-        width: auto;
-        gap: 1ch;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 22% 69%;
+        gap: 4ch;
+        justify-content: flex-start;
         width: 100%;
     }
 
-    .stats-table {
+    .stat-name, .stat-val {
         font-size: 3.1vw;
+    }
+
+    .flex-stat {
+        display: none;
+    }
+}
+
+@media (aspect-ratio > 1) {
+    #sr3 {
+        display: none;
     }
 }

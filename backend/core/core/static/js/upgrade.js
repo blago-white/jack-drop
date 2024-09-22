@@ -41,7 +41,7 @@ async function getInevntoryItems() {
     };
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/inventory/upgrade/`,
+        `http://${location.hostname}/products/inventory/upgrade/`,
         requestOptions
     );
 
@@ -93,7 +93,7 @@ async function getReceiveItems(minItemPrice) {
     };
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/items/all/`,
+        `http://${location.hostname}/products/items/all/`,
         requestOptions
     );
 
@@ -199,7 +199,7 @@ async function makeUpgrade() {
     };
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/games/upgrade/`,
+        `http://${location.hostname}/products/games/upgrade/`,
         requestOptions
     );
 

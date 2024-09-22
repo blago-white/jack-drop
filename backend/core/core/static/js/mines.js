@@ -38,7 +38,7 @@ async function iterField(id) {
     };
 
     const response = await sendRequestJson(
-        `https://${location.hostname}/products/games/mines/next/`,
+        `http://${location.hostname}/products/games/mines/next/`,
         requestOptions
     );
 
@@ -69,7 +69,7 @@ async function iterField(id) {
         };
 
         const response = await sendRequest(
-            `https://${location.hostname}/products/games/mines/stop/`,
+            `http://${location.hostname}/products/games/mines/stop/`,
             requestOptions
         );
 
@@ -112,7 +112,7 @@ async function stopGame() {
     };
 
     const response = await sendRequestJson(
-        `https://${location.hostname}/products/games/mines/stop/`,
+        `http://${location.hostname}/products/games/mines/stop/`,
         requestOptions
     );
 
@@ -135,7 +135,7 @@ async function sendMakeRequest(formData) {
     };
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/games/mines/`,
+        `http://${location.hostname}/products/games/mines/`,
         requestOptions
     );
 

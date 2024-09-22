@@ -117,6 +117,10 @@
         justify-items: stretch;
     }
 
+    .benefits button {
+        width: 40vw!important;
+    }
+
     #get-prize-btn {
         grid-row: 2;
     }

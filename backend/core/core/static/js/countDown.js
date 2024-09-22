@@ -97,7 +97,7 @@ async function setWheelTimeout() {
       redirect: "follow"
     };
 
-    const response = await sendRequest(`https://${location.hostname}/products/games/fortune-wheel/timeout/`, requestOptions);
+    const response = await sendRequest(`http://${location.hostname}/products/games/fortune-wheel/timeout/`, requestOptions);
 
     const result = await response.json();
 
