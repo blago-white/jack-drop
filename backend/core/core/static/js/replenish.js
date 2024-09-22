@@ -83,7 +83,7 @@ function renderFreeCase(freeCase, caseImg, caseTitle) {
             <img src="${caseImg}">
             <h3 style="text-transform: none;">${caseTitle}</h3>
             <span style="font-size: xx-large;">0<img src="/core/static/img/scrap.png" style="width: 3ch"></span>
-            <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow('http://${location.hostname}')">
+            <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow('https://${location.hostname}')">
                 <span class="super-button-bg"></span>
                 <span class="super-button-text" style="font-size: x-large">Receive</span>
             </button>
@@ -98,7 +98,7 @@ function renderDeposit(success, amount) {
             <img src="/core/static/img/scrap.png">
             <h3 style="text-transform: none;">Deposit: ${amount} scrap!</h3>
             <span style="font-size: xx-large;">${amount}<img src="/core/static/img/scrap.png" style="width: 3ch"></span>
-            <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow('http://${location.hostname}')">
+            <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow('https://${location.hostname}')">
                 <span class="super-button-bg"></span>
                 <span class="super-button-text" style="font-size: x-large">Receive</span>
             </button>
