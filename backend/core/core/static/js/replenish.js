@@ -44,9 +44,7 @@ function setPaymentMethod(methodid) {
 }
 
 async function addDeposit() {
-    if (!agreement) {
-        return
-    }
+    if (!agreement) {return}
 
     const amount = parseFloat(depoAmountField.value);
     const headers = new Headers();
@@ -61,35 +59,6 @@ async function addDeposit() {
 
     if (!response.ok) {
         document.getElementById('replenish-form').style.outline = '5px solid firebrick'
-    } else {
-        const result = await response.json();
-
-//        const responseAddCase = await sendRequest('/products/bonus-buy/add-for-deposit/', {
-//            method: "POST",
-//            body: JSON.stringify({"deposit_id": result.id, "deposit_amount": amount}),
-//            headers: headers
-//        });
-//
-//        if (!responseAddCase.ok) {
-//            renderItemPrize(
-//            "Scrap", amount, "/core/static/img/scrap.png", "Receive"
-//            );
-//            return;
-//        }
-//
-//        const resultAddCase = await responseAddCase.json();
-//
-//        renderPrize(`
-//            <img src="/core/static/img/scrap.png">
-//            <h3 style="text-transform: none;">Scrap</h3>
-//            <span style="font-size: xx-large;">${amount}<img src="/core/static/img/scrap.png" style="width: 3ch"></span>
-//            <button class="super-button"
-//                    style="font-family: 'Gilroy SemiBold'"
-//                    onclick="location.href += '?fc=1&ci=${resultAddCase.case.image_path}&ct=${resultAddCase.case.title}';">
-//                <span class="super-button-bg"></span>
-//                <span class="super-button-text" style="font-size: x-large">Receive</span>
-//            </button>
-//        `);
     }
 
     return false;
@@ -101,7 +70,7 @@ window.setPaymentMethod = setPaymentMethod;
 document.getElementById("agreement").addEventListener('input', updateSubmitBtn);
 document.getElementById("amount").addEventListener('input', updateSubmitBtn);
 
-function renderFreeCase() {
+function renderFreeCase(freeCase, caseImg, caseTitle) {
     const urlParams = new URLSearchParams(window.location.search);
 
     const freeCase = urlParams.get('fc');
@@ -122,28 +91,35 @@ function renderFreeCase() {
     }
 }
 
-function renderDeposit() {
-    const urlParams = new URLSearchParams(window.location.search);
 
-    const depositResult = urlParams.get('d');
-    const depositSuccess = urlParams.get('s');
-
-    if (depositResult) {
-        if (depositSuccess) {
-            const amount = urlParams.get('a');
-
-            renderPrize(`
-                <img src="/core/static/img/scrap.png">
-                <h3 style="text-transform: none;">Deposit: ${amount} scrap!</h3>
-                <span style="font-size: xx-large;">${amount}<img src="/core/static/img/scrap.png" style="width: 3ch"></span>
-                <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow('http://${location.hostname}')">
-                    <span class="super-button-bg"></span>
-                    <span class="super-button-text" style="font-size: x-large">Receive</span>
-                </button>
-            `);
-        }
+function renderDeposit(success, amount) {
+    if (success) {
+        renderPrize(`
+            <img src="/core/static/img/scrap.png">
+            <h3 style="text-transform: none;">Deposit: ${amount} scrap!</h3>
+            <span style="font-size: xx-large;">${amount}<img src="/core/static/img/scrap.png" style="width: 3ch"></span>
+            <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow('http://${location.hostname}')">
+                <span class="super-button-bg"></span>
+                <span class="super-button-text" style="font-size: x-large">Receive</span>
+            </button>
+        `);
+    } else {
     }
 }
 
-renderDeposit();
-renderFreeCase();
+
+const urlParams = new URLSearchParams(window.location.search);
+
+if (urlParams.get("deposit")) {
+    renderDeposit(urlParams.get("success"), urlParams.get("amount"));
+    const freeCase = urlParams.get('fc');
+
+    if (freeCase) {
+        const caseImg = urlParams.get('ci');
+        const caseTitle = urlParams.get('ct');
+    }
+
+    if (freeCase && caseImg && caseTitle) {
+        renderFreeCase(freeCase, caseImg, caseTitle);
+    }
+}

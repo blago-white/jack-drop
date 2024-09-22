@@ -14,10 +14,10 @@ from .repositories.users import PrivateUsersRepository
 class SteamAuthView(RedirectView):
     def get(self, request: HttpRequest, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect("https://jackdrop.online/")
+            return redirect("http://localhost/")
 
         return auth(
-            response_url="https://jackdrop.online" + reverse("login-callback"),
+            response_url="http://localhost" + reverse("login-callback"),
             use_ssl=False
         )
 
@@ -29,7 +29,7 @@ class SteamAuthProcessView(RedirectView):
         steam_uid = get_uid(results=request.GET)
 
         if steam_uid is None:
-            return redirect(to="https://jackdrop.online/?loginfail=1")
+            return redirect(to="http://localhost/?loginfail=1")
 
         token = self.repository.get(
             steam_id=steam_uid
@@ -41,7 +41,7 @@ class SteamAuthProcessView(RedirectView):
             )
 
         response = HttpResponseRedirect(
-            redirect_to="https://jackdrop.online/",
+            redirect_to="http://localhost/",
         )
 
         response.set_cookie('access', token.get("access"))
