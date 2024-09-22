@@ -15,7 +15,7 @@ async function getStatus() {
     const response = await sendRequest("/products/bonus-buy/info/", {method: "GET"});
 
     if (!response.ok) {
-//        location.href = "/";
+        location.href = "/";
         return
     }
 
