@@ -10,7 +10,7 @@ from games.serializers.drop import DropCaseRequestSerializer, \
 from games.services.transfer import GameResultData
 from games.services.result import GameResultService
 from games.models import Games
-from bonus.services.bonus import BonusBuyService
+from bonus.services.bonus import BonusBuyService, UserBonusesService
 from inventory.services.inventory import InventoryService
 from .base import BaseApiRepository
 
@@ -36,6 +36,7 @@ class CaseDropApiRepository(BaseApiRepository):
     default_inventory_service = InventoryService()
     default_game_results_service = GameResultService()
     default_bonus_service = BonusBuyService()
+    default_user_bonus_service = UserBonusesService()
 
     _api_service: CaseDropApiService
     _site_funds_service: SiteFundsApiService
@@ -43,23 +44,26 @@ class CaseDropApiRepository(BaseApiRepository):
 
     _discount: int = 0
 
-    def __init__(self, *args,
-                 site_funds_service: SiteFundsApiService = None,
-                 users_service: UsersApiService = None,
-                 inventoy_service: InventoryService = None,
-                 game_results_service: GameResultService = None,
-                 bonus_service: BonusBuyService = None,
-                 **kwargs) -> None:
+    def __init__(
+            self, *args,
+            site_funds_service: SiteFundsApiService = None,
+            users_service: UsersApiService = None,
+            inventoy_service: InventoryService = None,
+            game_results_service: GameResultService = None,
+            bonus_service: BonusBuyService = None,
+            user_bonus_service: UserBonusesService = None,
+            **kwargs) -> None:
         self._users_service = users_service or self.default_users_service
         self._site_funds_service = site_funds_service or self.default_site_funds_service
         self._inventory_service = inventoy_service or self.default_inventory_service
         self._game_results_service = game_results_service or self.default_game_results_service
         self._bonus_service = bonus_service or self.default_bonus_service
+        self._user_bonus_service = user_bonus_service or self.default_user_bonus_service
 
         super().__init__(*args, **kwargs)
 
     def drop(self, user_funds: dict, case_data: dict) -> dict:
-        self._discount = self._bonus_service.get_discount(
+        self._discount = self._user_bonus_service.get_discount(
             user_id=user_funds.get("id"),
             case_id=case_data.get("id")
         )
@@ -137,18 +141,19 @@ class CaseDropApiRepository(BaseApiRepository):
 
         return {"dropped_item": drop_result.get("item")}
 
-    def _commit_funds(self, case_data: dict,
-                      user_funds: dict,
-                      funds_delta: dict,
-                      dropped_item_id: int) -> None:
+    def _commit_funds(
+            self, case_data: dict,
+            user_funds: dict,
+            funds_delta: dict,
+            dropped_item_id: int) -> None:
         ok, to_blogger_advantage = self._users_service.update_user_advantage(
             delta_advantage=funds_delta.get("user_funds_delta"),
             user_id=user_funds.get("id")
         )
 
         if self._discount:
-            self._bonus_service.pop_discount(user_id=user_funds.get("id"),
-                                             case_id=case_data.get("id"))
+            self._user_bonus_service.pop_discount(user_id=user_funds.get("id"),
+                                                  case_id=case_data.get("id"))
 
         price = self._discounted_case_price(
             raw_price=case_data.get("price")
@@ -191,8 +196,8 @@ class CaseDropApiRepository(BaseApiRepository):
 
     def _validate_user_bonus(self, user_id: int, case_id: int):
         if not self._bonus_service.has_withdrawed_case(
-            user_id=user_id,
-            case_id=case_id
+                user_id=user_id,
+                case_id=case_id
         ):
             raise ValidationError(
                 "Not found bonus case!"
