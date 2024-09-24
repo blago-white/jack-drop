@@ -1,4 +1,5 @@
 import { getCount } from "./inventoryCount.js";
+import { renderItemPrize } from "./prize.js";
 
 const inventoryItemsTable = document.getElementById('inventory-items');
 
@@ -140,11 +141,9 @@ async function getBuyItems() {
 }
 
 async function buySwitch() {
-    const countItemsResult = await getCount();
-
     if (!switchActive) {
-        if (countItemsResult) {
-            document.getElementById('total-inv-items-count').innerHTML = countItemsResult.can_sell;
+        if (countItems) {
+            document.getElementById('total-inv-items-count').innerHTML = countItems.can_sell;
         }
 
         document.getElementById('switch-input').style.background = 'linear-gradient(180deg, #FF62CA 0%, #FF007A 100%)';
@@ -156,8 +155,8 @@ async function buySwitch() {
 
         switchActive = true;
     } else {
-        if (countItemsResult) {
-            document.getElementById('total-inv-items-count').innerHTML = countItemsResult.total;
+        if (countItems) {
+            document.getElementById('total-inv-items-count').innerHTML = countItems.total;
         }
 
         document.getElementById('switch-input').style= '';
@@ -169,8 +168,8 @@ async function buySwitch() {
 
 async function sellAll() {
     const data = await sendRequestJson("/products/inventory/sell/all/", {method: "POST", headers: new Headers()})
-    if (data.ok) {
-        renderItemPrize(`Receive ${data.receive} scrap!`, data.receive, "/core/static/img/scrap.png", "Receive!")
+    if (data.ok && data.received) {
+        renderItemPrize(`Receive ${data.received} scrap!`, data.received, "/core/static/img/scrap.png", "Receive!")
     }
 }
 
@@ -189,6 +188,7 @@ try {
     document.getElementById('switch-input').addEventListener('click', buySwitch);
 } catch(error) {}
 
+let countItems;
 
 if (location.pathname.slice(0, 12) == '/inventory/') {
     const searchParams = new URL(location.href).searchParams;
@@ -197,5 +197,11 @@ if (location.pathname.slice(0, 12) == '/inventory/') {
         getBuyItems();
     } else {
         getInventoryItems();
+    }
+} else {
+    countItems = await getCount();
+
+    if (!countItems.can_sell) {
+        document.getElementById("sell-all").style.display = "none";
     }
 }

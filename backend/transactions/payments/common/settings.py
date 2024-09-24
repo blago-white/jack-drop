@@ -124,7 +124,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/transactions/payments/static/'
 STATIC_ROOT = BASE_DIR / "static"
 
 # Default primary key field type
@@ -132,8 +132,12 @@ STATIC_ROOT = BASE_DIR / "static"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-BOVA_API_URLS = {
-    "create": "https://bovatech.cc/merchant/v1/deposits"
+PAYMENT_SERVICE_URLS = {
+    "create": "https://api.merchant001.io/v1/transaction/merchant",
+    "get-requisits": "https://api.merchant001.io/v1/transaction"
+                     "/merchant/requisite/{id}",
+    "create-with-req": "https://api.merchant001.io/v2/transaction/merchant",
+    "cancel": "https://api.merchant001.io/v1/transaction/merchant/cancel/{id}/"
 }
 
 PRODUCTS_MICROSERVICE_ROUTES = {
@@ -151,3 +155,5 @@ PRIVATE_KEY = os.environ.get("PRIVATE_KEY")
 SUCCESS_URL = "/transactions/success/"
 FAILED_URL = "/transactions/fail/"
 WEBHOOK_URL = "/transactions/payments/callback/"
+
+PAYMENT_SERVICE_AUTH_HEADER = os.environ.get("AUTH_HEADER")

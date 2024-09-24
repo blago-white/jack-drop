@@ -11,7 +11,7 @@ from games.api.services.forutne import (FortuneWheelPrizeApiService,
                                         GAME_SKIN_PRICE_RANGE,
                                         FREE_SKIN_PRICE_RANGE)
 from games.api.services.site import SiteFundsApiService
-from bonus.services.bonus import BonusBuyService
+from bonus.services.bonus import BonusBuyService, UserBonusesService, BonusCaseService
 from inventory.models import Lockings
 from inventory.services.inventory import InventoryService
 from items.serializers import ItemSerializer
@@ -31,6 +31,8 @@ class FortuneWheelApiRepository(BaseApiRepository):
     default_inventory_service = InventoryService()
     default_cases_service = CaseService()
     default_bonus_service = BonusBuyService()
+    default_user_bonus_service = UserBonusesService()
+    default_bonus_case_service = BonusCaseService()
 
     default_timeout_service = FortuneWheelTimeoutApiService()
 
@@ -51,6 +53,8 @@ class FortuneWheelApiRepository(BaseApiRepository):
             fortune_wheel_timeout_service: FortuneWheelTimeoutApiService = None,
             inventory_service: InventoryService = None,
             bonus_buy_service: BonusBuyService = None,
+            user_bonus_service: UserBonusesService = None,
+            bonus_case_service: BonusCaseService = None,
             **kwargs):
         self._prize_api_service = (prize_api_service or
                                    self.default_prize_api_service)
@@ -63,6 +67,8 @@ class FortuneWheelApiRepository(BaseApiRepository):
         self._users_service = users_service or self.default_users_service
         self._inventory_service = inventory_service or self.default_inventory_service
         self._bonus_service = bonus_buy_service or self.default_bonus_service
+        self._user_bonus_service = user_bonus_service or self.default_user_bonus_service
+        self._bonus_case_service = bonus_case_service or self.default_bonus_case_service
 
         self._timeout_service = (fortune_wheel_timeout_service or
                                  self.default_timeout_service)
@@ -131,10 +137,14 @@ class FortuneWheelApiRepository(BaseApiRepository):
                 )
             )
         elif prize.get("type") == PrizeTypes.CASE_DISCOUNT:
-            self._bonus_service.add_discount(
-                user_id=user_id,
+            bonus_case = self._bonus_case_service.create(
                 case_id=prize_item.get("case").get("id"),
                 discount=prize_item.get("discount")
+            )
+
+            self._user_bonus_service.add_discount(
+                user_id=user_id,
+                bonus_case=bonus_case
             )
 
     def get_timeout(self, user_id: int) -> dict:

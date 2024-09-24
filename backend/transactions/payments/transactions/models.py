@@ -4,15 +4,15 @@ from django.core.exceptions import ValidationError
 
 
 class PaymentStatus(models.TextChoices):
-    INITED = ("I", "Created")
-    PENDING = ("D", "Pending")
-    PROGRESS = ("P", "Progress")
-    PAID = ("Y", "Payd")
-    CONFIRMED = ("C", "Confirmed")
+    INITED = ("CREATED", "Created")
+    PENDING = ("PENDING", "Pending")
+    PROGRESS = ("IN_PROGRESS", "Progress")
+    PAID = ("PAID", "Payd")
+    CONFIRMED = ("CONFIRMED", "Confirmed")
 
-    FAILED = ("F", "Failed")
-    CANCELED = ("L", "Canceled")
-    EXPIRED = ("E", "Expired")
+    FAILED = ("FAILED", "Failed")
+    CANCELED = ("CANCELED", "Canceled")
+    EXPIRED = ("EXPIRED", "Expired")
 
 
 class Config(models.Model):
@@ -28,14 +28,12 @@ class Config(models.Model):
 
 
 class Payment(models.Model):
+    foreign_id = models.UUIDField(null=True, blank=True, unique=True)
     user_id = models.IntegerField()
-    user_ip = models.GenericIPAddressField()
     status = models.CharField(choices=PaymentStatus.choices,
-                              default=PaymentStatus.PROGRESS,
-                              blank=True)
-    payment_method = models.UUIDField()
+                              blank=True,
+                              null=True)
+    payment_method = models.UUIDField(blank=True, null=True)
     amount_local = models.FloatField()
-    currency = models.CharField()
-    expired_at = models.DateTimeField()
-
-
+    currency = models.CharField(blank=True, null=True)
+    expired_at = models.DateTimeField(blank=True, null=True)

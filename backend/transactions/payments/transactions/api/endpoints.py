@@ -17,11 +17,15 @@ class InitReplenishApiView(BaseCreateApiView):
     serializer_class = TransactionCreationPubllicSerializer
 
     def create(self, request, *args, **kwargs):
+        print("START")
+
         user_data = self.users_repository.get_info(user_request=request)
 
         payment = self.payments_repository.create(data=self._complete_dataset(
             user_data=user_data
         ))
+
+        print("INITED PAYMENT", payment)
 
         return self.get_201_response(
             data=payment
@@ -30,18 +34,8 @@ class InitReplenishApiView(BaseCreateApiView):
     def _complete_dataset(self, user_data: dict):
         return dict(
             user_id=user_data.get("id"),
-            username=user_data.get("username"),
-            user_ip=self._get_ip(),
-            pay_method=self.request.data.get("pay_method"),
             amount=self.request.data.get("amount"),
         )
-
-    def _get_ip(self):
-        x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            return x_forwarded_for.split(',')[0]
-        else:
-            return self.request.META.get('REMOTE_ADDR')
 
 
 class TransactionCallbackApiView(BaseCreateApiView):
@@ -50,15 +44,28 @@ class TransactionCallbackApiView(BaseCreateApiView):
     products_repository = ProductsApiRepository()
 
     def create(self, request: Request, *args, **kwargs):
-        result = self.payments_repository.close(callback_data=request.data)
+        print("START VIEW")
 
-        if not result.get("aborted"):
+        tid = request.data.get("transaction").get("invoice_id")
+
+        self._authenticate(tid)
+
+        tstatus = request.data.get("status")
+
+        self.payments_repository.update(
+            tid=tid,
+            data=request.data
+        )
+
+        if tstatus == "CONFIRMED":
             deposit = self.users_repository.add_depo(
-                amount=result.get("amount"),
-                user_id=self.payments_repository.get_payeer_id(
-                    tid=result.get("tid"),
-                    amount=result.get("amount")
-                )
+                amount=request.get("transaction").get("pricing").get(
+                    "local"
+                ).get("amount"),
+                currency=request.get("transaction").get("pricing").get(
+                    "local"
+                ).get("currency"),
+                user_id=self.payments_repository.get_payeer_id(tid=tid)
             )
 
             self.products_repository.send_deposit_callback(data={
@@ -67,9 +74,10 @@ class TransactionCallbackApiView(BaseCreateApiView):
                 "amount": deposit.get("amount")
             })
 
-        return self.get_200_response(
-            data=result
-        )
+        return self.get_200_response()
+
+    def _authenticate(self, tid: int):
+        ...
 
 
 class TransactionValidationApiView(BaseApiView, RetrieveAPIView):
@@ -79,7 +87,6 @@ class TransactionValidationApiView(BaseApiView, RetrieveAPIView):
     def retrieve(self, request, *args, **kwargs):
         if self.repository.transaction_exists(
             tid=request.data.get("transaction_id"),
-            amount=request.data.get("amount"),
             user_id=request.data.get("user_id")
         ):
             return self.get_200_response()
