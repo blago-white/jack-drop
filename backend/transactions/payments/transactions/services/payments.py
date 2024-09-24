@@ -18,10 +18,11 @@ class PaymentsService(BaseModelService):
 
     def clean_irrelevant(self, user_id: int):
         if existed := self._model.objects.filter(user_id=user_id,
-                                         status__in=[
-                                             PaymentStatus.INITED,
-                                             PaymentStatus.PENDING,
-                                         ]).values_list("foreign_id", flat=True):
+                                                 status__in=[
+                                                     PaymentStatus.INITED,
+                                                     PaymentStatus.PENDING,
+                                                 ]).values_list("foreign_id",
+                                                                flat=True):
             self._model.objects.filter(foreign_id__in=existed).update(
                 status=PaymentStatus.CANCELED
             )

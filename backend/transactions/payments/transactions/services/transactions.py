@@ -25,7 +25,7 @@ class TransactionApiService:
             },
             "invoiceId": str(tid),
             "callbackUrl": settings.WEBHOOK_URL,
-            "redirectUrl": settings.SUCCESS_URL,
+            "redirectUrl": settings.SUCCESS_URL.format(a=data.amount_from),
             "cancelUrl": settings.FAILED_URL
         }
 
@@ -39,11 +39,6 @@ class TransactionApiService:
                                  data=json.dumps(body))
 
         response_body = response.json()
-
-        print("=====BODY", response_body, "|", body, type(body))
-        print(f"HEADERS: {headers}")
-        print(f"BODY: {body}")
-        print(response.status_code)
 
         if not response.ok:
             return False, response_body.get("description")

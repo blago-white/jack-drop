@@ -39,13 +39,9 @@ class PaymentsRepository(BaseRepository):
             self._service = None
 
     def create(self, data: dict):
-        print("START")
-
         serialized: TransactionCreationSerializer = self._serializer_class(data=data)
 
         serialized.is_valid(raise_exception=True)
-
-        print("VALID")
 
         serialized_dataclass = self._serialize_create_request(
             serialized=serialized
@@ -54,8 +50,6 @@ class PaymentsRepository(BaseRepository):
         inited = self._payment_service.init(data=serialized_dataclass)
 
         ok, response = self._service.create(data=serialized_dataclass, tid=inited.pk)
-
-        print("OK, RESPONSE", ok, response)
 
         if ok:
             return {
