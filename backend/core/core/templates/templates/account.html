@@ -72,6 +72,7 @@
 {% endblock %}
 
 {% block extrascripts %}
+<script src="{% static 'js/prize.js' %}"></script>
 <script src="{% static 'js/inventoryCount.js' %}" type="module"></script>
 <script type="module">
     import { getCount } from "{% static 'js/inventoryCount.js' %}";

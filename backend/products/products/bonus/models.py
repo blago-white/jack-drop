@@ -35,14 +35,13 @@ class BonusCase(models.Model):
     is_free = models.BooleanField(default=False, blank=True)
 
     def __str__(self):
-        return f"{self.discount} | {self.user_id}"
+        return f"{self.case} | {self.discount}%"
 
 
 class UserBonus(models.Model):
     user_id = models.IntegerField()
-    bonus_type = models.CharField(choices=BonusBuyLevels.choices)
+    bonus_type = models.CharField(choices=BonusTypes.choices)
     active = models.BooleanField(default=True, null=True)
-
     related_case = models.ForeignKey(to=BonusCase,
                                      on_delete=models.SET_NULL,
                                      null=True,
@@ -51,7 +50,6 @@ class UserBonus(models.Model):
                                      on_delete=models.SET_NULL,
                                      null=True,
                                      blank=True)
-
     related_promo = models.CharField(max_length=16,
                                      null=True,
                                      blank=True)

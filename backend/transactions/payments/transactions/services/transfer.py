@@ -1,4 +1,7 @@
+import datetime
 from dataclasses import dataclass
+
+from ..models import PaymentStatus
 
 
 @dataclass
@@ -10,7 +13,12 @@ class ApiCredentals:
 @dataclass
 class CreateTransactionData:
     user_id: int
-    user_ip: str
-    username: str
-    mehtod: str
     amount_from: float
+
+
+@dataclass
+class UpdateTransactionData:
+    status: PaymentStatus = None
+    payment_method: str = None
+    currency: str = None
+    expired_at: datetime.datetime = None

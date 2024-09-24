@@ -38,7 +38,7 @@ services:
       - .env
     container_name: tpaymentsapp
     volumes:
-      - ./payments:/home/app/payments
+      - ./:/home/app
     restart: always
   tmarketnginx:
     build: nginx

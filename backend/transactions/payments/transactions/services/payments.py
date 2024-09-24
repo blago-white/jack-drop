@@ -1,6 +1,7 @@
+from rest_framework.exceptions import ValidationError
 from common.services.base import BaseModelService
 
-from .transfer import CreateTransactionData
+from .transfer import CreateTransactionData, UpdateTransactionData
 from ..models import Payment, PaymentStatus
 
 
@@ -8,34 +9,57 @@ class PaymentsService(BaseModelService):
     default_model = Payment
 
     def init(self, data: CreateTransactionData) -> Payment:
+        self.clean_irrelevant(user_id=data.user_id)
+
         return self._model.objects.create(
             user_id=data.user_id,
-            user_ip=data.user_ip,
-            payin_amount=data.amount_from,
-            payin_currency=data.mehtod
+            amount_local=data.amount_from,
         )
 
-    def complete(self, tid: int, amount: float):
-        item: Payment = self.get(tid=tid, amount=amount, status=PaymentStatus.PROGRESS)
+    def clean_irrelevant(self, user_id: int):
+        if existed := self._model.objects.filter(user_id=user_id,
+                                                 status__in=[
+                                                     PaymentStatus.INITED,
+                                                     PaymentStatus.PENDING,
+                                                 ]).values_list("foreign_id",
+                                                                flat=True):
+            self._model.objects.filter(foreign_id__in=existed).update(
+                status=PaymentStatus.CANCELED
+            )
 
-        item.status = PaymentStatus.SUCCESS
+        return existed
+
+    def cancel(self, tid: int):
+        item: Payment = self.get(tid=tid)
+
+        item.status = PaymentStatus.CANCELED
 
         item.save()
 
-    def abort(self, tid: int, amount: float):
-        item: Payment = self.get(tid=tid, amount=amount, status=PaymentStatus.PROGRESS)
-
-        item.status = PaymentStatus.FAIL
-
-        item.save()
-
-    def get(self, tid: int, amount: float, status=None) -> Payment:
+    def get(self, tid: int, status=None) -> Payment:
         qs = self._model.objects.filter(
             pk=tid,
-            payin_amount=amount,
         )
 
         if status:
             qs = qs.filter(status=status)
 
         return qs.first()
+
+    def set_status(self, tid: int, status: PaymentStatus):
+        transaction = self.get(tid)
+
+        transaction.status = status
+
+        transaction.save()
+
+    def update_data(self, tid: int, data: UpdateTransactionData):
+        transaction = self.get(tid=tid)
+
+        for colname in data.__dict__:
+            transaction.__setattr__(colname, data.__dict__.get(colname))
+
+        transaction.full_clean()
+        transaction.save()
+
+        return transaction

@@ -1,7 +1,6 @@
-import pprint
-
 import requests
 import hashlib
+import json
 
 from rest_framework.exceptions import ValidationError
 from django.conf import settings
@@ -10,85 +9,51 @@ from .transfer import ApiCredentals, CreateTransactionData
 
 
 class TransactionApiService:
-    CREATE_ENDPOINT = settings.BOVA_API_URLS["create"]
+    CREATE_ENDPOINT = settings.PAYMENT_SERVICE_URLS["create"]
+    CANCEL_ENDPOINT = settings.PAYMENT_SERVICE_URLS["cancel"]
 
     def __init__(self, credentals: ApiCredentals):
         self._credentals = credentals
 
-    def create_card(self, data: CreateTransactionData,
-                    tid: int,
-                    payeer_type: str = "ftd"):
+    def create(self, tid: int, data: CreateTransactionData):
         body = {
-            "user_uuid": self._credentals.api_user_id,
-            "merchant_id": tid,
-            "amount": data.amount_from,
-            "callback_url": "https://jackdrop.online/transactions/payments/callback/",
-            "redirect_url": f"https://jackdrop.online/replenish/?d=1&s=1&a={data.amount_from}&id={tid}",
-            "customer_name": data.username,
-            "currency": "rub",
-            "payeer_identifier": str(data.user_id),
-            "payeer_ip": data.user_ip,
-            "payeer_type": payeer_type,
-            "payment_method": "card"
+            "pricing": {
+                "local": {
+                    "amount": data.amount_from,
+                    "currency": "RUB"
+                }
+            },
+            "invoiceId": str(tid),
+            "callbackUrl": settings.WEBHOOK_URL,
+            "redirectUrl": settings.SUCCESS_URL.format(a=data.amount_from),
+            "cancelUrl": settings.FAILED_URL
         }
 
-        response = requests.post(
-            url=self.CREATE_ENDPOINT,
-            headers={
-                "Content-Type": "application/json",
-                "Signature": self._get_signature(body=body)
-            },
-            data=body
-        )
-
-        if not response.ok:
-            print(response.status_code, response.headers, response.raw)
-
-            raise ValidationError("Error with payment creating")
-
-        result = response.json()
-
-        return response.ok, result
-
-    def create_crypto(self, data: CreateTransactionData,
-                      tid: int,
-                      payeer_type: str = "ftd"):
-        body = {
-            "user_uuid": self._credentals.api_user_id,
-            "merchant_id": str(tid),
-            "amount": int(data.amount_from),
-            "callback_url": "https://jackdrop.online/transactions/payments/callback/",
-            "redirect_url": f"https://jackdrop.online/replenish/?d=1&s=1&a={data.amount_from}&id={tid}",
-            "customer_name": data.username,
-            "currency": "crypto",
-            "payeer_identifier": str(data.user_id),
-            "payeer_ip": data.user_ip,
-            "payeer_type": payeer_type,
-            "payment_method": "crypto"
+        headers = {
+            "Authorization": settings.PAYMENT_SERVICE_AUTH_HEADER,
+            "Content-Type": "application/json"
         }
 
-        pprint.pprint(body)
-        print(self.CREATE_ENDPOINT)
+        response = requests.post(self.CREATE_ENDPOINT,
+                                 headers=headers,
+                                 data=json.dumps(body))
 
-        response = requests.post(
-            url=self.CREATE_ENDPOINT,
-            headers={
-                "Content-Type": "application/json",
-                "Signature": self._get_signature(body=body)
-            },
-            data=body
-        )
-
-        print(body, self._get_signature(body=body))
+        response_body = response.json()
 
         if not response.ok:
-            print(response.status_code, response.text)
+            return False, response_body.get("description")
 
-            raise ValidationError("Error with payment creating")
+        return True, response_body
 
-        result = response.json()
+    def cancel(self, foreign_transaction_id: str):
+        headers = {
+            "Authorization": settings.PAYMENT_SERVICE_AUTH_HEADER,
+            "Content-Type": "application/json"
+        }
 
-        return response.ok, result
+        response = requests.post(self.CANCEL_ENDPOINT.format(
+            foreign_transaction_id
+        ), headers=headers, data=body)
 
-    def _get_signature(self, body: dict) -> str:
-        return hashlib.sha1((self._credentals.apikey + str(body).replace(" ", "")).encode()).hexdigest()
+        if not response.ok:
+            raise ValidationError("Something went wrong!", code=500)

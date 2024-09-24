@@ -1,17 +1,9 @@
 import { renderItemPrize, renderPrize } from "./prize.js";
 
-const paymentsMethodsMapping = {
-    1: "card",
-    2: "crypto",
-    3: "skinify"
-}
-
 const depoAmountField = document.getElementById('amount');
 const agreementInput = document.getElementById('agreement');
 const usedPromocode = document.getElementById('used-promo').innerHTML;
 const hasPresetedPromocode = usedPromocode.length > 0;
-
-let paymentMethodId;
 
 
 function validate() {
@@ -19,7 +11,7 @@ function validate() {
 
     const agree = agreementInput.checked;
 
-    return (agree && amount >= 500 && paymentMethodId);
+    return (agree && amount >= 500);
 }
 
 function updateSubmitBtn() {
@@ -32,17 +24,6 @@ function updateSubmitBtn() {
     }
 }
 
-function setPaymentMethod(methodid) {
-    if (!paymentsMethodsMapping[methodid]) {
-        alert("Not correct payment method choosen")
-        return false;
-    }
-
-    paymentMethodId = methodid;
-
-    updateSubmitBtn();
-}
-
 async function addDeposit() {
     if (!agreement) {return}
 
@@ -53,19 +34,23 @@ async function addDeposit() {
 
     const response = await sendRequest('/transactions/payments/create/', {
         method: "POST",
-        body: JSON.stringify({"amount": amount, "pay_method": paymentMethodId == 1 ? "R" : "C"}),
+        body: JSON.stringify({"amount": amount}),
         headers: headers
     });
 
+    const responseJSON = await response.json();
+
     if (!response.ok) {
         document.getElementById('replenish-form').style.outline = '5px solid firebrick'
-    }
 
+        alert(responseJSON.description)
+    } else {
+        location.href = responseJSON.payment_url;
+    }
     return false;
 }
 
 window.addDeposit = addDeposit;
-window.setPaymentMethod = setPaymentMethod;
 
 document.getElementById("agreement").addEventListener('input', updateSubmitBtn);
 document.getElementById("amount").addEventListener('input', updateSubmitBtn);
@@ -73,12 +58,7 @@ document.getElementById("amount").addEventListener('input', updateSubmitBtn);
 function renderFreeCase(freeCase, caseImg, caseTitle) {
     const urlParams = new URLSearchParams(window.location.search);
 
-    const freeCase = urlParams.get('fc');
-
     if (freeCase) {
-        const caseImg = urlParams.get('ci');
-        const caseTitle = urlParams.get('ct');
-
         renderPrize(`
             <img src="${caseImg}">
             <h3 style="text-transform: none;">${caseTitle}</h3>

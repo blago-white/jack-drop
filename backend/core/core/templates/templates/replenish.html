@@ -13,24 +13,6 @@ Replenish Account | Jack Drop
 {% block main %}
 <form class="replenish-form" id="replenish-form" onsubmit="addDeposit();return false;">
     <h3>{% trans 'Enter Replenish Data' %}</h3>
-    <button class="form-field"
-            onclick="document.getElementById('payment-type-2').classList.remove('active');
-                     document.getElementById('payment-type-1').classList.add('active');
-                     setPaymentMethod(1);
-                     return false;"
-            id="payment-type-1">
-        <label for="payment-type-1">{% trans 'Selected Payment Method' %}</label>
-        <span class="method-label"><img src="{% static 'img/atm-card.png' %}">Bank card [RUB] #1</span>
-    </button>
-    <button class="form-field"
-            onclick="document.getElementById('payment-type-1').classList.remove('active');
-                     document.getElementById('payment-type-2').classList.add('active');
-                     setPaymentMethod(2);
-                     return false;"
-            id="payment-type-2">
-        <label for="payment-type-2">{% trans 'Selected Payment Method' %}</label>
-        <span class="method-label"><img src="{% static 'img/credit-card.png' %}">Crypto #2</span>
-    </button>
     <span class="info">
         {% trans 'Replenish Info First' %}
     </span>
@@ -39,10 +21,11 @@ Replenish Account | Jack Drop
     </span>
     <input class="data-input"
            placeholder="Промокод"
-           value="{{ PROMOCODE }}"
+           value="{% if PROMOCODE %}{{ PROMOCODE }}{% endif %}"
            contenteditable="{% if PROMOCODE %}false{% else %}true{% endif %}"
+           max="16"
            type="text">
-    <input class="data-input" placeholder="Введите сумму" id="amount" type="number" min=500>
+    <input class="data-input" placeholder="Введите сумму" id="amount" type="number" min=500 max="100000">
     <div class="agreement-field">
         <input type="checkbox" id="agreement">
         <label class="agreement-label" for="agreement">{% trans 'Argeement String' %}</label>
