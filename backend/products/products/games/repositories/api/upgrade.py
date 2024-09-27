@@ -83,7 +83,7 @@ class UpgradeApiRepository(BaseApiRepository):
             self._commit_loss(
                 validated_data=validated_data,
                 user_funds=user_funds,
-                granted_item_id=granted.pk,
+                granted_item_id=granted.pk if granted else None,
             )
 
         if validated_data.get("granted_item_id"):
