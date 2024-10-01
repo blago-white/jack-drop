@@ -20,6 +20,7 @@
     <link href="{% static 'css/base.css' %}" type="text/css" rel="stylesheet">
     <link href="{% static 'css/header.css' %}" type="text/css" rel="stylesheet">
     <link href="{% static 'css/footer.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/nav-arrows.css' %}" type="text/css" rel="stylesheet">
 
     <link rel="icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
     <link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
@@ -44,6 +45,7 @@
         {% block main %}
         {% endblock %}
     </main>
+    <div class="nav-arrow" id="nav-arrow"></div>
     <footer class="footer" id="footer-w">
         <div class="site-info">
             <img src="{% static 'img/JD-mono.png' %}">
@@ -73,6 +75,7 @@
     <script src="{% static 'js/header.js' %}"></script>
     <script src="{% static 'js/prize.js' %}" type="module"></script>
     <script src="{% static 'js/langs.js' %}"></script>
+    <script src="{% static 'js/navArrow.js' %}"></script>
     <script src="{% static 'js/auth.js' %}"></script>
     <script>
         function randomIntFromInterval(min, max) {
