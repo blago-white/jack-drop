@@ -39,8 +39,10 @@ class FortuneWheelApiRepository(BaseApiRepository):
     _LOCKINGS_FOR_PRIZE_TYPES = {
         PrizeTypes.FREE_SKIN: Lockings.UNLOCK,
         PrizeTypes.UPGRADE: Lockings.UPGRADE,
-        PrizeTypes.CONTRACT: Lockings.CONTRACT
+        PrizeTypes.CONTRACT: Lockings.CONTRACT,
     }
+
+    _BONUSE_COMMIT_METHODS: dict
 
     def __init__(
             self, *args,
@@ -72,6 +74,13 @@ class FortuneWheelApiRepository(BaseApiRepository):
 
         self._timeout_service = (fortune_wheel_timeout_service or
                                  self.default_timeout_service)
+
+        self._BONUSE_COMMIT_METHODS = {
+            PrizeTypes.FREE_SKIN: self._user_bonus_service.add_free_item,
+            PrizeTypes.UPGRADE: self._user_bonus_service.add_upgrade_item,
+            PrizeTypes.CONTRACT: self._user_bonus_service.add_contract_item,
+            PrizeTypes.CASE_DISCOUNT: self._user_bonus_service.add_discount
+        }
 
         super().__init__(*args, **kwargs)
 
@@ -125,7 +134,7 @@ class FortuneWheelApiRepository(BaseApiRepository):
                 "site_funds_diff"
             ) - to_blogger_advantage)
 
-        prize_item = prize.get("prize")
+        prize_item, prize_data = prize.get("prize"), {}
 
         if (prize.get("type") in list(self._LOCKINGS_FOR_PRIZE_TYPES.keys())
                 and prize_item):
@@ -136,16 +145,25 @@ class FortuneWheelApiRepository(BaseApiRepository):
                     prize.get("type")
                 )
             )
+
+            prize_data = {
+                "user_id": user_id,
+                "item": self._items_service.get(
+                    item_id=prize_item.get("id")
+                )}
+
         elif prize.get("type") == PrizeTypes.CASE_DISCOUNT:
             bonus_case = self._bonus_case_service.create(
                 case_id=prize_item.get("case").get("id"),
                 discount=prize_item.get("discount")
             )
 
-            self._user_bonus_service.add_discount(
-                user_id=user_id,
-                bonus_case=bonus_case
-            )
+            prize_data = {
+                "user_id": user_id,
+                "bonus_case": bonus_case
+            }
+
+        self._BONUSE_COMMIT_METHODS.get(prize.get("type"))(**prize_data)
 
     def get_timeout(self, user_id: int) -> dict:
         serialized = self._timeout_service.default_endpoint_serializer_class(
