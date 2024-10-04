@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
     border-radius: calc(100vw* calc(16 / 1920));
 }
 
@@ -20,7 +20,7 @@
 }
 
 .stat img {
-    max-height: 8ch;
+    max-height: 5ch;
 }
 
 .stat-data {
@@ -38,7 +38,7 @@
 }
 
 .stat-name {
-    font-size: 1.8vw;
+    font-size: 1.3vw;
 }
 
 @media (aspect-ratio < 1/1) {
@@ -71,5 +71,19 @@
 @media (aspect-ratio > 1) {
     #sr3 {
         display: none;
+    }
+}
+
+@media (aspect-ratio < 3/2) {
+    .stats-table {
+        flex-direction: column;
+    }
+
+    .stat-name {
+        font-size: 1.8vw;
+    }
+
+    .stat img {
+        max-height: 8ch;
     }
 }

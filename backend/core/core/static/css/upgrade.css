@@ -1,3 +1,10 @@
+.bg-filter-img {
+    background: url(../img/upgrade-bg.png);
+    height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .upgrade-sec {
     display: grid;
     grid-template-columns: 1fr auto 1fr;

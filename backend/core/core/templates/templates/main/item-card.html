@@ -1,9 +1,12 @@
 {% load static %}
 
 <article class="dropped {% if RARE %}rare{% elif MONO %}mono{% else %}regular{% endif %}">
-        <div class="w-line"></div>
         <div class="dropped-content">
-            <span>StatTrak™ MAC-10 | Neon Rider</span>
+            <div class="item-numeric-info">
+                <span class="item-price">689</span>
+                <span class="item-rate">8.80%</span>
+            </div>
             <img src="{% static 'img/testgun.png' %}">
+            <span>StatTrak™ MAC-10 | Neon Rider</span>
         </div>
 </article>

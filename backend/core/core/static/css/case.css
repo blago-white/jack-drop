@@ -97,6 +97,17 @@
     margin-bottom: calc(100vw * calc(64 / var(--reference-display-w)));
 }
 
+.item-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1ch;
+    border-radius: calc(100vw * calc(20 / var(--reference-display-w)));
+    justify-content: center;
+    padding: 2ch;
+    padding-block: 1.5ch;
+}
+
 @media (aspect-ratio < 1/1) {
     .case-items {
         grid-template-columns: repeat(3, 1fr);

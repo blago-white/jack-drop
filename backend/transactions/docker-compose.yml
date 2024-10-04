@@ -32,6 +32,7 @@ services:
   tpaymentsapp:
     build:
       dockerfile: ./payments/Dockerfile
+    network_mode: host
     expose:
       - 8000
     env_file:

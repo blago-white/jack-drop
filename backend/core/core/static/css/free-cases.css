@@ -26,7 +26,7 @@
 }
 
 .case-image {
-    height: calc(100vw * calc(350 / var(--reference-display-w)));
+    height: calc(100vw * calc(330 / var(--reference-display-w)));
 }
 
 .cases-row {
@@ -40,6 +40,7 @@
     grid-template-columns: repeat(4, auto);
     row-gap: 5vh;
     overflow: hidden;
+    gap: 2ch;
 }
 
 .case-data {

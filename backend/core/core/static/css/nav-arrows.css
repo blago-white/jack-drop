@@ -1,0 +1,80 @@
+@import "variables.css";
+
+@keyframes opacity-translate-up {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+        background: url("/core/static/img/up-active.png");
+        background-size: cover;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes opacity-translate-down {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+        background: url("/core/static/img/down-active.png");
+        background-size: cover;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.nav-arrow {
+    position: fixed;
+    bottom: 10%;
+    right: calc(100vw * calc(117 / var(--reference-display-w)));
+    height: 5vw;
+    aspect-ratio: 1/1;
+    background: url("/core/static/img/down.png");
+    background-size: cover;
+    z-index: 999;
+    animation: .6s 1 opacity-translate-down ease;
+    transition: background-color .2s ease, opacity .2s ease;
+}
+
+.nav-arrow.up {
+    background: url("/core/static/img/up.png");
+    background-size: cover;
+    animation: .6s 1 opacity-translate-up ease;
+    transition: background .2s .2s ease, transform .2s .2s ease;
+}
+
+.nav-arrow:hover {
+    background: url("/core/static/img/down-active.png");
+    background-size: cover;
+    transform: scale(1.084);
+    animation: .6s 1 opacity-translate-down ease;
+    transition: background .2s .2s ease, transform .2s .2s ease;
+}
+
+.nav-arrow.up:hover {
+    background: url("/core/static/img/up-active.png");
+    background-size: cover;
+    transform: scale(1.084);
+    animation: .6s 1 opacity-translate-up ease;
+    transition: background .2s .2s ease, transform .2s .2s ease;
+}
+
+@media (aspect-ratio < 1/1) {
+    .nav-arrow {
+        right: calc(100vw* calc(61 / var(--reference-display-w)));
+        border-radius: 50%;
+        overflow: hidden;
+        backdrop-filter: blur(20px);
+        height: 18vw;
+        background-color: rgb(255, 255, 255, 0.3);
+    }
+}
