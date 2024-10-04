@@ -9,6 +9,20 @@ let USE_BONUS_CASE = false;
 let caseDiscount = 0;
 let caseFree = false;
 
+function getCardColor(itemsCount, indexCurrent) {
+    if (indexCurrent <= itemsCount/10) {
+        return "red"
+    } else if (indexCurrent <= itemsCount * 0.25) {
+        return "pink"
+    } else if (indexCurrent <= itemsCount * 0.45) {
+        return "purple"
+    } else if (indexCurrent <= indexCurrent * 0.7) {
+        return "blue"
+    } else {
+        return "yellow"
+    }
+}
+
 function unlockOpen(id) {
     if (caseFree) {
         document.getElementById('open-case-btn').addEventListener("click", () => {
@@ -93,22 +107,31 @@ async function getCase(id) {
         document.getElementById('price-label-span').innerHTML = `${result.case.price} <img style="height: 2ch;" src="/core/static/img/scrap.png">`
     }
 
+    let c = 0;
+    let rareColor;
+
     result.items.forEach((element) => {
+        rareColor = getCardColor(result.items.count, c);
+
         caseItems.innerHTML += `
-            <article style="display: flex;flex-direction: column;align-items: center; gap: 1ch;">
-                <div class="dropped rare">
-                        <div class="w-line"></div>
-                        <div class="dropped-content">
-                            <span>${element.title}</span>
-                            <div style="display: flex;flex-direction: row;gap: 1ch;">
-                                <span class="item-price blue"><span>${element.price}</span></span>
-                                <span class="item-price blue"><span>${(element.rate*100).toFixed(2)}%</span></span>
-                            </div>
-                            <img src="${element.image_path}">
-                        </div>
+            <article class="item-card" style="background: url(../img/card-bg-${rateColor}.png);">
+                <div class="dropped-content">
+                    <div class="item-numeric-info">
+                        <span class="item-price ${rareColor}"><span>${element.price}</span></span>
+                        <span class="item-price ${rareColor}"><span>${(element.rate*100).toFixed(2)}%</span></span>
+                    </div>
+
+                    <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                        <img src="${element.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
+                        <img src="../img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                    </div>
+
+                    <span class="item-title">${element.title}</span>
                 </div>
             </article>
         `;
+
+        c++;
     });
 }
 
@@ -135,3 +158,6 @@ async function changeBtn() {
 
 
 changeBtn();
+
+10% - 15% - 20% - 25% - 30%
+

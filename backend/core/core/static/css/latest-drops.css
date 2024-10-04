@@ -16,26 +16,51 @@
 
 .dropped-content {
     display: flex;
-    flex-direction: column  ;
+    flex-direction: column;
+    align-items: center;
+    gap: 11px;
+}
+
+.item-numeric-info {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1ch;
+    justify-content: space-between;
 }
 
 .item-price {
-    margin-top: .2ch!important;
     padding-inline: .25ch;
     font-size: calc(100vw* calc(20 / var(--reference-display-w)));
-    width: max-content;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: .5ch;
+    margin: 0px !important;
+    padding: .4ch;
+    width: 40%;
+    border-radius: 22ch;
+    background: black;
 }
 
-.item-price.rose {
-    background: linear-gradient(180deg, #FF62CA 0%, #FF007A 100%);
+.item-price.purple {
+    color: rgba(180, 42, 228, 1);
 }
 
 .item-price.blue {
-    background: #5487FF;
+    color: rgba(1, 176, 241, 1);
+}
+
+.item-price.pink {
+    color: rgba(241, 0, 159, 1);
+}
+
+.item-price.red {
+    color: rgba(254, 0, 0, 1);
+}
+
+.item-price.yellow {
+    color: rgba(255, 255, 27, 1);
 }
 
 .item-price span {
@@ -46,6 +71,14 @@
     max-height: 1.5ch!important;
     max-width: 1.5ch!important;
     margin: 0px!important;
+}
+
+.item-title {
+    font-size: 1.5ch;
+    line-height: 1;
+    color: black;
+    font-weight: bolder;
+    font-family: 'Gilroy Bold';
 }
 
 .dropped.mono {
