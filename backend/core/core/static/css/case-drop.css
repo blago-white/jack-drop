@@ -27,10 +27,14 @@
     background: transparent;
 }
 
-.dropped {
+.item-card {
     width: calc(100vw* calc(326 / var(--reference-display-w))) !important;
     height: calc(100vw* calc(326 / var(--reference-display-w))) !important;
     font-size: calc(100vw* calc(25 / var(--reference-display-w))) !important;
+}
+
+.item-price {
+    width: 100%;
 }
 
 .case-items-string {
@@ -56,12 +60,6 @@
     padding-left: calc(100vw * calc(48 / var(--reference-display-w)));
 
     transition: margin 7s cubic-bezier(0.02, 0.29, 0.31, 0.77);
-}
-
-.w-line {
-    height: calc(90vw* calc(290 / var(--reference-display-w)));
-    min-width: 2px;
-    margin-top: calc(10vw* calc(321 / var(--reference-display-w)));
 }
 
 .dropped.mono span {

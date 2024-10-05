@@ -1,5 +1,5 @@
 .bg-filter-img {
-    background: url(../img/upgrade-bg.png);
+    background: url(../img/upgrade-bg.jpg);
     height: auto;
     background-repeat: no-repeat;
     background-size: cover;
@@ -23,10 +23,6 @@
 .upgrade-item-img {
     width: calc(100vw * calc(569 / 1920));
     z-index: 100;
-}
-
-.item-card span {
-    width: 60%;
 }
 
 .upgrade-chance {
@@ -134,30 +130,6 @@ body {
     transition: filter 5s linear, opacity .5s ease, transform .03s ease-out;
 }
 
-.item-card {
-    background: radial-gradient(50% 50% at 50% 50%, rgba(93, 93, 93, 0.8) 0%, rgba(35, 35, 35, 0.8) 100%);
-    min-width: auto;
-    aspect-ratio: 1 / 1;
-    width: auto;
-    font-size: calc(100vw* calc(10 / 1920));
-}
-
-.item-card img {
-    width: calc(100vw* calc(154 / var(--reference-display-w)));
-    position: relative;
-    left: -15%;
-    margin-top: 5%;
-}
-
-.w-line {
-    background: rgba(217, 217, 217, 1);
-    margin-left: calc(15vw* calc(164 / var(--reference-display-w)));
-}
-
-.item-card span {
-    margin-top: 4ch;
-}
-
 .grant-items {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -171,10 +143,6 @@ body {
 
 .grant-items::-webkit-scrollbar {
     display: none;
-}
-
-.w-line {
-    height: 77%;
 }
 
 .upgrade-items-desc {
@@ -195,21 +163,8 @@ body {
     display: none;
 }
 
-.dropped.mono img {
-    left: -3%;
-    margin-top: 15%;
-    width: 105%;
-}
-
-.dropped.mono span {
-    margin-top: 15%;
-    margin-right: 1.5ch;
-    font-size: calc(100vw* calc(13 / var(--reference-display-w)));
-}
-
-.item-price span {
-    margin-left: 0.5ch;
-    font-size: calc(100vw* calc(15 / var(--reference-display-w)))!important;
+.dropped-content {
+    height: 100%;
 }
 
 .upgrade-item-img-second {
@@ -223,6 +178,10 @@ body {
     font-size: x-large;
     text-align: center;
     font-family: 'Gilroy Semibold';
+}
+
+.item-price {
+    width: 100%;
 }
 
 #granted-balance:focus-visible {
@@ -310,6 +269,7 @@ body {
         grid-template-columns: 1fr auto 1fr;
         width: -webkit-fill-available;
         text-align: center;
+        gap: calc(100vw * 0.055208);
     }
 
     .left-items-list {
@@ -332,6 +292,14 @@ body {
         background: white;
         width: 3px;
         background: #2E2E2E;
+    }
+
+    .item-price img {
+        height: 100%;
+    }
+
+    .item-card {
+        padding: 5ch;
     }
 
     .dropped {
@@ -361,6 +329,6 @@ body {
     }
 
     .dropped-content span {
-        font-size: calc(100vw* calc(22 / var(--reference-display-w)))!important;
+        font-size: calc(100vw* calc(40 / var(--reference-display-w)))!important;
     }
 }

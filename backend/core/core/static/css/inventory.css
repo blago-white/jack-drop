@@ -15,7 +15,6 @@
     position: initial!important;
 }
 
-
 .dropped.mono span {
     font-size: calc(100vw* calc(14 / var(--reference-display-w)));
 }
@@ -23,8 +22,16 @@
 .inventory-items-table {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: calc(100vw * calc(72 / var(--reference-display-w)));
+    gap: calc(100vw * calc(30 / var(--reference-display-w)));
     min-width: -webkit-fill-available;
+}
+
+.item-price {
+    width: 100%;
+}
+
+.dropped-content {
+    height: 100%;
 }
 
 .w-line {
@@ -48,6 +55,10 @@ h3 {
     justify-content: center;
 }
 
+.item-card {
+    overflow: hidden;
+}
+
 .items-controls button {
     width: 80%;
     height: calc(100vw * calc(45 / var(--reference-display-w)));
@@ -67,7 +78,7 @@ h3 {
     font-family: "Gilroy Semibold";
 }
 
-.dropped:hover .items-controls {
+.item-card:hover .items-controls {
     display: flex;
     background: #232323;
 
@@ -78,14 +89,17 @@ h3 {
     width: 100%;
 }
 
-.dropped:hover .dropped-content {
+.item-card:hover .dropped-content {
     display: none;
 }
 
-.dropped:hover .w-line {
+.item-card:hover .w-line {
     display: none;
 }
 
+.item-card:hover {
+    padding: 0px;
+}
 
 .dropped:active .items-controls {
     display: flex;
@@ -131,7 +145,6 @@ h3 {
     }
 
     .dropped-content span {
-        font-size: calc(100vw* calc(20 / var(--reference-display-w)))!important;
-        margin-top: 7%!important;
+        font-size: calc(100vw* calc(30 / var(--reference-display-w)))!important;
     }
 }

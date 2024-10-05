@@ -79,12 +79,18 @@ function renderItems(result) {
         c += 1;
 
         inventoryItemsTable.innerHTML += `
-            <article class="dropped mono" id="${element.id}">
-                <div class="w-line"></div>
+            <article class="item-card" style="background: url(/core/static/img/card-bg-yellow.png);background-size:cover;cursor: pointer;" id="${element.id}">
                 <div class="dropped-content">
-                    <span>${element.item.title}</span>
-                    <span class="item-price rose"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
-                    <img src="${element.item.image_path}" style="left: 0%;">
+                    <div class="item-numeric-info">
+                        <span class="item-price yellow"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
+                    </div>
+
+                    <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                        <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                        <img src="${element.item.image_path}" class="item-card-img" style="width: 70%;grid-row: 1;grid-column: 1;">
+                    </div>
+
+                    <span class="item-title">${element.item.title}</span>
                 </div>
                 <div class="items-controls">
                     <button onclick="sellItem(${element.id})">
