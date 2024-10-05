@@ -11,6 +11,7 @@ Contract | Jack Drop
 <link href='https://unpkg.com/css.gg@2.0.0/icons/css/arrow-long-right.css' rel='stylesheet'>
 <link href="{% static 'css/latest-drops.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/contract.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/case.css' %}" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -73,8 +74,9 @@ Contract | Jack Drop
             </div>
         </div>
         <span class="contract-amount" id="contract-amount">0</span>
-        <img style="height: 76vh;pointer-events: none;grid-row: 1;grid-column: 1;" src="{% static 'img/contract-circle.png' %}">
-        <img style="pointer-events: none;grid-row: 1;grid-column: 1;z-index: 9;" src="{% static 'img/contract-circle-inner.png' %}">
+        <img style="width: 43vw;pointer-events: none;grid-row: 1;grid-column: 1;"
+             src="{% static 'img/contract-circle.png' %}">
+        <img style="width: 43vw;pointer-events: none;grid-row: 1;grid-column: 1;z-index: 9;" src="{% static 'img/contract-circle-inner.png' %}">
         <img class="glow" id="contract-glow" src="{% static 'img/glow.png' %}" style="pointer-events: none;grid-row: 1;grid-column: 1;">
         <span class="prize-price-range">
             <span class="start" id="prst">0</span>

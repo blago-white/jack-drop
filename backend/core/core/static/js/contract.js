@@ -46,12 +46,19 @@ async function getItems() {
     if (result.length) {
         result.forEach((element) => {
             const html = `
-                <article class="inventory-item dropped regular" style="cursor: pointer;" onclick="selectItem(${element.id})" id=${element.id}>
-                    <div class="w-line"></div>
+                <article class="item-card" style="background: url(/core/static/img/card-bg-yellow.png);background-size:cover;cursor: pointer;" onclick="selectItem(${element.id})" id=${element.id}>
                     <div class="dropped-content">
-                        <span>${element.item.title}</span>
-                        <span class="item-price rose"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
-                        <img src="${element.item.image_path}">
+                        <div class="item-numeric-info">
+                            <span class="item-price yellow"><span>${element.item.price}</span> <img
+                            src="/core/static/img/gear.png"></span>
+                        </div>
+
+                        <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                            <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                            <img src="${element.item.image_path}" class="item-card-img" style="width: 100%;grid-row: 1;grid-column: 1;">
+                        </div>
+
+                        <span class="item-title">${element.item.title}</span>
                     </div>
                 </article>
             `
@@ -84,11 +91,12 @@ function unselectItem(id) {
         return false;
     }
 
-    document.getElementById(id).style = 'cursor: pointer;';
+    document.getElementById(id).style.cursor = 'pointer';
+    document.getElementById(id).style.filter = 'none';
 
     const current_amount = parseInt(document.getElementById('contract-amount').innerHTML);
 
-    newAmount = current_amount - priceMapping.get(id);
+    newAmount = Math.max(current_amount - priceMapping.get(id), 0);
 
     document.getElementById('contract-amount').innerHTML = newAmount;
 
@@ -97,7 +105,7 @@ function unselectItem(id) {
 
     let pos = null;
 
-    document.getElementById(`im${selected.get(id).pos}`).style = '';
+    document.getElementById(`im${selected.get(id).pos}`).style = 'none';
     document.getElementById(`id${selected.get(id).pos}`).innerHTML = '';
 
     selected.delete(id);
@@ -223,7 +231,7 @@ function selectItem(id) {
 
     selected.set(id, {pos: empty});
 
-    document.getElementById(id).style.background = 'radial-gradient(50% 50% at 50% 50%, rgba(93, 93, 93, 0.8) 0%, rgba(35, 35, 35, 0.8) 100%)';
+    document.getElementById(id).style.filter = 'grayscale(1)';
 
     updateBtnBg();
 }

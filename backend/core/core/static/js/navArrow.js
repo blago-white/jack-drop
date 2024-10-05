@@ -38,11 +38,16 @@ if (document.body.clientHeight / window.innerHeight > 1.5) {
     let heightBefore = document.body.clientHeight;
     arrow.style.opacity = "0";
 
-    while (true) {
+//    while (true) {
+//        if ((heightBefore != document.body.clientHeight) && (document.body.clientHeight / window.innerHeight > 1.5)) {
+//            arrow.style.opacity = "1";
+//            document.addEventListener("scroll", updateArrow)
+//            break;
+//        }
+    setTimeout(() => {
         if ((heightBefore != document.body.clientHeight) && (document.body.clientHeight / window.innerHeight > 1.5)) {
             arrow.style.opacity = "1";
             document.addEventListener("scroll", updateArrow)
-            break;
         }
-    }
+    }, 5000)
 }

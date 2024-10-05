@@ -114,7 +114,7 @@ async function getCase(id) {
         rareColor = getCardColor(result.items.count, c);
 
         caseItems.innerHTML += `
-            <article class="item-card" style="background: url(../img/card-bg-${rateColor}.png);">
+            <article class="item-card" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size: cover;">
                 <div class="dropped-content">
                     <div class="item-numeric-info">
                         <span class="item-price ${rareColor}"><span>${element.price}</span></span>
@@ -122,8 +122,8 @@ async function getCase(id) {
                     </div>
 
                     <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                        <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
                         <img src="${element.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
-                        <img src="../img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
                     </div>
 
                     <span class="item-title">${element.title}</span>
@@ -158,6 +158,3 @@ async function changeBtn() {
 
 
 changeBtn();
-
-10% - 15% - 20% - 25% - 30%
-

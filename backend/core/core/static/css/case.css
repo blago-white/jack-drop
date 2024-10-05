@@ -104,7 +104,7 @@
     gap: 1ch;
     border-radius: calc(100vw * calc(20 / var(--reference-display-w)));
     justify-content: center;
-    padding: 2ch;
+    padding: 1.5ch;
     padding-block: 1.5ch;
 }
 

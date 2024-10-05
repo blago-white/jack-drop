@@ -80,9 +80,15 @@ async function getCases() {
 }
 
 async function start() {
+    console.log(1)
+
     const res = await getCases();
 
+    console.log(2)
+
     addCases(res);
+
+    console.log(3);
 }
 
 start();

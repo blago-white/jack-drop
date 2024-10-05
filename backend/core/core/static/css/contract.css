@@ -17,6 +17,10 @@
     margin-bottom: .5ch;
 }
 
+.item-price {
+    width: 100%;
+}
+
 .prize-price-range {
     grid-row: 1;
     grid-column: 1;
@@ -24,7 +28,7 @@
     justify-content: space-between;
     flex-direction: row;
     gap: 1ch;
-    margin-top: 39vh;
+    margin-top: 50%;
     font-size: calc(100vw * calc(44 / var(--reference-display-w)));
     align-items: center;
 }
@@ -64,7 +68,7 @@
 
 .inventory-items {
     column-gap: calc(100vw * calc(14 / var(--reference-display-w)));
-    row-gap: calc(100vw * calc(30 / var(--reference-display-w)));
+    row-gap: calc(100vw * calc(14 / var(--reference-display-w)));
 
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -128,8 +132,8 @@
     grid-template-columns: 1fr;
     justify-items: center;
     align-items: center;
-    height: 76vh;
     aspect-ratio: 1 / 1;
+    width: 43vw;
 }
 
 .desctop-items-cells {
@@ -208,11 +212,23 @@
     }
 
     .bg-filter {
-        height: 64vh;
+        height: 100vh;
     }
 
     .w-line {
         height: 85%;
+    }
+
+    .item-price {
+        font-size: 1.2em;
+    }
+
+    .item-price img {
+        height: 83%;
+    }
+
+    .item-card-img {
+        width: 27vw;
     }
 
     .inventory-item img {
@@ -286,6 +302,14 @@
 
     #im9 {
         grid-column: 2;
+    }
+
+    .item-card {
+        font-size: 3em;
+    }
+
+    .dropped-content {
+        height: 100%;
     }
 
     #im10 {

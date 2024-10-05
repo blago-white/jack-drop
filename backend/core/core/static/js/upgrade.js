@@ -47,26 +47,43 @@ async function getInevntoryItems() {
 
     const result = await response.json();
 
+    console.log(result)
+
     if (result) {
         result.forEach((element) => {
             const elem = `
-                <article class="dropped mono" style="cursor: pointer;" id="mg${element.id}" onclick="selectGrantedItem(this)">
-                    <div class="w-line"></div>
+                <article class="item-card" style="background: url(/core/static/img/card-bg-yellow.png);background-size:cover;cursor: pointer;" id="mg${element.id}"
+                onclick="selectGrantedItem(this)">
                     <div class="dropped-content">
-                        <span>${element.item.title}</span>
-                        <span class="item-price rose"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
-                        <img src="${element.item.image_path}">
+                        <div class="item-numeric-info">
+                            <span class="item-price yellow"><span>${element.item.price}</span> <img
+                            src="/core/static/img/gear.png"></span>
+                        </div>
+
+                        <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                            <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                            <img src="${element.item.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
+                        </div>
+
+                        <span class="item-title">${element.item.title}</span>
                     </div>
                 </article>
             `;
 
             const elemDesc = `
-                <article class="dropped mono" style="cursor: pointer;" id="dg${element.id}" onclick="selectGrantedItem(this)">
-                    <div class="w-line"></div>
+                <article class="item-card" style="background: url(/core/static/img/card-bg-yellow.png);background-size:cover;cursor: pointer;" id="dg${element.id}"
+                onclick="selectGrantedItem(this)">
                     <div class="dropped-content">
-                        <span>${element.item.title}</span>
-                        <span class="item-price rose"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
-                        <img src="${element.item.image_path}">
+                        <div class="item-numeric-info">
+                            <span class="item-price yellow"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
+                        </div>
+
+                        <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                            <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                            <img src="${element.item.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
+                        </div>
+
+                        <span class="item-title">${element.item.title}</span>
                     </div>
                 </article>
             `;
@@ -97,30 +114,45 @@ async function getReceiveItems(minItemPrice) {
         requestOptions
     );
 
-    const result = await    response.json();
+    const result = await response.json();
 
     if (result) {
         result.forEach((element) => {
             const elem = `
-                <article class="dropped mono" style="cursor: pointer;" id="mr${element.id}" onclick="selectReceiveItem(this)">
-                    <div class="w-line"></div>
+                <article class="item-card" style="background: url(/core/static/img/card-bg-yellow.png);background-size:cover;cursor: pointer;" id="mr${element.id}" onclick="selectReceiveItem(this)">
                     <div class="dropped-content">
-                        <span>${element.title}</span>
-                        <span class="item-price rose"><span>${element.price}</span> <img src="/core/static/img/gear.png"></span>
-                        <img src="${element.image_path}">
+                        <div class="item-numeric-info">
+                            <span class="item-price yellow"><span>${element.price}</span> <img
+                            src="/core/static/img/gear.png"></span>
+                        </div>
+
+                        <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                            <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                            <img src="${element.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
+                        </div>
+
+                        <span class="item-title">${element.title}</span>
                     </div>
                 </article>
             `;
 
             const elemDesc = `
-                <article class="dropped mono" style="cursor: pointer;"
+                <article class="item-card" style="background: url(/core/static/img/card-bg-yellow.png);background-size:
+                cover;cursor: pointer;"
                 id="dr${element.id}"
                 onclick="selectReceiveItem(this)">
-                    <div class="w-line"></div>
                     <div class="dropped-content">
-                        <span>${element.title}</span>
-                        <span class="item-price rose"><span>${element.price}</span> <img src="/core/static/img/gear.png"></span>
-                        <img src="${element.image_path}">
+                        <div class="item-numeric-info">
+                            <span class="item-price yellow"><span>${element.price}</span> <img
+                            src="/core/static/img/gear.png"></span>
+                        </div>
+
+                        <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                            <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                            <img src="${element.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
+                        </div>
+
+                        <span class="item-title">${element.title}</span>
                     </div>
                 </article>
             `;
@@ -143,8 +175,10 @@ function selectGrantedItem(elem) {
     clearInputBalance();
 
     if (selectedGranted) {
-        document.getElementById(selectedGranted).style.border = "none";
+        document.getElementById(selectedGranted).style.filter = "none";
     }
+
+    console.log(elem.id, elem);
 
     const raw_id = parseInt(elem.id.slice(2));
 
@@ -152,14 +186,14 @@ function selectGrantedItem(elem) {
     document.getElementById('u-d-1').src = grantedItems.get(raw_id).image_path;
 
     selectedGranted = elem.id;
-    elem.style.border = '.5ch solid darkseagreen';
+    elem.style.filter = 'grayscale(1)';
 
     updatePercent();
 }
 
 function selectReceiveItem(elem) {
     if (selectedReceive) {
-        document.getElementById(selectedReceive).style.border = "none";
+        document.getElementById(selectedReceive).style.filter = "none";
     }
 
     const raw_id = parseInt(elem.id.slice(2));
@@ -167,8 +201,8 @@ function selectReceiveItem(elem) {
     document.getElementById('u-m-2').src = receiveItems.get(raw_id).image_path;
     document.getElementById('u-d-2').src = receiveItems.get(raw_id).image_path;
 
-    selectedReceive= elem.id;
-    elem.style.border = '.5ch solid darkseagreen';
+    selectedReceive = elem.id;
+    elem.style.filter = 'grayscale(1)';
 
     updatePercent();
 }

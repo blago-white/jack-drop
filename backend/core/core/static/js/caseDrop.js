@@ -68,12 +68,21 @@ export async function getCase(id) {
     result.items.forEach((element) => {
         dropItems.set(element.id, element);
         line += `
-            <article class="dropped mono itm-${element.case_item_id}">
-                    <div class="w-line"></div>
-                    <div class="dropped-content">
-                        <span>${element.title}</span>
-                        <img src="${element.image_path}">
-                    </div>
+            <article class="item-card itm-${element.case_item_id}" style="background: url(/core/static/img/card-bg-yellow.png);background-size:cover;">
+                <div class="dropped-content">
+                        <div class="item-numeric-info">
+                            <span class="item-price yellow"><span>${element.price}</span> <img
+                            src="/core/static/img/gear.png"></span>
+                        </div>
+
+                        <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                            <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                            <img src="${element.image_path}" class="item-card-img" style="width: 66%;grid-row: 1;
+                            grid-column: 1;">
+                        </div>
+
+                        <span class="item-title">${element.title}</span>
+                </div>
             </article>
         `;
         c ++;
