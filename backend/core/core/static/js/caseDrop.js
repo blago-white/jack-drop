@@ -13,6 +13,20 @@ function gcd () {
     return w/h;
 }
 
+function getCardColor(itemsCount, indexCurrent) {
+    if (indexCurrent <= itemsCount/10) {
+        return "yellow"
+    } else if (indexCurrent <= itemsCount * 0.25) {
+        return "red"
+    } else if (indexCurrent <= itemsCount * 0.45) {
+        return "pink"
+    } else if (indexCurrent <= itemsCount * 0.7) {
+        return "purple"
+    } else {
+        return "blue"
+    }
+}
+
 function getCookie(name) {
     let matches = document.cookie.match(new RegExp(
       "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
@@ -64,15 +78,18 @@ export async function getCase(id) {
 
     let line = ``;
     let c = 0;
+    let rareColor;
 
     result.items.forEach((element) => {
         dropItems.set(element.id, element);
+
+        rareColor = getCardColor(result.items.length, c);
+
         line += `
-            <article class="item-card itm-${element.case_item_id}" style="background: url(/core/static/img/card-bg-yellow.png);background-size:cover;">
+            <article class="item-card itm-${element.case_item_id}" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;">
                 <div class="dropped-content">
                         <div class="item-numeric-info">
-                            <span class="item-price yellow"><span>${element.price}</span> <img
-                            src="/core/static/img/gear.png"></span>
+                            <span class="item-price ${rareColor}"><span>${element.price}</span> <img src="/core/static/img/gear.png"></span>
                         </div>
 
                         <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
@@ -89,7 +106,36 @@ export async function getCase(id) {
         dropItemsPositions.set(element.case_item_id, c);
     });
 
-    dropItemsString.innerHTML += line + line + line + line + line + line + line + line + line;
+    let lineDrops = ``;
+    let c = 0;
+
+    result.items.forEach((element) => {
+        dropItems.set(element.id, element);
+
+        rareColor = getCardColor(result.items.length, c);
+
+        lineDrops += `
+            <article class="item-card itm-${element.case_item_id}" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;" id="drop-${element.case_item_id}">
+                <div class="dropped-content">
+                        <div class="item-numeric-info">
+                            <span class="item-price ${rareColor}"><span>${element.price}</span> <img src="/core/static/img/gear.png"></span>
+                        </div>
+
+                        <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                            <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                            <img src="${element.image_path}" class="item-card-img" style="width: 66%;grid-row: 1;
+                            grid-column: 1;">
+                        </div>
+
+                        <span class="item-title">${element.title}</span>
+                </div>
+            </article>
+        `;
+        c ++;
+        dropItemsPositions.set(element.case_item_id, c);
+    });
+
+    dropItemsString.innerHTML += line + line + line + line + line + line + lineDrops + line + line;
 
     await dropCase();
 }
@@ -171,7 +217,7 @@ async function dropCase() {
 
     const position = dropItemsPositions.get(dropped.id);
 
-    animateRoulette(position, dropItems.size);
+    animateRoulette(document.getElementById(`drop-${dropped.id}`).getBoundingClientRect());
 
     setTimeout(() => {
         console.log("itm", dropped.id);
@@ -186,27 +232,23 @@ async function dropCase() {
     }, 7000);
 }
 
-function animateRoulette(to, count) {
+function animateRoulette(to) {
     const vw = window.innerWidth / 100;
-    const gap = 100 * vw * (48 / 1920);
 
     if (gcd() > 1/1) {
-        const partWith = 100 * vw * (326 / 1920);
-
-        const biasVal = gap + partWith;
-
-        dropItemsString.style.marginLeft = `-${((biasVal * count) * 7) + ((to-2) * biasVal)}px`;
+        dropItemsString.style.marginLeft = `-${to.x - (((100 * vw * (326 / 1920)) + (100 * vw * (48 / 1920)))*2)}px`;
 
         dropItemsString.style.transition = `filter .5s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;
         dropItemsString.style.filter = `blur(.1ch)`;
 
         setTimeout(() => {dropItemsString.style.transition = `filter 4s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;dropItemsString.style.filter = `blur(0ch)`}, 1000)
     } else {
-        const partWith = 100 * vw * (331 / 960) + 3.5;
+        dropItemsString.style.marginTop = `-${to.bottom - (3*((100 * vw * (331 / 960) + 3.5) + (100 * vw * (48 / 1920))))}px`;
 
-        const biasVal = gap + partWith;
+        dropItemsString.style.transition = `filter .5s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;
+        dropItemsString.style.filter = `blur(.1ch)`;
 
-        dropItemsString.style.marginTop = `-${((biasVal * count) * 7) + ((to+1) * biasVal)}px`;
+        setTimeout(() => {dropItemsString.style.transition = `filter 4s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;dropItemsString.style.filter = `blur(0ch)`}, 1000)
     }
 }
 

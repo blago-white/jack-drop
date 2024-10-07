@@ -104,7 +104,7 @@
     gap: 1ch;
     border-radius: calc(100vw * calc(20 / var(--reference-display-w)));
     justify-content: center;
-    padding: 1.5ch;
+    padding: calc(100vw* calc(31 / var(--reference-display-w))) !important;
     padding-block: 1.5ch;
 }
 
@@ -152,5 +152,9 @@
 
     .itm-rate {
         font-size: calc(100vw * calc(72 / 1920));
+    }
+
+    .item-card {
+        padding: calc(100vw* calc(18 / var(--reference-display-w))) !important
     }
 }

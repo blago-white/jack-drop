@@ -11,15 +11,15 @@ let caseFree = false;
 
 function getCardColor(itemsCount, indexCurrent) {
     if (indexCurrent <= itemsCount/10) {
-        return "red"
-    } else if (indexCurrent <= itemsCount * 0.25) {
-        return "pink"
-    } else if (indexCurrent <= itemsCount * 0.45) {
-        return "purple"
-    } else if (indexCurrent <= indexCurrent * 0.7) {
-        return "blue"
-    } else {
         return "yellow"
+    } else if (indexCurrent <= itemsCount * 0.25) {
+        return "red"
+    } else if (indexCurrent <= itemsCount * 0.45) {
+        return "pink"
+    } else if (indexCurrent <= itemsCount * 0.7) {
+        return "purple"
+    } else {
+        return "blue"
     }
 }
 
@@ -111,14 +111,14 @@ async function getCase(id) {
     let rareColor;
 
     result.items.forEach((element) => {
-        rareColor = getCardColor(result.items.count, c);
+        rareColor = getCardColor(result.items.length, c);
 
         caseItems.innerHTML += `
             <article class="item-card" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size: cover;">
                 <div class="dropped-content">
                     <div class="item-numeric-info">
                         <span class="item-price ${rareColor}"><span>${element.price}</span></span>
-                        <span class="item-price ${rareColor}"><span>${(element.rate*100).toFixed(2)}%</span></span>
+                        <span class="item-price ${rareColor}"><span>${Math.max((element.rate*100).toFixed(2), 0.01)}%</span></span>
                     </div>
 
                     <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">

@@ -132,13 +132,14 @@ body {
 
 .grant-items {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: calc(100vw* calc(30 / 1920));
+    grid-template-columns: repeat(3, calc(31.4vw* calc(517 / 1920)));
+    row-gap: calc(100vw* calc(14 / 1920));
     column-gap: calc(100vw* calc(14 / 1920));
     max-width: calc(100vw* calc(517 / 1920));
     max-height: 45vh;
+    width: calc(100vw* calc(517 / 1920));
     overflow-y: scroll;
-    border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
+    border-radius: calc(100vw* calc(32 / var(--reference-display-w)));
 }
 
 .grant-items::-webkit-scrollbar {

@@ -145,4 +145,12 @@
     .case-items-string {
         overflow: hidden;
     }
+
+    .item-card {
+        font-size: calc(100vw* calc(37 / var(--reference-display-w))) !important;
+    }
+
+    .item-price {
+        font-size: calc(100vw* calc(35 / var(--reference-display-w)));
+    }
 }

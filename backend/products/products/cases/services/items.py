@@ -31,7 +31,16 @@ class CaseItemsService(BaseCaseItemsService):
         return self._model.objects.all()
 
     def get_case_items_for_case(self, case_pk: str) -> models.QuerySet:
-        return self._model.objects.filter(case=case_pk).order_by("rate")
+        return self._model.objects.filter(
+            case=case_pk,
+            item__price__gt=0
+        ).order_by("rate")
+
+    def get_case_items_for_case_by_price(self, case_pk: str):
+        return self._model.objects.filter(
+            case=case_pk,
+            item__price__gt=0
+        ).order_by("price")
 
     def get_drop_case_items_for_case(self, case_pk: str) -> dict:
         return self.get_case_items_for_case(case_pk=case_pk).order_by(
@@ -71,4 +80,4 @@ class CaseItemsService(BaseCaseItemsService):
     ) -> models.QuerySet:
         return Item.objects.filter(
             pk__in=case_items_queryset.values_list("item", flat=True)
-        )
+        ).order_by("price")
