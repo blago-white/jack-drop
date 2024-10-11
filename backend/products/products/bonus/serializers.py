@@ -1,9 +1,12 @@
 from rest_framework import serializers
 
+from cases.serializers.case import CaseSerializer
 from .models import UserBonusBuyProfile, BonusBuyLevel
 
 
 class BonusBuyLevelSerializer(serializers.ModelSerializer):
+    free_case = CaseSerializer()
+
     class Meta:
         model = BonusBuyLevel
         fields = "__all__"
@@ -12,6 +15,7 @@ class BonusBuyLevelSerializer(serializers.ModelSerializer):
 class BonusBuyProfileSerializer(serializers.ModelSerializer):
     level = BonusBuyLevelSerializer()
     can_withdraw_case = serializers.BooleanField(required=False, default=False)
+    free_cases = CaseSerializer(many=True)
 
     class Meta:
         model = UserBonusBuyProfile

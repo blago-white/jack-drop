@@ -211,7 +211,19 @@
 
 @media (aspect-ratio < 1/1) {
     .account-empty {
-        display: none;
+        grid-row: 5;
+        grid-column-start: 1;
+        width: 90%;
+        height: 14vh;
+        font-size: x-large;
+    }
+
+    #trade-link {
+        font-size: 1em;
+    }
+
+    button {
+        font-size: 1em;
     }
 
     .account-layout {
@@ -221,6 +233,7 @@
                             calc(100vw* calc(178 / var(--reference-display-w)))
                             calc(100vw* calc(118 / var(--reference-display-w)))
                             calc(100vw* calc(231 / var(--reference-display-w)))
+                            calc(100vw* calc(250 / var(--reference-display-w)))
                             calc(100vw* calc(160 / var(--reference-display-w)));
     }
 

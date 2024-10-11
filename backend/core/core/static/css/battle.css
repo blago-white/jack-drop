@@ -316,6 +316,7 @@
     display: flex;
     align-items: center;
     gap: 1ch;
+    font-size: 0.9vw;
 }
 
 .case-battle-name {

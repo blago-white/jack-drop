@@ -17,6 +17,19 @@ let selectedGranted = null;
 let selectedReceive = null;
 let selectedGrantedBalance = null;
 
+function getCardColor(itemsCount, indexCurrent) {
+    if (indexCurrent <= itemsCount*0.3) {
+        return "blue"
+    } else if (indexCurrent <= itemsCount * 0.55) {
+        return "purple"
+    } else if (indexCurrent <= itemsCount * 0.75) {
+        return "pink"
+    } else if (indexCurrent <= itemsCount * 0.9) {
+        return "red"
+    } else {
+        return "yellow"
+    }
+}
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -46,18 +59,20 @@ async function getInevntoryItems() {
     );
 
     const result = await response.json();
+    let rareColor;
+    let c = 0;
 
     console.log(result)
 
     if (result) {
         result.forEach((element) => {
+            rareColor = getCardColor(result.length, c);
+
             const elem = `
-                <article class="item-card" style="background: url(/core/static/img/card-bg-yellow.png);background-size:cover;cursor: pointer;" id="mg${element.id}"
-                onclick="selectGrantedItem(this)">
+                <article class="item-card" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;cursor: pointer;" id="mg${element.id}"onclick="selectGrantedItem(this)">
                     <div class="dropped-content">
                         <div class="item-numeric-info">
-                            <span class="item-price yellow"><span>${element.item.price}</span> <img
-                            src="/core/static/img/gear.png"></span>
+                            <span class="item-price ${rareColor}"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
                         </div>
 
                         <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
@@ -71,11 +86,13 @@ async function getInevntoryItems() {
             `;
 
             const elemDesc = `
-                <article class="item-card" style="background: url(/core/static/img/card-bg-yellow.png);background-size:cover;cursor: pointer;" id="dg${element.id}"
+                <article class="item-card" style="background: url(/core/static/img/card-bg-${rareColor}.png);
+                background-size:cover;
+                cursor: pointer;" id="dg${element.id}"
                 onclick="selectGrantedItem(this)">
                     <div class="dropped-content">
                         <div class="item-numeric-info">
-                            <span class="item-price yellow"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
+                            <span class="item-price ${rareColor}"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
                         </div>
 
                         <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
@@ -92,6 +109,8 @@ async function getInevntoryItems() {
             availableDesctop.innerHTML += elemDesc;
 
             grantedItems.set(element.id, element.item);
+
+            c++;
         })
     } else {
         available.style = "display:flex;align-content: center;justify-content: center;"
@@ -115,14 +134,18 @@ async function getReceiveItems(minItemPrice) {
     );
 
     const result = await response.json();
+    let rareColor;
+    let c = 0;
 
     if (result) {
         result.forEach((element) => {
+            rareColor = getCardColor(result.length, c);
+
             const elem = `
-                <article class="item-card" style="background: url(/core/static/img/card-bg-yellow.png);background-size:cover;cursor: pointer;" id="mr${element.id}" onclick="selectReceiveItem(this)">
+                <article class="item-card receive" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;cursor: pointer;" id="mr${element.id}" onclick="selectReceiveItem(this)">
                     <div class="dropped-content">
                         <div class="item-numeric-info">
-                            <span class="item-price yellow"><span>${element.price}</span> <img
+                            <span class="item-price ${rareColor}"><span>${element.price}</span> <img
                             src="/core/static/img/gear.png"></span>
                         </div>
 
@@ -137,14 +160,14 @@ async function getReceiveItems(minItemPrice) {
             `;
 
             const elemDesc = `
-                <article class="item-card" style="background: url(/core/static/img/card-bg-yellow.png);background-size:
-                cover;cursor: pointer;"
+                <article class="item-card" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;cursor: pointer;"
                 id="dr${element.id}"
                 onclick="selectReceiveItem(this)">
                     <div class="dropped-content">
                         <div class="item-numeric-info">
-                            <span class="item-price yellow"><span>${element.price}</span> <img
-                            src="/core/static/img/gear.png"></span>
+                            <span class="item-price ${rareColor}">
+                                <span id='pr${element.id}'>${element.price}</span> <img src="/core/static/img/gear.png">
+                            </span>
                         </div>
 
                         <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
@@ -161,6 +184,8 @@ async function getReceiveItems(minItemPrice) {
             receiveDesctop.innerHTML += elemDesc;
 
             receiveItems.set(element.id, element);
+
+            c++;
         })
     } else {
         receive.style = "display:flex;align-content: center;justify-content: center;"
@@ -178,8 +203,6 @@ function selectGrantedItem(elem) {
         document.getElementById(selectedGranted).style.filter = "none";
     }
 
-    console.log(elem.id, elem);
-
     const raw_id = parseInt(elem.id.slice(2));
 
     document.getElementById('u-m-1').src = grantedItems.get(raw_id).image_path;
@@ -188,6 +211,7 @@ function selectGrantedItem(elem) {
     selectedGranted = elem.id;
     elem.style.filter = 'grayscale(1)';
 
+    updateReceiveList(grantedItems.get(raw_id).price, undefined);
     updatePercent();
 }
 
@@ -281,8 +305,6 @@ async function animateResult(result) {
 }
 
 function updatePercent() {
-    console.log(selectedGranted, selectedReceive, selectedGrantedBalance);
-
     let newPercent = 0;
 
     if (selectedGranted && selectedReceive) {
@@ -321,7 +343,6 @@ function updatePercent() {
     }
 }
 
-
 function clearInputBalance() {
     selectedGrantedBalance = null;
     grantedBalance.value = null;
@@ -336,6 +357,25 @@ function inputBalanceFunds() {
     selectedGrantedBalance = parseInt(grantedBalance.value);
 
     updatePercent();
+}
+
+function updateReceiveList(from, to) {
+    from = from ? from : 0;
+    to = to ? to : 10*9;
+
+    if (from >= to) {
+        location.href = location.href;
+    }
+
+    Array.from(receiveItems.keys()).forEach((elementId) => {
+        if (receiveItems.get(elementId).price < from || receiveItems.get(elementId).price > to) {
+            document.getElementById(`dr${elementId}`).style.display = 'none';
+            document.getElementById(`mr${elementId}`).style.display = 'none';
+        } else {
+            document.getElementById(`dr${elementId}`).style.display = 'flex';
+            document.getElementById(`mr${elementId}`).style.display = 'flex';
+        }
+    });
 }
 
 async function changeBtn() {
@@ -372,3 +412,4 @@ window.selectReceiveItem = selectReceiveItem;
 window.selectGrantedItem = selectGrantedItem;
 window.getReceiveItems = getReceiveItems;
 window.getInevntoryItems = getInevntoryItems;
+window.updateReceiveList = updateReceiveList;

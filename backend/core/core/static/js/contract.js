@@ -18,6 +18,33 @@ function gcd () {
     return w/h;
 }
 
+function getCardColor(max, min, price) {
+    const relativeRate = 1 - (price / max);
+
+    if (relativeRate < 0.1) {
+        return "yellow"
+    } else if (relativeRate < 0.25) {
+        return "red"
+    } else if (relativeRate < 0.45) {
+        return "pink"
+    } else if (relativeRate < 0.7) {
+        return "purple"
+    } else {
+        return "blue"
+    }
+}
+
+function getExtremiums(resultList) {
+    let max;
+    let min;
+
+    resultList.forEach((element) => {
+        max = Math.max(element.item.price, max)
+        min = Math.min(element.item.price, min)
+    })
+    return [max, min];
+}
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -42,15 +69,21 @@ async function getItems() {
 
     const w = screen.width;
     const h = screen.height;
+    let c = 0;
+
+    let rareColor;
 
     if (result.length) {
+        const extremiums = getExtremiums(result);
+
         result.forEach((element) => {
+            rareColor = getCardColor(extremiums[0], extremiums[1] element.item.price);
+
             const html = `
-                <article class="item-card" style="background: url(/core/static/img/card-bg-yellow.png);background-size:cover;cursor: pointer;" onclick="selectItem(${element.id})" id=${element.id}>
+                <article class="item-card" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;cursor: pointer;" onclick="selectItem(${element.id})" id=${element.id}>
                     <div class="dropped-content">
                         <div class="item-numeric-info">
-                            <span class="item-price yellow"><span>${element.item.price}</span> <img
-                            src="/core/static/img/gear.png"></span>
+                            <span class="item-price ${rareColor}"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
                         </div>
 
                         <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
@@ -70,6 +103,8 @@ async function getItems() {
             }
 
             grantedItems.set(element.id, element.item);
+
+            c++;
         })
     } else {
         if (w > h) {

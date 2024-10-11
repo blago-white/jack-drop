@@ -71,7 +71,6 @@ function renderFreeCase(freeCase, caseImg, caseTitle) {
     }
 }
 
-
 function renderDeposit(success, amount) {
     if (success) {
         renderPrize(`
@@ -87,6 +86,13 @@ function renderDeposit(success, amount) {
     }
 }
 
+function usePreset(preset) {
+    document.getElementById('amount').value = preset;
+}
+
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
 
 const urlParams = new URLSearchParams(window.location.search);
 
@@ -102,4 +108,8 @@ if (urlParams.get("deposit")) {
     if (freeCase && caseImg && caseTitle) {
         renderFreeCase(freeCase, caseImg, caseTitle);
     }
+} else {
+    document.getElementById('amount').value = getRandomArbitrary(1000, 10000);
 }
+
+window.usePreset = usePreset;

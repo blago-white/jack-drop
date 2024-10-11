@@ -82,7 +82,7 @@ async function iterField(id) {
         document.getElementById(id).innerHTML = `
             <img src="/core/static/img/pumpkin.png" style="width: 90%;margin-inline: 5%;">
         `;
-        document.getElementById('receive').innerHTML = `
+        document.getElementById('info-banner').innerHTML = `
             Receive: ${response.win_amount} <img src="/core/static/img/scrap.png" style="width: 3ch">
         `;
     }
@@ -91,6 +91,7 @@ async function iterField(id) {
 
     if (currentStep == 1) {
         document.getElementById('stop-btn-bg').classList.remove("noactive");
+        document.getElementById('controls').style = 'none';
     }
 }
 

@@ -1,44 +1,49 @@
-{% extends 'base.html' %}
-{% load static %}
-{% load i18n %}
+    {% extends 'base.html' %}
+    {% load static %}
+    {% load i18n %}
 
-{% block title %}
-Replenish Account | Jack Drop
-{% endblock %}
+    {% block title %}
+    Replenish Account | Jack Drop
+    {% endblock %}
 
-{% block links %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/replenish.css' %}">
-{% endblock %}
+    {% block links %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/replenish.css' %}">
+    {% endblock %}
 
-{% block main %}
-<form class="replenish-form" id="replenish-form" onsubmit="addDeposit();return false;">
-    <h3>{% trans 'Enter Replenish Data' %}</h3>
-    <span class="info">
-        {% trans 'Replenish Info First' %}
-    </span>
-    <span class="info">
-        {% trans 'Replenish Info Second' %}
-    </span>
-    <input class="data-input"
-           placeholder="Промокод"
-           value="{% if PROMOCODE %}{{ PROMOCODE }}{% endif %}"
-           contenteditable="{% if PROMOCODE %}false{% else %}true{% endif %}"
-           max="16"
-           type="text">
-    <input class="data-input" placeholder="Введите сумму" id="amount" type="number" min=500 max="100000">
-    <div class="agreement-field">
-        <input type="checkbox" id="agreement">
-        <label class="agreement-label" for="agreement">{% trans 'Argeement String' %}</label>
-    </div>
+    {% block main %}
+    <form class="replenish-form" id="replenish-form" onsubmit="addDeposit();return false;">
+        <h3>{% trans 'Enter Replenish Data' %}</h3>
+        <span class="info">
+            {% trans 'Replenish Info First' %}
+        </span>
+        <span class="info">
+            {% trans 'Replenish Info Second' %}
+        </span>
+        <input class="data-input"
+               placeholder="Промокод"
+               value="{% if PROMOCODE %}{{ PROMOCODE }}{% endif %}"
+               contenteditable="{% if PROMOCODE %}false{% else %}true{% endif %}"
+               max="16"
+               type="text">
+        <div style="display: flex;gap: 1ch;">
+            <input class="data-input" placeholder="Введите сумму" id="amount" type="number" min=500 max="100000">
+            <button class="data-input preset" onclick="usePreset(1999)">1999</button>
+            <button class="data-input preset" onclick="usePreset(4999)">4999</button>
+            <button class="data-input preset" onclick="usePreset(14999)">14999</button>
+        </div>
+        <div class="agreement-field">
+            <input type="checkbox" id="agreement">
+            <label class="agreement-label" for="agreement">{% trans 'Argeement String' %}</label>
+        </div>
 
-    <button class="super-button replenish-btn" onclick="return false;" type="submit">
-        <span id="replenish-btn-bg" class="super-button-bg noactive"></span>
-        <span class="super-button-text">{% trans 'Replenish Balance' %}</span>
-    </button>
-</form>
-<div style="display: none;" id="used-promo">{{ PROMOCODE }}</div>
-{% endblock %}
+        <button class="super-button replenish-btn" onclick="return false;" type="submit">
+            <span id="replenish-btn-bg" class="super-button-bg noactive"></span>
+            <span class="super-button-text">{% trans 'Replenish Balance' %}</span>
+        </button>
+    </form>
+    <div style="display: none;" id="used-promo">{{ PROMOCODE }}</div>
+    {% endblock %}
 
-{% block extrascripts %}
-<script src="{% static 'js/replenish.js' %}" type="module"></script>
-{% endblock %}
+    {% block extrascripts %}
+    <script src="{% static 'js/replenish.js' %}" type="module"></script>
+    {% endblock %}
