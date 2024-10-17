@@ -214,7 +214,6 @@
         grid-row: 5;
         grid-column-start: 1;
         width: 90%;
-        height: 14vh;
         font-size: x-large;
     }
 
@@ -233,8 +232,12 @@
                             calc(100vw* calc(178 / var(--reference-display-w)))
                             calc(100vw* calc(118 / var(--reference-display-w)))
                             calc(100vw* calc(231 / var(--reference-display-w)))
-                            calc(100vw* calc(250 / var(--reference-display-w)))
+                            calc(100vw* calc(290 / var(--reference-display-w)))
                             calc(100vw* calc(160 / var(--reference-display-w)));
+    }
+
+    .inventory-items {
+        grid-row: 6
     }
 
     .account-controls {

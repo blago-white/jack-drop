@@ -10,6 +10,7 @@ let caseDiscount = 0;
 let caseFree = false;
 
 function getCardColor(itemsCount, indexCurrent) {
+    console.log(itemsCount, indexCurrent, indexCurrent <= itemsCount * 0.5);
     if (indexCurrent <= itemsCount/10) {
         return "yellow"
     } else if (indexCurrent <= itemsCount * 0.25) {
@@ -52,7 +53,7 @@ async function checkBonusCaseAvailable(id) {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/bonus-buy/bonuse/${id}/`,
+        `https://${location.hostname}/products/bonus-buy/bonuse/${id}/`,
         requestOptions
     );
 
@@ -71,7 +72,7 @@ async function getCase(id) {
     caseId = id;
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/cases/api/v1/case/${id}/items/`,
+        `https://${location.hostname}/products/cases/api/v1/case/${id}/items/`,
         requestOptions
     );
 
@@ -117,7 +118,7 @@ async function getCase(id) {
             <article class="item-card" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size: cover;">
                 <div class="dropped-content">
                     <div class="item-numeric-info">
-                        <span class="item-price ${rareColor}"><span>${element.price}</span></span>
+                        <span class="item-price ${rareColor}"><span>${parseInt(element.price)}</span></span>
                         <span class="item-price ${rareColor}"><span>${Math.max((element.rate*100).toFixed(2), 0.01)}%</span></span>
                     </div>
 

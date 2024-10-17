@@ -13,18 +13,24 @@ function getCookie(name) {
 };
 
 function getExtremiums(resultList) {
-    let max;
-    let min;
+    let max=0;
+    let min=99999999999;
 
     resultList.forEach((element) => {
+        console.log(element.item.price, max, min);
         max = Math.max(element.item.price, max)
         min = Math.min(element.item.price, min)
     })
+
+    console.log(max, min);
+
     return [max, min];
 }
 
 function getCardColor(max, min, price) {
     const relativeRate = 1 - (price / max);
+
+    console.log(relativeRate, price, max);
 
     if (relativeRate < 0.1) {
         return "yellow"
@@ -54,7 +60,7 @@ async function sellItem(id) {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/inventory/sell/`,
+        `https://${location.hostname}/products/inventory/sell/`,
         requestOptions
     );
 
@@ -83,7 +89,7 @@ async function withdrawItem(id) {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/inventory/withdraw/${id}/`,
+        `https://${location.hostname}/products/inventory/withdraw/${id}/`,
         requestOptions
     );
 
@@ -108,6 +114,8 @@ function renderItems(result) {
     result.forEach((element) => {
         c += 1;
         cardColor = getCardColor(extremiums[0], extremiums[1], element.item.price);
+
+        console.log(cardColor, extremiums);
 
         inventoryItemsTable.innerHTML += `
             <article class="item-card" style="background: url(/core/static/img/card-bg-${cardColor}.png);background-size:cover;cursor: pointer;" id="${element.id}">
@@ -153,7 +161,7 @@ async function getInventoryItems() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/inventory/all/`,
+        `https://${location.hostname}/products/inventory/all/`,
         requestOptions
     );
 
@@ -168,7 +176,7 @@ async function getBuyItems() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/inventory/unlock/`,
+        `https://${location.hostname}/products/inventory/unlock/`,
         requestOptions
     );
 
@@ -206,8 +214,7 @@ async function buySwitch() {
 async function sellAll() {
     const data = await sendRequestJson("/products/inventory/sell/all/", {method: "POST", headers: new Headers()})
     if (data.ok && data.received) {
-        renderItemPrize(`Receive ${data.received.toFixed(2)} scrap!`, data.received, "/core/static/img/scrap.png",
-        "Receive!")
+        renderItemPrize(`Receive ${data.received} scrap!`, data.received, "/core/static/img/scrap.png", "Receive!")
     }
 }
 

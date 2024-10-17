@@ -58,7 +58,6 @@ h3 {
 .item-card {
     overflow: hidden;
     aspect-ratio: 1/1;
-    padding: calc(100vw* calc(19 / var(--reference-display-w))) !important;
 }
 
 .items-controls button {
@@ -100,7 +99,7 @@ h3 {
 }
 
 .item-card:hover {
-    padding: 0px!important;
+    padding: 0px;
 }
 
 .dropped:active .items-controls {

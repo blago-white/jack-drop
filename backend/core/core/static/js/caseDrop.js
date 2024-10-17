@@ -68,7 +68,7 @@ export async function getCase(id) {
     caseId = id;
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/cases/api/v1/case/${id}/items/`,
+        `https://${location.hostname}/products/cases/api/v1/case/${id}/items/`,
         requestOptions
     );
 
@@ -107,7 +107,7 @@ export async function getCase(id) {
     });
 
     let lineDrops = ``;
-    let c = 0;
+    c = 0;
 
     result.items.forEach((element) => {
         dropItems.set(element.id, element);
@@ -202,7 +202,7 @@ async function dropCase() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/games/drop/${caseId}/${bonusCase ? '?bonus=1' : ''}`,
+        `https://${location.hostname}/products/games/drop/${caseId}/${bonusCase ? '?bonus=1' : ''}`,
         requestOptions
     );
 
@@ -235,8 +235,12 @@ async function dropCase() {
 function animateRoulette(to) {
     const vw = window.innerWidth / 100;
 
+    console.log(gcd());
+
     if (gcd() > 1/1) {
-        dropItemsString.style.marginLeft = `-${to.x - (((100 * vw * (326 / 1920)) + (100 * vw * (48 / 1920)))*2)}px`;
+        dropItemsString.style.marginLeft = `-${to.right - (((100 * vw * (326 / 1920)) + (100 * vw * (48 / 1920)))*3)}px`;
+
+        console.log(`${to}`);
 
         dropItemsString.style.transition = `filter .5s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;
         dropItemsString.style.filter = `blur(.1ch)`;
@@ -244,7 +248,6 @@ function animateRoulette(to) {
         setTimeout(() => {dropItemsString.style.transition = `filter 4s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;dropItemsString.style.filter = `blur(0ch)`}, 1000)
     } else {
         dropItemsString.style.marginTop = `-${to.bottom - (3*((100 * vw * (331 / 960) + 3.5) + (100 * vw * (48 / 1920))))}px`;
-
         dropItemsString.style.transition = `filter .5s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;
         dropItemsString.style.filter = `blur(.1ch)`;
 

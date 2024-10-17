@@ -35,10 +35,12 @@ function getCardColor(max, min, price) {
 }
 
 function getExtremiums(resultList) {
-    let max;
-    let min;
+    let max=0;
+    let min=99999999999;
 
     resultList.forEach((element) => {
+        console.log(element.item.price);
+
         max = Math.max(element.item.price, max)
         min = Math.min(element.item.price, min)
     })
@@ -57,7 +59,7 @@ async function getItems() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/inventory/contract/`,
+        `https://${location.hostname}/products/inventory/contract/`,
         requestOptions
     );
 
@@ -76,8 +78,10 @@ async function getItems() {
     if (result.length) {
         const extremiums = getExtremiums(result);
 
+        console.log(extremiums);
+
         result.forEach((element) => {
-            rareColor = getCardColor(extremiums[0], extremiums[1] element.item.price);
+            rareColor = getCardColor(extremiums[0], extremiums[1], element.item.price);
 
             const html = `
                 <article class="item-card" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;cursor: pointer;" onclick="selectItem(${element.id})" id=${element.id}>
@@ -205,7 +209,7 @@ async function makeContract() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/games/contract/`,
+        `https://${location.hostname}/products/games/contract/`,
         requestOptions
     );
 

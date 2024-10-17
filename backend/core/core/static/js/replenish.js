@@ -2,9 +2,12 @@ import { renderItemPrize, renderPrize } from "./prize.js";
 
 const depoAmountField = document.getElementById('amount');
 const agreementInput = document.getElementById('agreement');
-const usedPromocode = document.getElementById('used-promo').innerHTML;
-const hasPresetedPromocode = usedPromocode.length > 0;
+let usedPromocode = document.getElementById('used-promocode');
 
+if (usedPromocode) {
+    usedPromocode = usedPromocode.innerHTML
+    const hasPresetedPromocode = usedPromocode.length > 0;
+}
 
 function validate() {
     const amount = parseFloat(depoAmountField.value);
@@ -52,8 +55,10 @@ async function addDeposit() {
 
 window.addDeposit = addDeposit;
 
+if (document.getElementById("agreement") && document.getElementById("amount")) {
 document.getElementById("agreement").addEventListener('input', updateSubmitBtn);
 document.getElementById("amount").addEventListener('input', updateSubmitBtn);
+}
 
 function renderFreeCase(freeCase, caseImg, caseTitle) {
     const urlParams = new URLSearchParams(window.location.search);
@@ -63,7 +68,7 @@ function renderFreeCase(freeCase, caseImg, caseTitle) {
             <img src="${caseImg}">
             <h3 style="text-transform: none;">${caseTitle}</h3>
             <span style="font-size: xx-large;">0<img src="/core/static/img/scrap.png" style="width: 3ch"></span>
-            <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow('http://${location.hostname}')">
+            <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow('https://${location.hostname}')">
                 <span class="super-button-bg"></span>
                 <span class="super-button-text" style="font-size: x-large">Receive</span>
             </button>
@@ -71,13 +76,14 @@ function renderFreeCase(freeCase, caseImg, caseTitle) {
     }
 }
 
+
 function renderDeposit(success, amount) {
     if (success) {
         renderPrize(`
             <img src="/core/static/img/scrap.png">
             <h3 style="text-transform: none;">Deposit: ${amount} scrap!</h3>
             <span style="font-size: xx-large;">${amount}<img src="/core/static/img/scrap.png" style="width: 3ch"></span>
-            <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow('http://${location.hostname}')">
+            <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow('https://${location.hostname}')">
                 <span class="super-button-bg"></span>
                 <span class="super-button-text" style="font-size: x-large">Receive</span>
             </button>
@@ -88,6 +94,7 @@ function renderDeposit(success, amount) {
 
 function usePreset(preset) {
     document.getElementById('amount').value = preset;
+    return false;
 }
 
 function getRandomArbitrary(min, max) {
@@ -109,7 +116,7 @@ if (urlParams.get("deposit")) {
         renderFreeCase(freeCase, caseImg, caseTitle);
     }
 } else {
-    document.getElementById('amount').value = getRandomArbitrary(1000, 10000);
+    document.getElementById('amount').value = getRandomArbitrary(1000, 10000).toFixed(0);
 }
 
 window.usePreset = usePreset;

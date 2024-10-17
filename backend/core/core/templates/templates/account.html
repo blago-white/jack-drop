@@ -32,20 +32,20 @@
             </div>
         </div>
     </div>
-    <aside class="account-empty">
-        <h3>TRADE LINK</h3>
-        <input type="text" placeholder="SET UP TRADE LINK" style="background: rgb(22, 22, 22);border: 0px;border-radius: 1ch;padding: 2ch;color: white;width: 57%;">
-        <button style="
-        width: 57%;
-        background: linear-gradient(180deg, #FF62CA 0%, #FF007A 100%);
-        font-family: 'Gilroy Bold';
-        color: white;
-        border-radius: 1ch;
-        border: 0px;
-        margin-top: 1ch;
-        height: 6ch;
-    ">SET</button>
-    </aside>
+<aside class="account-empty" style="padding-inline: calc(100vw* calc(50 / var(--reference-display-w)));">
+    <h3>TRADE LINK</h3>
+    <input type="text" id="trade-link" placeholder="SET UP TRADE LINK" style="background: rgb(22, 22, 22);border: 0px;border-radius: 1ch;padding: 2ch;color: white;width: 57%;">
+    <button style="
+    width: 57%;
+    background: linear-gradient(180deg, #FF62CA 0%, #FF007A 100%);
+    font-family: 'Gilroy Bold';
+    color: white;
+    border-radius: 1ch;
+    border: 0px;
+    margin-top: 1ch;
+    padding-block: calc(100vw * calc(21 / var(--reference-display-w)));
+" onclick="updateUserTradeLink()">SET</button>
+</aside>
     <div class="account-controls">
         <a href="{% url 'inventory' %}" class="account-control" id="l-contr-acc">{% trans 'Inventory' %}</a>
         <button class="account-control" onclick="location.href = '{% url 'game-history' %}'" id="c-contr-acc">{% trans 'Game History' %}</button>
@@ -128,5 +128,5 @@
 </script>
 <script src="{% static 'js/account.js' %}"></script>
 <script src="{% static 'js/inventory.js' %}" type="module"></script>
-<script src="{% static 'js/replenish.js' %}"></script>
+<script src="{% static 'js/replenish.js' %}" type="module"></script>
 {% endblock %}

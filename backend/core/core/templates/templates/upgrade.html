@@ -50,12 +50,10 @@ Upgrade | Jack Drop
     </div>
     <div class="grant-items" id="receive-items-feed-desctop">
         <article class="price-filter">
-            <input class="price-filter-input" min="0" id="price-from" type="number" placeholder="от">
-            <input class="price-filter-input" min="0" id="price-to" type="number" placeholder="до">
+            <input class="price-filter-input" min=0 type="number" placeholder="от" id="price-from">
+            <input class="price-filter-input" min=0 type="number" placeholder="до" id="price-to">
             <button class="price-filter-button"
-                    onclick="updateReceiveList(document.getElementById('price-from').value, document.getElementById('price-to').value);">
-                Искать
-            </button>
+                    onclick="updateReceiveList(document.getElementById('price-from').value, document.getElementById('price-to').value);">Искать</button>
         </article>
     </div>
     <div class="items-list">

@@ -54,7 +54,7 @@ async function getInevntoryItems() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/inventory/upgrade/`,
+        `https://${location.hostname}/products/inventory/upgrade/`,
         requestOptions
     );
 
@@ -129,7 +129,7 @@ async function getReceiveItems(minItemPrice) {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/items/all/`,
+        `https://${location.hostname}/products/items/all/`,
         requestOptions
     );
 
@@ -142,7 +142,7 @@ async function getReceiveItems(minItemPrice) {
             rareColor = getCardColor(result.length, c);
 
             const elem = `
-                <article class="item-card receive" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;cursor: pointer;" id="mr${element.id}" onclick="selectReceiveItem(this)">
+                <article class="item-card" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;cursor: pointer;" id="mr${element.id}" onclick="selectReceiveItem(this)">
                     <div class="dropped-content">
                         <div class="item-numeric-info">
                             <span class="item-price ${rareColor}"><span>${element.price}</span> <img
@@ -165,9 +165,8 @@ async function getReceiveItems(minItemPrice) {
                 onclick="selectReceiveItem(this)">
                     <div class="dropped-content">
                         <div class="item-numeric-info">
-                            <span class="item-price ${rareColor}">
-                                <span id='pr${element.id}'>${element.price}</span> <img src="/core/static/img/gear.png">
-                            </span>
+                            <span class="item-price ${rareColor}"><span>${element.price}</span> <img
+                            src="/core/static/img/gear.png"></span>
                         </div>
 
                         <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
@@ -202,6 +201,8 @@ function selectGrantedItem(elem) {
     if (selectedGranted) {
         document.getElementById(selectedGranted).style.filter = "none";
     }
+
+    console.log(elem.id, elem);
 
     const raw_id = parseInt(elem.id.slice(2));
 
@@ -257,7 +258,7 @@ async function makeUpgrade() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/games/upgrade/`,
+        `https://${location.hostname}/products/games/upgrade/`,
         requestOptions
     );
 
@@ -305,6 +306,8 @@ async function animateResult(result) {
 }
 
 function updatePercent() {
+    console.log(selectedGranted, selectedReceive, selectedGrantedBalance);
+
     let newPercent = 0;
 
     if (selectedGranted && selectedReceive) {
@@ -343,6 +346,7 @@ function updatePercent() {
     }
 }
 
+
 function clearInputBalance() {
     selectedGrantedBalance = null;
     grantedBalance.value = null;
@@ -357,25 +361,6 @@ function inputBalanceFunds() {
     selectedGrantedBalance = parseInt(grantedBalance.value);
 
     updatePercent();
-}
-
-function updateReceiveList(from, to) {
-    from = from ? from : 0;
-    to = to ? to : 10*9;
-
-    if (from >= to) {
-        location.href = location.href;
-    }
-
-    Array.from(receiveItems.keys()).forEach((elementId) => {
-        if (receiveItems.get(elementId).price < from || receiveItems.get(elementId).price > to) {
-            document.getElementById(`dr${elementId}`).style.display = 'none';
-            document.getElementById(`mr${elementId}`).style.display = 'none';
-        } else {
-            document.getElementById(`dr${elementId}`).style.display = 'flex';
-            document.getElementById(`mr${elementId}`).style.display = 'flex';
-        }
-    });
 }
 
 async function changeBtn() {
@@ -396,6 +381,26 @@ async function changeBtn() {
         };
     }
 }
+
+function updateReceiveList(from, to) {
+    from = from ? from : 0;
+    to = to ? to : 10**9;
+
+    if (from >= to) {
+        location.href = location.href;
+    }
+
+    Array.from(receiveItems.keys()).forEach((elementId) => {
+        if (receiveItems.get(elementId).price < from || receiveItems.get(elementId).price > to) {
+            document.getElementById(`dr${elementId}`).style.display = 'none';
+            document.getElementById(`mr${elementId}`).style.display = 'none';
+        } else {
+            document.getElementById(`dr${elementId}`).style.display = 'flex';
+            document.getElementById(`mr${elementId}`).style.display = 'flex';
+        }
+    });
+}
+
 
 grantedBalance.addEventListener('input', inputBalanceFunds)
 
