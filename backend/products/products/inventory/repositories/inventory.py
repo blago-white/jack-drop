@@ -49,21 +49,21 @@ class InventoryRepository(BaseRepository):
 
     def get_all_for_contract(self, user_id: int) -> dict:
         return self._serializer_class(
-            instance=self._service.get_all(
+            instance=(self._service.get_all(
                 user_id=user_id, locked_for=Lockings.CONTRACT
             ) | self._service.get_all(
                 user_id=user_id, locked_for=Lockings.UNLOCK
-            ),
+            )).order_by("item__price"),
             many=True
         ).data
 
     def get_all_for_upgrade(self, user_id: int) -> dict:
         return self._serializer_class(
-            instance=self._service.get_all(
+            instance=(self._service.get_all(
                 user_id=user_id, locked_for=Lockings.UPGRADE
             ) | self._service.get_all(
                 user_id=user_id, locked_for=Lockings.UNLOCK
-            ),
+            )).order_by("item__price"),
             many=True
         ).data
 

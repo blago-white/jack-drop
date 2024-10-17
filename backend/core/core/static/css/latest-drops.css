@@ -19,6 +19,7 @@
     flex-direction: column;
     align-items: center;
     gap: 11px;
+    justify-content: space-between;
 }
 
 .item-numeric-info {

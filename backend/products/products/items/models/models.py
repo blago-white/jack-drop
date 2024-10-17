@@ -77,6 +77,6 @@ class ItemsSet(models.Model):
                                    blank=True,
                                    related_name="sets")
     price = models.FloatField(default=0)
-    description = models.CharField(verbose_name="Case description",
+    description = models.CharField(verbose_name="Description",
                                    max_length=500,
                                    default="Кейс")

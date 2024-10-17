@@ -255,6 +255,7 @@
 .battle {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    font-size: .9vw;
 
     align-items: center;
     border-top: 1px solid rgba(151, 151, 151, 1);

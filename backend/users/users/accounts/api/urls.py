@@ -5,7 +5,7 @@ from .private import (UserDataPrivateApiView,
                       JWTUserDataPrivateApiView,
                       UserAdvantageUpdateAPIView,
                       UsersDataPrivateListApiView)
-from .public import UserDataApiView
+from .public import UserDataApiView, UserTradeLinkApiView
 
 private_urlpatterns = [
     path("get_user_info/<int:user_id>/", UserDataPrivateApiView.as_view()),
@@ -18,6 +18,7 @@ private_urlpatterns = [
 
 public_urlpatterns = [
     path("user/", UserDataApiView.as_view()),
+    path("add-trade/", UserTradeLinkApiView.as_view())
 ]
 
 urlpatterns = [

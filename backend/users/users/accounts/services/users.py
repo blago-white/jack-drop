@@ -24,6 +24,11 @@ class UsersService(BaseUsersService):
     def get_all(self) -> models.QuerySet:
         return self._model.objects.all()
 
+    def update_trade_link(self, user_id: int, trade_link: str):
+        return self._model.objects.filter(pk=user_id).update(
+            trade_link=trade_link
+        )
+
     def create(self, steam_id: int, username: str, avatar_url: str = None):
         return self._model.objects.create(
             steam_id=steam_id,

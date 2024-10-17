@@ -21,8 +21,8 @@
 
 .inventory-items-table {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: calc(100vw * calc(30 / var(--reference-display-w)));
+    grid-template-columns: repeat(6, 15%);
+    gap: 1.55vw;
     min-width: -webkit-fill-available;
 }
 
@@ -57,6 +57,7 @@ h3 {
 
 .item-card {
     overflow: hidden;
+    aspect-ratio: 1/1;
 }
 
 .items-controls button {

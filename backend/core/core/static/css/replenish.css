@@ -16,6 +16,11 @@
     flex-direction: column;
 }
 
+.data-input.preset {
+    padding-inline: 1ch!important;
+    width: fit-content!important;
+}
+
 .info {
     padding-left: 5ch;
     width: 80%;

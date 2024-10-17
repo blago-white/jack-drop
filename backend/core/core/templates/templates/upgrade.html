@@ -48,7 +48,14 @@ Upgrade | Jack Drop
             <span class="super-button-text">Апгрейд</span>
         </button>
     </div>
-    <div class="grant-items" id="receive-items-feed-desctop"></div>
+    <div class="grant-items" id="receive-items-feed-desctop">
+        <article class="price-filter">
+            <input class="price-filter-input" min=0 type="number" placeholder="от" id="price-from">
+            <input class="price-filter-input" min=0 type="number" placeholder="до" id="price-to">
+            <button class="price-filter-button"
+                    onclick="updateReceiveList(document.getElementById('price-from').value, document.getElementById('price-to').value);">Искать</button>
+        </article>
+    </div>
     <div class="items-list">
         <div class="left-items-list">
             <span class="items-list-desc">{% trans 'Hint Second' %}</span>
@@ -59,6 +66,14 @@ Upgrade | Jack Drop
             <span class="items-list-desc">
                 {% trans 'Left Part Descriprion' %}
             </span>
+            <article class="price-filter">
+                <input class="price-filter-input" min="0" id="price-from-m" type="number" placeholder="от">
+                <input class="price-filter-input" min="0" id="price-to-m" type="number" placeholder="до">
+                <button class="price-filter-button"
+                        onclick="updateReceiveList(document.getElementById('price-from-m').value, document.getElementById('price-to-m').value);">
+                    Искать
+                </button>
+            </article>
             <div class="items-feed" id="receive-items-feed">
 
             </div>

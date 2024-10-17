@@ -19,7 +19,7 @@ class InventoryService(BaseModelService):
         if locked_for:
             return result.filter(locked_for=locked_for)
 
-        return result
+        return result.order_by("item__price")
 
     def check_ownership(self, owner_id: int,
                         item_id: int = None,
@@ -120,14 +120,10 @@ class InventoryService(BaseModelService):
         )
 
     def get_item(self, inventory_item_id: int, apply_frozen: bool = False) -> InventoryItem:
-        print("GET INV ITEM", inventory_item_id, self._model.objects.all().order_by("-pk").values("pk"))
-
         result = self._model.objects.filter(
             models.Q(frozen=False) | models.Q(frozen=apply_frozen),
             pk=inventory_item_id,
         ).first()
-
-        print(result)
 
         return result
 

@@ -42,16 +42,18 @@ export async function getSet(id) {
 
     result.items.forEach((element) => {
         setItems.innerHTML += `
-            <article style="display: flex;flex-direction: column;align-items: center; gap: 1ch;">
-                <div class="dropped rare">
-                        <div class="w-line"></div>
-                        <div class="dropped-content">
-                            <span>${element.title}</span>
-                            <div style="display: flex;flex-direction: row;gap: 1ch;">
-                                <span class="item-price blue"><span>${element.price}</span></span>
-                            </div>
-                            <img src="${element.image_path}">
-                        </div>
+            <article class="item-card" style="background: url(/core/static/img/card-bg-yellow.png);background-size: cover;">
+                <div class="dropped-content">
+                    <div class="item-numeric-info">
+                        <span class="item-price yellow" style="width: 100%;"><span>${element.price}</span></span>
+                    </div>
+
+                    <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                        <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                        <img src="${element.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
+                    </div>
+
+                    <span class="item-title">${element.title}</span>
                 </div>
             </article>
         `;

@@ -132,13 +132,14 @@ body {
 
 .grant-items {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: calc(100vw* calc(30 / 1920));
+    grid-template-columns: repeat(3, calc(31.4vw* calc(517 / 1920)));
+    row-gap: calc(100vw* calc(14 / 1920));
     column-gap: calc(100vw* calc(14 / 1920));
     max-width: calc(100vw* calc(517 / 1920));
     max-height: 45vh;
+    width: calc(100vw* calc(517 / 1920));
     overflow-y: scroll;
-    border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
+    border-radius: calc(100vw* calc(32 / var(--reference-display-w)));
 }
 
 .grant-items::-webkit-scrollbar {
@@ -169,6 +170,50 @@ body {
 
 .upgrade-item-img-second {
     transition: filter 20s linear, opacity .5s ease;
+}
+
+.price-filter {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    border-radius: inherit;
+    height: 10vh;
+    display: flex;
+    backdrop-filter: blur(5px);
+    align-items: center;
+    background: rgb(255, 255, 255, .15);
+    justify-content: center;
+}
+
+.price-filter-input {
+    border: 0px;
+    background: transparent;
+    text-align: center;
+    font-size: 2ch;
+    width: 30%;
+    color: white;
+}
+
+.price-filter-button {
+    height: 80%;
+    border-radius: 1.6ch;
+    border: 1px solid #FF007A;
+    background-color: transparent;
+    color: white;
+    font-weight: bolder;
+    text-transform: uppercase;
+    font-family: 'Gilroy Bold';
+    font-size: larger;
+    padding-inline: 1ch;
+
+    transition: background-color .2s ease;
+}
+
+.price-filter-input:focus-visible {
+    outline: 0px;
+}
+
+.price-filter-button:hover {
+    background-color: #FF007A;
 }
 
 #granted-balance {
@@ -330,5 +375,47 @@ body {
 
     .dropped-content span {
         font-size: calc(100vw* calc(40 / var(--reference-display-w)))!important;
+    }
+
+    .price-filter {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    border-radius: inherit;
+    height: 13vh;
+    display: flex;
+    backdrop-filter: blur(5px);
+    align-items: center;
+    background: rgb(255, 255, 255, .15);
+    justify-content: center;
+    flex-direction: column;
+    border-radius: calc(100vw* calc(20 / var(--reference-display-w)));
+    padding: 3vw;
+    font-size: 4vw;
+    gap: .5ch;
+    }
+
+    .price-filter-input {
+        border-radius: inherit;
+        border: 0px;
+        background: rgb(20, 20, 20, .8);
+        text-align: center;
+        padding-block: .3ch;
+        font-size: 2ch;
+        width: 100%;
+        color: white;
+    }
+
+    .price-filter-button {
+        height: 20%;
+        border-radius: inherit;
+        background-color: #FF007A;
+        color: white;
+        font-weight: bolder;
+        text-transform: uppercase;
+        font-family: 'Gilroy Bold';
+        font-size: larger;
+        padding-inline: 1ch;
+        transition: background-color .2s ease;
+        width: 100%;
     }
 }

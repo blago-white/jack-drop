@@ -12,6 +12,39 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 };
 
+function getExtremiums(resultList) {
+    let max=0;
+    let min=99999999999;
+
+    resultList.forEach((element) => {
+        console.log(element.item.price, max, min);
+        max = Math.max(element.item.price, max)
+        min = Math.min(element.item.price, min)
+    })
+
+    console.log(max, min);
+
+    return [max, min];
+}
+
+function getCardColor(max, min, price) {
+    const relativeRate = 1 - (price / max);
+
+    console.log(relativeRate, price, max);
+
+    if (relativeRate < 0.1) {
+        return "yellow"
+    } else if (relativeRate < 0.25) {
+        return "red"
+    } else if (relativeRate < 0.45) {
+        return "pink"
+    } else if (relativeRate < 0.7) {
+        return "purple"
+    } else {
+        return "blue"
+    }
+}
+
 async function sellItem(id) {
     const headers = new Headers();
 
@@ -74,18 +107,24 @@ async function withdrawItem(id) {
 
 function renderItems(result) {
     let c = 0;
+    let cardColor;
+
+    const extremiums = getExtremiums(result);
 
     result.forEach((element) => {
         c += 1;
+        cardColor = getCardColor(extremiums[0], extremiums[1], element.item.price);
+
+        console.log(cardColor, extremiums);
 
         inventoryItemsTable.innerHTML += `
-            <article class="item-card" style="background: url(/core/static/img/card-bg-yellow.png);background-size:cover;cursor: pointer;" id="${element.id}">
+            <article class="item-card" style="background: url(/core/static/img/card-bg-${cardColor}.png);background-size:cover;cursor: pointer;" id="${element.id}">
                 <div class="dropped-content">
                     <div class="item-numeric-info">
-                        <span class="item-price yellow"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
+                        <span class="item-price ${cardColor}"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
                     </div>
 
-                    <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                    <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;height: 10%;max-width: 100%;justify-items: center;align-items: center;align-content: center;">
                         <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
                         <img src="${element.item.image_path}" class="item-card-img" style="width: 70%;grid-row: 1;grid-column: 1;">
                     </div>

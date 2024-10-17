@@ -42,6 +42,7 @@ class ItemAdmin(ModelAdmin):
     fields = ["title",
               "image_path",
               "items",
+              "description",
               "price"]
 
     search_fields = ["title"]

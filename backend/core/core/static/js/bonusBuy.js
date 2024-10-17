@@ -24,9 +24,12 @@ async function getStatus() {
     const percent = Math.min(Math.ceil((result.points / result.level.target) * 100), 100);
 
     document.getElementById('level-digit').innerHTML = result.level.level;
-    document.getElementById('level-desc').innerHTML = `Оборот ${result.level.target} металлалома, что бы получить Рудный кейс Дерево`;
+    document.getElementById('level-desc').innerHTML = `
+        Оборот ${result.level.target} металлалома, что бы получить кейс "${result.level.free_case.title}"
+    `;
     document.getElementById('upgrade-percent').innerHTML = `${percent}%`;
     document.getElementById('next-lvl-desc').innerHTML = `Перейти к ${result.level.level+1} уровню`;
+    document.getElementById('benefit-case').src = result.level.free_case.image_path;
 
     if (percent < 100) {
         document.getElementById('next-level-btn').classList.add('disabled');

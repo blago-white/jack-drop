@@ -139,6 +139,9 @@ class PublicUsersRepository(BaseUsersRepository):
             }
         )
 
-        print("RESPONSE PUBLIC INFO:", serialized.data)
-
         return serialized.data
+
+    def update_trade_link(self, user_id: int, trade_link: str):
+        self._service.update_trade_link(user_id=user_id, trade_link=trade_link)
+
+        return {"ok": True, "link": trade_link}

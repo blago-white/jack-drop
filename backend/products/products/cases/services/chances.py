@@ -31,7 +31,9 @@ class CaseItemsChancesService(BaseCaseItemsChancesService):
         super().__init__(*args, **kwargs)
 
     def update_chanses(self, case: models.Model) -> None:
-        case_items = self._service.get_case_items_for_case(case_pk=case.pk)
+        case_items = self._service.get_case_items_for_case_by_price(
+            case_pk=case.pk
+        )
         items = self._service.get_related_items(
             case_items_queryset=case_items
         )
