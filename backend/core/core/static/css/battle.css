@@ -8,7 +8,6 @@
 }
 
 .drops-window {
-    background: #0E0E0E;
     border-radius: 3ch;
     display: flex;
     flex-direction: column;
@@ -29,6 +28,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 38vh;
 }
 
 .drops-roulette-window {
@@ -43,7 +43,7 @@
 }
 
 .arrow {
-    height: 25.4ch;
+    height: 38vh;;
     position: absolute;
     z-index: 100;
 }
@@ -335,10 +335,23 @@
     margin-left: auto;
 }
 
+.item-card {
+    width: 14vh;
+}
+
+.dropped-content {
+    height: 100%;
+}
+
+.item-price {
+    width: 100%;
+}
+
 @media (aspect-ratio < 1/1) {
     .bg-filter {
         height: 100vh;
-        background: linear-gradient(0deg, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.6) 270%, rgba(0, 0, 0, 1) 90%);
+        background: linear-gradient(0deg, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.6) 270%, rgba(0, 0, 0,
+1) 90%);
     }
 
     .battle-sec {

@@ -137,7 +137,8 @@ PAYMENT_SERVICE_URLS = {
     "get-requisits": "https://api.merchant001.io/v1/transaction"
                      "/merchant/requisite/{id}",
     "create-with-req": "https://api.merchant001.io/v2/transaction/merchant",
-    "cancel": "https://api.merchant001.io/v1/transaction/merchant/cancel/{id}/"
+    "cancel": "https://api.merchant001.io/v1/transaction/merchant/cancel/{id}/",
+    "withdraw": "https://api.merchant001.io/v1/withdraw/merchant",
 }
 
 PRODUCTS_MICROSERVICE_ROUTES = {

@@ -60,6 +60,11 @@ class BonusBuyRepository(BaseRepository):
 
         return {"ok": has}
 
+    def get_withdrawed_cases(self, user_id: int) -> list[int]:
+        cases = self._service.get_withdrawed_cases(user_id=user_id)
+
+        return [i.pk for i in cases]
+
 
 class UserBonusesRepository(BaseRepository):
     default_service = UserBonusesService()
@@ -72,4 +77,9 @@ class UserBonusesRepository(BaseRepository):
             "discount": self._service.get_discount(
                 user_id=user_id, case_id=case_id
             )
+        }
+
+    def get_all_discounts(self, user_id: int) -> dict[str, list[dict[int, int]]]:
+        return {
+            "discounts": list(self._service.get_all_discounts(user_id=user_id))
         }

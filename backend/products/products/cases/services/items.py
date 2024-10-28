@@ -40,7 +40,7 @@ class CaseItemsService(BaseCaseItemsService):
         return self._model.objects.filter(
             case=case_pk,
             item__price__gt=0
-        ).order_by("price")
+        ).order_by("item__price")
 
     def get_drop_case_items_for_case(self, case_pk: str) -> dict:
         return self.get_case_items_for_case(case_pk=case_pk).order_by(

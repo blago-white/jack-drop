@@ -52,9 +52,20 @@ class UserBonusesService(BaseModelService):
                 user_id=user_id,
                 related_case__case__id=case_id,
                 active=True
-            ).first().discount
-        except:
+            ).first().related_case.discount
+        except Exception as e:
+            print(e)
             return 0
+
+    def get_all_discounts(self, user_id: int) -> int:
+        return self._model.objects.filter(
+            user_id=user_id, active=True
+        ).annotate(
+            case=models.F("related_case__case__pk"),
+            discount=models.F("related_case__discount")
+        ).values(
+            "case", "discount"
+        ).order_by("discount")
 
     def add_discount(self, user_id: int, bonus_case: BonusCase):
         return self._model.objects.create(
@@ -173,6 +184,9 @@ class BonusBuyService(BaseModelService):
         return self.get_or_create(user_id=user_id).free_cases.filter(
             pk=case_id
         ).exists()
+
+    def get_withdrawed_cases(self, user_id: int) -> list[Case]:
+        return self.get_or_create(user_id=user_id).free_cases.all()
 
     def can_withdraw(self, user_id: int) -> bool:
         profile: UserBonusBuyProfile = self.get_or_create(user_id=user_id)

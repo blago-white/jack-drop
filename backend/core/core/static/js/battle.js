@@ -28,6 +28,21 @@ function gcd () {
     return w/h;
 }
 
+function getCardColor(itemsCount, indexCurrent) {
+    console.log(itemsCount, indexCurrent, indexCurrent <= itemsCount * 0.5);
+    if (indexCurrent <= itemsCount/10) {
+        return "yellow"
+    } else if (indexCurrent <= itemsCount * 0.25) {
+        return "red"
+    } else if (indexCurrent <= itemsCount * 0.45) {
+        return "pink"
+    } else if (indexCurrent <= itemsCount * 0.7) {
+        return "purple"
+    } else {
+        return "blue"
+    }
+}
+
 function animateRoulette(toid, caseItems, dropItemsString) {
     const vw = window.innerWidth / 100;
     const gap = 100 * vw * (40 / 1920);
@@ -48,14 +63,15 @@ function animateRoulette(toid, caseItems, dropItemsString) {
     if (gcd() > 1/1) {
         const partWith = 100 * vw * (200 / 1920);
 
-        const biasVal = gap + partWith - count;
+        const biasVal = gap + partWith;
 
         dropItemsString.style.transition = `filter .5s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;
 
         dropItemsString.style.filter = `blur(.1ch)`;
 
         setTimeout(() => {
-            dropItemsString.style.marginLeft = `-${(biasVal * count) + ((to) * biasVal)}px`;
+            const biasRect = document.getElementById(`drop-2-${toid}`).getBoundingClientRect().left;
+            dropItemsString.style.marginLeft = `-${biasRect - (biasVal*5)}px`;
         })
 
         setTimeout(() => {dropItemsString.style.transition = `filter 4s cubic-bezier(0.4, 0, 1, 1), margin 7s cubic-bezier(0.08, 0.22, 0.22, 1)`;dropItemsString.style.filter = `blur(0ch)`}, 1000)
@@ -103,28 +119,50 @@ async function renderDrops(username1, username2, battleImgPath, caseItems, dropp
             </div>
     `;
 
+    let c = 0;
+    let rareColor;
+
     for (let i = 0;i<7;i++) {
         caseItems.forEach((element) => {
+            rareColor = getCardColor(caseItems.length, c);
+
             document.getElementsByClassName('items')[0].innerHTML += `
-                <article class="dropped mono 1-itm-${element.case_item_id}">
-                    <div class="w-line"></div>
-                    <div class="dropped-content">
-                        <span>${element.title}</span>
-                        <img src="${element.image_path}">
+                <article id="${i == 5 ? 'drop-1-'+element.case_item_id.toString() : ''}" class="item-card 1-itm-${element.case_item_id}" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size: cover;">
+                <div class="dropped-content">
+                    <div class="item-numeric-info">
+                        <span class="item-price ${rareColor}"><span>${parseInt(element.price)}</span></span>
                     </div>
+
+                    <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                        <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                        <img src="${element.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
+                    </div>
+
+                    <span class="item-title">${element.title}</span>
+                </div>
                 </article>
             `;
 
             document.getElementsByClassName('items')[1].innerHTML += `
-                <article class="dropped mono 2-itm-${element.case_item_id}">
-                    <div class="w-line"></div>
-                    <div class="dropped-content">
-                        <span>${element.title}</span>
-                        <img src="${element.image_path}">
+                <article id="${i == 5 ? 'drop-2-'+element.case_item_id.toString() : ''}" class="item-card 2-itm-${element.case_item_id}"style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size: cover;">
+                <div class="dropped-content">
+                    <div class="item-numeric-info">
+                        <span class="item-price ${rareColor}"><span>${parseInt(element.price)}</span></span>
                     </div>
+
+                    <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                        <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                        <img src="${element.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
+                    </div>
+
+                    <span class="item-title">${element.title}</span>
+                </div>
                 </article>
-            `;
+        `;
+            c++;
         })
+
+        c = 0;
     };
 
     const r1 = document.getElementById('items1');
@@ -279,7 +317,7 @@ async function getCases() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/games/battles/`,
+        `https://${location.hostname}/products/games/battles/`,
         requestOptions
     );
 
@@ -323,7 +361,7 @@ async function getStats() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/games/battle-stats/`,
+        `https://${location.hostname}/products/games/battle-stats/`,
         requestOptions
     );
 
@@ -389,7 +427,7 @@ async function showHistory() {
     };
 
     const response = await sendRequest(
-        `http://${location.hostname}/products/games/battle-history/`,
+        `https://${location.hostname}/products/games/battle-history/`,
         requestOptions
     );
 
