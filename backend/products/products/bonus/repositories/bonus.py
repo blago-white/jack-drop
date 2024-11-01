@@ -5,7 +5,7 @@ from common.repositories.base import BaseRepository
 from cases.serializers.case import CaseSerializer
 
 from ..services.bonus import BonusBuyService, UserBonusesService
-from ..serializers import BonusBuyProfileSerializer
+from ..serializers import BonusBuyProfileSerializer, UserBonusesSerializer
 
 
 class BonusBuyRepository(BaseRepository):
@@ -60,10 +60,15 @@ class BonusBuyRepository(BaseRepository):
 
         return {"ok": has}
 
+    def get_withdrawed_cases(self, user_id: int) -> list[int]:
+        cases = self._service.get_withdrawed_cases(user_id=user_id)
+
+        return [i.pk for i in cases]
+
 
 class UserBonusesRepository(BaseRepository):
     default_service = UserBonusesService()
-    default_serializer_class = None
+    default_serializer_class = UserBonusesSerializer
 
     _service: UserBonusesService
 
@@ -73,3 +78,14 @@ class UserBonusesRepository(BaseRepository):
                 user_id=user_id, case_id=case_id
             )
         }
+
+    def get_all_discounts(self, user_id: int) -> dict[str, list[dict[int, int]]]:
+        return {
+            "discounts": list(self._service.get_all_discounts(user_id=user_id))
+        }
+
+    def get_all(self, user_id: int) -> dict:
+        return self._serializer_class(
+            instance=self._service.get_all(user_id=user_id),
+            many=True
+        ).data

@@ -1,6 +1,6 @@
 from rest_framework.generics import CreateAPIView
 
-from common.views.api import BaseRetreiveAPIView
+from common.views.api import BaseRetreiveAPIView, BaseListAPIView
 from common.mixins.api import CreateAPIViewMixin
 
 from ..repositories.bonus import BonusBuyRepository, UserBonusesRepository
@@ -63,5 +63,30 @@ class HasBonusCaseApiView(BaseRetreiveAPIView):
                     user_id=user_id,
                     case_id=self.get_requested_pk()
                 ).get("discount")
+            }
+        )
+
+
+class AllBonusesCasesApiView(BaseListAPIView):
+    _repository = BonusBuyRepository()
+    _user_bonuses_repository = UserBonusesRepository()
+    users_repository = UsersApiRepository()
+
+    def retrieve(self, request, *args, **kwargs):
+        user_id = self.users_repository.get(user_request=request).get("id")
+
+        free_cases = self._repository.get_withdrawed_cases(user_id=user_id)
+        discounted = self._user_bonuses_repository.get_all_discounts(
+            user_id=user_id
+        )
+
+        discounted_dict = {
+                i.get("case"): i.get("discount") for i in discounted.get("discounts")
+        }
+
+        return self.get_200_response(
+            data={
+                "free": free_cases,
+                "discounted": discounted_dict
             }
         )

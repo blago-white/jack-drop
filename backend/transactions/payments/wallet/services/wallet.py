@@ -26,3 +26,10 @@ class TronWalletApiService:
             return transaction.txid
         except Exception as exc:
             return exc
+
+
+class IncomePaymentServiceWalletService:
+    def withdraw(self, address: str):
+        async with aiohttp.ClientSession() as session:
+            async with session.post(settings.PAYMENT_SERVICE_URLS["withdraw"]) as response:
+                return
