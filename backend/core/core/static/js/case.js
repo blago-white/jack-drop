@@ -87,8 +87,6 @@ async function getCase(id) {
         caseDiscount = bonus.discount;
         caseFree = bonus.free;
 
-        console.log(bonus);
-
         unlockOpen(caseId);
     } else if (result.case.price > 0) {
         if (result.case.price <= (await getUserData()).balance) {

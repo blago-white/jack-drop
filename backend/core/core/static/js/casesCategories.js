@@ -1,6 +1,6 @@
 const casesSec = document.getElementById('cases-sec');
 
-function addCases(category, cases, bonuses={'free': [], 'discounted': {}}) {
+function addCases(category, cases, bonuses) {
     let html = `
         <section class="free-cases-sec">
             <h2 id="cases-category">${category}</h2>
@@ -11,17 +11,15 @@ function addCases(category, cases, bonuses={'free': [], 'discounted': {}}) {
     let priceLabel;
 
     cases.forEach((element) => {
+
         if (bonuses.free.includes(element.id)) {
             realPrice = 0
-        } else if (bonuses.discounted[element.id]) {
-            realPrice = element.price * ((100 - bonuses.discounted[element.id]) / 100)
+        } else if (bonuses.discounted.get(element.id)) {
+            realPrice = bonuses.discounted.get(element.id)
         }
 
-        console.log(element.id, bonuses.discounted[parseInt(element.id)], bonuses.discounted);
-
         if (realPrice != undefined) {
-            priceLabel = `${realPrice} <span style="text-decoration: line-through;color: rgb(210, 210,
-210);">${element.price}</span>`
+            priceLabel = `${realPrice} <span style="text-decoration: line-through;color: rgb(210, 210, 210);">${element.price}</span>`
         } else {
             priceLabel = `${element.price}`
         }
@@ -44,7 +42,7 @@ function addCases(category, cases, bonuses={'free': [], 'discounted': {}}) {
 
 
 async function addItemSets() {
-    const itemSet = await sendRequestJson(`https://${location.hostname}/products/items/sets/`, {method: "GET"})
+    const itemSet = await sendRequestJson(`http://${location.hostname}/products/items/sets/`, {method: "GET"})
 
     console.log(itemSet);
 
@@ -76,7 +74,7 @@ async function getBonuses() {
       redirect: "follow"
     };
 
-    const response = await sendRequest(`https://${location.hostname}/products/bonus-buy/bonuse/all/`, requestOptions);
+    const response = await sendRequest(`http://${location.hostname}/products/bonus-buy/bonuse/all/`, requestOptions);
 
     if (!response.ok) {
         return {
@@ -97,7 +95,7 @@ async function getCases() {
       redirect: "follow"
     };
 
-    const response = await sendRequest(`https://${location.hostname}/products/cases/api/v1/by-categories/?`+params, requestOptions);
+    const response = await sendRequest(`http://${location.hostname}/products/cases/api/v1/by-categories/?`+params, requestOptions);
 
     const result = await response.json();
 
@@ -107,14 +105,12 @@ async function getCases() {
 
     const bonuses = await getBonuses();
 
-    console.log(bonuses, 123);
-
     addCases(result[0].category, result[0].cases, bonuses)
 
     await addItemSets();
 
     result.slice(1).forEach((element) => {
-        addCases(element.category, element.cases, bonuses)
+        addCases(element.category, element.cases)
     })
 
     return result

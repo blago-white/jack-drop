@@ -5,16 +5,13 @@ from common.views.api import DetailedApiViewMixin
 from games.repositories.result import GameResultsRepository
 from games.repositories.api.users import UsersApiRepository
 
-
-class BonusesRepository:
-    def get_for_user(self, user_id: int):
-        return []
+from bonus.repositories.bonus import UserBonusesRepository
 
 
 class GameResultsApiView(DetailedApiViewMixin, RetrieveAPIView):
     pk_url_kwarg = "section"
     repository = GameResultsRepository()
-    bonuses_repository = BonusesRepository()
+    bonuses_repository = UserBonusesRepository()
     users_repository = UsersApiRepository()
 
     def retrieve(self, request, *args, **kwargs):
@@ -30,6 +27,6 @@ class GameResultsApiView(DetailedApiViewMixin, RetrieveAPIView):
                 game=section
             ))
         except ValidationError:
-            return self.get_200_response(data=self.bonuses_repository.get_for_user(
+            return self.get_200_response(data=self.bonuses_repository.get_all(
                 user_id=user_id
             ))

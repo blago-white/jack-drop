@@ -46,15 +46,34 @@ class BonusCaseService(BaseModelService):
 class UserBonusesService(BaseModelService):
     default_model = UserBonus
 
+    def get_all(self, user_id: int) -> models.QuerySet:
+        return self._model.objects.select_related(
+            "related_case__case",
+            "related_case",
+            "related_item",
+        ).filter(
+            user_id=user_id, active=True
+        ).annotate(
+            case_title=models.F("related_case__case__title"),
+            case_discount=models.F("related_case__discount"),
+            case_is_free=models.F("related_case__is_free"),
+            item_title=models.F("related_item__title")
+        ).values(
+            "bonus_type",
+            "case_title",
+            "case_discount",
+            "case_is_free",
+            "item_title"
+        ).order_by("-date_receive")
+
     def get_discount(self, user_id: int, case_id: int) -> int:
         try:
             return self._model.objects.select_related("related_case").filter(
                 user_id=user_id,
                 related_case__case__id=case_id,
                 active=True
-            ).first().related_case.discount
-        except Exception as e:
-            print(e)
+            ).first().related_case__discount
+        except:
             return 0
 
     def get_all_discounts(self, user_id: int) -> int:

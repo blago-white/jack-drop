@@ -55,6 +55,9 @@ class UserBonus(models.Model):
                                      blank=True)
     date_receive = models.DateTimeField(auto_now=True, editable=False)
 
+    class Meta:
+        verbose_name_plural = "User Bonuses"
+
     def __str__(self):
         return f"{self.get_bonus_type_display()}| uid: {self.user_id}"
 

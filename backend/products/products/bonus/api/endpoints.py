@@ -72,7 +72,7 @@ class AllBonusesCasesApiView(BaseListAPIView):
     _user_bonuses_repository = UserBonusesRepository()
     users_repository = UsersApiRepository()
 
-    def list(self, request, *args, **kwargs):
+    def retrieve(self, request, *args, **kwargs):
         user_id = self.users_repository.get(user_request=request).get("id")
 
         free_cases = self._repository.get_withdrawed_cases(user_id=user_id)
@@ -80,10 +80,8 @@ class AllBonusesCasesApiView(BaseListAPIView):
             user_id=user_id
         )
 
-        print(discounted)
-
         discounted_dict = {
-            i.get("case"): i.get("discount") for i in discounted.get("discounts")
+                i.get("case"): i.get("discount") for i in discounted.get("discounts")
         }
 
         return self.get_200_response(
