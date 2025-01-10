@@ -1,7 +1,6 @@
 from rest_framework.request import Request
 
 from common.views.api import BaseCreateApiView
-
 from ..repositories.wallet import WalletRepository
 
 

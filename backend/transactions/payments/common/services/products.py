@@ -1,7 +1,6 @@
 import json
-import requests
-from rest_framework.exceptions import ValidationError
 
+import requests
 from django.conf import settings
 
 from .transfer.products import DepositCallback

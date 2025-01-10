@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .endpoints import InitReplenishApiView, TransactionCallbackApiView, TransactionValidationApiView
+from .endpoints import InitReplenishApiView, TransactionCallbackApiView, \
+    TransactionValidationApiView
 
 urlpatterns = [
     path("create/", InitReplenishApiView.as_view(), name="init"),

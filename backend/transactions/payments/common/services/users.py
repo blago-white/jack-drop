@@ -1,10 +1,9 @@
 import json
 
 import requests
+from django.conf import settings
 from rest_framework.exceptions import ValidationError
 from rest_framework.request import Request
-
-from django.conf import settings
 
 
 class UsersApiService:

@@ -1,23 +1,23 @@
-from django.db import models
-
 from django.core.exceptions import ValidationError
+from django.db import models
 
 
 class PaymentStatus(models.TextChoices):
-    INITED = ("CREATED", "Created")
-    PENDING = ("PENDING", "Pending")
-    PROGRESS = ("IN_PROGRESS", "Progress")
-    PAID = ("PAID", "Payd")
-    CONFIRMED = ("CONFIRMED", "Confirmed")
+    SUCCESS = ("S", "SUCCESS")
+    FAILED = ("F", "FAILED")
 
-    FAILED = ("FAILED", "Failed")
-    CANCELED = ("CANCELED", "Canceled")
-    EXPIRED = ("EXPIRED", "Expired")
+
+class PaymentCurrency(models.TextChoices):
+    USD = "USD"
+    EUR = "EUR"
+    RUB = "RUB"
+    UAH = "UAH"
+    KZT = "KZT"
 
 
 class Config(models.Model):
-    apikey = models.CharField(max_length=512)
-    api_user_id = models.CharField(max_length=512)
+    merchant_id = models.CharField(max_length=512)
+    secret_key = models.CharField(max_length=512)
     bank_address = models.CharField(max_length=512)
 
     def save(self, *args, **kwargs):
@@ -28,12 +28,15 @@ class Config(models.Model):
 
 
 class Payment(models.Model):
-    foreign_id = models.UUIDField(null=True, blank=True, unique=True)
+    payment_id = models.UUIDField(null=True, blank=True, unique=True)
     user_id = models.IntegerField()
+    amount_local = models.IntegerField()
+    currency = models.CharField(blank=True,
+                                choices=PaymentCurrency.choices,
+                                null=True,
+                                default=PaymentCurrency.RUB)
     status = models.CharField(choices=PaymentStatus.choices,
                               blank=True,
                               null=True)
-    payment_method = models.UUIDField(blank=True, null=True)
-    amount_local = models.FloatField()
-    currency = models.CharField(blank=True, null=True)
+    payment_method = models.CharField(max_length=20, blank=True, null=True)
     expired_at = models.DateTimeField(blank=True, null=True)

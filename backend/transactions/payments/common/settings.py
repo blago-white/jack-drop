@@ -133,12 +133,8 @@ STATIC_ROOT = BASE_DIR / "static"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PAYMENT_SERVICE_URLS = {
-    "create": "https://api.merchant001.io/v1/transaction/merchant",
-    "get-requisits": "https://api.merchant001.io/v1/transaction"
-                     "/merchant/requisite/{id}",
-    "create-with-req": "https://api.merchant001.io/v2/transaction/merchant",
-    "cancel": "https://api.merchant001.io/v1/transaction/merchant/cancel/{id}/",
-    "withdraw": "https://api.merchant001.io/v1/withdraw/merchant",
+    "create": "https://nicepay.io/public/api/payment",
+    "payout": "https://nicepay.io/public/api/payout",
 }
 
 PRODUCTS_MICROSERVICE_ROUTES = {

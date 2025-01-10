@@ -1,8 +1,7 @@
-import requests
-import hashlib
 import json
+import typing
 
-from rest_framework.exceptions import ValidationError
+import requests
 from django.conf import settings
 
 from .transfer import ApiCredentals, CreateTransactionData
@@ -15,45 +14,26 @@ class TransactionApiService:
     def __init__(self, credentals: ApiCredentals):
         self._credentals = credentals
 
-    def create(self, tid: int, data: CreateTransactionData):
+    def create(self, tid: int,
+               data: CreateTransactionData
+               ) -> typing.Collection[bool, dict | str]:
         body = {
-            "pricing": {
-                "local": {
-                    "amount": data.amount_from,
-                    "currency": "RUB"
-                }
-            },
-            "invoiceId": str(tid),
-            "callbackUrl": settings.WEBHOOK_URL,
-            "redirectUrl": settings.SUCCESS_URL.format(a=data.amount_from),
-            "cancelUrl": settings.FAILED_URL
+            "merchhant_id": self._credentals.merchant_id,
+            "secret": self._credentals.secret_key,
+            "order_id": tid,
+            "customer": data.user_login,
+            "amount": data.amount_from,
+            "currency": data.currency,
+            "description": f"Пополнение JackDrop на {data.amount_from} {data.currency}",
+            "success_url": settings.SUCCESS_URL.format(a=data.amount_from),
+            "fail_url": settings.FAILED_URL,
         }
 
-        headers = {
-            "Authorization": settings.PAYMENT_SERVICE_AUTH_HEADER,
-            "Content-Type": "application/json"
-        }
+        response = requests.post(self.CREATE_ENDPOINT, data=json.dumps(body))
 
-        response = requests.post(self.CREATE_ENDPOINT,
-                                 headers=headers,
-                                 data=json.dumps(body))
+        response_body = response.json().get("data")
 
-        response_body = response.json()
-
-        if not response.ok:
-            return False, response_body.get("description")
+        if (not response.ok) or (response_body.get("status") == "error"):
+            return False, response_body.get("message")
 
         return True, response_body
-
-    def cancel(self, foreign_transaction_id: str):
-        headers = {
-            "Authorization": settings.PAYMENT_SERVICE_AUTH_HEADER,
-            "Content-Type": "application/json"
-        }
-
-        response = requests.post(self.CANCEL_ENDPOINT.format(
-            foreign_transaction_id
-        ), headers=headers, data=body)
-
-        if not response.ok:
-            raise ValidationError("Something went wrong!", code=500)

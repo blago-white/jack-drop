@@ -1,8 +1,7 @@
-from rest_framework.serializers import Serializer
 from rest_framework.request import Request
+from rest_framework.serializers import Serializer
 
 from .base import BaseRepository
-
 from ..services.users import UsersApiService
 
 
