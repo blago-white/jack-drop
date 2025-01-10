@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-04 14:13+0000\n"
+"POT-Creation-Date: 2024-12-30 11:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,150 +20,179 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-
-#: templates/templates/account.html:24
+#: templates/account.html:25 templates/templates/account.html:25
 msgid "Replenish"
 msgstr "Пополнить"
 
-#: templates/templates/account.html:27
+#: templates/account.html:28 templates/templates/account.html:28
 msgid "Your Level"
 msgstr "Ваш уровень"
 
-#: templates/templates/account.html:29
+#: templates/account.html:30 templates/templates/account.html:30
 msgid "Points"
 msgstr "Очки"
 
-#: templates/templates/account.html:37
-#: templates/templates/inventory/inventory.html:16
+#: templates/account.html:51 templates/templates/account.html:51
+#: templates/templates/inventory/inventory.html:17
 msgid "Inventory"
 msgstr "Инвентарь"
 
-#: templates/templates/account.html:38 templates/templates/game-history.html:16
+#: templates/account.html:52 templates/templates/account.html:52
+#: templates/templates/game-history.html:17
 #: templates/templates/withdraws.html:16
 msgid "Game History"
 msgstr "История игр"
 
-#: templates/templates/account.html:39
+#: templates/account.html:53 templates/templates/account.html:53
 msgid "Withdraws"
 msgstr "Выводы"
 
-#: templates/templates/account.html:43
+#: templates/account.html:57 templates/templates/account.html:57
 msgid "All Items"
 msgstr "Всего предметов"
 
-#: templates/templates/account.html:47
+#: templates/account.html:61 templates/templates/account.html:61
 msgid "Able To Sell"
 msgstr "Можно продать"
 
-#: templates/templates/account.html:53
+#: templates/account.html:67 templates/templates/account.html:67
 msgid "See All"
 msgstr "Смотреть предметы"
 
-#: templates/templates/account.html:56
+#: templates/account.html:70 templates/templates/account.html:70
 msgid "Sell All"
 msgstr "Продать все"
 
-#: templates/templates/account.html:62
+#: templates/account.html:76 templates/templates/account.html:76
 msgid "Empty Inventory"
 msgstr "Нет предметов"
 
-#: templates/templates/account.html:62 templates/templates/account.html:86
+#: templates/account.html:76 templates/account.html:100
+#: templates/templates/account.html:76 templates/templates/account.html:104
 msgid "Start Open Cases"
 msgstr "Начните открывать кейсы"
 
-#: templates/templates/account.html:67 templates/templates/case.html:29
+#: templates/account.html:81 templates/templates/account.html:81
+#: templates/templates/case.html:30
 msgid "Open"
 msgstr "Открыть"
 
-#: templates/templates/base.html:52
+#: templates/templates/account.html:37
+msgid "Trade Link"
+msgstr "Трейд ссылка"
+
+#: templates/templates/base.html:55
 msgid "Best Cases"
 msgstr "Лучшие кейсы rust"
 
-#: templates/templates/base.html:55 templates/templates/base.html:61
+#: templates/templates/base.html:58 templates/templates/base.html:64
 msgid "Privacy Policy"
 msgstr "Политика конфиденциальности"
 
-#: templates/templates/base.html:56 templates/templates/base.html:62
+#: templates/templates/base.html:59 templates/templates/base.html:65
 msgid "User Agreement"
 msgstr "Пользовательское соглашение"
 
-#: templates/templates/base.html:57 templates/templates/base.html:63
+#: templates/templates/base.html:60 templates/templates/base.html:66
 msgid "ToS"
 msgstr "Правила сервиса"
 
-#: templates/templates/base.html:58 templates/templates/base.html:64
+#: templates/templates/base.html:61 templates/templates/base.html:67
 msgid "About"
 msgstr "О нас"
 
-#: templates/templates/battle.html:44
+#: templates/templates/battle.html:46
 msgid "Find Participant"
 msgstr "Ищем второго игрока"
 
-#: templates/templates/battle.html:47
+#: templates/templates/battle.html:49
 msgid "Cancel Battle"
 msgstr "Отменить сражение"
 
-#: templates/templates/battle.html:51
+#: templates/templates/battle.html:53
 msgid "Case"
 msgstr "Кейс"
 
-#: templates/templates/battle.html:53
-#, fuzzy
-#| msgid "Battles"
+#: templates/templates/battle.html:55
 msgid "Active Battles"
 msgstr "Сражения"
 
-#: templates/templates/battle.html:56
+#: templates/templates/battle.html:58
 msgid "Cost"
 msgstr "Стоимость"
 
-#: templates/templates/battle.html:58
+#: templates/templates/battle.html:60
 msgid "Actions"
 msgstr "Действия"
 
-#: templates/templates/battle.html:70
+#: templates/templates/battle.html:72
 msgid "Start"
 msgstr "Начать"
 
-#: templates/templates/battle.html:79
+#: templates/templates/battle.html:81
 msgid "Wins"
 msgstr "Побед"
 
-#: templates/templates/battle.html:83
+#: templates/templates/battle.html:85
 msgid "Loses"
 msgstr "Поражений"
 
-#: templates/templates/battle.html:87
+#: templates/templates/battle.html:89
 msgid "Draws"
 msgstr "Ничей"
 
-#: templates/templates/battle.html:93
+#: templates/templates/battle.html:95
 msgid "My Battles"
 msgstr "Мои Сражения"
 
-#: templates/templates/battle.html:97
+#: templates/templates/battle.html:99
 msgid "Battle Hint Header"
 msgstr "Как это работает?"
 
-#: templates/templates/battle.html:102
+#: templates/templates/battle.html:104
 msgid "Battle Hint First"
 msgstr "КЛИКНИТЕ “СОЗДАТЬ” ИЛИ ПРИСОЕДИНИТЕСЬ К СУЩЕСТВУЮЩЕМУ СРАЖЕНИЮ."
 
-#: templates/templates/battle.html:106
+#: templates/templates/battle.html:108
 msgid "Battle Hint Second"
 msgstr "СРАЖЕНИЕ НАЧНЕТСЯ КАК ТОЛЬКО ОБА УЧАСТНИКА ПРИСОЕДИНИЛИСЬ."
 
-#: templates/templates/battle.html:110
+#: templates/templates/battle.html:112
 msgid "Battle Hint Third"
 msgstr "УЧАСТНИК, ПОЛУЧИВШИЙ ПРЕДМЕТ ДОРОЖЕ, ЗАБИРАЕТ ОБА."
 
-#: templates/templates/case-drop.html:25 templates/templates/case.html:35
+#: templates/templates/bonus-buy.html:17
+msgid "Bonus Buy Info"
+msgstr "Bonus Buy – система которая позволяет игроку получить бесплатный кейс"
+       "за оборот валюты, открывая другие кейсы. В этой системе, открытие бесплатных"
+       "кейсов не суммируется. Ниже вы увидите, сколько нужно сделать оборот металлолома,"
+       "чтобы открыть бесплатно другие кейсы."
+
+#: templates/templates/bonus-buy.html:30
+msgid "Scrap Turnover"
+msgstr "Оборот металлалома, что бы получить кейс"
+
+#: templates/templates/bonus-buy.html:43
+msgid "Get"
+msgstr "Получить"
+
+#: templates/templates/bonus-buy.html:47
+msgid "Go To BB Level"
+msgstr "Перейти к уровню"
+
+#: templates/templates/bonus-buy.html:52
+msgid "Bottom Bonus Buy Info"
+msgstr "Желаем дойти до последнего уровня. Успейте, акция ограниченна.<br>"
+       "P.S. После 8 уровня вас ждет еще один сюрприз.<br>"
+       "По любым вопросам обращаться по адресу: jackdrop@ro.ru<br>"
+
+#: templates/templates/case-drop.html:27 templates/templates/case.html:36
 msgid "Case Payload"
 msgstr "Содержимое кейса"
 
-#: templates/templates/case.html:29
+#: templates/templates/case.html:30
 msgid "Buy"
-msgstr ""
+msgstr "Купить"
 
 #: templates/templates/chat/chat.html:10
 msgid "Administration"
@@ -173,83 +202,102 @@ msgstr "Администрация"
 msgid "Type Message"
 msgstr "Введите сообщение"
 
-#: templates/templates/contract.html:45
+#: templates/templates/contract.html:51
 msgid "Sign Contract"
 msgstr "Подписать контракт"
 
-#: templates/templates/contract.html:49
+#: templates/templates/contract.html:55
 #: templates/templates/main/cases-filter.html:52
 msgid "Clear"
 msgstr "Очистить"
 
-#: templates/templates/fortune.html:20 templates/templates/header.html:27
+#: templates/templates/fortune.html:21 templates/templates/header.html:27
 #: templates/templates/main/banners.html:5
 msgid "Fortune Wheel"
 msgstr "Колесо фортуны"
 
-#: templates/templates/fortune.html:21
+#: templates/templates/fortune.html:22
 msgid "Count Down Title"
 msgstr "До бесплатного открытия осталось:"
 
-#: templates/templates/fortune.html:25
+#: templates/templates/fortune.html:26
 msgid "D"
 msgstr "ДНЯ"
 
-#: templates/templates/fortune.html:29
+#: templates/templates/fortune.html:30
 msgid "H"
 msgstr "ЧАС"
 
-#: templates/templates/fortune.html:33
+#: templates/templates/fortune.html:34
 msgid "M"
 msgstr "МИН"
 
-#: templates/templates/fortune.html:37
+#: templates/templates/fortune.html:38
 msgid "S"
 msgstr "СЕК"
 
-#: templates/templates/fortune.html:42 templates/templates/mines.html:69
+#: templates/templates/fortune.html:43 templates/templates/mines.html:70
 msgid "Start Game"
 msgstr "Начать"
 
-#: templates/templates/fortune.html:46
+#: templates/templates/fortune.html:47
 msgid "Enter Code"
 msgstr "Введите код"
 
-#: templates/templates/fortune.html:50
+#: templates/templates/fortune.html:51
 #, fuzzy
 #| msgid "Cancel Battle"
 msgid "Cancel"
 msgstr "Отменить сражение"
 
-#: templates/templates/fortune.html:56
+#: templates/templates/fortune.html:57
 msgid "Promo For Dep"
 msgstr "Промокод на пополнение от 5 до 50%"
 
-#: templates/templates/fortune.html:60
+#: templates/templates/fortune.html:61
 msgid "Contract Skin"
 msgstr "Скины для контракта от 100-500₽"
 
-#: templates/templates/fortune.html:64
+#: templates/templates/fortune.html:65
 msgid "Free Skin"
 msgstr "Бесплатный скин от 20-1000₽"
 
-#: templates/templates/fortune.html:68
+#: templates/templates/fortune.html:69
 msgid "Case Discount"
 msgstr "Скидки на определенный кейс от 5-100%"
 
-#: templates/templates/fortune.html:72
+#: templates/templates/fortune.html:73
 msgid "Upgrade Skin"
 msgstr "Скины для апрегрйда от 100-500₽"
 
-#: templates/templates/game-history.html:18
+#: templates/templates/game-history.html:19
 #: templates/templates/withdraws.html:18
 msgid "Empty Games History"
 msgstr "Пока вы ни разу не сыграли в мини-игры, попробуйте!"
 
-#: templates/templates/game-history.html:21
+#: templates/templates/game-history.html:22
 #: templates/templates/withdraws.html:21
 msgid "Play"
 msgstr "Играть"
+
+#: templates/templates/game-history.html:26
+msgid "Drops"
+msgstr "Дропы"
+
+#: templates/templates/game-history.html:27 templates/templates/header.html:21
+#: templates/templates/main/stats.html:68
+#: templates/templates/main/stats.html:92
+msgid "Battles"
+msgstr "Сражения"
+
+#: templates/templates/game-history.html:28
+#: templates/templates/main/stats.html:46
+msgid "Contracts"
+msgstr "Контракты"
+
+#: templates/templates/game-history.html:29
+msgid "Every Day Bonuses"
+msgstr "Ежедневные Бонусы"
 
 #: templates/templates/header.html:14
 msgid "Upgrade"
@@ -258,11 +306,6 @@ msgstr "Апгрейд"
 #: templates/templates/header.html:18
 msgid "Contract"
 msgstr "Контракт"
-
-#: templates/templates/header.html:21 templates/templates/main/stats.html:68
-#: templates/templates/main/stats.html:92
-msgid "Battles"
-msgstr "Сражения"
 
 #: templates/templates/header.html:24
 msgid "Mines"
@@ -284,6 +327,10 @@ msgstr "Вход"
 msgid "Go"
 msgstr "Перейти"
 
+#: templates/templates/main/banners.html:7
+msgid "Promocode Banner Info"
+msgstr "Промокод<br>на +15%<br>к пополнению"
+
 #: templates/templates/main/bonus-buy.html:4
 #, fuzzy
 #| msgid "Count Down Title"
@@ -304,78 +351,72 @@ msgstr "Игроки"
 
 #: templates/templates/main/stats.html:33
 #: templates/templates/main/stats.html:81
-#, fuzzy
-#| msgid "Case"
 msgid "Cases"
 msgstr "Кейсы"
-
-#: templates/templates/main/stats.html:46
-msgid "Contracts"
-msgstr "Контракты"
 
 #: templates/templates/main/stats.html:57
 msgid "Upgrades"
 msgstr "Апгрейды"
 
-#: templates/templates/mines.html:19
+#: templates/templates/mines.html:20
 msgid "Deposit Amount"
 msgstr "Сумма ставки"
 
-#: templates/templates/mines.html:34
+#: templates/templates/mines.html:35
 #, fuzzy
 #| msgid "Mines"
 msgid "Mines Count"
 msgstr "Мины"
 
-#: templates/templates/mines.html:65
+#: templates/templates/mines.html:66
 msgid "Random"
 msgstr "Рандом"
 
-#: templates/templates/replenish.html:15
+#: templates/templates/replenish.html:16
 msgid "Enter Replenish Data"
 msgstr "Введите данные для пополнения"
 
-#: templates/templates/replenish.html:17
+#: templates/templates/replenish.html:18
 msgid "Replenish Info First"
 msgstr ""
 "внимание! отправляйте указанные сумму с точностью до копеек, иначе платёж не "
 "будет засчитан"
 
-#: templates/templates/replenish.html:20
+#: templates/templates/replenish.html:21
 msgid "Replenish Info Second"
 msgstr "минимальная сумма: 500"
 
-#: templates/templates/replenish.html:31
+#: templates/templates/replenish.html:37
 msgid "Argeement String"
 msgstr "я принимаю условия пользовательского соглашения"
 
-#: templates/templates/replenish.html:36
+#: templates/templates/replenish.html:42
 msgid "Replenish Balance"
 msgstr "пополнить баланс"
 
-#: templates/templates/upgrade.html:24 templates/templates/upgrade.html:59
+#: templates/templates/upgrade.html:26 templates/templates/upgrade.html:68
 msgid "Left Part Descriprion"
 msgstr ""
 "Выберите один из ваших скинов слева, чтобы обновить его и получить более "
 "дорогой"
 
-#: templates/templates/upgrade.html:35
+#: templates/templates/upgrade.html:37
 msgid "Right Part Desctiption"
 msgstr "Выберите скин справа, до которого вы хотите выполнить апгрейд"
 
-#: templates/templates/upgrade.html:39
+#: templates/templates/upgrade.html:41
 msgid "Hint First"
 msgstr ""
 "Вы увидите вероятность успешного апгрейда. В случае неудачи, вы теряете свой "
 "скин/баланс"
 
-#: templates/templates/upgrade.html:41 templates/templates/upgrade.html:53
+#: templates/templates/upgrade.html:43 templates/templates/upgrade.html:62
 msgid "Hint Second"
 msgstr ""
 "Вы также можете использовать баланс вашего счета в качестве входных данных "
 "вместо скина"
 
-#: templates/templates/upgrade.html:43
+#: templates/templates/upgrade.html:45
 msgid "Granted Balance Funds"
 msgstr "Средства баланса"
 

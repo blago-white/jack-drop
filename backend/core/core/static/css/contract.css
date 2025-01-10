@@ -1,7 +1,7 @@
 @import "variables.css";
 
 .bg-filter-img {
-    background: url("../img/contract-bg.png");
+    background: url("../img/contract-bg.png")!important;
     background-repeat: no-repeat;
     height: auto;
     background-color: black;
@@ -17,6 +17,48 @@
     margin-bottom: .5ch;
 }
 
+.selected-item-view-card.first {
+    background: url(/core/static/img/card-bg-yellow.png);
+    background-size: cover;
+    cursor: pointer;
+    width: 7vw;
+    height: 11.5vw;
+    margin-left: calc(100% - 7vw);
+}
+
+.selected-item-view-card {
+    position: absolute;
+    top: 0px;
+    /* bottom: 100%; */
+    z-index: -1;
+    width: 6vw;
+    left: 0px;
+    right: 34vw;
+    margin-left: 59vw;
+    margin-top: 9.3em;
+    height: 11.5vw;
+    transition: all 1.25s cubic-bezier(0.72,-0.12, 0.73, 1.01);
+}
+
+.selected-item-view-card .item-title {
+    font-size: 1.2ch;
+}
+
+video {
+    width: 126%;
+    min-width: 258vh;
+    position: absolute;
+    top: -7.5vh;
+    left: -26.5vh;
+    pointer-events: none;
+}
+
+.selected-item-view-card.used {
+    margin-left: 36vw;
+    margin-top: 22.3em;
+    transform: scale(.8);
+}
+
 .item-price {
     width: 100%;
 }
@@ -28,7 +70,7 @@
     justify-content: space-between;
     flex-direction: row;
     gap: 1ch;
-    margin-top: 50%;
+    margin-top: -65%;
     font-size: calc(100vw * calc(44 / var(--reference-display-w)));
     align-items: center;
 }
@@ -127,13 +169,10 @@
 }
 
 .contract-circle {
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr;
     justify-items: center;
-    align-items: center;
     aspect-ratio: 1 / 1;
-    width: 43vw;
+    width: 38vw;
+    min-width: 38vw;
 }
 
 .desctop-items-cells {
@@ -162,6 +201,11 @@
     z-index: 1;
 }
 
+.bg-fiilter-img {
+    background: url(/core/static/img/contract-bg.png)!important;
+    background-size: cover;
+}
+
 #cells-row-1, #cells-row-5 {
     gap: calc(76vh * 0.25);
 }
@@ -182,6 +226,10 @@
     gap: calc(76vh * 0.85);
 }
 
+.footer {
+    top: 90%;
+}
+
 @media (aspect-ratio < 1/1) {
     .bg-filter-img {
         background-size: initial;
@@ -200,6 +248,16 @@
 
     .inventory-items {
         display: none;
+    }
+
+    video {
+        width: 5vw;
+	min-width: 0px;
+        position: fixed;
+        top: 19vh;
+        left: 52%;
+        pointer-events: none;
+        transform: scale(66);
     }
 
     .inventory-items-mobile {
@@ -246,6 +304,19 @@
         width: 100%;
     }
 
+    .item-card {
+        padding: calc(100vw* calc(44 / var(--reference-display-w))) !important;
+        min-width: 21vw;
+        height: auto;
+    }
+
+    .selected-item-view-card {
+            z-index: -1;
+            margin-left: 25vw;
+            opacity: 0;
+            transition: all .5s ease-in-out;
+    }
+
     #cr-contract {
         grid-row: 1;
         width: calc(100%*calc(6 / 8));
@@ -274,7 +345,8 @@
 
     .contract {
         flex-direction: column;
-    }
+        padding-top: 35vh;
+}
 
     .contract-cells {
         display: grid;

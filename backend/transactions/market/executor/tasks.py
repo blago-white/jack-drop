@@ -11,8 +11,9 @@ from .services.balance import ApiBotBalanceService
 
 
 async def _apply_withdraw(items: list[ScheduledItem], apikey: str) -> bool:
-    await _update_balance(items=items, apikey=apikey)
+    #await _update_balance(items=items, apikey=apikey)
 
+    print("START WITHDRAW")
     callback_service = await sync_to_async(WithdrawResultService)()
 
     ok, error_items_ids = await ItemWithdrawService(
@@ -23,10 +24,14 @@ async def _apply_withdraw(items: list[ScheduledItem], apikey: str) -> bool:
         set(error_items_ids)
     )
 
+    print(f"WITHDRAW ITEMS {success_items_ids} : {error_items_ids}")
+
     await callback_service.send_result(
         error_items_ids=error_items_ids,
         success_items_ids=success_items_ids
     )
+
+    return success_items_ids
 
 
 async def _update_balance(items: list[ScheduledItem], apikey: str):
@@ -44,9 +49,13 @@ async def _update_balance(items: list[ScheduledItem], apikey: str):
 
 @shared_task(name="withdraw")
 def withdraw():
-    items = list(ScheduleModelService().pop_schedule())
+    schedule_service = ScheduleModelService()
+    items = schedule_service.get_schedule()
 
     if items:
-        async_to_sync(_apply_withdraw)(items, ApiKeyService().apikey)
+        result = async_to_sync(_apply_withdraw)(items, ApiKeyService().apikey)
+
+        schedule_service.bulk_delete_withdrawed(ids=result)
 
         return items
+

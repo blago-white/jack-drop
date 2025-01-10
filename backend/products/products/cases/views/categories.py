@@ -9,5 +9,4 @@ class CasesCategoriesView(BaseListView):
     context_object_name = "cases"
 
     def get_queryset(self):
-        print(self._service.get_cases_by_categories())
         return self._service.get_cases_by_categories()

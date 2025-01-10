@@ -1,3 +1,5 @@
+from typing import Collection
+
 from abc import ABCMeta, abstractmethod
 
 from rest_framework.request import Request
@@ -61,20 +63,11 @@ class PrivateUsersRepository(BaseUsersRepository):
     def get_users_info(self, users_ids: list[int]) -> dict:
         complete, users = self._service.get_users_info(users_ids=users_ids)
 
-        # TODO: Remove on deploy
-        users = [
-            {
-                "id": user_id,
-                "username": f"someuser-{user_id}",
-            } for user_id in users_ids
-        ]
-
         print(complete, users, "USERS LIST DATA", users_ids)
 
         return {
             "full": complete,
-            "users": users
-            # "users": self._serializer_class(instance=users, many=True).data
+            "users": self._serializer_class(instance=users, many=True).data
         }
 
     def get_user_info_by_jwt(self, request: Request) -> dict:
@@ -93,7 +86,7 @@ class PrivateUsersRepository(BaseUsersRepository):
         except:
             return
 
-    def create(self, steam_uid: int) -> dict:
+    def create(self, steam_uid: int) -> Collection[int, dict]:
         result = self._service.create(
             steam_id=steam_uid,
             username=self._steam_service.get_username(steam_id=steam_uid),
@@ -102,7 +95,7 @@ class PrivateUsersRepository(BaseUsersRepository):
 
         refresh = RefreshToken.for_user(user=result)
 
-        return {
+        return result.id, {
             "refresh": str(refresh),
             "access": refresh.access_token
         }
@@ -135,7 +128,8 @@ class PublicUsersRepository(BaseUsersRepository):
                 "trade_link": user.trade_link,
                 "displayed_balance": self._balance_service.get_balance(
                     client_id=user.id
-                ).displayed_balance
+                ).displayed_balance,
+                "is_blogger": user.referral.is_blogger
             }
         )
 

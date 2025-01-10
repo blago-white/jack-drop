@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'balances',
     'admin_interface',
     'colorfield',
-    'django.contrib.admin',
+    "django.contrib.admin",
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -124,32 +124,27 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# LOGGING = {
-#     'version': 1,
-#     'filters': {
-#         'require_debug_true': {
-#             '()': 'django.utils.log.RequireDebugTrue',
-#         }
-#     },
-#     'handlers': {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': BASE_DIR / 'debug.log',
-#         },
-#         'console': {
-#             'level': 'DEBUG',
-#             'filters': ['require_debug_true'],
-#             'class': 'logging.StreamHandler',
-#         }
-#     },
-#     'loggers': {
-#         'django': {
-#             'level': 'DEBUG',
-#             'handlers': ['file', 'console'],
-#         },
-#     }
-# }
+#LOGGING = {
+#    'version': 1,
+#    'filters': {
+#        'require_debug_true': {
+#            '()': 'django.utils.log.RequireDebugTrue',
+#        }
+#    },
+#    'handlers': {
+#        'console': {
+#            'level': 'DEBUG',
+#            'filters': ['require_debug_true'],
+#            'class': 'logging.StreamHandler',
+#        }
+#    },
+#    'loggers': {
+#        'django.db.backends': {
+#            'level': 'DEBUG',
+#            'handlers': ['console'],
+#        }
+#    }
+#}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

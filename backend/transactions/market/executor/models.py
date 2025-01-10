@@ -9,7 +9,7 @@ class WithdrawedItem(models.Model):
 
 
 class Withdraw(models.Model):
-    items = models.ForeignKey(to=WithdrawedItem, on_delete=models.SET_NULL, null=True)
+    items = models.ManyToManyField(to=WithdrawedItem, null=True)
     date = models.DateTimeField(auto_now=True, editable=False)
     success = models.BooleanField(default=False)
 

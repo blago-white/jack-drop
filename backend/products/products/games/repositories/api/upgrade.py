@@ -206,16 +206,11 @@ class UpgradeApiRepository(BaseApiRepository):
     def _validate_funds(
             self, data: dict, user_funds: float
     ) -> tuple[dict, dict]:
-
-        print(data, user_funds, data | user_funds)
-
         serialized = self._serializer_class(
             data=data | user_funds
         )
 
         serialized.is_valid(raise_exception=True)
-
-        print("EEEE", serialized.data)
 
         if serialized.data.get("granted_item_id"):
             if not self._inventory_service.check_ownership(

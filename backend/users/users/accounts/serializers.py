@@ -33,9 +33,12 @@ class PublicClientSerializer(ReadOnlyModelSerializer):
                                      default=0,
                                      source="displayed_balance")
 
+    is_blogger = serializers.BooleanField(allow_null=False,
+                                          default=False)
+
     class Meta:
         model = Client
-        fields = ["id", "username", "trade_link", "avatar", "balance"]
+        fields = ["id", "username", "trade_link", "avatar", "balance", "is_blogger"]
         read_only_fields = ["__all__"]
 
 

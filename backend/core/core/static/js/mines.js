@@ -1,4 +1,4 @@
-import { renderItemPrize, renderPrize } from "./prize.js";
+import { printPrizeItem, useAnim } from "./animations.js";
 
 const gameFields = document.getElementById('game-fields');
 
@@ -47,45 +47,46 @@ async function iterField(id) {
             <img src="/core/static/img/seeds.png" style="width: 90%;margin-inline: 5%;">
         `;
 
-        renderItemPrize("You lose scrap!", -deposit, "/core/static/img/scrap.png", "Ok");
+        useAnim(false, "unlucky");
 
-        document.getElementById('info-banner').innerHTML = 'Не повезло, попробуйте еще раз!'
+        document.getElementById('info-banner').innerHTML = 'РќРµ РїРѕРІРµР·Р»Рѕ, РїРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·!'
         document.getElementById('info-banner-bg').style.background = '#FF007A';
 
-
         document.getElementById('action-button').onclick = () => {
-            location.href = location.href
-        };
+        location.href = location.href
+            };
 
-        document.getElementById('action-button-text').innerHTML = 'Мне повезет!'
+        document.getElementById('action-button-text').innerHTML = 'РњРЅРµ РїРѕРІРµР·РµС‚!'
 
         gameStarted = false;
+
+        setTimeout(() => {location.href = location.href}, 3000)
     } else if (currentStep == (25 - countMines - 1)) {
         const requestOptions = {
-          method: "DELETE",
-          headers: myHeaders,
-          body: JSON.stringify({}),
-          redirect: "follow"
-        };
+              method: "DELETE",
+              headers: myHeaders,
+              body: JSON.stringify({}),
+              redirect: "follow"
+            };
 
         const response = await sendRequest(
-            `https://${location.hostname}/products/games/mines/stop/`,
-            requestOptions
-        );
+        `https://${location.hostname}/products/games/mines/stop/`,
+        requestOptions
+            );
 
-        renderItemPrize("You win scrap!", fundsDiff, "/core/static/img/scrap.png", "Amazing!");
+        printPrizeItem("/core/static/img/scrap.png", fundsDiff, `Win ${(fundsDiff).toFixed(2)} Scrap!`);
 
         document.getElementById(id).innerHTML = `
             <img src="/core/static/img/pumpkin.png" style="width: 90%;margin-inline: 5%;">
         `
     } else if (!response.game_ended) {
-        document.getElementById(id).innerHTML = `
-            <img src="/core/static/img/pumpkin.png" style="width: 90%;margin-inline: 5%;">
+            document.getElementById(id).innerHTML = `
+        <img src="/core/static/img/pumpkin.png" style="width: 90%;margin-inline: 5%;">
         `;
-        document.getElementById('info-banner').innerHTML = `
-            Receive: ${response.win_amount} <img src="/core/static/img/scrap.png" style="width: 3ch">
+            document.getElementById('info-banner').innerHTML = `
+        Receive: ${response.win_amount} <img src="/core/static/img/scrap.png" style="width: 3ch">
         `;
-    }
+        }
 
     currentStep++;
 
@@ -117,7 +118,7 @@ async function stopGame() {
         requestOptions
     );
 
-    renderItemPrize("You win scrap!", response.win_amount, "/core/static/img/scrap.png", "Ok");
+    printPrizeItem("/core/static/img/scrap.png", response.win_amount, `Win ${(response.win_amount).toFixed(2)} Scrap!`);
 
     gameStarted = false;
 }
@@ -129,7 +130,7 @@ async function sendMakeRequest(formData) {
     myHeaders.append("Content-Type", "application/json");
 
     const requestOptions = {
-      method: "POST",
+          method: "POST",
       headers: myHeaders,
       body: JSON.stringify(formData),
       redirect: "follow",
@@ -162,27 +163,27 @@ async function makeMinesGame() {
 
         document.getElementById('mines-game-form').innerHTML = `
             <div class="super-button">
-                <span class="super-button-bg noactive" id="info-banner-bg"></span>
-                <span class="super-button-text" id="info-banner" style="gap: 0px;" id="receive">Receive: 0.0 <img src="/core/static/img/scrap.png" style="width: 3ch"></span>
+        <span class="super-button-bg noactive" id="info-banner-bg"></span>
+            <span class="super-button-text" id="info-banner" style="gap: 0px;" id="receive">Receive: 0.0 <img src="/core/static/img/scrap.png" style="width: 3ch"></span>
             </div>
             <button class="super-button" id="action-button" type="submit" onclick="stopGame();return false;">
                 <span class="super-button-bg noactive" id="stop-btn-bg"></span>
-                <span class="super-button-text" id="action-button-text">Stop game!</span>
-            </button>
-        `;
+                    <span class="super-button-text" id="action-button-text">Stop game!</span>
+                    </button>
+                    `;
 
         document.getElementById('controls').style = 'opacity: .2;cursor: default;pointer-events: none;';
     } else {
         const resultJson = await result.json();
 
         Object.keys(resultJson).forEach((errorkey) => {
-            if (errorkey >= "0" && errorkey <= "9") {
-                alert(resultJson[errorkey]);
-            } else {
-                document.getElementById(errorkey).style.outline = '2px solid red';
-                alert(resultJson[errorkey][0]);
-            }
-        });
+        if (errorkey >= "0" && errorkey <= "9") {
+            alert(resultJson[errorkey]);
+                } else {
+            document.getElementById(errorkey).style.outline = '2px solid red';
+            alert(resultJson[errorkey][0]);
+                }
+            });
     }
 
     return false;
@@ -233,23 +234,14 @@ async function changeBtn() {
         document.getElementById('count-pumpkin').innerHTML = "???";
         document.getElementById('count-seeds').innerHTML = "???";
 
-        renderPrize(
-            `
-                <img src="/core/static/img/banner-man.png">
-                <h3 style="text-transform: none;">${document.getElementById('long-enter-text').innerHTML}</h3>
-                <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="location.href = '/auth/'">
-                    <span class="super-button-bg"></span>
-                    <span class="super-button-text" style="font-size: x-large">${document.getElementById('short-enter-text').innerHTML}</span>
-                </button>
-            `
-        );
+        location.href = '/auth/';
     }
 }
 
 renderFields();
 changeBtn();
 
-addEventListener("beforeunload", (event) => {stopGame()});
+addEventListener("beforeunload", (event) => {if (gameStarted) {stopGame()}});
 
 document.getElementById('count_mines').addEventListener('input', changeGameVals);
 

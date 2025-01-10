@@ -89,6 +89,12 @@ class BattleRequestApiRepository(_BaseBattleApiRepository):
         result = list()
 
         for user in users.get("users"):
+            user = self._users_service.get_user_by_id(
+                user_id=int(user.get("id"))
+            )
+
+            print(user)
+
             result.append({
                 "user_id": user.get("id"),
                 "username": user.get("username"),
@@ -275,25 +281,25 @@ class BattleApiRepository(_BaseBattleApiRepository):
             "dropped_item_winner_id")
         )
 
-        # self._users_service.update_user_balance_by_id(
-        #     delta_amount=-case_price,
-        #     user_id=battle_result.get("winner_id")
-        # )
-        #
-        # self._users_service.update_user_balance_by_id(
-        #     delta_amount=-case_price,
-        #     user_id=battle_result.get("loser_id")
-        # )
-        #
-        # _, loser_to_blogger_funds = self._users_service.update_user_advantage(
-        #     delta_advantage=-case_price,
-        #     user_id=battle_result.get("loser_id")
-        # )
-        #
-        # _, winner_to_blogger_funds = self._users_service.update_user_advantage(
-        #     delta_advantage=(winner_case_item - case_price) + loser_case_item.item.price,
-        #     user_id=battle_result.get("winner_id")
-        # )
+        self._users_service.update_user_balance_by_id(
+            delta_amount=-case_price,
+            user_id=battle_result.get("winner_id")
+        )
+        
+        self._users_service.update_user_balance_by_id(
+            delta_amount=-case_price,
+            user_id=battle_result.get("loser_id")
+        )
+        
+        _, loser_to_blogger_funds = self._users_service.update_user_advantage(
+            delta_advantage=-case_price,
+            user_id=battle_result.get("loser_id")
+        )
+        
+        _, winner_to_blogger_funds = self._users_service.update_user_advantage(
+            delta_advantage=(winner_case_item.item.price - case_price) + loser_case_item.item.price,
+            user_id=battle_result.get("winner_id")
+        )
 
         self._inventory_service.add_item(
             owner_id=battle_result.get("winner_id"),
@@ -304,10 +310,10 @@ class BattleApiRepository(_BaseBattleApiRepository):
             owner_id=battle_result.get("winner_id"),
             item_id=loser_case_item.item.pk
         )
-        # TODO: Uncomment
-        # self._site_funds_service.update(
-        #     amount=battle_result.get("site_funds_diff") - (loser_to_blogger_funds + winner_to_blogger_funds)
-        # )
+
+        self._site_funds_service.update(
+            amount=battle_result.get("site_funds_diff") - (loser_to_blogger_funds + winner_to_blogger_funds)
+        )
 
         self._game_result_service.save(data=GameResultData(
             user_id=battle_result.get("winner_id"),

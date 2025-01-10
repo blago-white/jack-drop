@@ -88,8 +88,6 @@ class InventoryRepository(BaseRepository):
                 delta_amount=item.item.price
             )
 
-            self._site_api_service.increase(item.item.price)
-
         return {"ok": ok}
 
     def withdraw(self, user_data: int, item_id: int) -> dict:
@@ -106,6 +104,7 @@ class InventoryRepository(BaseRepository):
             data=dict(
                 inventory_item_id=item_id,
                 inventory_item_hash_name=item.item.market_hash_name,
+                item_market_link=item.item.market_link,
                 owner_trade_link=user_data.get("trade_link"),
                 item_price=item.item.price,
             )

@@ -1,154 +1,134 @@
-from rest_framework.exceptions import ValidationError
-
-from games.api.services.mines import MinesGameApiService
-from games.api.services.site import SiteFundsApiService
-from games.api.services.users import UsersApiService
-from games.models import Games
-from games.serializers.mines import MinesGameRequestViewSerializer
-from games.services.result import GameResultService
-from games.services.transfer import GameResultData
-from .base import BaseApiRepository
+from common.repositories import BaseRepository
+from ..serializers import MinesGameInitSerializer, MinesGameNextStepSerializer, \
+    GameResultSerializer, FundsDifferenceSerializer
+from ..services.mines import MinesService, MinesModelService
+from ..services.transfer import MinesGameNextStepRequest, MinesGameStepResult, \
+    MinesGameInitParams
 
 
-class MinesGameApiRepository(BaseApiRepository):
-    default_api_service = MinesGameApiService()
-    default_serializer_class = MinesGameRequestViewSerializer
-    default_site_funds_service = SiteFundsApiService()
-    default_users_service = UsersApiService()
-    default_game_result_service = GameResultService()
+class MinesGameRepository(BaseRepository):
+    default_service = MinesService()
+    default_model_service = MinesModelService()
 
-    _site_funds_service: SiteFundsApiService
-    _api_service: MinesGameApiService
+    default_serializer_class = GameResultSerializer
+    default_init_serializer_class = MinesGameInitSerializer
+    default_mines_game_init_params = MinesGameInitParams
+    default_next_serializer_class = MinesGameNextStepSerializer
+
+    _init_serializer_class: MinesGameInitSerializer
+    _service: MinesService
+    _model_service: MinesModelService
 
     def __init__(
             self, *args,
-            site_funds_service: SiteFundsApiService = None,
-            users_service: SiteFundsApiService = None,
-            serializer_class: MinesGameRequestViewSerializer = None,
-            game_result_service: GameResultService = None,
+            model_service: MinesModelService = None,
+            init_serializer_class: MinesGameInitSerializer = None,
+            mines_game_init_params: MinesGameInitParams = None,
             **kwargs):
-        self._serializer_class = serializer_class or self.default_serializer_class
-        self._site_funds_service = site_funds_service or self.default_site_funds_service
-        self._users_service = users_service or self.default_users_service
-        self._game_result_service = game_result_service or self.default_game_result_service
+        self._model_service = model_service or self.default_model_service
+        self._init_serializer_class = init_serializer_class or self.default_init_serializer_class
+        self._mines_game_init_params = mines_game_init_params or self.default_mines_game_init_params
 
         super().__init__(*args, **kwargs)
 
-    def init(self, request_data: dict, user_data: dict):
-        serialized = self._get_serialized(
-            request_data=request_data,
-            user_data=user_data
+    def next(self, request_data: dict) -> dict:
+        serialized: MinesGameNextStepSerializer = self.default_next_serializer_class(
+            data=request_data
         )
 
         serialized.is_valid(raise_exception=True)
 
-        self._validate_funds(
-            user_balance=user_data.get("displayed_balance"),
-            deposit=serialized.data.get("user_deposit")
-        )
-
-        result = self._api_service.make(
+        game_request = self._serialize_game_request(
             serialized=serialized
         )
 
-        if result:
-            self._users_service.update_user_balance_by_id(
-                user_id=user_data.get("id"),
-                delta_amount=-result.get("deposit")
+        result: MinesGameStepResult = self._service.next_step(
+            game_request=game_request
+        )
+
+        if not result.is_win:
+            print("LOSSEE LOSEEE", result.funds_diffirence)
+
+            user_id = serialized.data.get("user_id")
+
+            commited = self._model_service.commit(
+                user_id=user_id,
+                is_win=False
             )
 
-        return result
+            return {
+                "mines_game": self._serializer_class(instance=commited).data,
+                "funds_difference": FundsDifferenceSerializer(
+                    instance=result.funds_diffirence
+                ).data,
+                "game_ended": True
+            }
 
-    def next(self, user_id: int) -> dict:
-        site_active_funds = self._site_funds_service.get()
+        print("NEXT NEXT", result.funds_diffirence, "|", game_request)
 
-        result = self._api_service.next(user_id=user_id,
-                                        site_funds=site_active_funds)
+        instance = self._model_service.next_win_step(
+            user_id=serialized.data.get("user_id"),
+            new_game_amount=game_request.user_current_ammount + result.funds_diffirence.user_funds_diff,
+            step=game_request.step + 1
+        )
 
-        if result.get("game_ended"):
-            self._commit_result(user_id=user_id,
-                                funds_difference=result.get(
-                                    "funds_difference"
-                                ),
-                                deposit=result.get("mines_game").get("deposit"),
-                                is_win=result.get("mines_game").get("is_win")
-                                )
+        return {"new_amount": instance.game_amount,
+                "game_ended": False}
 
-            return self._deserialize_result(result_json=result)
+    def init(self, data: dict) -> dict:
+        serialized: MinesGameInitSerializer = self._init_serializer_class(
+            data=data
+        )
 
-        return {"win_amount": result.get("new_amount"), "game_ended": False}
+        serialized.is_valid(raise_exception=True)
+
+        created, obj = self._model_service.init(
+            data=self._mines_game_init_params(
+                user_id=serialized.data.get("user_funds").get("id"),
+                advantage=serialized.data.get("user_funds").get("id"),
+                count_mines=serialized.data.get("count_mines"),
+                deposit=serialized.data.get("user_deposit"),
+            )
+        )
+
+        return self._serializer_class(instance=obj).data
 
     def stop(self, user_id: int) -> dict:
-        result = self._api_service.stop(user_id=user_id)
+        commited = self._model_service.commit(user_id=user_id, is_win=True)
 
-        self._commit_result(
-            user_id=user_id,
-            funds_difference=result.get("funds_difference"),
-            deposit=result.get("mines_game").get("deposit"),
-            is_win=True
-        )
+        print("STOP STOP", commited, commited.game_amount, commited.deposit)
 
         return {
-            "win_amount": result.get("mines_game").get("game_amount")
-        }
-
-    def _commit_result(self, user_id: int,
-                       funds_difference: dict,
-                       deposit: float,
-                       is_win: bool) -> None:
-        self._game_result_service.save(data=GameResultData(
-            user_id=user_id,
-            game=Games.MINES,
-            is_win=float(funds_difference.get("user_funds_diff")) > 0
-        ))
-
-        ok, to_blogger_advantage = self._users_service.update_user_advantage(
-            delta_advantage=funds_difference.get("user_funds_diff"),
-            user_id=user_id
-        )
-
-        self._users_service.update_user_balance_by_id(
-            delta_amount=funds_difference.get("user_funds_diff") + (0 if not is_win else deposit),
-            user_id=user_id
-        )
-
-        self._site_funds_service.update(
-            amount=funds_difference.get("site_funds_diff") - to_blogger_advantage
-        )
-
-    @staticmethod
-    def _validate_funds(user_balance: float, deposit: int):
-        if float(user_balance) < float(deposit):
-            raise ValidationError(
-                detail="There are not enough balance funds for action",
-                code=400
-            )
-
-    @staticmethod
-    def _deserialize_result(result_json: dict) -> dict:
-        return {
-            "is_win": result_json.get("mines_game").get("is_win"),
-            "win_amount": (
-                float(result_json.get("mines_game").get("game_amount"))
-                if result_json.get("mines_game").get("is_win") else
-                -result_json.get("mines_game").get("deposit")
-            ),
+            "mines_game": self._serializer_class(
+                instance=commited
+            ).data,
+            "funds_difference": FundsDifferenceSerializer(
+                instance={
+                    "user_funds_diff": commited.game_amount - commited.deposit,
+                    "site_funds_diff": -(commited.game_amount - commited.deposit),
+                    "game_ended": True
+                }
+            ).data,
             "game_ended": True
         }
 
-    def _get_serialized(
-            self, request_data: dict,
-            user_data: dict):
-        return self._api_service.default_endpoint_serializer_class(
-            data={
-                "count_mines": request_data.get("count_mines"),
-                "user_funds": {
-                    "user_advantage": user_data.get("user_advantage"),
-                    "id": user_data.get("id")
-                },
-                "user_deposit": request_data.get("user_deposit"),
-                "site_funds": {
-                    "site_active_funds": self._site_funds_service.get()
-                }
-            }
+    def _serialize_game_request(
+            self, serialized: MinesGameInitSerializer
+    ) -> MinesGameNextStepRequest:
+        game = self._model_service.get_active(
+            user_id=serialized.data.get(
+                "user_id"
+            ),
+            raise_exception=True
+        )
+
+        return MinesGameNextStepRequest(
+            count_mines=game.count_mines,
+            user_advantage=game.user_advantage,
+            user_deposit=game.deposit,
+            site_active_funds=serialized.data.get(
+                "site_funds"
+            ).get("site_active_funds"),
+            user_current_ammount=game.game_amount,
+            step=game.step
         )

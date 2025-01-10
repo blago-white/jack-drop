@@ -1,4 +1,5 @@
 import { renderItemPrize } from "./prize.js";
+import { useAnim, printPrizeItem } from "./animations.js";
 
 const startRange = document.getElementById('prst');
 const stopRange = document.getElementById('prsp');
@@ -8,6 +9,7 @@ let emptyPos = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 let selected = new Map();
 
 let grantedItems = new Map();
+let grantedItemsFull = new Map();
 
 let priceMapping = new Map();
 
@@ -16,6 +18,62 @@ function gcd () {
     const h = screen.height;
 
     return w/h;
+}
+
+function addAnimationCard(id) {
+    const element = grantedItemsFull.get(id);
+    console.log(grantedItemsFull, id);
+
+    if (gcd() > 1/1) {
+        document.getElementById("contract-field").innerHTML += `
+            <article class="item-card selected-item-view-card" style="background: url(/core/static/img/card-bg-yellow.png);
+            background-size:cover;cursor: pointer;" onclick="selectItem(${element.id})" id='v${element.id}'>
+                <div class="dropped-content">
+                    <div class="item-numeric-info">
+                        <span class="item-price yellow"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
+                    </div>
+
+                    <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                        <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                        <img src="${element.item.image_path}" class="item-card-img" style="width: 100%;grid-row: 1;grid-column: 1;">
+                    </div>
+
+                    <span class="item-title">${element.item.title}</span>
+                </div>
+            </article>
+        `;
+    } else {
+        document.getElementsByClassName('contract')[0].innerHTML = `
+            <article class="item-card selected-item-view-card" style="background: url(/core/static/img/card-bg-yellow.png);
+            background-size:cover;cursor: pointer;margin-left: ${25+(2.7*selected.size-1)}vw;"
+            onclick="selectItem(${element.id})"
+            id='mv${element.id}'>
+                <div class="dropped-content">
+                    <div class="item-numeric-info">
+                        <span class="item-price yellow"><span>${element.item.price}</span> <img src="/core/static/img/gear.png"></span>
+                    </div>
+
+                    <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                        <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                        <img src="${element.item.image_path}" class="item-card-img" style="width: 100%;grid-row: 1;grid-column: 1;">
+                    </div>
+
+                    <span class="item-title">${element.item.title}</span>
+                </div>
+            </article>
+        ` + document.getElementsByClassName('contract')[0].innerHTML;
+
+        document.getElementById(`mv${element.id}`).style.opacity = 1;
+    }
+}
+
+function dropAnimationCard(id) {
+    console.log(id);
+    if (gcd() > 1/1) {
+        document.getElementById(`v${id}`).remove()
+    } else {
+        document.getElementById(`mv${id}`).remove()
+    }
 }
 
 function getCardColor(max, min, price) {
@@ -107,7 +165,7 @@ async function getItems() {
             }
 
             grantedItems.set(element.id, element.item);
-
+            grantedItemsFull.set(element.id, element);
             c++;
         })
     } else {
@@ -142,11 +200,6 @@ function unselectItem(id) {
     startRange.innerHTML = `${Math.ceil(newAmount/2)}`;
     stopRange.innerHTML = `${Math.ceil(newAmount*4)}`;
 
-    let pos = null;
-
-    document.getElementById(`im${selected.get(id).pos}`).style = 'none';
-    document.getElementById(`id${selected.get(id).pos}`).innerHTML = '';
-
     selected.delete(id);
 
     updateBtnBg();
@@ -154,28 +207,29 @@ function unselectItem(id) {
 
 async function animateContract() {
     if (gcd() > 1/1) {
-        document.getElementById('cells-row-1').style = 'transform: translateY(31vh);gap: 0px;';
+        const bias = 10 / (selected.size-1);
+        let c = 0;
+        console.log(`bias: ${bias}`)
 
-        document.getElementById('cells-row-2').style = 'transform: translateY(16vh);gap: 0px;';
+        document.getElementsByTagName('video')[4].defaultPlaybackRate = 2;
+        document.getElementsByTagName('video')[4].playbackRate  = 2;
+        await document.getElementsByTagName('video')[4].play();
 
-        document.getElementById('cells-row-3').style = 'gap: 0px;';
-
-        document.getElementById('cells-row-4').style = 'transform: translateY(-21vh);gap: 0px;';
-
-        document.getElementById('cells-row-5').style = 'transform: translateY(-31vh);gap: 0px;';
-
-        document.getElementById('contract-glow').style.transform = 'scale(1.5)';
-
-        setTimeout(() => {
-            document.getElementById('contract-glow').style.transform = 'scale(1)';
-        }, 1000)
-
-        setTimeout(() => {
-            document.getElementById('contract-glow').style.animation = 'infinite ease-in-out 0s glow-flickering, infinite ease-in-out 0s glow-rotate, infinite ease-in-out 1.5s glow-sizing';
-        }, 2000)
+        for (let [key, value] of selected.entries()) {
+            document.getElementById(`v${key}`).classList.add("used");
+            document.getElementById(`v${key}`).style.marginLeft = `${39+(bias*c)}vw`;
+            await sleep(6000 / selected.size)
+            c ++;
+        }
 
         await declineAmount();
-        await sleep(5000);
+    } else {
+        await document.getElementsByTagName('video')[0].play();
+
+        for (let [key, value] of selected.entries()) {
+            document.getElementById(`mv${key}`).style.marginTop = `11.3em`;
+            await sleep(1500)
+        }
     }
 }
 
@@ -184,7 +238,7 @@ async function declineAmount() {
 
     while (val>0) {
         document.getElementById('contract-amount').innerHTML = `${val}`;
-        val -= 10;
+        val -= 50;
         await sleep(1);
     }
 
@@ -222,12 +276,7 @@ async function makeContract() {
 
     const result = await response.json();
 
-    renderItemPrize(
-        result.title,
-        result.price,
-        result.image_path,
-        "Amazing!"
-    );
+    await printPrizeItem(result.image_path, result.price, result.title);
 }
 
 function selectItem(id) {
@@ -238,15 +287,15 @@ function selectItem(id) {
         return;
     }
 
-    let empty;
-
+    console.log("S", selected, id);
+//    let empty;
     if (selected.has(id)) {
+        dropAnimationCard(id);
         emptyPos.add(selected.get(id).pos);
         return unselectItem(id);
     } else {
-        empty = Math.min(...Array.from(emptyPos.keys()));
-        selected.set(id, {pos: empty});
-        emptyPos.delete(empty);
+        selected.set(id, 1);
+        addAnimationCard(id);
     }
 
     const current_amount = parseInt(document.getElementById('contract-amount').innerHTML);
@@ -258,17 +307,17 @@ function selectItem(id) {
 
     document.getElementById('contract-amount').innerHTML = newAmount;
 
-    document.getElementById(`im${empty}`).style = `
-        background: url("${grantedItems.get(id).image_path}") center center / cover;
-        color: transparent;
-    `;
+//    document.getElementById(`im${empty}`).style = `
+//        background: url("${grantedItems.get(id).image_path}") center center / cover;
+//        color: transparent""
+//    `;
 
-    document.getElementById(`id${empty}`).innerHTML = `
-    <img src="${grantedItems.get(id).image_path}"
-        style="height: 15vh;aspect-ratio: 1 / 1;">
-    `;
+//    document.getElementById(`id${empty}`).innerHTML = `
+//    <img src="${grantedItems.get(id).image_path}"
+//        style="height: 15vh;aspect-ratio: 1 / 1;">
+//    `;
 
-    selected.set(id, {pos: empty});
+//    selected.set(id, {pos: empty});
 
     document.getElementById(id).style.filter = 'grayscale(1)';
 

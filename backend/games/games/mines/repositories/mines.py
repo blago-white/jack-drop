@@ -64,11 +64,11 @@ class MinesGameRepository(BaseRepository):
                 "game_ended": True
             }
 
-        print("NEXT NEXT", result.funds_diffirence)
+        print("NEXT NEXT", result.funds_diffirence, "|", game_request)
 
         instance = self._model_service.next_win_step(
             user_id=serialized.data.get("user_id"),
-            new_game_amount=game_request.user_deposit + result.funds_diffirence.user_funds_diff,
+            new_game_amount=game_request.user_current_ammount + result.funds_diffirence.user_funds_diff,
             step=game_request.step + 1
         )
 
@@ -96,7 +96,7 @@ class MinesGameRepository(BaseRepository):
     def stop(self, user_id: int) -> dict:
         commited = self._model_service.commit(user_id=user_id, is_win=True)
 
-        print("STOP STOP", commited)
+        print("STOP STOP", commited, commited.game_amount, commited.deposit)
 
         return {
             "mines_game": self._serializer_class(
@@ -105,7 +105,7 @@ class MinesGameRepository(BaseRepository):
             "funds_difference": FundsDifferenceSerializer(
                 instance={
                     "user_funds_diff": commited.game_amount - commited.deposit,
-                    "site_funds_diff": -commited.game_amount - commited.deposit,
+                    "site_funds_diff": -(commited.game_amount - commited.deposit),
                     "game_ended": True
                 }
             ).data,

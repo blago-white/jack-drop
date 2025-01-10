@@ -1,4 +1,4 @@
-import { renderItemPrize, renderPrize } from "./prize.js";
+import { printPrizeItem } from "./animations.js";
 
 const depoAmountField = document.getElementById('amount');
 const agreementInput = document.getElementById('agreement');
@@ -56,38 +56,22 @@ async function addDeposit() {
 window.addDeposit = addDeposit;
 
 if (document.getElementById("agreement") && document.getElementById("amount")) {
-document.getElementById("agreement").addEventListener('input', updateSubmitBtn);
-document.getElementById("amount").addEventListener('input', updateSubmitBtn);
+    document.getElementById("agreement").addEventListener('input', updateSubmitBtn);
+    document.getElementById("amount").addEventListener('input', updateSubmitBtn);
 }
 
 function renderFreeCase(freeCase, caseImg, caseTitle) {
     const urlParams = new URLSearchParams(window.location.search);
 
     if (freeCase) {
-        renderPrize(`
-            <img src="${caseImg}">
-            <h3 style="text-transform: none;">${caseTitle}</h3>
-            <span style="font-size: xx-large;">0<img src="/core/static/img/scrap.png" style="width: 3ch"></span>
-            <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow('https://${location.hostname}')">
-                <span class="super-button-bg"></span>
-                <span class="super-button-text" style="font-size: x-large">Receive</span>
-            </button>
-        `);
+        printPrizeItem(caseImg, 0, 'Receive free case!');
     }
 }
 
 
 function renderDeposit(success, amount) {
     if (success) {
-        renderPrize(`
-            <img src="/core/static/img/scrap.png">
-            <h3 style="text-transform: none;">Deposit: ${amount} scrap!</h3>
-            <span style="font-size: xx-large;">${amount}<img src="/core/static/img/scrap.png" style="width: 3ch"></span>
-            <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow('https://${location.hostname}')">
-                <span class="super-button-bg"></span>
-                <span class="super-button-text" style="font-size: x-large">Receive</span>
-            </button>
-        `);
+        printPrizeItem("/core/static/img/scrap.png", amount, `Deposit: ${amount} scrap!`);
     } else {
     }
 }

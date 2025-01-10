@@ -7,8 +7,9 @@ Account Game History | JackDrop
 {% endblock %}
 
 {% block links %}
-<link href="{% static 'css/game-history.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'css/latest-drops.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/case.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/game-history.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block main %}
@@ -22,10 +23,10 @@ Account Game History | JackDrop
         </button>
     </span>
     <nav class="game-history-nav" id="main-nav">
-        <a class="game-history-nav-item {% if section == 'drop' %}active{% endif %}" href="?sec=drop">Дропы</a>
-        <a class="game-history-nav-item {% if section == 'battles' %}active{% endif %}" href="?sec=battles">Сражения</a>
-        <a class="game-history-nav-item {% if section == 'contract' %}active{% endif %}" href="?sec=contract">Контракты</a>
-        <a class="game-history-nav-item {% if section == 'bonuse' %}active{% endif %}" href="?sec=bonuse">Ежедневные бонусы</a>
+        <a class="game-history-nav-item {% if section == 'drop' %}active{% endif %}" href="?sec=drop">{% trans 'Drops' %}</a>
+        <a class="game-history-nav-item {% if section == 'battles' %}active{% endif %}" href="?sec=battles">{% trans 'Battles' %}</a>
+        <a class="game-history-nav-item {% if section == 'contract' %}active{% endif %}" href="?sec=contract">{% trans 'Contracts' %}</a>
+        <a class="game-history-nav-item {% if section == 'bonuse' %}active{% endif %}" href="?sec=bonuse">{% trans 'Every Day Bonuses' %}</a>
     </nav>
     <ul class="game-history-table {{section}}" id="game-history-table" style="display: none;">
     </ul>

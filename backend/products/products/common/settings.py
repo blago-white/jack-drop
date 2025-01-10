@@ -133,6 +133,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://productsrediscache:6379/0",
+    }
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -164,7 +171,7 @@ LOCALE_PATHS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CELERY_BROKER_URL = f"redis://productsredis:6379/0"
+CELERY_BROKER_URL = f"redis://productsredistasks:6379/0"
 
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 
@@ -205,6 +212,7 @@ GAMES_SERVICE_ROUTES = {
 USERS_MICROSERVICE_ROUTES = {
     "get_advantage": "http://usersapp:8000/auth/api/v1/p/advantage/",
     "get_info": "http://usersapp:8000/auth/api/v1/p/get_user_info_jwt/",
+    "get_info_by_id": "http://usersapp:8000/auth/api/v1/p/get_user_info/{client_id}/",
     "bulk_get_info": "http://usersapp:8000/auth/api/v1/p/get_users_info/",
     "get_balance": "http://usersapp:8000/auth/"
                    "balances/api/v1/p/displayed_balance_jwt/",

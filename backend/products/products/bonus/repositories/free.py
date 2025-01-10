@@ -52,8 +52,6 @@ class FreeCasesRepository(BaseRepository):
             case=free_case
         )
 
-        print("OK TRUE")
-
         return {"ok": True, "case": self._case_serializer(
             instance=free_case
         ).data}

@@ -72,8 +72,8 @@ class UserBonusesService(BaseModelService):
                 user_id=user_id,
                 related_case__case__id=case_id,
                 active=True
-            ).first().related_case__discount
-        except:
+            ).first().related_case.discount
+        except Exception as e:
             return 0
 
     def get_all_discounts(self, user_id: int) -> int:

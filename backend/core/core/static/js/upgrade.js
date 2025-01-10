@@ -1,4 +1,5 @@
 import { renderItemPrize } from "./prize.js";
+import { useAnim, printPrizeItem } from "./animations.js";
 
 const available = document.getElementById('items-feed');
 const availableDesctop = document.getElementById('items-feed-desctop');
@@ -137,6 +138,9 @@ async function getReceiveItems(minItemPrice) {
     let rareColor;
     let c = 0;
 
+    let receiveHTML = '';
+    let receiveDesctopHTML = '';
+
     if (result) {
         result.forEach((element) => {
             rareColor = getCardColor(result.length, c);
@@ -179,13 +183,16 @@ async function getReceiveItems(minItemPrice) {
                 </article>
             `;
 
-            receive.innerHTML += elem;
-            receiveDesctop.innerHTML += elemDesc;
+            receiveHTML += elem;
+            receiveDesctopHTML += elemDesc;
 
             receiveItems.set(element.id, element);
 
             c++;
         })
+
+        receive.innerHTML += receiveHTML;
+        receiveDesctop.innerHTML += receiveDesctopHTML;
     } else {
         receive.style = "display:flex;align-content: center;justify-content: center;"
         receive.innerHTML = "Нет предметов для апгрейда";
@@ -277,20 +284,14 @@ async function makeUpgrade() {
 }
 
 async function animateResult(result) {
-    if (gcd() > 1/1) {
-        document.getElementById('receive-item-glow').style.transform = "scale(1)";
-        document.getElementById('receive-item-glow').style.opacity = "1";
-        document.getElementById('receive-item-glow').style.animation = "1s ease-in-out 2s infinite glow-flickering, ease-in-out 2s infinite glow-rotate";
-        await sleep(3000);
-
-        document.getElementById('receive-item-glow').style.opacity = "0";
-    }
-
     let item;
 
     if (result.success) {
         item = receiveItems.get(parseInt(selectedReceive.slice(2)));
-        renderItemPrize(`You receice ${item.title}!`, item.price, item.image_path, "Amazing!");
+
+        await useAnim(false, "upgrade2");
+        await printPrizeItem(item.image_path, 0, item.title);
+//        renderItemPrize(`You receice ${item.title}!`, item.price, item.image_path, "Amazing!");
     } else {
         if (selectedGrantedBalance) {
             item = {
@@ -301,7 +302,12 @@ async function animateResult(result) {
         } else {
             item = grantedItems.get(parseInt(selectedGranted.slice(2)));
         }
-        renderItemPrize(`You lose ${item.title}!`, item.price, item.image_path, "Ok!");
+
+        await useAnim(false, "upgrade1");
+        await useAnim(true, "unlucky");
+
+	    setTimeout(() => {location.href = location.href}, 3000)
+	    //renderItemPrize(`You lose ${item.title}!`, item.price, item.image_path, "Ok!");
     }
 }
 
@@ -345,7 +351,6 @@ function updatePercent() {
         console.log(document.getElementById('make-upgrade-bg').parentElement);
     }
 }
-
 
 function clearInputBalance() {
     selectedGrantedBalance = null;

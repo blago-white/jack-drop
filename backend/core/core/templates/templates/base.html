@@ -7,15 +7,18 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
 
-    <meta name="description" content="Jack Drop - Это лучшие скины для rust, множество увлекательных миниигр, быстрый вывод, удобное пополнение, а главное - честные коэффициенты!">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"></noscript>
+
+    <meta name="description" content="Открывай кейсы на JackDrop и получай лучшие скины.  Jack Drop - Это лучшие скины для rust, множество увлекательных миниигр, быстрый вывод, удобное пополнение, а главное - честные коэффициенты!">
     <meta name="robots" content="all" />
-    <meta name="keywords" content="Rust, скины, стим, steam, skins, casino, game, cases, upgrade, contracts, rust.tm" />
+    <meta name="keywords" content="rust, раст, миниигры, минер, джекдроп, кейсы, контракты, апгрейд, стим, скины" />
     <link rel="canonical" href="https://jackdrop.online/">
 
     <meta property="og:title" content="Jack Drop" />
     <meta property="og:url" content="https://jackdrop.online/" />
     <meta property="og:image" content="https://jackdrop.online/core/static/img/bg.png"/>
-    <meta property="og:description " content="Jack Drop - Это лучшие скины для rust, множество увлекательных миниигр, быстрый вывод, удобное пополнение, а главное - честные коэффициенты!"/>
+    <meta property="og:description " content="Открывай кейсы на JackDrop и получай лучшие скины.  Jack Drop - Это лучшие скины для rust, множество увлекательных миниигр, быстрый вывод, удобное пополнение, а главное - честные коэффициенты!"/>
 
     <link href="{% static 'css/base.css' %}" type="text/css" rel="stylesheet">
     <link href="{% static 'css/header.css' %}" type="text/css" rel="stylesheet">
@@ -26,6 +29,25 @@
     <link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
 
     <meta name="yandex-verification" content="022278edbd80cf9b"/>
+
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+       ym(99432932, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+       });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/99432932" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 
     {% block links %}
     {% endblock %}
@@ -72,15 +94,40 @@
         </ul>
         {% csrf_token %}
     </footer>
-<!--    <script src="{% static 'js/header.js' %}"></script>-->
-<!--    <script src="{% static 'js/prize.js' %}" type="module"></script>-->
-<!--    <script src="{% static 'js/langs.js' %}"></script>-->
-<!--    <script src="{% static 'js/navArrow.js' %}"></script>-->
+    <script src="{% static 'js/header.js' %}"></script>
+    <script src="{% static 'js/langs.js' %}"></script>
+    <script src="{% static 'js/navArrow.js' %}"></script>
     <script src="{% static 'js/auth.js' %}"></script>
     <script>
         function randomIntFromInterval(min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min);
         };
+        function setCookie(name, value, options = {}) {
+            options = {
+                path: '/',
+                ...options
+            };
+
+            if (options.expires instanceof Date) {
+                options.expires = options.expires.toUTCString();
+            }
+
+            let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+            for (let optionKey in options) {
+                updatedCookie += "; " + optionKey;
+                let optionValue = options[optionKey];
+                if (optionValue !== true) {
+                    updatedCookie += "=" + optionValue;
+                }
+            }
+
+            document.cookie = updatedCookie;
+        }
+
+        {% get_current_language as LANGUAGE_CODE %}
+
+        setCookie("lang", "{{ LANGUAGE_CODE }}");
     </script>
     {% block extrascripts %}
     {% endblock %}

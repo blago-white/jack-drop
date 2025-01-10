@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from .endpoints.battle import BattleStatsApiView, BattlesHistoryApiView, BattlesListApiView
 from .endpoints.contract import ContractGameApiView
@@ -36,3 +37,4 @@ urlpatterns = [
          GameResultsApiView.as_view(),
          name="history"),
 ]
+

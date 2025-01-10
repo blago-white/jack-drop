@@ -12,7 +12,7 @@ class ConfigModelService(BaseModelService):
         if result:
             return result.withdraw_interval_seconds
         else:
-            return 10*60
+            return 5*60
 
     def get_withdraw_callback_url(self) -> str | None:
         result = self._model.objects.all().first()

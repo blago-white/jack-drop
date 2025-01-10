@@ -19,7 +19,7 @@ class Referral(models.Model):
                                null=True,
                                blank=True)
 
-    benefit_percent = models.IntegerField(blank=True, default=15)
+    benefit_percent = models.IntegerField(blank=True, default=30)
 
     referr_link = models.CharField(max_length=REFERR_LINK_MAX_LENGTH,
                                    null=False,

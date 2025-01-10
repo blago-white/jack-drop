@@ -1,4 +1,4 @@
-import { renderItemPrize } from "./prize.js";
+import { printPrizeItem } from "./animations.js";
 
 
 let setId;
@@ -15,7 +15,7 @@ async function buySet() {
         location.reload();
     }
 
-    renderItemPrize(set.title, set.price, set.image_path, "Receive");
+    printPrizeItem(set.image_path, set.price, set.title);
 }
 
 

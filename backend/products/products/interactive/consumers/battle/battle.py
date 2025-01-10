@@ -184,8 +184,6 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
     def _count_connections_for_group(self):
         count = list(self.channel_layer.groups.keys())
 
-        print("G", self.channel_layer.groups)
-
         return len(
             self.channel_layer.groups.get(self.group_name) or []
         )
@@ -195,7 +193,5 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
             print("FAIL GROUP NAME", self.battle_case_id, self.initiator_id)
             return
 
-
-        print(f"GN {self.battle_case_id}-{self.initiator_id}")
 
         return f"{self.battle_case_id}-{self.initiator_id}"

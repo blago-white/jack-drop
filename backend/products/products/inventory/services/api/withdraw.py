@@ -17,5 +17,4 @@ class WithdrawScheduleApiService(BaseApiService):
             result = response.json()
 
             return result
-
         return False

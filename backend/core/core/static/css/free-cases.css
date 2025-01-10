@@ -60,8 +60,8 @@ h3 {
 }
 
 .case-data span {
-    background: #232323;
-    padding-inline: calc(100vw* calc(22 / var(--reference-display-w)));
+    background: linear-gradient(180deg, #FF62CA 0%, #FF007A 100%);
+    padding-inline: ca`lc(100vw* calc(22 / var(--reference-display-w)));
     padding-block: calc(100vw* calc(12 / var(--reference-display-w)));
     border-radius: calc(100vw* calc(9 / var(--reference-display-w)));
     text-align: center;

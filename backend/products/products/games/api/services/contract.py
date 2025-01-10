@@ -10,16 +10,12 @@ class ContractApiService(BaseApiService):
     default_endpoint_serializer_class = CommitContractSerializer
 
     def get_shifted_amount(self, amount: float) -> float:
-        print(amount)
-
         response = requests.get(
             self._routes.get("contract_get_amount"),
             data=ShiftedContractAmountSerializer(instance={
                 "granted_amount": amount
             }).data
         )
-
-        print("RESPONSE", response.json())
 
         return response.json().get("shifted_funds")
 
@@ -28,7 +24,5 @@ class ContractApiService(BaseApiService):
             self._routes.get("contract_save"),
             data=serialized.data
         )
-
-        print(response.text)
 
         return response.status_code == 201

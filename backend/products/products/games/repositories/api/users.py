@@ -24,8 +24,6 @@ class UsersApiRepository(BaseApiRepository):
             jwt=jwt_token
         )
 
-        print("WOWWW", data)
-
         return DetailedUserFundsSerializer(instance=data).data
 
     def get_balance(self, user_request: Request) -> float:

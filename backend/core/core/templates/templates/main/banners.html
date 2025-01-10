@@ -4,7 +4,8 @@
 <section class="banners">
     {% trans 'Fortune Wheel' as FORTUNE_WHEEL %}
     {% trans 'Go' as GO %}
+    {% trans 'Promocode Banner Info' as PROMO_INFO %}
 
-    {% include 'main/banner.html' with HEAD="Промокод<br>на +15%<br>к пополнению" REFCODE="HFJS-FJFIV-POIF-GHGD" IMAGEPATH="img/banner-man.png" %}
+    {% include 'main/banner.html' with HEAD=PROMO_INFO REFCODE="NEWYEAR2025" IMAGEPATH="img/banner-man.png" %}
     {% include 'main/banner.html' with LONGHEAD=FORTUNE_WHEEL BUTTON=GO IMAGEPATH="img/random-banner.png" LONGIMG=True URL='/fortune/' %}
 </section>

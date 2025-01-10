@@ -1,3 +1,5 @@
+from rest_framework.exceptions import ValidationError
+
 from balances.models import ClientDeposit
 from common.repositories import BaseRepository
 from referrals.serializers import ReferralStatusSerializer, ReferralLinkSerializer
@@ -12,13 +14,23 @@ class ReferralRepository(BaseRepository):
     _service: referral.ReferralService
 
     def get(self, referral_id):
+        referral_ = self._service.get_profile(referral_id=referral_id)
+
+        if not referral_.is_blogger:
+            raise ValidationError("You is not blogger")
+
+        count_referrals = self._service.get_referrals_count(referral=referral_)
+
         data = self._serializer_class(
             data={"referr_id": referral_id,
-                  "deposits": self._service.get_deposits_sum(
-                      referr_id=referral_id
-                  )})
+                  "profit": referral_.referrals_loses_funds,
+                  "count_referrals": count_referrals})
 
         data.is_valid()
+
+        print(self._service.get_deposits_sum(referr_id=referral_id))
+
+        print(f"REF STATUS {data.data=}")
 
         return data.data
 

@@ -25,7 +25,7 @@ class AddReferrApiView(BaseDetailedCreateApiViewMixin,
     permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        saved = self.repository.add_referr(user_id=self.request.user.pk,
+        saved = self.repository.add_referr(user_id=self.request.user.id,
                                            referr_link=self.get_requested_pk_body())
 
         return self.get_201_response(data=saved)
@@ -39,7 +39,7 @@ class AddLoseFundsApiView(BaseDetailedCreateApiViewMixin,
     def create(self, request, *args, **kwargs):
         saved = self.repository.add_referr_funds(
             referral_id=request.user.id,
-                advantage_diff=request.data.get("advantage_diff")
+            advantage_diff=request.data.get("advantage_diff")
         )
 
         return self.get_201_response(data=saved)

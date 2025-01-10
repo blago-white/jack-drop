@@ -28,6 +28,16 @@ class UsersApiService(BaseApiService):
             auth_header=jwt
         )
 
+    def get_user_by_id(self, user_id: int):
+        response = requests.get(self.routes.get("get_info_by_id").format(
+            client_id=user_id
+        ), headers={}, data={})
+
+        if not response.ok:
+            raise Exception("Error getting user info")
+
+        return response.json()
+
     def get_users_info(self, users_ids: list[int]) -> tuple[bool, list]:
         response = requests.get(
             url=self.routes.get("bulk_get_info"),
@@ -66,6 +76,7 @@ class UsersApiService(BaseApiService):
             self, delta_amount: int,
             user_id: int,
     ) -> bool:
+        print(f"UPDATE USER BALANSE {delta_amount}")
         response = requests.patch(
             url=self.routes.get("update_balance").format(
                 client_id=user_id
@@ -102,7 +113,7 @@ class UsersApiService(BaseApiService):
             data={"advantage_diff": advantage_diff}
         ).json()
 
-        return response.get("ok"), response.get("user_advantage")
+        return response.get("ok"), float(response.get("user_advantage"))
 
     def update_user_advantage(self, delta_advantage: float,
                               user_id: int = None,
@@ -125,7 +136,7 @@ class UsersApiService(BaseApiService):
                 data={"delta_advantage": delta_advantage}
             ).json()
 
-        return response.get("ok"), response.get("to_blogger")
+        return response.get("ok"), float(response.get("to_blogger"))
 
     @staticmethod
     def send_auth_get_api_request(

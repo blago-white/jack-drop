@@ -1,5 +1,4 @@
-import { renderItemPrize } from "./prize.js";
-
+import { printPrizeItem } from "./animations.js";
 
 let canUpgradeLevel = false;
 
@@ -24,12 +23,22 @@ async function getStatus() {
     const percent = Math.min(Math.ceil((result.points / result.level.target) * 100), 100);
 
     document.getElementById('level-digit').innerHTML = result.level.level;
-    document.getElementById('level-desc').innerHTML = `
-        Оборот ${result.level.target} металлалома, что бы получить кейс "${result.level.free_case.title}"
-    `;
+
+    if (getCookie('lang') == 'ru') {
+        document.getElementById('level-desc').innerHTML = `
+            Оборот ${result.level.target} металлалома, что бы получить кейс "${result.level.free_case.title}"
+        `;
+        document.getElementById('next-lvl-desc').innerHTML = `Перейти к ${result.level.level+1} уровню`;
+    } else {
+        document.getElementById('level-desc').innerHTML = `
+            Turnover ${result.level.target} of scrap, to receive case "${result.level.free_case.title}"
+        `;
+        document.getElementById('next-lvl-desc').innerHTML = `Go to ${result.level.level+1} level`;
+    }
+
     document.getElementById('upgrade-percent').innerHTML = `${percent}%`;
-    document.getElementById('next-lvl-desc').innerHTML = `Перейти к ${result.level.level+1} уровню`;
     document.getElementById('benefit-case').src = result.level.free_case.image_path;
+
 
     if (percent < 100) {
         document.getElementById('next-level-btn').classList.add('disabled');
@@ -40,7 +49,7 @@ async function getStatus() {
             nextLevel()
         };
 
-        if (!result.withdraw_current) {
+        if (result.can_withdraw_case) {
             document.getElementById('get-prize-btn').onclick = () => {
                 getCase()
             }
@@ -65,7 +74,7 @@ async function getCase() {
 
     const result = await response.json();
 
-    renderItemPrize(result.title, result.price, result.image_path, "Receive!")
+    printPrizeItem(result.image_path, result.price, result.title)
 
     return {};
 }

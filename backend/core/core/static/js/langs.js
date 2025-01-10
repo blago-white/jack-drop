@@ -24,3 +24,4 @@ async function setLang(lang) {
 
     location.href = location.href;
 }
+

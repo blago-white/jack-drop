@@ -1,4 +1,4 @@
-import { renderItemPrize, renderPrize } from "./prize.js";
+import { printPrizeItem } from "./animations.js";
 
 const dropItemsString = document.getElementById('items');
 const dropItems = new Map();
@@ -140,52 +140,7 @@ export async function getCase(id) {
     await dropCase();
 }
 
-
-function showAgreement() {
-    renderPrize(`
-        <div style="margin-inline: 4vw;display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;justify-items: center;align-items: end;">
-            <img src="/core/static/img/banner-man.png" style="grid-row: 1;grid-column: 1;max-height: 45vh;">
-            <h3 style="margin: 0px;grid-row: 2;grid-column: 1;font-size: calc(100vw* calc(54 / var(--reference-display-w)));text-align: center;">
-                ПОДТВЕРДИТЕ<br>СОГЛАСИЕ
-            </h3>
-            <div style="gap: .5ch;margin-top: calc(100vw * calc(13 / var(--reference-display-w)));display: flex;justify-content: flex-start;width: 100%;">
-                <input type="checkbox" id="agreement-1" style="height: 3ch;width: 3ch;">
-                <label class="agreement-label" style="color: #f3f3f3;font-size: calc(100vw * calc(24 / var(--reference-display-w)))" for="agreement">ЧТО МНЕ БОЛЬШЕ 18 ЛЕТ</label>
-            </div>
-            <div style="gap: .5ch;margin-block: calc(100vw * calc(43 / var(--reference-display-w)));display: flex;justify-content: flex-start;width: 100%;margin-top: 1ch;">
-                <input type="checkbox" id="agreement-2" style="height: 3ch;width: 3ch;">
-                <label class="agreement-label" style="color: #f3f3f3;font-size: calc(100vw * calc(24 / var(--reference-display-w)))" for="agreement">Я ПРИНИМАЮ УСЛОВИЯ <a style="color: #0047FF;" href="/agreement/">ПОЛЬЗОВАТЕЛЬСКОГО СОГЛАШЕНИЯ</a></label>
-            </div>
-        </div>
-        <div style="display: flex;flex-direction: row;gap: 2ch;" id="agree-btns">
-            <button class="super-button" style="font-family: 'Gilroy SemiBold';" onclick="agree();">
-                <span class="super-button-bg" style="background: radial-gradient(50% 50% at 50% 50%, rgba(79, 160, 255, 0.8) 0%, rgba(0, 71, 255, 0.8) 100%);"></span>
-                <span class="super-button-text" style="font-size: x-large">Согласен</span>
-            </button>
-            <button class="super-button" style="font-family: 'Gilroy SemiBold'" onclick="closePrizeWindow();">
-                <span class="super-button-bg" style="background: #979797;box-shadow: none;"></span>
-                <span class="super-button-text" style="font-size: x-large">Это не так</span>
-            </button>
-        </div>
-    `);
-}
-
-function agree() {
-    if (!(document.getElementById('agreement-1').checked && document.getElementById('agreement-2').checked)) {
-        alert("Fill all fields");
-        return false;
-    }
-
-    setCookie('agree-cases', 1);
-    closePrizeWindow(location.href);
-}
-
 async function dropCase() {
-    if (!getCookie('agree-cases')) {
-        showAgreement();
-        return;
-    }
-
     const urlParams = new URLSearchParams(window.location.search);
     const bonusCase = urlParams.get('bonus');
 
@@ -227,7 +182,7 @@ async function dropCase() {
         });
 
         setTimeout(() => {
-            renderItemPrize(dropped.title, dropped.price, dropped.image_path, "Receive!", 200)
+            printPrizeItem(dropped.image_path, dropped.price, dropped.title, `/case/${caseId}`);
         }, 500);
     }, 7000);
 }
@@ -236,6 +191,8 @@ function animateRoulette(to) {
     const vw = window.innerWidth / 100;
 
     console.log(gcd());
+
+    new Audio(location.protocol + '//' + location.host + '/core/static/mp3/case.mp3').play();
 
     if (gcd() > 1/1) {
         dropItemsString.style.marginLeft = `-${to.right - (((100 * vw * (326 / 1920)) + (100 * vw * (48 / 1920)))*3)}px`;
@@ -257,5 +214,3 @@ function animateRoulette(to) {
 
 window.getCase = getCase;
 window.dropCase = dropCase;
-window.setCookie = setCookie;
-window.agree = agree;

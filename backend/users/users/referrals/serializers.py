@@ -11,11 +11,17 @@ class ReferralStatusSerializer(serializers.Serializer):
         queryset=UsersService().get_all()
     )
 
-    referr_link = serializers.CharField(max_length=REFERR_LINK_MAX_LENGTH)
+    profit = serializers.FloatField(allow_null=True, default=0.0)
 
-    is_blogger = serializers.BooleanField(allow_null=True, default=False)
+    count_referrals = serializers.IntegerField(allow_null=True,
+                                               default=0,
+                                               min_value=0)
 
-    benefit_percent = serializers.IntegerField(allow_null=True, default=15)
+    # referr_link = serializers.CharField(max_length=REFERR_LINK_MAX_LENGTH)
+    #
+    # is_blogger = serializers.BooleanField(allow_null=True, default=False)
+    #
+    # benefit_percent = serializers.IntegerField(allow_null=True, default=15)
 
 
 class ReferralLinkSerializer(serializers.Serializer):

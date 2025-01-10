@@ -1,4 +1,4 @@
-import { renderItemPrize } from "./prize.js";
+import { printPrizeItem, useAnim } from "./animations.js";
 
 const battlesList = document.getElementById('battles');
 const battlesHead = document.getElementById('battles-head');
@@ -7,7 +7,7 @@ const battlesTable = document.getElementById('battles-table');
 const foundingLabel = document.getElementById('founding-label');
 const battlesRequest = document.getElementById('battle-request-controls');
 
-const battleSocket = new WebSocket(`wss://${location.hostname}/products/ws/battle/`);
+const battleSocket = new WebSocket(`wss://${location.hostname}/products/ws/battle/?${getCookie("access")}`);
 let sendedRequestNow = false;
 let connected = false;
 let requestCaseId = null;
@@ -222,14 +222,25 @@ battleSocket.onmessage = async function(event) {
     if (jsondata["result"]["success"] && jsondata["response_type"] == "result") {
         hideRequestWindow();
 
-        const item = jsondata.result.data.dropped_item_winner_id;
+        const isWinner = jsondata.result.data.winner_data.id == (await getAuthenticated()).id;
+
+        console.log(jsondata.result.data.winner_data.id, getAuthenticated());
+
+        const item = isWinner ? jsondata.result.data.dropped_item_winner_id : jsondata.result.data.dropped_item_loser_id;
+
+        console.log(item);
 
         if (gcd() > 1/1) {
             renderDrops(jsondata.result.data.winner_data.username, jsondata.result.data.loser_data.username, jsondata.result.data.battle_case.image_path, jsondata.result.case_items, jsondata.result.data.dropped_item_winner_id, jsondata.result.data.dropped_item_loser_id);
             await sleep(7000);
         }
 
-        renderItemPrize(`You win ${item.title}!`, item.price, item.image_path, "Amazing!");
+        if (isWinner) {
+            printPrizeItem(item.image_path, item.price, `You win ${jsondata.result.data.dropped_item_winner_id.title}!`);
+        } else {
+            useAnim('unlucky');
+            setTimeout(() => {location.href=location.href}, 3000);
+        }
 
         return
     }
@@ -414,11 +425,19 @@ function renderActiveRequests(requests) {
 }
 
 async function showHistory() {
-    battlesHead.innerHTML = `
-        <span style="text-align: start;">Кейс</span>
-        <span>Предмет победителя</span>
-        <span style="text-align: end;">Предмет проигравшего</span>
-    `
+    if getCookie('lang') == 'ru' {
+        battlesHead.innerHTML = `
+            <span style="text-align: start;">Кейс</span>
+            <span>Предмет победителя</span>
+            <span style="text-align: end;">Предмет проигравшего</span>
+        `
+    } else {
+        battlesHead.innerHTML = `
+            <span style="text-align: start;">Case</span>
+            <span>Winner item</span>
+            <span style="text-align: end;">Loser item</span>
+        `
+    }
 
     battlesHead.style = 'grid-template-columns: repeat(3, 1fr);';
 

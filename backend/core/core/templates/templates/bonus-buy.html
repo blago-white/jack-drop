@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
 Privacy Policy | Jack Drop
@@ -14,10 +15,7 @@ Privacy Policy | Jack Drop
     <img class="astro-man" src="{% static 'img/astro-man-bonus-buy.png' %}">
     <div class="bonus-buy-content">
         <aside class="bonus-buy-hint">
-            Bonus Buy – система которая позволяет игроку получить бесплатный кейс
-            за оборот валюты, открывая другие кейсы. В этой системе, открытие бесплатных
-            кейсов не суммируется. Ниже вы увидите, сколько нужно сделать оборот металлолома,
-            чтобы открыть бесплатно другие кейсы.
+            {% trans 'Bonus Buy Info' %}
         </aside>
 
         <span class="upgrade-hint">
@@ -26,7 +24,7 @@ Privacy Policy | Jack Drop
                 <span class="level-digit" id="level-digit">1</span>
             </span>
             <span id="level-desc">
-                Оборот металлалома, что бы получить Рудный кейс Дерево
+                {% trans 'Scrap Turnover' %}
             </span>
         </span>
 
@@ -38,18 +36,16 @@ Privacy Policy | Jack Drop
             </div>
             <button class="super-button" id="get-prize-btn">
                 <span class="super-button-bg"></span>
-                <span class="super-button-text">Получить</span>
+                <span class="super-button-text">{% trans 'Get' %}</span>
             </button>
             <button class="super-button" id="next-level-btn">
                 <span class="super-button-bg" id="next-level-btn-bg"></span>
-                <span class="super-button-text" id="next-lvl-desc">Перейти к 2 уровню</span>
+                <span class="super-button-text" id="next-lvl-desc">{% trans 'Go To BB Level' %}</span>
             </button>
         </div>
 
         <aside class="bonus-buy-bottom-hint">
-            Желаем дойти до последнего уровня. Успейте, акция ограниченна.<br>
-            P.S. После 8 уровня вас ждет еще один сюрприз.<br>
-            По любым вопросам обращаться по адресу: jackdrop@ro.ru<br>
+            {% trans 'Bottom Bonus Buy Info' %}
         </aside>
     </div>
 </section>
