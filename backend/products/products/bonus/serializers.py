@@ -35,20 +35,17 @@ class UserFreeCaseAddSerializer(serializers.Serializer):
 class UserBonusesSerializer(serializers.ModelSerializer):
     case_title = serializers.CharField(
         max_length=CASE_TITLE_MAX_LEN,
-        allow_blank=True,
         allow_null=True
     )
     case_discount = serializers.IntegerField(
         default=0,
         min_value=0,
         max_value=100,
-        allow_blank=True,
     )
     case_is_free = serializers.BooleanField(default=False)
     item_title = serializers.CharField(
         max_length=ITEM_TITLE_MAX_LENGTH,
-        allow_null=True,
-        allow_blank=True
+        allow_null=True
     )
 
     class Meta:

@@ -72,8 +72,9 @@ class UserBonusesService(BaseModelService):
                 user_id=user_id,
                 related_case__case__id=case_id,
                 active=True
-            ).first().related_case.discount
+            ).first().related_case__discount
         except Exception as e:
+            print(e)
             return 0
 
     def get_all_discounts(self, user_id: int) -> int:
@@ -114,6 +115,18 @@ class UserBonusesService(BaseModelService):
         return self._add_item(user_id=user_id,
                               item=item,
                               type_=BonusTypes.FREE_SKIN)
+
+    def remove_item(self, user_id: int, item_id: Item, type_: str):
+        print( self._model.objects.filter(
+            user_id=user_id,
+            related_item__id=item_id,
+            bonus_type=type_
+        ))
+
+        self._model.objects.filter(
+            user_id=user_id, related_item__id=item_id,
+            bonus_type=type_
+        ).update(active=False)
 
     def _add_item(self, user_id: int,
                   item: Item,

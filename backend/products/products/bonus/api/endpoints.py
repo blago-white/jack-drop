@@ -90,3 +90,6 @@ class AllBonusesCasesApiView(BaseListAPIView):
                 "discounted": discounted_dict
             }
         )
+
+    def list(self, request, *args, **kwargs):
+        return self.retrieve(*args, request=request, **kwargs)
