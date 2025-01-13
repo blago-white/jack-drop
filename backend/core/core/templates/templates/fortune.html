@@ -8,6 +8,7 @@ Fortune Wheel | Jack Drop
 
 {% block links %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/fortune.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/animations.css' %}">
 {% endblock %}
 
 {% block main %}
@@ -78,5 +79,6 @@ Fortune Wheel | Jack Drop
 
 {% block extrascripts %}
 <script src="{% static 'js/countDown.js' %}"></script>
+<script src="{% static 'js/animations.js' %}" type="module"></script>
 <script src="{% static 'js/wheel.js' %}" type="module"></script>
 {% endblock %}

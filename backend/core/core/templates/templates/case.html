@@ -9,6 +9,7 @@ Case Info | Jack Drop
 {% block links %}
 <link href="{% static 'css/latest-drops.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'css/case.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/animations.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block main %}
@@ -36,10 +37,12 @@ Case Info | Jack Drop
         <div class="case-items" id="case-items">
         </div>
     </div>
+    <audio preload="auto" style="display: none;" src="{% static 'mp3/case.mp3' %}"></audio>
 </section>
 {% endblock %}
 
 {% block extrascripts %}
+<script src="{% static 'js/animations.js' %}" type="module"></script>
 <script src="{% static 'js/case.js' %}"></script>
 <script src="{% static 'js/itemsSet.js' %}" type="module"></script>
 <script type="module">

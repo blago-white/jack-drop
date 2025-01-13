@@ -9,6 +9,7 @@ Mines | Jack Drop
 
 {% block links %}
 <link href="{% static 'css/mines.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/animations.css' %}" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -84,5 +85,6 @@ Mines | Jack Drop
 {% endblock %}
 
 {% block extrascripts %}
+<script src="{% static 'js/animations.js' %}" type="module"></script>
 <script src="{% static 'js/mines.js' %}" type="module"></script>
 {% endblock %}

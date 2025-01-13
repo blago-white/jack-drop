@@ -11,6 +11,7 @@ Upgrade | Jack Drop
 <link href="{% static 'css/case.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/latest-drops.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/upgrade.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/animations.css' %}" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -83,5 +84,8 @@ Upgrade | Jack Drop
 {% endblock %}
 
 {% block extrascripts %}
+<script src="{% static 'js/animations.js' %}" type="module"></script>
 <script src="{% static 'js/upgrade.js' %}" type="module"></script>
 {% endblock %}
+
+        modified:   core/core/templates/templates/account.html

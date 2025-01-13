@@ -12,22 +12,27 @@ Contract | Jack Drop
 <link href="{% static 'css/latest-drops.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/contract.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/case.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/animations.css' %}" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
+<div style="
+    /* max-width: 100vw; */
+    overflow: hidden;
+    position: absolute;
+    width: 100vw;
+    top: 0px;
+    left: 0%;
+    height: 110%;
+    z-index: -1;
+"><img src="/core/static/img/contract-bg.png" style="
+    height: 100%;
+    left: -7%;
+    position: relative;
+    "><div class="bg-filter" style="z-index: 10000;z-index: 1;height: 100%;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0,.5) 13%, rgba(0, 0, 0, 1) 130%);"></div></div>
 <section class="contract">
-    <div class="contract-cells">
-        <span id="im1">1</span>
-        <span id="im2">2</span>
-        <span id="im3">3</span>
-        <span id="im4">4</span>
-        <span id="im5">5</span>
-        <span id="im6">6</span>
-        <span id="im7">7</span>
-        <span id="im8">8</span>
-        <span id="im9">9</span>
-        <span id="im10">10</span>
-    </div>
+    <video><source src="/core/static/webm/contract.webm"></video>
     <div class="inventory-items inventory-items-mobile" id="inventory-items-mob">
     </div>
     <div class="side-info">
@@ -50,33 +55,8 @@ Contract | Jack Drop
             <span class="super-button-text">{% trans 'Clear' %}</span>
         </button>
     </div>
-    <div class="contract-circle">
-        <div class="desctop-items-cells" style="grid-row: 1;grid-column: 1;">
-            <div class="cells-row" id="cells-row-1">
-                <span id="id1"></span>
-                <span id="id2"></span>
-            </div>
-            <div class="cells-row" id="cells-row-2">
-                <span id="id10"></span>
-                <span id="id3"></span>
-            </div>
-            <div class="cells-row" id="cells-row-3">
-                <span id="id9"></span>
-                <span id="id4"></span>
-            </div>
-            <div class="cells-row" id="cells-row-4">
-                <span id="id8"></span>
-                <span id="id5"></span>
-            </div>
-            <div class="cells-row" id="cells-row-5">
-                <span id="id7"></span>
-                <span id="id6"></span>
-            </div>
-        </div>
+    <div class="contract-circle" id="contract-field">
         <span class="contract-amount" id="contract-amount">0</span>
-        <img style="width: 43vw;pointer-events: none;grid-row: 1;grid-column: 1;"
-             src="{% static 'img/contract-circle.png' %}">
-        <img style="width: 43vw;pointer-events: none;grid-row: 1;grid-column: 1;z-index: 9;" src="{% static 'img/contract-circle-inner.png' %}">
         <img class="glow" id="contract-glow" src="{% static 'img/glow.png' %}" style="pointer-events: none;grid-row: 1;grid-column: 1;">
         <span class="prize-price-range">
             <span class="start" id="prst">0</span>
@@ -89,5 +69,6 @@ Contract | Jack Drop
 {% endblock %}
 
 {% block extrascripts %}
+<script src="{% static 'js/animations.js' %}" type="module"></script>
 <script src="{% static 'js/contract.js' %}" type="module"></script>
 {% endblock %}

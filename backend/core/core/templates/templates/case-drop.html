@@ -10,6 +10,7 @@ Drop Case | Jack Drop
 <link href="{% static 'css/latest-drops.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'css/case.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'css/case-drop.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/animations.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block main %}
@@ -27,11 +28,12 @@ Drop Case | Jack Drop
     </button>
 </div>
 <i id="DESTIGATION_ON_CLOSE_WINDOW" style="display: none;">{% url 'case' case_id %}</i>
+<audio preload="auto" style="display: none;" src="{% static 'mp3/case.mp3' %}"></audio>
 {% endblock %}
 
 {% block extrascripts %}
+<script src="{% static 'js/animations.js' %}" type="module"></script>
 <script src="{% static 'js/caseDrop.js' %}" type="module"></script>
-
 <script type="module" >
 import {getCase} from "{% static 'js/caseDrop.js' %}";
 
