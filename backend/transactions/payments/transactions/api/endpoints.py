@@ -77,25 +77,15 @@ class TransactionCallbackApiView(BaseApiView, ListAPIView):
     def _authenticate(self, data: dict[str, str]):
         validate_hash = data.pop("hash")
 
-        print(f"HASH: {validate_hash[0]}")
-
         sorted_params = sorted([(i[0], i[-1][0]) for i in data.copy().items()])
-
-        print(f"SORTED_PARAMS: {sorted_params}")
 
         sorted_params.append(
             ("secret_key", self.payments_repository.secret_for_validation)
         )
 
-        print(f"SORTED_PARAMS: {sorted_params}")
-
         params = "{np}".join([str(i[-1]) for i in sorted_params])
 
-        print(f"PARAMS: {params}")
-
         params_hash = hashlib.sha256(params.encode()).hexdigest()
-
-        print(f"HASHES: {params_hash} {validate_hash[0]}")
 
         if params_hash != validate_hash[0]:
             print("PAYMENT SIGN VALIDATION ERROR")
