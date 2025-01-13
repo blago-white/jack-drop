@@ -150,8 +150,8 @@ USERS_MICROSERVICE_ROUTES = {
 WALLET_ADDRESS = "TBuJ5sCGDzqNgYvzZC67zoTK3eTsDYfKq8"
 PRIVATE_KEY = os.environ.get("PRIVATE_KEY")
 
-SUCCESS_URL = "/account/?deposit=1&amount={a}&succes=1"
-FAILED_URL = "/transactions/fail/"
-WEBHOOK_URL = "/transactions/payments/callback/"
+SUCCESS_URL = "https://jackdrop.online/account/?deposit=1&amount={a}&succes=1"
+FAILED_URL = "https://jackdrop.online/account/"
+WEBHOOK_URL = "https://jackdrop.online/transactions/payments/callback/"
 
 PAYMENT_SERVICE_AUTH_HEADER = os.environ.get("AUTH_HEADER")
