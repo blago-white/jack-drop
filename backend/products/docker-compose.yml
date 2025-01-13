@@ -16,13 +16,26 @@ services:
         timeout: 5s
         retries: 5
     restart: always
-  productsredis:
+  productsredistasks:
     image: redis:7.2.4-bookworm
     env_file:
       - .env
     expose:
       - 6379
-    container_name: productsredis
+    container_name: productsredistasks
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: always
+  productsrediscache:
+    image: redis:7.2.4-bookworm
+    env_file:
+      - .env
+    expose:
+      - 6379
+    container_name: productsrediscache
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -36,10 +49,43 @@ services:
       - 8000
     depends_on:
       - productsdb
-      - productsredis
+      - productsredistasks
+      - productsrediscache
     env_file:
       - .env
     container_name: productsapp
+    volumes:
+#      - ./products/debug.log:/home/app/products/debug.log
+      - ./products/:/home/app/products/
+    restart: always
+  productsapp1:
+    build:
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+    depends_on:
+      - productsdb
+      - productsredistasks
+      - productsrediscache
+    env_file:
+      - .env
+    container_name: productsapp1
+    volumes:
+#      - ./products/debug.log:/home/app/products/debug.log
+      - ./products/:/home/app/products/
+    restart: always
+  productsapp2:
+    build:
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+    depends_on:
+      - productsdb
+      - productsredistasks
+      - productsrediscache
+    env_file:
+      - .env
+    container_name: productsapp2
     volumes:
 #      - ./products/debug.log:/home/app/products/debug.log
       - ./products/:/home/app/products/
@@ -48,7 +94,7 @@ services:
     build:
       dockerfile: Dockerfile.celery
     restart: always
-    command: celery -A common beat -l info -f /home/app/products/celery.log
+    command: celery -A common beat -l debug -f /home/app/products/celery.log
     container_name: productscelery
     volumes:
       - ./products/:/home/app/products/
@@ -56,8 +102,10 @@ services:
       - .env
     depends_on:
       - productsdb
-      - productsredis
+      - productsredistasks
       - productsapp
+      - productsapp1
+      - productsapp2
   productsnginx:
     build: nginx
     expose:
