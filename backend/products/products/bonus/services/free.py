@@ -18,3 +18,6 @@ class FreeCasesDepositsService(BaseModelService):
 
     def validate_deposit_id(self, deposit_id: int) -> bool:
         return not self._model.objects.filter(pk=deposit_id).exists()
+
+    def use_deposit(self, deposit_id: int):
+        return self._model.objects.create(deposit_id=deposit_id)

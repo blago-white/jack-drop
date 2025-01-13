@@ -8,12 +8,8 @@ from .transfer.products import DepositCallback
 
 class ProductsApiService:
     routes = settings.PRODUCTS_MICROSERVICE_ROUTES
-    _retries_to_abort = 3
 
     def send_deposit_callback(self, callback: DepositCallback) -> dict:
-        if not self._retries_to_abort:
-            return False
-
         response = requests.post(
             url=self.routes.get("deposit-callback"),
             headers={"Content-Type": "application/json"},
@@ -27,7 +23,6 @@ class ProductsApiService:
         print(response.status_code, response.text)
 
         if not response.ok:
-            self._retries_to_abort -= 1
             return self.send_deposit_callback(callback=callback)
 
         return True

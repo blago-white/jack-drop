@@ -52,6 +52,10 @@ class FreeCasesRepository(BaseRepository):
             case=free_case
         )
 
+        self._deposits_model_service.use_deposit(
+            deposit_id=data.data.get("deposit_id")
+        )
+
         return {"ok": True, "case": self._case_serializer(
             instance=free_case
         ).data}
