@@ -1,6 +1,7 @@
 import json
 
 import requests
+from rest_framework.exceptions import ValidationError
 from django.conf import settings
 
 from .transfer.products import DepositCallback
@@ -20,9 +21,22 @@ class ProductsApiService:
             ))
         )
 
-        print(response.status_code, response.text)
-
         if not response.ok:
-            return self.send_deposit_callback(callback=callback)
+            raise ValueError("Error sending depo callback")
 
         return True
+
+    def get_deposit_free_case(self, deposit_amount: float) -> dict:
+        response = requests.get(
+            url=self.routes.get("get-free-deposit-case").format(
+                deposit=deposit_amount
+            ),
+        )
+
+        if not response.ok and response.status_code == 400:
+            return
+
+        elif not response.ok:
+            raise ValidationError("Error receiving free deposit case")
+
+        return response.json()

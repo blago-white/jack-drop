@@ -15,6 +15,8 @@ class TransactionApiService:
     def create(self, tid: int,
                data: CreateTransactionData
                ) -> tuple[bool, dict | str]:
+        has_free_case = data.free_deposit_case is not None
+
         body = {
             "merchant_id": self._credentals.merchant_id,
             "secret": self._credentals.secret_key,
@@ -23,7 +25,15 @@ class TransactionApiService:
             "amount": data.amount_from * 100,
             "currency": data.currency,
             "description": f"Пополнение JackDrop на {data.amount_from} {data.currency}",
-            "success_url": settings.SUCCESS_URL.format(a=data.amount_from),
+            "success_url": settings.SUCCESS_URL.format(
+                **dict(
+                    a=data.amount_from,
+                    has_free_case=int(has_free_case),
+                ) | (dict(
+                    free_case_img=data.case_img,
+                    free_case_title=data.case_title
+                ) if has_free_case else dict())
+            ),
             "fail_url": settings.FAILED_URL,
         }
 

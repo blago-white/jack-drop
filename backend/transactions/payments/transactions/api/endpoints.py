@@ -14,6 +14,7 @@ from ..serializers import TransactionCreationPubllicSerializer
 class InitReplenishApiView(BaseCreateApiView):
     payments_repository = PaymentsRepository()
     users_repository = UsersRepository()
+    products_repository = ProductsApiRepository()
 
     serializer_class = TransactionCreationPubllicSerializer
 
@@ -22,9 +23,18 @@ class InitReplenishApiView(BaseCreateApiView):
 
         user_data = self.users_repository.get_info(user_request=request)
 
-        payment = self.payments_repository.create(data=self._complete_dataset(
+        deposit_data = self._complete_dataset(
             user_data=user_data
-        ))
+        )
+
+        free_deposit_case = self.products_repository.get_free_case_for_deposit(
+            deposit_amount=deposit_data.get("amount")
+        )
+
+        payment = self.payments_repository.create(
+            data=deposit_data,
+            free_deposit_case=free_deposit_case
+        )
 
         print("INITED PAYMENT", payment)
 

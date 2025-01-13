@@ -4,6 +4,8 @@ from ..services.products import ProductsApiService
 from ..services.serializers.products import ProductsDepositWebhookSerializer
 from ..services.transfer.products import DepositCallback
 
+from common.services.transfer.products import FreeDepositCase
+
 
 class ProductsApiRepository(BaseRepository):
     default_service = ProductsApiService()
@@ -11,7 +13,7 @@ class ProductsApiRepository(BaseRepository):
 
     _service: ProductsApiService
 
-    def send_deposit_callback(self, data: dict) -> dict:
+    def send_deposit_callback(self, data: dict) -> bool:
         serialized: ProductsDepositWebhookSerializer = self._serializer_class(
             data=data
         )
@@ -25,6 +27,23 @@ class ProductsApiRepository(BaseRepository):
         )
 
         return response
+
+    def get_free_case_for_deposit(self, deposit_amount: float) -> FreeDepositCase:
+        case = self._service.get_deposit_free_case(
+            deposit_amount=deposit_amount
+        )
+
+        if case:
+            return self._serialize_free_deposit_case(
+                case_data=case
+            )
+
+    @staticmethod
+    def _serialize_free_deposit_case(case_data: dict[str, str]):
+        return FreeDepositCase(
+            case_title=case_data.get("title"),
+            case_img=case_data.get("image_path")
+        )
 
     @staticmethod
     def _convert_to_deposit_callback(data: dict) -> DepositCallback:

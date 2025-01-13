@@ -139,7 +139,10 @@ PAYMENT_SERVICE_URLS = {
 }
 
 PRODUCTS_MICROSERVICE_ROUTES = {
-    "deposit-callback": "http://productsapp:8000/products/private/webhook/deposit/"
+    "deposit-callback": "http://productsapp:8000/products/private/webhook/deposit/",
+    "get-free-deposit-case": "http://productsapp:8000/"
+                             "products/bonus-buy/deposit-free-case"
+                             "/?deposit={deposit}"
 }
 
 USERS_MICROSERVICE_ROUTES = {
@@ -150,7 +153,10 @@ USERS_MICROSERVICE_ROUTES = {
 WALLET_ADDRESS = "TBuJ5sCGDzqNgYvzZC67zoTK3eTsDYfKq8"
 PRIVATE_KEY = os.environ.get("PRIVATE_KEY")
 
-SUCCESS_URL = "https://jackdrop.online/account/?deposit=1&amount={a}&succes=1"
+SUCCESS_URL = ("https://jackdrop.online/account/"
+               "?deposit=1&amount={a}&succes=1"
+               "&free_case={has_free_case}&free_case_img={free_case_img}"
+               "&free_case_title={free_case_title}")
 FAILED_URL = "https://jackdrop.online/account/"
 WEBHOOK_URL = "https://jackdrop.online/transactions/payments/callback/"
 

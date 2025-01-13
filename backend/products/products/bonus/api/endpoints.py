@@ -1,4 +1,5 @@
 from rest_framework.generics import CreateAPIView
+from rest_framework.request import Request
 
 from common.views.api import BaseRetreiveAPIView, BaseListAPIView
 from common.mixins.api import CreateAPIViewMixin
@@ -81,7 +82,7 @@ class AllBonusesCasesApiView(BaseListAPIView):
         )
 
         discounted_dict = {
-                i.get("case"): i.get("discount") for i in discounted.get("discounts")
+            i.get("case"): i.get("discount") for i in discounted.get("discounts")
         }
 
         return self.get_200_response(
@@ -93,3 +94,14 @@ class AllBonusesCasesApiView(BaseListAPIView):
 
     def list(self, request, *args, **kwargs):
         return self.retrieve(*args, request=request, **kwargs)
+
+
+class GetFreeCaseForDeposit(BaseRetreiveAPIView):
+    _free_cases_repository = FreeCasesRepository()
+
+    def retrieve(self, request: Request, *args, **kwargs):
+        deposit = float(request.query_params.get("deposit")[0])
+
+        return self.get_200_response(
+            data=self._free_cases_repository.get_for_deposit(deposit=deposit)
+        )

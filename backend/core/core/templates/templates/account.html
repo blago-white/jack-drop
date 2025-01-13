@@ -131,7 +131,47 @@
         const urlParams = new URLSearchParams(window.location.search);
 
         if (urlParams.get('deposit') == '1' && urlParams.get('succes') == '1') {
-            printPrizeItem('/core/static/img/scrap.png', urlParams.get('amount'), `Thanks for deposit ${urlParams.get('amount')} scrap`, '/account/', true);
+            const hasFreeCase = urlParams.get("has_free_case") == 1;
+
+            let redirectAfterReceivingCase;
+
+            if (hasFreeCase) {
+                redirectAfterReceivingCase = `/account/?has_free_case=${urlParams.get("has_free_case")}&free_case_img=${urlParams.get("free_case_img")}&free_case_title=${urlParams.get("free_case_title")`
+            } else {
+                redirectAfterReceivingCase = '/account/'
+            }
+
+            let thanksForDeposit;
+
+            if (getCookie('lang') == 'ru') {
+                thanksForDeposit = `Депозит на ${urlParams.get('amount')} скрапа зачислен, удачи!`;
+            } else {
+                thanksForDeposit = `Thanks for deposit ${urlParams.get('amount')} scrap`;
+            }
+
+            printPrizeItem(
+                '/core/static/img/scrap.png',
+                urlParams.get('amount'),
+                thanksForDeposit,
+                redirectAfterReceivingCase,
+                true
+            );
+        } else if (urlParams.get('has_free_case') == 1) {
+            let youReceiveCase;
+
+            if (getCookie('lang') == 'ru') {
+                youReceiveCase = `Вы получили кейс: ${urlParams.get("free_case_title")}`
+            } else {
+                youReceiveCase = `You receive case: ${urlParams.get("free_case_title")}`
+            }
+
+            printPrizeItem(
+                urlParams.get("free_case_img"),
+                0,
+                youReceiveCase,
+                '/account/',
+                true
+            );
         }
     }
 

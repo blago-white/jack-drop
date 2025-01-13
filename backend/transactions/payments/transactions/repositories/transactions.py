@@ -3,6 +3,8 @@ import datetime
 from rest_framework.exceptions import ValidationError
 
 from common.repositories.base import BaseRepository
+from common.services.transfer.products import FreeDepositCase
+
 from ..models import PaymentStatus, PaymentCurrency
 from ..serializers import TransactionCreationSerializer
 from ..services.config import ConfigService
@@ -51,14 +53,16 @@ class PaymentsRepository(BaseRepository):
 
         return self._SECRET_KEY
 
-    def create(self, data: dict):
+    def create(self, data: dict, free_deposit_case: FreeDepositCase | None):
         serialized: TransactionCreationSerializer = self._serializer_class(
-            data=data)
+            data=data
+        )
 
         serialized.is_valid(raise_exception=True)
 
         serialized_dataclass = self._serialize_create_request(
-            serialized=serialized
+            serialized=serialized,
+            free_deposit_case=free_deposit_case
         )
 
         inited = self._payment_service.init(data=serialized_dataclass)
@@ -133,10 +137,14 @@ class PaymentsRepository(BaseRepository):
             self.cancel(foreign_transaction_id=irrelevant_id)
 
     @staticmethod
-    def _serialize_create_request(serialized: dict):
+    def _serialize_create_request(
+            serialized: dict,
+            free_deposit_case: FreeDepositCase | None
+    ):
         return CreateTransactionData(
             user_id=serialized.data.get("user_id"),
             user_login=serialized.data.get("user_login"),
             amount_from=serialized.data.get("amount"),
-            currency=PaymentCurrency.RUB  # TODO: Remove default exp
+            currency=PaymentCurrency.RUB,  # TODO: Remove default exp
+            free_deposit_case=free_deposit_case
         )

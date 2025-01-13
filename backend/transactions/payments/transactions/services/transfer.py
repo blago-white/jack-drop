@@ -16,6 +16,7 @@ class CreateTransactionData:
     user_login: str
     amount_from: float
     currency: PaymentCurrency
+    free_deposit_case: "FreeDepositCase" | None = None
 
 
 @dataclass
