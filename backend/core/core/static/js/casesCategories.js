@@ -11,11 +11,10 @@ function addCases(category, cases, bonuses) {
     let priceLabel;
 
     cases.forEach((element) => {
-
-        if (bonuses.free.includes(element.id)) {
+        if (bonuses && bonuses.free.includes(element.id)) {
             realPrice = 0
-        } else if (bonuses.discounted.get(element.id)) {
-            realPrice = bonuses.discounted.get(element.id)
+        } else if (bonuses && bonuses.discounted[element.id]) {
+            realPrice = ((100 - bonuses.discounted[element.id]) / 100 * element.price).toFixed(2)
         }
 
         if (realPrice != undefined) {
@@ -42,7 +41,7 @@ function addCases(category, cases, bonuses) {
 
 
 async function addItemSets() {
-    const itemSet = await sendRequestJson(`http://${location.hostname}/products/items/sets/`, {method: "GET"})
+    const itemSet = await sendRequestJson(`https://${location.hostname}/products/items/sets/`, {method: "GET"})
 
     console.log(itemSet);
 
@@ -74,7 +73,7 @@ async function getBonuses() {
       redirect: "follow"
     };
 
-    const response = await sendRequest(`http://${location.hostname}/products/bonus-buy/bonuse/all/`, requestOptions);
+    const response = await sendRequest(`https://${location.hostname}/products/bonus-buy/bonuse/all/`, requestOptions);
 
     if (!response.ok) {
         return {
@@ -95,7 +94,7 @@ async function getCases() {
       redirect: "follow"
     };
 
-    const response = await sendRequest(`http://${location.hostname}/products/cases/api/v1/by-categories/?`+params, requestOptions);
+    const response = await sendRequest(`https://${location.hostname}/products/cases/api/v1/by-categories/?`+params, requestOptions);
 
     const result = await response.json();
 
@@ -110,22 +109,14 @@ async function getCases() {
     await addItemSets();
 
     result.slice(1).forEach((element) => {
-        addCases(element.category, element.cases)
+        addCases(element.category, element.cases, bonuses)
     })
 
     return result
 }
 
 async function start() {
-    console.log(1)
-
-    const res = await getCases();
-
-    console.log(2)
-
-    addCases(res);
-
-    console.log(3);
+    await getCases();
 }
 
 start();

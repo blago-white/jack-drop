@@ -11,25 +11,9 @@ class TronWalletApiService:
         self._client = Tron(network="nile")  # TODO: SET MAINNETWORK
 
     def send(self, amount: float, wallet: str):
-        try:
-            private = PrivateKey(bytes.fromhex(self._private_kry))
-
-            transaction = (
-                self._client.trx.transfer(self._self_wallet_address, amount, wallet)
-                .memo("Transaction Description")
-                .build()
-                .inspect()
-                .sign(private)
-                .broadcast()
-            )
-
-            return transaction.txid
-        except Exception as exc:
-            return exc
+        raise NotImplementedError("Now cant send TRX")
 
 
 class IncomePaymentServiceWalletService:
-    def withdraw(self, address: str):
-        async with aiohttp.ClientSession() as session:
-            async with session.post(settings.PAYMENT_SERVICE_URLS["withdraw"]) as response:
-                return
+    async def withdraw(self, address: str):
+        raise NotImplementedError("Payment service withdraw not implemented!")

@@ -65,8 +65,8 @@ h3 {
 .item-card {
     overflow: hidden;
     aspect-ratio: 1/1;
-    padding: 0px;
-    padding-block: 0px;
+    padding: 0px!important;
+    padding-block: 0px!important;
 }
 
 .items-controls button {
