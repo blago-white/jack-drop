@@ -63,7 +63,7 @@ class TransactionCallbackApiView(BaseApiView, ListAPIView):
 
         if tstatus == "success":
             deposit = self.users_repository.add_depo(
-                amount=float(request.query_params.get("profit")) / 100,
+                amount=float(request.query_params.get("amount")) / 100,
                 currency=request.query_params.get("amount_currency"),
                 user_id=self.payments_repository.get_payeer_id(tid=tid)
             )
