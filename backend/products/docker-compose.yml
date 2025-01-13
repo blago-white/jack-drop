@@ -90,6 +90,22 @@ services:
 #      - ./products/debug.log:/home/app/products/debug.log
       - ./products/:/home/app/products/
     restart: always
+  productsapp3:
+    build:
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+    depends_on:
+      - productsdb
+      - productsredistasks
+      - productsrediscache
+    env_file:
+      - .env
+    container_name: productsapp3
+    volumes:
+#      - ./products/debug.log:/home/app/products/debug.log
+      - ./products/:/home/app/products/
+    restart: always
   productscelery:
     build:
       dockerfile: Dockerfile.celery

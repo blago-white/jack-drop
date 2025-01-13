@@ -58,6 +58,20 @@ services:
       - ./users/debug.log:/home/app/users/debug.log
       - ./users:/home/app/users
     restart: always
+  usersapp3:
+    build:
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+    depends_on:
+      - usersdb
+    env_file:
+      - .env
+    container_name: usersapp3
+    volumes:
+      - ./users/debug.log:/home/app/users/debug.log
+      - ./users:/home/app/users
+    restart: always
   usersnginx:
     build: nginx
     expose:

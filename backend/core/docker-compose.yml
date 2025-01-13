@@ -44,6 +44,51 @@ services:
 #      - ./core/debug.log:/home/app/core/debug.log
       - ./core/:/home/app/core/
     restart: always
+  coreapp1:
+    build:
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+    depends_on:
+      - coredb
+      - coreredis
+    env_file:
+      - .env
+    container_name: coreapp1
+    volumes:
+#      - ./core/debug.log:/home/app/core/debug.log
+      - ./core/:/home/app/core/
+    restart: always
+  coreapp2:
+    build:
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+    depends_on:
+      - coredb
+      - coreredis
+    env_file:
+      - .env
+    container_name: coreapp2
+    volumes:
+#      - ./core/debug.log:/home/app/core/debug.log
+      - ./core/:/home/app/core/
+    restart: always
+  coreapp3:
+    build:
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+    depends_on:
+      - coredb
+      - coreredis
+    env_file:
+      - .env
+    container_name: coreapp3
+    volumes:
+#      - ./core/debug.log:/home/app/core/debug.log
+      - ./core/:/home/app/core/
+    restart: always
   corecelery:
     build:
       dockerfile: Dockerfile.celery
