@@ -52,6 +52,8 @@ class TransactionCallbackApiView(BaseApiView, ListAPIView):
 
         self._authenticate(dict(request.query_params).copy())
 
+        print(f"CALLBACK REQUEST: {dict(request.query_params)}")
+
         tstatus = request.query_params.get("result")
 
         self.payments_repository.update(
