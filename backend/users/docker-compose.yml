@@ -30,6 +30,34 @@ services:
       - ./users/debug.log:/home/app/users/debug.log
       - ./users:/home/app/users
     restart: always
+  usersapp1:
+    build:
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+    depends_on:
+      - usersdb
+    env_file:
+      - .env
+    container_name: usersapp1
+    volumes:
+      - ./users/debug.log:/home/app/users/debug.log
+      - ./users:/home/app/users
+    restart: always
+  usersapp2:
+    build:
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+    depends_on:
+      - usersdb
+    env_file:
+      - .env
+    container_name: usersapp2
+    volumes:
+      - ./users/debug.log:/home/app/users/debug.log
+      - ./users:/home/app/users
+    restart: always
   usersnginx:
     build: nginx
     expose:
@@ -38,7 +66,8 @@ services:
       - usersapp
     container_name: usersnginx
     volumes:
-      - ./users/static/:/static:ro
+      - ./users/static/:/users/static
+      - ./users/:/home/app/users
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
 
 

@@ -32,9 +32,10 @@ services:
   tpaymentsapp:
     build:
       dockerfile: ./payments/Dockerfile
-    network_mode: host
+        #network_mode: host
     expose:
       - 8000
+    network_mode: bridge
     env_file:
       - .env
     container_name: tpaymentsapp
@@ -45,6 +46,7 @@ services:
     build: nginx
     expose:
       - 80
+    network_mode: bridge
     depends_on:
       - tmarketapp
     container_name: tmarketnginx

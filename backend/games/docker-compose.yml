@@ -33,6 +33,7 @@ services:
     build: nginx
     expose:
       - 80
+    restart: always
     depends_on:
       - gamesapp
     container_name: gamesnginx

@@ -18,5 +18,7 @@ RUN pip install -r ./requirements.txt
 WORKDIR /home/app/market/
 
 RUN chown -R app:app /home/app/market/
+RUN chmod -R 744 /home/app/market/celerybeat-schedule
+RUN chmod 755 /home/app/market/celery.log
 
 USER app
