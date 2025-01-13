@@ -41,7 +41,7 @@ class SteamAuthProcessView(BaseReflinkProcessingView):
         steam_uid = get_uid(results=request.GET)
 
         if steam_uid is None:
-            return redirect(to="http://jackdrop.online/?loginfail=1")
+            return redirect(to="https://jackdrop.online/?loginfail=1")
 
         token = self.repository.get(
             steam_id=steam_uid
@@ -59,7 +59,7 @@ class SteamAuthProcessView(BaseReflinkProcessingView):
                 )
 
         response = HttpResponseRedirect(
-            redirect_to="http://jackdrop.online/",
+            redirect_to="https://jackdrop.online/",
         )
 
         response.set_cookie('access', token.get("access"))
