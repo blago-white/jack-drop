@@ -1,7 +1,7 @@
 import hashlib
 
 from rest_framework.exceptions import ValidationError
-from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import RetrieveAPIView, ListAPIView
 from rest_framework.request import Request
 
 from common.repositories.products import ProductsApiRepository
@@ -35,33 +35,34 @@ class InitReplenishApiView(BaseCreateApiView):
     def _complete_dataset(self, user_data: dict):
         return dict(
             user_login=user_data.get("username"),
+            user_id=user_data.get("id"),
             amount=self.request.data.get("amount"),
         )
 
 
-class TransactionCallbackApiView(BaseCreateApiView):
+class TransactionCallbackApiView(BaseApiView, ListAPIView):
     payments_repository = PaymentsRepository()
     users_repository = UsersRepository()
     products_repository = ProductsApiRepository()
 
-    def create(self, request: Request, *args, **kwargs):
+    def get(self, request: Request, *args, **kwargs):
         print("HANDLE CALLBACK")
 
-        tid = request.data.get("order_id")
+        tid = request.query_params.get("order_id")
 
-        self._authenticate(request.data)
+        self._authenticate(dict(request.query_params).copy())
 
-        tstatus = request.data.get("result")
+        tstatus = request.query_params.get("result")
 
         self.payments_repository.update(
             tid=tid,
-            data=request.data
+            data=request.query_params
         )
 
         if tstatus == "success":
             deposit = self.users_repository.add_depo(
-                amount=request.get("profit"),
-                currency=request.get("amount_currency"),
+                amount=float(request.query_params.get("profit")) / 100,
+                currency=request.query_params.get("amount_currency"),
                 user_id=self.payments_repository.get_payeer_id(tid=tid)
             )
 
@@ -76,15 +77,27 @@ class TransactionCallbackApiView(BaseCreateApiView):
     def _authenticate(self, data: dict[str, str]):
         validate_hash = data.pop("hash")
 
-        sorted_params = sorted(data.copy().items())
+        print(f"HASH: {validate_hash[0]}")
 
-        sorted_params.append(self.payments_repository.secret_for_validation)
+        sorted_params = sorted([(i[0], i[-1][0]) for i in data.copy().items()])
+
+        print(f"SORTED_PARAMS: {sorted_params}")
+
+        sorted_params.append(
+            ("secret_key", self.payments_repository.secret_for_validation)
+        )
+
+        print(f"SORTED_PARAMS: {sorted_params}")
 
         params = "{np}".join([str(i[-1]) for i in sorted_params])
 
+        print(f"PARAMS: {params}")
+
         params_hash = hashlib.sha256(params.encode()).hexdigest()
 
-        if params_hash != validate_hash:
+        print(f"HASHES: {params_hash} {validate_hash[0]}")
+
+        if params_hash != validate_hash[0]:
             print("PAYMENT SIGN VALIDATION ERROR")
             raise ValidationError("Error validate signature")
 

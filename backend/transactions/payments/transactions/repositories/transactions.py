@@ -21,10 +21,11 @@ class PaymentsRepository(BaseRepository):
 
     _service: TransactionApiService
 
-    def __init__(self, *args,
-                 config_service: ConfigService = ConfigService(),
-                 payment_service: PaymentsService = PaymentsService(),
-                 **kwargs):
+    def __init__(
+            self, *args,
+            config_service: ConfigService = ConfigService(),
+            payment_service: PaymentsService = PaymentsService(),
+            **kwargs):
         self._config_service = config_service
         self._payment_service = payment_service or self.default_payment_service
 
@@ -48,10 +49,13 @@ class PaymentsRepository(BaseRepository):
         if not self._SECRET_KEY:
             self._SECRET_KEY = self._config_service.get()
 
+        print(f"GIVEN SECRET KEY IS {self._SECRET_KEY}")
+
         return self._SECRET_KEY
 
     def create(self, data: dict):
-        serialized: TransactionCreationSerializer = self._serializer_class(data=data)
+        serialized: TransactionCreationSerializer = self._serializer_class(
+            data=data)
 
         serialized.is_valid(raise_exception=True)
 
@@ -61,14 +65,16 @@ class PaymentsRepository(BaseRepository):
 
         inited = self._payment_service.init(data=serialized_dataclass)
 
-        ok, response = self._service.create(data=serialized_dataclass, tid=inited.pk)
+        ok, response = self._service.create(data=serialized_dataclass,
+                                            tid=inited.pk)
 
         self._payment_service.update_data(
             tid=inited.pk,
             data=UpdateTransactionData(
                 expired_at=datetime.datetime.fromtimestamp(
                     int(response.get("expired"))
-                )
+                ),
+                currency=serialized_dataclass.currency,
             )
         )
 
@@ -89,10 +95,14 @@ class PaymentsRepository(BaseRepository):
         self._payment_service.set_status(tid=tid, status=status)
 
     def update(self, tid: int, data: dict[str, str]):
+        status = (PaymentStatus.FAILED
+                  if data.get("result") != "success" else
+                  PaymentStatus.SUCCESS)
+
         self._payment_service.update_data(
             tid=tid,
             data=UpdateTransactionData(
-                status=data.get("result"),
+                status=status,
                 payment_method=data.get("method"),
                 currency=data.get("amount_currency")
             )
@@ -122,6 +132,7 @@ class PaymentsRepository(BaseRepository):
     @staticmethod
     def _serialize_create_request(serialized: dict):
         return CreateTransactionData(
+            user_id=serialized.data.get("user_id"),
             user_login=serialized.data.get("user_login"),
             amount_from=serialized.data.get("amount"),
             currency=PaymentCurrency.RUB  # TODO: Remove default exp

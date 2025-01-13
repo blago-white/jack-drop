@@ -12,9 +12,10 @@ class ApiCredentals:
 
 @dataclass
 class CreateTransactionData:
+    user_id: int
     user_login: str
     amount_from: float
-    currency: PaymentCurrency[str]
+    currency: PaymentCurrency
 
 
 @dataclass

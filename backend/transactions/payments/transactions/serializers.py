@@ -6,5 +6,6 @@ class TransactionCreationPubllicSerializer(serializers.Serializer):
 
 
 class TransactionCreationSerializer(serializers.Serializer):
-    user_login = serializers.IntegerField()
+    user_id = serializers.IntegerField()
+    user_login = serializers.CharField(max_length=200)
     amount = serializers.FloatField(min_value=500)

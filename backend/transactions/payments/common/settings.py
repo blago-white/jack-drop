@@ -32,6 +32,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "tpaymentsapp", "95.163.231.175", "jackdrop.online"]
 
+CSRF_TRUSTED_ORIGINS = ["https://jackdrop.online"]
+
 # Application definition
 
 INSTALLED_APPS = [

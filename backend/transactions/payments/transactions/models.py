@@ -20,6 +20,12 @@ class Config(models.Model):
     secret_key = models.CharField(max_length=512)
     bank_address = models.CharField(max_length=512)
 
+    def __str__(self):
+        return (f"Config("
+                f"merchant_id={self.merchant_id}, "
+                f"secret_key={self.secret_key}"
+                f")")
+
     def save(self, *args, **kwargs):
         if (not self.pk) and Config.objects.all().exists():
             raise ValidationError("Can add only one config")
@@ -40,3 +46,7 @@ class Payment(models.Model):
                               null=True)
     payment_method = models.CharField(max_length=20, blank=True, null=True)
     expired_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(blank=True, auto_now=True)
+
+    def __str__(self):
+        return f"Payment of {self.user_id} for {self.amount_local} {self.currency}"

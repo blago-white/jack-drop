@@ -19,8 +19,8 @@ class PaymentsService(BaseModelService):
         if existed := self._model.objects.filter(
             user_id=user_id,
             status=None
-        ).values_list("foreign_id", flat=True):
-            self._model.objects.filter(foreign_id__in=existed).update(
+        ).values_list("payment_id", flat=True):
+            self._model.objects.filter(payment_id__in=existed).update(
                 status=PaymentStatus.FAILED
             )
 

@@ -65,6 +65,7 @@ h3 {
     padding-block: calc(100vw* calc(12 / var(--reference-display-w)));
     border-radius: calc(100vw* calc(9 / var(--reference-display-w)));
     text-align: center;
+    padding-inline: 1ch;
 }
 
 @media (aspect-ratio < 1/1) {
