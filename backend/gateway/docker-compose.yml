@@ -9,7 +9,7 @@ services:
     container_name: nginx
     network_mode: bridge
     volumes:
-      - ./nginx/fnginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - /etc/letsencrypt/live/jackdrop.online/fullchain.pem:/etc/letsencrypt/live/jackdrop.online/fullchain.pem
       - /etc/letsencrypt/live/jackdrop.online/privkey.pem:/etc/letsencrypt/live/jackdrop.online/privkey.pem
 
