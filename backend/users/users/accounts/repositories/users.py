@@ -1,5 +1,3 @@
-from typing import Collection
-
 from abc import ABCMeta, abstractmethod
 
 from rest_framework.request import Request
@@ -63,8 +61,6 @@ class PrivateUsersRepository(BaseUsersRepository):
     def get_users_info(self, users_ids: list[int]) -> dict:
         complete, users = self._service.get_users_info(users_ids=users_ids)
 
-        print(complete, users, "USERS LIST DATA", users_ids)
-
         return {
             "full": complete,
             "users": self._serializer_class(instance=users, many=True).data
@@ -86,7 +82,7 @@ class PrivateUsersRepository(BaseUsersRepository):
         except:
             return
 
-    def create(self, steam_uid: int) -> Collection[int, dict]:
+    def create(self, steam_uid: int) -> tuple[int, dict]:
         result = self._service.create(
             steam_id=steam_uid,
             username=self._steam_service.get_username(steam_id=steam_uid),
