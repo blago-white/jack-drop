@@ -26,8 +26,8 @@ class SteamAuthView(BaseReflinkProcessingView):
             return redirect("https://jackdrop.online/")
 
         return auth(
-            response_url=f"https://jackdrop.online/{reverse('login-callback')}"
-                         f"&{self._REFER_LINK_FIELD}={self._ref_id}",
+            response_url=f"https://jackdrop.online{reverse('login-callback')}"
+                         f"?{self._REFER_LINK_FIELD}={self._ref_id}&",
             use_ssl=False
         )
 

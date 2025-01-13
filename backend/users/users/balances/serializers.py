@@ -22,7 +22,7 @@ class ClientDepositSerializer(serializers.ModelSerializer):
         required=False
     )
 
-    amount = serializers.FloatField(min_value=500)
+    amount = serializers.FloatField(min_value=100)
 
     promocode = serializers.CharField(max_length=16,
                                       allow_null=True,

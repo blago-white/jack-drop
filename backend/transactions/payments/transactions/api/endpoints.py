@@ -46,7 +46,7 @@ class TransactionCallbackApiView(BaseApiView, ListAPIView):
     products_repository = ProductsApiRepository()
 
     def get(self, request: Request, *args, **kwargs):
-        print("HANDLE CALLBACK")
+        print("HANDLE CALLBACK", request.query_params)
 
         tid = request.query_params.get("order_id")
 

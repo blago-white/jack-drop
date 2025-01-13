@@ -21,10 +21,8 @@ class Config(models.Model):
     bank_address = models.CharField(max_length=512)
 
     def __str__(self):
-        return (f"Config("
-                f"merchant_id={self.merchant_id}, "
-                f"secret_key={self.secret_key}"
-                f")")
+        return (f"merchant_id={self.merchant_id} | "
+                f"secret_key={self.secret_key}")
 
     def save(self, *args, **kwargs):
         if (not self.pk) and Config.objects.all().exists():

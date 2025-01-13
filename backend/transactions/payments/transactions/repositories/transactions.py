@@ -49,8 +49,6 @@ class PaymentsRepository(BaseRepository):
         if not self._SECRET_KEY:
             self._SECRET_KEY = self._config_service.get()
 
-        print(f"GIVEN SECRET KEY IS {self._SECRET_KEY}")
-
         return self._SECRET_KEY
 
     def create(self, data: dict):
@@ -68,15 +66,21 @@ class PaymentsRepository(BaseRepository):
         ok, response = self._service.create(data=serialized_dataclass,
                                             tid=inited.pk)
 
-        self._payment_service.update_data(
-            tid=inited.pk,
-            data=UpdateTransactionData(
-                expired_at=datetime.datetime.fromtimestamp(
-                    int(response.get("expired"))
-                ),
-                currency=serialized_dataclass.currency,
+        if not ok:
+            raise ValidationError("Cannot create payment [resp]")
+
+        try:
+            self._payment_service.update_data(
+                tid=inited.pk,
+                data=UpdateTransactionData(
+                    expired_at=datetime.datetime.fromtimestamp(
+                        int(response.get("expired"))
+                    ),
+                    currency=serialized_dataclass.currency,
+                )
             )
-        )
+        except:
+            raise ValidationError("Cannot create payment [exp]!")
 
         if ok:
             return {"payment_url": response.get("link")}
@@ -87,7 +91,6 @@ class PaymentsRepository(BaseRepository):
         )
 
         raise ValidationError(
-            code=400,
             detail=f"Erorr with creating transaction - {response}"
         )
 

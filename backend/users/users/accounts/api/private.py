@@ -46,8 +46,6 @@ class JWTUserDataPrivateApiView(DefaultRetrieveApiView):
     serializer_class = repository.default_serializer_class
 
     def retrieve(self, request: Request, **kwargs):
-        print(request.auth, request, "DDE")
-
         user_data = self.repository.get_user_info_by_jwt(
             request=request
         )
