@@ -1,4 +1,3 @@
-from rest_framework.exceptions import ValidationError
 from common.services.base import BaseModelService
 
 from .transfer import CreateTransactionData, UpdateTransactionData
@@ -17,14 +16,12 @@ class PaymentsService(BaseModelService):
         )
 
     def clean_irrelevant(self, user_id: int):
-        if existed := self._model.objects.filter(user_id=user_id,
-                                                 status__in=[
-                                                     PaymentStatus.INITED,
-                                                     PaymentStatus.PENDING,
-                                                 ]).values_list("foreign_id",
-                                                                flat=True):
-            self._model.objects.filter(foreign_id__in=existed).update(
-                status=PaymentStatus.CANCELED
+        if existed := self._model.objects.filter(
+            user_id=user_id,
+            status=None
+        ).values_list("payment_id", flat=True):
+            self._model.objects.filter(payment_id__in=existed).update(
+                status=PaymentStatus.FAILED
             )
 
         return existed
@@ -32,7 +29,7 @@ class PaymentsService(BaseModelService):
     def cancel(self, tid: int):
         item: Payment = self.get(tid=tid)
 
-        item.status = PaymentStatus.CANCELED
+        item.status = PaymentStatus.FAILED
 
         item.save()
 
@@ -57,7 +54,7 @@ class PaymentsService(BaseModelService):
         transaction = self.get(tid=tid)
 
         for colname in data.__dict__:
-            transaction.__setattr__(colname, data.__dict__.get(colname))
+            setattr(transaction, colname, getattr(data, colname))
 
         transaction.full_clean()
         transaction.save()

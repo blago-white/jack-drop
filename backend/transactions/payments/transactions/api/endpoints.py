@@ -1,11 +1,12 @@
-from rest_framework.generics import RetrieveAPIView
-from rest_framework.request import Request
+import hashlib
+
 from rest_framework.exceptions import ValidationError
+from rest_framework.generics import RetrieveAPIView, ListAPIView
+from rest_framework.request import Request
 
-from common.views.api import BaseCreateApiView, BaseApiView
-from common.repositories.users import UsersRepository
 from common.repositories.products import ProductsApiRepository
-
+from common.repositories.users import UsersRepository
+from common.views.api import BaseCreateApiView, BaseApiView
 from ..repositories.transactions import PaymentsRepository
 from ..serializers import TransactionCreationPubllicSerializer
 
@@ -33,38 +34,35 @@ class InitReplenishApiView(BaseCreateApiView):
 
     def _complete_dataset(self, user_data: dict):
         return dict(
+            user_login=user_data.get("username"),
             user_id=user_data.get("id"),
             amount=self.request.data.get("amount"),
         )
 
 
-class TransactionCallbackApiView(BaseCreateApiView):
+class TransactionCallbackApiView(BaseApiView, ListAPIView):
     payments_repository = PaymentsRepository()
     users_repository = UsersRepository()
     products_repository = ProductsApiRepository()
 
-    def create(self, request: Request, *args, **kwargs):
-        print("START VIEW")
+    def get(self, request: Request, *args, **kwargs):
+        print("HANDLE CALLBACK")
 
-        tid = request.data.get("transaction").get("invoice_id")
+        tid = request.query_params.get("order_id")
 
-        self._authenticate(tid)
+        self._authenticate(dict(request.query_params).copy())
 
-        tstatus = request.data.get("status")
+        tstatus = request.query_params.get("result")
 
         self.payments_repository.update(
             tid=tid,
-            data=request.data
+            data=request.query_params
         )
 
-        if tstatus == "CONFIRMED":
+        if tstatus == "success":
             deposit = self.users_repository.add_depo(
-                amount=request.get("transaction").get("pricing").get(
-                    "local"
-                ).get("amount"),
-                currency=request.get("transaction").get("pricing").get(
-                    "local"
-                ).get("currency"),
+                amount=float(request.query_params.get("profit")) / 100,
+                currency=request.query_params.get("amount_currency"),
                 user_id=self.payments_repository.get_payeer_id(tid=tid)
             )
 
@@ -76,8 +74,22 @@ class TransactionCallbackApiView(BaseCreateApiView):
 
         return self.get_200_response()
 
-    def _authenticate(self, tid: int):
-        ...
+    def _authenticate(self, data: dict[str, str]):
+        validate_hash = data.pop("hash")
+
+        sorted_params = sorted([(i[0], i[-1][0]) for i in data.copy().items()])
+
+        sorted_params.append(
+            ("secret_key", self.payments_repository.secret_for_validation)
+        )
+
+        params = "{np}".join([str(i[-1]) for i in sorted_params])
+
+        params_hash = hashlib.sha256(params.encode()).hexdigest()
+
+        if params_hash != validate_hash[0]:
+            print("PAYMENT SIGN VALIDATION ERROR")
+            raise ValidationError("Error validate signature")
 
 
 class TransactionValidationApiView(BaseApiView, RetrieveAPIView):

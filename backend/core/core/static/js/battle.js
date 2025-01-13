@@ -1,5 +1,12 @@
 import { printPrizeItem, useAnim } from "./animations.js";
 
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
 const battlesList = document.getElementById('battles');
 const battlesHead = document.getElementById('battles-head');
 const battlesTable = document.getElementById('battles-table');
@@ -425,7 +432,7 @@ function renderActiveRequests(requests) {
 }
 
 async function showHistory() {
-    if getCookie('lang') == 'ru' {
+    if (getCookie('lang') == 'ru') {
         battlesHead.innerHTML = `
             <span style="text-align: start;">Кейс</span>
             <span>Предмет победителя</span>
