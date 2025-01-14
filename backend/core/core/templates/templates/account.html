@@ -127,16 +127,16 @@
         }
     };
 
-    function checkDepositProcessed() {
+    async function checkDepositProcessed() {
         const urlParams = new URLSearchParams(window.location.search);
 
-        if (urlParams.get('deposit') == '1' && urlParams.get('succes') == '1') {
-            const hasFreeCase = urlParams.get("has_free_case") == 1;
+        if (urlParams.get('deposit')) {
+            const hasFreeCase = urlParams.get("has_free_case");
 
             let redirectAfterReceivingCase;
 
             if (hasFreeCase) {
-                redirectAfterReceivingCase = `/account/?has_free_case=${urlParams.get("has_free_case")}&free_case_img=${urlParams.get("free_case_img")}&free_case_title=${urlParams.get("free_case_title")`
+                redirectAfterReceivingCase = `/account/?has_free_case=${urlParams.get("has_free_case")}&free_case_img=${urlParams.get("free_case_img")}&free_case_title=${urlParams.get("free_case_title")}`
             } else {
                 redirectAfterReceivingCase = '/account/'
             }
@@ -149,13 +149,14 @@
                 thanksForDeposit = `Thanks for deposit ${urlParams.get('amount')} scrap`;
             }
 
-            printPrizeItem(
+            await printPrizeItem(
                 '/core/static/img/scrap.png',
                 urlParams.get('amount'),
                 thanksForDeposit,
                 redirectAfterReceivingCase,
                 true
             );
+            return
         } else if (urlParams.get('has_free_case') == 1) {
             let youReceiveCase;
 
@@ -165,13 +166,14 @@
                 youReceiveCase = `You receive case: ${urlParams.get("free_case_title")}`
             }
 
-            printPrizeItem(
+            await printPrizeItem(
                 urlParams.get("free_case_img"),
                 0,
                 youReceiveCase,
                 '/account/',
                 true
             );
+            return
         }
     }
 
