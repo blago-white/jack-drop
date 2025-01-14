@@ -21,6 +21,7 @@ RUN chown -R app:app /home/app/products/
 RUN chmod -R 744 /home/app/
 
 RUN chmod 744 /home/app/products/debug.log
-RUN chmod 744 /home/app/products/celery.log
+RUN chmod 755 /home/app/products/celery.log
+RUN chmod 755 /home/app/products/celerybeat-schedule
 
 USER app

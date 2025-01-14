@@ -29,9 +29,12 @@ class ProductsApiRepository(BaseRepository):
         return response
 
     def get_free_case_for_deposit(self, deposit_amount: float) -> FreeDepositCase:
-        case = self._service.get_deposit_free_case(
-            deposit_amount=deposit_amount
-        )
+        try:
+            case = self._service.get_deposit_free_case(
+                deposit_amount=deposit_amount
+            )
+        except Exception:
+            return
 
         if case:
             return self._serialize_free_deposit_case(

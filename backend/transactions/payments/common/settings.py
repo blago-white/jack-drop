@@ -20,7 +20,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -30,7 +29,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY_PAYMENTS")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "tpaymentsapp", "95.163.231.175", "jackdrop.online"]
+ALLOWED_HOSTS = ["localhost", "tpaymentsapp", "95.163.231.175",
+                 "jackdrop.online"]
 
 CSRF_TRUSTED_ORIGINS = ["https://jackdrop.online"]
 
@@ -77,7 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'payments.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -109,7 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -120,7 +118,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -153,6 +150,10 @@ USERS_MICROSERVICE_ROUTES = {
 WALLET_ADDRESS = "TBuJ5sCGDzqNgYvzZC67zoTK3eTsDYfKq8"
 PRIVATE_KEY = os.environ.get("PRIVATE_KEY")
 
+SUCCESS_URL_WITHOUT_FREE_CASE = (
+    "https://jackdrop.online/account/"
+    "?deposit=1&amount={a}&succes=1"
+)
 SUCCESS_URL = ("https://jackdrop.online/account/"
                "?deposit=1&amount={a}&succes=1"
                "&free_case={has_free_case}&free_case_img={free_case_img}"
