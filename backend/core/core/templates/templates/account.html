@@ -87,10 +87,8 @@
 
 {% block extrascripts %}
 <script src="{% static 'js/inventoryCount.js' %}" type="module"></script>
-<script src="{% static 'js/account.js' %}"></script>
 <script src="{% static 'js/animations.js' %}" type="module"></script>
-<script src="{% static 'js/inventory.js' %}" type="module"></script>
-<script src="{% static 'js/replenish.js' %}" type="module"></script>
+
 <script type="module">
     import { getCount } from "{% static 'js/inventoryCount.js' %}";
     import { printPrizeItem } from "{% static 'js/animations.js' %}";
@@ -127,7 +125,7 @@
         }
     };
 
-    function checkDepositProcessed() {
+    async function checkDepositProcessed() {
         const urlParams = new URLSearchParams(window.location.search);
 
         if (urlParams.get('deposit') == '1' && urlParams.get('succes') == '1') {
@@ -136,7 +134,7 @@
             let redirectAfterReceivingCase;
 
             if (hasFreeCase) {
-                redirectAfterReceivingCase = `/account/?has_free_case=${urlParams.get("has_free_case")}&free_case_img=${urlParams.get("free_case_img")}&free_case_title=${urlParams.get("free_case_title")`
+                redirectAfterReceivingCase = `/account/?has_free_case=${urlParams.get("has_free_case")}&free_case_img=${urlParams.get("free_case_img")}&free_case_title=${urlParams.get("free_case_title")}`
             } else {
                 redirectAfterReceivingCase = '/account/'
             }
@@ -149,14 +147,17 @@
                 thanksForDeposit = `Thanks for deposit ${urlParams.get('amount')} scrap`;
             }
 
-            printPrizeItem(
+            await printPrizeItem(
                 '/core/static/img/scrap.png',
                 urlParams.get('amount'),
                 thanksForDeposit,
                 redirectAfterReceivingCase,
                 true
             );
-        } else if (urlParams.get('has_free_case') == 1) {
+
+            console.log('Deposit rendered')
+
+        } else if ((!(urlParams.get('deposit'))) && urlParams.get('has_free_case') == 1) {
             let youReceiveCase;
 
             if (getCookie('lang') == 'ru') {
@@ -165,20 +166,28 @@
                 youReceiveCase = `You receive case: ${urlParams.get("free_case_title")}`
             }
 
-            printPrizeItem(
+            await printPrizeItem(
                 urlParams.get("free_case_img"),
                 0,
                 youReceiveCase,
                 '/account/',
                 true
             );
+
+            console.log('Deposit Case Rendered')
         }
     }
+
+    console.log('End');
+
+    setTimeout(() => {await checkDepositProcessed()}, 500);
 
     checkAuth();
 
     setCount();
-
-    setTimeout(checkDepositProcessed, 500);
 </script>
+
+<script src="{% static 'js/account.js' %}"></script>
+<script src="{% static 'js/inventory.js' %}" type="module"></script>
+<script src="{% static 'js/replenish.js' %}" type="module"></script>
 {% endblock %}

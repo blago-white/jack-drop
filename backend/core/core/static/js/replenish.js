@@ -60,22 +60,6 @@ if (document.getElementById("agreement") && document.getElementById("amount")) {
     document.getElementById("amount").addEventListener('input', updateSubmitBtn);
 }
 
-function renderFreeCase(freeCase, caseImg, caseTitle) {
-    const urlParams = new URLSearchParams(window.location.search);
-
-    if (freeCase) {
-        printPrizeItem(caseImg, 0, 'Receive free case!');
-    }
-}
-
-
-function renderDeposit(success, amount) {
-    if (success) {
-        printPrizeItem("/core/static/img/scrap.png", amount, `Deposit: ${amount} scrap!`);
-    } else {
-    }
-}
-
 function usePreset(preset) {
     document.getElementById('amount').value = preset;
     return false;
@@ -87,20 +71,6 @@ function getRandomArbitrary(min, max) {
 
 const urlParams = new URLSearchParams(window.location.search);
 
-if (urlParams.get("deposit")) {
-    renderDeposit(urlParams.get("success"), urlParams.get("amount"));
-    const freeCase = urlParams.get('fc');
-
-    if (freeCase) {
-        const caseImg = urlParams.get('ci');
-        const caseTitle = urlParams.get('ct');
-    }
-
-    if (freeCase && caseImg && caseTitle) {
-        renderFreeCase(freeCase, caseImg, caseTitle);
-    }
-} else {
-    document.getElementById('amount').value = getRandomArbitrary(1000, 10000).toFixed(0);
-}
+document.getElementById('amount').value = getRandomArbitrary(1000, 10000).toFixed(0);
 
 window.usePreset = usePreset;
