@@ -1,5 +1,12 @@
 import datetime
+import typing
+
 from dataclasses import dataclass
+
+if typing.TYPE_CHECKING:
+    from common.services.transfer.products import FreeDepositCase
+else:
+    FreeDepositCase = object
 
 from ..models import PaymentStatus, PaymentCurrency
 
@@ -16,7 +23,7 @@ class CreateTransactionData:
     user_login: str
     amount_from: float
     currency: PaymentCurrency
-    free_deposit_case: "FreeDepositCase" | None = None
+    free_deposit_case: FreeDepositCase | None = None
 
 
 @dataclass
