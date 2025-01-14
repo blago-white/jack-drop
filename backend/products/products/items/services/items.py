@@ -25,9 +25,11 @@ class ItemService(BaseModelService):
             price=item_price
         ) == 1
 
-    def get_all(self, min_price: float = 1,
+    def get_all(self, min_price: float = None,
                 max_price: float = None) -> models.QuerySet:
-        result = self._model.objects.all().order_by("price")
+        result = self._model.objects.all().order_by("price").filter(
+            price__gte=1
+        )
 
         if min_price:
             result = result.filter(price__gte=min_price)
@@ -36,9 +38,6 @@ class ItemService(BaseModelService):
             result = result.filter(price__lte=max_price)
 
         return result
-
-    def get_random(self) -> Item:
-        return random.choice(self._model.objects.all())
 
     def get_closest_by_price(self, price: float) -> Item:
         closest = self._model.objects.filter(
