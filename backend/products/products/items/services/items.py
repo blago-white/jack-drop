@@ -25,7 +25,7 @@ class ItemService(BaseModelService):
             price=item_price
         ) == 1
 
-    def get_all(self, min_price: float = None,
+    def get_all(self, min_price: float = 1,
                 max_price: float = None) -> models.QuerySet:
         result = self._model.objects.all().order_by("price")
 
