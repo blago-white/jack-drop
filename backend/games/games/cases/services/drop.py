@@ -45,7 +45,9 @@ class CaseItemDropModelService:
     def _drop_free_case(self, request: DropRequest) -> CaseItem:
         mid_idx = len(request.items) // 3
 
-        items = [i for i in request.items[:max(mid_idx, 2)] if i.price < request.state.site_active_funds]
+        items = sorted(request.items, key=lambda i: i.price)
+
+        items = [i for i in items[:max(mid_idx, 2)] if i.price < request.state.site_active_funds]
 
         print("RANDOM1")
 
