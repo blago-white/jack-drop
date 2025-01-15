@@ -232,7 +232,7 @@
                             calc(100vw* calc(178 / var(--reference-display-w)))
                             calc(100vw* calc(118 / var(--reference-display-w)))
                             calc(100vw* calc(231 / var(--reference-display-w)))
-                            calc(100vw* calc(290 / var(--reference-display-w)))
+                            calc(117vw* calc(290 / var(--reference-display-w)))
                             calc(100vw* calc(160 / var(--reference-display-w)));
     }
 
