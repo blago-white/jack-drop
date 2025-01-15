@@ -33,17 +33,32 @@ class MarketItemParser:
         self._mass_retrieve_url = mass_retrieve_url
 
     def bulk_get_prices(self, market_items_links: list[str]) -> list[float]:
+        total = []
+
+        for batch in range(50, len(market_items_links)+50, 50):
+            batch_prices = self._bulk_get_prices(
+                list_=",".join([
+                    self._extract_item_params_crud(i)
+                    for i in market_items_links[batch-50:batch]
+                ])
+            )
+
+            total.extend(batch_prices)
+
+        return total
+
+    def _bulk_get_prices(self, list_: str) -> list[float]:
+        print(len(list_.split(",")), list_)
+
         response = requests.post(
             url=self._mass_retrieve_url.format(self._api_key_service.apikey),
-            data=dict(
-                list=",".join([self._extract_item_params_crud(i)
-                               for i in market_items_links])
-            )
+            data=dict(list=list_)
         )
 
         result = response.json()
 
-        if (not response.ok) or (not response.get("success")):
+        if (not response.ok) or (not result.get("success")):
+            print(response.status_code, response.json())
             raise Exception("Cannot retrieve prices")
 
         results: list[dict[str, str | dict]] = result.get("results")

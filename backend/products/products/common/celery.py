@@ -18,11 +18,11 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     # Scheduler Name
-    'refresh-prices-3-min': {
+    'refresh-prices-5-min': {
         # Task Name (Name Specified in Decorator)
         'task': 'refresh_prices',
         # Schedule
-        'schedule': 180,
+        'schedule': 5*60,
         # Function Arguments
     }
 }
