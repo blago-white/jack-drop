@@ -33,7 +33,7 @@ async function addDeposit() {
     const amount = parseFloat(depoAmountField.value);
     const headers = new Headers();
 
-    const promocode = document.getElementById('promocode');
+    const promocode = document.getElementById('promocode').value;
 
     headers.append("Content-Type", "application/json");
 

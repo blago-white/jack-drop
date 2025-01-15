@@ -23,6 +23,7 @@ Replenish Account | Jack Drop
     <input class="data-input"
            placeholder="Промокод"
            value="{% if PROMOCODE %}{{ PROMOCODE }}{% endif %}"
+           id="promocode"
            contenteditable="{% if PROMOCODE %}false{% else %}true{% endif %}"
            max="16"
            type="text">
