@@ -40,7 +40,7 @@ async function renderReferralStatus() {
         <span style="display: block;margin-top: 1em;${additionalStyle}"><b style=${isMobile ? "font-size: 1.45ch" : "font-size: calc(100vw * calc(22 / 1920))"}>Статус реферальной системы -</b><span style="
             font-size: 1.45ch;
             color: rgb(240, 240, 240);
-        "><br>Реффералов: 1<br>Получено: 100</span></span>
+        "><br>Реффералов: ${result.count_referrals}<br>Получено: ${result.profit}</span></span>
     `
 }
 
