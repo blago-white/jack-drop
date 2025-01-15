@@ -25,12 +25,6 @@ class Promocode(models.Model):
     def __str__(self):
         return f"{self.code[:10]} [{self.discount}%]"
 
-    def save(self, *args, **kwargs):
-        if -1 > int(self.usages):
-            raise ValidationError("Not correct usages count!")
-
-        return super().save(*args, **kwargs)
-
 
 class PromocodeActivation(models.Model):
     client = models.ForeignKey(to=Client,

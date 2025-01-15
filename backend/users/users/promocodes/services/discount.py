@@ -34,14 +34,14 @@ class PromocodesService(BaseService):
         except:
             return 0
 
-        if not int(promo.usages) == -1:
+        if not int(promo.usages) <= -1:
             promo.usages = models.F("usages") - 1
 
         promo.save()
 
         self._activation_model.objects.create(
             client_id=client_id,
-            promocode=promocode,
+            promocode=promo,
         )
 
         return promo.discount
