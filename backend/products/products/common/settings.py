@@ -243,6 +243,9 @@ TRANSACTIONS_MICROSERVICE_ROUTES = {
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("productsredischannels", 6379)],
+        },
     },
 }

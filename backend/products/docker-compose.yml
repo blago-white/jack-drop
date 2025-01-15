@@ -42,6 +42,19 @@ services:
       timeout: 3s
       retries: 5
     restart: always
+  productsredischannels:
+    image: redis:7.2.4-bookworm
+    env_file:
+      - .env
+    expose:
+      - 6379
+    container_name: productsredischannels
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: always
   productsapp:
     build:
       dockerfile: Dockerfile

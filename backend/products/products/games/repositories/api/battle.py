@@ -1,5 +1,3 @@
-import json
-
 from django.db.models import QuerySet
 from rest_framework.exceptions import ValidationError, APIException
 from rest_framework.serializers import Serializer
@@ -7,8 +5,6 @@ from rest_framework.serializers import Serializer
 from cases.serializers.case import CaseSerializer
 from cases.services.cases import CaseService
 from cases.services.items import CaseItemsService
-from cases.serializers.case import CaseSerializer
-from cases.serializers.items import ItemSerializer
 from games.api.services.battle import BattleRequestApiService, BattleApiService
 from games.api.services.site import SiteFundsApiService
 from games.api.services.users import UsersApiService
@@ -17,8 +13,8 @@ from games.serializers.battle import BattleRequestServiceEndpointSerializer
 from games.serializers.drop import DropItemSerializer
 from games.services.result import GameResultService
 from games.services.transfer import GameResultData
-from items.services.items import ItemService
 from inventory.services.inventory import InventoryService
+from items.services.items import ItemService
 from .base import BaseApiRepository
 
 
@@ -300,6 +296,8 @@ class BattleApiRepository(_BaseBattleApiRepository):
             delta_advantage=(winner_case_item.item.price - case_price) + loser_case_item.item.price,
             user_id=battle_result.get("winner_id")
         )
+
+        print("BATTLE RESULT:", battle_result)
 
         self._inventory_service.add_item(
             owner_id=battle_result.get("winner_id"),
