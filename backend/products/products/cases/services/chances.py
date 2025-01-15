@@ -3,6 +3,7 @@ from abc import abstractmethod, ABCMeta
 from django.db import models
 
 from cases.models.items import CaseItem
+from cases.services.cases import CaseService
 from items.models.models import Item
 from .items import BaseCaseItemsService, CaseItemsService
 
@@ -19,16 +20,23 @@ class BaseCaseItemsChancesService(metaclass=ABCMeta):
 class CaseItemsChancesService(BaseCaseItemsChancesService):
     _model: models.Model = CaseItem
     _service: BaseCaseItemsService
+    _cases_service: CaseService
 
     def __init__(
             self, *args,
             model: CaseItem = None,
             service: BaseCaseItemsService = None,
+            cases_service: CaseService = None,
             **kwargs):
         self._model = model or self._model
         self._service = service or CaseItemsService(model=model)
+        self._cases_service = cases_service or CaseService()
 
         super().__init__(*args, **kwargs)
+
+    def update_chances_for_all(self):
+        for case in self._cases_service.get_all():
+            self.update_chanses(case=case)
 
     def update_chanses(self, case: models.Model) -> None:
         case_items = self._service.get_case_items_for_case_by_price(
@@ -58,7 +66,11 @@ class CaseItemsChancesService(BaseCaseItemsChancesService):
 
         percent_value = sum(pricing) / 100
 
-        return reversed(list(map(
+        chances = list(reversed(list(map(
             lambda x: round(x / percent_value, 3),
             pricing
-        )))
+        ))))
+
+        print(f"CHANCES: {chances}")
+
+        return chances

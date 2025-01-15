@@ -56,7 +56,9 @@ class CaseItemsService(BaseCaseItemsService):
             self, rates: list[float],
             case_items: models.QuerySet[CaseItem]) -> int:
         for values in zip(rates, case_items, strict=True):
-            values[1].rate = values[0]
+            print(f"{values[1].rate=} {values[0]=}")
+            values[1].rate = values[0] / 100
+            print(f"{values[1].rate=} {values[0]=}")
 
         self._model.objects.bulk_update(case_items, ["rate"])
 
