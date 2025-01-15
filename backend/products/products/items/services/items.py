@@ -25,6 +25,9 @@ class ItemService(BaseModelService):
             price=item_price
         ) == 1
 
+    def bulk_set_price(self, items: list[Item]):
+        return self._model.objects.bulk_update(items, ["price"])
+
     def get_all(self, min_price: float = None,
                 max_price: float = None) -> models.QuerySet:
         result = self._model.objects.all().order_by("price").filter(

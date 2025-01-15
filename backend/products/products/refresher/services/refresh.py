@@ -7,9 +7,13 @@ def refresh_prices(
         market_api_service: MarketItemParser = MarketItemParser(),
         items_service: ItemService = ItemService()
 ) -> None:
-    item: Item
+    items: list[Item] = items_service.get_all()
 
-    for item in items_service.get_all():
-        new_price = market_api_service.get_info(url=item.market_link).price
+    items_prices = market_api_service.bulk_get_prices(
+        [i.market_link for i in items]
+    )
 
-        items_service.set_price(item_id=item.pk, item_price=max(new_price, 0))
+    for item, price in zip(items, items_prices, strict=True):
+        item.price = price
+
+    items_service.bulk_set_price(items=items)
