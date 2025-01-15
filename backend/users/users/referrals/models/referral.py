@@ -40,6 +40,4 @@ class Referral(models.Model):
             "utf-8"
         )).hexdigest()[:REFERR_LINK_MAX_LENGTH]
 
-        self.benefit_percent = 20 if self.is_blogger else 15
-
         return super().save(*args, **kwargs)
