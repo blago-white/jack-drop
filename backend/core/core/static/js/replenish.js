@@ -4,7 +4,7 @@ const depoAmountField = document.getElementById('amount');
 const agreementInput = document.getElementById('agreement');
 let usedPromocode = document.getElementById('used-promocode');
 
-if (usedPromocode) {
+if (usedPromocode && (usedPromocode != "None")) {
     usedPromocode = usedPromocode.innerHTML
     const hasPresetedPromocode = usedPromocode.length > 0;
 }
@@ -33,11 +33,13 @@ async function addDeposit() {
     const amount = parseFloat(depoAmountField.value);
     const headers = new Headers();
 
+    const promocode = document.getElementById('promocode');
+
     headers.append("Content-Type", "application/json");
 
     const response = await sendRequest('/transactions/payments/create/', {
         method: "POST",
-        body: JSON.stringify({"amount": amount}),
+        body: JSON.stringify({"amount": amount, "promocode": promocode}),
         headers: headers
     });
 
