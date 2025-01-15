@@ -49,14 +49,14 @@ async function iterField(id) {
 
         useAnim(false, "unlucky");
 
-        document.getElementById('info-banner').innerHTML = 'РќРµ РїРѕРІРµР·Р»Рѕ, РїРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·!'
+        document.getElementById('info-banner').innerHTML = 'Не повезло, попробуйте еще раз!'
         document.getElementById('info-banner-bg').style.background = '#FF007A';
 
         document.getElementById('action-button').onclick = () => {
         location.href = location.href
             };
 
-        document.getElementById('action-button-text').innerHTML = 'РњРЅРµ РїРѕРІРµР·РµС‚!'
+        document.getElementById('action-button-text').innerHTML = 'Мне повезет!'
 
         gameStarted = false;
 

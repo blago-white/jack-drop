@@ -34,14 +34,32 @@ const responseTypes = {
     "P": "promoCode",
 }
 
-const prizeTitlePrefixes = {
-    "F": "You win",
-    "C": "You win for contract",
-    "D": "You win discount",
-    "U": "You win for upgrade",
-    "P": "You win promocode"
-}
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+          "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+};
 
+let prizeTitlePrefixes;
+
+if (getCookie('lang') == 'ru') {
+    prizeTitlePrefixes = {
+        "F": "Получите",
+        "C": "Предмет для контракта",
+        "D": "Скидка на кейс",
+        "U": "Предмет для апгрейда",
+        "P": "Промокод получен"
+    }
+} else {
+    prizeTitlePrefixes = {
+        "F": "You win",
+        "C": "You win for contract",
+        "D": "You win discount",
+        "U": "You win for upgrade",
+        "P": "You win promocode"
+    }
+}
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -63,8 +81,6 @@ async function startRotate(promocode) {
 
     const result = await getResult(promocode);
 
-    console.log(result, 'RES');
-
     if (!result) {
         location.href = location.href;
     }
@@ -82,7 +98,7 @@ async function startRotate(promocode) {
                 printPrizeItem(
                     result.prize.case.image_path,
                     `${result.prize.discount}%`,
-                    `${prizeTitlePrefixes[result.prize_type]} ${result.prize.discount}% for  ${result.prize.case.title}`,
+                    `-${result.prize.discount}% -> ${result.prize.case.title}`,
                 )
             } else {
                 printPrizeItem(

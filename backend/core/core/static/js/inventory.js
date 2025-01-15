@@ -18,12 +18,9 @@ function getExtremiums(resultList) {
     let min=99999999999;
 
     resultList.forEach((element) => {
-        console.log(element.item.price, max, min);
         max = Math.max(element.item.price, max)
         min = Math.min(element.item.price, min)
-        })
-
-    console.log(max, min);
+    })
 
     return [max, min];
 }
@@ -31,19 +28,17 @@ function getExtremiums(resultList) {
 function getCardColor(max, min, price) {
     const relativeRate = 1 - (price / max);
 
-    console.log(relativeRate, price, max);
-
     if (relativeRate < 0.1) {
         return "yellow"
-        } else if (relativeRate < 0.25) {
+    } else if (relativeRate < 0.25) {
         return "red"
-        } else if (relativeRate < 0.45) {
-            return "pink"
-        } else if (relativeRate < 0.7) {
-            return "purple"
-            } else {
-                return "blue"
-            }
+    } else if (relativeRate < 0.45) {
+        return "pink"
+    } else if (relativeRate < 0.7) {
+        return "purple"
+    } else {
+        return "blue"
+    }
 }
 
 async function sellItem(id) {
@@ -79,7 +74,7 @@ async function sellItem(id) {
     const withdrawedItem = inventoryItemsById.get(parseInt(id));
 
     if (getCookie('lang') == 'ru') {
-        printPrizeItem('/core/static/img/scrap.png', withdrawedItem.item.price, `Р’С‹ РїРѕР»СѓС‡РёР»Рё ~${withdrawedItem.item.price}`);
+        printPrizeItem('/core/static/img/scrap.png', withdrawedItem.item.price, `Вы получили ~${withdrawedItem.item.price}`);
         } else {
         printPrizeItem('/core/static/img/scrap.png', withdrawedItem.item.price, `You receive ~${withdrawedItem.item.price}`);
         }
@@ -116,10 +111,10 @@ async function withdrawItem(id) {
     const withdrawedItem = inventoryItemsById.get(parseInt(id));
 
     if (getCookie('lang') == 'ru') {
-        printPrizeItem(withdrawedItem.item.image_path, withdrawedItem.item.price, `Р’ С‚РµС‡РµРЅРёРё 5 РјРёРЅСѓС‚ РІС‹ РїРѕР»СѓС‡РёС‚Рµ ${withdrawedItem.item.title}`);
-        } else {
+        printPrizeItem(withdrawedItem.item.image_path, withdrawedItem.item.price, `В течении 5 минут вы получите ${withdrawedItem.item.title}`);
+    } else {
         printPrizeItem(withdrawedItem.item.image_path, withdrawedItem.item.price, `Within 5 minutes you will receive ${withdrawedItem.item.title}`);
-        }
+    }
 }
 
 function renderItems(result) {
@@ -150,12 +145,12 @@ function renderItems(result) {
                 </div>
                 <div class="items-controls">
                 <button onclick="sellItem(${element.id})">
-                    РџСЂРѕРґР°С‚СЊ
+                    Продать
                 <img src="/core/static/img/inventory-item-sell-icon.png"
                      style="width: 3ch;aspect-ratio: 1 / 1;position: unset;margin: 0px;">
                 </button>
                 <button onclick="withdrawItem(${element.id})">
-                    Р’С‹РІРµСЃС‚Рё
+                    Вывести
                 <img src="/core/static/img/inventory-item-export-icon.png"
                      style="width: 3ch;aspect-ratio: 1 / 1;position: unset;margin: 0px;">
                 </button>
@@ -233,12 +228,20 @@ async function buySwitch() {
 async function sellAll() {
     const data = await sendRequestJson("/products/inventory/sell/all/", {method: "POST", headers: new Headers()})
     if (data.ok && data.received) {
-        printPrizeItem(
-            "/core/static/img/scrap.png",
-            data.received,
-            `Receive ${data.received} scrap!`,
+        if (getCookie('lang') == 'ru') {
+            printPrizeItem(
+                "/core/static/img/scrap.png",
+                data.received,
+                `Вы получили ~${(data.received).toFixed(2)} скрапа!`,
+            )
+        } else {
+            printPrizeItem(
+                "/core/static/img/scrap.png",
+                data.received,
+                `Receive ~${(data.received).toFixed(2)} scrap!`,
             )
         }
+    }
 }
 
 window.sellItem = sellItem;

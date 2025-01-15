@@ -72,7 +72,7 @@ class UserBonusesService(BaseModelService):
                 user_id=user_id,
                 related_case__case__id=case_id,
                 active=True
-            ).first().related_case__discount
+            ).first().related_case.discount
         except Exception as e:
             print(e)
             return 0

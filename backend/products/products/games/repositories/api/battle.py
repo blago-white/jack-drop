@@ -194,7 +194,7 @@ class BattleApiRepository(_BaseBattleApiRepository):
             )
         ]
 
-        winner, loser = self._users_service.get_users_info(
+        loser, winner = self._users_service.get_users_info(
             users_ids=[battle_result.get("winner_id"), battle_result.get("loser_id")]
         ).get("users")
 
