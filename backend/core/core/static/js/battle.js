@@ -111,14 +111,14 @@ async function renderDrops(username1, username2, battleImgPath, caseItems, dropp
                     <div class="drop-roulette" id="roulette1">
                         <img class="arrow" src="/core/static/img/case-string-arrow.png">
                         <div class="case-items-string" id="items-string">
-                            <ul class="items" id="items1">
+                            <ul class="items" style="margin-block: 0px;" id="items1">
                             </ul>
                         </div>
                     </div>
                     <div class="drop-roulette" id="roulette2">
                         <img class="arrow" src="/core/static/img/case-string-arrow.png">
                         <div class="case-items-string" id="items-string">
-                            <ul class="items" id="items2">
+                            <ul class="items" style="margin-block: 0px;" id="items2">
                             </ul>
                         </div>
                     </div>
