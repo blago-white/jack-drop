@@ -54,9 +54,11 @@ class CaseItemsChancesService(BaseCaseItemsChancesService):
             self._price_field_name, flat=True
         )
 
-        percent_value = 100 / sum(pricing)
+        print(f"CHANCES PRICING: {pricing}")
+
+        percent_value = sum(pricing) / 100
 
         return reversed(list(map(
-            lambda x: round(x * percent_value / 100, 3),
+            lambda x: round(x / percent_value, 3),
             pricing
         )))
