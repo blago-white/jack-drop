@@ -139,13 +139,21 @@ class CaseDropApiRepository(BaseApiRepository):
             case_id=case_data.get("id")
         )
 
+        self._commit_funds(
+            case_data=case_data,
+            user_funds=user_funds,
+            funds_delta=drop_result.get("funds"),
+            dropped_item_id=drop_result.get("item").get("item_id"),
+        )
+
         return {"dropped_item": drop_result.get("item")}
 
     def _commit_funds(
             self, case_data: dict,
             user_funds: dict,
             funds_delta: dict,
-            dropped_item_id: int) -> None:
+            dropped_item_id: int,
+    ) -> None:
         ok, to_blogger_advantage = self._users_service.update_user_advantage(
             delta_advantage=funds_delta.get("user_funds_delta"),
             user_id=user_funds.get("id")
