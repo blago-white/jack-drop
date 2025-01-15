@@ -26,7 +26,7 @@ class Promocode(models.Model):
         return f"{self.code[:10]} [{self.discount}%]"
 
     def save(self, *args, **kwargs):
-        if -1 > self.usages:
+        if -1 > int(self.usages):
             raise ValidationError("Not correct usages count!")
 
         return super().save(*args, **kwargs)
