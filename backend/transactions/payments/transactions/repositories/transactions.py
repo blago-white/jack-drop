@@ -105,6 +105,12 @@ class PaymentsRepository(BaseRepository):
         self._payment_service.set_status(tid=tid, status=status)
 
     def update(self, tid: int, data: dict[str, str]):
+        if self._payment_service.get(
+            tid=tid
+        ).status:
+            raise ValidationError(f"Payment {tid} already completed, "
+                                  f"cannot update!")
+
         status = (PaymentStatus.FAILED
                   if data.get("result") != "success" else
                   PaymentStatus.SUCCESS)
