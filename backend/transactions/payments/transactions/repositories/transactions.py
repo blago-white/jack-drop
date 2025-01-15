@@ -98,6 +98,9 @@ class PaymentsRepository(BaseRepository):
             detail=f"Erorr with creating transaction - {response}"
         )
 
+    def get_promocode(self, tid: int) -> str:
+        return self._payment_service.get(tid=tid).promocode
+
     def update_status(self, tid: int, status: str):
         self._payment_service.set_status(tid=tid, status=status)
 
@@ -114,9 +117,6 @@ class PaymentsRepository(BaseRepository):
                 currency=data.get("amount_currency")
             )
         )
-
-    def cancel(self, foreign_transaction_id: str):
-        return self._service.cancel(foreign_transaction_id) or True
 
     def get_payeer_id(self, tid: int):
         return self._payment_service.get(tid=tid).user_id
@@ -146,5 +146,6 @@ class PaymentsRepository(BaseRepository):
             user_login=serialized.data.get("user_login"),
             amount_from=serialized.data.get("amount"),
             currency=PaymentCurrency.RUB,  # TODO: Remove default exp
-            free_deposit_case=free_deposit_case
+            free_deposit_case=free_deposit_case,
+            promocode=serialized.data.get("promocode")
         )

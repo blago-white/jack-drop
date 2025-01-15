@@ -13,6 +13,7 @@ class PaymentsService(BaseModelService):
         return self._model.objects.create(
             user_id=data.user_id,
             amount_local=data.amount_from,
+            promocode=data.promocode
         )
 
     def clean_irrelevant(self, user_id: int):

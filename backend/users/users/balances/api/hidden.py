@@ -35,6 +35,11 @@ class AddDepositApiView(BaseDetailedCreateApiViewMixin, DefaultCreateApiView):
     _deposit_amount_param_name = "amount"
 
     def create(self, request, *args, **kwargs):
+        print(f"RECEIVED DEPO CALLBACK: "
+              f"client_id={self.get_requested_pk()}"
+              f"amount={self._get_deposit_amount()}"
+              f"promocode={request.data.get('promocode')}")
+
         amount, created_deposit = self.repository.create(
             client_id=self.get_requested_pk(),
             amount=self._get_deposit_amount(),

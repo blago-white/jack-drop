@@ -14,5 +14,10 @@ class UsersRepository(BaseRepository):
     def get_info(self, user_request: Request) -> dict:
         return self._service.get_info(request=user_request)
 
-    def add_depo(self, amount: float, currency: str, user_id: int) -> dict:
-        return self._service.add_depo(amount=amount, user_id=user_id)
+    def add_depo(self, amount: float,
+                 promocode: str,
+                 currency: str,
+                 user_id: int) -> dict:
+        return self._service.add_depo(amount=amount,
+                                      promocode=promocode,
+                                      user_id=user_id)

@@ -24,6 +24,7 @@ class CreateTransactionData:
     amount_from: float
     currency: PaymentCurrency
     free_deposit_case: FreeDepositCase | None = None
+    promocode: str = None
 
 
 @dataclass

@@ -42,6 +42,9 @@ class Payment(models.Model):
     status = models.CharField(choices=PaymentStatus.choices,
                               blank=True,
                               null=True)
+    promocode = models.CharField(max_length=16,
+                                 null=True,
+                                 blank=True)
     payment_method = models.CharField(max_length=20, blank=True, null=True)
     expired_at = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(blank=True, auto_now=True)

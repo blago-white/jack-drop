@@ -47,6 +47,7 @@ class InitReplenishApiView(BaseCreateApiView):
             user_login=user_data.get("username"),
             user_id=user_data.get("id"),
             amount=self.request.data.get("amount"),
+            promocode=self.request.data.get("promocode")
         )
 
 
@@ -72,10 +73,13 @@ class TransactionCallbackApiView(BaseApiView, ListAPIView):
         )
 
         if tstatus == "success":
+            used_promocode = self.payments_repository.get_promocode(tid=tid)
+
             deposit = self.users_repository.add_depo(
                 amount=float(request.query_params.get("amount")) / 100,
                 currency=request.query_params.get("amount_currency"),
-                user_id=self.payments_repository.get_payeer_id(tid=tid)
+                user_id=self.payments_repository.get_payeer_id(tid=tid),
+                promocode=used_promocode
             )
 
             self.products_repository.send_deposit_callback(data={

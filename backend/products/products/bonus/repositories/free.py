@@ -30,6 +30,36 @@ class FreeCasesRepository(BaseRepository):
 
         super().__init__(*args, **kwargs)
 
+    def add(self, request_data: dict) -> dict:
+        data = self._serializer_class(data=request_data)
+
+        data.is_valid(raise_exception=True)
+
+        if not self._deposits_model_service.validate_deposit_id(
+                deposit_id=data.data.get("deposit_id")
+        ):
+            raise ValidationError(
+                detail="Deposit id used",
+                code=403
+            )
+
+        free_case = self._service.get_for_deposit(
+            amount=float(data.data.get("amount"))
+        )
+
+        self._bonus_buy_service.add_case(
+            user_id=data.data.get("user_id"),
+            case=free_case
+        )
+
+        self._deposits_model_service.use_deposit(
+            deposit_id=data.data.get("deposit_id")
+        )
+
+        return {"ok": True, "case": self._case_serializer(
+            instance=free_case
+        ).data}
+
     def get_for_deposit(self, deposit: float) -> dict:
         free_case = self._service.get_for_deposit(amount=deposit)
 

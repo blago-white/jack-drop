@@ -24,21 +24,31 @@ class UsersApiService:
 
         return response.json()
 
-    def add_depo(self, amount: float, user_id: int) -> dict:
+    def add_depo(self, amount: float,
+                 promocode: str,
+                 user_id: int) -> dict:
+        body = {
+            "amount": amount,
+            "user_id": user_id
+        }
+
+        if promocode:
+            body.update({"promocode": promocode})
+
         response = requests.post(
             url=self.routes.get("add-depo"),
             headers={"Content-Type": "application/json"},
-            data=json.dumps({
-                "amount": amount,
-                "user_id": user_id
-            })
+            data=json.dumps(body)
+        )
+
+        print(
+            "USERS SERVICE DEPO CALLBACK",
+            body,
+            response.status_code,
+            response.json()
         )
 
         if not response.ok:
-            print(response.status_code, response.text, {
-                "amount": amount,
-                "user_id": user_id
-            })
             raise ValidationError(detail="Error with adding deposit", code=400)
 
         return response.json()
