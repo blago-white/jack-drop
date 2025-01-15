@@ -193,5 +193,4 @@ class BattleRequestConsumer(JsonWebsocketConsumer):
             print("FAIL GROUP NAME", self.battle_case_id, self.initiator_id)
             return
 
-
         return f"{self.battle_case_id}-{self.initiator_id}"

@@ -16,16 +16,13 @@ class JWTTokenAuthMiddleware:
         self.inner = inner
 
     def __call__(self, scope, receive=None, send=None):
-        headers = dict(scope['headers'])
+        header = scope['query_string']
 
-        if b'authorization' not in headers:
-            raise RequestAborted()
-
-        token_name, token_key = headers[b'authorization'].decode().split()
+        token_name, token_key = "Bearer", header.decode()
 
         if token_name == 'Bearer':
             user_data: dict = self.users_repository.get_by_jwt(
-                jwt_token=token_key
+                jwt_token=f"Bearer {token_key}"
             )
 
             scope['user'] = user_data
