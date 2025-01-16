@@ -60,14 +60,17 @@ class UpgradeService(BaseModelService):
         win_rate -= self._shift_service.get()
 
         if funds_state.usr_advantage > 0:
-            win_rate //= 1.5
+            if funds_state.usr_advantage > receive_amount - granted_amount:
+                win_rate *= 0.5 if win_rate < 80 else (0.6 if win_rate < 90 else 0.7)
+            else:
+                win_rate *= 0.85
 
-        elif funds_state.usr_advantage < 0 and abs(
-                funds_state.usr_advantage
-        ) > receive_amount and win_rate < 45:
-            win_rate *= 2
+        # elif funds_state.usr_advantage < 0 and abs(
+        #         funds_state.usr_advantage
+        # ) > receive_amount and win_rate <= 90:
+        #     win_rate *= 1.1
 
-        if receive_amount-granted_amount > funds_state.site_active_funds:
+        if (receive_amount-granted_amount)*2 > funds_state.site_active_funds:
             return False
 
         random_num = random.randint(0, 100)

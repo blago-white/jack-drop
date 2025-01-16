@@ -146,9 +146,14 @@ class UpgradeApiRepository(BaseApiRepository):
                     owner_id: int,
                     item_id: int) -> None:
         if validated_data.get("granted_item_id"):
-            granted = self._inventory_service.get_item(
-                inventory_item_id=validated_data.get("granted_item_id")
-            ).item.price
+            try:
+                granted = self._inventory_service.get_item(
+                    inventory_item_id=validated_data.get("granted_item_id"),
+                    apply_frozen=True
+                ).item.price
+            except:
+                print(f"UPGRADE FAIL "
+                      f"{self._inventory_service.get_all(user_id=owner_id)}")
 
             self._inventory_service.remove_from_inventory(
                 owner_id=user_funds.get("id"),

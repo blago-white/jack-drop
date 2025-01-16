@@ -274,7 +274,6 @@ async function makeUpgrade() {
     const result = await response.json();
 
     if (!responseSuccess) {
-        alert(result);
         location.href = location.href;
     }
 

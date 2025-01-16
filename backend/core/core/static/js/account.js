@@ -37,7 +37,7 @@ async function renderReferralStatus() {
     const additionalStyle = isMobile ? 'position: relative;top: -87%;margin-top: 1em;right: -52%;max-width: max-content;font-size: 1em;text-align: right;' : ''
 
     document.getElementsByClassName('account-empty')[0].innerHTML += `
-        <span style="display: block;margin-top: 1em;${additionalStyle}"><b style=${isMobile ? "font-size: 1.45ch" : "font-size: calc(100vw * calc(22 / 1920))"}>Статус реферальной системы -</b><span style="
+        <span style="display: block;margin-top: 1ch;${additionalStyle}"><b style=${isMobile ? "font-size: 1.45ch" : "font-size: calc(100vw * calc(22 / 1920))"}>Статус реферальной системы -</b><span style="
             font-size: 1.45ch;
             color: rgb(240, 240, 240);
         "><br>Реффералов: ${result.count_referrals}<br>Получено: ${result.profit}</span></span>

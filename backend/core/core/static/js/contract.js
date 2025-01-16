@@ -197,8 +197,8 @@ function unselectItem(id) {
 
     document.getElementById('contract-amount').innerHTML = newAmount;
 
-    startRange.innerHTML = `${Math.ceil(newAmount/2)}`;
-    stopRange.innerHTML = `${Math.ceil(newAmount*4)}`;
+    document.getElementById('prst').innerHTML = `${Math.ceil(newAmount/2)}`;
+    document.getElementById('prsp').innerHTML = `${Math.ceil(newAmount*4)}`;
 
     selected.delete(id);
 
@@ -302,8 +302,10 @@ function selectItem(id) {
 
     newAmount = current_amount + priceMapping.get(id);
 
-    startRange.innerHTML = `${Math.ceil(newAmount/2)}`;
-    stopRange.innerHTML = `${Math.ceil(newAmount*4)}`;
+    console.log(newAmount, startRange);
+
+    document.getElementById('prst').innerHTML = `${Math.ceil(newAmount/2)}`;
+    document.getElementById('prsp').innerHTML = `${Math.ceil(newAmount*4)}`;
 
     document.getElementById('contract-amount').innerHTML = newAmount;
 

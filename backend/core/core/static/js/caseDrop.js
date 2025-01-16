@@ -76,7 +76,7 @@ export async function getCase(id) {
 
     console.log(result);
 
-    let line = ``;
+    let line = [];
     let c = 0;
     let rareColor;
 
@@ -85,7 +85,7 @@ export async function getCase(id) {
 
         rareColor = getCardColor(result.items.length, c);
 
-        line += `
+        line.push(`
             <article class="item-card itm-${element.case_item_id}" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;">
                 <div class="dropped-content">
                         <div class="item-numeric-info">
@@ -101,12 +101,12 @@ export async function getCase(id) {
                         <span class="item-title">${element.title}</span>
                 </div>
             </article>
-        `;
+        `);
         c ++;
         dropItemsPositions.set(element.case_item_id, c);
     });
 
-    let lineDrops = ``;
+    let lineDrops = [];
     c = 0;
 
     result.items.forEach((element) => {
@@ -114,7 +114,7 @@ export async function getCase(id) {
 
         rareColor = getCardColor(result.items.length, c);
 
-        lineDrops += `
+        lineDrops.push(`
             <article class="item-card itm-${element.case_item_id}" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;" id="drop-${element.case_item_id}">
                 <div class="dropped-content">
                         <div class="item-numeric-info">
@@ -130,10 +130,13 @@ export async function getCase(id) {
                         <span class="item-title">${element.title}</span>
                 </div>
             </article>
-        `;
+        `);
         c ++;
         dropItemsPositions.set(element.case_item_id, c);
     });
+
+    line = (line.sort(() => Math.random() - 0.5)).join("");
+    lineDrops = (lineDrops.sort(() => Math.random() - 0.5)).join("");
 
     dropItemsString.innerHTML += line + line + line + line + line + line + lineDrops + line + line;
 
