@@ -38,4 +38,7 @@ class PromocodeActivation(models.Model):
     datetime = models.DateTimeField(auto_now=True, editable=False)
 
     def __str__(self):
-        return f"{self.client.username} | {self.promocode}"
+        if self.client:
+            return f"{self.client.username} | {self.promocode}"
+        else:
+            return f"<unknows_user> | {self.promocode}"

@@ -8,14 +8,6 @@ from common.services import BaseService
 
 class PromocodesService(BaseService):
     default_model = Promocode
-    default_activation_model = PromocodeActivation
-
-    def __init__(self, *args,
-                 activation_model: models.Model = None,
-                 **kwargs):
-        self._activation_model = activation_model or self.default_activation_model
-
-        super().__init__(*args, **kwargs)
 
     def get_discount(self, promocode: str) -> int:
         try:
@@ -25,23 +17,18 @@ class PromocodesService(BaseService):
         except:
             return 0
 
-    def use(self, promocode: str, client_id: int) -> int:
+    def use(self, promocode: str) -> tuple[int, Promocode | None]:
         try:
             promo = self._model.objects.get(code=promocode)
 
             if not promo.usages:
                 raise ValueError
         except:
-            return 0
+            return 0, None
 
         if not int(promo.usages) <= -1:
             promo.usages = models.F("usages") - 1
 
         promo.save()
 
-        self._activation_model.objects.create(
-            client_id=client_id,
-            promocode=promo,
-        )
-
-        return promo.discount
+        return promo.discount, promo

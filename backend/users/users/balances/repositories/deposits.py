@@ -38,18 +38,22 @@ class DepositRepository(BaseRepository):
 
         serialized.is_valid(raise_exception=True)
 
+        used_promo = None
+
         if promocode:
-            bonused = amount * self._promocodes_service.use(
+            discount, used_promo = self._promocodes_service.use(
                 promocode=promocode,
-                client_id=client_id
-            ) / 100
+            )
+
+            bonused = amount * discount / 100
         else:
             bonused = 0
 
         created = self._service.add(
             client_id=client_id,
             amount=amount+bonused,
-            bonused=bonused
+            bonused=bonused,
+            promocode=used_promo
         )
 
         if not created:

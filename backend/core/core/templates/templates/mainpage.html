@@ -6,7 +6,6 @@
 <link href="{% static 'css/stats.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/banners.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/free-cases.css' %}" type="text/css" rel="stylesheet">
-<link href="{% static 'css/chat.css' %}" type="text/css" rel="stylesheet">
 <link href="{% static 'css/mainpage.css' %}" type="text/css" rel="stylesheet">
 <style>
     .dropped img {
@@ -23,8 +22,6 @@
     {% include 'main/banners.html' %}
     {% include 'main/cases-filter.html' %}
     {% include 'main/free-cases.html' %}
-
-    {% include 'chat/chat.html' %}
 {% endblock %}
 
 {% block extrascripts %}
@@ -108,7 +105,19 @@
 </script>
 <script src="{% static 'js/pricesRange.js' %}"></script>
 <script src="{% static 'js/caseCategorySetter.js' %}"></script>
-<script src="{% static 'js/chat.js' %}"></script>
 <script src="{% static 'js/stats.js' %}"></script>
 <script src="{% static 'js/casesCategories.js' %}"></script>
 {% endblock %}
+
+
+
+
+        modified:   ../../core/core/static/css/case-drop.css
+        modified:   ../../core/core/templates/templates/base.html
+        modified:   ../../core/core/templates/templates/mainpage.html
+        modified:   balances/admin.py
+        modified:   balances/models.py
+        modified:   balances/repositories/deposits.py
+        modified:   promocodes/admin.py
+        modified:   promocodes/models.py
+        modified:   promocodes/services/discount.py

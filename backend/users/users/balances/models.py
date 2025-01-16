@@ -19,6 +19,11 @@ class ClientDeposit(models.Model):
 
     bonused = models.PositiveIntegerField(default=0)
 
+    promocode = models.ForeignKey(to="promocodes.Promocode",
+                                  on_delete=models.SET_NULL,
+                                  null=True,
+                                  blank=True)
+
     def __str__(self):
         return f"Deposit {self.user}"
 
