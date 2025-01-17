@@ -7,6 +7,7 @@ from rest_framework.exceptions import ValidationError
 from accounts.serializers import PrivateClientSerializer, PublicClientSerializer
 from accounts.services.users import UsersService
 from accounts.services.steam import SteamAccountsService
+from accounts.models.client import Client
 from balances.serivces.balance import ClientBalanceService
 
 from common.repositories import BaseRepository
@@ -39,7 +40,7 @@ class PrivateUsersRepository(BaseUsersRepository):
 
     def get_user_info(self, user_id: int) -> dict:
         try:
-            user = self._service.get_user_info(user_id=user_id)
+            user: Client = self._service.get_user_info(user_id=user_id)
         except:
             raise ValidationError(code=404)
 
@@ -113,7 +114,6 @@ class PublicUsersRepository(BaseUsersRepository):
         try:
             user = self._service.get_user_info(user_id=user_id)
         except:
-            print()
             raise ValidationError(code=403)
 
         serialized: PublicClientSerializer = self._serializer_class(

@@ -19,7 +19,9 @@ class DinamicFundsService(BaseService):
         return True
 
     def get(self) -> float | int:
-        return self._get_row().first().amount
+        funds: DinamicSiteProfit = self._get_row().first()
+
+        return max(funds.amount - funds.bottom_dinamic_border, 0)
 
     def get_min_value(self) -> float | int:
         return self._get_row().first().min_value

@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod
 from django.db import models
 from django.db import transaction
 
-from accounts.models import Client
+from accounts.models.client import Client, ClientAdvantage
 from common.services import BaseService
 
 
@@ -44,12 +44,14 @@ class UsersService(BaseUsersService):
 
     @transaction.atomic
     def bulk_inflate_advantages(self) -> bool:
-        users: list[Client] = self.get_all()
+        users: list[Client] = self._model.objects.select_related(
+            "advantage"
+        )
 
         for user in users:
-            if user.advantage < 0:
+            if user.advantage.value < 0:
                 user.advantage = models.Min(
                     models.F("advantage")+(200/24), 0
                 )
 
-        self._model.bulk_update(users, ["advantage"])
+        self._model.objects.bulk_update(users, ["advantage"])

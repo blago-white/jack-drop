@@ -3,10 +3,17 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
+class ClientAdvantage(models.Model):
+    value = models.FloatField(default=-100)
+
+
 class Client(AbstractUser):
     steam_id = models.PositiveBigIntegerField(unique=True, default=0)
 
-    advantage = models.FloatField(default=-100)
+    advantage = models.ForeignKey(to=ClientAdvantage,
+                                  on_delete=models.SET_NULL,
+                                  related_name="client",
+                                  related_query_name="client")
 
     trade_link = models.CharField(null=True, blank=True, max_length=200)
 

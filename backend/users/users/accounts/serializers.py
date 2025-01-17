@@ -16,7 +16,7 @@ class ReadOnlyModelSerializer(ModelSerializer):
 
 class PrivateClientSerializer(ReadOnlyModelSerializer):
     displayed_balance = serializers.FloatField(allow_null=True, default=0)
-    user_advantage = serializers.FloatField(source="advantage")
+    user_advantage = serializers.FloatField(source="advantage.value")
 
     class Meta:
         model = Client

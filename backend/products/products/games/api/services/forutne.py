@@ -16,8 +16,8 @@ class PrizeTypes:
     UPGRADE = "U"
 
 
-FREE_SKIN_PRICE_RANGE = (20, 1000)
-GAME_SKIN_PRICE_RANGE = (100, 500)
+FREE_SKIN_PRICE_RANGE = (0, 1000)
+GAME_SKIN_PRICE_RANGE = (0, 500)
 
 
 class FortuneWheelPrizeTypeApiService(BaseApiService):

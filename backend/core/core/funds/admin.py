@@ -10,9 +10,9 @@ class FrozenProfitAdmin(admin.ModelAdmin):
 
 @admin.register(DinamicSiteProfit)
 class DinamicProfitAdmin(admin.ModelAdmin):
-    fields = ["amount", "min_value", "time_update"]
+    fields = ["amount", "bottom_dinamic_border", "min_value", "time_update"]
     readonly_fields = ["time_update"]
-    list_display = ["amount", "time_update"]
+    list_display = ["amount", "bottom_dinamic_border", "time_update"]
 
 
 @admin.register(FreezeFundsPercent)

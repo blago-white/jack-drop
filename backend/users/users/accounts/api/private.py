@@ -90,7 +90,7 @@ class UserAdvantageRetrieveAPIView(DefaultRetrieveApiView):
 
     def retrieve(self, request, *args, **kwargs):
         return self.get_200_response(
-            data={"advantage": request.user.advantage}
+            data={"advantage": request.user.advantage.value}
         )
 
 

@@ -144,7 +144,7 @@ class FortuneWheelService:
 
         if request.winning_type == self.winning_types.FREE_SKIN:
             free_items = [i for i in request.data.items
-                          if i < self.max_free_item_price]
+                          if i.price < self.max_free_item_price]
 
             if not request.funds_state.usr_advantage:
                 return random.choice(free_items)

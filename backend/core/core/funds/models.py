@@ -29,6 +29,7 @@ class FrozenSiteProfit(SingleInstanceModel):
 
 class DinamicSiteProfit(SingleInstanceModel):
     amount = models.FloatField("DONT WITHDRAW THIS FUNDS")
+    bottom_dinamic_border = models.FloatField(default=0)
     min_value = models.FloatField("Min value of site profit", default=0)
     time_update = models.DateTimeField(auto_now=True, editable=True)
 

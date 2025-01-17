@@ -103,7 +103,9 @@ services:
     expose:
       - 80
     depends_on:
-      - usersapp
+      - usersapp1
+      - usersapp2
+      - usersapp3
     container_name: usersnginx
     volumes:
       - ./users/static/:/users/static
