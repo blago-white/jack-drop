@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 from django.db import models
+from django.db import transaction
 
 from accounts.models import Client
 from common.services import BaseService
@@ -40,3 +41,15 @@ class UsersService(BaseUsersService):
         qs = self._model.objects.filter(pk__in=users_ids)
 
         return len(users_ids) == len(qs), qs
+
+    @transaction.atomic
+    def bulk_inflate_advantages(self) -> bool:
+        users: list[Client] = self.get_all()
+
+        for user in users:
+            if user.advantage < 0:
+                user.advantage = models.Min(
+                    models.F("advantage")+(200/24), 0
+                )
+
+        self._model.bulk_update(users, ["advantage"])

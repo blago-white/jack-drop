@@ -72,6 +72,32 @@ services:
       - ./users/debug.log:/home/app/users/debug.log
       - ./users:/home/app/users
     restart: always
+  usersredis:
+    image: redis:7.2.4-bookworm
+    env_file:
+      - .env
+    expose:
+      - 6379
+    container_name: usersredis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: always
+  userscelery:
+    build:
+      dockerfile: Dockerfile.celery
+    restart: always
+    command: celery -A common beat -l info -f /home/app/users/celery.log
+    container_name: userscelery
+    volumes:
+      - ./users/celery.log:/home/app/users/celery.log
+    env_file:
+      - .env
+    depends_on:
+      - usersdb
+      - usersredis
   usersnginx:
     build: nginx
     expose:
@@ -83,7 +109,6 @@ services:
       - ./users/static/:/users/static
       - ./users/:/home/app/users
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-
 
 volumes:
   postgres_data:
