@@ -11,7 +11,7 @@ class Client(AbstractUser):
     steam_id = models.PositiveBigIntegerField(unique=True, default=0)
 
     advantage = models.ForeignKey(to=ClientAdvantage,
-                                  on_delete=models.SET_NULL,
+                                  on_delete=models.CASCADE,
                                   related_name="client",
                                   related_query_name="client")
 
