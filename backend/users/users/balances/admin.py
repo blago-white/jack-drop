@@ -11,4 +11,4 @@ class ClientBalanceAdmin(admin.ModelAdmin):
 @admin.register(ClientDeposit)
 class ClientDepositAdmin(admin.ModelAdmin):
     list_display = ["user", "amount", "promocode", "datetime"]
-    list_filter = ["user", "promocode__promocode"]
+    list_filter = ["user", "promocode"]

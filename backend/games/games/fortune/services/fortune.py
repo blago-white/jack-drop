@@ -85,7 +85,12 @@ class TimeoutValueService(BaseModelService):
 class FortuneWheelService:
     winning_types = WinningTypes
     min_free_item_price = 20
-    min_contract_item_price = 100
+    min_contract_item_price = 30
+    min_upgrade_item_price = 10
+
+    max_free_item_price = 60
+    max_contract_item_price = 120
+    max_upgrade_item_price = 120
 
     free_skin_random_chance = 5
 
@@ -96,12 +101,9 @@ class FortuneWheelService:
             user_funds_diff = winning_item.price
             site_funds_diff = -winning_item.price
         else:
-            user_funds_diff = 0
-            site_funds_diff = 0
+            user_funds_diff = site_funds_diff = 0
 
         if request.winning_type == self.winning_types.CASE_DISCOUNT:
-            winning_item: CaseDiscountResult
-
             diff = winning_item.case.price * (
                 winning_item.discount / 100
             )
@@ -122,44 +124,32 @@ class FortuneWheelService:
     def _get_win_item(
             self, request: FortuneWheelGameRequest
     ) -> dataclasses.dataclass:
-        print(request.data.items)
-        print(request.data)
-
         if request.winning_type == self.winning_types.UPGRADE:
             return random.choice(
                 sorted(
-                    request.data.items, key=lambda item: item.price
-                )[:len(request.data.items) // 2]
+                    [i for i in request.data.items
+                     if i.price < self.max_upgrade_item_price],
+                    key=lambda item: item.price
+                )
             )
 
         if request.winning_type == self.winning_types.CONTRACT:
             able_items = [i
                           for i in request.data.items
-                          if i.price < request.funds_state.site_active_funds]
-
-            if not able_items:
-                able_items = sorted(
-                    request.data.items, key=lambda item: item.price
-                )
+                          if i.price < self.max_contract_item_price]
 
             able_items = able_items[:random.randint(1, len(able_items) - 1)]
 
-            return random.choice(
-                    able_items
-                    if (request.funds_state.usr_advantage <
-                        able_items[0].price)
-                    else able_items[:2]
-            )
+            return random.choice(able_items)
 
         if request.winning_type == self.winning_types.FREE_SKIN:
+            free_items = [i for i in request.data.items
+                          if i < self.max_free_item_price]
+
             if not request.funds_state.usr_advantage:
-                return random.choice(
-                    request.data.items[:len(request.data.items) // 2]
-                )
+                return random.choice(free_items)
             else:
-                return random.choice(
-                    request.data.items[:3]
-                )
+                return random.choice(free_items[:3])
 
         if request.winning_type == self.winning_types.CASE_DISCOUNT:
             result_case: CaseData = self._get_case(cases=request.data.items)
@@ -173,29 +163,26 @@ class FortuneWheelService:
     def get_type(
             self, request: FortuneWheelGameRequest
     ) -> tuple[str, str]:
-        if (
-                request.funds_state.site_active_funds < self.min_free_item_price
-        ):
+        if request.funds_state.site_active_funds < self.min_free_item_price*5:
             return self._get_lose_result()
 
-        if (request.funds_state.site_active_funds <
-                self.min_contract_item_price):
+        if request.funds_state.site_active_funds < self.min_contract_item_price*5:
             return self._get_lose_result()
 
         if request.funds_state.usr_advantage <= 0:
             if (request.funds_state.usr_advantage <
-                    -self.min_contract_item_price):
-                return (
-                    self.winning_types.CONTRACT
-                    if random.randint(
+                    -self.min_contract_item_price*3):
+                winnint_type = (random.randint(
                         0, 100
-                    ) < self.free_skin_random_chance or (
-                            request.funds_state.site_active_funds < request.min_item_price <= request.funds_state.usr_advantage
-                    ) else
-                    self.winning_types.FREE_SKIN
-                )
+                    ) < self.free_skin_random_chance) or (
+                        request.funds_state.site_active_funds <
+                        request.min_item_price*5 <=
+                        request.funds_state.usr_advantage
+                    )
 
-            if request.funds_state.usr_advantage < -self.min_free_item_price:
+                return self.winning_types.CONTRACT if winnint_type else self.winning_types.FREE_SKIN
+
+            if request.funds_state.usr_advantage < -self.min_free_item_price*2.5:
                 return (
                     self.winning_types.FREE_SKIN
                     if random.randint(
@@ -215,6 +202,8 @@ class FortuneWheelService:
     def _get_case(cases: list[CaseData], count: int = None) -> CaseData:
         cases = sorted(cases, key=lambda case: case.price, reverse=True)
 
+        cases = filter(lambda c: c.price < max(300, cases[-1]), cases)
+
         return random.choice(
             cases+cases[:len(cases)//2 if not count else count]
         )
@@ -222,7 +211,7 @@ class FortuneWheelService:
     @staticmethod
     def _get_case_discount(case: CaseData,
                            funds: FundsState) -> int:
-        if not funds.site_active_funds > case.price*2:
+        if not funds.site_active_funds > case.price*5:
             return random.randint(5, 10)
 
         if funds.usr_advantage > case.price:
@@ -231,5 +220,5 @@ class FortuneWheelService:
         if funds.usr_advantage >= 0:
             return random.randint(5, 25)
 
-        if funds.usr_advantage < case.price:
-            return random.randint(5, 50)
+        if funds.usr_advantage < 0:
+            return random.randint(5, 35)

@@ -91,6 +91,7 @@ class ItemWithdrawService(BaseMarketApiService):
             commited = self._withdraw_item_model(
                 market_link=item.item_market_link,
                 owner_trade_link=item.trade_link,
+                owner_id=item.owner_id,
                 success=(item.inventory_item_id in success)
             )
 

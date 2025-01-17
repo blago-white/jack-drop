@@ -76,7 +76,6 @@ class UsersApiService(BaseApiService):
             self, delta_amount: int,
             user_id: int,
     ) -> bool:
-        print(f"UPDATE USER BALANSE {delta_amount}")
         response = requests.patch(
             url=self.routes.get("update_balance").format(
                 client_id=user_id

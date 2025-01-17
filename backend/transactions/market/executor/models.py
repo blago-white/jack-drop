@@ -5,6 +5,7 @@ from django.db import models
 class WithdrawedItem(models.Model):
     market_link = models.URLField()
     owner_trade_link = models.CharField()
+    owner_id = models.IntegerField()
     success = models.BooleanField(default=False)
 
 

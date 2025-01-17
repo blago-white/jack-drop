@@ -77,7 +77,14 @@ class InventoryRepository(BaseRepository):
         }
 
     def sell(self, user_id: int, item_id: int) -> dict:  # TODO: Make
-        item = self._service.get_item(inventory_item_id=item_id)
+        item = self._service.get_item(
+            inventory_item_id=item_id
+        )
+
+        if item.locked_for != Lockings.UNLOCK:
+            raise ValidationError(
+                "Cannot withdraw this item, is locked!"
+            )
 
         ok = self._service.remove_from_inventory(owner_id=user_id,
                                                  inventory_item_id=item_id)
@@ -85,7 +92,7 @@ class InventoryRepository(BaseRepository):
         if ok:
             self._users_api_service.update_user_balance_by_id(
                 user_id=user_id,
-                delta_amount=item.item.price
+                delta_amount=max(item.item.price - 100, item.item.price*0.95)
             )
 
         return {"ok": ok}
@@ -143,7 +150,7 @@ class InventoryRepository(BaseRepository):
 
         if result:
             self._users_api_service.update_user_balance_by_id(
-                delta_amount=items_price_sum * 0.99,
+                delta_amount=items_price_sum * 0.95,
                 user_id=user_id
             )
 

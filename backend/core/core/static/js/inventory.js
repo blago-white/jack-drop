@@ -58,7 +58,7 @@ async function sellItem(id) {
     const response = await sendRequest(
         `https://${location.hostname}/products/inventory/sell/`,
         requestOptions
-        );
+    );
 
     const result = await response.json();
 
@@ -67,9 +67,10 @@ async function sellItem(id) {
         document.getElementById(id).classList.remove('mono');
         document.getElementById(id).classList.add('empty-inventory-item');
         document.getElementById(id).innerHTML = '';
-        } else {
+    } else {
         alert("Cannot sell this item")
-        }
+        return
+    }
 
     const withdrawedItem = inventoryItemsById.get(parseInt(id));
 

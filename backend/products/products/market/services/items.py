@@ -48,8 +48,6 @@ class MarketItemParser:
         return total
 
     def _bulk_get_prices(self, list_: str) -> list[float]:
-        print(len(list_.split(",")), list_)
-
         response = requests.post(
             url=self._mass_retrieve_url.format(self._api_key_service.apikey),
             data=dict(list=list_)
@@ -58,15 +56,20 @@ class MarketItemParser:
         result = response.json()
 
         if (not response.ok) or (not result.get("success")):
-            print(response.status_code, response.json())
             raise Exception("Cannot retrieve prices")
 
         results: list[dict[str, str | dict]] = result.get("results")
 
-        prices = [
-            float(i.get("sell_offers").get("best_offer", 0)) / 100
-            for i in results
-        ]
+        prices = []
+
+        for i in results:
+            price = float(
+                i.get("sell_offers").get("best_offer", 0)
+            ) / 100
+
+            price = min(price + 100, price*1.05)
+
+            prices.append(round(price, 2))
 
         return [max(p, 0) for p in prices]
 
@@ -81,12 +84,15 @@ class MarketItemParser:
         return self._parse_json_result(json=response.json())
 
     def _parse_json_result(self, json: dict) -> ItemInfo:
+        price = float(json.get("min_price"))//100
+        price = round(min(price + 100, price*1.05), 2)
+
         return self._item_info_dataclass(
             title=json.get("market_name"),
             image_path=self._get_item_image_path(
                 json.get("market_name")
             ),
-            price=round(float(json.get("min_price"))//100 * 1.05, 2),
+            price=price,
             market_hash_name=json.get("market_hash_name")
         )
 

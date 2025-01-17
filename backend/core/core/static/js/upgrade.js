@@ -13,10 +13,34 @@ const grantedBalance = document.getElementById('granted-balance');
 
 let receiveItems = new Map();
 let grantedItems = new Map();
+let upgradeIsMade = false;
 
 let selectedGranted = null;
 let selectedReceive = null;
 let selectedGrantedBalance = null;
+
+let noticedAboutPercent = false;
+
+
+function getPercent() {
+    if (selectedGranted && selectedReceive) {
+        const rawSelectedGranted = grantedItems.get(parseInt(selectedGranted.slice(2))).price;
+        const rawSelectedReceive = receiveItems.get(parseInt(selectedReceive.slice(2))).price;
+
+        return Math.round(Math.min(
+            (rawSelectedGranted / rawSelectedReceive)*100, 100
+        ))
+    } else if (selectedReceive && selectedGrantedBalance) {
+        const rawSelectedReceive = receiveItems.get(parseInt(selectedReceive.slice(2))).price;
+
+        return Math.round(Math.min(
+            (selectedGrantedBalance / rawSelectedReceive)*100, 100
+        ))
+    } else {
+        return 0;
+    }
+}
+
 
 function getCardColor(itemsCount, indexCurrent) {
     if (indexCurrent <= itemsCount*0.3) {
@@ -62,8 +86,6 @@ async function getInevntoryItems() {
     const result = await response.json();
     let rareColor;
     let c = 0;
-
-    console.log(result)
 
     if (result) {
         result.forEach((element) => {
@@ -209,8 +231,6 @@ function selectGrantedItem(elem) {
         document.getElementById(selectedGranted).style.filter = "none";
     }
 
-    console.log(elem.id, elem);
-
     const raw_id = parseInt(elem.id.slice(2));
 
     document.getElementById('u-m-1').src = grantedItems.get(raw_id).image_path;
@@ -240,9 +260,20 @@ function selectReceiveItem(elem) {
 }
 
 async function makeUpgrade() {
-    if (selectedGrantedBalance && selectedGranted) {
+    if ((selectedGrantedBalance && selectedGranted) || upgradeIsMade) {
+        console.log("IDENTICAL REQUEST BLOCKED")
         return false;
     }
+
+    if ((!noticedAboutPercent) && (getPercent() > 98)) {
+        alert(`Шанс должен быть <= 98%, сейчас: ${getPercent()}\nChance must be <= 98, now: ${getPercent()}`)
+        noticedAboutPercent = true;
+        return false;
+    } else if (noticedAboutPercent && (getPercent() > 98)) {
+        return false;
+    }
+
+    upgradeIsMade = true
 
     const myHeaders = new Headers();
 
@@ -311,24 +342,9 @@ async function animateResult(result) {
 }
 
 function updatePercent() {
-    console.log(selectedGranted, selectedReceive, selectedGrantedBalance);
-
     let newPercent = 0;
 
-    if (selectedGranted && selectedReceive) {
-        const rawSelectedGranted = grantedItems.get(parseInt(selectedGranted.slice(2))).price;
-        const rawSelectedReceive = receiveItems.get(parseInt(selectedReceive.slice(2))).price;
-
-        newPercent = Math.round(Math.min(
-            (rawSelectedGranted / rawSelectedReceive)*100, 100
-        ))
-    } else if (selectedReceive && selectedGrantedBalance) {
-        const rawSelectedReceive = receiveItems.get(parseInt(selectedReceive.slice(2))).price;
-
-        newPercent = Math.round(Math.min(
-            (selectedGrantedBalance / rawSelectedReceive)*100, 100
-        ))
-    }
+    newPercent = getPercent();
 
     if (newPercent > 100) {newPercent = 100} else if (newPercent < 0) {newPercent = 0};
 
@@ -337,7 +353,7 @@ function updatePercent() {
     if (((selectedGrantedBalance>0) | (selectedGranted != null)) && (selectedReceive != null)) {
         document.getElementById('upgrade-percent').innerHTML = `${newPercent}%`;
 
-        if (newPercent == 100) {
+        if (newPercent > 98) {
             return false;
         }
 
@@ -346,8 +362,6 @@ function updatePercent() {
             'click',
             async function() {await makeUpgrade();}
         )
-
-        console.log(document.getElementById('make-upgrade-bg').parentElement);
     }
 }
 

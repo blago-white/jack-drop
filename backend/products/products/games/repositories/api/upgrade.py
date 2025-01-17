@@ -1,3 +1,5 @@
+from django.db import transaction
+
 from rest_framework.exceptions import ValidationError
 
 from games.api.services.site import SiteFundsApiService
@@ -46,44 +48,49 @@ class UpgradeApiRepository(BaseApiRepository):
 
         super().__init__(*args, **kwargs)
 
+    @transaction.atomic()
     def make_upgrade(self, data: dict, user_funds: dict) -> dict:
         validated_data, user_funds = (
             self._validate_funds(data=data, user_funds=user_funds)
         )
 
-        print("SERIALIZED1", validated_data)
-
         serialized = self._complete_serializer(
             data=validated_data, user_funds=user_funds
         )
 
-        print("SERIALIZED2", serialized.data)
+        if validated_data.get("granted_item_id"):
+            granted = self._inventory_service.get_item(
+                inventory_item_id=validated_data.get("granted_item_id"),
+            )
+
+            if not granted:
+                raise ValidationError("Cannot make upgrade with this item, "
+                                      "please try later or other item!")
+        else:
+            granted = None
+
+        self._inventory_service.remove_from_inventory(
+            owner_id=user_funds.get("id"),
+            inventory_item_id=validated_data.get("granted_item_id")
+        )
 
         result = self._api_service.make_upgrade(
             serialized=serialized
         )
-
-        print("SERIALIZED3", result)
-
-        if validated_data.get("granted_item_id"):
-            granted = self._inventory_service.get_item(
-                inventory_item_id=validated_data.get("granted_item_id")
-            )
-        else:
-            granted = None
 
         if result:
             self._commit_win(
                 validated_data=validated_data,
                 owner_id=user_funds.get("id"),
                 item_id=validated_data.get("receive_item_id"),
-                user_funds=user_funds
+                user_funds=user_funds,
+                granted=granted
             )
         else:
             self._commit_loss(
                 validated_data=validated_data,
                 user_funds=user_funds,
-                granted_item_id=granted.pk if granted else None,
+                granted=granted
             )
 
         if validated_data.get("granted_item_id"):
@@ -106,20 +113,13 @@ class UpgradeApiRepository(BaseApiRepository):
 
     def _commit_loss(self, validated_data: dict,
                      user_funds: dict,
-                     granted_item_id: int) -> None:
-        if granted_item_id:
-            item = self._inventory_service.get_item(
-                inventory_item_id=granted_item_id
-            )
-            
-            self._inventory_service.remove_from_inventory(
-                owner_id=user_funds.get("id"),
-                inventory_item_id=granted_item_id
-            )
+                     granted: "InventoryItem") -> None:
+        if granted:
+            item_price = granted.item.price
 
             ok, to_blogger_advantage = self._users_service.update_user_advantage(
                 user_id=user_funds.get("id"),
-                delta_advantage=-item.item.price
+                delta_advantage=-item_price
             )
 
             self._site_funds_service.increase(
@@ -144,30 +144,21 @@ class UpgradeApiRepository(BaseApiRepository):
     def _commit_win(self, validated_data: dict,
                     user_funds: dict,
                     owner_id: int,
+                    granted: "InventoryItem",
                     item_id: int) -> None:
         if validated_data.get("granted_item_id"):
-            try:
-                granted = self._inventory_service.get_item(
-                    inventory_item_id=validated_data.get("granted_item_id"),
-                    apply_frozen=True
-                ).item.price
-            except:
-                print(f"UPGRADE FAIL "
-                      f"{self._inventory_service.get_all(user_id=owner_id)}")
-
-            self._inventory_service.remove_from_inventory(
-                owner_id=user_funds.get("id"),
-                inventory_item_id=validated_data.get("granted_item_id")
-            )
-
+            granted_funds = granted.item.price
         else:
             self._users_service.update_user_balance_by_request(
                 user_id=user_funds.get("id"),
                 delta_amount=-validated_data.get("granted_funds")
             )
             
-            granted = validated_data.get("granted_funds")
-         
+            granted_funds = validated_data.get("granted_funds")
+
+        if (granted_funds / self._receive_amount) > 0.98:
+            raise ValidationError("Cannot make upgrade with < 98%")
+
         item = self._inventory_service.add_item(
             owner_id=owner_id,
             item_id=item_id
@@ -175,11 +166,11 @@ class UpgradeApiRepository(BaseApiRepository):
 
         ok, to_blogger_advantage = self._users_service.update_user_advantage(
             user_id=user_funds.get("id"),
-            delta_advantage=item.item.price - granted
+            delta_advantage=item.item.price - granted_funds
         )
 
         self._site_funds_service.update(
-            amount=self._granted_amount - self._receive_amount - to_blogger_advantage,
+            amount=granted_funds - self._receive_amount - to_blogger_advantage,
         )
 
     def _complete_serializer(

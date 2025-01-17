@@ -130,6 +130,23 @@
         {% get_current_language as LANGUAGE_CODE %}
 
         setCookie("lang", "{{ LANGUAGE_CODE }}");
+
+        // TODO: Drop this code tomorrow
+
+        function getCookie(name) {
+            let matches = document.cookie.match(new RegExp(
+                  "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+                ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        };
+
+        if (!getCookie("noticed")) {
+            alert("Уважаемый пользователь, на данный момент [до ~12:00 17.01] сайт работает в режиме дебага, выводить скины запрещено и не возможно, и все скины / валюту полученную в режиме дебага вы не получите! пожалуйста зайдите завтра после 12:00! С уважением, Администрация JackDrop!");
+
+            setCookie("noticed", true)
+        }
+
+        // -------
     </script>
     {% block extrascripts %}
     {% endblock %}

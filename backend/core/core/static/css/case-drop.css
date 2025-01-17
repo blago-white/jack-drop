@@ -8,13 +8,14 @@
 
 .case-drop-sec {
     width: calc(100vw * calc(1337 / var(--reference-display-w)));
-    padding-inline: calc(100vw * calc(58 / var(--reference-display-w)));
+    padding-inline: 0px;
     border: 2px solid white;
     border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
     margin-inline: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 39ch;
 }
 
 .arrow {
@@ -29,7 +30,6 @@
 
 .item-card {
     width: calc(100vw* calc(326 / var(--reference-display-w))) !important;
-    height: calc(100vw* calc(400 / var(--reference-display-w))) !important;
     font-size: calc(100vw* calc(25 / var(--reference-display-w))) !important;
 }
 
@@ -149,6 +149,7 @@
 
     .item-card {
         font-size: calc(100vw* calc(37 / var(--reference-display-w))) !important;
+        height: calc(100vw* calc(400 / var(--reference-display-w))) !important;
     }
 
     .item-price {
