@@ -9,8 +9,8 @@ class DinamicFundsService(BaseService):
     _model: DinamicSiteProfit
 
     def update(self, delta_funds: float | int) -> float | int:
-        if (self.get() + delta_funds) < self.get_min_value():
-            return False
+        # if (self.get() + delta_funds) < self.get_min_value():
+        #     return False
 
         self._get_row().update(
             amount=models.F("amount") + delta_funds

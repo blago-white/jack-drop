@@ -9,6 +9,7 @@ class DropRequest:
     items: list[DetailedCaseItem]
     state: FundsState
     case_price: float
+    early_drops_rate: tuple[int, float]
 
 
 @dataclass(frozen=True)

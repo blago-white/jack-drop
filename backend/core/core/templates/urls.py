@@ -27,5 +27,4 @@ urlpatterns = [
     path("account/games/", game_history_view, name="game-history"),
     path("account/withdraws/", withdraws_view, name="withdraw-history"),
     path("set/<int:set_id>/", items_set, name="items-set"),
-
 ]

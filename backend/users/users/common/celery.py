@@ -17,6 +17,6 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'inflate-advantage': {
         'task': 'inflate_advantage',
-        'schedule': 60*60,
+        'schedule': 60*20,
     }
 }

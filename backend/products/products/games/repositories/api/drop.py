@@ -77,6 +77,7 @@ class CaseDropApiRepository(BaseApiRepository):
                         "user_advantage": user_funds.get("user_advantage"),
                         "site_active_funds": self._site_funds_service.get()
                     },
+                    "user_id": user_funds.get("id"),
                     "price": case_data.get("price")
                 }
             )
@@ -118,6 +119,7 @@ class CaseDropApiRepository(BaseApiRepository):
                         "user_advantage": user_funds.get("user_advantage"),
                         "site_active_funds": self._site_funds_service.get()
                     },
+                    "user_id": user_funds.get("id"),
                     "price": case_data.get("price")
                 }
             )
@@ -144,6 +146,7 @@ class CaseDropApiRepository(BaseApiRepository):
             user_funds=user_funds,
             funds_delta=drop_result.get("funds"),
             dropped_item_id=drop_result.get("item").get("item_id"),
+            is_bonused=True
         )
 
         return {"dropped_item": drop_result.get("item")}
@@ -153,9 +156,20 @@ class CaseDropApiRepository(BaseApiRepository):
             user_funds: dict,
             funds_delta: dict,
             dropped_item_id: int,
+            is_bonused: bool = False,
     ) -> None:
+        bonused_user_advantage_delta = (
+            float(case_data.get("price")) - abs(
+                funds_delta.get("user_funds_delta")
+            )
+        )
+
+        funds = funds_delta.get("user_funds_delta") \
+            if not is_bonused else \
+            bonused_user_advantage_delta
+
         ok, to_blogger_advantage = self._users_service.update_user_advantage(
-            delta_advantage=funds_delta.get("user_funds_delta"),
+            delta_advantage=funds,
             user_id=user_funds.get("id")
         )
 
@@ -165,16 +179,21 @@ class CaseDropApiRepository(BaseApiRepository):
 
         price = self._discounted_case_price(
             raw_price=case_data.get("price")
-        )
+        ) if not is_bonused else 0
 
         self._users_service.update_user_balance_by_id(
             delta_amount=-price,
             user_id=user_funds.get("id")
         )
 
-        self._site_funds_service.update(amount=funds_delta.get(
-            "site_funds_delta"
-        ) - to_blogger_advantage)
+        if price == 0:
+            self._site_funds_service.update(
+                amount=-abs(bonused_user_advantage_delta)
+            )
+        else:
+            self._site_funds_service.update(amount=funds_delta.get(
+                "site_funds_delta"
+            ) - to_blogger_advantage)
 
         self._inventory_service.add_item(owner_id=user_funds.get("id"),
                                          item_id=int(dropped_item_id))

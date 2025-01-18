@@ -1,13 +1,15 @@
 import random
 
 from common.services.api.transfer import CaseItem
+from common.services.base import BaseModelService
 from ._results import FundsDeltaResult
 from .exceptions import ChancesValuesError
 from .wins import WinDropsService
 from ..states.request import DropRequest, ResultState
+from ..models import Drop
 
 
-class CaseItemDropModelService:
+class CaseItemDropService:
     _win_service: WinDropsService
 
     def __init__(self, win_service: WinDropsService = WinDropsService):
@@ -19,18 +21,31 @@ class CaseItemDropModelService:
         if request.case_price == 0:
             item = self._drop_free_case(request=request)
         else:
-            is_win = self._win_service.add_new_drop()
+            now_win = self._win_service.add_new_drop()
+            is_win = now_win or (random.randint(
+                0, min(request.early_drops_rate[0], 4)
+            ) == random.randint(
+                0, min(request.early_drops_rate[0], 4)
+            ))
 
             advantage = request.state.usr_advantage
             advantage_positive = request.state.usr_advantage > 0
 
             if not is_win:
                 item = self._get_random_loss_item(request=request)
-            elif advantage_positive and (advantage > (request.case_price / 2)):
+            elif advantage_positive and (advantage > request.case_price):
+                if now_win:
+                    self._win_service.revert_drop()
+
                 item = self._get_random_loss_item(request=request)
             elif not advantage_positive and advantage < -request.case_price:
                 item = self._get_random_winning_item(request=request)
+
+                if ((item.price - request.case_price) * 2 >
+                        request.state.site_active_funds):
+                    item = self._get_random_loss_item(request=request)
             else:
+                self._win_service.revert_drop()
                 item = self._get_random_loss_item(request=request)
 
         funds = self._get_funds_delta(drop_item=item,
@@ -47,7 +62,8 @@ class CaseItemDropModelService:
 
         items = sorted(request.items, key=lambda i: i.price)
 
-        items = [i for i in items[:max(mid_idx, 2)] if i.price < request.state.site_active_funds]
+        items = [i for i in items[:max(mid_idx, 2)] if
+                 i.price < request.state.site_active_funds]
 
         print("RANDOM1")
 
@@ -101,13 +117,12 @@ class CaseItemDropModelService:
 
         if (diff := len(randoms) - 100) != 0:
             if abs(diff) > 10:
-                print("ERROR", rates)
                 raise ChancesValuesError("Not correct chances in case")
 
             if diff > 0:
-                randoms = randoms[len(randoms)-100:]
+                randoms = randoms[len(randoms) - 100:]
             elif diff < 0:
-                randoms.extend([randoms[0]]*(100 - len(randoms)))
+                randoms.extend([randoms[0]] * (100 - len(randoms)))
 
         return random.choice(randoms)
 
@@ -119,3 +134,29 @@ class CaseItemDropModelService:
             site_funds_delta=request.case_price - drop_item.price,
             user_funds_delta=drop_item.price - request.case_price
         )
+
+
+class CaseItemDropModelService(BaseModelService):
+    default_model = Drop
+
+    def add(self, user_id: int, result: ResultState):
+        drop = self._model(user_id=user_id,
+                           dropped_item_id=result.dropped_item.item_id,
+                           dropped_case_item_id=result.dropped_item.id,
+                           site_funds_delta=result.site_funds_delta)
+
+        drop.save()
+
+        return drop
+
+    def get_early_games_rate(self, user_id: int) -> tuple[int, float]:
+        result = self._model.objects.filter(user_id=user_id).values_list(
+            "site_funds_delta", flat=True
+        )
+
+        last_ten_results = result[:10]
+
+        rate = (sum([i for i in last_ten_results if i > 0]) -
+                abs(sum([i for i in last_ten_results if i < 0])))
+
+        return len(result), rate,

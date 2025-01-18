@@ -56,13 +56,24 @@ Contract | Jack Drop
         </button>
     </div>
     <div class="contract-circle" id="contract-field">
-        <span class="contract-amount" id="contract-amount">0</span>
+        <div class="contract-amount" style="
+            display: flex;
+            flex-direction: column;
+            margin-inline: auto;
+        "><span style="
+            font-size: 2.5em;
+            font-family: 'Gilroy Semibold';
+            line-height: 83%;
+        "><span id="contract-amount">0</span><img src="https://cdn-icons-png.flaticon.com/128/40/40031.png" style="
+            height: .7em;
+            margin-left: .2ch;
+            filter: invert(1);););
+        "></span><span style="
+            color: #ccc;
+            font-size: .7em;
+            font-family: 'Gilroy Semibold';
+        "><span id="prst">0</span> &gt; <span id="prsp">0</span></span></div>
         <img class="glow" id="contract-glow" src="{% static 'img/glow.png' %}" style="pointer-events: none;grid-row: 1;grid-column: 1;">
-        <span class="prize-price-range">
-            <span class="start" id="prst">0</span>
-            <i class="gg-arrow-long-right"></i>
-            <span class="stop" id="prsp">0</span>
-        </span>
     </div>
     <div class="inventory-items" id="inventory-items"></div>
 </section>

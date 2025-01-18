@@ -28,15 +28,18 @@ class DinamicFundsRepository(BaseRepository):
         return {"ok": True}
 
     def get(self) -> dict:
-        return {"amount": self._service.get()}
+        amount = self._service.get()
+
+        print(f"AMOUNT SENDED: {amount}")
+        return {"amount": amount}
 
     def _get_serialized(self, request_data: dict) -> UpdateDinamicSiteProfitSerializer:
         serialized: UpdateDinamicSiteProfitSerializer = self._serializer_class(
             data=request_data
         )
 
-        print("DINAMIC", request_data)
-
         serialized.is_valid(raise_exception=True)
+
+        print("DINAMIC", serialized.data.get("delta_amount"))
 
         return serialized

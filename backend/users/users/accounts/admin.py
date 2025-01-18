@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 
-from .models import Client
+from .models.client import Client, ClientAdvantage
 from .models.api import SteamApiKey
 
 
@@ -13,3 +13,9 @@ class ClientAdmin(ModelAdmin):
 @admin.register(SteamApiKey)
 class SteamApiKeyAdmin(ModelAdmin):
     list_display = ["apikey"]
+
+
+@admin.register(ClientAdvantage)
+class ClientAdvantageAdmin(ModelAdmin):
+    list_display = ["value", "client"]
+    list_filter = ["client"]

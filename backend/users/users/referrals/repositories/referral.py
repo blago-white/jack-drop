@@ -44,6 +44,12 @@ class ReferrRepository(BaseRepository):
     def add_referr(self, user_id: int, referr_link: str) -> dict:
         referr = self._service.get_referr_by_link(referr_link=referr_link)
 
+        if not referr:
+            return ReferralLinkSerializer(instance={
+                "referr_link": referr_link,
+                "is_valid": False
+            }).data
+
         link_valid = self._service.add_referr(user_id=user_id, referr=referr)
 
         return ReferralLinkSerializer(instance={

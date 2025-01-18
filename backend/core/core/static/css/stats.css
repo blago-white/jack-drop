@@ -77,10 +77,13 @@
 @media (aspect-ratio < 3/2) {
     .stats-table {
         flex-direction: column;
+        padding-inline: 5%;
+        padding-block: 1%;
+        border-radius: calc(100vw* calc(73 / 1920));
     }
 
     .stat-name {
-        font-size: 1.8vw;
+        font-size: 3.8vw;
     }
 
     .stat img {

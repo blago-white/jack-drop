@@ -89,7 +89,7 @@ services:
     build:
       dockerfile: Dockerfile.celery
     restart: always
-    command: celery -A common beat -l info -f /home/app/users/celery.log
+    command: celery -A common beat -l debug -f /home/app/users/celery.log
     container_name: userscelery
     volumes:
       - ./users/celery.log:/home/app/users/celery.log

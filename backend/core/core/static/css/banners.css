@@ -8,7 +8,7 @@
 
 .banner {
     width: 100%;
-    height: calc(100vw * calc(437/ var(--reference-display-w)));
+    height: calc(100vw * calc(389/ var(--reference-display-w)));
     background: transparent;
 
     display: flex;
@@ -78,6 +78,7 @@
 @media (aspect-ratio < 1/1) {
     .banner {
         min-height: 5vh;
+        height: calc(100vw * calc(420/ var(--reference-display-w)));
     }
 
     .banners {

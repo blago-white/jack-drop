@@ -30,6 +30,7 @@ class DropCaseRequestSerializer(serializers.Serializer):
     case_id = serializers.IntegerField(min_value=0)
     items = DropItemSerializer(many=True, required=True)
     funds = FundsState(required=True)
+    user_id = serializers.IntegerField(min_value=0)
     price = serializers.FloatField(min_value=0)
 
 

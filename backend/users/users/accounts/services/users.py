@@ -41,17 +41,3 @@ class UsersService(BaseUsersService):
         qs = self._model.objects.filter(pk__in=users_ids)
 
         return len(users_ids) == len(qs), qs
-
-    @transaction.atomic
-    def bulk_inflate_advantages(self) -> bool:
-        users: list[Client] = self._model.objects.select_related(
-            "advantage"
-        )
-
-        for user in users:
-            if user.advantage.value < 0:
-                user.advantage = models.Min(
-                    models.F("advantage")+(200/24), 0
-                )
-
-        self._model.objects.bulk_update(users, ["advantage"])

@@ -1,11 +1,10 @@
 from celery import shared_task
 
-from accounts.services.users import UsersService
-from accounts.models.client import Client
+from accounts.services.advantage import AdvantageService
 
 
 @shared_task(name="inflate_advantage")
 def inflate_advantage():
-    users_service = UsersService()
+    advantage_service = AdvantageService()
 
-    users_service.bulk_inflate_advantages()
+    advantage_service.bulk_inflate_advantages()

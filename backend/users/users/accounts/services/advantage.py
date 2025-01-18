@@ -37,3 +37,14 @@ class AdvantageService(BaseService):
             user.advantage = advantage
 
             user.save()
+
+    @transaction.atomic
+    def bulk_inflate_advantages(self) -> bool:
+        advantages = self._model.objects.filter(
+            value__lt=0
+        ).select_for_update()
+
+        for advantage in advantages:
+            advantage.value = min(advantage.value+(200/(24*2)), 0)
+
+        self._model.objects.bulk_update(advantages, ["value"])

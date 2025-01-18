@@ -195,10 +195,10 @@ function unselectItem(id) {
 
     newAmount = Math.max(current_amount - priceMapping.get(id), 0);
 
-    document.getElementById('contract-amount').innerHTML = newAmount;
+    document.getElementById('contract-amount').innerHTML = newAmount.toFixed(0);
 
-    document.getElementById('prst').innerHTML = `${Math.ceil(newAmount/2)}`;
-    document.getElementById('prsp').innerHTML = `${Math.ceil(newAmount*4)}`;
+    document.getElementById('prst').innerHTML = `${(newAmount/2).toFixed(0)}`;
+    document.getElementById('prsp').innerHTML = `${(newAmount*4).toFixed(0)}`;
 
     selected.delete(id);
 
@@ -215,14 +215,14 @@ async function animateContract() {
         document.getElementsByTagName('video')[4].playbackRate  = 2;
         await document.getElementsByTagName('video')[4].play();
 
+        await declineAmount();
+
         for (let [key, value] of selected.entries()) {
             document.getElementById(`v${key}`).classList.add("used");
             document.getElementById(`v${key}`).style.marginLeft = `${39+(bias*c)}vw`;
             await sleep(6000 / selected.size)
             c ++;
         }
-
-        await declineAmount();
     } else {
         await document.getElementsByTagName('video')[0].play();
 
@@ -238,8 +238,8 @@ async function declineAmount() {
 
     while (val>0) {
         document.getElementById('contract-amount').innerHTML = `${val}`;
-        val -= 50;
-        await sleep(1);
+        val -= 10;
+        await sleep(10);
     }
 
     document.getElementById('contract-amount').innerHTML = `0`;
@@ -300,12 +300,12 @@ function selectItem(id) {
 
     const current_amount = parseInt(document.getElementById('contract-amount').innerHTML);
 
-    newAmount = current_amount + priceMapping.get(id);
+    newAmount = (current_amount + priceMapping.get(id)).toFixed(0);
 
     console.log(newAmount, startRange);
 
-    document.getElementById('prst').innerHTML = `${Math.ceil(newAmount/2)}`;
-    document.getElementById('prsp').innerHTML = `${Math.ceil(newAmount*4)}`;
+    document.getElementById('prst').innerHTML = `${(newAmount/2).toFixed(0)}`;
+    document.getElementById('prsp').innerHTML = `${(newAmount*4).toFixed(0)}`;
 
     document.getElementById('contract-amount').innerHTML = newAmount;
 
