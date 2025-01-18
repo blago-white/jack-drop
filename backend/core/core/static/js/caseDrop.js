@@ -88,17 +88,17 @@ export async function getCase(id) {
         line.push(`
             <article class="item-card itm-${element.case_item_id}" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;">
                 <div class="dropped-content">
-                        <div class="item-numeric-info">
-                            <span class="item-price ${rareColor}"><span>${element.price}</span> <img src="/core/static/img/gear.png"></span>
-                        </div>
+                    <div class="item-numeric-info">
+                        <span class="item-price ${rareColor}"><span>${element.price}</span> <img src="/core/static/img/gear.png"></span>
+                    </div>
 
-                        <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
-                            <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
-                            <img src="${element.image_path}" class="item-card-img" style="width: 66%;grid-row: 1;
-                            grid-column: 1;">
-                        </div>
+                    <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                        <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                        <img src="${element.image_path}" class="item-card-img" style="width: 66%;grid-row: 1;
+                        grid-column: 1;">
+                    </div>
 
-                        <span class="item-title">${element.title}</span>
+                    <span class="item-title">${element.title}</span>
                 </div>
             </article>
         `);
@@ -117,17 +117,17 @@ export async function getCase(id) {
         lineDrops.push(`
             <article class="item-card itm-${element.case_item_id}" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;" id="drop-${element.case_item_id}">
                 <div class="dropped-content">
-                        <div class="item-numeric-info">
-                            <span class="item-price ${rareColor}"><span>${element.price}</span> <img src="/core/static/img/gear.png"></span>
-                        </div>
+                    <div class="item-numeric-info">
+                        <span class="item-price ${rareColor}"><span>${element.price}</span> <img src="/core/static/img/gear.png"></span>
+                    </div>
 
-                        <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
-                            <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
-                            <img src="${element.image_path}" class="item-card-img" style="width: 66%;grid-row: 1;
-                            grid-column: 1;">
-                        </div>
+                    <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                        <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                        <img src="${element.image_path}" class="item-card-img" style="width: 66%;grid-row: 1;
+                        grid-column: 1;">
+                    </div>
 
-                        <span class="item-title">${element.title}</span>
+                    <span class="item-title">${element.title}</span>
                 </div>
             </article>
         `);
@@ -139,6 +139,8 @@ export async function getCase(id) {
     lineDrops = (lineDrops.sort(() => Math.random() - 0.5)).join("");
 
     dropItemsString.innerHTML += line + line + line + line + line + line + lineDrops + line + line;
+
+    try {document.getElementById(`selectedGranted`).remove();} catch {}
 
     await dropCase();
 }

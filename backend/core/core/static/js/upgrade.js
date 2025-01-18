@@ -249,8 +249,11 @@ function selectGrantedItem(elem) {
 
     const raw_id = parseInt(elem.id.slice(2));
 
-    document.getElementById('u-m-1').src = grantedItems.get(raw_id).image_path;
-    document.getElementById('u-d-1').src = grantedItems.get(raw_id).image_path;
+    if (gcd() < 1/1) {
+        document.getElementById('u-m-1').src = grantedItems.get(raw_id).image_path;
+    } else {
+        document.getElementById('u-d-1').src = grantedItems.get(raw_id).image_path;
+    }
 
     selectedGranted = elem.id;
     elem.style.filter = 'grayscale(1)';
@@ -265,9 +268,11 @@ function selectReceiveItem(elem) {
     }
 
     const raw_id = parseInt(elem.id.slice(2));
-
-    document.getElementById('u-m-2').src = receiveItems.get(raw_id).image_path;
-    document.getElementById('u-d-2').src = receiveItems.get(raw_id).image_path;
+    if (gcd() < 1/1) {
+        document.getElementById('u-m-2').src = receiveItems.get(raw_id).image_path;
+    } else {
+        document.getElementById('u-d-2').src = receiveItems.get(raw_id).image_path;
+    }
 
     selectedReceive = elem.id;
     elem.style.filter = 'grayscale(1)';
@@ -297,7 +302,7 @@ async function makeUpgrade() {
     myHeaders.append("Content-Type", "application/json");
 
     if (!selectedGrantedBalance && document.getElementById(selectedGranted)) {
-        document.getElementById(selectedGranted).remove();
+        try {document.getElementById(`selectedGranted`).remove();} catch {}
     }
 
     const requestOptions = {
@@ -424,13 +429,21 @@ function updateReceiveList(from, to) {
         location.href = location.href;
     }
 
+    const isMobile = gcd() < 1/1;
+
     Array.from(receiveItems.keys()).forEach((elementId) => {
         if (receiveItems.get(elementId).price < from || receiveItems.get(elementId).price > to) {
-            document.getElementById(`dr${elementId}`).style.display = 'none';
-            document.getElementById(`mr${elementId}`).style.display = 'none';
+            if (!isMobile) {
+                document.getElementById(`dr${elementId}`).style.display = 'none';
+            } else {
+                document.getElementById(`mr${elementId}`).style.display = 'none';
+            }
         } else {
-            document.getElementById(`dr${elementId}`).style.display = 'flex';
-            document.getElementById(`mr${elementId}`).style.display = 'flex';
+            if (!isMobile) {
+                document.getElementById(`dr${elementId}`).style.display = 'flex';
+            } else {
+                document.getElementById(`mr${elementId}`).style.display = 'flex';
+            }
         }
     });
 }

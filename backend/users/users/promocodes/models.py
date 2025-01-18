@@ -11,6 +11,11 @@ class Promocode(models.Model):
     code = models.CharField(max_length=MAX_PROMOCODE_LENGTH,
                             unique=True,
                             verbose_name="Promo code")
+    blogger = models.OneToOneField(to="referrals.Referral",
+                                   on_delete=models.SET_NULL,
+                                   null=True,
+                                   related_name="promocodes",
+                                   related_query_name="promocodes")
     discount = models.IntegerField(verbose_name="Discount percent",
                                    validators=[
                                        MinValueValidator(0),

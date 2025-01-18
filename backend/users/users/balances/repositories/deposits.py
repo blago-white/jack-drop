@@ -38,37 +38,42 @@ class DepositRepository(BaseRepository):
 
         serialized.is_valid(raise_exception=True)
 
-        used_promo = None
+        used_promo = promo_blogger = None
 
         if promocode:
-            discount, used_promo = self._promocodes_service.use(
+            discount, used_promo, promo_blogger = self._promocodes_service.use(
                 promocode=promocode,
             )
 
-            bonused = amount * discount / 100
+            bonused = amount * (discount / 100)
         else:
             bonused = 0
 
         created = self._service.add(
             client_id=client_id,
-            amount=amount+bonused,
-            bonused=bonused,
+            amount=amount,
+            bonused=amount+bonused,
             promocode=used_promo
         )
 
         if not created:
             raise ValidationError("Error with replenish data", code=400)
 
-        to_referr_profit = self._referrals_service.add_referral_deposit(
-            referral_id=client_id,
-            payed_amount=amount
-        )
-
-        if to_referr_profit:
-            self._advantage_service.update(
-                user_id=client_id,
-                delta_amount=-to_referr_profit
+        if not promo_blogger:
+            to_referr_profit = self._referrals_service.add_referral_deposit(
+                referral_id=client_id,
+                payed_amount=amount
             )
+        else:
+            to_referr_profit = self._referrals_service.add_referr_promocode_deposit(
+                referr=promo_blogger,
+                amount=amount
+            )
+
+        self._advantage_service.update(
+            user_id=client_id,
+            delta_amount=-((bonused - amount) + to_referr_profit)
+        )
 
         result = self._serializer_class(created).data
 

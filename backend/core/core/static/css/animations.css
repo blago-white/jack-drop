@@ -1,0 +1,63 @@
+@keyframes startAnim {
+    0% {
+        opacity: 0;
+        transform: scale(.2);
+    }
+
+    10% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    90% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(.2);
+    }
+}
+
+.animation {
+    opacity: 0;
+    transform: scale(.2);
+    position: absolute;
+    top: 0px;
+    pointer-events: none;
+    height: 85vh;
+    top: 7.5vh;
+    left: auto;
+    transition: opacity .5s ease, transform .5s ease, background .5s .5s ease;
+}
+
+.animation.active {
+    animation: 10.5s ease 0s 1 startAnim;
+}
+
+.animation.active-forever {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.anim-item-img {
+    position: absolute;
+    height: 22vh;
+    top: 42vh;
+    transform: scale(.2);
+    opacity: 0;
+    transition: all .5s ease;
+}
+
+.anim-item-img.active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+#prize-wrappper {
+    position: absolute;
+    height: 100%;
+    transition: background-color .5s ease!important;
+    overflow: hidden;
+}

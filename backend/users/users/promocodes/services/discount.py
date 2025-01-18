@@ -1,6 +1,8 @@
 from django.db import models
 
 from accounts.models import Client
+from referrals.models.referral import Referral
+
 from ..models import Promocode, PromocodeActivation
 
 from common.services import BaseService
@@ -17,9 +19,11 @@ class PromocodesService(BaseService):
         except:
             return 0
 
-    def use(self, promocode: str) -> tuple[int, Promocode | None]:
+    def use(self, promocode: str) -> tuple[
+        int, Promocode | None, Referral | None
+    ]:
         try:
-            promo = self._model.objects.get(code=promocode)
+            promo: Promocode = self._model.objects.get(code=promocode)
 
             if not promo.usages:
                 raise ValueError
@@ -31,4 +35,4 @@ class PromocodesService(BaseService):
 
         promo.save()
 
-        return promo.discount, promo
+        return promo.discount, promo, promo.blogger

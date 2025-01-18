@@ -87,3 +87,16 @@ class ReferralService(BaseService):
             return referr_profit
         
         return 0
+
+    @staticmethod
+    def add_referr_promocode_deposit(referr: Referral,
+                                     amount: float) -> float:
+        discount = referr.benefit_percent / 100
+
+        referr.referrals_loses_funds = F("referrals_loses_funds") + (
+            amount * discount
+        )
+
+        referr.save()
+
+        return amount * discount
