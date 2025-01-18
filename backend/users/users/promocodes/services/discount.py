@@ -28,7 +28,7 @@ class PromocodesService(BaseService):
             if not promo.usages:
                 raise ValueError
         except:
-            return 0, None
+            return 0, None, None
 
         if not int(promo.usages) <= -1:
             promo.usages = models.F("usages") - 1
