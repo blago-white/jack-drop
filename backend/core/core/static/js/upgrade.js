@@ -100,7 +100,7 @@ async function getInevntoryItems() {
 
                         <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
                             <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
-                            <img src="${element.item.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
+                            <img src="${element.item.image_path}" loading="lazy" style="width: 100%;grid-row: 1;grid-column: 1;">
                         </div>
 
                         <span class="item-title">${element.item.title}</span>
@@ -120,7 +120,7 @@ async function getInevntoryItems() {
 
                         <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
                             <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
-                            <img src="${element.item.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
+                            <img src="${element.item.image_path}" loading="lazy" style="width: 100%;grid-row: 1;grid-column: 1;">
                         </div>
 
                         <span class="item-title">${element.item.title}</span>
@@ -163,53 +163,69 @@ async function getReceiveItems(minItemPrice) {
     let receiveHTML = '';
     let receiveDesctopHTML = '';
 
+    const isMobile = gcd() < 1/1;
+
+    if (!isMobile) {
+        document.getElementById('items-feed-desctop').addEventListener('load', () => {try {document.getElementById("loadScreen").remove()} catch {}})
+    } else {
+        document.getElementById('items-feed').addEventListener('load', () => {try {document.getElementById("loadScreen").remove()} catch {}})
+    }
+
+    if (!(await getAuthenticated())) {
+        try {
+            document.getElementById("loadScreen").remove()
+        } catch {}
+    }
+
     if (result) {
         result.forEach((element) => {
             rareColor = getCardColor(result.length, c);
 
-            const elem = `
-                <article class="item-card" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;cursor: pointer;" id="mr${element.id}" onclick="selectReceiveItem(this)">
-                    <div class="dropped-content">
-                        <div class="item-numeric-info">
-                            <span class="item-price ${rareColor}"><span>${element.price}</span> <img
-                            src="/core/static/img/gear.png"></span>
+            if (isMobile) {
+                const elem = `
+                    <article class="item-card" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;cursor: pointer;" id="mr${element.id}" onclick="selectReceiveItem(this)">
+                        <div class="dropped-content">
+                            <div class="item-numeric-info">
+                                <span class="item-price ${rareColor}"><span>${element.price}</span> <img
+                                src="/core/static/img/gear.png"></span>
+                            </div>
+
+                            <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                                <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                                <img src="${element.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
+                            </div>
+
+                            <span class="item-title">${element.title}</span>
                         </div>
+                    </article>
+                `;
 
-                        <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
-                            <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
-                            <img src="${element.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
+                receiveHTML += elem;
+            } else {
+                const elemDesc = `
+                    <article class="item-card" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;cursor: pointer;"
+                    id="dr${element.id}"
+                    onclick="selectReceiveItem(this)">
+                        <div class="dropped-content">
+                            <div class="item-numeric-info">
+                                <span class="item-price ${rareColor}"><span>${element.price}</span> <img
+                                src="/core/static/img/gear.png"></span>
+                            </div>
+
+                            <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
+                                <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
+                                <img src="${element.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
+                            </div>
+
+                            <span class="item-title">${element.title}</span>
                         </div>
+                    </article>
+                `;
 
-                        <span class="item-title">${element.title}</span>
-                    </div>
-                </article>
-            `;
-
-            const elemDesc = `
-                <article class="item-card" style="background: url(/core/static/img/card-bg-${rareColor}.png);background-size:cover;cursor: pointer;"
-                id="dr${element.id}"
-                onclick="selectReceiveItem(this)">
-                    <div class="dropped-content">
-                        <div class="item-numeric-info">
-                            <span class="item-price ${rareColor}"><span>${element.price}</span> <img
-                            src="/core/static/img/gear.png"></span>
-                        </div>
-
-                        <div style="display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;width: 100%;max-width: 100%;justify-items: center;align-items: center;">
-                            <img src="/core/static/img/card-jd-logo.png" style="grid-row: 1;grid-column: 1;width: 100%;">
-                            <img src="${element.image_path}" style="width: 100%;grid-row: 1;grid-column: 1;">
-                        </div>
-
-                        <span class="item-title">${element.title}</span>
-                    </div>
-                </article>
-            `;
-
-            receiveHTML += elem;
-            receiveDesctopHTML += elemDesc;
+                receiveDesctopHTML += elemDesc;
+            }
 
             receiveItems.set(element.id, element);
-
             c++;
         })
 

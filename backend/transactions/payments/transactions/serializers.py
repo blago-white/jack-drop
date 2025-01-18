@@ -9,4 +9,6 @@ class TransactionCreationSerializer(serializers.Serializer):
     user_id = serializers.IntegerField()
     user_login = serializers.CharField(max_length=200)
     amount = serializers.FloatField(min_value=500)
-    promocode = serializers.CharField(max_length=16, allow_null=True)
+    promocode = serializers.CharField(max_length=16,
+                                      allow_null=True,
+                                      allow_blank=True)

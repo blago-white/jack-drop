@@ -6,17 +6,23 @@
     padding-inline: calc(100vw * calc(132 / var(--reference-display-w)));
     padding-block: calc(100vw * calc(25 / var(--reference-display-w)));
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     height: 8vh;
 
     position: absolute;
     width: -webkit-fill-available;
     bottom: 0px;
+    gap: 4%;
 }
 
 .c {
-    font-size: calc(100vw * calc(28 / var(--reference-display-w)));
+    font-size: calc(100vw* calc(23 / var(--reference-display-w)));
+}
+
+.c b {
+    font-family: 'Gilroy Bold';
+    font-size: calc(100vw* calc(28 / var(--reference-display-w)));
 }
 
 .site-info {
@@ -30,13 +36,15 @@
     gap: calc(100vw * calc(64 / var(--reference-display-w)));
     height: calc(100vw * calc(56 / var(--reference-display-w)));
     list-style: none;
+    padding: 0px;
 }
 
 .footer-docs-list {
+    line-height: 1.1;
     list-style: none;
     text-transform: none;
-    border-left: 1px solid;
-    padding-inline: 2ch;
+    border-left: 2px solid #979797;
+    padding-left: .75ch;
 }
 
 .doc-link {

@@ -323,47 +323,49 @@ battleSocket.send(JSON.stringify({"type": "crb", "payload": {}}));
 }
 
 async function getCases() {
-const requestOptions = {
-	  method: "GET",
-	};
+    const requestOptions = {
+          method: "GET",
+    };
 
-const response = await sendRequest(
-`https://${location.hostname}/products/games/battles/`,
-requestOptions
-	);
+    const response = await sendRequest(
+        `https://${location.hostname}/products/games/battles/`,
+    requestOptions
+        );
 
-const result = await response.json();
+    const result = await response.json();
 
-const startButtonText = document.getElementById('create-battle').innerHTML;
+    const startButtonText = document.getElementById('create-battle').innerHTML;
 
-result.forEach((element) => {
-battleCases.set(element.id, element);
+    result.forEach((element) => {
+        battleCases.set(element.id, element);
 
-const count = element.battles_count;
+        const count = element.battles_count;
 
-battlesTable.innerHTML += `
-    <div class="battle">
-	<div class="case-sign">
-<img class="battle-case" src="${element.image_path}" id="case-img-${element.id}">
-<span>${element.title}</span>
-	</div>
-	<span class="count-battles">${element.battles_count}</span>
-<span class="price">${element.price}</span>
-<div style="display: flex;flex-direction: row;">
-<button onclick="onListBattles(${element.id});"
-    id="create-battle"
-class="button button-colorized rose create-battle">
-ПОДКЛ.
-</button>
-	<button onclick="onCreateBattle(${element.id});"
-	id="create-battle"
-class="button button-colorized blue create-battle">
-${startButtonText}
-</button>
-</div>
-	</div>
-`
+        battlesTable.innerHTML += `
+            <div class="battle">
+                <div class="case-sign">
+                <img class="battle-case" src="${element.image_path}" id="case-img-${element.id}">
+                <span>${element.title}</span>
+                    </div>
+                    <span class="count-battles">${element.battles_count}</span>
+                <span class="price">${element.price}</span>
+                <div style="display: flex;flex-direction: row;">
+                <button onclick="onListBattles(${element.id});"
+                    id="create-battle"
+                class="button button-colorized rose create-battle">
+                ПОДКЛ.
+                </button>
+                    <button onclick="onCreateBattle(${element.id});"
+                    id="create-battle"
+                class="button button-colorized blue create-battle">
+                ${startButtonText}
+                </button>
+                </div>
+            </div>
+        `
 	})
+
+    try {document.getElementById("loadScreen").remove()} catch {}
 }
 
 async function getStats() {
@@ -484,19 +486,21 @@ document.getElementById('show-btn-bg').style = 'background: gray;box-shadow: non
 }
 
 async function changeBtn() {
-if (!(await getAuthenticated())) {
-battlesHead.style.display = 'none';
-battlesTable.style.display = 'none';
-battlesRequest.style.display = 'flex';
+    if (!(await getAuthenticated())) {
+        battlesHead.style.display = 'none';
+        battlesTable.style.display = 'none';
+        battlesRequest.style.display = 'flex';
 
-document.getElementById('battle-login-btn').onclick = () => {
-location.href = '/auth/';
-	};
+        document.getElementById('battle-login-btn').onclick = () => {
+            location.href = '/auth/';
+        };
 
-document.getElementById('founding-label').innerHTML = document.getElementById('long-enter-text').innerHTML;
+        document.getElementById('founding-label').innerHTML = document.getElementById('long-enter-text').innerHTML;
 
-document.getElementById('battle-login').innerHTML = document.getElementById('long-enter-text').innerHTML;
-	}
+        document.getElementById('battle-login').innerHTML = document.getElementById('long-enter-text').innerHTML;
+
+        try {document.getElementById("loadScreen").remove()} catch {}
+    }
 }
 
 getCases();

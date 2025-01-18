@@ -77,9 +77,9 @@
 @media (aspect-ratio < 3/2) {
     .stats-table {
         flex-direction: column;
-        padding-inline: 5%;
-        padding-block: 1%;
-        border-radius: calc(100vw* calc(73 / 1920));
+        border-radius: calc(100vw* calc(73 / 1920))!important;
+        padding-block: 2%!important;
+        padding-inline: 5%!important;
     }
 
     .stat-name {

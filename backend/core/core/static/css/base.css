@@ -2,6 +2,22 @@
 @import 'colors.css';
 @import "variables.css";
 
+
+@keyframes loader-icon {
+    0% {
+        transform: scale(2);
+    }
+
+    50% {
+        transform: scale(3.5)
+    }
+
+    100% {
+        transform: scale(2);
+    }
+}
+
+
 body {
     font-family: 'Gilroy Regular', sans-serif;
     color: var(--fg-color);
@@ -37,6 +53,10 @@ body a {
     top: 0px;
     left: 0px;
     z-index: -1;
+}
+
+#loader-icon {
+    animation: 1.5s ease-in-out 0s infinite loader-icon;
 }
 
 .main-content {
