@@ -1,5 +1,109 @@
 .refer-cabinet-container {
     display: grid;
-    grid-template-rows: 40% 60%;
+    grid-template-rows: calc(100vw* calc(335 / 1920)) calc(100vw* calc(462 / 1920));
     grid-template-columns: repeat(4, 1fr);
+    gap: 1em;
+}
+
+.refer-acc-info {
+    margin: 0px;
+    background: rgb(22, 22, 22);
+    border-radius: calc(100vw* calc(20 / 1920));
+    padding: calc(100vw* calc(40 / 1920));
+    display: flex;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-items: flex-start;
+}
+
+.refer-stat {
+    border-radius: calc(100vw* calc(20 / 1920));
+    padding: calc(100vw* calc(40 / 1920));
+    display: flex;
+    background: #181818;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+h1 {
+    border-radius: calc(100vw* calc(20 / 1920));
+    padding: calc(100vw* calc(40 / 1920));
+    display: flex;
+    background: #181818;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0px;
+}
+
+
+.refer-stat-value {
+    margin: 0px;
+    font-size: calc(100vw* calc(64 / 1920));
+    font-weight: 700;
+    font-family: 'Gilroy Bold';
+}
+
+
+.refer-stat-name {
+    font-size: calc(100vw* calc(24 / 1920));
+    max-width: 70%;
+}
+
+.stat-chart {
+    grid-column-end: 5;
+    grid-column-start: 2;
+}
+
+.ref-link {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 80%;
+    background: #181818;
+    border-radius: inherit;
+    padding: calc(100vw* calc(40 / 1920));
+    gap: calc(100vw* calc(14 / 1920));
+    height: 100%;
+    justify-content: space-between;
+}
+
+.ref-link-field-name {
+    font-family: 'Gilroy Bold';
+    font-size: calc(100vw* calc(24 / 1920));
+}
+
+.ref-link-field {
+    background: #222;
+    width: -webkit-fill-available;
+    border-radius: inherit;
+    padding: 1ch;
+    font-size: 0.7em;
+    padding-inline: 2ch;
+    text-transform: lowercase;
+}
+
+.withdraw {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 80%;
+    background: #181818;
+    border-radius: inherit;
+    padding: calc(100vw* calc(40 / 1920));
+    gap: calc(100vw* calc(14 / 1920));
+    background: linear-gradient(45deg, #4FA0FF, #0047FF);
+}
+
+.can-withdraw {
+    font-size: calc(100vw* calc(64 / 1920));
+    margin: 0px;
+    font-family: 'Gilroy Bold';
+}
+
+.refer-stat.side-ref-info {
+    background: transparent;
+    padding: 0px;
+    gap: 1em;
 }

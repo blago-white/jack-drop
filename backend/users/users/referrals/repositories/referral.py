@@ -24,6 +24,9 @@ class ReferralRepository(BaseRepository):
         data = self._serializer_class(
             data={"referr_id": referral_id,
                   "profit": referral_.referrals_loses_funds,
+                  "reflink": referral_.full_refer_link,
+                  "total_deposits": (referral_.referrals_loses_funds /
+                                     referral_.benefit_percent)*100,
                   "count_referrals": count_referrals})
 
         data.is_valid()

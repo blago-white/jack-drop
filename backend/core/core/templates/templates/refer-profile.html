@@ -8,37 +8,38 @@ Case Info | Jack Drop
 
 {% block links %}
 <link href="{% static 'css/refer.css' %}" rel="stylesheet" type="text/css">
-<link href="{% static 'css/animations.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block main %}
 <section class="refer-cabinet-container">
-    <h1>
-        <img id="refer-avatar" src="...">
-        <span id="refer-name">User</span>
+    <h1 class="refer-acc-info">
+        <img id="referAvatar" src="...">
+        <span id="referName">User</span>
     </h1>
     <article class="refer-stat">
-        <h2 class="refer-stat-value">3</h2>
+        <h2 class="refer-stat-value" id="countActivations">3</h2>
         <span class="refer-stat-name">Активация промокодов</span>
     </article>
     <article class="refer-stat">
-        <h2 class="refer-stat-value">4700</h2>
+        <h2 class="refer-stat-value" id="depositsTotalAmount">4700</h2>
         <span class="refer-stat-name">Сумма депозитов</span>
     </article>
     <article class="refer-stat">
-        <h2 class="refer-stat-value">5400</h2>
+        <h2 class="refer-stat-value" id="depositsProfit">5400</h2>
         <span class="refer-stat-name">Доход от пополнений</span>
     </article>
     <article class="refer-stat side-ref-info">
         <div class="ref-link">
             <span class="ref-link-field-name">Реферальная ссылка</span>
-            <span class="ref-link-field" onclick="copyRefLink()">...</span>
+            <span class="ref-link-field" id="refLink" onclick="copyRefLink()">https://jackdrop.online/auth/?ref=24jmh4j2k4bd74</span>
         </div>
-        <div>
+        <div class="withdraw">
             <h2 class="can-withdraw">100Р</h2>
-            <button class="withdraw">Вывести</button>
+            <button class="super-button" onclick="return false;">
+                <span class="super-button-bg" style="background: #FF007A;box-shadow: none;"></span>
+                <span class="super-button-text">Вывести</span>
+            </button>
         </div>
-        <button class="withdraw-history">История выводов</button>
     </article>
     <article class="refer-stat stat-chart">
         Скоро здесь будет красивый график...
@@ -47,5 +48,5 @@ Case Info | Jack Drop
 {% endblock %}
 
 {% block extrascripts %}
-<script src="{% static 'js/animations.js' %}" type="module"></script>
+<script src="{% static 'js/refer.js' %}" type="module"></script>
 {% endblock %}

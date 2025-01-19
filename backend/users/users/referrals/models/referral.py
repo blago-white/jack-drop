@@ -33,6 +33,10 @@ class Referral(models.Model):
     def __str__(self):
         return f"{self.user} | {self.benefit_percent}%"
 
+    @property
+    def full_refer_link(self):
+        return f"https://jackdrop.online/auth/&ref={self.referr_link}"
+
     def save(
             self, *args, **kwargs
     ):

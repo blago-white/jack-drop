@@ -11,6 +11,10 @@ class ReferralStatusSerializer(serializers.Serializer):
         queryset=UsersService().get_all()
     )
 
+    reflink = serializers.CharField()
+
+    total_deposits = serializers.FloatField(allow_null=True, default=0.0)
+
     profit = serializers.FloatField(allow_null=True, default=0.0)
 
     count_referrals = serializers.IntegerField(allow_null=True,
