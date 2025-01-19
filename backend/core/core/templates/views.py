@@ -136,3 +136,10 @@ def items_set(request, set_id):
             "set_id": set_id
         }
     )
+
+
+def refer_profile(request):
+    return render(
+        request=request,
+        template_name="refer-profile.html"
+    )

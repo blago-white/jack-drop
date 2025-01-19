@@ -7,6 +7,9 @@
 
 .case-data-wrapper {
     border-radius: calc(100vw * calc(20 / var(--reference-display-w)));
+    background-color: #33333320;
+    backdrop-filter: blur(calc(100vw* calc(72 / 1920)));
+    border: calc(100vw* calc(1 / 1920)) solid #979797;
 }
 
 #price-label {
@@ -115,13 +118,17 @@
         justify-items: center;
     }
 
+    .case-data-wrapper {
+        padding: calc(100vw* calc(54 / var(--reference-display-w)));
+    }
+
     .case-info {
         flex-direction: column;
         gap: calc(100vw* calc(50 / var(--reference-display-w)));
     }
 
     #case-title {
-        font-size: calc(100vw* calc(110 / var(--reference-display-w)));
+        font-size: calc(100vw* calc(77 / var(--reference-display-w)));
     }
 
     #case-drop-data {
@@ -155,6 +162,11 @@
     }
 
     .item-card {
-        padding: calc(100vw* calc(18 / var(--reference-display-w))) !important
+        padding: calc(100vw* calc(18 / var(--reference-display-w))) !important;
+        font-size: 3em;
+    }
+
+    .item-price span {
+        font-size: calc(100vw* calc(27 / var(--reference-display-w)));
     }
 }

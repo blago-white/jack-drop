@@ -140,9 +140,9 @@ export async function getCase(id) {
 
     dropItemsString.innerHTML += line + line + line + line + line + line + lineDrops + line + line;
 
-    try {document.getElementById(`selectedGranted`).remove();} catch {}
-
     await dropCase();
+
+    try {document.getElementById(`selectedGranted`).remove();} catch {}
 }
 
 async function dropCase() {

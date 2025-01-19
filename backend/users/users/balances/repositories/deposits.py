@@ -72,7 +72,7 @@ class DepositRepository(BaseRepository):
 
         self._advantage_service.update(
             user_id=client_id,
-            delta_amount=-((bonused - amount) + to_referr_profit)
+            delta_amount=bonused + to_referr_profit
         )
 
         result = self._serializer_class(created).data

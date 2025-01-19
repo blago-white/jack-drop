@@ -1,0 +1,5 @@
+.refer-cabinet-container {
+    display: grid;
+    grid-template-rows: 40% 60%;
+    grid-template-columns: repeat(4, 1fr);
+}
