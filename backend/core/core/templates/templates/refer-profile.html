@@ -13,7 +13,9 @@ Case Info | Jack Drop
 {% block main %}
 <section class="refer-cabinet-container">
     <h1 class="refer-acc-info">
-        <img id="referAvatar" src="...">
+        <img id="referAvatar" src="" style="border-radius: 25%;width: 33%;
+                                               outline: 3px solid #FF007A;
+                                               border: 6px solid #181818;">
         <span id="referName">User</span>
     </h1>
     <article class="refer-stat">
@@ -34,7 +36,7 @@ Case Info | Jack Drop
             <span class="ref-link-field" id="refLink" onclick="copyRefLink()">https://jackdrop.online/auth/?ref=24jmh4j2k4bd74</span>
         </div>
         <div class="withdraw">
-            <h2 class="can-withdraw">100Р</h2>
+            <h2 class="can-withdraw" id="canWithdrawProfit">100Р</h2>
             <button class="super-button" onclick="return false;">
                 <span class="super-button-bg" style="background: #FF007A;box-shadow: none;"></span>
                 <span class="super-button-text">Вывести</span>
@@ -42,7 +44,7 @@ Case Info | Jack Drop
         </div>
     </article>
     <article class="refer-stat stat-chart">
-        Скоро здесь будет красивый график...
+        Здесь скоро будет график
     </article>
 </section>
 {% endblock %}

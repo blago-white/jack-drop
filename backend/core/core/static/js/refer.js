@@ -1,7 +1,14 @@
 const user = await getAuthenticated();
 
+function copyRefLink() {
+    window.prompt("Copy to clipboard: Ctrl+C, Enter", document.getElementById('refLink').innerHTML);
+}
+
 async function renderInfo() {
-    const response = await sendRequest('https://{location.hostname}/auth/referrals/api/v1/public/status/');
+    const response = await sendRequest(
+        `https://${location.hostname}/auth/referrals/api/v1/public/status/`,
+        {method: "GET"}
+    );
 
     if (!response.ok) {
         alert("Ошибка с получением данных реф. статуса, обратитесь в поддержку!")
@@ -11,10 +18,12 @@ async function renderInfo() {
     const result = await response.json();
 
     document.getElementById('referName').innerHTML = user.username;
-    document.getElementById('countActivations').innetHTML = 'чуть позже:)';
-    document.getElementById('depositsTotalAmount').innetHTML = result.total_deposits;
-    document.getElementById('depositsProfit').innetHTML = result.profit;
-    document.getElementById('refLink').innetHTML = result.reflink;
+    document.getElementById('countActivations').innerHTML = 'чуть позже:)';
+    document.getElementById('depositsTotalAmount').innerHTML = result.total_deposits;
+    document.getElementById('depositsProfit').innerHTML = result.profit;
+    document.getElementById('refLink').innerHTML = result.reflink;
+    document.getElementById('canWithdrawProfit').innerHTML = result.profit;
+    document.getElementById('referAvatar').innerHTML = user.avatar;
 }
 
 if (!user || (user && (!user.is_blogger))) {
@@ -22,3 +31,5 @@ if (!user || (user && (!user.is_blogger))) {
 }
 
 renderInfo()
+
+window.copyRefLink = copyRefLink;
