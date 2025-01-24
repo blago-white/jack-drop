@@ -1,28 +1,46 @@
-from django.db.models import Sum, Model, F, Value
+from django.db.models import Sum, Model, F, Value, Q
 
 from common.services import BaseService
+from promocodes.models import Promocode
+
 from ..models.referral import Referral
 
 
 class ReferralService(BaseService):
     default_model = Referral
+    _promocodes_model = Promocode
     _deposits_model: Model
 
-    def __init__(self, deposit_model: Model):
+    def __init__(self, deposit_model: Model,
+                 promocodes_model: Promocode = None):
         self._deposits_model = deposit_model
+        self._promocodes_model = promocodes_model or self._promocodes_model
 
         super().__init__()
 
-    def get_deposits_sum(self, referr_id: int):
-        refferals = self._model.objects.filter(
+    def get_deposits_stat(self, referr_id: int) -> tuple[float, int]:
+        """
+        :return: tuple of two values, first - sum of deposits, second - count
+        """
+
+        refferals_ids = self._model.objects.filter(
             referr_id=referr_id
         ).values_list("user_id", flat=True)
 
+        referr_promocodes = self._promocodes_model.objects.filter(
+            blogger_id=referr_id
+        ).values_list("id", flat=True)
+
         deposits = self._deposits_model.objects.filter(
-            user_id__in=refferals
+            Q(user_id__in=refferals_ids) |
+            Q(promocode_id__in=referr_promocodes)
         ).aggregate(deposits=Sum("amount")).get("deposits", 0)
 
-        return deposits if deposits is not None else 0
+        promocodes_usages = self._deposits_model.objects.filter(
+            promocode_id__in=referr_promocodes
+        ).count()
+
+        return (0 or deposits), promocodes_usages
 
     def get_referrals_count(self, referral: Referral):
         return self._model.objects.filter(referr=referral).count() 

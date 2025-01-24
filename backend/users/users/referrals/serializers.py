@@ -13,9 +13,11 @@ class ReferralStatusSerializer(serializers.Serializer):
 
     reflink = serializers.CharField()
 
-    total_deposits = serializers.FloatField(allow_null=True, default=0.0)
+    total_deposits = serializers.FloatField(default=0.0)
 
-    profit = serializers.FloatField(allow_null=True, default=0.0)
+    profit = serializers.FloatField(default=0.0)
+
+    count_promocodes_activations = serializers.IntegerField(default=0.0)
 
     count_referrals = serializers.IntegerField(allow_null=True,
                                                default=0,

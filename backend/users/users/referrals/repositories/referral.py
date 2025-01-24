@@ -21,19 +21,19 @@ class ReferralRepository(BaseRepository):
 
         count_referrals = self._service.get_referrals_count(referral=referral_)
 
+        deposits_sum, promocodes_usages = self._service.get_deposits_stat(
+            referr_id=referral_id
+        )
+
         data = self._serializer_class(
             data={"referr_id": referral_id,
                   "profit": referral_.referrals_loses_funds,
                   "reflink": referral_.full_refer_link,
-                  "total_deposits": (referral_.referrals_loses_funds /
-                                     referral_.benefit_percent)*100,
+                  "total_deposits": float(deposits_sum or 0),
+                  "count_promocodes_activations": promocodes_usages,
                   "count_referrals": count_referrals})
 
         data.is_valid()
-
-        print(self._service.get_deposits_sum(referr_id=referral_id))
-
-        print(f"REF STATUS {data.data=}")
 
         return data.data
 

@@ -35,7 +35,7 @@ class Referral(models.Model):
 
     @property
     def full_refer_link(self):
-        return f"https://jackdrop.online/auth/&ref={self.referr_link}"
+        return f"https://jackdrop.online/auth/?ref={self.referr_link}"
 
     def save(
             self, *args, **kwargs
