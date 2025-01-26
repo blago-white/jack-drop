@@ -23,7 +23,7 @@ class SteamAccountsService:
         return self._get_user(steam_id=steam_id).get("personaname")
 
     def get_avatar(self, steam_id: str | int) -> str:
-        return self._get_user(steam_id=steam_id).get("avatar")
+        return self._get_user(steam_id=steam_id).get("avatarfull")
 
     def _get_user(self, steam_id: str | int) -> dict:
         return self._steam_service.users.get_user_details(

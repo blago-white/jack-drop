@@ -75,12 +75,10 @@ async function renderReferralStatus() {
 async function renderInfo() {
     const response = await getAuthenticated();
 
+    const _ = await renderReferralStatus();
     document.getElementById('usr-name').innerHTML = `${response.username}<span class="account-id-val">ID ${response.id}</span>`;
     document.getElementById('balance').innerHTML = `${Math.floor(response.balance)}`;
     document.getElementById('trade-link').value = response.trade_link;
-
-
-    renderReferralStatus()
 }
 
 
