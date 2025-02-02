@@ -4,7 +4,7 @@ from schedule.models import BannedOwner
 
 
 class BannedOwnersModelService(BaseModelService):
-    _model = BannedOwner
+    default_model = BannedOwner
 
     def is_banned(self, owner_id: int) -> bool:
         return not self._model.objects.filter(user_id=owner_id).exists()
