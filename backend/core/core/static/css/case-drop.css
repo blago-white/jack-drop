@@ -74,6 +74,11 @@
     margin-top: calc(100vw * calc(100 / var(--reference-display-w)));
 }
 
+article:hover {
+    transform: none!important;
+}
+
+
 @media (aspect-ratio < 1/1) {
     .case-drop-sec {
         width: calc(100vw* calc(530 / var(--reference-display-w)));

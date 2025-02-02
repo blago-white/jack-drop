@@ -113,6 +113,7 @@ class InventoryRepository(BaseRepository):
                 inventory_item_hash_name=item.item.market_hash_name,
                 item_market_link=item.item.market_link,
                 owner_trade_link=user_data.get("trade_link"),
+                owner_id=user_data.get("id"),
                 item_price=item.item.price,
             )
         )

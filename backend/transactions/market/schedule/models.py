@@ -7,3 +7,10 @@ class ScheduledItem(models.Model):
     item_market_link = models.URLField()
     price = models.IntegerField()
     trade_link = models.CharField()
+
+
+class BannedOwner(models.Model):
+    user_id = models.IntegerField(
+        "UID of banned user",
+        primary_key=True
+    )

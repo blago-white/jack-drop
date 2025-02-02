@@ -230,6 +230,10 @@ video {
     top: 90%;
 }
 
+article:hover {
+    transform: none!important;
+}
+
 @media (aspect-ratio < 1/1) {
     .bg-filter-img {
         background-size: initial;

@@ -14,6 +14,10 @@
     row-gap: calc(100vw* calc(60 / 1920));
 }
 
+article:hover {
+    transform: none!important;
+}
+
 .upgrade-item {
     display: flex;
     flex-direction: column;

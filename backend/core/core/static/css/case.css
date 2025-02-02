@@ -111,6 +111,16 @@
     padding-block: 1.5ch;
 }
 
+article {
+    cursor: pointer;
+
+    transition: all .2s ease;
+}
+
+article:hover {
+    transform: scale(1.07);
+}
+
 @media (aspect-ratio < 1/1) {
     .case-items {
         grid-template-columns: repeat(3, 1fr);

@@ -3,16 +3,22 @@ from common.repositories.base import BaseRepository
 
 from schedule.serializers import WithdrawItemSerializer
 from schedule.services.schedule import ScheduleModelService
+from schedule.services.banned import BannedOwnersModelService
 from schedule.services.transfer import ItemInfo
 
 
 class ScheduleRepository(BaseRepository):
     default_serializer_class = WithdrawItemSerializer
     default_service = ScheduleModelService()
+    default_banned_service = BannedOwnersModelService()
     default_dataclass = ItemInfo
 
-    def __init__(self, *args, dataclass: ItemInfo = None, **kwargs):
+    def __init__(self, *args,
+                 dataclass: ItemInfo = None,
+                 banned_service: BannedOwnersModelService = None,
+                 **kwargs):
         self._dataclass = dataclass or self.default_dataclass
+        self._banned_service = banned_service or self.default_banned_service
 
         super().__init__(*args, **kwargs)
 
@@ -22,6 +28,11 @@ class ScheduleRepository(BaseRepository):
         )
 
         serialized.is_valid(raise_exception=True)
+
+        if self._banned_service.is_banned(
+                owner_id=serialized.data.get("owner_id")
+        ):
+            raise ValidationError("Cannot withdraw, your banned!")
 
         result = self._service.add(item=self._serializer_to_dataclass(
             serialized=serialized

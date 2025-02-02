@@ -27,6 +27,12 @@
 
 .case-image {
     height: calc(100vw * calc(330 / var(--reference-display-w)));
+
+    transition: transform .2s ease;
+}
+
+.case-image:hover {
+    transform: scale(1.025);
 }
 
 .cases-row {
