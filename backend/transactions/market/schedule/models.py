@@ -14,3 +14,6 @@ class BannedOwner(models.Model):
         "UID of banned user",
         primary_key=True
     )
+
+    def __str__(self):
+        return f"Banned: {self.user_id}"
