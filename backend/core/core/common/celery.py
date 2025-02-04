@@ -25,8 +25,8 @@ app.conf.beat_schedule = {
         'schedule': 10.0,
         # Function Arguments
     },
-    'drop-cases-funds-ten-min': {
+    'drop-cases-funds-five-min': {
         'task': 'drop_cases_funds',
-        'schedule': 60*10,
+        'schedule': 60*5,
     }
 }
