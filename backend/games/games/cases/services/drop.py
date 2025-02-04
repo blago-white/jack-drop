@@ -81,7 +81,7 @@ class CaseItemDropService:
         items = list(filter(
             lambda item: (
                     request.state.site_active_funds >
-                    (item.price - request.case_price) and
+                    (item.price - request.case_price)*2 and
                     item.price >= (
                         request.case_price
                         if strict else
