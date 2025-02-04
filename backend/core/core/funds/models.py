@@ -55,3 +55,13 @@ class FreezeFundsPercent(SingleInstanceModel):
 
     def __str__(self):
         return f"Percent: {self.percent}"
+
+
+class CasesDropsProfit(SingleInstanceModel):
+    amount = models.FloatField("DONT WITHDRAW THIS FUNDS")
+    amount_updated = models.BooleanField(default=False)
+    time_update = models.DateTimeField(auto_now=True, editable=True)
+
+    class Meta:
+        verbose_name = "Cases Drops Profit Delta Per 10 Min"
+        verbose_name_plural = "Cases Drops Profits Deltas Per 10 Min"

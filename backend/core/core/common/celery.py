@@ -25,11 +25,8 @@ app.conf.beat_schedule = {
         'schedule': 10.0,
         # Function Arguments
     },
-    'increase-stats-five-seconds': {
-        # Task Name (Name Specified in Decorator)
-        'task': 'increase_stats',
-        # Schedule
-        'schedule': 5.0,
-        # Function Arguments
+    'drop-cases-funds-ten-min': {
+        'task': 'drop_cases_funds',
+        'schedule': 60*10,
     }
 }

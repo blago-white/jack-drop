@@ -31,3 +31,11 @@ class RetrieveDinamicFundsApiView(BaseRetrieveApiView):
         return self._get_200_response(
             data=self.repository.get()
         )
+
+
+class DecreaseCasesDropsProfit(BaseCreateApiView):
+    pass
+
+
+class IncreaseCasesDropsProfit(BaseCreateApiView):
+    pass

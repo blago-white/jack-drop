@@ -19,6 +19,9 @@ class FundsState(serializers.Serializer):
     site_active_funds = serializers.FloatField(
         min_value=0
     )
+    site_active_funds_for_cases = serializers.FloatField(
+        default=0
+    )
 
 
 class DropCaseRequestSerializer(serializers.Serializer):

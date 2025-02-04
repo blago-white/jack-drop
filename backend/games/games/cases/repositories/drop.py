@@ -68,6 +68,9 @@ class CaseItemDropRepository(BaseRepository):
                 site_active_funds=data_json.data.get("funds").get(
                     "site_active_funds"
                 ),
+                site_active_funds_for_cases=data_json.data.get("funds").get(
+                    "site_active_funds_for_cases"
+                )
             ),
             case_price=data_json.data.get("price"),
             early_drops_rate=self._drop_model_service.get_early_games_rate(

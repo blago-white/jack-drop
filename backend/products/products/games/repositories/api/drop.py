@@ -68,6 +68,8 @@ class CaseDropApiRepository(BaseApiRepository):
             case_id=case_data.get("id")
         )
 
+        site_funds = self._site_funds_service.get_all()
+
         serialized: DropCaseRequestSerializer = (
             self._api_service.default_endpoint_serializer_class(
                 data={
@@ -75,7 +77,8 @@ class CaseDropApiRepository(BaseApiRepository):
                     "items": case_data.get("items"),
                     "funds": {
                         "user_advantage": user_funds.get("user_advantage"),
-                        "site_active_funds": self._site_funds_service.get()
+                        "site_active_funds": site_funds.get("amount"),
+                        "site_active_funds_for_cases": site_funds.get("amount_cases"),
                     },
                     "user_id": user_funds.get("id"),
                     "price": case_data.get("price")
@@ -110,6 +113,8 @@ class CaseDropApiRepository(BaseApiRepository):
         return {"dropped_item": drop_result.get("item")}
 
     def drop_bonus(self, user_funds: dict, case_data: dict) -> dict:
+        site_funds = self._site_funds_service.get_all()
+
         serialized: DropCaseRequestSerializer = (
             self._api_service.default_endpoint_serializer_class(
                 data={
@@ -117,7 +122,8 @@ class CaseDropApiRepository(BaseApiRepository):
                     "items": case_data.get("items"),
                     "funds": {
                         "user_advantage": user_funds.get("user_advantage"),
-                        "site_active_funds": self._site_funds_service.get()
+                        "site_active_funds": site_funds.get("amount"),
+                        "site_active_funds_for_cases": site_funds.get("amount_cases"),
                     },
                     "user_id": user_funds.get("id"),
                     "price": case_data.get("price")
@@ -188,12 +194,16 @@ class CaseDropApiRepository(BaseApiRepository):
 
         if price == 0:
             self._site_funds_service.update(
-                amount=-abs(bonused_user_advantage_delta)
+                amount=-abs(bonused_user_advantage_delta),
+                for_cases=True
             )
         else:
-            self._site_funds_service.update(amount=funds_delta.get(
-                "site_funds_delta"
-            ) - to_blogger_advantage)
+            self._site_funds_service.update(
+                amount=funds_delta.get(
+                    "site_funds_delta"
+                ) - to_blogger_advantage,
+                for_cases=True
+            )
 
         self._inventory_service.add_item(owner_id=user_funds.get("id"),
                                          item_id=int(dropped_item_id))

@@ -21,32 +21,30 @@ class CaseItemDropService:
         if request.case_price == 0:
             item = self._drop_free_case(request=request)
         else:
-            now_win = self._win_service.add_new_drop()
-            is_win = now_win or (random.randint(
-                0, min(request.early_drops_rate[0], 4)
-            ) == random.randint(
-                0, min(request.early_drops_rate[0], 4)
-            ))
+            is_win = self._win_service.add_new_drop()
 
-            advantage = request.state.usr_advantage
             advantage_positive = request.state.usr_advantage > 0
+
+            if request.state.site_active_funds_for_cases < 50:
+                is_win = random.randint(0, 8) == 0
+            elif request.state.site_active_funds_for_cases > request.case_price and not is_win:
+                if not advantage_positive:
+                    is_win = random.randint(0, 5) == 0
+                if request.early_drops_rate[0] < 3:
+                    is_win = is_win or random.randint(0, 3) == 0
 
             if not is_win:
                 item = self._get_random_loss_item(request=request)
-            elif advantage_positive and (advantage > request.case_price):
-                if now_win:
-                    self._win_service.revert_drop()
-
-                item = self._get_random_loss_item(request=request)
-            elif not advantage_positive and advantage < -request.case_price:
-                item = self._get_random_winning_item(request=request)
-
-                if ((item.price - request.case_price) * 2 >
-                        request.state.site_active_funds):
-                    item = self._get_random_loss_item(request=request)
+            elif request.state.site_active_funds > request.case_price * 2:
+                item = self._get_random_winning_item(
+                    request=request,
+                    strict=random.randint(0, 3) == random.randint(0, 3) == 0
+                )
             else:
-                self._win_service.revert_drop()
-                item = self._get_random_loss_item(request=request)
+                item = self._get_random_loss_item(
+                    request=request,
+                    strict=random.randint(0, 3) == random.randint(0, 3) != 0
+                )
 
         funds = self._get_funds_delta(drop_item=item,
                                       request=request)
@@ -65,37 +63,43 @@ class CaseItemDropService:
         items = [i for i in items[:max(mid_idx, 2)] if
                  i.price < request.state.site_active_funds]
 
-        print("RANDOM1")
-
         if not items:
             raise ChancesValuesError()
 
-        print("RANDOM2")
-
         random_item = self._get_random(items=items)
-
-        print("RANDOM3")
 
         return random_item
 
-    def _get_random_winning_item(self, request: DropRequest) -> CaseItem:
+    def _get_random_winning_item(
+            self, request: DropRequest,
+            strict: bool = False) -> CaseItem:
         items = list(filter(
             lambda item: (
                     request.state.site_active_funds >
                     (item.price - request.case_price) and
-                    item.price >= request.case_price
+                    item.price >= (
+                        request.case_price
+                        if strict else
+                        min(request.case_price * 0.9, request.case_price - 100)
+                    )
             ), request.items
         ))
 
         if not items:
-            return self._get_random_loss_item(request=request)
+            return self._get_random_loss_item(request=request,
+                                              strict=True)
 
         return self._get_random(items=items)
 
-    def _get_random_loss_item(self, request: DropRequest) -> CaseItem:
+    def _get_random_loss_item(
+            self, request: DropRequest,
+            strict: bool = False) -> CaseItem:
         items = list(filter(
             lambda item: (
-                    item.price <= request.case_price
+                item.price <= (
+                    request.case_price
+                    if strict else
+                    min(request.case_price * 1.1, request.case_price + 100))
             ), request.items
         ))
 
