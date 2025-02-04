@@ -1,6 +1,9 @@
 from django.contrib import admin
 
-from .models import DinamicSiteProfit, FrozenSiteProfit, FreezeFundsPercent
+from .models import (DinamicSiteProfit,
+                     FrozenSiteProfit,
+                     FreezeFundsPercent,
+                     CasesDropsProfit)
 
 
 @admin.register(FrozenSiteProfit)
@@ -19,3 +22,7 @@ class DinamicProfitAdmin(admin.ModelAdmin):
 class FreezeFundsPercentAdmin(admin.ModelAdmin):
     pass
 
+
+@admin.register(CasesDropsProfit)
+class CasesDropsProfitAdmin(admin.ModelAdmin):
+    pass
