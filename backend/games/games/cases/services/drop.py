@@ -23,15 +23,20 @@ class CaseItemDropService:
         else:
             is_win = self._win_service.add_new_drop()
 
+            print(f"DROP IS WIN: {is_win}")
+
             advantage_positive = request.state.usr_advantage > 0
 
             if request.state.site_active_funds_for_cases < 50:
                 is_win = random.randint(0, 8) == 0
+                print(f"SITE ACTIVE FUNDS < 50 {is_win=}")
             elif request.state.site_active_funds_for_cases > request.case_price and not is_win:
                 if not advantage_positive:
-                    is_win = random.randint(0, 5) == 0
-                if request.early_drops_rate[0] < 3:
                     is_win = is_win or random.randint(0, 3) == 0
+                    print(f"IS WIN NEXT TRY ADV NOT POS {is_win=}")
+                if request.early_drops_rate[0] <= 3:
+                    is_win = is_win or random.randint(0, 2) == 0
+                    print(f"IS WIN NEXT TRY DROPS RATE {is_win=}")
 
             if not is_win:
                 item = self._get_random_loss_item(request=request)
