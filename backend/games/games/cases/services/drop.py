@@ -43,7 +43,7 @@ class CaseItemDropService:
             elif request.state.site_active_funds > request.case_price * 2:
                 item = self._get_random_winning_item(
                     request=request,
-                    strict=random.randint(0, 3) == random.randint(0, 3) == 0
+                    strict=True
                 )
             else:
                 item = self._get_random_loss_item(
