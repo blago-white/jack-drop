@@ -14,8 +14,12 @@ class CasesProfitService(BaseService):
     def update(self, delta_funds: float):
         profit = self._model.objects.first()
 
-        profit.amount = models.F("amount") + delta_funds
         profit.amount_updated = True
+
+        if (profit.amount + delta_funds) > 1500:
+            profit.amount = 100
+        else:
+            profit.amount = models.F("amount") + delta_funds
 
         profit.save()
 
