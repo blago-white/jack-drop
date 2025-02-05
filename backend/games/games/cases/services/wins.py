@@ -22,13 +22,16 @@ class WinDropsService:
         #     print("|---RAISED TRUE")
         #     return True
 
-        is_win = ((random.randint(0, 100) < 44) and (random.randint(0, 100) < 44)) or cls._fail_serial > 7
+        is_win = ((random.randint(0, 100) < 44) and (random.randint(0, 100) < 44)) or cls._fail_serial > 5
 
         if is_win:
             # cls._drops_count = cls._drops_count - 5
             cls._drops_count = 0
             cls._fail_serial = 0
 
+        return is_win
+
     @classmethod
     def revert_drop(cls):
-        cls._drops_count -= 1
+        cls._next_is_win = True
+        # cls._drops_count -= 1
