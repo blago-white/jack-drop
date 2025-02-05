@@ -22,7 +22,7 @@ class WinDropsService:
         #     print("|---RAISED TRUE")
         #     return True
 
-        is_win = ((random.randint(0, 100) < 44) and (random.randint(0, 100) < 44)) or cls._fail_serial > 5
+        is_win = ((random.randint(0, 100) < 50) and (random.randint(0, 100) < 50)) or cls._fail_serial > 5
 
         if is_win:
             # cls._drops_count = cls._drops_count - 5
