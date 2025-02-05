@@ -11,4 +11,5 @@ def update_funds():
 
 @shared_task(name="drop_cases_funds")
 def drop_cases_funds():
+    print("START CASES FUNDS DROPPING")
     CasesProfitService().drop_profit()

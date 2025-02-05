@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, transaction
 
 from common.services.base import BaseService
 
@@ -11,18 +11,17 @@ class CasesProfitService(BaseService):
     def get(self) -> float:
         return self._model.objects.first().amount
 
+    @transaction.atomic()
     def update(self, delta_funds: float):
         profit = self._model.objects.first()
 
         profit.amount_updated = True
 
-        if (profit.amount + delta_funds) > 1500:
-            profit.amount = 100
-        else:
-            profit.amount = models.F("amount") + delta_funds
+        profit.amount = models.F("amount") + delta_funds
 
         profit.save()
 
+    @transaction.atomic()
     def drop_profit(self):
         profit = self._model.objects.first()
 
