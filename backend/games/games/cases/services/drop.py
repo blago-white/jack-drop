@@ -40,16 +40,20 @@ class CaseItemDropService:
 
             if not is_win:
                 item = self._get_random_loss_item(request=request)
-            elif request.state.site_active_funds > request.case_price * 2:
+                print(f"RECEIVE LOSE ITEM {item}")
+            elif request.state.site_active_funds > request.case_price:
                 item = self._get_random_winning_item(
                     request=request,
                     strict=True
                 )
+                print(f"RECEIVE WIN ITEM {item}")
             else:
                 item = self._get_random_loss_item(
                     request=request,
                     strict=random.randint(0, 3) == random.randint(0, 3) != 0
                 )
+
+                print(f"RECEIVE LOSE ITEM 2 {item}")
 
         funds = self._get_funds_delta(drop_item=item,
                                       request=request)
