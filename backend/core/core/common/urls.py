@@ -19,6 +19,8 @@ import os
 from django.contrib import admin
 from django.urls import path, include
 
+print(os.environ.get("ADMIN_PANEL_URL"))
+
 urlpatterns = [
     path(os.environ.get("ADMIN_PANEL_URL"), admin.site.urls),
     path('private/api/v1/funds/', include("funds.urls")),
