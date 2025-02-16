@@ -23,7 +23,12 @@ class SteamAccountsService:
         return self._get_user(steam_id=steam_id).get("personaname")
 
     def get_avatar(self, steam_id: str | int) -> str:
-        return self._get_user(steam_id=steam_id).get("avatarfull")
+        avatar_url = self._get_user(steam_id=steam_id).get("avatarfull")
+
+        if "_full" not in avatar_url:
+            avatar_url = avatar_url[:-4]+"_full.jpg"
+
+        return avatar_url
 
     def _get_user(self, steam_id: str | int) -> dict:
         return self._steam_service.users.get_user_details(

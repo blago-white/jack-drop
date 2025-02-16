@@ -37,7 +37,11 @@ class SteamAuthProcessView(BaseReflinkProcessingView):
     referrs_repository = ReferrRepository()
 
     def get(self, request, *args, **kwargs):
+        print(request.GET)
         steam_uid = get_uid(results=request.GET)
+
+        if steam_uid is None:
+            steam_uid = request.GET.get("openid.claimed_id").split("/")[-1]
 
         if steam_uid is None:
             return redirect(to="https://jackdrop.online/?loginfail=1")

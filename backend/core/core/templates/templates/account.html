@@ -117,6 +117,8 @@
 
         if (countItemsResult > 0) {
             document.getElementById('empty-sec').innerHTML = '<b>{% trans 'Start Open Cases' %}</b>';
+        } else {
+            document.getElementById('account').style = "grid-template-rows: calc(100vw* calc(178 / var(--reference-display-w))) calc(100vw* calc(178 / var(--reference-display-w))) calc(100vw* calc(118 / var(--reference-display-w))) calc(100vw* calc(118 / var(--reference-display-w)))";
         }
 
         document.getElementById('total-inv-items-count').innerHTML = countItemsResult.total;

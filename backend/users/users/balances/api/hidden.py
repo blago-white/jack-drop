@@ -41,7 +41,7 @@ class AddDepositApiView(BaseDetailedCreateApiViewMixin, DefaultCreateApiView):
               f"promocode={request.data.get('promocode')}")
 
         if request.data.get('promocode'):
-            promocode = request.data.get('promocode').upper()
+            promocode = request.data.get('promocode')
         else:
             promocode = None
 

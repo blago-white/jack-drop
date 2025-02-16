@@ -42,8 +42,13 @@ class MinesGameRepository(BaseRepository):
             serialized=serialized
         )
 
+        erlier_summary_result = self._model_service.get_earlier_games_summary(
+            user_id=serialized.data.get("user_id")
+        )
+
         result: MinesGameStepResult = self._service.next_step(
-            game_request=game_request
+            game_request=game_request,
+            earlyer_summary_result=erlier_summary_result
         )
 
         if not result.is_win:

@@ -76,9 +76,9 @@ async function sellItem(id) {
 
     if (getCookie('lang') == 'ru') {
         printPrizeItem('/core/static/img/scrap.png', withdrawedItem.item.price, `Вы получили ~${withdrawedItem.item.price}`);
-        } else {
+    } else {
         printPrizeItem('/core/static/img/scrap.png', withdrawedItem.item.price, `You receive ~${withdrawedItem.item.price}`);
-        }
+    }
 }
 
 async function withdrawItem(id) {

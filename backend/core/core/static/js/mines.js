@@ -234,7 +234,7 @@ async function changeBtn() {
         document.getElementById('count-pumpkin').innerHTML = "???";
         document.getElementById('count-seeds').innerHTML = "???";
 
-        location.href = '/auth/';
+        document.querySelectorAll('.super-button[type="submit"]')[0].innerHTML = "Зайдите через Steam";
     }
 }
 

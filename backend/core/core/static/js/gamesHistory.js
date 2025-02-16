@@ -222,6 +222,8 @@ async function getItems() {
         _requestSection = "B"
     } else if (section == "bonuse") {
         _requestSection = "S"
+    } else {
+        _requestSection = "D"
     }
 
     const requestOptions = {

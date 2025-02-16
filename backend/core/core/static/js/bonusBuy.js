@@ -14,7 +14,14 @@ async function getStatus() {
     const response = await sendRequest("/products/bonus-buy/info/", {method: "GET"});
 
     if (!response.ok) {
-        location.href = "/";
+        document.getElementById('next-level-btn').innerHTML = "Зайдите через Steam";
+        document.getElementById('get-prize-btn').innerHTML = "Можно получить бесплатный кейс";
+
+        if (screen.width / screen.height < 1/1) {
+            document.getElementById('next-level-btn').style = "font-size: 3em;";
+            document.getElementById('get-prize-btn').style = "font-size: 3em;";
+        }
+
         return
     }
 
