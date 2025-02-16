@@ -172,22 +172,6 @@
 
         setCookie("lang", "{{ LANGUAGE_CODE }}");
 
-        // ------
-
-        function getCookie(name) {
-            let matches = document.cookie.match(new RegExp(
-                  "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-                ));
-            return matches ? decodeURIComponent(matches[1]) : undefined;
-        };
-
-        if (!getCookie("noticed")) {
-            alert(`ВНИМАНИЕ: Уважаемый пользователь, на данный момент JackDrop работает в бета-тесте, не исключены проблемы/баги с выводом предметов, игровыми сервисами, визуалом и т.д.\nПри любых вопросах - пишите нам в чат, отдел поддержки ответит вам как можно оперативнее и мы все исправим!\n\nИскренне желаем вам удачи, c уважением, Администрация JackDrop!`);
-
-            setCookie("noticed", true)
-        }
-
-        // -------
     </script>
     {% block extrascripts %}
     {% endblock %}
