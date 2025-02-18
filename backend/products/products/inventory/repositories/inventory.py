@@ -100,12 +100,15 @@ class InventoryRepository(BaseRepository):
     def withdraw(self, user_data: int, item_id: int) -> dict:
         if not self._service.check_ownership(owner_id=user_data.get("id"),
                                              inventory_item_id=item_id):
-            raise ValidationError("You not owner of item!")
+            raise ValidationError("You not owner of item! [not-owner]")
+
+        if not user_data.get("has_deposits"):
+            raise ValidationError("Cannot withdraw item, not have deposits! [no-deposits]")
 
         item = self._service.get_item(inventory_item_id=item_id)
 
         if item.locked_for != Lockings.UNLOCK:
-            raise ValidationError("Item locked!")
+            raise ValidationError("Item locked! [locked]")
 
         serialized = self._schedule_service.default_endpoint_serializer_class(
             data=dict(

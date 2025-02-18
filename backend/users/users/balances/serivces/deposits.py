@@ -30,3 +30,8 @@ class DepositsService(BaseService):
             pk=deposit_id,
             amount=amount
         ).exists()
+
+    def has_deposits(self, user_id: int) -> bool:
+        return self._model.objects.filter(
+            user_id=user_id
+        ).exists()

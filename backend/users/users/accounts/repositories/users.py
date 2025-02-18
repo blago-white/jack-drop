@@ -9,6 +9,7 @@ from accounts.services.users import UsersService
 from accounts.services.steam import SteamAccountsService
 from accounts.models.client import Client
 from balances.serivces.balance import ClientBalanceService
+from balances.serivces.deposits import DepositsService
 
 from common.repositories import BaseRepository
 
@@ -25,6 +26,7 @@ class BaseUsersRepository(BaseRepository, metaclass=ABCMeta):
 class PrivateUsersRepository(BaseUsersRepository):
     default_balance_service = ClientBalanceService()
     default_steam_service = SteamAccountsService()
+    default_deposits_service = DepositsService()
 
     default_serializer_class = PrivateClientSerializer
     _serializer_class: PrivateClientSerializer
@@ -32,9 +34,11 @@ class PrivateUsersRepository(BaseUsersRepository):
     def __init__(self, *args,
                  balance_service: ClientBalanceService = None,
                  steam_service: SteamAccountsService = None,
+                 deposits_service: DepositsService = None,
                  **kwargs):
         self._balance_service = balance_service or self.default_balance_service
         self._steam_service = steam_service or self.default_steam_service
+        self._deposits_service = deposits_service or self.default_deposits_service
 
         super().__init__(*args, **kwargs)
 
@@ -53,7 +57,10 @@ class PrivateUsersRepository(BaseUsersRepository):
                 "trade_link": user.trade_link,
                 "displayed_balance": self._balance_service.get_balance(
                     client_id=user.id
-                ).displayed_balance
+                ).displayed_balance,
+                "has_deposits": self._deposits_service.has_deposits(
+                    user_id=user_id
+                )
             }
         )
 
