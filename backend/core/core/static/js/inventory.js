@@ -110,7 +110,15 @@ async function withdrawItem(id) {
         document.getElementById(id).classList.add('empty-inventory-item');
         document.getElementById(id).innerHTML = '';
     } else {
-        alert("Cannot withdraw this item")
+        if ("[no-deposits]" in result[0]) {
+            return alert("Нельзя вывести предмет, нужен хоть 1 депозит на аккаунте!");
+        } else if ("[not-owner]" in result[0]) {
+            return alert("Вы не владелец предмета, вывести нельзя");
+        } else if ("[locked]" in result[0]) {
+            return alert("Это предмет под апгрейд/контракт, вывести его нельзя");
+        } else {
+            return alert("Не возможно вывести этот предмет");
+        }
     }
 
     const withdrawedItem = inventoryItemsById.get(parseInt(id));
