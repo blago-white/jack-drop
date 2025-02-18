@@ -110,11 +110,11 @@ async function withdrawItem(id) {
         document.getElementById(id).classList.add('empty-inventory-item');
         document.getElementById(id).innerHTML = '';
     } else {
-        if ("[no-deposits]" in result[0]) {
+        if (result[0].indexOf("[no-deposits]") > -1) {
             return alert("Нельзя вывести предмет, нужен хоть 1 депозит на аккаунте!");
-        } else if ("[not-owner]" in result[0]) {
+        } else if (result[0].indexOf("[not-owner]") > -1) {
             return alert("Вы не владелец предмета, вывести нельзя");
-        } else if ("[locked]" in result[0]) {
+        } else if (result[0].indexOf("[locked]") > -1) {
             return alert("Это предмет под апгрейд/контракт, вывести его нельзя");
         } else {
             return alert("Не возможно вывести этот предмет");
