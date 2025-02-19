@@ -24,3 +24,10 @@ class GamesStatsService(BaseModelService):
 
     def get(self) -> Stats:
         return self.default_model.objects.all().first()
+
+    def update_online(self, updated: int):
+        object_ = self.get()
+
+        object_.online = updated
+
+        object_.save()
