@@ -19,7 +19,7 @@ class GamesStatsRepository(BaseRepository):
 
         shifted_online = data.online + random.randint(-2, 2)
 
-        data.online = min(max(int(data / 200), shifted_online), data.users / 3.33)
+        data.online = min(max(int(data.users / 200), shifted_online), data.users / 3.33)
 
         self._service.update_online(updated=data.online)
 
