@@ -17,10 +17,11 @@ class GamesStatsRepository(BaseRepository):
     def get(self) -> dict:
         data = self._service.get()
 
-        shifted_online = data.online + random.randint(-2, 2)
+        if random.randint(0, 5) == 0:
+            shifted_online = data.online + random.randint(-2, 2)
 
-        data.online = min(max(int(data.users / 200), shifted_online), data.users / 3.33)
+            data.online = min(max(int(data.users / 200), shifted_online), data.users / 3.33)
 
-        self._service.update_online(updated=data.online)
+            self._service.update_online(updated=data.online)
 
         return StatsSerializer(instance=data).data
