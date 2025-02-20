@@ -89,7 +89,7 @@ async function getInevntoryItems() {
 
     console.log(result);
 
-    if (result || (result.length)) {
+    if (result && (result.length)) {
         result.forEach((element) => {
             rareColor = getCardColor(result.length, c);
 
