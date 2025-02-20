@@ -87,6 +87,8 @@ async function getInevntoryItems() {
     let rareColor;
     let c = 0;
 
+    console.log(result);
+
     if (result) {
         result.forEach((element) => {
             rareColor = getCardColor(result.length, c);
@@ -136,11 +138,9 @@ async function getInevntoryItems() {
             c++;
         })
     } else {
-        available.style = "display:flex;align-content: center;justify-content: center;"
         available.innerHTML = "Нет предметов для апгрейда";
-        available.style = '    max-height: 58vh;height: 100%;display: flex;font-size: xxx-large;background: rgb(255, 255, 255, .15);align-items: center;justify-content: center;backdrop-filter: blur(5px);border-radius: calc(100vw* calc(20 / var(--reference-display-w)));padding: 1ch;';
+        available.style = 'max-height: 58vh;height: 100%;display: flex;font-size: xxx-large;background: rgb(255, 255, 255, .15);align-items: center;justify-content: center;backdrop-filter: blur(5px);border-radius: calc(100vw* calc(20 / var(--reference-display-w)));padding: 1ch;';
 
-        availableDesctop.style = "display:flex;align-content: center;justify-content: center;"
         availableDesctop.innerHTML = "Нет предметов для апгрейда";
         availableDesctop.style = 'height: 100%;display: flex;justify-content: center;align-items: center;backdrop-filter: blur(5px);background: rgb(255, 255, 255, .15);';
     }
