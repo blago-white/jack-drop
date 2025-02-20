@@ -56,7 +56,6 @@
 }
 
 .banner-illustration {
-    position: absolute;
     height: calc(100vw * calc(553/ var(--reference-display-w)));
     pointer-events: none;
     left: 23%;
