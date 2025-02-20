@@ -237,12 +237,12 @@
         width: 56vw;
     }
 
-    .account-info-btn .super-button-bg {
+    .account-info-btn.super-button-bg {
         border-radius: calc(100vw* calc(25 / 1920));
         transform: none;
     }
 
-    .auth-required-btn .super-button-bg {
+    .auth-required-btn.super-button-bg {
         border-radius: calc(100vw* calc(25 / 1920));
         transform: none;
     }
