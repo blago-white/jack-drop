@@ -59,6 +59,13 @@
     height: calc(100vw * calc(553/ var(--reference-display-w)));
     pointer-events: none;
     left: 23%;
+    width: 63%;
+    height: auto;
+    grid-row: 1;
+    grid-column-start: 1;
+    display: flex;
+    padding-left: 43%;
+    grid-column-end: 3;
 }
 
 .banner-illustration-long {
