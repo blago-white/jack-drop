@@ -18,11 +18,6 @@
 }
 
 .banner-content {
-    background: url('../img/banner-bg.png');
-    background-size: cover;
-    background-position: right;
-    background-repeat: no-repeat;
-    background-color: #0E0E0E;
     height: calc(100vw * calc(248 / var(--reference-display-w)));
     width: 100%;
     border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
@@ -68,11 +63,15 @@
 }
 
 .banner-illustration-long {
-    position: absolute;
-    right: 5.95%;
     pointer-events: none;
-    height: calc(100vw * calc(446/ var(--reference-display-w)));
     z-index: 1;
+    width: 116%;
+    height: auto;
+    margin-left: -16%;
+    grid-row: 1;
+    grid-column-start: 1;
+    display: flex;
+    grid-column-end: 3;
 }
 
 @media (aspect-ratio < 1/1) {

@@ -1,6 +1,13 @@
 {% load static %}
 
-<article class="banner" onclick="{% if URL %}location.href = '{{URL}}'{% endif %}">
+<article class="banner" onclick="{% if URL %}location.href = '{{URL}}'{% endif %}" style="
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    /* background: url('https://s.iimg.su/s/20/xMn1o34njpWdeUH1VYR5GMrOYysmsnHLAULFdoQV.png'); */
+    /* background-color: #0E0E0E; */
+    cursor: pointer;
+">
     <div class="banner-content">
         {% if HEAD %}
             <h2>{{ HEAD }}</h2>
@@ -20,6 +27,22 @@
     </div>
     {% if IMAGEPATH %}
         <img src="{% static IMAGEPATH %}"
-        class="{% if LONGIMG %}banner-illustration-long{% else %}banner-illustration{% endif %}">
+        class="{% if LONGIMG %}banner-illustration-long{% else %}banner-illustration{% endif %}"
+        style=" width: 63%; height: auto;/* grid-column: 2; */ grid-row: 1; grid-column-start: 1; display: flex; padding-left: 43%; grid-column-end: 3; ">
     {% endif %}
+    <div style="
+        grid-row: 1;
+        display: flex;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        width: 100%;)%;)%;);
+        height: 76%;
+        background: url(https://jackdrop.online/core/static/img/banner-bg.png);
+        background-size: cover;
+        background-position: right;
+        background-repeat: repeat;
+        background-color: #0E0E0E;
+        z-index: -1;
+        border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
+    "></div>
 </article>
