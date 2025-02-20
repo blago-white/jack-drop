@@ -26,7 +26,7 @@
     transform: scale(1.025);
 }
 
-.banner:hover banner-content {
+.banner:hover .banner-content {
     transform: scale(1.025);
 }
 

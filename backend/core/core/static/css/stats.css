@@ -9,6 +9,8 @@
     backdrop-filter: blur(calc(100vw* calc(10 / 1920)));
     border: calc(100vw* calc(1 / 1920)) solid #979797;
     padding-inline: 2.511%;
+
+    transition: all .2s ease;
 }
 
 .stats-row {
@@ -44,6 +46,10 @@
 
 .stat-name {
     font-size: 1.3vw;
+}
+
+.stats-table:hover {
+    background-color: #33333350;
 }
 
 @media (aspect-ratio > 1) {
