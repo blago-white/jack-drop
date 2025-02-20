@@ -48,6 +48,10 @@
     font-size: 1.3vw;
 }
 
+.stats {
+    cursor: pointer;
+}
+
 .stats:hover .stats-table {
     background-color: #33333350!important;
 }

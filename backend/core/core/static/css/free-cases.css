@@ -62,7 +62,7 @@ h3 {
     text-transform: uppercase;
     font-weight: 500;
     width: max-content;
-    font-size: calc(100vw * calc(20 / var(--reference-display-w)))
+    font-size: calc(100vw * calc(20 / var(--reference-display-w)));
 }
 
 .case-data span {
