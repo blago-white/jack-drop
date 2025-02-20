@@ -18,18 +18,18 @@
 }
 
 .banner-content {
-    height: calc(100vw * calc(248 / var(--reference-display-w)));
+    height: calc(100vw* calc(210 / var(--reference-display-w)));
     width: 100%;
-    border-radius: calc(100vw * calc(32 / var(--reference-display-w)));
-    padding-left: calc(100vw * calc(50 / var(--reference-display-w)));
-    padding-block: calc(100vw * calc(45 / var(--reference-display-w)));
-
+    border-radius: calc(100vw* calc(32 / var(--reference-display-w)));
+    padding-left: calc(100vw* calc(50 / var(--reference-display-w)));
+    padding-block: calc(100vw* calc(45 / var(--reference-display-w)));
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-
     overflow: hidden;
+    grid-row: 1;
+    grid-column: 1;
 }
 
 .banner-content h2 {
