@@ -67,7 +67,7 @@ h3 {
 
 .case-data span {
     background: linear-gradient(180deg, #FF62CA 0%, #FF007A 100%);
-    padding-inline: ca`lc(100vw* calc(22 / var(--reference-display-w)));
+    padding-inline: calc(`lc(100vw* calc(22 / var(--reference-display-w)));
     padding-block: calc(100vw* calc(12 / var(--reference-display-w)));
     border-radius: calc(100vw* calc(9 / var(--reference-display-w)));
     text-align: center;
@@ -79,7 +79,7 @@ h3 {
         background: rgb(20, 20, 20, .5);
         backdrop-filter: blur(10em);
         border-radius: calc(100vw* calc(36.5 / 960));
-        padding-block: 2vh;
+        padding: 2vh;
         background-color: #33333350;
         backdrop-filter: blur(calc(100vw* calc(30 / 1920)));
         border: calc(100vw* calc(1 / 1920)) solid #979797;
@@ -92,7 +92,7 @@ h3 {
 
     .case-image {
         height: auto;
-        width: 41vw;
+        width: 95%;
     }
 
     .free-cases-sec h2 {
