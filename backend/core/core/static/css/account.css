@@ -215,6 +215,22 @@
         grid-column-start: 1;
         width: 90%;
         font-size: x-large;
+        padding-bottom: 1em;
+    }
+
+    .account-empty button {
+        border-bottom-right-radius: 1ch;
+        border-top-right-radius: 1ch;
+        width: 20%;
+    }
+
+    .account-empty #trade-link {
+        border-bottom-left-radius: 1ch;
+        border-top-left-radius: 1ch;
+    }
+
+    .user-avatar {
+        height: 5vh;
     }
 
     #trade-link {
@@ -226,14 +242,14 @@
     }
 
     .account-layout {
-        display: grid;
-        grid-template-columns: 1fr;
+        display: grid!important;
+        grid-template-columns: 1fr!important;
         grid-template-rows: calc(100vw* calc(178 / var(--reference-display-w)))
                             calc(100vw* calc(178 / var(--reference-display-w)))
                             calc(100vw* calc(118 / var(--reference-display-w)))
                             calc(100vw* calc(231 / var(--reference-display-w)))
                             calc(117vw* calc(290 / var(--reference-display-w)))
-                            calc(100vw* calc(160 / var(--reference-display-w)));
+                            calc(100vw* calc(160 / var(--reference-display-w)))!important;
     }
 
     .inventory-items {
