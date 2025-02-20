@@ -239,6 +239,7 @@
 
     .super-button-bg {
         border-radius: calc(100vw* calc(25 / 1920));
+        transform: none!important;
     }
 
     .navbar-item-active {

@@ -2,7 +2,6 @@
 
 .free-cases-sec {
     min-height: calc(100vw* calc(580 / var(--reference-display-w)));
-    width: 100%;
     background: top url(../img/tfborder.png), bottom url(../img/bfborder.png);
     background-size: contain;
     background-repeat: no-repeat;
