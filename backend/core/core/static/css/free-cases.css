@@ -76,7 +76,13 @@ h3 {
 
 @media (aspect-ratio < 1/1) {
     .free-cases-sec {
-        background: transparent;
+        background: rgb(20, 20, 20, .5);
+        backdrop-filter: blur(10em);
+        border-radius: calc(100vw* calc(36.5 / 960));
+        padding-block: 2vh;
+        background-color: #33333350;
+        backdrop-filter: blur(calc(100vw* calc(30 / 1920)));
+        border: calc(100vw* calc(1 / 1920)) solid #979797;
     }
 
     .cases-row {
@@ -99,6 +105,8 @@ h3 {
 
     h3 {
         font-size: xx-large;
+        max-width: min-content;
+        text-align: center;
     }
 
     .case-data {

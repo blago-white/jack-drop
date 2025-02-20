@@ -218,6 +218,10 @@
         height: calc(88vw* 0.081771);
     }
 
+    .start-btn {
+        width: 100%!important;
+    }
+
     .button {
         font-size: calc(100vw* calc(34 / var(--reference-display-w)));
         padding-block: 1ch;

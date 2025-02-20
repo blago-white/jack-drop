@@ -4,6 +4,11 @@
     align-items: center;
     flex-direction: row;
     border-radius: calc(100vw* calc(16 / 1920));
+
+    background-color: #33333320;
+    backdrop-filter: blur(calc(100vw* calc(10 / 1920)));
+    border: calc(100vw* calc(1 / 1920)) solid #979797;
+    padding-inline: 2.511%;
 }
 
 .stats-row {
@@ -80,6 +85,11 @@
         padding-block: 1ch;
         width: 100%;
         gap: 19%;
+    }
+
+    .stats-table {
+        background-color: #33333350;
+        backdrop-filter: blur(calc(100vw* calc(30 / 1920)));
     }
 
     .stats-row {

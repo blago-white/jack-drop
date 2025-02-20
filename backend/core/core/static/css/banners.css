@@ -35,6 +35,7 @@
     overflow: hidden;
     grid-row: 1;
     grid-column: 1;
+    width: max-content;
 }
 
 .banner-content h2 {

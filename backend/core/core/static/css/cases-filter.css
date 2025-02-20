@@ -112,6 +112,8 @@
         width: 100%;
         height: 100%;
         align-items: center;
+        gap: 1vh;
+        flex-direction: column;
     }
 
     .fast-find-form {
@@ -119,11 +121,27 @@
         height: 100%;
         font-size: calc(100vw * calc(30 / 960));
         padding: 2%;
+        width: 96%;
+        background: rgb(20, 20, 20, .9);
+    }
+
+    .fast-find-form input {
+        width: 95%;
+    }
+
+    .double-range-input {
+        width: 100%;
+    }
+
+    .price-range-form {
+        width: 96%;
     }
 
     .cases-filters {
         border-radius: calc(100vw * calc(36.5 / 960));
         padding: 5%;
+        background-color: #33333350;
+        backdrop-filter: blur(calc(100vw* calc(30 / 1920)));
     }
 
     .cases-filters button {
