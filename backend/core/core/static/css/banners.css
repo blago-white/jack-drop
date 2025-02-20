@@ -44,6 +44,8 @@
     grid-row: 1;
     grid-column: 1;
     width: max-content;
+
+    transition: all .2s ease;
 }
 
 .banner-content h2 {
@@ -80,6 +82,8 @@
     display: flex;
     padding-left: 43%;
     grid-column-end: 3;
+
+    transition: all .2s ease;
 }
 
 .banner-illustration-long {
