@@ -219,14 +219,14 @@
     }
 
     .account-empty button {
-        border-bottom-right-radius: 1ch;
-        border-top-right-radius: 1ch;
-        width: 20%;
+        border-bottom-right-radius: 1ch!important;
+        border-top-right-radius: 1ch!important;
+        width: 20%!important;
     }
 
     .account-empty #trade-link {
-        border-bottom-left-radius: 1ch;
-        border-top-left-radius: 1ch;
+        border-bottom-left-radius: 1ch!important;
+        border-top-left-radius: 1ch!important;
     }
 
     .user-avatar {
