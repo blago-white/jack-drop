@@ -38,6 +38,8 @@ class CaseItemDropService:
                     is_win = is_win or (random.randint(0, 2) == 0)
                     print(f"IS WIN NEXT TRY DROPS RATE {is_win=}")
 
+            print(f"FUNDS: {request.state.site_active_funds=} > {request.case_price}")
+
             if not is_win:
                 item = self._get_random_loss_item(request=request)
                 print(f"RECEIVE LOSE ITEM {item}")

@@ -14,7 +14,10 @@ class MinesService:
         self._calc_win_rate(step=game_request.step, count_mines=game_request.count_mines)
         self._calc_win_amount(game_request=game_request)
 
-        if game_request.site_active_funds*.5 <= self.win_amount:
+        print(f"MINES FUNDS IN SERVICE: {game_request.site_active_funds=}*.5 <= {self.win_amount}")
+        print(f"MINES FUNDS IN SERVICE: {game_request.user_advantage=} <= 0")
+
+        if game_request.site_active_funds <= self.win_amount*2:
             return self._get_step_result(additional_rate_factor=0,
                                          game_request=game_request)
 
