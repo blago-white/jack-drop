@@ -15,6 +15,11 @@
     align-items: flex-end;
 
     min-height: 32vh;
+    transition: transform .2s ease;
+}
+
+.banner:hover {
+    transform: scale(1.05);
 }
 
 .banner-content {
