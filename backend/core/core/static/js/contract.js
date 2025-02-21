@@ -224,7 +224,7 @@ async function animateContract() {
             c ++;
         }
     } else {
-        await document.getElementsByTagName('video')[0].play();
+        await document.getElementsByTagName('video')[4].play();
 
         for (let [key, value] of selected.entries()) {
             document.getElementById(`mv${key}`).style.marginTop = `11.3em`;

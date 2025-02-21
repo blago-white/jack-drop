@@ -256,9 +256,9 @@ article:hover {
 
     video {
         width: 5vw;
-	min-width: 0px;
-        position: fixed;
-        top: 19vh;
+        min-width: 0px;
+        position: absolute;
+        top: 3vh;
         left: 52%;
         pointer-events: none;
         transform: scale(66);
@@ -271,6 +271,10 @@ article:hover {
         padding-bottom: 4ch;
         padding-right: 0px;
         max-width: 90vw;
+    }
+
+    .footer {
+        height: max-content;
     }
 
     .bg-filter {
@@ -318,6 +322,7 @@ article:hover {
             z-index: -1;
             margin-left: 25vw;
             opacity: 0;
+            margin-top: 0px;
             transition: all .5s ease-in-out;
     }
 
@@ -350,7 +355,8 @@ article:hover {
     .contract {
         flex-direction: column;
         padding-top: 35vh;
-}
+        transform: translate3d(0, 0, 0);
+    }
 
     .contract-cells {
         display: grid;
