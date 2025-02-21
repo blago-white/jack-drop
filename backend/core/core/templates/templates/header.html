@@ -54,6 +54,15 @@
                 <span class="small-lg-text" id="short-enter-text">Вход</span>
             </span>
         </button>
+        <button class="super-button" onclick="window.location.href = '/account/'" id="account-info-btn" style="display: none;">
+            <span class="super-button-bg" style="background: linear-gradient(90deg, #0047FF 0%, #FF007A 100%);"></span>
+            <span class="super-button-text"><img class="user-avatar" src="https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg" style="height: 3ch;">
+                <span id="user-data-h" style="list-style: none;display: flex;flex-direction: column;align-items: flex-start;padding: 0px;margin: 0px;">
+                    <span id="acc-username-header">...</span>
+                    <span id="acc-balance-header" style="font-size: medium;color: #e7e7e7;display: flex;gap: .5ch;align-items: center;background: #0064ff;border-radius: .4ch;padding-inline: .5ch;">... <img src="/core/static/img/gear.png"></span>
+                </span>
+            </span>
+        </button>
     </div>
 
         <button class="sandwich-menu" id="menu-btn"></button>
