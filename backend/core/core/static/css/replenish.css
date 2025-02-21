@@ -5,6 +5,40 @@
     background-size: cover;
     background-repeat: repeat;
 }
+
+@media (aspect-ratio > 1/1) {
+    .main-content {
+        flex-direction: row;
+        margin-bottom: 0vh;
+        height: 100vh;
+    }
+
+    .replenish-form {
+        max-height: fit-content;
+    }
+
+    .replenish-person-img {
+        height: 95vh;
+        width: min-content;
+        margin-left: -26%;
+    }
+
+    .replenish-person {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column-reverse;
+        cursor: pointer;
+    }
+
+    .replenish-person:hover {
+        transform: rotate(-10deg);
+    }
+
+    .replenish-form:hover {
+        transform: rotate(-5deg);
+    }
+}
+
 .replenish-form {
     background: black;
     outline: 1.18px solid #979797;
