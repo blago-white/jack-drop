@@ -170,11 +170,11 @@ async function getItems() {
         })
     } else {
         if (w > h) {
-            document.getElementById('inventory-items').innerHTML = 'Items for upgrade not found';
-            document.getElementById('inventory-items').style = "display: flex;justify-content: center;align-items: center;backdrop-filter: blur(5px);background: rgba(255, 255, 255, 0.15);text-align: center";
+            document.getElementById('inventory-items').innerHTML = 'Нет предметов для контрактов';
+            document.getElementById('inventory-items').style = "display: flex;justify-content: center;align-items: center;backdrop-filter: blur(5px);background: rgba(255, 255, 255, 0.15);text-align: center;padding: 2ch;";
         } else {
-            document.getElementById('inventory-items-mob').innerHTML = 'Items for upgrade not found';
-            document.getElementById('inventory-items-mob').style = "display: flex;justify-content: center;align-items: center;backdrop-filter: blur(5px);background: rgba(255, 255, 255, 0.15);text-align: center";
+            document.getElementById('inventory-items-mob').innerHTML = 'Нет предметов для контрактов';
+            document.getElementById('inventory-items-mob').style = "display: flex;justify-content: center;align-items: center;backdrop-filter: blur(5px);background: rgba(255, 255, 255, 0.15);text-align: center;padding: 2ch;";
         }
     }
 }
