@@ -180,7 +180,11 @@ class FortuneWheelService:
                         request.funds_state.usr_advantage
                     )
 
-                return self.winning_types.CONTRACT if winnint_type else self.winning_types.FREE_SKIN
+                return (
+                    self.winning_types.CONTRACT
+                    if winnint_type else
+                    self.winning_types.FREE_SKIN
+                ) if random.randint(0, 1) == 0 else self._get_lose_result()
 
             if request.funds_state.usr_advantage < -self.min_free_item_price*2.5:
                 return (
