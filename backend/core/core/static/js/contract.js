@@ -224,11 +224,13 @@ async function animateContract() {
             c ++;
         }
     } else {
+        document.getElementsByTagName('video')[4].defaultPlaybackRate = 3;
+        document.getElementsByTagName('video')[4].playbackRate  = 3;
         await document.getElementsByTagName('video')[4].play();
 
         for (let [key, value] of selected.entries()) {
-            document.getElementById(`mv${key}`).style.marginTop = `11.3em`;
-            await sleep(1500)
+            document.getElementById(`mv${key}`).style.opacity = `0`;
+            await sleep(1000)
         }
     }
 }
