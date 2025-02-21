@@ -76,7 +76,17 @@ async function renderInfo() {
     const response = await getAuthenticated();
 
     const _ = await renderReferralStatus();
-    document.getElementById('usr-name').innerHTML = `${response.username}<span class="account-id-val">ID ${response.id}</span>`;
+
+    let username;
+
+    if (response.username.length > 15) {
+        username = response.username.slice(0, 7) + "..." + response.username.slice(-3);
+    } else {
+        username = response.username;
+    }
+
+
+    document.getElementById('usr-name').innerHTML = `${username}<span class="account-id-val">ID ${response.id}</span>`;
     document.getElementById('balance').innerHTML = `${Math.floor(response.balance)}`;
     document.getElementById('trade-link').value = response.trade_link;
 }
