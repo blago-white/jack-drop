@@ -31,7 +31,9 @@ class CasesProfitService(BaseService):
         if not profit.amount_updated:
             return
 
-        profit.amount = models.F("amount") * 0.5
+        if profit.amount:
+            profit.amount = models.F("amount") * 0.5
+
         profit.amount_updated = False
 
         profit.save()
