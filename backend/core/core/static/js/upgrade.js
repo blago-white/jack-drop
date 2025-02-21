@@ -289,7 +289,7 @@ async function makeUpgrade() {
     }
 
     if ((!noticedAboutPercent) && (getPercent() > 98)) {
-        alert(`Шанс должен быть <= 98%, сейчас: ${getPercent()}\nChance must be <= 98, now: ${getPercent()}`)
+        makeWarn(`Нельзя начать апгрейд`, `Шанс должен быть <= 98%, сейчас: ${getPercent()}\nChance must be <= 98, now: ${getPercent()}`);
         noticedAboutPercent = true;
         return false;
     } else if (noticedAboutPercent && (getPercent() > 98)) {

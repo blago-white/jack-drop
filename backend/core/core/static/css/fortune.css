@@ -220,6 +220,7 @@
 
     #code-btn {
         height: calc(88vw* 0.081771);
+        width: 100%!important;
     }
 
     #start-btn {

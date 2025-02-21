@@ -166,8 +166,12 @@
         width:calc(100vw * calc(8 / 960));
     }
 
+    .double-range-input {
+        height:calc(150vw * calc(10   / 1920));
+    }
+
     .price-range-form label {
-        font-size: calc(100vw* calc(25 / 960));
+        font-size: calc(100vw* calc(30 / 960));
         margin-bottom: calc(100vw* calc(12 / 960));
     }
 }
