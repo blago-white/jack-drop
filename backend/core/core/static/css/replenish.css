@@ -11,10 +11,13 @@
         flex-direction: row;
         margin-bottom: 0vh;
         height: 100vh;
+        overflow: hidden;
+        padding: 1px;
     }
 
     .replenish-form {
         max-height: fit-content;
+        transition: all .2s ease;
     }
 
     .replenish-person-img {
@@ -28,6 +31,8 @@
         align-items: flex-start;
         flex-direction: column-reverse;
         cursor: pointer;
+
+        transition: all .2s ease;
     }
 
     .replenish-person:hover {
@@ -35,7 +40,7 @@
     }
 
     .replenish-form:hover {
-        transform: rotate(-5deg);
+        transform: rotate(-1deg);
     }
 }
 
@@ -48,6 +53,9 @@
 
     display: flex;
     flex-direction: column;
+
+    background: rgb(20, 20, 20, .5);
+    backdrop-filter: blur(1em);
 }
 
 .data-input.preset {
