@@ -274,7 +274,7 @@ article:hover {
     }
 
     .footer {
-        height: max-content;
+        height: max-content!important;
     }
 
     .bg-filter {
@@ -356,6 +356,8 @@ article:hover {
         flex-direction: column;
         padding-top: 35vh;
         transform: translate3d(0, 0, 0);
+        position: relative;
+        overflow: hidden;
     }
 
     .contract-cells {
