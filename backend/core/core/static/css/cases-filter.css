@@ -82,9 +82,11 @@
 }
 
 .double-range-input {
-    background: #64CE82;
+    background: #FF007A;
     height:calc(150vw * calc(3   / 1920));
     padding-bottom: calc(150vw * calc(3 / 1920));
+    border-radius: 2ch;
+    width: 100%;
 }
 
 .price-range::-webkit-slider-thumb {
@@ -93,6 +95,7 @@
     height:calc(100vw * calc(15 / 1920));
     width:calc(100vw * calc(5 / 1920));
     z-index: 1000;
+    border-radius: 2ch;
 }
 
 .cases-forms {

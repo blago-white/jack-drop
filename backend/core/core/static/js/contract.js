@@ -123,10 +123,6 @@ async function getItems() {
 
     const result = await response.json();
 
-    result.forEach((element) => {
-        priceMapping.set(element.id, element.item.price)
-    })
-
     const w = screen.width;
     const h = screen.height;
     let c = 0;
@@ -134,6 +130,10 @@ async function getItems() {
     let rareColor;
 
     if (result.length) {
+        result.forEach((element) => {
+            priceMapping.set(element.id, element.item.price)
+        })
+
         const extremiums = getExtremiums(result);
 
         console.log(extremiums);
@@ -171,10 +171,10 @@ async function getItems() {
     } else {
         if (w > h) {
             document.getElementById('inventory-items').innerHTML = 'Items for upgrade not found';
-            document.getElementById('inventory-items').style = "display: flex;background: #0E0E0E;padding: 3ch;text-align: center";
+            document.getElementById('inventory-items').style = "display: flex;justify-content: center;align-items: center;backdrop-filter: blur(5px);background: rgba(255, 255, 255, 0.15);text-align: center";
         } else {
             document.getElementById('inventory-items-mob').innerHTML = 'Items for upgrade not found';
-            document.getElementById('inventory-items-mob').style = "display: flex;background: #0E0E0E;padding: 3ch;text-align: center";
+            document.getElementById('inventory-items-mob').style = "display: flex;justify-content: center;align-items: center;backdrop-filter: blur(5px);background: rgba(255, 255, 255, 0.15);text-align: center";
         }
     }
 }

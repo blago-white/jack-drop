@@ -133,6 +133,14 @@ input {
 }
 
 @media (aspect-ratio < 1/1) {
+    .control-sec-title {
+        font-size: xx-large;
+    }
+
+    button[type="submit"] {
+        font-size: xxx-large;
+    }
+
     .game-fieldset {
         aspect-ratio: 1/1;
         height: auto;
