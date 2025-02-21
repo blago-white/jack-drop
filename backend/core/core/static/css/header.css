@@ -97,6 +97,7 @@
 .lang-switcher button {
     border: none;
     height: 100%;
+    padding-inline: 1ch;
     font-size: calc(100vw * calc(15 / 1920));
 }
 
@@ -112,6 +113,14 @@
     border-bottom-right-radius: 0px;
     border-top-left-radius: calc(100vw * calc(16 / var(--reference-display-w)));
     border-top-right-radius: calc(100vw * calc(16 / var(--reference-display-w)));
+}
+
+.replenish-header-btn {
+    width: 6ch;!important;
+}
+
+.replenish-header-btn:hover {
+    transform: rotate(2deg);
 }
 
 @media (aspect-ratio < 1/1) {
@@ -131,6 +140,10 @@
         z-index: 1000;
 
         min-height: 9.25vh;
+    }
+
+    .replenish-header-btn {
+        display: none;
     }
 
     #ru {
