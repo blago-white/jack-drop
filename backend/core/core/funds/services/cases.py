@@ -17,6 +17,9 @@ class CasesProfitService(BaseService):
 
         profit.amount_updated = True
 
+        if delta_funds > 0:
+            delta_funds *= .6
+
         profit.amount = models.F("amount") + delta_funds
 
         profit.save()
