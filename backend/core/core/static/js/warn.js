@@ -29,5 +29,5 @@ function clearWarn() {
         document.getElementById('prize-wrappper').style.background = 'none';
         document.getElementById("prize-wrappper").style.visibility = 'hidden';
         document.getElementById('prize-wrappper').innerHTML = '';
-    })
+    }, 200)
 }
