@@ -36,7 +36,7 @@ async function getHistory() {
     const response = await sendRequest("/products/games/history/1/");
 
     if (!response.ok) {
-        alert('Error with history')
+        makeWarn('Error with history')
         return
     }
 

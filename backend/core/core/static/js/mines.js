@@ -178,10 +178,10 @@ async function makeMinesGame() {
 
         Object.keys(resultJson).forEach((errorkey) => {
         if (errorkey >= "0" && errorkey <= "9") {
-            alert(resultJson[errorkey]);
+            makeWarn(resultJson[errorkey]);
                 } else {
             document.getElementById(errorkey).style.outline = '2px solid red';
-            alert(resultJson[errorkey][0]);
+            makeWarn(resultJson[errorkey][0]);
                 }
             });
     }

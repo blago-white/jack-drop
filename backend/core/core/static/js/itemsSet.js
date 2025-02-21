@@ -11,7 +11,7 @@ async function buySet() {
     );
 
     if (!result.ok) {
-        alert("Error");
+        makeWarn("Error");
         location.reload();
     }
 

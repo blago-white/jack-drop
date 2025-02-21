@@ -137,7 +137,7 @@ async function getResult(promocode) {
     const response = await sendRequest(`https://${location.hostname}/products/games/fortune-wheel/`, requestOptions);
 
     if (!response.ok) {
-        alert(await response.json());
+        makeWarn(await response.json());
         return {};
     }
 
@@ -153,7 +153,7 @@ async function startRotatePromo() {
     if (!true) {
         input.value = '';
         input.style.outline = '3px solid red';
-        alert("Only 8 symbols");
+        makeWarn("Only 8 symbols");
     } else {
         await startRotate(promocode)
     }

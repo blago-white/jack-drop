@@ -48,7 +48,7 @@ async function addDeposit() {
     if (!response.ok) {
         document.getElementById('replenish-form').style.outline = '5px solid firebrick'
 
-        alert(responseJSON.description)
+        makeWarn(responseJSON.description)
     } else {
         location.href = responseJSON.payment_url;
     }
