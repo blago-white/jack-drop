@@ -71,25 +71,25 @@ h3 {
 
 .items-controls button {
     width: 80%;
-    height: calc(100vw * calc(45 / var(--reference-display-w)));
-
-    background: url('../img/inventory-item-button-bg.png');
+    height: calc(100vw* calc(45 / var(--reference-display-w)));
     background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-
-    border: 0px;
     color: white;
-
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
     gap: 1ch;
-
     text-transform: uppercase;
     font-family: "Gilroy Semibold";
+    background: transparent;
+    border: .1ch solid #ccc;
+    border-radius: 1ch;
+
+    transition: all .2s ease;
+}
+
+.items-controls button:hover {
+    background: linear-gradient(90deg, #0047FF 0%, #FF007A 100%);
 }
 
 .item-card:hover .items-controls {
@@ -158,6 +158,6 @@ h3 {
     }
 
     .dropped-content span {
-        font-size: calc(100vw* calc(30 / var(--reference-display-w)))!important;
+        font-size: calc(100vw* calc(17 / var(--reference-display-w)))!important;
     }
 }
