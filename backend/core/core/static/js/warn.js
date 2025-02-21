@@ -1,5 +1,5 @@
 function makeWarn(header, desc) {
-    const descHTML = `<span style="grid-row: 1;grid-column: 1;max-width: 75%;text-align: center;">${desc}</span>` if desc else ''
+    const descHTML = desc ? `<span style="grid-row: 1;grid-column: 1;max-width: 75%;text-align: center;">${desc}</span>` : ''
 
     document.getElementById('prize-wrappper').innerHTML = `
         <div style="max-width: 90%;display: grid;grid-template-rows: 1fr;grid-template-columns: 1fr;justify-items: center;align-items: center;transform: scale(0);transition: all .2s ease;" id="warn-content">
