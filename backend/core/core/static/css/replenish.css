@@ -157,7 +157,7 @@ h3 {
         margin-inline: 0px;
         padding-inline: calc(100vw* 0.055208);
         overflow: hidden;
-        margin-bottom: none;
+        margin-bottom: 0px;
     }
 
     .replenish-person-img {
