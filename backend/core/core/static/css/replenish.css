@@ -38,10 +38,6 @@
     .replenish-person:hover {
         transform: rotate(-10deg);
     }
-
-    .replenish-form:hover {
-        transform: rotate(-1deg);
-    }
 }
 
 .replenish-form {
