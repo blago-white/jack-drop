@@ -153,6 +153,17 @@ h3 {
         margin-inline: auto;
     }
 
+    .main-content {
+        margin-inline: 0px;
+        padding-inline: calc(100vw* 0.055208);
+        overflow: hidden;
+        margin-bottom: none;
+    }
+
+    .replenish-person-img {
+        margin-top: -50%;
+    }
+
     h3 {
         font-size: -webkit-xxx-large;
     }
