@@ -128,7 +128,13 @@ async function processUserAuthStatus() {
     if (authenticated) {
         Array.from(document.getElementsByClassName('user-avatar')).forEach((elem) => {elem.src = authenticated.avatar});
 
-        document.getElementById('acc-username-header').innerHTML = authenticated.username;
+        let username;
+
+        if (authenticated.username.length > 15) {
+            username = authenticated.username.slice(0, 7) + "..." + authenticated.username.slice(-3)
+        }
+
+        document.getElementById('acc-username-header').innerHTML = username;
         document.getElementById('acc-balance-header').innerHTML = `${Math.floor(authenticated.balance)} <img src="/core/static/img/gear.png">`;
         document.getElementById('account-info-btn').style = "";
         document.getElementById('auth-required-btn').style.display = "none";
