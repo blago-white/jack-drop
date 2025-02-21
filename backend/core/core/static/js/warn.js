@@ -11,10 +11,13 @@ function makeWarn(header, desc) {
 </button></div></div>
     `
 
-    document.getElementById('prize-wrappper').style.background = 'rgb(20, 20, 20, .9)';
+    document.getElementById("prize-wrappper").style.display = 'flex';
+    document.getElementById("prize-wrappper").style.visibility = 'visible';
+    document.getElementById("prize-wrappper").style.background = 'rgb(20, 20, 20, .5)';
 }
 
 function clearWarn() {
     document.getElementById('prize-wrappper').innerHTML = '';
     document.getElementById('prize-wrappper').style.background = 'none';
+    document.getElementById("prize-wrappper").style.visibility = 'hidden';
 }
