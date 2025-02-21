@@ -131,7 +131,9 @@ async function processUserAuthStatus() {
         let username;
 
         if (authenticated.username.length > 15) {
-            username = authenticated.username.slice(0, 7) + "..." + authenticated.username.slice(-3)
+            username = authenticated.username.slice(0, 7) + "..." + authenticated.username.slice(-3);
+        } else {
+            username = authenticated.username;
         }
 
         document.getElementById('acc-username-header').innerHTML = username;
