@@ -16,7 +16,10 @@ function makeWarn(header, desc) {
     document.getElementById("prize-wrappper").style.display = 'flex';
     document.getElementById("prize-wrappper").style.visibility = 'visible';
     document.getElementById("prize-wrappper").style.background = 'rgb(20, 20, 20, .5)';
-    document.getElementById("warn-content").style.transform = 'none';
+
+    setTimeout(() => {
+        document.getElementById("warn-content").style.transform = 'none';
+    })
 }
 
 function clearWarn() {
