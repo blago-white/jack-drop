@@ -270,7 +270,7 @@ async function makeContract() {
     await animateContract();
 
     if (!response.ok) {
-        alert("Error with operation, try again later");
+        makeWarn("Error with operation, try again later");
         location.href = location.href;
     }
 
@@ -283,7 +283,7 @@ function selectItem(id) {
     const lenBefore = selected.size;
 
     if (lenBefore+1 == 11 && (!selected.has(id))) {
-        alert("Maximum - 10 contract items");
+        makeWarn("Maximum - 10 contract items");
         return;
     }
 

@@ -68,7 +68,7 @@ async function sellItem(id) {
         document.getElementById(id).classList.add('empty-inventory-item');
         document.getElementById(id).innerHTML = '';
     } else {
-        alert("Cannot sell this item")
+        makeWarn("Cannot sell this item")
         return
     }
 
@@ -83,7 +83,7 @@ async function sellItem(id) {
 
 async function withdrawItem(id) {
     if ((await getAuthenticated()).trade_link.length < 10) {
-        return alert("Вы не указали/указали неверную трейд ссылку, без нее вывести не сможем!\n\nYou did not specify/provided an incorrect trade link, we will not be able to withdraw without it!")
+        return makeWarn("Вы не указали/указали неверную трейд ссылку, без нее вывести не сможем!\n\nYou did not specify/provided an incorrect trade link, we will not be able to withdraw without it!")
     }
 
     const headers = new Headers();
@@ -111,13 +111,13 @@ async function withdrawItem(id) {
         document.getElementById(id).innerHTML = '';
     } else {
         if (result[0].indexOf("[no-deposits]") > -1) {
-            return alert("Нельзя вывести предмет, нужен хоть 1 депозит на аккаунте!");
+            return makeWarn("Нельзя вывести предмет, нужен хоть 1 депозит на аккаунте!");
         } else if (result[0].indexOf("[not-owner]") > -1) {
-            return alert("Вы не владелец предмета, вывести нельзя");
+            return makeWarn("Вы не владелец предмета, вывести нельзя");
         } else if (result[0].indexOf("[locked]") > -1) {
-            return alert("Это предмет под апгрейд/контракт, вывести его нельзя");
+            return makeWarn("Это предмет под апгрейд/контракт, вывести его нельзя");
         } else {
-            return alert("Не возможно вывести этот предмет");
+            return makeWarn("Не возможно вывести этот предмет");
         }
     }
 

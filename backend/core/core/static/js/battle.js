@@ -203,7 +203,7 @@ return;
 
 if (!(jsondata["result"]["result"] && jsondata["result"]["result"]["success"])) {
 if (jsondata["result"]["error"]) {
-alert(jsondata["result"]["error"]);
+makeWarn(jsondata["result"]["error"]);
 	}
 
 if (jsondata["result"]["fatal"]) {
@@ -214,9 +214,9 @@ return
 
 if (!jsondata["result"]["success"] && sendedRequestNow && connected) {
 if (jsondata["result"]["error"]) {
-alert(jsondata["result"]["error"]);
+makeWarn(jsondata["result"]["error"]);
 	} else {
-    alert("Erorr with connect");
+    makeWarn("Erorr with connect");
 }
 
 hideRequestWindow();
@@ -246,7 +246,7 @@ return
 	}
 
 if (jsondata["response_type"] == "result" && !jsondata["result"]["success"]) {
-alert(jsondata["result"]["error"]);
+makeWarn(jsondata["result"]["error"]);
 
 hideRequestWindow();
 return
