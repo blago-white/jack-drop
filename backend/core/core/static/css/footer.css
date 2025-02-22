@@ -8,12 +8,18 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: 8vh;
+    height: 15vh;
 
     position: absolute;
     width: -webkit-fill-available;
     bottom: 0px;
     gap: 4%;
+}
+
+.footer-legal-text {
+    font-size: .5em;
+    max-width: 31%;
+    color: #979797;
 }
 
 .c {
@@ -40,11 +46,10 @@
 }
 
 .footer-docs-list {
-    line-height: 1.1;
+    line-height: .8;
     list-style: none;
     text-transform: none;
-    border-left: 2px solid #979797;
-    padding-left: .75ch;
+    padding-left: 0px;
 }
 
 .doc-link {
@@ -106,5 +111,9 @@
     .footer-mobile-info {
         display: block;
         line-height: calc(100vw * calc(53 / var(--reference-display-w)));
+    }
+
+    .footer-legal-text {
+        max-width: 100%;
     }
 }

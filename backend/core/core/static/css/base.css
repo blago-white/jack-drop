@@ -66,7 +66,7 @@ body a {
     gap: calc(100vw * calc(0.0588 * 0.690));
     flex-direction: column;
 
-    margin-bottom: 23vh;
+    margin-bottom: 28vh;
 }
 
 button {
@@ -330,7 +330,7 @@ button {
         margin-top: 15vh;
         margin-inline: calc(100vw * 0.055208);
         gap: calc(100vw* calc(0.0588));
-        margin-bottom: 38vh;
+        margin-bottom: 50vh;
     }
 
     body {
