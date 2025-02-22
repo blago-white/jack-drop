@@ -89,7 +89,7 @@ async function iterField(id) {
         `;
         const factorLabel = document.getElementById("factor-label");
 
-        gameFactor = (parseFloat(gameFactor) + response.next_win_factor).toFixed(3);
+        gameFactor = (response.next_win_factor).toFixed(3);
 
         if (factorLabel) {
             factorLabel.innerHTML = `
