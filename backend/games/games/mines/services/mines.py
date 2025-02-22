@@ -36,8 +36,8 @@ class MinesService:
     def _calc_win_rate(self, step: int, count_mines: int):
         self.win_rate_by_mines = (25 - (count_mines+step)) / 24
 
-    def _calc_win_amount(self, step: int, game_request: MinesGameNextStepRequest) -> float:
-        count_mines = game_request.count_mines + (step-1)
+    def _calc_win_amount(self, game_request: MinesGameNextStepRequest) -> float:
+        count_mines = game_request.count_mines + (game_request.step-1)
 
         if count_mines < 3:
             factor = 1.005 + (count_mines/100)
