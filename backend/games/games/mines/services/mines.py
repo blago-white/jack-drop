@@ -40,19 +40,19 @@ class MinesService:
         count_mines = game_request.count_mines + (game_request.step-1)
 
         if count_mines < 3:
-            factor = 1.005 + (count_mines/100)
+            factor = round(1.005 + (count_mines/100), 3)
 
         elif count_mines < 6:
-            factor = 1.1 + (count_mines - 3)/10
+            factor = round(1.1 + (count_mines - 3)/10, 3)
 
         elif count_mines < 9:
             factor = 1.27
 
         elif count_mines < 12:
-            factor = 1.4 + (count_mines - 10)/10
+            factor = round(1.4 + (count_mines - 10)/10, 3)
 
         elif count_mines < 20:
-            factor = 1.7 + (min(count_mines - 14, 2.5))/10
+            factor = round(1.7 + (min(count_mines - 14, 2.5))/10, 3)
 
         else:
             factor = 1.9
