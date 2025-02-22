@@ -4,10 +4,6 @@ body {
     height: auto;
 }
 
-.bg-filter-img {
-    background: black;
-}
-
 .mines-sec {
     display: flex;
     gap: calc(100vw * calc(33 / var(--reference-display-w)));
