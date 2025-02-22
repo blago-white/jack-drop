@@ -87,7 +87,7 @@ class MinesGameRepository(BaseRepository):
         created, obj = self._model_service.init(
             data=self._mines_game_init_params(
                 user_id=serialized.data.get("user_funds").get("id"),
-                advantage=serialized.data.get("user_funds").get("id"),
+                advantage=serialized.data.get("user_funds").get("user_advantage"),
                 count_mines=serialized.data.get("count_mines"),
                 deposit=serialized.data.get("user_deposit"),
             )
