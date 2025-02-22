@@ -27,10 +27,10 @@ class MinesService:
 
         else:
             if game_request.user_advantage > self.win_amount * 2:
-                return self._get_step_result(additional_rate_factor=0.8,
+                return self._get_step_result(additional_rate_factor=0.825,
                                              game_request=game_request)
             else:
-                return self._get_step_result(additional_rate_factor=0.9,
+                return self._get_step_result(additional_rate_factor=0.925,
                                              game_request=game_request)
 
     def _calc_win_rate(self, step: int, count_mines: int):
