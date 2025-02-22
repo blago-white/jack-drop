@@ -26,7 +26,8 @@ class MinesService:
                                          game_request=game_request)
 
         else:
-            if game_request.user_advantage > self.win_amount * 2:
+            print(f"{game_request.user_advantage=} > {abs(self.win_amount * 2)}")
+            if game_request.user_advantage > abs(self.win_amount * 2):
                 return self._get_step_result(additional_rate_factor=0.825,
                                              game_request=game_request)
             else:
