@@ -93,7 +93,7 @@ async function iterField(id) {
                 ${response.next_win_factor}<span style="color: #aaa;">X</span>
             `
         } else {
-            document.getElementById('mines-game-form').innerHTML = `<h1 style="color: #0047FF;););););background-image: linear-gradient(90deg, #0047FF 0%, #FF007A 100%);color: transparent;-webkit-background-clip: text;background-clip: text;margin: 0px;font-size: 6em;
+            document.getElementById('mines-game-form').innerHTML = `<h1 style="color: #0047FF;background-image: linear-gradient(90deg, #0047FF 0%, #FF007A 100%);color: transparent;-webkit-background-clip: text;background-clip: text;margin: 0px;font-size: 6em;
             ">...<span style="color: #aaa;">X</span></h1>` + document.getElementById('mines-game-form').innerHTML;
 
             document.getElementById("factor-label").innerHTML = `
@@ -183,7 +183,6 @@ async function makeMinesGame() {
             background-clip: text;
             margin: 0px;
             font-size: 6em;
-            display: none;
         " id="factor-label">...<span style="color: #aaa;">X</span></h1>
             <div class="super-button">
                 <span class="super-button-bg noactive" id="info-banner-bg"></span>
