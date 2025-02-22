@@ -97,7 +97,7 @@ async function iterField(id) {
             document.getElementById('mines-game-form').innerHTML = `<h1 style="color: #0047FF;background-image: linear-gradient(90deg, #0047FF 0%, #FF007A 35%);color: transparent;-webkit-background-clip: text;background-clip: text;margin: 0px;font-size: 6em;
             ">...<span style="color: #aaa;">X</span></h1>` + document.getElementById('mines-game-form').innerHTML;
 
-            gameFactor += response.next_win_factor;
+            gameFactor = gameFactor + response.next_win_factor;
 
             document.getElementById("factor-label").innerHTML = `
                 ${gameFactor}<span style="color: #aaa;">X</span>
