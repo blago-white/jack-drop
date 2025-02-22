@@ -47,7 +47,7 @@ class MinesService:
             factor = round(1.1 + (count_mines - 3)/10, 3)
 
         elif count_mines < 9:
-            factor = 1.3
+            factor = 1.30 + count_mines / 100
 
         elif count_mines < 12:
             factor = round(1.4 + min((count_mines - 9), 1.5)/10, 3)
@@ -56,7 +56,7 @@ class MinesService:
             factor = round(1.7 + (min(count_mines - 14, 2.5))/10 + 1, 3)
 
         else:
-            factor = 1.9
+            factor = 2
 
         self.win_amount = factor * game_request.user_current_ammount
         print(f"WIN AMMO: {self.win_amount}")
