@@ -61,6 +61,7 @@ class MinesGameRepository(BaseRepository):
                 "funds_difference": FundsDifferenceSerializer(
                     instance=result.funds_diffirence
                 ).data,
+                "next_win_factor": result.next_win_factor,
                 "game_ended": True
             }
 
@@ -73,6 +74,7 @@ class MinesGameRepository(BaseRepository):
         )
 
         return {"new_amount": instance.game_amount,
+                "next_win_factor": result.next_win_factor,
                 "game_ended": False}
 
     def init(self, data: dict) -> dict:

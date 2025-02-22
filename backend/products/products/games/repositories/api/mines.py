@@ -66,17 +66,18 @@ class MinesGameApiRepository(BaseApiRepository):
                                         site_funds=site_active_funds)
 
         if result.get("game_ended"):
-            self._commit_result(user_id=user_id,
-                                funds_difference=result.get(
-                                    "funds_difference"
-                                ),
-                                deposit=result.get("mines_game").get("deposit"),
-                                is_win=result.get("mines_game").get("is_win")
-                                )
+            self._commit_result(
+                user_id=user_id,
+                funds_difference=result.get("funds_difference"),
+                deposit=result.get("mines_game").get("deposit"),
+                is_win=result.get("mines_game").get("is_win")
+            )
 
             return self._deserialize_result(result_json=result)
 
-        return {"win_amount": result.get("new_amount"), "game_ended": False}
+        return {"win_amount": result.get("new_amount"),
+                "next_win_factor": result.get("next_win_factor"),
+                "game_ended": False}
 
     def stop(self, user_id: int) -> dict:
         result = self._api_service.stop(user_id=user_id)
@@ -92,10 +93,11 @@ class MinesGameApiRepository(BaseApiRepository):
             "win_amount": result.get("mines_game").get("game_amount")
         }
 
-    def _commit_result(self, user_id: int,
-                       funds_difference: dict,
-                       deposit: float,
-                       is_win: bool) -> None:
+    def _commit_result(
+            self, user_id: int,
+            funds_difference: dict,
+            deposit: float,
+            is_win: bool) -> None:
         print("MINES COMMIT METHOD")
         self._game_result_service.save(data=GameResultData(
             user_id=user_id,
@@ -107,14 +109,16 @@ class MinesGameApiRepository(BaseApiRepository):
             delta_advantage=funds_difference.get("user_funds_diff"),
             user_id=user_id
         )
-        print(f"MINES GAME COMMIT RESULT USER: {funds_difference.get('user_funds_diff')} + {0 if not is_win else deposit}")
+        print(
+            f"MINES GAME COMMIT RESULT USER: {funds_difference.get('user_funds_diff')} + {0 if not is_win else deposit}")
         self._users_service.update_user_balance_by_id(
             delta_amount=funds_difference.get("user_funds_diff") + deposit,
             user_id=user_id
         )
 
         self._site_funds_service.update(
-            amount=funds_difference.get("site_funds_diff") - to_blogger_advantage
+            amount=funds_difference.get(
+                "site_funds_diff") - to_blogger_advantage
         )
 
     @staticmethod
@@ -134,6 +138,7 @@ class MinesGameApiRepository(BaseApiRepository):
                 if result_json.get("mines_game").get("is_win") else
                 -result_json.get("mines_game").get("deposit")
             ),
+            "next_win_factor": result_json.get("next_win_factor"),
             "game_ended": True
         }
 

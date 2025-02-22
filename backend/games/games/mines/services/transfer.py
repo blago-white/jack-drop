@@ -17,6 +17,7 @@ class MinesGameNextStepRequest:
 class MinesGameStepResult:
     is_win: bool
     funds_diffirence: FundsDifference
+    next_win_factor: int
 
 
 @dataclass

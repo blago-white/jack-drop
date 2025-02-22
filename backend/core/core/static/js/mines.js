@@ -86,7 +86,10 @@ async function iterField(id) {
             document.getElementById('info-banner').innerHTML = `
         Receive: ${response.win_amount} <img src="/core/static/img/scrap.png" style="width: 3ch">
         `;
-        }
+        document.getElementById("factor-label").innerHTML = `
+            ${response.next_win_factor}<span style="color: #aaa;">X</span>
+        `
+    }
 
     currentStep++;
 
@@ -162,15 +165,24 @@ async function makeMinesGame() {
         fundsDiff = result.user_funds_diff;
 
         document.getElementById('mines-game-form').innerHTML = `
+        <h1 style="
+            background-image: linear-gradient(90deg, #0047FF 0%, #FF007A 100%);
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            margin: 0px;
+            font-size: 6em;
+            display: none;
+        " id="factor-label">...<span style="color: #aaa;">X</span></h1>
             <div class="super-button">
-        <span class="super-button-bg noactive" id="info-banner-bg"></span>
-            <span class="super-button-text" id="info-banner" style="gap: 0px;" id="receive">Receive: 0.0 <img src="/core/static/img/scrap.png" style="width: 3ch"></span>
+                <span class="super-button-bg noactive" id="info-banner-bg"></span>
+                <span class="super-button-text" id="info-banner" style="gap: 0px;" id="receive">Receive: 0.0 <img src="/core/static/img/scrap.png" style="width: 3ch"></span>
             </div>
             <button class="super-button" id="action-button" type="submit" onclick="stopGame();return false;">
                 <span class="super-button-bg noactive" id="stop-btn-bg"></span>
-                    <span class="super-button-text" id="action-button-text">Stop game!</span>
-                    </button>
-                    `;
+                <span class="super-button-text" id="action-button-text">Stop game!</span>
+            </button>
+        `;
 
         document.getElementById('controls').style = 'opacity: .2;cursor: default;pointer-events: none;';
     } else {

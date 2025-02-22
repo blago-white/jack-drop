@@ -68,6 +68,8 @@ class MinesService:
 
         print(f"{self.win_rate_by_mines} * {additional_rate_factor} * 100")
 
+        next_factor = self._get_next_step_win_rate(game_request=game_request)
+
         if win and (game_request.site_active_funds < (
                 self.win_amount - game_request.user_deposit
         ) + 100):
@@ -75,8 +77,9 @@ class MinesService:
                 is_win=False,
                 funds_diffirence=FundsDifference(
                     user_funds_diff=-game_request.user_deposit,
-                    site_funds_diff=game_request.user_deposit
-                )
+                    site_funds_diff=game_request.user_deposit,
+                ),
+                next_win_factor=next_factor
             )
 
         return MinesGameStepResult(
@@ -84,8 +87,25 @@ class MinesService:
             funds_diffirence=FundsDifference(
                 user_funds_diff=-game_request.user_deposit if not win else (self.win_amount - game_request.user_current_ammount),
                 site_funds_diff=-(self.win_amount - game_request.user_deposit) if win else game_request.user_deposit
-            )
+            ),
+            next_win_factor=next_factor
         )
+
+    def _get_next_step_win_rate(self, game_request: MinesGameNextStepRequest) -> float:
+        game_request.count_mines += 1
+        game_request.step += 1
+
+        real_win_amount = self.win_amount
+
+        next_step_win_rate = (self._calc_win_amount(game_request=game_request) /
+                              game_request.user_current_ammount)
+
+        self.win_amount = real_win_amount
+
+        game_request.count_mines -= 1
+        game_request.step -= 1
+
+        return next_step_win_rate
 
 
 class MinesModelService(BaseModelService):
