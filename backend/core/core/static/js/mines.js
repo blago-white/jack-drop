@@ -6,6 +6,7 @@ let gameStarted = false;
 let currentStep = 0;
 let countMines = 0;
 let deposit = 0;
+let gameFactor = 0;
 let fundsDiff = 0;
 let selected = new Set();
 
@@ -93,11 +94,13 @@ async function iterField(id) {
                 ${response.next_win_factor}<span style="color: #aaa;">X</span>
             `
         } else {
-            document.getElementById('mines-game-form').innerHTML = `<h1 style="color: #0047FF;background-image: linear-gradient(90deg, #0047FF 0%, #FF007A 100%);color: transparent;-webkit-background-clip: text;background-clip: text;margin: 0px;font-size: 6em;
+            document.getElementById('mines-game-form').innerHTML = `<h1 style="color: #0047FF;background-image: linear-gradient(90deg, #0047FF 0%, #FF007A 35%);color: transparent;-webkit-background-clip: text;background-clip: text;margin: 0px;font-size: 6em;
             ">...<span style="color: #aaa;">X</span></h1>` + document.getElementById('mines-game-form').innerHTML;
 
+            gameFactor += response.next_win_factor;
+
             document.getElementById("factor-label").innerHTML = `
-                ${response.next_win_factor}<span style="color: #aaa;">X</span>
+                ${gameFactor}<span style="color: #aaa;">X</span>
             `;
         }
     }
