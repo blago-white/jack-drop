@@ -59,6 +59,7 @@ class MinesService:
         print(f"WIN AMMO: {self.win_amount}")
 
         print(f"FACTOR: {factor} * {game_request.user_current_ammount}")
+        return self.win_amount
 
     def _get_step_result(self, additional_rate_factor: float,
                          game_request: MinesGameNextStepRequest) -> MinesGameStepResult:
