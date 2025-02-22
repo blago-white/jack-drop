@@ -86,9 +86,20 @@ async function iterField(id) {
             document.getElementById('info-banner').innerHTML = `
         Receive: ${response.win_amount} <img src="/core/static/img/scrap.png" style="width: 3ch">
         `;
-        document.getElementById("factor-label").innerHTML = `
-            ${response.next_win_factor}<span style="color: #aaa;">X</span>
-        `
+        const factorLabel = document.getElementById("factor-label");
+
+        if (factorLabel) {
+            factorLabel.innerHTML = `
+                ${response.next_win_factor}<span style="color: #aaa;">X</span>
+            `
+        } else {
+            document.getElementById('mines-game-form').innerHTML = `<h1 style="color: #0047FF;););););background-image: linear-gradient(90deg, #0047FF 0%, #FF007A 100%);color: transparent;-webkit-background-clip: text;background-clip: text;margin: 0px;font-size: 6em;
+            ">...<span style="color: #aaa;">X</span></h1>` + document.getElementById('mines-game-form').innerHTML;
+
+            document.getElementById("factor-label").innerHTML = `
+                ${response.next_win_factor}<span style="color: #aaa;">X</span>
+            `;
+        }
     }
 
     currentStep++;
