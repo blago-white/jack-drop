@@ -211,7 +211,6 @@ async function animateContract() {
         let c = 0;
         console.log(`bias: ${bias}`)
 
-        document.getElementsByTagName('video')[4].defaultPlaybackRate = 2;
         document.getElementsByTagName('video')[4].playbackRate  = 2;
         await document.getElementsByTagName('video')[4].play();
 
@@ -224,7 +223,6 @@ async function animateContract() {
             c ++;
         }
     } else {
-        document.getElementsByTagName('video')[4].defaultPlaybackRate = 3;
         document.getElementsByTagName('video')[4].playbackRate  = 3;
         await document.getElementsByTagName('video')[4].play();
 
