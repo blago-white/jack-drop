@@ -40,7 +40,7 @@ function get() {
 async function start() {
     while (true) {
         get();
-        await sleep(3000);
+        await sleep(8000);
     }
 }
 
