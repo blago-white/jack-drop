@@ -226,7 +226,7 @@ return
 if (jsondata["result"]["success"] && jsondata["response_type"] == "result") {
 hideRequestWindow();
 
-const isWinner = jsondata.result.data.winner_data.id != (await getAuthenticated()).id;
+const isWinner = jsondata.result.data.winner_data.id == (await getAuthenticated()).id;
 
 const item = isWinner ? jsondata.result.data.dropped_item_winner_id : jsondata.result.data.dropped_item_loser_id;
 

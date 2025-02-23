@@ -194,9 +194,19 @@ class BattleApiRepository(_BaseBattleApiRepository):
             )
         ]
 
-        loser, winner = self._users_service.get_users_info(
-            users_ids=[battle_result.get("winner_id"), battle_result.get("loser_id")]
-        ).get("users")
+        loser, winner = (
+            self._users_service.get_user_by_id(
+                user_id=battle_result.get("loser_id")
+            ),
+            self._users_service.get_user_by_id(
+                user_id=battle_result.get("winner_id")
+            )
+        )
+
+        # TODO: Fix users endpoint
+        # loser, winner = self._users_service.get_users_info(
+        #     users_ids=[battle_result.get("winner_id"), battle_result.get("loser_id")]
+        # ).get("users")
 
         return {
             "winner_data": winner,
