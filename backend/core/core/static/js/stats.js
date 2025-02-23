@@ -7,7 +7,6 @@ const statsWebSocket = new WebSocket(`ws://${location.hostname}/games/ws/stats/`
 statsWebSocket.onmessage = async function(event) {
     const jsondata =  JSON.parse(JSON.parse(event.data));
 
-    let valueRepr;
 
     Object.entries(jsondata).forEach(([key, value]) => {
         if (key != 'id') {
@@ -15,7 +14,7 @@ statsWebSocket.onmessage = async function(event) {
             setTimeout(async function() {
                 document.getElementById(`${key}-val`).style.opacity = 1;
 
-                valueRepr = parseInt(value);
+                let valueRepr = parseInt(value);
 
                 for (let i = 0; i < valueRepr; i+=2) {
                     console.log(valueRepr, i, key);
