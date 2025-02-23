@@ -4,19 +4,25 @@ function sleep(ms) {
 
 const statsWebSocket = new WebSocket(`ws://${location.hostname}/games/ws/stats/`);
 
-statsWebSocket.onmessage = function(event) {
+statsWebSocket.onmessage = async function(event) {
     const jsondata =  JSON.parse(JSON.parse(event.data));
+
+    let valueRepr;
 
     Object.entries(jsondata).forEach(([key, value]) => {
         if (key != 'id') {
-            if (!(parseInt(document.getElementById(`${key}-val`).innerHTML) == value)) {
-                document.getElementById(`${key}-val`).style.opacity = 0;
-                setTimeout(() => {
-                    document.getElementById(`${key}-val`).innerHTML = value;
-                    document.getElementById(`${key}-val`).style.opacity = 1;
-                }, 200)
+            document.getElementById(`${key}-val`).style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById(`${key}-val`).style.opacity = 1;
+
+                valueRepr = parseInt(value);
+
+                for (let i = 0; i < valueRepr; i+=2) {
+                    document.getElementById(`${key}-val`).innerHTML = i;
+                    await sleep(1);
+                }
             }
-        }
+        }, 200)}
     });
 };
 
