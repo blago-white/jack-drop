@@ -10,6 +10,7 @@ statsWebSocket.onmessage = async function(event) {
 
     Object.entries(jsondata).forEach(([key, value]) => {
         if (key != 'id') {
+            console.log(key, value);
             document.getElementById(`${key}-val`).style.opacity = 0;
             setTimeout(async function() {
                 document.getElementById(`${key}-val`).style.opacity = 1;
