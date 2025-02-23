@@ -38,9 +38,11 @@ function get() {
 }
 
 async function start() {
+    get();
+
     while (true) {
-        get();
         await sleep(8000);
+        get();
     }
 }
 
