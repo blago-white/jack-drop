@@ -22,6 +22,8 @@ statsWebSocket.onmessage = async function(event) {
                     document.getElementById(`${key}-val`).innerHTML = i;
                     await sleep(1);
                 }
+
+                console.log("END", valueRepr, i, key)
             }, 200);
         }
     });
