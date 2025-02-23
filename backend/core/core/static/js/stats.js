@@ -18,6 +18,7 @@ statsWebSocket.onmessage = async function(event) {
                 valueRepr = parseInt(value);
 
                 for (let i = 0; i < valueRepr; i+=2) {
+                    console.log(valueRepr, i, key);
                     document.getElementById(`${key}-val`).innerHTML = i;
                     await sleep(1);
                 }
