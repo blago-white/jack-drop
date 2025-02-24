@@ -35,8 +35,6 @@ function get() {
 }
 
 async function start() {
-    get();
-
     while (true) {
         await sleep(8000);
         get();
@@ -50,5 +48,5 @@ if (windowInnerWidth / windowInnerHeight < 1) {
     Array.from(document.getElementsByClassName("flex-stat")).forEach((elem) => {elem.remove()})
 }
 
-
+get();
 start();
