@@ -30,6 +30,12 @@ function updateSubmitBtn() {
 async function addDeposit() {
     if (!agreement) {return}
 
+    const user = await getAuthenticated();
+
+    if (!user) {
+        return makeWarn("Всего пара шагов до вашей первой победы", "Зарегистрируйтесь и пополните баланс прямо сейчас!")
+    }
+
     const amount = parseFloat(depoAmountField.value);
     const headers = new Headers();
 
@@ -46,7 +52,7 @@ async function addDeposit() {
     const responseJSON = await response.json();
 
     if (!response.ok) {
-        document.getElementById('replenish-form').style.outline = '5px solid firebrick'
+        document.getElementById('replenish-form').style.outline = '1px solid firebrick'
 
         makeWarn(responseJSON.description)
     } else {
