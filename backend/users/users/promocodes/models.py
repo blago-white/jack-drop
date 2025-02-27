@@ -21,6 +21,7 @@ class Promocode(models.Model):
                                        MinValueValidator(0),
                                        MaxValueValidator(100)
                                    ])
+    for_personal_offers = models.BooleanField(default=False)
     usages = models.IntegerField(verbose_name="Count usages, -1 = infinite",
                                  default=-1)
 
@@ -29,6 +30,28 @@ class Promocode(models.Model):
 
     def __str__(self):
         return f"{self.code[:10]} [{self.discount}%]"
+
+
+class PersonalDepositOffer(models.Model):
+    recipient = models.ForeignKey(
+        to=Client,
+        null=True,
+        verbose_name="Получатель",
+        on_delete=models.SET_NULL,
+        primary_key=True
+    )
+
+    activated = models.BooleanField(
+        verbose_name="Был использован",
+        default=False
+    )
+
+    blocked = models.BooleanField(
+        verbose_name="Оффер отменен",
+        default=False
+    )
+
+    date = models.DateTimeField(auto_now=True, auto_now_add=True)
 
 
 class PromocodeActivation(models.Model):

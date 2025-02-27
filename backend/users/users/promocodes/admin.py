@@ -5,4 +5,4 @@ from .models import Promocode
 
 @admin.register(Promocode)
 class PromocodeAdmin(admin.ModelAdmin):
-    list_display = ["code", "discount"]
+    list_display = ["code", "discount", "for_personal_offers"]

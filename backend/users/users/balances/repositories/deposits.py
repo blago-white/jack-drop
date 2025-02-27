@@ -8,6 +8,7 @@ from balances.serializers import ClientDepositSerializer
 from referrals.services.referral import ReferralService
 from ..models import ClientDeposit
 
+from promocodes.services.offers import PersonalOffersService
 from promocodes.services.discount import PromocodesService
 
 
@@ -16,18 +17,23 @@ class DepositRepository(BaseRepository):
     default_promocodes_service = PromocodesService()
     default_advantage_service = AdvantageService()
     default_referrals_service = ReferralService(deposit_model=ClientDeposit)
+    default_personal_offers_service = PersonalOffersService()
+
     default_serializer_class = ClientDepositSerializer
 
     _service: DepositsService
+    _personal_offers_service: PersonalOffersService
 
     def __init__(self, *args,
                  promocodes_service: PromocodesService = None,
                  referrals_service: ReferralService = None,
                  advantage_service: AdvantageService = None,
+                 offers_service: PersonalOffersService = None,
                  **kwargs):
         self._promocodes_service = promocodes_service or self.default_promocodes_service
         self._referrals_service = referrals_service or self.default_referrals_service
         self._advantage_service = advantage_service or self.default_advantage_service
+        self._offers_service = offers_service or self.default_personal_offers_service
 
         super().__init__(*args, **kwargs)
 
@@ -41,9 +47,23 @@ class DepositRepository(BaseRepository):
         used_promo = promo_blogger = None
 
         if promocode:
-            discount, used_promo, promo_blogger = self._promocodes_service.use(
-                promocode=promocode,
-            )
+            try:
+                for_personal_offers = self._promocodes_service.get_for_personal_offer()
+            except:
+                for_personal_offers = None
+
+            if for_personal_offers and for_personal_offers.code == promocode:
+                try:
+                    self._offers_service.activate(client_id=client_id)
+                except:
+                    discount = 0
+                else:
+                    used_promo, discount = promo_blogger, for_personal_offers.discount
+
+            else:
+                discount, used_promo, promo_blogger = self._promocodes_service.use(
+                    promocode=promocode,
+                )
 
             bonused = amount * (discount / 100)
         else:

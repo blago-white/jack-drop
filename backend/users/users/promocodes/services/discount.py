@@ -19,6 +19,12 @@ class PromocodesService(BaseService):
         except:
             return 0
 
+    def get_for_personal_offer(self) -> Promocode:
+        try:
+            return self._model.objects.filter(for_personal_offers=True).first()
+        except:
+            return False
+
     def use(self, promocode: str) -> tuple[
         int, Promocode | None, Referral | None
     ]:
@@ -27,6 +33,9 @@ class PromocodesService(BaseService):
 
             if not promo.usages:
                 raise ValueError
+
+            if promo.for_personal_offers:
+                pass
         except:
             return 0, None, None
 
