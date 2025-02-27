@@ -16,6 +16,7 @@ class PromocodeSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = ["code", "discount"]
+        model = Promocode
 
 
 class PersonalOfferSerializer(serializers.Serializer):
