@@ -69,7 +69,7 @@ function renderFullScreenDepositWindow() {
 }
 
 function renderSmallDepositWindow() {
-    ...
+
 }
 
 function renderWindow() {
