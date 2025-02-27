@@ -18,7 +18,7 @@ class PromocodeSerializer(serializers.ModelSerializer):
         fields = ["code", "discount"]
 
 
-class PersonalOfferSerializer(serializers.ModelSerializer):
+class PersonalOfferSerializer(serializers.Serializer):
     available = serializers.BooleanField(default=False)
 
     promocode = PromocodeSerializer(required=False, allow_null=True)
