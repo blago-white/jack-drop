@@ -27,6 +27,6 @@ class PersonalOffersRepository(BaseRepository):
                     available=True,
                     promocode=self._promocodes_service.get_for_personal_offer()
                 )
-            )
+            ).data
 
         return self._serializer_class().data
