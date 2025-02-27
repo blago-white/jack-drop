@@ -21,11 +21,14 @@ class PersonalOffersRepository(BaseRepository):
         super().__init__(*args, **kwargs)
 
     def get(self, client_id: int) -> dict:
-        if self._service.can_receive(client_id=client_id):
+        offer, can_receive = self._service.can_receive(client_id=client_id)
+
+        if can_receive:
             return self._serializer_class(
                 instance=dict(
                     available=True,
-                    promocode=self._promocodes_service.get_for_personal_offer()
+                    promocode=self._promocodes_service.get_for_personal_offer(),
+                    date_received=offer.date
                 )
             ).data
 

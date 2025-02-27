@@ -24,5 +24,7 @@ class PersonalOfferSerializer(serializers.Serializer):
 
     promocode = PromocodeSerializer(required=False, allow_null=True)
 
+    date_received = serializers.DateTimeField()
+
     class Meta:
-        fields = ["available", "promocode"]
+        fields = ["available", "promocode", "date_received"]

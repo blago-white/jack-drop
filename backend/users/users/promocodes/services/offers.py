@@ -1,3 +1,5 @@
+import datetime
+
 from ..models import PersonalDepositOffer
 
 from common.services import BaseService
@@ -6,18 +8,20 @@ from common.services import BaseService
 class PersonalOffersService(BaseService):
     default_model = PersonalDepositOffer
 
-    def can_receive(self, client_id: int) -> bool:
+    def can_receive(self, client_id: int) -> tuple[PersonalDepositOffer, bool]:
         try:
             offer: PersonalDepositOffer = self._model.objects.get(
                 recipient_id=client_id
             )
         except:
-            return False
+            return None, False
 
-        if not offer.activated and not offer.blocked:
-            return True
+        if (not offer.activated and
+                not offer.blocked and
+                (datetime.datetime.now() - offer.date) <= datetime.timedelta(days=3)):
+            return offer, True
 
-        return False
+        return None, False
 
     def activate(self, client_id: int) -> PersonalDepositOffer:
         offer: PersonalDepositOffer = self._model.objects.get(
@@ -25,6 +29,9 @@ class PersonalOffersService(BaseService):
             activated=False,
             blocked=False
         )
+
+        if (datetime.datetime.now() - offer.date) > datetime.timedelta(days=3):
+            raise ValueError()
 
         offer.activated = True
 
