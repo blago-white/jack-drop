@@ -35,10 +35,9 @@ class Promocode(models.Model):
 class PersonalDepositOffer(models.Model):
     recipient = models.ForeignKey(
         to=Client,
-        null=False,
         verbose_name="Получатель",
-        on_delete=models.SET_NULL,
-        primary_key=True
+        primary_key=True,
+        on_delete=models.CASCADE
     )
 
     activated = models.BooleanField(
