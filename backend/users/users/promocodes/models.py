@@ -35,7 +35,7 @@ class Promocode(models.Model):
 class PersonalDepositOffer(models.Model):
     recipient = models.ForeignKey(
         to=Client,
-        null=True,
+        null=False,
         verbose_name="Получатель",
         on_delete=models.SET_NULL,
         primary_key=True
@@ -51,7 +51,7 @@ class PersonalDepositOffer(models.Model):
         default=False
     )
 
-    date = models.DateTimeField(auto_now=True, auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
 
 
 class PromocodeActivation(models.Model):
