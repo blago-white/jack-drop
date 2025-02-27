@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.request import Request
 
@@ -17,12 +18,12 @@ class PromocodeDiscountView(DefaultApiView):
         )
 
 
-class PersonalOffersView(DefaultApiView):
+class PersonalOffersView(RetrieveAPIView):
     repository = PersonalOffersRepository()
     serializer_class = repository.default_serializer_class
     http_method_names = ["get"]
 
-    def retrieve(self, request: Request, *args, **kwargs):
+    def get(self, request: Request, *args, **kwargs):
         return Response(
             data=self.repository.get(client_id=request.user.id)
         )
