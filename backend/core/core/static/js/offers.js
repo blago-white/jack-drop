@@ -1,51 +1,18 @@
 function renderFullScreenDepositWindow() {
     document.getElementById('prize-wrappper').innerHTML = `
-        <div style="/* width: 60%; */max-width: calc(95% - 2em);/* padding: 2em; */background: linear-gradient(90deg, rgb(13 13 13) 0%, rgba(20, 20, 20, 1) 100%);border-radius: 1em;font-size: 3em;display: grid;grid-template-columns: 1fr;grid-template-rows: 1fr;overflow: hidden;">
+        <div class="offer-window">
 
-            <div class="" style="">
-                <h2 style="font-family: 'Gilroy Bold';font-size: 3ch;max-width: 50%;text-align: left;margin: 0px;max-width: 60%;">Эксклюзивный промокод
-от JackDrop!</h2>
-                <div style="
-    padding: 1em;
-    gap: 1ch;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background: #202020;
-    border-radius: calc(100vw * calc(10 / 1920));
-    border-radius: calc(100vw * calc(30 / 1920))!important;
-"><div class="timer-ring" style="
-    background: radial-gradient(closest-side, #202020 79%, transparent 80% 100%), conic-gradient(#ffffff 75%, rgb(255, 255, 255, .2) 0);
-    aspect-ratio: 1/1;
-    position: relative;
-    display: flex;
-    height: 5ch;
-    border-radius: 50%;
-"></div><div class="timer-data" style="
-    display: flex;
-    flex-direction: column;
-">
-    <span style="
-    font-size: .9em;
-">осталось:</span>
-    <span style="
-    font-size: 1.4em;
-    font-family: 'Gilroy SemiBold';
-">03:16:54</span>
-</div></div>
-    <span style="
-    max-width: 62%;
-    text-transform: none;
-    color: #eee;
-">До конца дня используй код JD25 и получи +25% к своему первому депозиту!</span>
-                <button class="super-button" onclick="clearWarn()" style="
-    width: 50%;
-    min-height: 4ch;
-    font-size: 1.2em;
-">
-                    <span class="super-button-bg" style="
-    transform: none;
-"></span>
+            <div class="offer-content">
+                <h2 class="offer-content-title">Эксклюзивный промокод от JackDrop!</h2>
+                <div class="timer"><div class="timer-ring"></div><div class="timer-data">
+    <span style="font-size: .9em;">осталось:</span>
+    <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';">03:16:54</span>
+    </div></div>
+    <span style="max-width: 62%;text-transform: none;color: #eee;">
+        До конца дня используй код JD25 и получи +25% к своему первому депозиту!
+    </span>
+    <button class="super-button offer-button" onclick="clearWarn()">
+                    <span class="super-button-bg"></span>
                     <span class="super-button-text">ПОПОЛНИТЬ С БОНУСОМ!</span>
                 </button>
             </div>
