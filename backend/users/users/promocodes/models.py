@@ -14,6 +14,7 @@ class Promocode(models.Model):
     blogger = models.OneToOneField(to="referrals.Referral",
                                    on_delete=models.SET_NULL,
                                    null=True,
+                                   blank=True,
                                    related_name="promocodes",
                                    related_query_name="promocodes")
     discount = models.IntegerField(verbose_name="Discount percent",
