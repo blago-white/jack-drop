@@ -20,6 +20,7 @@ class PromocodeDiscountView(DefaultApiView):
 class PersonalOffersView(DefaultApiView):
     repository = PersonalOffersRepository()
     serializer_class = repository.default_serializer_class
+    http_method_names = ["get"]
 
     def retrieve(self, request: Request, *args, **kwargs):
         return Response(
