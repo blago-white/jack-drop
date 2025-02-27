@@ -22,3 +22,6 @@ class PersonalOfferSerializer(serializers.ModelSerializer):
     available = serializers.BooleanField(default=False)
 
     promocode = PromocodeSerializer(required=False, allow_null=True)
+
+    class Meta:
+        fields = ["available", "promocode"]
