@@ -16,7 +16,7 @@ function renderFullScreenDepositWindow() {
                 <span style="max-width: 62%;text-transform: none;color: #eee;">
                     До конца дня используй код JD25 и получи +25% к своему первому депозиту!
                 </span>
-                <button class="super-button offer-button" onclick="clearWarn()">
+                <button class="super-button offer-button" onclick="closeOffer()">
                     <span class="super-button-bg"></span>
                     <span class="super-button-text">ПОПОЛНИТЬ С БОНУСОМ!</span>
                 </button>
@@ -24,9 +24,12 @@ function renderFullScreenDepositWindow() {
         </div>
     `
 
-    document.getElementById('prize-wrapper').style.background = "#1A1A1AB2";
-    document.getElementById('prize-wrapper').style.display = "flex";
-    document.getElementById('prize-wrapper').style.visibility = "visible";
+    document.getElementById('prize-wrapper').style = "background: #1A1A1AB2;display: flex;visibility: visible;"
+}
+
+function closeOffer() {
+    document.getElementById('prize-wrapper').style = "";
+    document.getElementById('prize-wrapper').innerHTML = "";
 }
 
 function renderSmallDepositWindow() {
