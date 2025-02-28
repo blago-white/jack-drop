@@ -4,7 +4,7 @@ function sleep(ms) {
 
 function renderFullScreenDepositWindow(promocode, discount) {
     document.getElementById('prize-wrappper').innerHTML = `
-        <div class="offer-window">
+        <div class="offer-window" id="offerWindow">
             <div class="offer-content">
                 <div class="offer-header">
                     <h2 class="offer-content-title">Эксклюзивный промокод от JackDrop!</h2>
@@ -32,7 +32,21 @@ function renderFullScreenDepositWindow(promocode, discount) {
 }
 
 
-function closeOffer() {
+async function closeOffer(small=false, block=false) {
+    if (small) {
+        document.getElementById('prize-wrappper').style.transition = "all .2s ease";
+        document.getElementById('offerWindow').transform = "scale(0)";
+        document.getElementById('prize-wrappper').style.background = "transparent";
+    } else {
+        document.getElementById('smallOfferContent').transform = "scale(0)";
+        await sleep(200);
+        document.getElementById('smallDepositWindow').transform = "scale(0)";
+    }
+
+    if (block) {
+        setCookie("offer-hidden", true)
+    }
+
     document.getElementById('prize-wrappper').style = "";
     document.getElementById('prize-wrappper').innerHTML = "";
 }
@@ -41,15 +55,19 @@ async function renderSmallDepositWindow(promocode) {
     await sleep(2000);
 
     document.getElementsByTagName('body')[0].innerHTML += `
-    <aside class="small-deposit-window" onclick="location.href = '/replenish/${promocode}/'">
-        <button class="small-close-cross" onclick="closeOffer"></button>
+    <aside class="small-deposit-window" onclick="location.href = '/replenish/${promocode}/'" id="smallDepositWindow">
+        <button class="small-close-cross" onclick="closeOffer(small=true, block=true);"></button>
         <img src="https://s.iimg.su/s/28/oToA9ygk2Htnv3mmSRgvIWNylrhlvZgQaCkInOhE.png" class="small-banner-img">
-        <span class="small-offer-content">+25% К депозиту</span>
+        <span class="small-offer-content" id="smallOfferContent">+25% К депозиту</span>
     </aside>
     `;
 }
 
 async function renderWindow() {
+    if (getCookie("offer-hidden")) {
+        return
+    }
+
     if (getCookie("has-offer")) {
         if (getCookie("viewed-offer")) {
             await renderSmallDepositWindow(getCookie("has-offer-promo-name"))
@@ -65,7 +83,7 @@ async function checkOffer() {
         return await renderWindow();
     }
 
-    if ((await getAuthenticated()).balance != 0) {return}
+    if ((await getAuthenticated()).balance != 0 || getCookie("offer-hidden")) {return}
 
     const response = await sendRequest(
         "/auth/discount/api/v1/public/get-offer/",
@@ -90,4 +108,6 @@ async function checkOffer() {
 
 window.renderFullScreenDepositWindow = renderFullScreenDepositWindow;
 
-checkOffer();
+if (!location.href.includes("replenish")) {
+    checkOffer();
+}
