@@ -88,7 +88,7 @@ async function renderSmallDepositWindow(promocode, discount) {
 
     const sec = parseInt(time%60);
 
-    document.getElementById('smallDepositWindow').innerHTML += `
+    document.getElementById('smallDepositWindow').innerHTML = `
         <button class="small-close-cross" onclick="closeOffer(${promocode}, ${discount}, true, true);"></button>
         <img src="https://s.iimg.su/s/28/oToA9ygk2Htnv3mmSRgvIWNylrhlvZgQaCkInOhE.png" onclick="location.href = '/replenish/${promocode}/'" class="small-banner-img">
         <span class="small-offer-content" onclick="location.href = '/replenish/${promocode}/'" style="display: flex;align-items: center;" id="smallOfferContent">
