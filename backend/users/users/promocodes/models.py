@@ -51,7 +51,7 @@ class PersonalDepositOffer(models.Model):
         default=False
     )
 
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True, blank=True)
 
 
 class PromocodeActivation(models.Model):
