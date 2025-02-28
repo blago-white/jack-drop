@@ -112,6 +112,9 @@
     .offer-window {
         font-size: 3em;
         width: auto;
+        max-width: 95%;
+        background-size: 111%;
+        background-position: -36% 0vh;
     }
 
     .offer-content-title {
@@ -147,6 +150,6 @@
     }
 
     .offer-content {
-        width: 52%;
+        width: auto;
     }
 }
