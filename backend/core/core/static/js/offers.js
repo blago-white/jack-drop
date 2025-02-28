@@ -2,7 +2,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function renderFullScreenDepositWindow(promocode, discount) {
+async function renderFullScreenDepositWindow(promocode, discount) {
     document.getElementById('prize-wrappper').innerHTML = `
         <div class="offer-window" id="offerWindow">
             <div class="offer-content">
@@ -14,7 +14,7 @@ function renderFullScreenDepositWindow(promocode, discount) {
                     <div class="timer-ring" id="timerRing"></div>
                     <div class="timer-data">
                         <span style="font-size: .9em;">осталось:</span>
-                        <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';">03:16:54</span>
+                        <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';" id="timerValue">24:00:00</span>
                     </div>
                 </div>
                 <span style="max-width: 62%;text-transform: none;color: #eee;">
@@ -26,9 +26,13 @@ function renderFullScreenDepositWindow(promocode, discount) {
                 </button>
             </div>
         </div>
-    `
+    `;
+
+    document.getElementById('timerRing').style.background = `radial-gradient(closest-side, #202020 79%, transparent 80% 100%), conic-gradient(#ffffff 75%, rgb(255, 255, 255, .2) 0)`
 
     document.getElementById('prize-wrappper').style = "background: #1A1A1AB2;display: flex;visibility: visible;"
+
+    await countDown();
 }
 
 
@@ -78,7 +82,7 @@ async function renderWindow() {
         } else {
             console.log(13);
 
-            renderFullScreenDepositWindow(getCookie("has-offer-promo-name"), getCookie("has-offer-promo-discount"));
+            await renderFullScreenDepositWindow(getCookie("has-offer-promo-name"), getCookie("has-offer-promo-discount"));
             setCookie("viewed-offer", true)
         }
     }
@@ -121,6 +125,20 @@ async function checkOffer() {
 
     await renderWindow();
 }
+
+async function countDown() {
+    let time;
+
+    while (true) {
+        await sleep(1000);
+
+        time = Date.now() - getCookie("has-offer-promo-created-at");
+
+        document.getElementById('timerValue').innerHTML = `${parseInt(time / 60 / 60)}:${parseInt(time / 60)}:${parseInt(time%60)}`
+    }
+}
+
+main();
 
 window.renderFullScreenDepositWindow = renderFullScreenDepositWindow;
 
