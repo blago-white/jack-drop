@@ -59,7 +59,7 @@ class DepositRepository(BaseRepository):
                     print("OFFER PROMO ERROR", e)
                     discount = 0
                 else:
-                    used_promo, discount = for_personal_offers.code, for_personal_offers.discount
+                    used_promo, discount = for_personal_offers, for_personal_offers.discount
 
             else:
                 discount, used_promo, promo_blogger = self._promocodes_service.use(
