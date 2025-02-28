@@ -55,7 +55,8 @@ class DepositRepository(BaseRepository):
             if for_personal_offers and for_personal_offers.code == promocode:
                 try:
                     self._offers_service.activate(client_id=client_id)
-                except:
+                except Exception as e:
+                    print("OFFER PROMO ERROR", e)
                     discount = 0
                 else:
                     used_promo, discount = for_personal_offers.code, for_personal_offers.discount

@@ -30,7 +30,7 @@ class PersonalOffersService(BaseService):
             blocked=False
         )
 
-        if (datetime.datetime.now() - offer.date) > datetime.timedelta(days=3):
+        if (datetime.datetime.now(tz=datetime.UTC) - offer.date) > datetime.timedelta(days=1):
             raise ValueError()
 
         offer.activated = True
