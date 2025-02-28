@@ -4,7 +4,7 @@ function renderFullScreenDepositWindow() {
             <div class="offer-content">
                 <div class="offer-header">
                     <h2 class="offer-content-title">Эксклюзивный промокод от JackDrop!</h2>
-                    <button class="offer-cross"></span>
+                    <button class="offer-cross" onclick="closeOffer()"></span>
                 </div>
                 <div class="timer">
                     <div class="timer-ring"></div>
@@ -24,12 +24,12 @@ function renderFullScreenDepositWindow() {
         </div>
     `
 
-    document.getElementById('prize-wrapper').style = "background: #1A1A1AB2;display: flex;visibility: visible;"
+    document.getElementById('prize-wrappper').style = "background: #1A1A1AB2;display: flex;visibility: visible;"
 }
 
 function closeOffer() {
-    document.getElementById('prize-wrapper').style = "";
-    document.getElementById('prize-wrapper').innerHTML = "";
+    document.getElementById('prize-wrappper').style = "";
+    document.getElementById('prize-wrappper').innerHTML = "";
 }
 
 function renderSmallDepositWindow() {
