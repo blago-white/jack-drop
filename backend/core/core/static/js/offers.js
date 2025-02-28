@@ -2,6 +2,8 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+const zeroPad = (num, places) => String(num).padStart(places, '0')
+
 async function countDown() {
     let time;
 
@@ -10,7 +12,7 @@ async function countDown() {
 
         time = ((60*60*24) - ((Date.now()/1000) - parseInt(getCookie("has-offer-promo-created-at"))));
 
-        document.getElementById('timerValue').innerHTML = `${parseInt(time / 60 / 60)}:${parseInt((time % (60*60)) / 60)}:${parseInt(time%60)}`
+        document.getElementById('timerValue').innerHTML = `${zeroPad(parseInt(time / 60 / 60), 2)}:${zeroPad(parseInt((time % (60*60)) / 60), 2)}:${zeroPad(parseInt(time%60), 2)}`
     }
 }
 
