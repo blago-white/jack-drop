@@ -1,3 +1,7 @@
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function renderFullScreenDepositWindow(promocode, discount) {
     document.getElementById('prize-wrappper').innerHTML = `
         <div class="offer-window">
@@ -27,12 +31,15 @@ function renderFullScreenDepositWindow(promocode, discount) {
     document.getElementById('prize-wrappper').style = "background: #1A1A1AB2;display: flex;visibility: visible;"
 }
 
+
 function closeOffer() {
     document.getElementById('prize-wrappper').style = "";
     document.getElementById('prize-wrappper').innerHTML = "";
 }
 
-function renderSmallDepositWindow(promocode) {
+async function renderSmallDepositWindow(promocode) {
+    await sleep(2000);
+
     document.getElementsByTagName('body')[0].innerHTML += `
     <aside class="small-deposit-window" onclick="location.href = '/replenish/${promocode}/'">
         <button class="small-close-cross" onclick="closeOffer"></button>
@@ -42,10 +49,10 @@ function renderSmallDepositWindow(promocode) {
     `;
 }
 
-function renderWindow() {
+async function renderWindow() {
     if (getCookie("has-offer")) {
         if (getCookie("viewed-offer")) {
-            renderSmallDepositWindow(getCookie("has-offer-promo-name"))
+            await renderSmallDepositWindow(getCookie("has-offer-promo-name"))
         } else {
             renderFullScreenDepositWindow(getCookie("has-offer-promo-name"), getCookie("has-offer-promo-discount"));
             setCookie("viewed-offer", true)
@@ -55,7 +62,7 @@ function renderWindow() {
 
 async function checkOffer() {
     if ((parseInt(new Date()) - getCookie("offer-checked-date")) < 60*15) {
-        return renderWindow();
+        return await renderWindow();
     }
 
     if ((await getAuthenticated()).balance != 0) {return}
@@ -78,7 +85,7 @@ async function checkOffer() {
 
     setCookie("offer-checked-date", parseInt(new Date()));
 
-    renderWindow();
+    await renderWindow();
 }
 
 window.renderFullScreenDepositWindow = renderFullScreenDepositWindow;
