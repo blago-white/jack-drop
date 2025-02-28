@@ -82,3 +82,5 @@ async function checkOffer() {
 }
 
 window.renderFullScreenDepositWindow = renderFullScreenDepositWindow;
+
+checkOffer();
