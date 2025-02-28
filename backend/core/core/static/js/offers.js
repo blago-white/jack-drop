@@ -35,6 +35,7 @@ function closeOffer() {
 function renderSmallDepositWindow() {
     document.getElementsByTagName('body')[0].innerHTML += `
     <aside class="small-deposit-window">
+        <button class="small-close-cross"></button>
         <img src="https://s.iimg.su/s/28/oToA9ygk2Htnv3mmSRgvIWNylrhlvZgQaCkInOhE.png" class="small-banner-img">
         <span class="small-offer-content">+25% К депозиту</span>
     </aside>

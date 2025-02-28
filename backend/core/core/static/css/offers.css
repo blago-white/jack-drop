@@ -156,6 +156,25 @@
     transform: scale(1.075);
 }
 
+.small-close-cross {
+    position: relative;
+    grid-row: 1;
+    grid-column: 1;
+    top: -80%;);)%;);
+    width: 10%;
+    aspect-ratio: 1/1;
+    background: url(https://cdn-icons-png.flaticon.com/512/1828/1828778.png);
+    background-size: 100%;);
+    filter: invert(1);
+    border: none;
+    border-radius: 50%;
+    color: white;
+}
+
+.small-deposit-window:hover .small-close-cross {
+    transform: scale(1.075);
+}
+
 @media(aspect-ratio < 1/1) {
     .offer-window {
         font-size: 3em;
