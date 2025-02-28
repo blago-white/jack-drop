@@ -12,7 +12,11 @@ async function countDown() {
 
         time = ((60*60*24) - ((Date.now()/1000) - parseInt(getCookie("has-offer-promo-created-at"))));
 
+        const sec = parseInt(time%60);
+
         document.getElementById('timerValue').innerHTML = `${zeroPad(parseInt(time / 60 / 60), 2)}:${zeroPad(parseInt((time % (60*60)) / 60), 2)}:${zeroPad(parseInt(time%60), 2)}`
+
+        document.getElementById('timerRing').style.background = `radial-gradient(closest-side, rgb(32, 32, 32) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) ${parseInt(60 / sec)}%, rgba(255, 255, 255, 0.2) 0deg)`;
     }
 }
 
