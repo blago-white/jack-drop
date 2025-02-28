@@ -103,7 +103,7 @@ async function checkOffer() {
 
     if (result.available) {
 
-        console.log(3);
+        console.log(result);
 
         setCookie("has-offer", true)
         setCookie("has-offer-promo-name", result.promocode.code)
