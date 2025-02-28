@@ -11,7 +11,7 @@ function renderFullScreenDepositWindow(promocode, discount) {
                     <button class="offer-cross" onclick="closeOffer()"></span>
                 </div>
                 <div class="timer">
-                    <div class="timer-ring"></div>
+                    <div class="timer-ring" id="timerRing"></div>
                     <div class="timer-data">
                         <span style="font-size: .9em;">осталось:</span>
                         <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';">03:16:54</span>
@@ -53,11 +53,11 @@ async function closeOffer(small=false, block=false) {
     document.getElementById('prize-wrappper').innerHTML = "";
 }
 
-async function renderSmallDepositWindow(promocode) {
+async function renderSmallDepositWindow(promocode, discount) {
     document.getElementById('smallDepositWindow').innerHTML += `
         <button class="small-close-cross" onclick="closeOffer(true, true);"></button>
         <img src="https://s.iimg.su/s/28/oToA9ygk2Htnv3mmSRgvIWNylrhlvZgQaCkInOhE.png" onclick="location.href = '/replenish/${promocode}/'" class="small-banner-img">
-        <span class="small-offer-content" onclick="location.href = '/replenish/${promocode}/'" id="smallOfferContent">+25% К депозиту</span>
+        <span class="small-offer-content" onclick="location.href = '/replenish/${promocode}/'" id="smallOfferContent">+${discount}% К депозиту</span>
     `;
 
     document.getElementById('smallDepositWindow').style = "";
@@ -74,7 +74,7 @@ async function renderWindow() {
         if (getCookie("viewed-offer")) {
             console.log(12);
 
-            await renderSmallDepositWindow(getCookie("has-offer-promo-name"))
+            await renderSmallDepositWindow(getCookie("has-offer-promo-name"), getCookie("has-offer-promo-discount"))
         } else {
             console.log(13);
 
@@ -108,7 +108,7 @@ async function checkOffer() {
         setCookie("has-offer", true)
         setCookie("has-offer-promo-name", result.promocode.code)
         setCookie("has-offer-promo-discount", result.promocode.discount)
-        setCookie("has-offer-promo-created-at", result.promocode.date_received)
+        setCookie("has-offer-promo-created-at", result.date_received)
     } else {
         console.log(4);
 

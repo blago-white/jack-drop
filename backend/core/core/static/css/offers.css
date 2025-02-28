@@ -13,6 +13,8 @@
     background-position: 120% -2vh;
     /* aspect-ratio: 404 / 261; */
     max-width: 44vw;
+
+    z-index: 999;
 }
 
 .offer-content {
@@ -110,9 +112,6 @@
 }
 
 .small-deposit-window {
-    position: sticky;
-    bottom: 5vh;
-    left: 5vh;
     width: 16vw;
     min-width: 250px;
     aspect-ratio: 1/1;

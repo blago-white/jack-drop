@@ -102,7 +102,9 @@
         {% endblock %}
     </main>
     <div class="nav-arrow" id="nav-arrow"></div>
-    <aside class="small-deposit-window" style="display: none;transform: scale(0);" id="smallDepositWindow"></aside>
+    <div style="height: 0px;position: fixed;bottom: 5vh;left: 5vh;z-index: 999;display: flex;align-items: flex-end;">
+        <aside class="small-deposit-window" style="display: none;transform: scale(0);" id="smallDepositWindow"></aside>
+    </div>
     <footer class="footer" id="footer-w">
         <div class="site-info">
             <img src="{% static 'img/JD-mono.png' %}">
