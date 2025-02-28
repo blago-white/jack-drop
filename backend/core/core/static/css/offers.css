@@ -193,15 +193,15 @@
     }
 
     .offer-window:hover .offer-content-title {
-        transform: scale(1.025);
+        transform: scale(1.05);
     }
 
     .offer-window:hover .timer {
-        transform: scale(1.025);
+        transform: scale(1.05);
     }
 
     .offer-window:hover .offer-button {
-        transform: scale(1.025);
+        transform: scale(1.055);
     }
 }
 
