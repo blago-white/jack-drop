@@ -32,7 +32,7 @@ async function renderFullScreenDepositWindow(promocode, discount) {
             <div class="offer-content">
                 <div class="offer-header">
                     <h2 class="offer-content-title">Эксклюзивный промокод от JackDrop!</h2>
-                    <button class="offer-cross" onclick="closeOffer(${promocode}, ${discount})"></span>
+                    <button class="offer-cross" onclick="closeOffer('${promocode}', '${discount}')"></span>
                 </div>
                 <div class="timer">
                     <div class="timer-ring" id="timerRing"></div>
@@ -89,7 +89,7 @@ async function renderSmallDepositWindow(promocode, discount) {
     const sec = parseInt(time%60);
 
     document.getElementById('smallDepositWindow').innerHTML = `
-        <button class="small-close-cross" onclick="closeOffer(${promocode}, ${discount}, true, true);"></button>
+        <button class="small-close-cross" onclick="closeOffer('${promocode}', '${discount}', true, true);"></button>
         <img src="https://s.iimg.su/s/28/oToA9ygk2Htnv3mmSRgvIWNylrhlvZgQaCkInOhE.png" onclick="location.href = '/replenish/${promocode}/'" class="small-banner-img">
         <span class="small-offer-content" onclick="location.href = '/replenish/${promocode}/'" style="display: flex;align-items: center;" id="smallOfferContent">
         <div class="timer" style="height: 2.5ch;padding: 0px;background: transparent;justify-content: center;">
