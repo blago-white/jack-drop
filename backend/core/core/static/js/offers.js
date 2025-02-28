@@ -14,7 +14,7 @@ function renderFullScreenDepositWindow(promocode, discount) {
                     </div>
                 </div>
                 <span style="max-width: 62%;text-transform: none;color: #eee;">
-                    До конца дня используй код ${promocode} и получи +{discount}% к своему первому депозиту!
+                    До конца дня используй код ${promocode} и получи +${discount}% к своему первому депозиту!
                 </span>
                 <button class="super-button offer-button" onclick="location.href = '/replenish/${promocode}/'">
                     <span class="super-button-bg"></span>

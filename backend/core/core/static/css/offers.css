@@ -186,6 +186,10 @@
         background-position: -36% 0vh;
     }
 
+    .small-deposit-window {
+        width: 36vw;
+    }
+
     .offer-content-title {
         max-width: 100%;
     }
