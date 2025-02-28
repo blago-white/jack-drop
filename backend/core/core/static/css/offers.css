@@ -128,4 +128,12 @@
         position: relative;
         top: 15%;
     }
+
+    .offer-button .super-button-bg {
+        width: 100%;
+    }
+
+    .offer-content {
+        width: 52%;
+    }
 }
