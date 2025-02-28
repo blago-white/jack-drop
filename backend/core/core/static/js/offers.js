@@ -33,6 +33,8 @@ function renderFullScreenDepositWindow(promocode, discount) {
 
 
 async function closeOffer(small=false, block=false) {
+    alert(`${small}, ${block}`)
+
     if (small) {
         document.getElementById('smallOfferContent').transform = "scale(0)";
         await sleep(200);
