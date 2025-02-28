@@ -4,7 +4,7 @@ function sleep(ms) {
 
 const zeroPad = (num, places) => String(num).padStart(places, '0')
 
-async function countDown() {
+async function countDown(small=false) {
     let time;
 
     while (true) {
@@ -14,11 +14,11 @@ async function countDown() {
 
         const sec = parseInt(time%60);
 
-        document.getElementById('timerValue').innerHTML = `${zeroPad(parseInt(time / 60 / 60), 2)}:${zeroPad(parseInt((time % (60*60)) / 60), 2)}:${zeroPad(parseInt(time%60), 2)}`
+        if (!small) {
+            document.getElementById('timerValue').innerHTML = `${zeroPad(parseInt(time / 60 / 60), 2)}:${zeroPad(parseInt((time % (60*60)) / 60), 2)}:${zeroPad(parseInt(time%60), 2)}`
+        }
 
         document.getElementById('timerRing').style.background = `radial-gradient(closest-side, rgb(32, 32, 32) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) ${sec / 60 * 100}%, rgba(255, 255, 255, 0.2) 0deg)`;
-
-        console.log(sec, sec / 60 * 100)
     }
 }
 
@@ -79,10 +79,17 @@ async function renderSmallDepositWindow(promocode, discount) {
     document.getElementById('smallDepositWindow').innerHTML += `
         <button class="small-close-cross" onclick="closeOffer(true, true);"></button>
         <img src="https://s.iimg.su/s/28/oToA9ygk2Htnv3mmSRgvIWNylrhlvZgQaCkInOhE.png" onclick="location.href = '/replenish/${promocode}/'" class="small-banner-img">
-        <span class="small-offer-content" onclick="location.href = '/replenish/${promocode}/'" id="smallOfferContent">+${discount}% К депозиту</span>
+        <span class="small-offer-content" onclick="location.href = '/replenish/${promocode}/'" id="smallOfferContent">
+        <div class="timer" style="height: 2.5ch;padding: 0px;">
+            <div class="timer-ring" id="timerRing" style="height: 100%;"></div>
+        </div>
+        +${discount}% К депозиту
+        </span>
     `;
 
     document.getElementById('smallDepositWindow').style = "";
+
+    await countDown(true);
 }
 
 async function renderWindow() {
