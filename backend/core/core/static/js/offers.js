@@ -36,9 +36,9 @@ async function closeOffer(small=false, block=false) {
     alert(`${small}, ${block}`)
 
     if (small) {
-        document.getElementById('smallOfferContent').transform = "scale(0)";
+        document.getElementById('smallOfferContent').style.transform = "scale(0)";
         await sleep(200);
-        document.getElementById('smallDepositWindow').transform = "scale(0)";
+        document.getElementById('smallDepositWindow').style.transform = "scale(0)";
     } else {
         document.getElementById('prize-wrappper').style.transition = "all .2s ease";
         document.getElementById('offerWindow').style.transform = "scale(0)";
