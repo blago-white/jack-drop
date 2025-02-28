@@ -60,7 +60,7 @@ async function renderSmallDepositWindow(promocode) {
         <span class="small-offer-content" onclick="location.href = '/replenish/${promocode}/'" id="smallOfferContent">+25% К депозиту</span>
     `;
 
-    document.getElementsByTagName('smallDepositWindow').style = "none";
+    document.getElementsByTagName('smallDepositWindow').style = "";
 }
 
 async function renderWindow() {
@@ -79,9 +79,9 @@ async function renderWindow() {
 }
 
 async function checkOffer() {
-//    if ((parseInt(new Date()) - getCookie("has-offer-promo-created-at")) < 60*15) {
-//      await renderWindow();
-//    }
+    if ((Date.now() - parseInt(getCookie("offer-checked-date"))) < 60*15) {
+        await renderWindow();
+    }
 
     if ((await getAuthenticated()).balance != 0 || getCookie("offer-hidden")) {return}
 
@@ -101,7 +101,7 @@ async function checkOffer() {
         setCookie("has-offer", false)
     }
 
-    setCookie("offer-checked-date", parseInt(new Date()));
+    setCookie("offer-checked-date", Date.now());
 
     await renderWindow();
 }
