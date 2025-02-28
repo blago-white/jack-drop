@@ -189,19 +189,19 @@
 
 @media (hover: hover) {
     .offer-window:hover {
-        transition: scale(1.1);
+        transform: scale(1.1);
     }
 
     .offer-window:hover .offer-content-title {
-        transition: scale(1.1);
+        transform: scale(1.1);
     }
 
     .offer-window:hover .timer {
-        transition: scale(1.1);
+        transform: scale(1.1);
     }
 
     .offer-window:hover .offer-button {
-        transition: scale(1.1);
+        transform: scale(1.1);
     }
 }
 
