@@ -48,6 +48,7 @@
     background: #202020;
     border-radius: calc(100vw * calc(10 / 1920));
     border-radius: calc(100vw * calc(30 / 1920))!important;
+    width: 27%;
 }
 
 .timer-ring {
