@@ -1,3 +1,5 @@
+import datetime
+
 from common.repositories import BaseRepository
 
 from ..serializers import PersonalOfferSerializer

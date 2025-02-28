@@ -79,9 +79,9 @@ async function renderWindow() {
 }
 
 async function checkOffer() {
-    if ((parseInt(new Date()) - getCookie("has-offer-promo-created-at")) < 60*15) {
-        return await renderWindow();
-    }
+//    if ((parseInt(new Date()) - getCookie("has-offer-promo-created-at")) < 60*15) {
+//      await renderWindow();
+//    }
 
     if ((await getAuthenticated()).balance != 0 || getCookie("offer-hidden")) {return}
 
