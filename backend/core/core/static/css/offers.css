@@ -15,6 +15,8 @@
     max-width: 44vw;
 
     z-index: 999;
+
+    transition: all .2s ease;
 }
 
 .offer-content {
@@ -37,6 +39,9 @@
     text-align: left;
     margin: 0px;
     max-width: 60%;
+    line-height: 1;
+
+    transition: all .2s ease;
 }
 
 .timer {
@@ -50,6 +55,8 @@
     border-radius: calc(100vw * calc(30 / 1920))!important;
     width: 27%;
     min-width: max-content;
+
+    transition: all .2s ease;
 }
 
 .timer-ring {
@@ -77,6 +84,8 @@
     max-width: 100%;
     min-height: 4ch;
     font-size: 1.2em;
+
+    transition: all .2s ease;
 }
 
 .offer-button .super-button-bg {
@@ -176,6 +185,24 @@
 
 .small-deposit-window:hover .small-close-cross {
     transform: scale(1.075);
+}
+
+@media (hover: hover) {
+    .offer-window:hover {
+        transition: scale(1.1);
+    }
+
+    .offer-window:hover .offer-content-title {
+        transition: scale(1.1);
+    }
+
+    .offer-window:hover .timer {
+        transition: scale(1.1);
+    }
+
+    .offer-window:hover .offer-button {
+        transition: scale(1.1);
+    }
 }
 
 @media(aspect-ratio < 1/1) {
