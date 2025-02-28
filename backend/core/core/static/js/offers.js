@@ -1,11 +1,10 @@
 function renderFullScreenDepositWindow() {
     document.getElementById('prize-wrappper').innerHTML = `
         <div class="offer-window">
-
             <div class="offer-content">
                 <div class="offer-header">
                     <h2 class="offer-content-title">Эксклюзивный промокод от JackDrop!</h2>
-                    <span class="offer-cross"></span>
+                    <button class="offer-cross"></span>
                 </div>
                 <div class="timer">
                     <div class="timer-ring"></div>
@@ -14,15 +13,20 @@ function renderFullScreenDepositWindow() {
                         <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';">03:16:54</span>
                     </div>
                 </div>
-    <span style="max-width: 62%;text-transform: none;color: #eee;">
-        До конца дня используй код JD25 и получи +25% к своему первому депозиту!
-    </span>
-    <button class="super-button offer-button" onclick="clearWarn()">
-        <span class="super-button-bg"></span>
-        <span class="super-button-text">ПОПОЛНИТЬ С БОНУСОМ!</span>
-    </button>
-    </div>
+                <span style="max-width: 62%;text-transform: none;color: #eee;">
+                    До конца дня используй код JD25 и получи +25% к своему первому депозиту!
+                </span>
+                <button class="super-button offer-button" onclick="clearWarn()">
+                    <span class="super-button-bg"></span>
+                    <span class="super-button-text">ПОПОЛНИТЬ С БОНУСОМ!</span>
+                </button>
+            </div>
+        </div>
     `
+
+    document.getElementById('prize-wrapper').style.background = "#1A1A1AB2";
+    document.getElementById('prize-wrapper').style.display = "flex";
+    document.getElementById('prize-wrapper').style.visibility = "visible";
 }
 
 function renderSmallDepositWindow() {

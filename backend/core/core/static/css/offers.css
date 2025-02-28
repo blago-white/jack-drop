@@ -87,10 +87,11 @@
 }
 
 .offer-cross {
-    height: 4ch;
+    height: 6ch;
     background: url(https://s.iimg.su/s/28/Dw9xC5SalDvahqQFFGfOhDa8bf2RyPotJuuAdM72.png);
-    aspect-ratio: 1/1;
+    aspect-ratio: 1 / 1;
     background-size: cover;
+    border: none;
 }
 
 .dep-img-container {
