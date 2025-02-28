@@ -12,26 +12,11 @@ function renderFullScreenDepositWindow() {
         До конца дня используй код JD25 и получи +25% к своему первому депозиту!
     </span>
     <button class="super-button offer-button" onclick="clearWarn()">
-                    <span class="super-button-bg"></span>
-                    <span class="super-button-text">ПОПОЛНИТЬ С БОНУСОМ!</span>
-                </button>
-            </div>
-        <div class="dep-img-container" style="
-    grid-row: 1;
-    grid-column: 1;
-    width: inherit;
-    height: auto;)%;)%;);
-    padding-left: 36%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-    z-index: 1;
-"><img src="https://s.iimg.su/s/27/MuLvJlbl7Fsub92WKMhkyrTmFuAeTKx500LylQDU.png" style="
-    width: 100%;
-    left: 22%;
-    position: relative;
-"></div></div>
+        <span class="super-button-bg"></span>
+        <span class="super-button-text">ПОПОЛНИТЬ С БОНУСОМ!</span>
+    </button>
+    </div>
+    <div class="dep-img-container"><img src="https://s.iimg.su/s/27/MuLvJlbl7Fsub92WKMhkyrTmFuAeTKx500LylQDU.png"></div></div>
     `
 }
 
