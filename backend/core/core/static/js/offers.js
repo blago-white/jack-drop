@@ -32,7 +32,7 @@ async function renderFullScreenDepositWindow(promocode, discount) {
             <div class="offer-content">
                 <div class="offer-header">
                     <h2 class="offer-content-title">Эксклюзивный промокод от JackDrop!</h2>
-                    <button class="offer-cross" onclick="closeOffer()"></span>
+                    <button class="offer-cross" onclick="closeOffer(${promocode}, ${discount})"></span>
                 </div>
                 <div class="timer">
                     <div class="timer-ring" id="timerRing"></div>
@@ -60,7 +60,7 @@ async function renderFullScreenDepositWindow(promocode, discount) {
 }
 
 
-async function closeOffer(small=false, block=false) {
+async function closeOffer(promocode, discount, small=false, block=false) {
     if (small) {
         document.getElementById('smallOfferContent').style.transform = "scale(0)";
         await sleep(200);
@@ -77,6 +77,10 @@ async function closeOffer(small=false, block=false) {
 
     document.getElementById('prize-wrappper').style = "";
     document.getElementById('prize-wrappper').innerHTML = "";
+
+    if (!small) {
+        await renderSmallDepositWindow(promocode, discount);
+    }
 }
 
 async function renderSmallDepositWindow(promocode, discount) {
@@ -85,7 +89,7 @@ async function renderSmallDepositWindow(promocode, discount) {
     const sec = parseInt(time%60);
 
     document.getElementById('smallDepositWindow').innerHTML += `
-        <button class="small-close-cross" onclick="closeOffer(true, true);"></button>
+        <button class="small-close-cross" onclick="closeOffer(${promocode}, ${discount}, true, true);"></button>
         <img src="https://s.iimg.su/s/28/oToA9ygk2Htnv3mmSRgvIWNylrhlvZgQaCkInOhE.png" onclick="location.href = '/replenish/${promocode}/'" class="small-banner-img">
         <span class="small-offer-content" onclick="location.href = '/replenish/${promocode}/'" style="display: flex;align-items: center;" id="smallOfferContent">
         <div class="timer" style="height: 2.5ch;padding: 0px;background: transparent;justify-content: center;">
@@ -120,7 +124,7 @@ async function checkOffer() {
         await renderWindow();
     }
 
-    if ((await getAuthenticated()).balance != 0 || getCookie("offer-hidden")) {return}
+    if (getCookie("offer-hidden")) {return}
 
     const response = await sendRequest(
         "/auth/discount/api/v1/public/get-offer/",
