@@ -30,7 +30,7 @@
 
 .offer-content-title {
     font-family: 'Gilroy Bold';
-    font-size: 3ch;
+    font-size: 4ch;
     max-width: 50%;
     text-align: left;
     margin: 0px;
@@ -107,6 +107,53 @@
     /* display: none; */
     padding-left: 60%;
     max-width: 60%;
+}
+
+.small-deposit-window {
+    position: sticky;
+    bottom: 5vh;
+    left: 5vh;
+    width: 16vw;
+    min-width: 250px;
+    aspect-ratio: 1/1;
+    border-radius: 1ch;
+    align-items: flex-end;
+    justify-content: flex-end;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    cursor: pointer;
+
+    transition: all .2s ease;
+}
+
+.small-banner-img {
+    grid-row: 1;
+    grid-column: 1;
+    width: 100%;
+}
+
+.small-offer-content {
+    font-size: x-large;
+    background-color: #20202090;
+    background-size: cover;
+    font-family: 'Gilroy SemiBold';
+    padding: 1ch;
+    border-radius: 1ch;
+    grid-row: 1;
+    grid-column: 1;
+    backdrop-filter: blur(1em);
+    outline: 1px solid #555;
+
+    transition: all .2s ease;
+}
+
+.small-deposit-window:hover {
+    transform: scale(1.05);
+}
+
+.small-deposit-window:hover .small-offer-content {
+    transform: scale(1.075);
 }
 
 @media(aspect-ratio < 1/1) {
