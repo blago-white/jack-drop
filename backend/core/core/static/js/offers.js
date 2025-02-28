@@ -54,24 +54,30 @@ async function closeOffer(small=false, block=false) {
 }
 
 async function renderSmallDepositWindow(promocode) {
-    document.getElementsByTagName('smallDepositWindow').innerHTML += `
+    document.getElementById('smallDepositWindow').innerHTML += `
         <button class="small-close-cross" onclick="closeOffer(true, true);"></button>
         <img src="https://s.iimg.su/s/28/oToA9ygk2Htnv3mmSRgvIWNylrhlvZgQaCkInOhE.png" onclick="location.href = '/replenish/${promocode}/'" class="small-banner-img">
         <span class="small-offer-content" onclick="location.href = '/replenish/${promocode}/'" id="smallOfferContent">+25% К депозиту</span>
     `;
 
-    document.getElementsByTagName('smallDepositWindow').style = "";
+    document.getElementById('smallDepositWindow').style = "";
 }
 
 async function renderWindow() {
     if (getCookie("offer-hidden")) {
+        console.log(10);
         return
     }
 
     if (getCookie("has-offer")) {
+        console.log(11);
         if (getCookie("viewed-offer")) {
+            console.log(12);
+
             await renderSmallDepositWindow(getCookie("has-offer-promo-name"))
         } else {
+            console.log(13);
+
             renderFullScreenDepositWindow(getCookie("has-offer-promo-name"), getCookie("has-offer-promo-discount"));
             setCookie("viewed-offer", true)
         }
@@ -80,10 +86,13 @@ async function renderWindow() {
 
 async function checkOffer() {
     if ((Date.now() - parseInt(getCookie("offer-checked-date"))) < 60*15) {
+        console.log(1);
         await renderWindow();
     }
 
     if ((await getAuthenticated()).balance != 0 || getCookie("offer-hidden")) {return}
+
+    console.log(2);
 
     const response = await sendRequest(
         "/auth/discount/api/v1/public/get-offer/",
@@ -93,15 +102,22 @@ async function checkOffer() {
     const result = await response.json();
 
     if (result.available) {
+
+        console.log(3);
+
         setCookie("has-offer", true)
         setCookie("has-offer-promo-name", result.promocode.code)
         setCookie("has-offer-promo-discount", result.promocode.discount)
         setCookie("has-offer-promo-created-at", result.promocode.date_received)
     } else {
+        console.log(4);
+
         setCookie("has-offer", false)
     }
 
     setCookie("offer-checked-date", Date.now());
+
+    console.log(5);
 
     await renderWindow();
 }
