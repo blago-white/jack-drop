@@ -79,7 +79,7 @@ async function renderWindow() {
 }
 
 async function checkOffer() {
-    if ((parseInt(new Date()) - getCookie("offer-checked-date")) < 60*15) {
+    if ((parseInt(new Date()) - getCookie("has-offer-promo-created-at")) < 60*15) {
         return await renderWindow();
     }
 

@@ -28,7 +28,7 @@ class PersonalOffersRepository(BaseRepository):
                 instance=dict(
                     available=True,
                     promocode=self._promocodes_service.get_for_personal_offer(),
-                    date_received=offer.date
+                    date_received=offer.date / datetime.timedelta(seconds=1)
                 )
             ).data
 
