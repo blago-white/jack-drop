@@ -1,4 +1,4 @@
-function renderFullScreenDepositWindow() {
+function renderFullScreenDepositWindow(promocode, discount) {
     document.getElementById('prize-wrappper').innerHTML = `
         <div class="offer-window">
             <div class="offer-content">
@@ -14,9 +14,9 @@ function renderFullScreenDepositWindow() {
                     </div>
                 </div>
                 <span style="max-width: 62%;text-transform: none;color: #eee;">
-                    До конца дня используй код JD25 и получи +25% к своему первому депозиту!
+                    До конца дня используй код ${promocode} и получи +{discount}% к своему первому депозиту!
                 </span>
-                <button class="super-button offer-button" onclick="closeOffer()">
+                <button class="super-button offer-button" onclick="location.href = '/replenish/${promocode}/'">
                     <span class="super-button-bg"></span>
                     <span class="super-button-text">ПОПОЛНИТЬ С БОНУСОМ!</span>
                 </button>
@@ -32,10 +32,10 @@ function closeOffer() {
     document.getElementById('prize-wrappper').innerHTML = "";
 }
 
-function renderSmallDepositWindow() {
+function renderSmallDepositWindow(promocode) {
     document.getElementsByTagName('body')[0].innerHTML += `
-    <aside class="small-deposit-window">
-        <button class="small-close-cross"></button>
+    <aside class="small-deposit-window" onclick="location.href = '/replenish/${promocode}/'">
+        <button class="small-close-cross" onclick="closeOffer"></button>
         <img src="https://s.iimg.su/s/28/oToA9ygk2Htnv3mmSRgvIWNylrhlvZgQaCkInOhE.png" class="small-banner-img">
         <span class="small-offer-content">+25% К депозиту</span>
     </aside>
@@ -45,9 +45,9 @@ function renderSmallDepositWindow() {
 function renderWindow() {
     if (getCookie("has-offer")) {
         if (getCookie("viewed-offer")) {
-            renderSmallDepositWindow()
+            renderSmallDepositWindow(getCookie("has-offer-promo-name"))
         } else {
-            renderFullScreenDepositWindow();
+            renderFullScreenDepositWindow(getCookie("has-offer-promo-name"), getCookie("has-offer-promo-discount"));
             setCookie("viewed-offer", true)
         }
     }

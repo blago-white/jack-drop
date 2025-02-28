@@ -169,6 +169,8 @@
     border: none;
     border-radius: 50%;
     color: white;
+
+    transition: all .2s ease;
 }
 
 .small-deposit-window:hover .small-close-cross {
