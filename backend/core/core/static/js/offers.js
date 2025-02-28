@@ -57,8 +57,6 @@ async function renderFullScreenDepositWindow(promocode, discount) {
 
 
 async function closeOffer(small=false, block=false) {
-    alert(`${small}, ${block}`)
-
     if (small) {
         document.getElementById('smallOfferContent').style.transform = "scale(0)";
         await sleep(200);
@@ -89,34 +87,25 @@ async function renderSmallDepositWindow(promocode, discount) {
 
 async function renderWindow() {
     if (getCookie("offer-hidden")) {
-        console.log(10);
         return
     }
 
     if (getCookie("has-offer")) {
-        console.log(11);
         if (getCookie("viewed-offer")) {
-            console.log(12);
-
             await renderSmallDepositWindow(getCookie("has-offer-promo-name"), getCookie("has-offer-promo-discount"))
         } else {
-            console.log(13);
-
-            await renderFullScreenDepositWindow(getCookie("has-offer-promo-name"), getCookie("has-offer-promo-discount"));
             setCookie("viewed-offer", true)
+            await renderFullScreenDepositWindow(getCookie("has-offer-promo-name"), getCookie("has-offer-promo-discount"));
         }
     }
 }
 
 async function checkOffer() {
     if ((Date.now() - parseInt(getCookie("offer-checked-date"))) < 60*15) {
-        console.log(1);
         await renderWindow();
     }
 
     if ((await getAuthenticated()).balance != 0 || getCookie("offer-hidden")) {return}
-
-    console.log(2);
 
     const response = await sendRequest(
         "/auth/discount/api/v1/public/get-offer/",
@@ -126,22 +115,15 @@ async function checkOffer() {
     const result = await response.json();
 
     if (result.available) {
-
-        console.log(result);
-
         setCookie("has-offer", true)
         setCookie("has-offer-promo-name", result.promocode.code)
         setCookie("has-offer-promo-discount", result.promocode.discount)
         setCookie("has-offer-promo-created-at", result.date_received)
     } else {
-        console.log(4);
-
         setCookie("has-offer", false)
     }
 
     setCookie("offer-checked-date", Date.now());
-
-    console.log(5);
 
     await renderWindow();
 }
