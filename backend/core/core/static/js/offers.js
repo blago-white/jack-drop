@@ -109,7 +109,7 @@ async function renderWindow() {
         return
     }
 
-    if (getCookie("has-offer")) {
+    if (getCookie("has-offer") == 'true') {
         if (getCookie("viewed-offer")) {
             await renderSmallDepositWindow(getCookie("has-offer-promo-name"), getCookie("has-offer-promo-discount"))
         } else {
