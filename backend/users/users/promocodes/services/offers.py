@@ -18,7 +18,7 @@ class PersonalOffersService(BaseService):
 
         if (not offer.activated and
                 not offer.blocked and
-                (datetime.datetime.now() - offer.date.replace(tzinfo=None)) <= datetime.timedelta(days=3)):
+                (datetime.datetime.now(tz=datetime.UTC) - offer.date) <= datetime.timedelta(days=3)):
             return offer, True
 
         return None, False
