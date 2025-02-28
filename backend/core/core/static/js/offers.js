@@ -16,9 +16,9 @@ async function countDown() {
 
         document.getElementById('timerValue').innerHTML = `${zeroPad(parseInt(time / 60 / 60), 2)}:${zeroPad(parseInt((time % (60*60)) / 60), 2)}:${zeroPad(parseInt(time%60), 2)}`
 
-        document.getElementById('timerRing').style.background = `radial-gradient(closest-side, rgb(32, 32, 32) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) ${60 - parseInt(sec / 60)}%, rgba(255, 255, 255, 0.2) 0deg)`;
+        document.getElementById('timerRing').style.background = `radial-gradient(closest-side, rgb(32, 32, 32) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) ${sec / 60 * 100}%, rgba(255, 255, 255, 0.2) 0deg)`;
 
-        console.log(sec, 60 - parseInt(sec / 60))
+        console.log(sec, sec / 60 * 100)
     }
 }
 
