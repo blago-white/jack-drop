@@ -53,32 +53,32 @@ function renderWindow() {
     }
 }
 
-//async function checkOffer() {
-//    if ((parseInt(new Date()) - getCookie("offer-checked-date")) < 60*15) {
-//        return renderWindow();
-//    }
-//
-//    if ((await getAuthenticated()).balance != 0) {return}
-//
-//    const response = await sendRequest(
-//        "/auth/discount/api/v1/public/get-offer/",
-//        {method: "GET", headers: new Headers()}
-//    );
-//
-//    const result = await response.json();
-//
-//    if (result.available) {
-//        setCookie("has-offer", true)
-//        setCookie("has-offer-promo-name", result.promocode.code)
-//        setCookie("has-offer-promo-discount", result.promocode.discount)
-//        setCookie("has-offer-promo-created-at", result.promocode.date_received)
-//    } else {
-//        setCookie("has-offer", false)
-//    }
-//
-//    setCookie("offer-checked-date", parseInt(new Date()));
-//
-//    renderWindow();
-//}
+async function checkOffer() {
+    if ((parseInt(new Date()) - getCookie("offer-checked-date")) < 60*15) {
+        return renderWindow();
+    }
+
+    if ((await getAuthenticated()).balance != 0) {return}
+
+    const response = await sendRequest(
+        "/auth/discount/api/v1/public/get-offer/",
+        {method: "GET", headers: new Headers()}
+    );
+
+    const result = await response.json();
+
+    if (result.available) {
+        setCookie("has-offer", true)
+        setCookie("has-offer-promo-name", result.promocode.code)
+        setCookie("has-offer-promo-discount", result.promocode.discount)
+        setCookie("has-offer-promo-created-at", result.promocode.date_received)
+    } else {
+        setCookie("has-offer", false)
+    }
+
+    setCookie("offer-checked-date", parseInt(new Date()));
+
+    renderWindow();
+}
 
 window.renderFullScreenDepositWindow = renderFullScreenDepositWindow;
