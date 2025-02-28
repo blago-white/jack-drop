@@ -1,15 +1,18 @@
 .offer-window {
-    /* width: 60%; */
     max-width: calc(95% - 2em);
-    /* padding: 2em; */
-    background: linear-gradient(90deg, rgb(13 13 13) 0%, rgba(20, 20, 20, 1) 100%);
     border-radius: 1em;
-    font-size: 3em;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     overflow: hidden;
 
+    background: url(https://s.iimg.su/s/28/oToA9ygk2Htnv3mmSRgvIWNylrhlvZgQaCkInOhE.png);
+    background-color: #202020;
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position: 120% -2vh;
+    /* aspect-ratio: 404 / 261; */
+    max-width: 44vw;
 }
 
 .offer-content {
@@ -21,8 +24,7 @@
     grid-row: 1;
     grid-column: 1;
     z-index: 2;
-    background: background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 30%, rgba(20, 20, 20, 0) 100%);
+    background: linear-gradient(180deg, #14141450 -100%, #20202000 100%), linear-gradient(90deg, #141414 20%, #14141490 65%, #20202000 100%);
     border-radius: inherit;
 }
 
@@ -74,10 +76,21 @@
 }
 
 .offer-button .super-button-bg {
-    width: 50%;
-    min-height: 4ch;
-    font-size: 1.2em;
     transform: none;
+    background: #FF007A;
+}
+
+.offer-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.offer-cross {
+    height: 4ch;
+    background: url(https://s.iimg.su/s/28/Dw9xC5SalDvahqQFFGfOhDa8bf2RyPotJuuAdM72.png);
+    aspect-ratio: 1/1;
+    background-size: cover;
 }
 
 .dep-img-container {

@@ -3,11 +3,17 @@ function renderFullScreenDepositWindow() {
         <div class="offer-window">
 
             <div class="offer-content">
-                <h2 class="offer-content-title">Эксклюзивный промокод от JackDrop!</h2>
-                <div class="timer"><div class="timer-ring"></div><div class="timer-data">
-    <span style="font-size: .9em;">осталось:</span>
-    <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';">03:16:54</span>
-    </div></div>
+                <div class="offer-header">
+                    <h2 class="offer-content-title">Эксклюзивный промокод от JackDrop!</h2>
+                    <span class="offer-cross"></span>
+                </div>
+                <div class="timer">
+                    <div class="timer-ring"></div>
+                    <div class="timer-data">
+                        <span style="font-size: .9em;">осталось:</span>
+                        <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';">03:16:54</span>
+                    </div>
+                </div>
     <span style="max-width: 62%;text-transform: none;color: #eee;">
         До конца дня используй код JD25 и получи +25% к своему первому депозиту!
     </span>
@@ -16,7 +22,6 @@ function renderFullScreenDepositWindow() {
         <span class="super-button-text">ПОПОЛНИТЬ С БОНУСОМ!</span>
     </button>
     </div>
-    <div class="dep-img-container"><img src="https://s.iimg.su/s/27/MuLvJlbl7Fsub92WKMhkyrTmFuAeTKx500LylQDU.png"></div></div>
     `
 }
 
