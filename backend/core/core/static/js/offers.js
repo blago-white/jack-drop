@@ -2,6 +2,18 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+async function countDown() {
+    let time;
+
+    while (true) {
+        await sleep(1000);
+
+        time = Date.now() - getCookie("has-offer-promo-created-at");
+
+        document.getElementById('timerValue').innerHTML = `${parseInt(time / 60 / 60)}:${parseInt(time / 60)}:${parseInt(time%60)}`
+    }
+}
+
 async function renderFullScreenDepositWindow(promocode, discount) {
     document.getElementById('prize-wrappper').innerHTML = `
         <div class="offer-window" id="offerWindow">
@@ -125,20 +137,6 @@ async function checkOffer() {
 
     await renderWindow();
 }
-
-async function countDown() {
-    let time;
-
-    while (true) {
-        await sleep(1000);
-
-        time = Date.now() - getCookie("has-offer-promo-created-at");
-
-        document.getElementById('timerValue').innerHTML = `${parseInt(time / 60 / 60)}:${parseInt(time / 60)}:${parseInt(time%60)}`
-    }
-}
-
-main();
 
 window.renderFullScreenDepositWindow = renderFullScreenDepositWindow;
 
