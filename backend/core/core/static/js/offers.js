@@ -10,7 +10,7 @@ async function countDown() {
 
         time = ((60*60*24) - ((Date.now()/1000) - parseInt(getCookie("has-offer-promo-created-at"))));
 
-        document.getElementById('timerValue').innerHTML = `${parseInt(time / 60 / 60)}:${parseInt(time % 60)}:${parseInt(time%60)}`
+        document.getElementById('timerValue').innerHTML = `${parseInt(time / 60 / 60)}:${parseInt((time % (60*60)) / 60)}:${parseInt(time%60)}`
     }
 }
 
