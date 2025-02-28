@@ -34,13 +34,13 @@ function renderFullScreenDepositWindow(promocode, discount) {
 
 async function closeOffer(small=false, block=false) {
     if (small) {
-        document.getElementById('prize-wrappper').style.transition = "all .2s ease";
-        document.getElementById('offerWindow').transform = "scale(0)";
-        document.getElementById('prize-wrappper').style.background = "transparent";
-    } else {
         document.getElementById('smallOfferContent').transform = "scale(0)";
         await sleep(200);
         document.getElementById('smallDepositWindow').transform = "scale(0)";
+    } else {
+        document.getElementById('prize-wrappper').style.transition = "all .2s ease";
+        document.getElementById('offerWindow').style.transform = "scale(0)";
+        document.getElementById('prize-wrappper').style.background = "transparent";
     }
 
     if (block) {
