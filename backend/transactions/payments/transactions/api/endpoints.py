@@ -61,7 +61,7 @@ class TransactionCallbackApiView(BaseApiView, ListAPIView):
 
         tid = request.query_params.get("order_id")
 
-        # self._authenticate(dict(request.query_params).copy())
+        self._authenticate(dict(request.query_params).copy())
 
         print(f"CALLBACK REQUEST: {dict(request.query_params)}")
 
