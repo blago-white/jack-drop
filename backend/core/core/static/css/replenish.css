@@ -36,7 +36,7 @@
     }
 
     .replenish-person:hover {
-        translateX: rotate(10deg) translateX(-10%);
+        transform: rotate(10deg) translateX(-10%);
     }
 }
 
@@ -119,7 +119,7 @@ h3 {
 }
 
 .data-input:hover {
-    transform: scale(1.05);
+    transform: scale(1.025);
 }
 
 .agreement-field {
@@ -130,6 +130,10 @@ h3 {
     margin-top: calc(100vw * calc(65 / var(--reference-display-w)));
     width: 100%;
     height: calc(100vw * calc(85 / var(--reference-display-w)));;
+}
+
+.replenish-btn:hover {
+    transform: rotate(5deg) scale(1.05);
 }
 
 .form-field:focus {
