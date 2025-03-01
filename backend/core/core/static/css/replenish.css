@@ -36,7 +36,7 @@
     }
 
     .replenish-person:hover {
-        transform: rotate(-10deg);
+        translateX: rotate(10deg) translateX(-10%);
     }
 }
 
@@ -114,6 +114,16 @@ h3 {
     color: white;
     text-transform: uppercase;
     margin-bottom: 2ch;
+
+    transition: all .2s ease;
+}
+
+.data-input:hover {
+    transform: scale(1.05);
+}
+
+.agreement-field {
+    cursor: pointer;
 }
 
 .replenish-btn {
