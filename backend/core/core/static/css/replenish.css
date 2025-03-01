@@ -130,10 +130,12 @@ h3 {
     margin-top: calc(100vw * calc(65 / var(--reference-display-w)));
     width: 100%;
     height: calc(100vw * calc(85 / var(--reference-display-w)));;
+
+    transition: all .2s ease;
 }
 
 .replenish-btn:hover {
-    transform: rotate(5deg) scale(1.05);
+    transform: rotate(1deg) scale(1.05);
 }
 
 .form-field:focus {
