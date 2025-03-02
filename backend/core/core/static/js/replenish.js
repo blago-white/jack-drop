@@ -122,3 +122,5 @@ if (document.getElementById("promocode").value.length>1) {
 
     showBenegits(document.getElementById("promocode").value);
 }
+
+window.showBenegits = showBenegits;
