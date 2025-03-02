@@ -6,22 +6,23 @@ from common.repositories.base import BaseRepository
 from common.services.transfer.products import FreeDepositCase
 
 from ..models import PaymentStatus, PaymentCurrency
-from ..serializers import TransactionCreationSerializer
+from ..serializers import (TransactionCreationSerializer,
+                           SkinifyTransactionCreationSerializer)
 from ..services.config import ConfigService
 from ..services.payments import PaymentsService
-from ..services.transactions import TransactionApiService
-from ..services.transfer import CreateTransactionData, ApiCredentals, \
-    UpdateTransactionData
+from ..services.transactions import NicepayTransactionApiService
+from ..services.transfer import NicepayCreateTransactionData, ApiCredentals, \
+    UpdateTransactionData, SkinifyCreateTransactionData
 
 
 class PaymentsRepository(BaseRepository):
     default_serializer_class = TransactionCreationSerializer
-    default_service = TransactionApiService
+    default_service = NicepayTransactionApiService
     default_payment_service = PaymentsService()
 
     _SECRET_KEY: str = None
 
-    _service: TransactionApiService
+    _service: NicepayTransactionApiService
 
     def __init__(
             self, *args,
@@ -53,14 +54,14 @@ class PaymentsRepository(BaseRepository):
 
         return self._SECRET_KEY
 
-    def create(self, data: dict, free_deposit_case: FreeDepositCase | None):
+    def nicepay_create(self, data: dict, free_deposit_case: FreeDepositCase | None):
         serialized: TransactionCreationSerializer = self._serializer_class(
             data=data
         )
 
         serialized.is_valid(raise_exception=True)
 
-        serialized_dataclass = self._serialize_create_request(
+        serialized_dataclass = self._serialize_nicepay_create_request(
             serialized=serialized,
             free_deposit_case=free_deposit_case
         )
@@ -97,6 +98,17 @@ class PaymentsRepository(BaseRepository):
         raise ValidationError(
             detail=f"Erorr with creating transaction - {response}"
         )
+
+    def skinify_create(self, data: dict):
+        serialized = SkinifyTransactionCreationSerializer(data=data)
+
+        serialized.is_valid(raise_exception=True)
+
+        create_request = self._serialize_skinify_create_request(
+            serialized=serialized
+        )
+
+        self._payment_service.init(data=data)
 
     def get_promocode(self, tid: int) -> str:
         return self._payment_service.get(tid=tid).promocode
@@ -143,11 +155,20 @@ class PaymentsRepository(BaseRepository):
             self.cancel(foreign_transaction_id=irrelevant_id)
 
     @staticmethod
-    def _serialize_create_request(
+    def _serialize_skinify_create_request(
+            serialized: dict,
+    ):
+        return SkinifyCreateTransactionData(
+            steam_id=serialized.data.get("steam_id"),
+            trade_token=serialized.data.get("offer_trade_link")
+        )
+
+    @staticmethod
+    def _serialize_nicepay_create_request(
             serialized: dict,
             free_deposit_case: FreeDepositCase | None
     ):
-        return CreateTransactionData(
+        return NicepayCreateTransactionData(
             user_id=serialized.data.get("user_id"),
             user_login=serialized.data.get("user_login"),
             amount_from=serialized.data.get("amount"),

@@ -51,6 +51,7 @@ class PrivateUsersRepository(BaseUsersRepository):
         serialized: PrivateClientSerializer = self._serializer_class(
             instance={
                 "id": user.id,
+                "steam_id": user.steam_id,
                 "username": user.username,
                 "avatar": user.avatar,
                 "advantage": user.advantage,

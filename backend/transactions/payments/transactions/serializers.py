@@ -12,3 +12,10 @@ class TransactionCreationSerializer(serializers.Serializer):
     promocode = serializers.CharField(max_length=16,
                                       allow_null=True,
                                       allow_blank=True)
+
+
+class SkinifyTransactionCreationSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField()
+    steam_id = serializers.IntegerField(allow_null=True)
+    offer_trade_link = serializers.CharField(allow_null=True,
+                                             allow_blank=True)

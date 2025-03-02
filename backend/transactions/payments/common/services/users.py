@@ -17,8 +17,6 @@ class UsersApiService:
             }
         )
 
-        print(response.ok, response.json())
-
         if not response.ok:
             raise ValidationError(code=401)
 

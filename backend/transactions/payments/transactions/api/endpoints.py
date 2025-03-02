@@ -11,7 +11,7 @@ from ..repositories.transactions import PaymentsRepository
 from ..serializers import TransactionCreationPubllicSerializer
 
 
-class InitReplenishApiView(BaseCreateApiView):
+class NicepayInitReplenishApiView(BaseCreateApiView):
     payments_repository = PaymentsRepository()
     users_repository = UsersRepository()
     products_repository = ProductsApiRepository()
@@ -19,8 +19,6 @@ class InitReplenishApiView(BaseCreateApiView):
     serializer_class = TransactionCreationPubllicSerializer
 
     def create(self, request, *args, **kwargs):
-        print("START")
-
         user_data = self.users_repository.get_info(user_request=request)
 
         deposit_data = self._complete_dataset(
@@ -31,12 +29,10 @@ class InitReplenishApiView(BaseCreateApiView):
             deposit_amount=deposit_data.get("amount")
         )
 
-        payment = self.payments_repository.create(
+        payment = self.payments_repository.nicepay_create(
             data=deposit_data,
             free_deposit_case=free_deposit_case
         )
-
-        print("INITED PAYMENT", payment)
 
         return self.get_201_response(
             data=payment
@@ -51,19 +47,32 @@ class InitReplenishApiView(BaseCreateApiView):
         )
 
 
-class TransactionCallbackApiView(BaseApiView, ListAPIView):
+class SkinifyInitReplenishApiView(BaseCreateApiView):
+    payments_repository = PaymentsRepository()
+    users_repository = UsersRepository()
+
+    def create(self, request, *args, **kwargs):
+        user_data = self.users_repository.get_info(user_request=request)
+
+
+
+    def _complete_dataset(self, user_data: dict):
+        return dict(
+            trade_url_token=user_data.get("trade_link"),
+            steam_id=user_data.get("steam_id"),
+            promocode=self.request.data.get("promocode")
+        )
+
+
+class NicePayTransactionCallbackApiView(BaseApiView, ListAPIView):
     payments_repository = PaymentsRepository()
     users_repository = UsersRepository()
     products_repository = ProductsApiRepository()
 
     def get(self, request: Request, *args, **kwargs):
-        print("HANDLE CALLBACK", request.query_params)
-
         tid = request.query_params.get("order_id")
 
         self._authenticate(dict(request.query_params).copy())
-
-        print(f"CALLBACK REQUEST: {dict(request.query_params)}")
 
         tstatus = request.query_params.get("result")
 
@@ -104,8 +113,11 @@ class TransactionCallbackApiView(BaseApiView, ListAPIView):
         params_hash = hashlib.sha256(params.encode()).hexdigest()
 
         if params_hash != validate_hash[0]:
-            print("PAYMENT SIGN VALIDATION ERROR")
             raise ValidationError("Error validate signature")
+
+
+class SkinifyTransactionCallbackApiView(BaseApiView):
+    pass
 
 
 class TransactionValidationApiView(BaseApiView, RetrieveAPIView):

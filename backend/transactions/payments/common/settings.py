@@ -130,7 +130,8 @@ STATIC_ROOT = BASE_DIR / "static"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PAYMENT_SERVICE_URLS = {
-    "create": "https://nicepay.io/public/api/payment",
+    "nicepay-create": "https://nicepay.io/public/api/payment",
+    "skinify-create": "https://skinify.io/api/create-deposit",
     "payout": "https://nicepay.io/public/api/payout",
 }
 

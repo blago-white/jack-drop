@@ -3,18 +3,21 @@ import json
 import requests
 from django.conf import settings
 
-from .transfer import ApiCredentals, CreateTransactionData
+from .transfer import (ApiCredentals,
+                       NicepayCreateTransactionData,
+                       SkinifyCreateTransactionData)
 
 
-class TransactionApiService:
-    CREATE_ENDPOINT = settings.PAYMENT_SERVICE_URLS["create"]
+class NicepayTransactionApiService:
+    CREATE_ENDPOINT = settings.PAYMENT_SERVICE_URLS["nicepay-create"]
 
     def __init__(self, credentals: ApiCredentals):
         self._credentals = credentals
 
-    def create(self, tid: int,
-               data: CreateTransactionData
-               ) -> tuple[bool, dict | str]:
+    def create(
+            self, tid: int,
+            data: NicepayCreateTransactionData
+    ) -> tuple[bool, dict | str]:
         has_free_case = bool(data.free_deposit_case)
 
         endpoint_url = (settings.SUCCESS_URL
@@ -49,3 +52,15 @@ class TransactionApiService:
             return False, response_body.get("message")
 
         return True, response_body
+
+
+class SkinifyTransactionApiService:
+    CREATE_ENDPOINT = settings.PAYMENT_SERVICE_URLS["skinify-create"]
+
+    def create(self, tid: int,
+               data: SkinifyCreateTransactionData):
+        body = {
+            "deposit_id": tid,
+            "steam_id": data.steam_id,
+            "trade_url_token": data.trade_token
+        }

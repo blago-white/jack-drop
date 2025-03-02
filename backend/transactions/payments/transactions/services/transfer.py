@@ -18,13 +18,20 @@ class ApiCredentals:
 
 
 @dataclass
-class CreateTransactionData:
+class NicepayCreateTransactionData:
     user_id: int
     user_login: str
     amount_from: float
     currency: PaymentCurrency
     free_deposit_case: FreeDepositCase | None = None
     promocode: str = None
+
+
+@dataclass
+class SkinifyCreateTransactionData:
+    user_id: int
+    steam_id: int
+    trade_token: str
 
 
 @dataclass
