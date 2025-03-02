@@ -35,5 +35,5 @@ class PromocodeBenefitsView(RetrieveAPIView):
 
     def retrieve(self, request: Request, *args, **kwargs):
         return Response(
-            data=self.repository.get(promocode=request.data.get("promocode"))
+            data=self.repository.get(promocode=request.query_params.get("promocode"))
         )
