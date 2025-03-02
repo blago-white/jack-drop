@@ -16,7 +16,8 @@ class PromocodesService(BaseService):
             promo = self._model.objects.get(code=promocode)
 
             return promo.discount if promo.usages else 0
-        except:
+        except Exception as e:
+            print(e)
             return 0
 
     def get_for_personal_offer(self) -> Promocode:

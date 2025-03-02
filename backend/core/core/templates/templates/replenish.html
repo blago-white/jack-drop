@@ -28,7 +28,7 @@ Replenish Account | Jack Drop
                contenteditable="{% if PROMOCODE %}false{% else %}true{% endif %}"
                max="16"
                type="text">
-        <button class="data-input benefit-checker" onclick="showBenegits(document.getElementById('promocode').value)">%</button>
+        <button class="data-input benefit-checker" type="reset" onclick="showBenegits(document.getElementById('promocode').value)">%</button>
     </div>
     <span class="promocode-benefits" style="display: none;" id="promocodeBenefits"></span>
     <div style="display: flex;gap: 1ch;">
