@@ -10,8 +10,6 @@ class DiscountRepository(BaseRepository):
     _service: PromocodesService
 
     def get(self, promocode: int | str) -> dict:
-        serialized = self._serializer_class(
-            instance=self._service.get_discount(promocode=promocode)
-        )
-
-        return serialized.data
+        return {
+            "discount": self._service.get_discount(promocode=promocode)
+        }

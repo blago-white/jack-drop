@@ -4,7 +4,7 @@ from .models import Promocode
 
 
 class DiscountSerializer(serializers.ModelSerializer):
-    discount = serializers.IntegerField(default=0, initial=0)
+    discount = serializers.IntegerField(default=0)
 
     class Meta:
         fields = ["discount"]
