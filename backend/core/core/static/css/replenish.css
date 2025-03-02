@@ -179,6 +179,12 @@ h3 {
     gap: 1ch;
 }
 
+.promocode-benefits {
+    margin-bottom: 2ch;
+    color: #fe007a;
+    font-family: 'Gilroy Bold';
+}
+
 @media (aspect-ratio < 1/1) {
     .replenish-form {
         width: -webkit-fill-available;
