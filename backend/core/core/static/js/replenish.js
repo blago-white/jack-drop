@@ -10,11 +10,15 @@ if (usedPromocode && (usedPromocode != "None")) {
 }
 
 async function getBenefitPercent(promocode) {
+    if (!promocode) {
+        return
+    }
+
     const headers = new Headers();
 
     headers.append("Content-Type", "application/json");
 
-    const response = await sendRequest('/auth/discount/api/v1/public/promo-benefits/?promocode=' + promocode, {
+    const response = await sendRequest(`/auth/discount/api/v1/public/promo-benefits/?promocode=${promocode}`, {
         method: "GET",
         headers: headers
     });
@@ -29,7 +33,7 @@ async function getBenefitPercent(promocode) {
 }
 
 async function showBenegits(promocode) {
-    const benefitPercent = await getBenefitPercent();
+    const benefitPercent = await getBenefitPercent(promocode);
 
     if (benefitPercent > 0) {
         document.getElementById("promocodeBenefits").style = "";
