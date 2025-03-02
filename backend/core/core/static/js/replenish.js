@@ -39,6 +39,8 @@ async function showBenegits(promocode) {
         document.getElementById("promocodeBenefits").style = "";
         document.getElementById("promocodeBenefits").innerHTML = `Вы получите: +${benefitPercent}% к депозиту!`;
     }
+
+    return false;
 }
 
 function validate() {
@@ -118,5 +120,5 @@ window.usePreset = usePreset;
 if (document.getElementById("promocode").value.length>1) {
     document.getElementById("promocode").style.background = "linear-gradient(90deg, #0047FF 0%, #FF007A 100%)";
 
-    showBenegits();
+    showBenegits(document.getElementById("promocode").value);
 }
