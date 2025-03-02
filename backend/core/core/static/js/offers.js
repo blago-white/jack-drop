@@ -25,6 +25,10 @@ async function countDown(small=false) {
 async function renderFullScreenDepositWindow(promocode, discount) {
     const time = ((60*60*24) - ((Date.now()/1000) - parseInt(getCookie("has-offer-promo-created-at"))));
 
+    if (time < 0) {
+        return await closeOffer(promocode, discount, block=true);
+    }
+
     const sec = parseInt(time%60);
 
     document.getElementById('prize-wrappper').innerHTML = `
@@ -85,6 +89,10 @@ async function closeOffer(promocode, discount, small=false, block=false) {
 
 async function renderSmallDepositWindow(promocode, discount) {
     const time = ((60*60*24) - ((Date.now()/1000) - parseInt(getCookie("has-offer-promo-created-at"))));
+
+    if (time < 0) {
+        return await closeOffer(promocode, discount, block=true);
+    }
 
     const sec = parseInt(time%60);
 
