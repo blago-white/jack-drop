@@ -47,3 +47,12 @@ class PersonalOffersService(BaseService):
         offer.blocked = True
 
         offer.save()
+
+    def mark_viewed(self, client_id: int):
+        offer: PersonalDepositOffer = self._model.objects.get(
+            recipient_id=client_id
+        )
+
+        offer.viewed = True
+
+        offer.save()

@@ -26,6 +26,8 @@ class PersonalOffersRepository(BaseRepository):
         offer, can_receive = self._service.can_receive(client_id=client_id)
 
         if can_receive:
+            self._service.mark_viewed(client_id=client_id)
+
             return self._serializer_class(
                 instance=dict(
                     available=True,

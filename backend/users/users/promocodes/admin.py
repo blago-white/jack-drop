@@ -10,4 +10,4 @@ class PromocodeAdmin(admin.ModelAdmin):
 
 @admin.register(PersonalDepositOffer)
 class PersonalDepositOfferAdmin(admin.ModelAdmin):
-    list_display = ["recipient", "activated", "blocked"]
+    list_display = ["recipient", "activated", "blocked", "viewed"]

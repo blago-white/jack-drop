@@ -51,6 +51,11 @@ class PersonalDepositOffer(models.Model):
         default=False
     )
 
+    viewed = models.BooleanField(
+        default=False,
+        blank=True
+    )
+
     date = models.DateTimeField(auto_now_add=True, blank=True)
 
 
