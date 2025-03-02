@@ -20,13 +20,17 @@ Replenish Account | Jack Drop
     <span class="info">
         {% trans 'Replenish Info Second' %}
     </span>
-    <input class="data-input"
-           placeholder="Промокод"
-           value="{% if PROMOCODE %}{{ PROMOCODE }}{% endif %}"
-           id="promocode"
-           contenteditable="{% if PROMOCODE %}false{% else %}true{% endif %}"
-           max="16"
-           type="text">
+    <div id="promocode-row">
+        <input class="data-input"
+               placeholder="Промокод"
+               value="{% if PROMOCODE %}{{ PROMOCODE }}{% endif %}"
+               id="promocode"
+               contenteditable="{% if PROMOCODE %}false{% else %}true{% endif %}"
+               max="16"
+               type="text">
+        <button class="data-input benefit-checker" onclick="showBenegits(document.getElementById('promocode').value)">%</button>
+    </div>
+    <span class="promocode-benefits" style="display: none;" id="promocodeBenefits"></span>
     <div style="display: flex;gap: 1ch;">
         <input class="data-input" placeholder="Введите сумму" id="amount" type="number" min=500 max="100000">
         <button class="data-input preset" type="button" onclick="usePreset(1999)">1999</button>

@@ -27,3 +27,13 @@ class PersonalOffersView(RetrieveAPIView):
         return Response(
             data=self.repository.get(client_id=request.user.id)
         )
+
+
+class PromocodeBenefitsView(RetrieveAPIView):
+    repository = DiscountRepository()
+    serializer_class = repository.default_serializer_class
+
+    def retrieve(self, request: Request, *args, **kwargs):
+        return Response(
+            data=self.repository.get(promocode=request.data.get("promocode"))
+        )

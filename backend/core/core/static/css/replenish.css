@@ -134,6 +134,18 @@ h3 {
     transition: all .2s ease;
 }
 
+#promocode {
+    margin-bottom: 0px;
+    height: fit-content;
+}
+
+.benefit-checker {
+    aspect-ratio: 1 / 1;
+    width: max-content;
+    height: min-content;
+    padding-inline: calc(100vw* calc(30 / var(--reference-display-w)));
+}
+
 .replenish-btn:hover {
     transform: rotate(1deg) scale(1.05);
 }

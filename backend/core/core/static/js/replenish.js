@@ -9,6 +9,35 @@ if (usedPromocode && (usedPromocode != "None")) {
     const hasPresetedPromocode = usedPromocode.length > 0;
 }
 
+async function getBenefitPercent(promocode) {
+    const headers = new Headers();
+
+    headers.append("Content-Type", "application/json");
+
+    const response = await sendRequest('/auth/discount/api/v1/public/promo-benefits/', {
+        method: "POST",
+        body: JSON.stringify({"promocode": promocode}),
+        headers: headers
+    });
+
+    if (!response.ok) {
+        return 0;
+    }
+
+    const responseJSON = await response.json();
+
+    return parseInt(responseJSON.discount);
+}
+
+async function showBenegits(promocode) {
+    const benefitPercent = await getBenefitPercent();
+
+    if (benefitPercent > 0) {
+        document.getElementById("promocodeBenefits").style = "";
+        document.getElementById("promocodeBenefits").innerHTML = `Вы получите: +${benefitPercent}% к депозиту!`;
+    }
+}
+
 function validate() {
     const amount = parseFloat(depoAmountField.value);
 
@@ -85,4 +114,6 @@ window.usePreset = usePreset;
 
 if (document.getElementById("promocode").value.length>1) {
     document.getElementById("promocode").style.background = "linear-gradient(90deg, #0047FF 0%, #FF007A 100%)";
+
+    showBenegits();
 }
