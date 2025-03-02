@@ -15,7 +15,7 @@ async function getBenefitPercent(promocode) {
     headers.append("Content-Type", "application/json");
 
     const response = await sendRequest('/auth/discount/api/v1/public/promo-benefits/', {
-        method: "POST",
+        method: "GET",
         body: JSON.stringify({"promocode": promocode}),
         headers: headers
     });
