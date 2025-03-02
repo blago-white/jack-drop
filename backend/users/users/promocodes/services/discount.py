@@ -15,6 +15,8 @@ class PromocodesService(BaseService):
         try:
             promo = self._model.objects.get(code=promocode)
 
+            print(promo, promo.discount, promo.usages, f"|{promo}|")
+
             return promo.discount if promo.usages else 0
         except Exception as e:
             print(e)
