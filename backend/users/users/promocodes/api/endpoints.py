@@ -34,6 +34,8 @@ class PromocodeBenefitsView(RetrieveAPIView):
     serializer_class = repository.default_serializer_class
 
     def retrieve(self, request: Request, *args, **kwargs):
+        print("INFO PROMOCODE", request.query_params.get("promocode"))
+
         return Response(
             data=self.repository.get(promocode=request.query_params.get("promocode"))
         )
