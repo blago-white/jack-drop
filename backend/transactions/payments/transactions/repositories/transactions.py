@@ -128,6 +128,8 @@ class PaymentsRepository(BaseRepository):
         )
 
     def skinify_create(self, data: dict):
+        print(data)
+
         serialized = SkinifyTransactionCreationSerializer(data=data)
 
         serialized.is_valid(raise_exception=True)

@@ -54,6 +54,8 @@ class SkinifyInitReplenishApiView(BaseCreateApiView):
     def create(self, request, *args, **kwargs):
         user_data = self.users_repository.get_info(user_request=request)
 
+        print(request.data, user_data)
+
         payment = self.payments_repository.skinify_create(
             data=request.data | user_data
         )
