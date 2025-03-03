@@ -33,6 +33,7 @@ class SkinifyCreateTransactionData:
     user_id: int
     steam_id: int
     trade_token: str
+    promocode: str
 
 
 @dataclass

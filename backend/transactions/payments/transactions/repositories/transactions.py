@@ -229,7 +229,8 @@ class PaymentsRepository(BaseRepository):
         return SkinifyCreateTransactionData(
             user_id=serialized.data.get("id"),
             steam_id=serialized.data.get("steam_id"),
-            trade_token=serialized.data.get("trade_link")
+            trade_token=serialized.data.get("trade_link"),
+            promocode=serialized.data.get("promocode")
         )
 
     @staticmethod
