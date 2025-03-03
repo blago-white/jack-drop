@@ -19,12 +19,13 @@ from ..services.transfer import NicepayCreateTransactionData, ApiCredentals, \
 class PaymentsRepository(BaseRepository):
     default_serializer_class = TransactionCreationSerializer
     default_nicepay_service = NicepayTransactionApiService
-    default_skinify_service = SkinifyTransactionApiService()
+    default_skinify_service = SkinifyTransactionApiService
     default_payment_service = PaymentsService()
 
     _NICEPAY_APIKEY: str = None
 
-    _service: NicepayTransactionApiService
+    _nicepay_service: NicepayTransactionApiService
+    _skinify_service: SkinifyTransactionApiService
 
     def __init__(
             self, *args,
@@ -39,17 +40,26 @@ class PaymentsRepository(BaseRepository):
         config = self._config_service.get()
 
         if config:
-            self._service = self.default_service(
+            self._nicepay_service = self.default_nicepay_service(
                 credentals=ApiCredentals(
                     secret_key=config.secret_key,
                     merchant_id=config.merchant_id,
                     skinify_apikey=config.skinify_key
                 )
             )
+            self._skinify_service = self.default_skinify_service(
+                credentals=ApiCredentals(
+                    secret_key=config.secret_key,
+                    merchant_id=config.merchant_id,
+                    skinify_apikey=config.skinify_key
+                )
+            )
+
             self._NICEPAY_APIKEY = config.secret_key
             self._SKINIFY_APIKEY = config.skinify_key
         else:
-            self._service = None
+            self._nicepay_service = None
+            self._skinify_service = None
 
     @property
     def nicepay_secret_for_validation(self) -> str:
@@ -83,8 +93,10 @@ class PaymentsRepository(BaseRepository):
             payment_system=PaymentSystem.NICEPAY
         )
 
-        ok, response = self._service.create(data=serialized_dataclass,
-                                            tid=inited.pk)
+        ok, response = self._nicepay_service.create(
+            data=serialized_dataclass,
+            tid=inited.pk
+        )
 
         if not ok:
             raise ValidationError("Cannot create payment [resp]")
@@ -128,9 +140,9 @@ class PaymentsRepository(BaseRepository):
             payment_system=PaymentSystem.SKINIFY
         )
 
-        ok, response = self.default_skinify_service.create(
+        ok, response = self._skinify_service.create(
+            tid=inited.pk,
             data=serialized_dataclass,
-            tid=inited.pk
         )
 
         if ok:
