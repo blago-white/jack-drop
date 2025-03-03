@@ -21,7 +21,7 @@ class PrivateClientSerializer(ReadOnlyModelSerializer):
 
     class Meta:
         model = Client
-        fields = ["id", "username", "steam_id", "avatar", "trade_link", "user_advantage", "displayed_balance"]
+        fields = ["id", "username", "steam_id", "avatar", "trade_link", "user_advantage", "displayed_balance", "has_deposits"]
         read_only_fields = ["id"]
 
 
