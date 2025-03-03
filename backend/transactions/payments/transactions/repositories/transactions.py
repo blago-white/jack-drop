@@ -134,19 +134,27 @@ class PaymentsRepository(BaseRepository):
 
         serialized.is_valid(raise_exception=True)
 
+        print("1112")
+
         serialized_dataclass = self._serialize_skinify_create_request(
             serialized=serialized
         )
+
+        print("1122")
 
         inited = self._payment_service.init(
             data=serialized_dataclass,
             payment_system=PaymentSystem.SKINIFY
         )
 
+        print("1222")
+
         ok, response = self._skinify_service.create(
             tid=inited.pk,
             data=serialized_dataclass,
         )
+
+        print("2222")
 
         if ok:
             return {"payment_url": response.get("url")}
