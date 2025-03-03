@@ -20,5 +20,6 @@ class SkinifyTransactionCreationSerializer(serializers.Serializer):
     trade_link = serializers.CharField(allow_null=True,
                                        allow_blank=True)
     promocode = serializers.CharField(max_length=16,
+                                      required=False,
                                       allow_null=True,
                                       allow_blank=True)
