@@ -12,6 +12,12 @@ async function countDown(small=false) {
 
         time = ((60*60*24) - ((Date.now()/1000) - parseInt(getCookie("has-offer-promo-created-at"))));
 
+        if (time < 0) {
+            try {await closeOffer()} catch(error) {}
+            try {await closeOffer(small=True)} catch(error) {}
+            return;
+        }
+
         const sec = parseInt(time%60);
 
         if (!small) {
