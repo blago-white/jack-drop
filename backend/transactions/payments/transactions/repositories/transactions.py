@@ -21,6 +21,7 @@ class PaymentsRepository(BaseRepository):
     default_nicepay_service = NicepayTransactionApiService
     default_skinify_service = SkinifyTransactionApiService
     default_payment_service = PaymentsService()
+    default_service = PaymentsService
 
     _NICEPAY_APIKEY: str = None
 
