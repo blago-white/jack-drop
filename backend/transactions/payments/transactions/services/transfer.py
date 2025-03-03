@@ -15,6 +15,7 @@ from ..models import PaymentStatus, PaymentCurrency
 class ApiCredentals:
     merchant_id: str
     secret_key: str
+    skinify_apikey: str
 
 
 @dataclass
@@ -37,6 +38,7 @@ class SkinifyCreateTransactionData:
 @dataclass
 class UpdateTransactionData:
     status: PaymentStatus = None
+    amount_local: int = None
     payment_method: str = None
     currency: str = None
     expired_at: datetime.datetime = None

@@ -23,6 +23,7 @@ class PaymentSystem(models.TextChoices):
 class Config(models.Model):
     merchant_id = models.CharField(max_length=512)
     secret_key = models.CharField(max_length=512)
+    skinify_key = models.CharField(max_length=255, default="")
     bank_address = models.CharField(max_length=512)
 
     def __str__(self):

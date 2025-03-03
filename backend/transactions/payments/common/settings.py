@@ -162,3 +162,5 @@ FAILED_URL = "https://jackdrop.online/account/"
 WEBHOOK_URL = "https://jackdrop.online/transactions/payments/callback/"
 
 PAYMENT_SERVICE_AUTH_HEADER = os.environ.get("AUTH_HEADER")
+
+SKINIFY_CALLBACK_URL = "https://jackdrop.online/transactions/payments/callback-skinify/"

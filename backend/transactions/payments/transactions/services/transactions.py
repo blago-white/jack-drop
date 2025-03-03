@@ -56,11 +56,34 @@ class NicepayTransactionApiService:
 
 class SkinifyTransactionApiService:
     CREATE_ENDPOINT = settings.PAYMENT_SERVICE_URLS["skinify-create"]
+    CALLBACK_ENDPOINT = settings.SKINIFY_CALLBACK_URL
 
-    def create(self, tid: int,
-               data: SkinifyCreateTransactionData):
+    def __init__(self, credentals: ApiCredentals):
+        self._credentals = credentals
+
+    def create(
+            self, tid: int,
+            data: SkinifyCreateTransactionData):
         body = {
             "deposit_id": tid,
             "steam_id": data.steam_id,
-            "trade_url_token": data.trade_token
+            "trade_url_token": data.trade_token,
+            "priority_game": "rust",
+            "result_url": self.CALLBACK_ENDPOINT
         }
+
+        response = requests.post(
+            self.CREATE_ENDPOINT,
+            headers={
+                "Content-Type": "application/json",
+                "Token": self._credentals.skinify_apikey
+            },
+            data=json.dumps(body)
+        )
+
+        response_body = response.json()
+
+        if (not response.ok) or (response_body.get("status") == "error"):
+            return False, response_body.get("error_message")
+
+        return True, response_body

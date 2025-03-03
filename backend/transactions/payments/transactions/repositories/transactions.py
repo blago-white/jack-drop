@@ -5,22 +5,24 @@ from rest_framework.exceptions import ValidationError
 from common.repositories.base import BaseRepository
 from common.services.transfer.products import FreeDepositCase
 
-from ..models import PaymentStatus, PaymentCurrency
+from ..models import PaymentStatus, PaymentCurrency, PaymentSystem
 from ..serializers import (TransactionCreationSerializer,
                            SkinifyTransactionCreationSerializer)
 from ..services.config import ConfigService
 from ..services.payments import PaymentsService
-from ..services.transactions import NicepayTransactionApiService
+from ..services.transactions import NicepayTransactionApiService, \
+    SkinifyTransactionApiService
 from ..services.transfer import NicepayCreateTransactionData, ApiCredentals, \
     UpdateTransactionData, SkinifyCreateTransactionData
 
 
 class PaymentsRepository(BaseRepository):
     default_serializer_class = TransactionCreationSerializer
-    default_service = NicepayTransactionApiService
+    default_nicepay_service = NicepayTransactionApiService
+    default_skinify_service = SkinifyTransactionApiService()
     default_payment_service = PaymentsService()
 
-    _SECRET_KEY: str = None
+    _NICEPAY_APIKEY: str = None
 
     _service: NicepayTransactionApiService
 
@@ -40,21 +42,31 @@ class PaymentsRepository(BaseRepository):
             self._service = self.default_service(
                 credentals=ApiCredentals(
                     secret_key=config.secret_key,
-                    merchant_id=config.merchant_id
+                    merchant_id=config.merchant_id,
+                    skinify_apikey=config.skinify_key
                 )
             )
-            self._SECRET_KEY = config.secret_key
+            self._NICEPAY_APIKEY = config.secret_key
+            self._SKINIFY_APIKEY = config.skinify_key
         else:
             self._service = None
 
     @property
-    def secret_for_validation(self) -> str:
-        if not self._SECRET_KEY:
-            self._SECRET_KEY = self._config_service.get()
+    def nicepay_secret_for_validation(self) -> str:
+        if not self._NICEPAY_APIKEY:
+            self._NICEPAY_APIKEY = self._config_service.get()
 
-        return self._SECRET_KEY
+        return self._NICEPAY_APIKEY
 
-    def nicepay_create(self, data: dict, free_deposit_case: FreeDepositCase | None):
+    @property
+    def skinify_secret_for_validation(self) -> str:
+        if not self._SKINIFY_APIKEY:
+            self._SKINIFY_APIKEY = self._config_service.get().skinify_key
+
+        return self._SKINIFY_APIKEY
+
+    def nicepay_create(
+            self, data: dict, free_deposit_case: FreeDepositCase | None):
         serialized: TransactionCreationSerializer = self._serializer_class(
             data=data
         )
@@ -66,7 +78,10 @@ class PaymentsRepository(BaseRepository):
             free_deposit_case=free_deposit_case
         )
 
-        inited = self._payment_service.init(data=serialized_dataclass)
+        inited = self._payment_service.init(
+            data=serialized_dataclass,
+            payment_system=PaymentSystem.NICEPAY
+        )
 
         ok, response = self._service.create(data=serialized_dataclass,
                                             tid=inited.pk)
@@ -104,11 +119,31 @@ class PaymentsRepository(BaseRepository):
 
         serialized.is_valid(raise_exception=True)
 
-        create_request = self._serialize_skinify_create_request(
+        serialized_dataclass = self._serialize_skinify_create_request(
             serialized=serialized
         )
 
-        self._payment_service.init(data=data)
+        inited = self._payment_service.init(
+            data=serialized_dataclass,
+            payment_system=PaymentSystem.SKINIFY
+        )
+
+        ok, response = self.default_skinify_service.create(
+            data=serialized_dataclass,
+            tid=inited.pk
+        )
+
+        if ok:
+            return {"payment_url": response.get("url")}
+
+        self._payment_service.set_status(
+            tid=inited.pk,
+            status=PaymentStatus.FAILED
+        )
+
+        raise ValidationError(
+            detail=f"Erorr with creating transaction - {response}"
+        )
 
     def get_promocode(self, tid: int) -> str:
         return self._payment_service.get(tid=tid).promocode
@@ -116,9 +151,9 @@ class PaymentsRepository(BaseRepository):
     def update_status(self, tid: int, status: str):
         self._payment_service.set_status(tid=tid, status=status)
 
-    def update(self, tid: int, data: dict[str, str]):
+    def nicepay_update(self, tid: int, data: dict[str, str]):
         if self._payment_service.get(
-            tid=tid
+                tid=tid
         ).status:
             raise ValidationError(f"Payment {tid} already completed, "
                                   f"cannot update!")
@@ -132,6 +167,24 @@ class PaymentsRepository(BaseRepository):
             data=UpdateTransactionData(
                 status=status,
                 payment_method=data.get("method"),
+                currency=data.get("amount_currency")
+            )
+        )
+
+    def skinify_update(self, tid: int, data: dict[str, str]):
+        if self._payment_service.get(tid=tid).status:
+            raise ValidationError(f"Payment {tid} already completed, "
+                                  f"cannot update!")
+
+        status = (PaymentStatus.FAILED
+                  if data.get("status") != "success" else
+                  PaymentStatus.SUCCESS)
+
+        self._payment_service.update_data(
+            tid=tid,
+            data=UpdateTransactionData(
+                status=status,
+                amount_local=data.get("amount"),
                 currency=data.get("amount_currency")
             )
         )
@@ -159,6 +212,7 @@ class PaymentsRepository(BaseRepository):
             serialized: dict,
     ):
         return SkinifyCreateTransactionData(
+            user_id=serialized.data.get("user_id"),
             steam_id=serialized.data.get("steam_id"),
             trade_token=serialized.data.get("offer_trade_link")
         )

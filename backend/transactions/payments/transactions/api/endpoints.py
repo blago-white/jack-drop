@@ -54,13 +54,12 @@ class SkinifyInitReplenishApiView(BaseCreateApiView):
     def create(self, request, *args, **kwargs):
         user_data = self.users_repository.get_info(user_request=request)
 
+        payment = self.payments_repository.skinify_create(
+            data=request.data | user_data
+        )
 
-
-    def _complete_dataset(self, user_data: dict):
-        return dict(
-            trade_url_token=user_data.get("trade_link"),
-            steam_id=user_data.get("steam_id"),
-            promocode=self.request.data.get("promocode")
+        return self.get_201_response(
+            data=payment
         )
 
 
@@ -76,7 +75,7 @@ class NicePayTransactionCallbackApiView(BaseApiView, ListAPIView):
 
         tstatus = request.query_params.get("result")
 
-        self.payments_repository.update(
+        self.payments_repository.nicepay_update(
             tid=tid,
             data=request.query_params
         )
@@ -105,7 +104,7 @@ class NicePayTransactionCallbackApiView(BaseApiView, ListAPIView):
         sorted_params = sorted([(i[0], i[-1][0]) for i in data.copy().items()])
 
         sorted_params.append(
-            ("secret_key", self.payments_repository.secret_for_validation)
+            ("secret_key", self.payments_repository.nicepay_secret_for_validation)
         )
 
         params = "{np}".join([str(i[-1]) for i in sorted_params])
@@ -116,8 +115,47 @@ class NicePayTransactionCallbackApiView(BaseApiView, ListAPIView):
             raise ValidationError("Error validate signature")
 
 
-class SkinifyTransactionCallbackApiView(BaseApiView):
-    pass
+class SkinifyTransactionCallbackApiView(BaseCreateApiView):
+    payments_repository = PaymentsRepository()
+    users_repository = UsersRepository()
+    products_repository = ProductsApiRepository()
+
+    def create(self, request: Request, *args, **kwargs):
+        tid = request.data.get("deposit_id")
+
+        self._authenticate(dict(request.data).copy())
+
+        tstatus = request.data.get("status")
+
+        self.payments_repository.skinify_update(
+            tid=tid, data=request.data
+        )
+
+        if tstatus == "success":
+            used_promocode = self.payments_repository.get_promocode(tid=tid)
+
+            deposit = self.users_repository.add_depo(
+                amount=float(request.data.get("amount")),
+                currency=request.data.get("amount_currency"),
+                user_id=self.payments_repository.get_payeer_id(tid=tid),
+                promocode=used_promocode
+            )
+
+            self.products_repository.send_deposit_callback(data={
+                "user_id": deposit.get("user_id"),
+                "deposit_id": deposit.get("id"),
+                "amount": deposit.get("amount")
+            })
+
+        return self.get_200_response()
+
+    def _authenticate(self, data: dict[str, str]):
+        validate_hash = data.pop("token_md5")
+
+        if validate_hash != hashlib.md5(
+            self.payments_repository.skinify_secret_for_validation
+        ).hexdigest():
+            raise ValidationError("Error validate signature")
 
 
 class TransactionValidationApiView(BaseApiView, RetrieveAPIView):

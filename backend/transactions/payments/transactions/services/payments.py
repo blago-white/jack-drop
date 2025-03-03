@@ -3,14 +3,15 @@ from common.services.base import BaseModelService
 from .transfer import (NicepayCreateTransactionData,
                        SkinifyCreateTransactionData,
                        UpdateTransactionData)
-from ..models import Payment, PaymentStatus
+from ..models import Payment, PaymentStatus, PaymentSystem
 
 
 class PaymentsService(BaseModelService):
     default_model = Payment
 
     def init(self,
-             data: NicepayCreateTransactionData | SkinifyCreateTransactionData
+             data: NicepayCreateTransactionData | SkinifyCreateTransactionData,
+             payment_system: PaymentSystem
              ) -> Payment:
         self.clean_irrelevant(user_id=data.user_id)
 
@@ -22,7 +23,8 @@ class PaymentsService(BaseModelService):
         return self._model.objects.create(
             **(dict(
                 user_id=data.user_id,
-                promocode=data.promocode
+                promocode=data.promocode,
+                provider=payment_system
             ) | ({} if not amount_local else {"amount_local": amount_local})),
         )
 
