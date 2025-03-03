@@ -227,7 +227,7 @@ class PaymentsRepository(BaseRepository):
             serialized: dict,
     ):
         return SkinifyCreateTransactionData(
-            user_id=serialized.data.get("user_id"),
+            user_id=serialized.data.get("id"),
             steam_id=serialized.data.get("steam_id"),
             trade_token=serialized.data.get("offer_trade_link")
         )

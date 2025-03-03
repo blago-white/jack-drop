@@ -17,10 +17,11 @@ class ReadOnlyModelSerializer(ModelSerializer):
 class PrivateClientSerializer(ReadOnlyModelSerializer):
     displayed_balance = serializers.FloatField(allow_null=True, default=0)
     user_advantage = serializers.FloatField(source="advantage.value")
+    has_deposits = serializers.BooleanField(allow_null=True)
 
     class Meta:
         model = Client
-        fields = ["id", "username", "avatar", "trade_link", "user_advantage", "displayed_balance"]
+        fields = ["id", "username", "steam_id", "avatar", "trade_link", "user_advantage", "displayed_balance"]
         read_only_fields = ["id"]
 
 

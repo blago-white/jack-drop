@@ -15,7 +15,7 @@ class TransactionCreationSerializer(serializers.Serializer):
 
 
 class SkinifyTransactionCreationSerializer(serializers.Serializer):
-    user_id = serializers.IntegerField()
+    id = serializers.IntegerField()
     steam_id = serializers.IntegerField(allow_null=True)
     offer_trade_link = serializers.CharField(allow_null=True,
                                              allow_blank=True)
