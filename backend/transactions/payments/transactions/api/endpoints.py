@@ -11,7 +11,7 @@ from ..repositories.transactions import PaymentsRepository
 from ..serializers import TransactionCreationPubllicSerializer
 
 
-class InitReplenishApiView(BaseCreateApiView):
+class NicepayInitReplenishApiView(BaseCreateApiView):
     payments_repository = PaymentsRepository()
     users_repository = UsersRepository()
     products_repository = ProductsApiRepository()
@@ -19,8 +19,6 @@ class InitReplenishApiView(BaseCreateApiView):
     serializer_class = TransactionCreationPubllicSerializer
 
     def create(self, request, *args, **kwargs):
-        print("START")
-
         user_data = self.users_repository.get_info(user_request=request)
 
         deposit_data = self._complete_dataset(
@@ -31,12 +29,10 @@ class InitReplenishApiView(BaseCreateApiView):
             deposit_amount=deposit_data.get("amount")
         )
 
-        payment = self.payments_repository.create(
+        payment = self.payments_repository.nicepay_create(
             data=deposit_data,
             free_deposit_case=free_deposit_case
         )
-
-        print("INITED PAYMENT", payment)
 
         return self.get_201_response(
             data=payment
@@ -51,23 +47,35 @@ class InitReplenishApiView(BaseCreateApiView):
         )
 
 
-class TransactionCallbackApiView(BaseApiView, ListAPIView):
+class SkinifyInitReplenishApiView(BaseCreateApiView):
+    payments_repository = PaymentsRepository()
+    users_repository = UsersRepository()
+
+    def create(self, request, *args, **kwargs):
+        user_data = self.users_repository.get_info(user_request=request)
+
+        payment = self.payments_repository.skinify_create(
+            data=request.data | user_data
+        )
+
+        return self.get_201_response(
+            data=payment
+        )
+
+
+class NicePayTransactionCallbackApiView(BaseApiView, ListAPIView):
     payments_repository = PaymentsRepository()
     users_repository = UsersRepository()
     products_repository = ProductsApiRepository()
 
     def get(self, request: Request, *args, **kwargs):
-        print("HANDLE CALLBACK", request.query_params)
-
         tid = request.query_params.get("order_id")
 
         self._authenticate(dict(request.query_params).copy())
 
-        print(f"CALLBACK REQUEST: {dict(request.query_params)}")
-
         tstatus = request.query_params.get("result")
 
-        self.payments_repository.update(
+        self.payments_repository.nicepay_update(
             tid=tid,
             data=request.query_params
         )
@@ -96,7 +104,7 @@ class TransactionCallbackApiView(BaseApiView, ListAPIView):
         sorted_params = sorted([(i[0], i[-1][0]) for i in data.copy().items()])
 
         sorted_params.append(
-            ("secret_key", self.payments_repository.secret_for_validation)
+            ("secret_key", self.payments_repository.nicepay_secret_for_validation)
         )
 
         params = "{np}".join([str(i[-1]) for i in sorted_params])
@@ -104,7 +112,49 @@ class TransactionCallbackApiView(BaseApiView, ListAPIView):
         params_hash = hashlib.sha256(params.encode()).hexdigest()
 
         if params_hash != validate_hash[0]:
-            print("PAYMENT SIGN VALIDATION ERROR")
+            raise ValidationError("Error validate signature")
+
+
+class SkinifyTransactionCallbackApiView(BaseCreateApiView):
+    payments_repository = PaymentsRepository()
+    users_repository = UsersRepository()
+    products_repository = ProductsApiRepository()
+
+    def create(self, request: Request, *args, **kwargs):
+        tid = request.data.get("deposit_id")
+
+        self._authenticate(dict(request.data).copy())
+
+        tstatus = request.data.get("status")
+
+        self.payments_repository.skinify_update(
+            tid=tid, data=request.data
+        )
+
+        if tstatus == "success":
+            used_promocode = self.payments_repository.get_promocode(tid=tid)
+
+            deposit = self.users_repository.add_depo(
+                amount=float(request.data.get("amount")),
+                currency=request.data.get("amount_currency"),
+                user_id=self.payments_repository.get_payeer_id(tid=tid),
+                promocode=used_promocode
+            )
+
+            self.products_repository.send_deposit_callback(data={
+                "user_id": deposit.get("user_id"),
+                "deposit_id": deposit.get("id"),
+                "amount": deposit.get("amount")
+            })
+
+        return self.get_200_response()
+
+    def _authenticate(self, data: dict[str, str]):
+        validate_hash = data.pop("token_md5")
+
+        if validate_hash != hashlib.md5(
+            self.payments_repository.skinify_secret_for_validation
+        ).hexdigest():
             raise ValidationError("Error validate signature")
 
 

@@ -15,10 +15,11 @@ from ..models import PaymentStatus, PaymentCurrency
 class ApiCredentals:
     merchant_id: str
     secret_key: str
+    skinify_apikey: str
 
 
 @dataclass
-class CreateTransactionData:
+class NicepayCreateTransactionData:
     user_id: int
     user_login: str
     amount_from: float
@@ -28,8 +29,16 @@ class CreateTransactionData:
 
 
 @dataclass
+class SkinifyCreateTransactionData:
+    user_id: int
+    steam_id: int
+    trade_token: str
+
+
+@dataclass
 class UpdateTransactionData:
     status: PaymentStatus = None
+    amount_local: int = None
     payment_method: str = None
     currency: str = None
     expired_at: datetime.datetime = None

@@ -3,18 +3,21 @@ import json
 import requests
 from django.conf import settings
 
-from .transfer import ApiCredentals, CreateTransactionData
+from .transfer import (ApiCredentals,
+                       NicepayCreateTransactionData,
+                       SkinifyCreateTransactionData)
 
 
-class TransactionApiService:
-    CREATE_ENDPOINT = settings.PAYMENT_SERVICE_URLS["create"]
+class NicepayTransactionApiService:
+    CREATE_ENDPOINT = settings.PAYMENT_SERVICE_URLS["nicepay-create"]
 
     def __init__(self, credentals: ApiCredentals):
         self._credentals = credentals
 
-    def create(self, tid: int,
-               data: CreateTransactionData
-               ) -> tuple[bool, dict | str]:
+    def create(
+            self, tid: int,
+            data: NicepayCreateTransactionData
+    ) -> tuple[bool, dict | str]:
         has_free_case = bool(data.free_deposit_case)
 
         endpoint_url = (settings.SUCCESS_URL
@@ -47,5 +50,40 @@ class TransactionApiService:
 
         if (not response.ok) or (response_body.get("status") == "error"):
             return False, response_body.get("message")
+
+        return True, response_body
+
+
+class SkinifyTransactionApiService:
+    CREATE_ENDPOINT = settings.PAYMENT_SERVICE_URLS["skinify-create"]
+    CALLBACK_ENDPOINT = settings.SKINIFY_CALLBACK_URL
+
+    def __init__(self, credentals: ApiCredentals):
+        self._credentals = credentals
+
+    def create(
+            self, tid: int,
+            data: SkinifyCreateTransactionData):
+        body = {
+            "deposit_id": tid,
+            "steam_id": data.steam_id,
+            "trade_url_token": data.trade_token,
+            "priority_game": "rust",
+            "result_url": self.CALLBACK_ENDPOINT
+        }
+
+        response = requests.post(
+            self.CREATE_ENDPOINT,
+            headers={
+                "Content-Type": "application/json",
+                "Token": self._credentals.skinify_apikey
+            },
+            data=json.dumps(body)
+        )
+
+        response_body = response.json()
+
+        if (not response.ok) or (response_body.get("status") == "error"):
+            return False, response_body.get("error_message")
 
         return True, response_body

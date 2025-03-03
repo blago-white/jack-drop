@@ -130,7 +130,8 @@ STATIC_ROOT = BASE_DIR / "static"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PAYMENT_SERVICE_URLS = {
-    "create": "https://nicepay.io/public/api/payment",
+    "nicepay-create": "https://nicepay.io/public/api/payment",
+    "skinify-create": "https://skinify.io/api/create-deposit",
     "payout": "https://nicepay.io/public/api/payout",
 }
 
@@ -161,3 +162,5 @@ FAILED_URL = "https://jackdrop.online/account/"
 WEBHOOK_URL = "https://jackdrop.online/transactions/payments/callback/"
 
 PAYMENT_SERVICE_AUTH_HEADER = os.environ.get("AUTH_HEADER")
+
+SKINIFY_CALLBACK_URL = "https://jackdrop.online/transactions/payments/callback-skinify/"

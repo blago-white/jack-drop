@@ -15,9 +15,15 @@ class PaymentCurrency(models.TextChoices):
     KZT = "KZT"
 
 
+class PaymentSystem(models.TextChoices):
+    NICEPAY = ("N", "Nicepay")
+    SKINIFY = ("S", "Skinify")
+
+
 class Config(models.Model):
     merchant_id = models.CharField(max_length=512)
     secret_key = models.CharField(max_length=512)
+    skinify_key = models.CharField(max_length=255, default="")
     bank_address = models.CharField(max_length=512)
 
     def __str__(self):
@@ -34,7 +40,9 @@ class Config(models.Model):
 class Payment(models.Model):
     payment_id = models.UUIDField(null=True, blank=True, unique=True)
     user_id = models.IntegerField()
-    amount_local = models.IntegerField()
+    provider = models.CharField(choices=PaymentSystem.choices)
+
+    amount_local = models.IntegerField(blank=True, null=True)
     currency = models.CharField(blank=True,
                                 choices=PaymentCurrency.choices,
                                 null=True,
