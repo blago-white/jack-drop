@@ -64,8 +64,10 @@ class SkinifyTransactionApiService:
     def create(
             self, tid: int,
             data: SkinifyCreateTransactionData):
+        print(tid)
+
         body = {
-            "deposit_id": tid,
+            "deposit_id": str(tid),
             "steam_id": data.steam_id,
             "trade_url_token": data.trade_token,
             "priority_game": "rust",
