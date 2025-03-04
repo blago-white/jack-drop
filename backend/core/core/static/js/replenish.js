@@ -157,7 +157,7 @@ const urlParams = new URLSearchParams(window.location.search);
 window.usePreset = usePreset;
 
 if (document.getElementById("promocode").value.length>1) {
-    document.getElementById("promocode").style.background = "linear-gradient(90deg, #0047FF 0%, #FF007A 100%)";
+    document.getElementById("promocode").style.outline = "3px solid #602ccd";
 
     showBenegits(document.getElementById("promocode").value);
 }
