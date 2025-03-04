@@ -97,10 +97,12 @@ class InventoryRepository(BaseRepository):
 
         return {"ok": ok}
 
-    def withdraw(self, user_data: int, item_id: int) -> dict:
+    def withdraw(self, user_data: dict, item_id: int) -> dict:
         if not self._service.check_ownership(owner_id=user_data.get("id"),
                                              inventory_item_id=item_id):
             raise ValidationError("You not owner of item! [not-owner]")
+
+        print(user_data, type(user_data), user_data.get("has_deposits"))
 
         if not user_data.get("has_deposits"):
             raise ValidationError("Cannot withdraw item, not have deposits! [no-deposits]")
