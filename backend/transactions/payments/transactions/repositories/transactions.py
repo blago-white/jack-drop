@@ -209,7 +209,7 @@ class PaymentsRepository(BaseRepository):
             tid=tid,
             data=UpdateTransactionData(
                 status=status,
-                amount_local=data.get("amount_converted[rub]"),
+                amount_local=float(data.get("amount_converted[rub]")),
                 currency="RUB"
             )
         )

@@ -133,7 +133,7 @@ class SkinifyTransactionCallbackApiView(BaseCreateApiView):
 
         print(request_data)
 
-        tid = request_data.get("deposit_id")
+        tid = int(request_data.get("deposit_id"))
 
         self._authenticate(dict(request_data).copy())
 
@@ -142,7 +142,8 @@ class SkinifyTransactionCallbackApiView(BaseCreateApiView):
         print(tstatus)
 
         self.payments_repository.skinify_update(
-            tid=tid, data=request_data
+            tid=tid,
+            data=request_data
         )
 
         if tstatus == "success":
