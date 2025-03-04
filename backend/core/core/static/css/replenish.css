@@ -112,7 +112,6 @@ h3 {
     padding-inline: calc(100vw * calc(23 / var(--reference-display-w)));
     padding-block: calc(100vw * calc(30 / var(--reference-display-w)));
     color: white;
-    text-transform: uppercase;
     margin-bottom: 2ch;
 
     transition: all .2s ease;
@@ -203,12 +202,14 @@ h3 {
 }
 
 .provider-selector.selected {
-    outline: 3px solid #adff2f;
+    outline: 3px solid #602ccd;
 }
 
 .amount-selector-row {
     display: flex;
     gap: 1ch;
+
+    transition: all .2s ease;
 }
 
 .amount-selector-row.blocked {

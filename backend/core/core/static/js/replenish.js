@@ -127,8 +127,8 @@ function usePreset(preset) {
 }
 
 function selectSkinify() {
-    document.getElementById("nicepaySelector").classList.toggle("selected");
-    document.getElementById("skinifySelector").classList.toggle("selected");
+    document.getElementById("nicepaySelector").classList.remove("selected");
+    document.getElementById("skinifySelector").classList.add("selected");
 
     document.getElementById("amountSelectorRow").classList.add("blocked");
 
@@ -138,8 +138,8 @@ function selectSkinify() {
 }
 
 function selectNicepay() {
-    document.getElementById("skinifySelector").classList.toggle("selected");
-    document.getElementById("nicepaySelector").classList.toggle("selected");
+    document.getElementById("skinifySelector").classList.remove("selected");
+    document.getElementById("nicepaySelector").classList.add("selected");
 
     document.getElementById("amountSelectorRow").classList.remove("blocked");
 
