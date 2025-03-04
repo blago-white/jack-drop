@@ -8,9 +8,12 @@ class FreeCasesService(BaseModelService):
     default_model = FreeDepositCase
 
     def get_for_deposit(self, amount: float) -> Case | None:
-        return self._model.objects.filter(
-            target_deposit_amount__lte=amount
-        ).order_by("-target_deposit_amount").first().case
+        try:
+            return self._model.objects.filter(
+                target_deposit_amount__lte=amount
+            ).order_by("-target_deposit_amount").first().case
+        except:
+            return
 
 
 class FreeCasesDepositsService(BaseModelService):

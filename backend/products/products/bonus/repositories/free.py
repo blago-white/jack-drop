@@ -47,6 +47,9 @@ class FreeCasesRepository(BaseRepository):
             amount=float(data.data.get("amount"))
         )
 
+        if not free_case:
+            return {"ok": True, "case": None}
+
         self._bonus_buy_service.add_case(
             user_id=data.data.get("user_id"),
             case=free_case
