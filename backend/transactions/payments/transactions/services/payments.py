@@ -25,7 +25,7 @@ class PaymentsService(BaseModelService):
                 user_id=data.user_id,
                 promocode=data.promocode,
                 provider=payment_system
-            ) | ({} if not amount_local else {"amount_local": amount_local})),
+            ) | ({} if not amount_local else {"amount_local": amount_local[0]})),
         )
 
     def clean_irrelevant(self, user_id: int):
