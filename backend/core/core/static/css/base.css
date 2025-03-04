@@ -125,7 +125,7 @@ button {
 }
 
 .super-button-bg.noactive {
-    background: rgba(39, 39, 39, 1);
+    background: rgba(39, 39, 39, 1)!important;
 }
 
 .control-sec-title {

@@ -53,10 +53,8 @@ function validate() {
     const agree = agreementInput.checked;
 
     if (selectedProvider == NICEPAYSELECTOR) {
-        console.log(selectedProvider, agree, amount);
         return (agree && amount >= 500);
     } else {
-        console.log(selectedProvider, agree);
         return agree;
     }
 }
