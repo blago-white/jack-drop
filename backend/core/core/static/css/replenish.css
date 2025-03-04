@@ -258,7 +258,7 @@ h3 {
     }
 
     .data-input {
-        font-size: calc(100vw* calc(32 / var(--reference-display-w)));
+        font-size: calc(100vw* calc(26 / var(--reference-display-w)));
     }
 
     .form-field label {
@@ -272,5 +272,17 @@ h3 {
     .info {
         font-size: xx-large;
         padding-left: 2ch;
+    }
+
+    #provider-selector-row {
+        gap: 2ch;
+    }
+
+    .promocode-row {
+        gap: 2ch;
+    }
+
+    .amount-selector-row {
+        gap: 2ch;
     }
 }
