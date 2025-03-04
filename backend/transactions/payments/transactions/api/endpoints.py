@@ -106,7 +106,8 @@ class NicePayTransactionCallbackApiView(BaseApiView, ListAPIView):
         sorted_params = sorted([(i[0], i[-1][0]) for i in data.copy().items()])
 
         sorted_params.append(
-            ("secret_key", self.payments_repository.nicepay_secret_for_validation)
+            ("secret_key",
+             self.payments_repository.nicepay_secret_for_validation)
         )
 
         params = "{np}".join([str(i[-1]) for i in sorted_params])
@@ -127,7 +128,8 @@ class SkinifyTransactionCallbackApiView(BaseCreateApiView):
 
         if type(request_data.get("deposit_id")) == list:
             request_data = {
-                key: (int(request_data[key][0]) if request_data[key][0].isdigit() else request_data[key][0])
+                key: (int(request_data[key][0]) if request_data[key][
+                    0].isdigit() else request_data[key][0])
                 for key in request_data
             }
 
@@ -168,11 +170,13 @@ class SkinifyTransactionCallbackApiView(BaseCreateApiView):
         validate_hash = data.pop("token_md5")
 
         if validate_hash != hashlib.md5(
-            self.payments_repository.skinify_secret_for_validation.encode()
+                self.payments_repository.skinify_secret_for_validation.encode()
         ).hexdigest():
-            print("ERRROR VALIDATE SIGN", validate_hash, self.payments_repository.skinify_secret_for_validation, hashlib.md5(
-            self.payments_repository.skinify_secret_for_validation.encode()
-        ).hexdigest())
+            print("ERRROR VALIDATE SIGN", validate_hash,
+                  self.payments_repository.skinify_secret_for_validation,
+                  hashlib.md5(
+                      self.payments_repository.skinify_secret_for_validation.encode()
+                  ).hexdigest())
 
             raise ValidationError("Error validate signature")
 
@@ -183,8 +187,8 @@ class TransactionValidationApiView(BaseApiView, RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         if self.repository.transaction_exists(
-            tid=request.data.get("transaction_id"),
-            user_id=request.data.get("user_id")
+                tid=request.data.get("transaction_id"),
+                user_id=request.data.get("user_id")
         ):
             return self.get_200_response()
 
