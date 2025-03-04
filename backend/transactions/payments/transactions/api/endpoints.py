@@ -123,22 +123,34 @@ class SkinifyTransactionCallbackApiView(BaseCreateApiView):
     products_repository = ProductsApiRepository()
 
     def create(self, request: Request, *args, **kwargs):
-        tid = request.data.get("deposit_id")
+        request_data = dict(request.data)
 
-        self._authenticate(dict(request.data).copy())
+        if type(request_data.get("deposit_id")) == list:
+            request_data = {
+                key: (int(request_data[key][0]) if request_data[key][0].is_digit() else request_data[key][0])
+                for key in request_data
+            }
 
-        tstatus = request.data.get("status")
+        print(request_data)
+
+        tid = request_data.get("deposit_id")
+
+        self._authenticate(dict(request_data).copy())
+
+        tstatus = request_data.get("status")
+
+        print(tstatus)
 
         self.payments_repository.skinify_update(
-            tid=tid, data=request.data
+            tid=tid, data=request_data
         )
 
         if tstatus == "success":
             used_promocode = self.payments_repository.get_promocode(tid=tid)
 
             deposit = self.users_repository.add_depo(
-                amount=float(request.data.get("amount")),
-                currency=request.data.get("amount_currency"),
+                amount=float(request_data.get("amount")),
+                currency=request_data.get("amount_currency"),
                 user_id=self.payments_repository.get_payeer_id(tid=tid),
                 promocode=used_promocode
             )
@@ -157,6 +169,10 @@ class SkinifyTransactionCallbackApiView(BaseCreateApiView):
         if validate_hash != hashlib.md5(
             self.payments_repository.skinify_secret_for_validation.encode()
         ).hexdigest():
+            print("ERRROR VALIDATE SIGN", validate_hash, self.payments_repository.skinify_secret_for_validation, hashlib.md5(
+            self.payments_repository.skinify_secret_for_validation.encode()
+        ).hexdigest())
+
             raise ValidationError("Error validate signature")
 
 

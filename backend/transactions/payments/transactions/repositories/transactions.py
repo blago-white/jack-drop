@@ -178,6 +178,7 @@ class PaymentsRepository(BaseRepository):
         if self._payment_service.get(
                 tid=tid
         ).status:
+            print("COMPLETED")
             raise ValidationError(f"Payment {tid} already completed, "
                                   f"cannot update!")
 
@@ -196,6 +197,7 @@ class PaymentsRepository(BaseRepository):
 
     def skinify_update(self, tid: int, data: dict[str, str]):
         if self._payment_service.get(tid=tid).status:
+            print("ALREADY COMPLETE")
             raise ValidationError(f"Payment {tid} already completed, "
                                   f"cannot update!")
 
