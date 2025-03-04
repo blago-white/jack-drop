@@ -155,7 +155,7 @@ class SkinifyTransactionCallbackApiView(BaseCreateApiView):
         validate_hash = data.pop("token_md5")
 
         if validate_hash != hashlib.md5(
-            self.payments_repository.skinify_secret_for_validation
+            self.payments_repository.skinify_secret_for_validation.encode()
         ).hexdigest():
             raise ValidationError("Error validate signature")
 
