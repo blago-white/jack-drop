@@ -127,7 +127,7 @@ class SkinifyTransactionCallbackApiView(BaseCreateApiView):
 
         if type(request_data.get("deposit_id")) == list:
             request_data = {
-                key: (int(request_data[key][0]) if request_data[key][0].is_digit() else request_data[key][0])
+                key: (int(request_data[key][0]) if request_data[key][0].isdigit() else request_data[key][0])
                 for key in request_data
             }
 
