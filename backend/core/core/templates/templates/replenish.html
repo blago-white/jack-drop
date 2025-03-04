@@ -3,7 +3,6 @@
 {% load i18n %}
 
 {% block title %}
-{{ promocode }}
 Replenish Account | Jack Drop
 {% endblock %}
 
@@ -26,7 +25,7 @@ Replenish Account | Jack Drop
         <button class="data-input benefit-checker" type="reset" onclick="showBenegits(document.getElementById('promocode').value)">%</button>
     </div>
     <span class="promocode-benefits" style="display: none;" id="promocodeBenefits"></span>
-    {% if promocode == "DEBUG" %}
+    {% if PROMOCODE == "DEBUG" %}
     <div class="provider-selector-row" id="providerSelectorRow">
         <button class="data-input provider-selector selected" id="skinifySelector" type="button">
             <img src="https://skinify.io/favicon.ico">
@@ -37,7 +36,7 @@ Replenish Account | Jack Drop
         </button>
     </div>
     {% endif %}
-    <div class="amount-selector-row {% if promocode == 'DEBUG' %}blocked{% endif %}" id="amountSelectorRow">
+    <div class="amount-selector-row {% if PROMOCODE == 'DEBUG' %}blocked{% endif %}" id="amountSelectorRow">
         <input class="data-input" placeholder="Введите сумму" id="amount" type="number" min=500 max="100000">
         <button class="data-input preset" type="button" onclick="usePreset(1999)">1999</button>
         <button class="data-input preset" type="button" onclick="usePreset(4999)">4999</button>
