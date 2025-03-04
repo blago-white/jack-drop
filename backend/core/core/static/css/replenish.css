@@ -274,7 +274,7 @@ h3 {
         padding-left: 2ch;
     }
 
-    #provider-selector-row {
+    .provider-selector-row {
         gap: 2ch;
     }
 
