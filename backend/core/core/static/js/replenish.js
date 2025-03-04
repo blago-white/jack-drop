@@ -164,13 +164,8 @@ if (document.getElementById("promocode").value.length>1) {
     showBenegits(document.getElementById("promocode").value);
 }
 
-if (document.getElementById("promocode").value == "DEBUG") {
-    document.getElementById("nicepaySelector").addEventListener("click", selectNicepay);
-    document.getElementById("skinifySelector").addEventListener("click", selectSkinify);
-} else {
-    document.getElementById("providerSelectorRow").display = "none";
-    document.getElementById("amountSelectorRow").classList.remove("blocked");
-}
+document.getElementById("nicepaySelector").addEventListener("click", selectNicepay);
+document.getElementById("skinifySelector").addEventListener("click", selectSkinify);
 
 window.showBenegits = showBenegits;
 
