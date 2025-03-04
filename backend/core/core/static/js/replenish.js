@@ -53,8 +53,10 @@ function validate() {
     const agree = agreementInput.checked;
 
     if (selectedProvider == NICEPAYSELECTOR) {
+        console.log(selectedProvider, agree, amount);
         return (agree && amount >= 500);
     } else {
+        console.log(selectedProvider, agree);
         return agree;
     }
 }
@@ -85,14 +87,16 @@ async function addDeposit() {
 
     headers.append("Content-Type", "application/json");
 
+    let response;
+
     if (selectedProvider == NICEPAYSELECTOR) {
-        const response = await sendRequest('/transactions/payments/create/', {
+        response = await sendRequest('/transactions/payments/create/', {
             method: "POST",
             body: JSON.stringify({"amount": amount, "promocode": promocode}),
             headers: headers
         });
     } else {
-        const response = await sendRequest('/transactions/payments/create-skinify/', {
+        response = await sendRequest('/transactions/payments/create-skinify/', {
             method: "POST",
             body: JSON.stringify({"promocode": promocode}),
             headers: headers

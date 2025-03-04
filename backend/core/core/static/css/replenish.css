@@ -199,11 +199,10 @@ h3 {
     justify-content: center;
     align-items: center;
     gap: 1ch;
-    padding-block: 1ch;
 }
 
 .provider-selector img {
-    width: 3ch;
+    width: 2ch;
 }
 
 .provider-selector.selected {
