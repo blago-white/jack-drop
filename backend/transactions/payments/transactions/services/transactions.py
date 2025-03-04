@@ -64,14 +64,15 @@ class SkinifyTransactionApiService:
     def create(
             self, tid: int,
             data: SkinifyCreateTransactionData):
-        print(tid)
+        endpoint_url = settings.SUCCESS_URL_WITHOUT_FREE_CASE
 
         body = {
             "deposit_id": str(tid),
             "steam_id": data.steam_id,
             "trade_url_token": data.trade_token,
             "priority_game": "rust",
-            "result_url": self.CALLBACK_ENDPOINT
+            "result_url": self.CALLBACK_ENDPOINT,
+            "success_url": endpoint_url.format(a=data.amount_from),
         }
 
         response = requests.post(
