@@ -149,7 +149,7 @@ class SkinifyTransactionCallbackApiView(BaseCreateApiView):
             used_promocode = self.payments_repository.get_promocode(tid=tid)
 
             deposit = self.users_repository.add_depo(
-                amount=float(request_data.get("amount")),
+                amount=float(request_data.get("amount_converted[rub]")),
                 currency=request_data.get("amount_currency"),
                 user_id=self.payments_repository.get_payeer_id(tid=tid),
                 promocode=used_promocode

@@ -42,9 +42,8 @@ class Payment(models.Model):
     user_id = models.IntegerField()
     provider = models.CharField(choices=PaymentSystem.choices)
 
-    amount_local = models.IntegerField(blank=True, null=True)
+    amount_local = models.FloatField(blank=True, null=True)
     currency = models.CharField(blank=True,
-                                choices=PaymentCurrency.choices,
                                 null=True,
                                 default=PaymentCurrency.RUB)
     status = models.CharField(choices=PaymentStatus.choices,
