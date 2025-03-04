@@ -185,6 +185,37 @@ h3 {
     font-family: 'Gilroy Bold';
 }
 
+.provider-selector-row {
+    display: flex;
+    gap: 1ch;
+}
+
+.provider-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1ch;
+    padding-block: 1ch;
+}
+
+.provider-selector img {
+    width: 3ch;
+}
+
+.provider-selector.selected {
+    outline: 3px solid #adff2f;
+}
+
+.amount-selector-row {
+    display: flex;
+    gap: 1ch;
+}
+
+.amount-selector-row.blocked {
+    opacity: .5;
+    pointer-events: none;
+}
+
 @media (aspect-ratio < 1/1) {
     .replenish-form {
         width: -webkit-fill-available;

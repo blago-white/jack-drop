@@ -3,6 +3,10 @@ import { printPrizeItem } from "./animations.js";
 const depoAmountField = document.getElementById('amount');
 const agreementInput = document.getElementById('agreement');
 let usedPromocode = document.getElementById('used-promocode');
+let selectedProvider;
+
+const SKINIFYSELECTOR = "S";
+const NICEPAYSELECTOR = "N";
 
 if (usedPromocode && (usedPromocode != "None")) {
     usedPromocode = usedPromocode.innerHTML
@@ -48,7 +52,11 @@ function validate() {
 
     const agree = agreementInput.checked;
 
-    return (agree && amount >= 500);
+    if (selectedProvider == NICEPAYSELECTOR) {
+        return (agree && amount >= 500);
+    } else {
+        return agree;
+    }
 }
 
 function updateSubmitBtn() {
@@ -77,11 +85,19 @@ async function addDeposit() {
 
     headers.append("Content-Type", "application/json");
 
-    const response = await sendRequest('/transactions/payments/create/', {
-        method: "POST",
-        body: JSON.stringify({"amount": amount, "promocode": promocode}),
-        headers: headers
-    });
+    if (selectedProvider == NICEPAYSELECTOR) {
+        const response = await sendRequest('/transactions/payments/create/', {
+            method: "POST",
+            body: JSON.stringify({"amount": amount, "promocode": promocode}),
+            headers: headers
+        });
+    } else {
+        const response = await sendRequest('/transactions/payments/create-skinify/', {
+            method: "POST",
+            body: JSON.stringify({"promocode": promocode}),
+            headers: headers
+        });
+    }
 
     const responseJSON = await response.json();
 
@@ -92,6 +108,7 @@ async function addDeposit() {
     } else {
         location.href = responseJSON.payment_url;
     }
+
     return false;
 }
 
@@ -109,6 +126,28 @@ function usePreset(preset) {
     return false;
 }
 
+function selectSkinify() {
+    document.getElementById("nicepaySelector").classList.toggle("selected");
+    document.getElementById("skinifySelector").classList.toggle("selected");
+
+    document.getElementById("amountSelectorRow").classList.add("blocked");
+
+    selectedProvider = SKINIFYSELECTOR;
+
+    updateSubmitBtn();
+}
+
+function selectNicepay() {
+    document.getElementById("skinifySelector").classList.toggle("selected");
+    document.getElementById("nicepaySelector").classList.toggle("selected");
+
+    document.getElementById("amountSelectorRow").classList.remove("blocked");
+
+    selectedProvider = NICEPAYSELECTOR;
+
+    updateSubmitBtn();
+}
+
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
@@ -123,4 +162,14 @@ if (document.getElementById("promocode").value.length>1) {
     showBenegits(document.getElementById("promocode").value);
 }
 
+if (document.getElementById("promocode").value == "DEBUG") {
+    document.getElementById("nicepaySelector").addEventListener("click", selectNicepay);
+    document.getElementById("skinifySelector").addEventListener("click", selectSkinify);
+} else {
+    document.getElementById("providerSelectorRow").display = "none";
+    document.getElementById("amountSelectorRow").classList.remove("blocked");
+}
+
 window.showBenegits = showBenegits;
+
+selectedProvider = SKINIFYSELECTOR;

@@ -14,12 +14,6 @@ Replenish Account | Jack Drop
 {% block main %}
 <form class="replenish-form" id="replenish-form" onsubmit="addDeposit();return false;">
     <h3>{% trans 'Enter Replenish Data' %}</h3>
-    <span class="info">
-        {% trans 'Replenish Info First' %}
-    </span>
-    <span class="info">
-        {% trans 'Replenish Info Second' %}
-    </span>
     <div id="promocode-row">
         <input class="data-input"
                placeholder="Промокод"
@@ -31,7 +25,18 @@ Replenish Account | Jack Drop
         <button class="data-input benefit-checker" type="reset" onclick="showBenegits(document.getElementById('promocode').value)">%</button>
     </div>
     <span class="promocode-benefits" style="display: none;" id="promocodeBenefits"></span>
-    <div style="display: flex;gap: 1ch;">
+    {% if promocode == "DEBUG" %}
+    <div class="provider-selector-row" id="providerSelectorRow">
+        <button class="data-input provider-selector selected" id="skinifySelector" type="button">
+            <img src="https://skinify.io/favicon.ico">
+            Оплатить скинами
+        </button>
+        <button class="data-input provider-selector" id="nicepaySelector" type="button">
+            СБП/Карты
+        </button>
+    </div>
+    {% endif %}
+    <div class="amount-selector-row blocked" id="amountSelectorRow">
         <input class="data-input" placeholder="Введите сумму" id="amount" type="number" min=500 max="100000">
         <button class="data-input preset" type="button" onclick="usePreset(1999)">1999</button>
         <button class="data-input preset" type="button" onclick="usePreset(4999)">4999</button>
