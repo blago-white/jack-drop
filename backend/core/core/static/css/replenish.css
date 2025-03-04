@@ -118,7 +118,7 @@ h3 {
 }
 
 .data-input:hover {
-    transform: #333;
+    background: #333;
 }
 
 .agreement-field {
