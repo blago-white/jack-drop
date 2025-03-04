@@ -3,6 +3,7 @@
 {% load i18n %}
 
 {% block title %}
+{{ promocode }}
 Replenish Account | Jack Drop
 {% endblock %}
 
@@ -36,7 +37,7 @@ Replenish Account | Jack Drop
         </button>
     </div>
     {% endif %}
-    <div class="amount-selector-row blocked" id="amountSelectorRow">
+    <div class="amount-selector-row {% if promocode == 'DEBUG' %}blocked{% endif %}" id="amountSelectorRow">
         <input class="data-input" placeholder="Введите сумму" id="amount" type="number" min=500 max="100000">
         <button class="data-input preset" type="button" onclick="usePreset(1999)">1999</button>
         <button class="data-input preset" type="button" onclick="usePreset(4999)">4999</button>
