@@ -85,7 +85,7 @@ async function withdrawItem(id) {
     const user = await getAuthenticated();
 
     if ((!user.trade_link) || (user.trade_link.length < 10)) {
-        return makeWarn("Вы не указали/указали неверную трейд ссылку, без нее вывести не сможем!\n\nYou did not specify/provided an incorrect trade link, we will not be able to withdraw without it!")
+        return makeWarn("Внимание! ⚠️ Пожалуйста, проверьте свою трейд-ссылку в настройках профиля. <br>Без корректной трейд-ссылки вывод скинов невозможен. 🔄")
     }
 
     const headers = new Headers();
