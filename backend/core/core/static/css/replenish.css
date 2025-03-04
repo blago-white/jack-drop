@@ -128,9 +128,13 @@ h3 {
 .replenish-btn {
     margin-top: calc(100vw * calc(65 / var(--reference-display-w)));
     width: 100%;
-    height: calc(100vw * calc(85 / var(--reference-display-w)));;
+    height: calc(100vw * calc(85 / var(--reference-display-w)));
 
     transition: all .2s ease;
+}
+
+#replenish-btn-bg {
+    background: rgb(96, 44, 205);
 }
 
 #promocode {
