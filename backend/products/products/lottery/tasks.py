@@ -7,7 +7,6 @@ from .services.transfer import LotteryWinners
 from .services.executor import LotteryGameService
 
 
-@shared_task
 def implement_lottery():
     print("APPLY LOTTERY")
 
