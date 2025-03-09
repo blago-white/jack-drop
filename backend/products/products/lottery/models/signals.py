@@ -27,7 +27,7 @@ def implement_lottery_post_save(
     delay = int((instance.end_date - instance.start_date) /
                 datetime.timedelta(seconds=1))
 
-    print(f"DELAY DELAY DELAY DELAY DELAY DELAY DELAY {delay}")
+    print(f"DELAY {delay}")
 
     threading.Thread(target=_apply_lottery, args=(delay, )).start()
 
