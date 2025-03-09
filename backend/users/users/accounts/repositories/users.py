@@ -115,6 +115,7 @@ class PublicUsersRepository(BaseUsersRepository):
 
     def __init__(self, *args,
                  balance_service: ClientBalanceService = None,
+                 lottery_service: LotteryWinsModelService = None,
                  **kwargs):
         self._balance_service = balance_service or self.default_balance_service
         self._lottery_service = lottery_service or self.default_lottery_service
