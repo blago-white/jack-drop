@@ -30,7 +30,7 @@ class LotteryModelService(BaseModelService):
         return True
 
     def get_participants(self, lottery: LotteryEvent) -> dict[str, list[int]]:
-        participants: list[LotteryParticipant] = list(lottery.participants)
+        participants: list[LotteryParticipant] = list(lottery.participants.all())
 
         return dict(
             main_lottery=[
