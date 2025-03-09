@@ -1,4 +1,5 @@
 import datetime
+import time
 
 from django.db.models.signals import post_save
 
@@ -13,11 +14,15 @@ def implement_lottery_post_save(
 ) -> None:
     print("START LOTTERY SIGNAL")
 
-    implement_lottery.apply_async(
-        countdown=int((
+    time.sleep(
+        int((
             instance.end_date - instance.start_date
         ) / datetime.timedelta(seconds=1))
     )
+
+    print("START LOTTERY")
+
+    implement_lottery()
 
 
 post_save.connect(implement_lottery_post_save,
