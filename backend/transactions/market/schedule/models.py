@@ -6,6 +6,7 @@ class ScheduledItem(models.Model):
     item_market_hash_name = models.CharField()
     item_market_link = models.URLField()
     price = models.IntegerField()
+    owner_id = models.IntegerField()
     trade_link = models.CharField()
 
 
