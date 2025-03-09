@@ -1,7 +1,7 @@
 from common.services.base import BaseModelService
 
 from .transfer import LotteryWinners
-from ..models import LotteryEvent, LotteryParticipant
+from ..models.lottery import LotteryEvent, LotteryParticipant
 
 
 class LotteryModelService(BaseModelService):
