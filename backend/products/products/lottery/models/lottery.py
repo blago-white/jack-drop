@@ -11,10 +11,12 @@ class LotteryEvent(models.Model):
     )
     prize_secondary = models.ForeignKey(to="items.Item",
                                         verbose_name="Дешевый приз",
-                                        on_delete=models.CASCADE)
+                                        on_delete=models.CASCADE,
+                                        related_name="lottery_secondary_results")
     prize_main = models.ForeignKey(to="items.Item",
                                    verbose_name="Дорогой приз",
-                                   on_delete=models.CASCADE)
+                                   on_delete=models.CASCADE,
+                                   related_name="lottery_primary_results")
 
     winner_main = models.IntegerField(null=True, blank=True)
     winner_secondary = models.IntegerField(null=True, blank=True)
