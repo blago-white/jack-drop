@@ -29,7 +29,7 @@ class LotteryGameService:
             winners=winners
         )
 
-        return True, current, winners
+        return True, current
 
     def _get_winners(self, lottery: LotteryEvent) -> LotteryWinners:
         lottery_users = self._model_service.get_participants(
