@@ -49,6 +49,7 @@ class ScheduleRepository(BaseRepository):
         return self._dataclass(
             item_market_hash_name=data.get("inventory_item_hash_name"),
             price=data.get("item_price"),
+            owner_id=data.get("owner_id"),
             item_market_link=data.get("item_market_link"),
             trade_link=data.get("owner_trade_link"),
             inventory_item_id=data.get("inventory_item_id"),

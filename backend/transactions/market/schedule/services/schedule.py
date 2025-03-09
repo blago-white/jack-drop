@@ -15,9 +15,9 @@ class ScheduleModelService(BaseModelService):
             item_market_hash_name=item.item_market_hash_name,
             item_market_link=item.item_market_link,
             price=item.price,
+            owner_id=item.owner_id,
             trade_link=item.trade_link
         )
-
 
     def get_schedule(self) -> list[ItemInfo]:
         return list(self._model.objects.all())
