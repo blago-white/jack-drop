@@ -10,6 +10,19 @@ class ClientAdvantage(models.Model):
         return f"{self.value} scrap"
 
 
+class LotteryWin(models.Model):
+    winner = models.OneToOneField(
+        to="accounts.Client",
+        on_delete=models.CASCADE
+    )
+    prize_item_id = models.IntegerField(verbose_name="Item-ID Приза")
+    viewed = models.BooleanField(default=False, blank=True)
+    date = models.DateTimeField(auto_now=True, blank=True)
+
+    def __str__(self):
+        return f"Win [{self.winner}]"
+
+
 class Client(AbstractUser):
     steam_id = models.PositiveBigIntegerField(unique=True, default=0)
 

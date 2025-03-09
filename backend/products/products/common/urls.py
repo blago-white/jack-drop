@@ -26,6 +26,7 @@ urlpatterns = [
     path('products/cases/', include("cases.urls")),
     path('products/items/', include("items.urls")),
     path('products/games/', include("games.urls")),
+    path('products/lottery/', include("lottery.urls")),
     path('products/inventory/', include("inventory.urls")),
     path('products/bonus-buy/', include("bonus.urls")),
     path('products/private/webhook/', include("webhook.urls")),

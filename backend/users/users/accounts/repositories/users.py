@@ -8,6 +8,7 @@ from accounts.serializers import PrivateClientSerializer, PublicClientSerializer
 from accounts.services.users import UsersService
 from accounts.services.steam import SteamAccountsService
 from accounts.models.client import Client
+from accounts.services.lottery import LotteryWinsModelService
 from balances.serivces.balance import ClientBalanceService
 from balances.serivces.deposits import DepositsService
 
@@ -108,6 +109,7 @@ class PrivateUsersRepository(BaseUsersRepository):
 
 class PublicUsersRepository(BaseUsersRepository):
     default_balance_service = ClientBalanceService()
+    default_lottery_service = LotteryWinsModelService()
     default_serializer_class = PublicClientSerializer
     _serializer_class: PublicClientSerializer
 
@@ -115,6 +117,7 @@ class PublicUsersRepository(BaseUsersRepository):
                  balance_service: ClientBalanceService = None,
                  **kwargs):
         self._balance_service = balance_service or self.default_balance_service
+        self._lottery_service = lottery_service or self.default_lottery_service
 
         super().__init__(*args, **kwargs)
 
@@ -133,6 +136,9 @@ class PublicUsersRepository(BaseUsersRepository):
                 "displayed_balance": self._balance_service.get_balance(
                     client_id=user.id
                 ).displayed_balance,
+                "lottery_wins_list": self._lottery_service.retrieve_list_unviewed_prizes(
+                    client_id=user.id
+                ),
                 "is_blogger": user.referral.is_blogger
             }
         )

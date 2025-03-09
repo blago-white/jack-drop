@@ -1,16 +1,19 @@
 from rest_framework import status
+from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework_simplejwt.tokens import TokenError
 from rest_framework_simplejwt.views import TokenVerifyView
-from rest_framework.generics import ListAPIView
 
-from accounts.repositories.users import PrivateUsersRepository
 from accounts.repositories.advantage import AdvantageRepository
-from common.api.default import DefaultRetrieveApiView, DefaultUpdateApiView, DefaultApiView
-from common.mixins import DetailedApiViewMixin
+from accounts.repositories.users import PrivateUsersRepository
+from accounts.repositories.lottery import LotteryWinsRepository
+from common.api.default import (DefaultRetrieveApiView,
+                                DefaultUpdateApiView,
+                                DefaultApiView,
+                                DefaultCreateApiView)
 
 
 class UserDataPrivateApiView(DefaultRetrieveApiView):
@@ -107,3 +110,16 @@ class UserAdvantageUpdateAPIView(DefaultUpdateApiView):
         return self.get_201_response(
             data=updated
         )
+
+
+class AddLotteryResultsAPIView(DefaultCreateApiView):
+    repository = LotteryWinsRepository()
+    serializer_class = repository.default_serializer_class
+
+    def create(self, request, *args, **kwargs):
+        try:
+            return self.get_201_response(
+                data=self.repository.add_result(data=request.data)
+            )
+        except:
+            return self.get_400_response()

@@ -40,7 +40,7 @@ class ApiViewMixin:
     def get_200_response(self, data: dict):
         return self._response_class(
             data=data,
-            status=200
+            status=status.HTTP_200_OK
         )
 
 

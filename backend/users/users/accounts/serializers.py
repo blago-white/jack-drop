@@ -33,13 +33,17 @@ class PublicClientSerializer(ReadOnlyModelSerializer):
     balance = serializers.FloatField(allow_null=True,
                                      default=0,
                                      source="displayed_balance")
+    lottery_wins_list = serializers.ListField(default=[],
+                                              required=False,
+                                              allow_null=True,
+                                              allow_empty=True)
 
     is_blogger = serializers.BooleanField(allow_null=False,
                                           default=False)
 
     class Meta:
         model = Client
-        fields = ["id", "username", "trade_link", "avatar", "balance", "is_blogger"]
+        fields = ["id", "username", "trade_link", "avatar", "balance", "lottery_wins_list", "is_blogger"]
         read_only_fields = ["__all__"]
 
 
@@ -52,3 +56,12 @@ class TokenObtainPairWithoutPasswordSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         attrs.update({'password': ''})
         return super(TokenObtainPairWithoutPasswordSerializer, self).validate(attrs)
+
+
+class _LotteryPrizeSerializer(serializers.Serializer):
+    winner_id = serializers.IntegerField(min_value=0)
+    prize_item_id = serializers.IntegerField(min_value=0)
+
+
+class LotteryResultsSerializer(serializers.Serializer):
+    prizes = _LotteryPrizeSerializer(required=True, many=True)

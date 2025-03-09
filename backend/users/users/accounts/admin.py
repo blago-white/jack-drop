@@ -1,8 +1,14 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 
-from .models.client import Client, ClientAdvantage
+from .models.client import Client, ClientAdvantage, LotteryWin
 from .models.api import SteamApiKey
+
+
+@admin.register(LotteryWin)
+class LotteryWin(ModelAdmin):
+    list_display = ["__str__", "viewed"]
+    list_filter = ["winner", "viewed"]
 
 
 @admin.register(Client)

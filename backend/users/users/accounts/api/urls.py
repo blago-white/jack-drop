@@ -4,7 +4,8 @@ from .private import (UserDataPrivateApiView,
                       UserAdvantageRetrieveAPIView,
                       JWTUserDataPrivateApiView,
                       UserAdvantageUpdateAPIView,
-                      UsersDataPrivateListApiView)
+                      UsersDataPrivateListApiView,
+                      AddLotteryResultsAPIView)
 from .public import UserDataApiView, UserTradeLinkApiView
 
 private_urlpatterns = [
@@ -14,6 +15,7 @@ private_urlpatterns = [
     path("advantage/update/", UserAdvantageUpdateAPIView.as_view()),
     path("advantage/update/<int:user_id>/", UserAdvantageUpdateAPIView.as_view()),
     path("get_users_info/", UsersDataPrivateListApiView.as_view()),
+    path("add_lottery_result/", AddLotteryResultsAPIView.as_view())
 ]
 
 public_urlpatterns = [

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'interactive',
     'bonus',
     'webhook',
+    'lottery',
 
     'daphne',
     'rest_framework',
@@ -177,7 +178,7 @@ CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 
 CELERY_TIMEZONE = 'Europe/London'
 
-CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_ALWAYS_EAGER = False
 CELERY_TASK_EAGER_PROPAGATES = True
 
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
@@ -225,7 +226,8 @@ USERS_MICROSERVICE_ROUTES = {
     "update_advantage": "http://usersapp:8000/auth/api/v1/p/advantage/update/",
     "update_advantage_by_id": "http://usersapp:8000/auth/api/v1/p/advantage/update/{user_id}/",
     "add_user_lose": "http://usersapp:8000/auth/referrals/api/v1/p/add-lose/",
-    "validate_deposit": "http://usersapp:8000/auth/balances/api/v1/p/validate-dep/"
+    "validate_deposit": "http://usersapp:8000/auth/balances/api/v1/p/validate-dep/",
+    "send-lottery-results": "http://usersapp:8000/auth/accounts/api/v1/p/add_lottery_result/"
 }
 
 CORE_MICROSERVICE_ROUTES = {

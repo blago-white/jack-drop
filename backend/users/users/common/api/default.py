@@ -34,7 +34,11 @@ class DefaultRetrieveApiView(BaseRetrieveApiViewMixin,
 
 class DefaultCreateApiView(CreateAPIView,
                            DefaultApiView):
-    pass
+    def get_201_response(self, data: dict = None) -> Response:
+        return self._response_class(
+            data=data,
+            status=201
+        )
 
 
 class DefaultUpdateApiView(BaseDetailedCreateApiViewMixin,
