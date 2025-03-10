@@ -79,7 +79,11 @@
 }
 
 .prize-gun:hover .prize-gun-img {
-    transform: scale(1.05);
+    transform: scale(1.15);
+}
+
+.prize-gun:hover .prize-gun-img.end {
+    transform: scale(1.15) rotate(64deg);
 }
 
 .prize-gun:hover .prize-gun-title {
