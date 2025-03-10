@@ -46,6 +46,8 @@
     margin-top: 5%;
     font-family: 'Gilroy SemiBold';
     font-size: 1.4em;
+
+    transition: all .2s ease;
 }
 
 .prize-gun.end {
@@ -58,6 +60,8 @@
     margin-top: 0%;
     width: 94%;
     height: max-content;
+
+    transition: all .2s ease;
 }
 
 .prize-gun-title.end {
@@ -72,4 +76,12 @@
     width: 80%;
     height: max-content;
     transform: rotate(64deg);
+}
+
+.prize-gun:hover .prize-gun-img {
+    transform: scale(1.05);
+}
+
+.prize-gun:hover .prize-gun-title {
+    font-size: 1.8em;
 }
