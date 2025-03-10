@@ -30,7 +30,7 @@ class ScheduleRepository(BaseRepository):
         serialized.is_valid(raise_exception=True)
 
         if self._banned_service.is_banned(
-                owner_id=serialized.data.get("owner_id")
+            owner_id=serialized.data.get("owner_id")
         ):
             raise ValidationError("Cannot withdraw, your banned!")
 

@@ -68,7 +68,6 @@ class TokenVerifyHeaderView(TokenVerifyView):
         if request.headers.get("Authorization") and not request.data.get(
             "token"
         ):
-            print("EEDDD")
             serializer = self.get_serializer_class()(
                 data={"token": request.headers.get("Authorization").split()[-1]}
             )
@@ -77,11 +76,8 @@ class TokenVerifyHeaderView(TokenVerifyView):
             serializer = self.get_serializer_class()(data=request.data)
 
         try:
-            print("EEERO1")
             serializer.is_valid(raise_exception=False)
-            print("EEERO2", serializer.errors, serializer.data)
         except TokenError as e:
-            print("ERROR TOKEN ")
             raise InvalidToken(e.args[0])
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
