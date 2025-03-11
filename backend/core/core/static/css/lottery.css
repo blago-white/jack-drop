@@ -139,10 +139,20 @@
 
 .lottery-expand-close-btn {
     aspect-ratio: 1/1;
-    background: #333;
+    background: #555;
     border: none;
     border-radius: 1ch;
     width: 5ch;
+
+    transition: all .2s ease;
+}
+
+.lotterty-info-row {
+    transition: all .2s ease;
+}
+
+.lotterty-info-row:hover {
+    transform: scale(1.05);
 }
 
 .lottery-prize-info {
@@ -188,7 +198,15 @@
     font-family: 'Gilroy Bold';
     font-size: .8em;
     border: 0px;
+
+    transition: all .2s ease;
 }
+
+.lottery-requirement-replenish-btn:hover {
+    transform: scale(1.05) rotate(1deg);
+}
+
+
 
 .lottery-stats {
     display: flex;
@@ -218,6 +236,16 @@
     font-family: 'Gilroy Bold';
     font-size: 1em;
     border: 0px;
+
+    transition: all .2s ease;
+}
+
+.lottery-make-part-btn {
+    transform: scale(1.1);
+}
+
+.lottery-expand-close-btn:hover {
+    transform: scale(1.5);
 }
 
 @media (aspect-ratio < 1/1) {
