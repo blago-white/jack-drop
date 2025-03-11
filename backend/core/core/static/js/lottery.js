@@ -75,6 +75,10 @@ async function countDown(small=false) {
 }
 
 function renderData(lottery_) {
+    if (!lottery_) {
+        return
+    }
+
     if ((Date.now() - (lottery_.created_at + lottery_.start_after)) >= 0) {
         document.getElementById("first-gun-name").innerHTML = lottery_.prize_main.title;
         document.getElementById("second-gun-name").innerHTML = lottery_.prize_secondary.title;
@@ -109,6 +113,8 @@ async function getCurrentLottery() {
     setCookie("lottery-ended-at", result.created_at + result.start_after + result.duration);
 
     lottery = result;
+
+    return result;
 }
 
 async function main() {
