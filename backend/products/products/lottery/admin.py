@@ -14,7 +14,7 @@ class LotteryEventAdmin(admin.ModelAdmin):
         start_after = max((instance.start_after + instance.created_at) - time.time(), 0)
 
         if start_after:
-            return f"{start_after//3600}ч. {int(start_after%3600)}мин. {start_after%60}"
+            return f"{start_after//3600}ч. {start_after%3600//60}мин. {int(start_after%60)}"
         else:
             return f"Started"
 
@@ -26,11 +26,11 @@ class LotteryEventAdmin(admin.ModelAdmin):
             to_implementation = max((instance.created_at + instance.start_after + instance.duration) - time.time(), 0)
 
             if to_implementation:
-                return f"{to_implementation//3600}ч. {int(to_implementation%3600)}мин. {to_implementation%60}"
+                return f"{to_implementation//3600}ч. {to_implementation%3600//60}мин. {int(to_implementation%60)}"
             else:
                 return "Implemented!"
         else:
-            return f"Acceptance now"
+            return f"Acceptance not started"
 
 
 @admin.register(LotteryParticipant)
