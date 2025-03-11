@@ -50,7 +50,7 @@ function reduceLotteryInfo() {
     }, 200);
 }
 
-function countDown(small=false) {
+async function countDown(small=false) {
     let time;
 
     while (true) {
@@ -74,13 +74,13 @@ function countDown(small=false) {
     }
 }
 
-function renderData(lottery_) {
+async function renderData(lottery_) {
     if (!lottery_) {
         return
     }
 
     if ((Date.now() - (lottery_.created_at + lottery_.start_after)) >= 0) {
-        countDown();
+        await countDown();
 
         document.getElementById("first-gun-name").innerHTML = lottery_.prize_main.title;
         document.getElementById("second-gun-name").innerHTML = lottery_.prize_secondary.title;
@@ -123,7 +123,7 @@ async function main() {
     const user = await getAuthenticated();
 
     if (!user || (user.id != 57)) {} else {
-        renderData(await getCurrentLottery());
+        await renderData(await getCurrentLottery());
     }
 }
 
