@@ -1,5 +1,5 @@
 .lottery-banner {
-    padding-inline: 2em;
+    padding-left: 2em;
     background: rgb(20, 20, 20, .5);
     border-radius: 2ch;
     display: flex;
@@ -71,6 +71,7 @@
     overflow-y: hidden;
     overflow-x: hidden;
     gap: 1em;
+    padding-right: 3%;
     justify-content: space-around;
 }
 
