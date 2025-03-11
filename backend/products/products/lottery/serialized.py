@@ -21,7 +21,6 @@ class LotteryDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = LotteryEvent
         exclude = [
-            "start_after",
             "winner_main",
             "winner_secondary",
             "is_dummy"
