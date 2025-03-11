@@ -13,6 +13,12 @@ class LotteryModelService(BaseModelService):
         except:
             return
 
+    def get_by_id(self, lottery_id: int) -> LotteryEvent | None:
+        try:
+            return self._model.objects.get(pk=lottery_id)
+        except:
+            return
+
     def participate(
             self, participant_id: int,
             to_main_lottery: bool = False

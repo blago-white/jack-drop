@@ -5,16 +5,20 @@ import time
 
 from django.db.models.signals import post_save
 
+from ..services.model import LotteryModelService
 from .lottery import LotteryEvent
 from ..tasks import implement_lottery
 
 
-def _apply_lottery(delay: int):
+def _apply_lottery(lottery_id: int, delay: int):
     time.sleep(delay)
 
     print("START LOTTERY")
 
-    implement_lottery()
+    related_lottery = LotteryModelService().get_by_id(lottery_id=lottery_id)
+
+    if related_lottery.is_active:
+        implement_lottery()
 
 
 def implement_lottery_post_save(
@@ -28,7 +32,7 @@ def implement_lottery_post_save(
 
     print(f"DELAY {delay}")
 
-    threading.Thread(target=_apply_lottery, args=(delay, )).start()
+    threading.Thread(target=_apply_lottery, args=(instance.id, delay)).start()
 
     print("START THREAD")
 
