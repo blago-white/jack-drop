@@ -80,8 +80,8 @@
 }
 
 .prize-gun-img {
-    margin-top: 0%;
-    width: 94%;
+    margin-top: -5%;
+    width: 100%;
     height: max-content;
 
     transition: all .2s ease;
