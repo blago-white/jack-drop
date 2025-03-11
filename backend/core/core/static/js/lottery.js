@@ -16,11 +16,11 @@ function renderLotteryInfo(renderMainPrize) {
         </h3>
         <div class="lottery-prize-info lotterty-info-row">
             <img src="${item.image_path}" class="lottery-prize-img">
-            <span class="lottery-prize-name">item.title</span>
+            <span class="lottery-prize-name">${item.title}</span>
         </div>
         <div class="lottery-requirement lotterty-info-row">
             <span>Пополните свой баланс от ${lottery.deposit_amount_require}₽<br>Ваш баланс: 0₽</span>
-            <button class="lottery-requirement-replenish-btn">ПОПОЛНИТЬ</button>
+            <button class="lottery-requirement-replenish-btn" onclick="location.href = '/replenish/'">ПОПОЛНИТЬ</button>
         </div>
         <div class="lottery-stats lotterty-info-row">
             <div class="timer lottery-timer" style="">
@@ -30,7 +30,7 @@ function renderLotteryInfo(renderMainPrize) {
                     <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';" id="lotteryExpandTimerValue">24:00:00</span>
                 </div>
             </div>
-            <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: 24</span>
+            <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: ${result.display_participants_count}</span>
         </div>
         <button class="lottery-make-part-btn lotterty-info-row">УЧАСТВОВАТЬ</button>
     </div>
