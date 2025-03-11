@@ -84,7 +84,7 @@ function renderData(lottery_) {
         document.getElementById("second-gun-name").innerHTML = lottery_.prize_secondary.title;
 
         document.getElementById("first-gun-img").innerHTML = lottery_.prize_main.image_path;
-        document.getElementById("second-gun-img").innerHTML = lottery_.prize_secondary.image_path;
+        document.getElementById("secondary-gun-img").innerHTML = lottery_.prize_secondary.image_path;
 
         document.getElementById("lotteryBanner").style.display = 'flex';
     }
