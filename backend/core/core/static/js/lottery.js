@@ -1,3 +1,5 @@
+let lottery;
+
 function renderLotteryInfo(renderMainPrize) {
     document.getElementById("prize-wrappper").innerHTML = `
     <div class="lottery-expand-info" style="transform: scale(0);" id="lotteryExpanded">
@@ -59,7 +61,6 @@ async function countDown(small=false) {
         if (time < 0) {
             try {document.getElementById("lotteryBanner").remove()} catch(error) {}
             try {reduceLotteryInfo()} catch(error) {}
-            setCookie("lottery-inactive", true)
             return;
         }
 
@@ -76,12 +77,12 @@ async function countDown(small=false) {
 function renderData() {
     const result = JSON.parse(localStorage.getItem("lotteryResponse"));
 
-    if ((Date.now() - (result.created_at + result.start_after)) >= 0) {
-        document.getElementById("first-gun-name").innerHTML = result.prize_main.title;
-        document.getElementById("second-gun-name").innerHTML = result.prize_secondary.title;
+    if ((Date.now() - (lottery.created_at + lottery.start_after)) >= 0) {
+        document.getElementById("first-gun-name").innerHTML = lottery.prize_main.title;
+        document.getElementById("second-gun-name").innerHTML = lottery.prize_secondary.title;
 
-        document.getElementById("first-gun-img").innerHTML = result.prize_main.image_path;
-        document.getElementById("second-gun-img").innerHTML = result.prize_secondary.image_path;
+        document.getElementById("first-gun-img").innerHTML = lottery.prize_main.image_path;
+        document.getElementById("second-gun-img").innerHTML = lottery.prize_secondary.image_path;
 
         document.getElementById("lotteryBanner").style.display = 'flex';
     }
@@ -109,22 +110,19 @@ async function getCurrentLottery() {
     setCookie("lottery-started-at", result.created_at + result.start_after);
     setCookie("lottery-ended-at", result.created_at + result.start_after + result.duration);
 
-    localStorage.setItem("lotteryResponse", result)
+    lottery = result;
 }
 
 async function main() {
     const user = await getAuthenticated();
 
     if (!user || (user.id != 57)) {} else {
+        getCurrentLottery();
         renderData();
     }
 }
 
 window.renderLotteryInfo = renderLotteryInfo;
 window.reduceLotteryInfo = reduceLotteryInfo;
-
-if (getCookie("lottery-inactive") != "false") {
-    getCurrentLottery();
-}
 
 main();
