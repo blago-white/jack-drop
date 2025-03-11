@@ -1,12 +1,15 @@
 .lottery-banner {
     padding-inline: 2em;
-    background: linear-gradient(90deg, rgba(79,160,255,1) 0%, rgba(0,71,255,1) 50%, rgba(29,75,195,1) 100%);
+    background: rgb(20, 20, 20, .5);
     border-radius: 2ch;
     display: flex;
     justify-content: space-between;
     height: 23vh;
+    backdrop-filter: blur(1em);
 
     transition: all .2s ease;
+
+    border: calc(100vw* calc(1 / 1920)) solid #979797;
 }
 
 .lottery-banner:hover {
@@ -46,6 +49,11 @@
 .lottery-timer {
     border-radius: 2ch!important;
     font-size: 0.8em;
+    background: #ff007a;
+}
+
+.prize-gun #first-gun-name {
+    color: #38a3ff;
 }
 
 .prizes-container {
