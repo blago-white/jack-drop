@@ -19,7 +19,7 @@ function renderLotteryInfo(renderMainPrize) {
             <div class="timer-ring lottery-expand-ring" id="lotteryExpandTimerRing"></div>
                 <div class="timer-data">
                     <span style="font-size: .9em;">осталось:</span>
-                    <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';" id="lotteryTimerValue">24:00:00</span>
+                    <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';" id="lotteryExpandTimerValue">24:00:00</span>
                 </div>
             </div>
             <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: 24</span>
@@ -66,10 +66,10 @@ async function countDown(small=false) {
 
         const sec = parseInt(time%60);
 
-        if (!small) {
-            document.getElementById('lotteryTimerValue').innerHTML = `${zeroPad(parseInt(time / 60 / 60), 2)}:${zeroPad(parseInt((time % (60*60)) / 60), 2)}:${zeroPad(parseInt(time%60), 2)}`
-        }
+        document.getElementById('lotteryTimerValue').innerHTML = `${zeroPad(parseInt(time / 60 / 60), 2)}:${zeroPad(parseInt((time % (60*60)) / 60), 2)}:${zeroPad(parseInt(time%60), 2)}`
+        document.getElementById('lotteryExpandTimerValue').innerHTML = `${zeroPad(parseInt(time / 60 / 60), 2)}:${zeroPad(parseInt((time % (60*60)) / 60), 2)}:${zeroPad(parseInt(time%60), 2)}`
 
+        document.getElementById('lotteryTimerRing').style.background = `radial-gradient(closest-side, rgb(32, 32, 32) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) ${sec / 60 * 100}%, rgba(255, 255, 255, 0.2) 0deg)`;
         document.getElementById('lotteryExpandTimerRing').style.background = `radial-gradient(closest-side, rgb(32, 32, 32) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) ${sec / 60 * 100}%, rgba(255, 255, 255, 0.2) 0deg)`;
     }
 }
