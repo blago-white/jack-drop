@@ -1,17 +1,25 @@
 let lottery;
 
 function renderLotteryInfo(renderMainPrize) {
+    let item;
+
+    if (renderMainPrize) {
+        item = lottery.prize_main
+    } else {
+        item = lottery.prize_secondary
+    }
+
     document.getElementById("prize-wrappper").innerHTML = `
     <div class="lottery-expand-info" style="transform: scale(0);" id="lotteryExpanded">
         <h3 class="lottery-expand-header">РАЗДАЧА<br>СКИНОВ
             <button class="lottery-expand-close-btn offer-cross" onclick="return reduceLotteryInfo();"></button>
         </h3>
         <div class="lottery-prize-info lotterty-info-row">
-            <img src="https://cdn.rust.tm/item/AK+Royale/300.png" class="lottery-prize-img">
-            <span class="lottery-prize-name">StatTrak™ MAC-10 | Neon Rider</span>
+            <img src="${item.image_path}" class="lottery-prize-img">
+            <span class="lottery-prize-name">item.title</span>
         </div>
         <div class="lottery-requirement lotterty-info-row">
-            <span>Пополните свой баланс от 30 000₽<br>Ваш баланс: 0₽</span>
+            <span>Пополните свой баланс от ${lottery.deposit_amount_require}₽<br>Ваш баланс: 0₽</span>
             <button class="lottery-requirement-replenish-btn">ПОПОЛНИТЬ</button>
         </div>
         <div class="lottery-stats lotterty-info-row">
