@@ -7,6 +7,7 @@ from .models.lottery import LotteryEvent, LotteryParticipant
 @admin.register(LotteryEvent)
 class LotteryEventAdmin(admin.ModelAdmin):
     list_display = ["is_active", "to_start", "to_implementation", "is_dummy"]
+    exclude = ["created_at"]
 
     @admin.display()
     def to_start(self, instance: LotteryEvent):

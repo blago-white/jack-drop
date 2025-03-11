@@ -4,7 +4,7 @@ from django.db import models
 
 
 def get_current_unix_time():
-    return time.time()
+    return int(time.time())
 
 
 class LotteryEvent(models.Model):
@@ -17,9 +17,6 @@ class LotteryEvent(models.Model):
         verbose_name="Через сколько сек. начинаем прием заявок",
         default=60
     )
-    created_at = models.IntegerField(auto_created=True,
-                                     default=get_current_unix_time,
-                                     blank=True)
     prize_secondary = models.ForeignKey(to="items.Item",
                                         verbose_name="Дешевый приз",
                                         on_delete=models.CASCADE,
@@ -42,8 +39,23 @@ class LotteryEvent(models.Model):
         default=True
     )
 
+    created_at = models.IntegerField(blank=True)
+
     def __str__(self):
         return f"Lottery [{self.display_participants_count} users]"
+
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
+        if not self.id:
+            self.created_at = get_current_unix_time()
+
+        return super().save(
+            force_insert=force_insert,
+            force_update=force_update,
+            using=using,
+            update_fields=update_fields
+        )
 
 
 class LotteryParticipant(models.Model):
