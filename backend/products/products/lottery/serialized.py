@@ -17,16 +17,12 @@ class LotteryResultsUsersEndpointSerializer(serializers.Serializer):
 class LotteryDataSerializer(serializers.ModelSerializer):
     prize_secondary = ItemSerializer(required=True)
     prize_main = ItemSerializer(required=True)
-    end_date = serializers.IntegerField()
-    display_participants_count = serializers.IntegerField(default=1)
 
     class Meta:
         model = LotteryEvent
-        fields = [
-            "is_active",
-            "end_date",
-            "prize_secondary",
-            "prize_main",
-            "deposit_amount_require",
-            "display_participants_count"
+        exclude = [
+            "start_after",
+            "winner_main",
+            "winner_secondary",
+            "is_dummy"
         ]

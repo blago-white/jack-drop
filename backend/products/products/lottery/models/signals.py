@@ -17,7 +17,7 @@ def _apply_lottery(lottery_id: int, delay: int):
 
     related_lottery = LotteryModelService().get_by_id(lottery_id=lottery_id)
 
-    if related_lottery.is_active:
+    if related_lottery and related_lottery.is_active:
         implement_lottery()
 
 
