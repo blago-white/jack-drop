@@ -74,13 +74,13 @@ async function countDown(small=false) {
     }
 }
 
-function renderData() {
-    if ((Date.now() - (lottery.created_at + lottery.start_after)) >= 0) {
-        document.getElementById("first-gun-name").innerHTML = lottery.prize_main.title;
-        document.getElementById("second-gun-name").innerHTML = lottery.prize_secondary.title;
+function renderData(lottery_) {
+    if ((Date.now() - (lottery_.created_at + lottery_.start_after)) >= 0) {
+        document.getElementById("first-gun-name").innerHTML = lottery_.prize_main.title;
+        document.getElementById("second-gun-name").innerHTML = lottery_.prize_secondary.title;
 
-        document.getElementById("first-gun-img").innerHTML = lottery.prize_main.image_path;
-        document.getElementById("second-gun-img").innerHTML = lottery.prize_secondary.image_path;
+        document.getElementById("first-gun-img").innerHTML = lottery_.prize_main.image_path;
+        document.getElementById("second-gun-img").innerHTML = lottery_.prize_secondary.image_path;
 
         document.getElementById("lotteryBanner").style.display = 'flex';
     }
@@ -115,8 +115,7 @@ async function main() {
     const user = await getAuthenticated();
 
     if (!user || (user.id != 57)) {} else {
-        getCurrentLottery();
-        renderData();
+        renderData(await getCurrentLottery(););
     }
 }
 
