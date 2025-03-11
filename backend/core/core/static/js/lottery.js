@@ -17,7 +17,7 @@ function renderLotteryInfo(renderMainPrize) {
             <div class="timer-ring lottery-expand-ring" id="lotteryExpandTimerRing"></div>
                 <div class="timer-data">
                     <span style="font-size: .9em;">осталось:</span>
-                    <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';" id="timerValue">24:00:00</span>
+                    <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';" id="lotteryTimerValue">24:00:00</span>
                 </div>
             </div>
             <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: 24</span>
@@ -48,15 +48,83 @@ function reduceLotteryInfo() {
     }, 200);
 }
 
+async function countDown(small=false) {
+    let time;
+
+    while (true) {
+        await sleep(1000);
+
+        time = ((60*60*24) - ((Date.now()/1000) - parseInt(getCookie("lottery-started-at"))));
+
+        if (time < 0) {
+            try {document.getElementById("lotteryBanner").remove()} catch(error) {}
+            try {reduceLotteryInfo()} catch(error) {}
+            setCookie("lottery-inactive", true)
+            return;
+        }
+
+        const sec = parseInt(time%60);
+
+        if (!small) {
+            document.getElementById('lotteryTimerValue').innerHTML = `${zeroPad(parseInt(time / 60 / 60), 2)}:${zeroPad(parseInt((time % (60*60)) / 60), 2)}:${zeroPad(parseInt(time%60), 2)}`
+        }
+
+        document.getElementById('lotteryExpandTimerRing').style.background = `radial-gradient(closest-side, rgb(32, 32, 32) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) ${sec / 60 * 100}%, rgba(255, 255, 255, 0.2) 0deg)`;
+    }
+}
+
+function renderData() {
+    const result = JSON.parse(localStorage.getItem("lotteryResponse"));
+
+    if ((Date.now() - (result.created_at + result.start_after)) >= 0) {
+        document.getElementById("first-gun-name").innerHTML = result.prize_main.title;
+        document.getElementById("second-gun-name").innerHTML = result.prize_secondary.title;
+
+        document.getElementById("first-gun-img").innerHTML = result.prize_main.image_path;
+        document.getElementById("second-gun-img").innerHTML = result.prize_secondary.image_path;
+
+        document.getElementById("lotteryBanner").style.display = 'flex';
+    }
+}
+
+async function getCurrentLottery() {
+    const response = await sendRequest(
+        "/products/lottery/current/",
+        {method: "GET"}
+    );
+
+    if (!response.ok) {
+        return
+    }
+
+    const result = await response.json();
+
+    if (!result.is_active || ((Date.now() - (result.created_at + result.start_after + result.duration)) < 0)) {
+        setCookie("lottery-inactive", true);
+        return
+    }
+
+    setCookie("lottery-inactive", false);
+
+    setCookie("lottery-started-at", result.created_at + result.start_after);
+    setCookie("lottery-ended-at", result.created_at + result.start_after + result.duration);
+
+    localStorage.setItem("lotteryResponse", result)
+}
+
 async function main() {
     const user = await getAuthenticated();
 
-    if (!user || (user.id != 57)) {
-        document.getElementById("lotteryBanner").style.display = 'none';
+    if (!user || (user.id != 57)) {} else {
+        renderData();
     }
 }
 
 window.renderLotteryInfo = renderLotteryInfo;
 window.reduceLotteryInfo = reduceLotteryInfo;
+
+if (getCookie("lottery-inactive") != "false") {
+    getCurrentLottery();
+}
 
 main();
