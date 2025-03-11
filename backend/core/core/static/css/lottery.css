@@ -150,6 +150,7 @@
         height: fit-content;
         padding: 2ch;
         border-radius: inherit;
+        flex-direction: column;
     }
 
     .lottery-timer {
@@ -157,7 +158,7 @@
     }
 
     .lottery-header-title {
-        font-size: calc(100vw* calc(39 / var(--reference-display-w)));
+        font-size: calc(100vw* calc(55 / var(--reference-display-w)));
     }
 
     .lottery-header {
