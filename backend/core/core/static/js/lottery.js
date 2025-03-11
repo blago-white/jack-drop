@@ -82,8 +82,6 @@ async function renderData(lottery_) {
     }
 
     if ((Date.now() - (lottery_.created_at + lottery_.start_after)) >= 0) {
-        await countDown();
-
         document.getElementById("first-gun-name").innerHTML = lottery_.prize_main.title;
         document.getElementById("second-gun-name").innerHTML = lottery_.prize_secondary.title;
 
@@ -91,6 +89,8 @@ async function renderData(lottery_) {
         document.getElementById("secondary-gun-img").innerHTML = lottery_.prize_secondary.image_path;
 
         document.getElementById("lotteryBanner").style.display = 'flex';
+
+        await countDown();
     }
 }
 
