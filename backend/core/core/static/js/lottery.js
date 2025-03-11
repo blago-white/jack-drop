@@ -115,7 +115,7 @@ async function main() {
     const user = await getAuthenticated();
 
     if (!user || (user.id != 57)) {} else {
-        renderData(await getCurrentLottery(););
+        renderData(await getCurrentLottery());
     }
 }
 
