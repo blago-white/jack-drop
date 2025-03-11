@@ -36,6 +36,13 @@
     transition: all .2s ease;
 }
 
+.mobile-guns-separator {
+    display: none;
+    width: 100%;
+    background: #ccc;
+    height: .25ch;
+}
+
 .lottery-timer {
     border-radius: 2ch!important;
     font-size: 0.8em;
@@ -105,4 +112,61 @@
 
 .prize-gun:hover .prize-gun-title {
     transform: scale(1.2);
+}
+
+
+@media (aspect-ratio < 1/1) {
+    .mobile-guns-separator {
+        display: flex;
+    }
+
+    .prize-gun {
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .prize-gun.end {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .prize-gun-title {
+        margin: 0px!important;
+    }
+
+    .prize-gun-img {
+        transform: none!important;
+        width: 28%!important;
+        position: static!important;
+    }
+
+    .prizes-container {
+        font-size: 2em;
+        background: #1C1C1C;
+        height: fit-content;
+        padding: 2ch;
+        border-radius: inherit;
+    }
+
+    .lottery-timer {
+        font-size: calc(100vw * calc(23 / var(--reference-display-w)));
+    }
+
+    .lottery-header-title {
+        font-size: calc(100vw* calc(39 / var(--reference-display-w)));
+    }
+
+    .lottery-header {
+        gap: 2em;
+    }
+
+    .lottery-banner {
+        border-radius: calc(100vw* calc(73 / 1920)) !important;
+        height: auto;
+        padding: 4ch;
+    }
 }
