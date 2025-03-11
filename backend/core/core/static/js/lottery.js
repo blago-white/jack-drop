@@ -1,8 +1,8 @@
 function renderLotteryInfo(renderMainPrize) {
-    document.getElementById("prize-wrapper").innerHTML = `
+    document.getElementById("prize-wrappper").innerHTML = `
     <div class="lottery-expand-info" style="transform: scale(0);" id="lotteryExpanded">
         <h3 class="lottery-expand-header">РАЗДАЧА<br>СКИНОВ
-            <button class="lottery-expand-close-btn">X</button>
+            <button class="lottery-expand-close-btn" onclick="return reduceLotteryInfo();">X</button>
         </h3>
         <div class="lottery-prize-info">
             <img src="https://cdn.rust.tm/item/AK+Royale/300.png" class="lottery-prize-img">
@@ -26,14 +26,26 @@ function renderLotteryInfo(renderMainPrize) {
     </div>
     `;
 
-    document.getElementById("prize-wrapper").style = "transition: all .2s ease;";
+    document.getElementById("prize-wrappper").style = "transition: all .2s ease;";
 
-    document.getElementById("prize-wrapper").style.visibility = "visible";
-    document.getElementById("prize-wrapper").style.display = "flex";
-    document.getElementById("prize-wrapper").style.backgroundColor = "rgb(20, 20, 20, .9)";
+    document.getElementById("prize-wrappper").style.visibility = "visible";
+    document.getElementById("prize-wrappper").style.display = "flex";
+    document.getElementById("prize-wrappper").style.backgroundColor = "rgb(20, 20, 20, .9)";
 
     setTimeout(() => {
         document.getElementById("lotteryExpanded").style = "";
+    }, 200);
+}
+
+function reduceLotteryInfo() {
+    document.getElementById("lotteryExpanded").style = "";
+    document.getElementById("prize-wrappper").style.backgroundColor = "rgb(20, 20, 20, .9)";
+
+    setTimeout(() => {
+        document.getElementById("prize-wrappper").style = "transition: all .2s ease;";
+
+        document.getElementById("prize-wrappper").style.visibility = "visible";
+        document.getElementById("prize-wrappper").style.display = "flex";
     }, 200);
 }
 
@@ -44,3 +56,4 @@ if (!user || (user.id != 57)) {
 }
 
 window.renderLotteryInfo = renderLotteryInfo;
+window.reduceLotteryInfo = reduceLotteryInfo;
