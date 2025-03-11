@@ -2,7 +2,7 @@ function renderLotteryInfo(renderMainPrize) {
     document.getElementById("prize-wrappper").innerHTML = `
     <div class="lottery-expand-info" style="transform: scale(0);" id="lotteryExpanded">
         <h3 class="lottery-expand-header">РАЗДАЧА<br>СКИНОВ
-            <button class="lottery-expand-close-btn" onclick="return reduceLotteryInfo();">X</button>
+            <button class=".lottery-expand-close-btn offer-cross" onclick="return reduceLotteryInfo();"></button>
         </h3>
         <div class="lottery-prize-info lotterty-info-row">
             <img src="https://cdn.rust.tm/item/AK+Royale/300.png" class="lottery-prize-img">

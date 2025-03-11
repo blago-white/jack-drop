@@ -238,6 +238,10 @@
     transition: all .2s ease;
 }
 
+.lottery-expand-info:hover {
+    transform: scale(1.05);
+}
+
 .lottery-make-part-btn:hover {
     transform: scale(1.1);
 }
