@@ -49,11 +49,15 @@ function reduceLotteryInfo() {
     }, 200);
 }
 
-const user = getAuthenticated();
+async function main() {
+    const user = await getAuthenticated();
 
-if (!user || (user.id != 57)) {
-    document.getElementById("lotteryBanner").style.display = 'none';
+    if (!user || (user.id != 57)) {
+        document.getElementById("lotteryBanner").style.display = 'none';
+    }
 }
 
 window.renderLotteryInfo = renderLotteryInfo;
 window.reduceLotteryInfo = reduceLotteryInfo;
+
+main();
