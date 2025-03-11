@@ -5,6 +5,20 @@
     display: flex;
     justify-content: space-between;
     height: 23vh;
+
+    transition: all .2s ease;
+}
+
+.lottery-banner:hover {
+    transform: scale(1.025);
+}
+
+.lottery-banner:hover .lottery-header-title {
+    transform: scale(1.075);
+}
+
+.lottery-banner:hover .lottery-timer {
+    transform: scale(1.075);
 }
 
 .lottery-header {
@@ -72,10 +86,11 @@
 }
 
 .prize-gun-img.end {
-    margin-top: 0%;
     width: 80%;
     height: max-content;
     transform: rotate(64deg);
+    position: relative;
+    top: 2ch;
 }
 
 .prize-gun:hover .prize-gun-img {
