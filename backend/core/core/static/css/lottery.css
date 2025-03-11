@@ -142,7 +142,6 @@
 
 .lottery-expand-close-btn {
     aspect-ratio: 1/1;
-    background: #555;
     border: none;
     border-radius: 1ch;
     width: 5ch;
@@ -311,6 +310,7 @@
 
     .lottery-expand-close-btn {
         height: 20ch;
+        width: 20ch;
     }
 
     .lottery-expand-info {
