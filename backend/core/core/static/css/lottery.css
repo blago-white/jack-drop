@@ -88,13 +88,13 @@
 .prize-gun-img.end {
     width: 80%;
     height: max-content;
-    transform: rotate(64deg);
+    transform: rotate(60deg);
     position: relative;
     top: 2ch;
 }
 
 .prize-gun:hover .prize-gun-img {
-    transform: scale(1.15);
+    transform: scale(1.5) rotate(5deg);
 }
 
 .prize-gun:hover .prize-gun-img.end {
