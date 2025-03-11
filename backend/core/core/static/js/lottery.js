@@ -75,8 +75,6 @@ async function countDown(small=false) {
 }
 
 function renderData() {
-    const result = JSON.parse(localStorage.getItem("lotteryResponse"));
-
     if ((Date.now() - (lottery.created_at + lottery.start_after)) >= 0) {
         document.getElementById("first-gun-name").innerHTML = lottery.prize_main.title;
         document.getElementById("second-gun-name").innerHTML = lottery.prize_secondary.title;
