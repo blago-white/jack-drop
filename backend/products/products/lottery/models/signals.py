@@ -24,8 +24,7 @@ def implement_lottery_post_save(
 ) -> None:
     print("START LOTTERY SIGNAL")
 
-    delay = int((instance.end_date - instance.start_date) /
-                datetime.timedelta(seconds=1))
+    delay = (instance.created_at + instance.start_after - instance.created_at) + instance.duration
 
     print(f"DELAY {delay}")
 

@@ -1,14 +1,25 @@
+import time
+
 from django.db import models
+
+
+def get_current_unix_time():
+    return time.time()
 
 
 class LotteryEvent(models.Model):
     is_active = models.BooleanField(default=False)
-    end_date = models.DateTimeField(
-        verbose_name="Дата определения победителя"
+    duration = models.IntegerField(
+        verbose_name="Продолжительность набора участников (в сек.)",
+        default=60*60*24
     )
-    start_date = models.DateTimeField(
-        verbose_name="Дата создания"
+    start_after = models.IntegerField(
+        verbose_name="Через сколько сек. начинаем прием заявок",
+        default=60
     )
+    created_at = models.IntegerField(auto_created=True,
+                                     default=get_current_unix_time,
+                                     blank=True)
     prize_secondary = models.ForeignKey(to="items.Item",
                                         verbose_name="Дешевый приз",
                                         on_delete=models.CASCADE,

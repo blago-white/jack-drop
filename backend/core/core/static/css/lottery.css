@@ -279,6 +279,7 @@
         cursor: pointer;
         align-items: center;
         justify-content: center;
+        height: 100%;
     }
 
     .prize-gun.end {
@@ -300,14 +301,17 @@
     .prizes-container {
         font-size: 2em;
         background: #1C1C1C;
-        height: fit-content;
         padding: 2ch;
         border-radius: inherit;
         flex-direction: column;
+        height: auto;
+        padding-inline: 3ch;
+        gap: 0px;
     }
 
     .lottery-timer {
         font-size: calc(100vw * calc(23 / var(--reference-display-w)));
+        background: #222;
     }
 
     .lottery-header-title {
@@ -322,6 +326,7 @@
         border-radius: calc(100vw* calc(73 / 1920)) !important;
         height: auto;
         padding: 4ch;
+        background: linear-gradient(90deg, rgba(79, 160, 255, 1) 0%, rgba(0, 71, 255, 1) 50%, rgba(29, 75, 195, 1) 100%);
     }
 
     .lottery-expand-close-btn {
