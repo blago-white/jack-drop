@@ -206,8 +206,6 @@
     transform: scale(1.05) rotate(1deg);
 }
 
-
-
 .lottery-stats {
     display: flex;
     align-items: center;
@@ -240,7 +238,7 @@
     transition: all .2s ease;
 }
 
-.lottery-make-part-btn {
+.lottery-make-part-btn:hover {
     transform: scale(1.1);
 }
 
