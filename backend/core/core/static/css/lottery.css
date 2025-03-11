@@ -102,5 +102,5 @@
 }
 
 .prize-gun:hover .prize-gun-title {
-    font-size: 1.8em;
+    transform: scale(1.2);
 }
