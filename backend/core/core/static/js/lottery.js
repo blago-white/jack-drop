@@ -30,7 +30,7 @@ function renderLotteryInfo(renderMainPrize) {
                     <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';" id="lotteryExpandTimerValue">24:00:00</span>
                 </div>
             </div>
-            <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: ${result.display_participants_count}</span>
+            <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: ${lottery.display_participants_count}</span>
         </div>
         <button class="lottery-make-part-btn lotterty-info-row">УЧАСТВОВАТЬ</button>
     </div>
