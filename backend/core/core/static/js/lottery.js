@@ -14,7 +14,7 @@ function renderLotteryInfo(renderMainPrize) {
         </div>
         <div class="lottery-stats lotterty-info-row">
             <div class="timer lottery-timer" style="">
-            <div class="timer-ring lottery-expand-ring" id="timerRing"></div>
+            <div class="timer-ring lottery-expand-ring" id="lotteryExpandTimerRing"></div>
                 <div class="timer-data">
                     <span style="font-size: .9em;">осталось:</span>
                     <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';" id="timerValue">24:00:00</span>

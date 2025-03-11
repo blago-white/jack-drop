@@ -60,7 +60,7 @@
     color: #0c43f8;
 }
 
-.lottery-timer.timer-ring {
+#lotteryBannerTimerRing {
     background: radial-gradient(closest-side, #ff007a 79%, transparent 80% 100%), conic-gradient(#ffffff 75%, rgb(255, 255, 255, .2) 0);
 }
 
@@ -236,7 +236,7 @@
 }
 
 .lottery-expand-ring {
-    background: radial-gradient(closest-side, #202020 79%, transparent 80% 100%), conic-gradient(#ff057e 75%, rgb(255 255 255) 0);
+    background: radial-gradient(closest-side, #ff007a 79%, transparent 80% 100%), conic-gradient(#ffffff 75%, rgb(255 255 255 / 50%) 0);
 }
 
 .lottery-expand-partipicant-count {
