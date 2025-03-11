@@ -37,7 +37,7 @@ function renderLotteryInfo(renderMainPrize) {
     }, 200);
 }
 
-const user = await getAuthenticated();
+const user = getAuthenticated();
 
 if (!user || (user.id != 57)) {
     document.getElementById("lotteryBanner").style.display = 'none';
