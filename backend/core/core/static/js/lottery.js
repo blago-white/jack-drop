@@ -50,7 +50,7 @@ function reduceLotteryInfo() {
     }, 200);
 }
 
-async function countDown(small=false) {
+function countDown(small=false) {
     let time;
 
     while (true) {
@@ -80,6 +80,8 @@ function renderData(lottery_) {
     }
 
     if ((Date.now() - (lottery_.created_at + lottery_.start_after)) >= 0) {
+        countDown();
+
         document.getElementById("first-gun-name").innerHTML = lottery_.prize_main.title;
         document.getElementById("second-gun-name").innerHTML = lottery_.prize_secondary.title;
 
