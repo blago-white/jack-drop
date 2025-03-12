@@ -198,31 +198,34 @@ async function main() {
     const lottery_wins_list = [137, 307];
 
     if (user.lottery_wins_list) {
-        const itemResponses = [];
+        var itemResponses = [];
 
-        user.lottery_wins_list.forEach(async function(win) {
+        lottery_wins_list.forEach(async function(win) {
             const response = await sendRequest(`/products/items/${win}/`, {method: "GET"});
-
+            console.log(response.ok);
             if (response.ok) {
-                itemResponses.push((await response.json()))
+                itemResponses.push(await response.json());
             }
         });
+
+        console.log(itemResponses);
 
         if (itemResponses.length == 1) {
             const result = itemResponses[0];
             await printPrizeItem(result.image_path, result.price, `Победа: ${result.title}`, '', true);
-        } else if (itemResponses.length)
+        } else if (itemResponses.length == 2) {
+            console.log(1);
             const resultFirst = itemResponses[0];
             const resultSecond = itemResponses[1];
 
-            await printPrizeItem(
+            printPrizeItem(
                 resultFirst.image_path,
                 resultFirst.price,
                 `Победа: ${resultFirst.title}`,
                 '',
                 true,
                 true,
-                `printPrizeItem(${resultSecond.image_path}, ${resultSecond.price}, "Победа #2: ${resultSecond.title}", "https://jackdrop.online/", true})`
+                `printPrizeItem("${resultSecond.image_path}", ${resultSecond.price}, "Победа #2: ${resultSecond.title}", "https://jackdrop.online/", true})`
             )
         }
     }
