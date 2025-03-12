@@ -121,7 +121,9 @@ async function renderData(lottery_) {
         if (lottery_.take_part_main) {
             document.getElementById("prizeGunFirst").style.filter = "opacity(.25)";
             document.getElementById("prizeGunFirst").onclick = "";
-        } else if (lottery_.take_part_second) {
+        }
+
+        if (lottery_.take_part_second) {
             document.getElementById("prizeGunSecond").style.filter = "opacity(.25)";
             document.getElementById("prizeGunSecond").onclick = "";
         }
