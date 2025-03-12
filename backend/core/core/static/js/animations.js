@@ -42,7 +42,7 @@ export async function printPrizeItem(itemImg, itemPrice, itemTitle, redirectUrl=
     const receiveButtonText = getCookie('lang') == 'ru' ? 'Получить!' : 'Receive Item!';
 
     document.getElementById("prize-wrappper").innerHTML = `
-        <video class="animation" id="animation" autoplay=${useAutoPlay}>
+        <video class="animation" id="animation" style="position: absolute;" autoplay=${useAutoPlay}>
             <source src="/core/static/webm/otkritie.webm">
         </video>
         <img class="anim-item-img" id="animItemImg" src="${itemImg}">
