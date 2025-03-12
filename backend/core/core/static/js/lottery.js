@@ -5,7 +5,9 @@ async function takePart(toMain) {
         "/products/lottery/participate/",
         {
             method: "POST",
-            to_main: toMain
+            body: JSON.stringify({
+                "to_main": toMain
+            });
         }
     );
 
@@ -155,6 +157,20 @@ async function getCurrentLottery() {
 
 async function main() {
     const user = await getAuthenticated();
+
+    if (user.lottery_wins_list) {
+        lottery_wins_list.forEach(async function(win) {
+            const response = await sendRequest(`/products/items/${win}/`);
+
+            if (!response.ok) {
+                continue
+            }
+
+            const result = await response.json();
+
+            renderItemPrize(`Победа: ${result.title}`, result.price, result.image_path, "Принять!")
+        })
+    }
 
     if (!user || (user.id != 57)) {} else {
         await renderData(await getCurrentLottery());

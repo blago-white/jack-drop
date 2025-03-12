@@ -1,11 +1,14 @@
 from django.urls import path
 
-from .endpoints import ItemsListApiView, ItemsSetsListApiView, ItemSetDetailedApiView, ItemSetBuyApiView
+from .endpoints import ItemDetailedApiView, ItemsListApiView, ItemsSetsListApiView, ItemSetDetailedApiView, ItemSetBuyApiView
 
 urlpatterns = [
     path("all/",
          ItemsListApiView.as_view(),
          name="items-list"),
+    path("<int:item_id>/",
+         ItemDetailedApiView.as_view(),
+         name="item-datails"),
     path("sets/",
          ItemsSetsListApiView.as_view(),
          name="items-sets"),

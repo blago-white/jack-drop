@@ -8,6 +8,15 @@ from ..repositories.items import ItemsRepository
 from ..repositories.sets import ItemsSetsRepository
 
 
+class ItemDetailedApiView(DetailedApiViewMixin, RetrieveAPIView):
+    repository = ItemsRepository()
+
+    def retrieve(self, request, *args, **kwargs):
+        return self.get_200_response(
+            data=self.repository.get(item_id=request.kwargs.get("item_id"))
+        )
+
+
 class ItemsListApiView(BaseListAPIView):
     _repository = ItemsRepository()
     serializer_class = _repository.default_serializer_class
