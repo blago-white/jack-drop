@@ -200,7 +200,7 @@ async function main() {
             if (response.ok) {
                 const result = await response.json();
 //                renderItemPrize(`Победа: ${result.title}`, result.price, result.image_path, "Принять!")
-                await printPrizeItem(result.image_path, result.price, `Победа: ${result.title}`, notRedirect=true)
+                await printPrizeItem(result.image_path, result.price, `Победа: ${result.title}`, '', false, true)
             }
         })
     }
