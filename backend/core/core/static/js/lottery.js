@@ -1,6 +1,6 @@
 let lottery;
 
-function takePart(toMain) {
+async function takePart(toMain) {
     const response = await sendRequest(
         "/products/lottery/participate/",
         {
