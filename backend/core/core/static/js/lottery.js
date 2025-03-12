@@ -140,6 +140,8 @@ async function renderData(lottery_) {
         document.getElementById("lotteryBanner").style.display = 'flex';
 
         await countDown();
+    } else {
+        document.getElementById("lotteryBanner").style.display = "none";
     }
 }
 
