@@ -30,7 +30,11 @@ function startAnim(animId='unlucky', freeze) {
 }
 
 function closeAnimation() {
-    document.getElementById('prize-wrappper').innerHTML = ''
+    document.getElementById('prize-wrappper').style = ''
+
+    setTimeout(() => {
+        document.getElementById('prize-wrappper').innerHTML = '';
+    }, 200)
 }
 
 export async function printPrizeItem(itemImg, itemPrice, itemTitle, redirectUrl='', useAutoPlay=false, notRedirect=false) {

@@ -2,6 +2,10 @@ import { printPrizeItem } from "./animations.js";
 
 let lottery;
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function takePart(toMain) {
     const headers = new Headers();
 
@@ -202,6 +206,8 @@ async function main() {
 //                renderItemPrize(`Победа: ${result.title}`, result.price, result.image_path, "Принять!")
                 await printPrizeItem(result.image_path, result.price, `Победа: ${result.title}`, '', true, true)
             }
+
+            await sleep(200);
         })
     }
 
