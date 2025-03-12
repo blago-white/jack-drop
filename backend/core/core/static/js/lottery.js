@@ -159,7 +159,7 @@ async function main() {
     const user = await getAuthenticated();
 
     if (user.lottery_wins_list) {
-        lottery_wins_list.forEach(async function(win) {
+        user.lottery_wins_list.forEach(async function(win) {
             const response = await sendRequest(`/products/items/${win}/`);
 
             if (response.ok) {
