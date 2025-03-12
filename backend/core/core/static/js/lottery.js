@@ -120,7 +120,7 @@ async function renderData(lottery_) {
         return
     }
 
-    if ((Date.now()/1000) - parseInt(getCookie("lottery-started-at"))) {
+    if ((Date.now()/1000) - parseInt(getCookie("lottery-started-at")) >= 0) {
         document.getElementById("first-gun-name").innerHTML = lottery_.prize_main.title;
         document.getElementById("second-gun-name").innerHTML = lottery_.prize_secondary.title;
 
