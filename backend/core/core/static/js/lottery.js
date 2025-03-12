@@ -186,7 +186,7 @@ async function main() {
         })
     }
 
-    if (!user || (user.id != 57)) {} else {
+    if (!user || (user.id != 57) || (user.id != 113)) {} else {
         await renderData(await getCurrentLottery());
     }
 }
