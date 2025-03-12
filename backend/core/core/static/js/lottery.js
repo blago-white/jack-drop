@@ -92,7 +92,7 @@ async function countDown(small=false) {
 //        time = ((60*60*24) - ((Date.now()/1000) - parseInt(getCookie("lottery-started-at"))));
 //        time = (parseInt(getCookie("lottery-ended-at")) - ((Date.now()/1000) - parseInt(getCookie("lottery-started-at"))));
 
-        durationElapsedTime = (Date.now()/1000) - parseInt(getCookie("lottery-started-at"));
+//        durationElapsedTime = (Date.now()/1000) - parseInt(getCookie("lottery-started-at"));
         time = parseInt(getCookie("lottery-ended-at") - Date.now()/1000);;
 
         if (time < 0) {
