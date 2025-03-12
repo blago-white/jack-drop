@@ -178,5 +178,6 @@ async function main() {
 
 window.renderLotteryInfo = renderLotteryInfo;
 window.reduceLotteryInfo = reduceLotteryInfo;
+window.takePart = takePart;
 
 main();
