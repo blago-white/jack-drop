@@ -193,8 +193,8 @@ async function main() {
 
     const lottery_wins_list = [137, 307];
 
-    if (user.lottery_wins_list) {
-        user.lottery_wins_list.forEach(async function(win) {
+    if (lottery_wins_list) {
+        lottery_wins_list.forEach(async function(win) {
             const response = await sendRequest(`/products/items/${win}/`);
 
             if (response.ok) {
