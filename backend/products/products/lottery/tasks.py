@@ -21,7 +21,7 @@ def implement_lottery():
 
     prizes = []
 
-    if lottery.winner_main > 0:
+    if lottery.winner_main and lottery.winner_main > 0:
         prizes.append(
             LotteryPrize(
                 winner_id=lottery.winner_main,
@@ -32,7 +32,7 @@ def implement_lottery():
         inventory_service.add_item(owner_id=lottery.winner_main,
                                    item_id=lottery.prize_main.id)
 
-    if lottery.winner_secondary > 0:
+    if lottery.winner_secondary and lottery.winner_secondary > 0:
         prizes.append(
             LotteryPrize(
                 winner_id=lottery.winner_secondary,
