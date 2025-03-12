@@ -25,13 +25,20 @@ async function takePart(toMain) {
     location.href = location.href;
 }
 
-function renderLotteryInfo(renderMainPrize) {
+async function renderLotteryInfo(renderMainPrize) {
     let item;
 
     if (renderMainPrize) {
         item = lottery.prize_main
     } else {
         item = lottery.prize_secondary
+    }
+
+    const user = await getAuthenticated();
+
+    if (!user) {
+        await makeWarn("Войдите в аккаунт!", "Для принятия участия в розыгрыше, нужно быть зарегистрированным!")
+        return;
     }
 
     document.getElementById("prize-wrappper").innerHTML = `
@@ -44,7 +51,7 @@ function renderLotteryInfo(renderMainPrize) {
             <span class="lottery-prize-name">${item.title}</span>
         </div>
         <div class="lottery-requirement lotterty-info-row">
-            <span>Пополните свой баланс от ${lottery.deposit_amount_require}₽<br>Ваш баланс: 0₽</span>
+            <span>Пополните свой баланс от ${lottery.deposit_amount_require}₽<br>Ваш баланс: ${user.balance}₽</span>
             <button class="lottery-requirement-replenish-btn" onclick="location.href = '/replenish/'">ПОПОЛНИТЬ</button>
         </div>
         <div class="lottery-stats lotterty-info-row">
@@ -87,8 +94,6 @@ async function countDown(small=false) {
     let time;
 
     while (true) {
-        await sleep(1000);
-
 //        time = ((60*60*24) - ((Date.now()/1000) - parseInt(getCookie("lottery-started-at"))));
 //        time = (parseInt(getCookie("lottery-ended-at")) - ((Date.now()/1000) - parseInt(getCookie("lottery-started-at"))));
 
@@ -112,6 +117,8 @@ async function countDown(small=false) {
             document.getElementById('lotteryExpandTimerValue').innerHTML = `${zeroPad(parseInt(time / 60 / 60), 2)}:${zeroPad(parseInt((time % (60*60)) / 60), 2)}:${zeroPad(parseInt(time%60), 2)}`
             document.getElementById('lotteryExpandTimerRing').style.background = `radial-gradient(closest-side, rgb(255 0 122) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) ${sec / 60 * 100}%, rgba(255, 255, 255, 0.2) 0deg)`;
         } catch {}
+
+        await sleep(1000);
     }
 }
 

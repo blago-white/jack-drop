@@ -43,7 +43,7 @@ class LotteryModelService(BaseModelService):
     ) -> bool:
         current_lottery = self.get_current()
 
-        if to_main_lottery and (balance < current_lottery.display_participants_count):
+        if to_main_lottery and (balance < current_lottery.deposit_amount_require):
             raise ValueError
 
         current_lottery.display_participants_count += 1
