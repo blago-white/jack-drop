@@ -1,4 +1,4 @@
-from "./prize.js" import { renderItemPrize };
+import { renderItemPrize } from "./prize.js";
 
 let lottery;
 
