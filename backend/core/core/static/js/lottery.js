@@ -20,6 +20,7 @@ async function takePart(toMain) {
 
     if (!response.ok) {
         await makeWarn("Не удалось участвовать", "Проверьте соответствие требований!")
+        return;
     }
 
     location.href = location.href;
