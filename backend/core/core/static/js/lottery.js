@@ -65,7 +65,7 @@ async function renderLotteryInfo(renderMainPrize) {
             </div>
             <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: ${lottery.display_participants_count+1}</span>
         </div>
-        <button class="lottery-make-part-btn lotterty-info-row" onclick="takePart(${renderMainPrize})">УЧАСТВОВАТЬ</button>
+        <button class="lottery-make-part-btn lotterty-info-row" type="button" onclick="takePart(${renderMainPrize});return false;">УЧАСТВОВАТЬ</button>
     </div>
     `;
 
