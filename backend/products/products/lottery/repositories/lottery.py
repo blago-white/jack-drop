@@ -32,11 +32,12 @@ class LotteryRepository(BaseRepository):
             "take_part_second": takes_part_in[1]
         }
 
-    def partipicate(self, user_id: int, to_main: bool):
+    def partipicate(self, user_id: int, balance: int, to_main: bool):
         try:
             self._service.participate(
                 participant_id=user_id,
-                to_main_lottery=to_main
+                to_main_lottery=to_main,
+                balance=balance
             )
         except:
             raise ValidationError(detail="Error with adding partipicant!")

@@ -38,9 +38,17 @@ class LotteryModelService(BaseModelService):
 
     def participate(
             self, participant_id: int,
-            to_main_lottery: bool = False
+            to_main_lottery: bool = False,
+            balance: float = 0
     ) -> bool:
         current_lottery = self.get_current()
+
+        if to_main_lottery and balance < current_lottery.display_participants_count:
+            raise ValueError
+
+        current_lottery.display_participants_count += 1
+
+        current_lottery.save()
 
         participant = LotteryParticipant(
             user_id=participant_id,

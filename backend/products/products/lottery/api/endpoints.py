@@ -35,6 +35,7 @@ class ParticipateLotteryApiView(CreateAPIViewMixin, CreateAPIView):
         return self.get_201_response(
             data=self.repository.partipicate(
                 user_id=user_data.get("id"),
-                to_main=request.data.get("to_main", False)
+                to_main=request.data.get("to_main", False),
+                balance=user_data.get("displayed_balance")
             )
         )
