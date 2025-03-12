@@ -36,13 +36,21 @@ class LotteryGameService:
             lottery=lottery
         )
 
-        main_lottery_winner = self._random_service.get_winner(
-            lottery_users.get("main_lottery")
-        )
+        main_lottery_winner = secondary_lottery_winner = None
 
-        secondary_lottery_winner = self._random_service.get_winner(
-            lottery_users.get("secondary_lottery")
-        )
+        try:
+            main_lottery_winner = self._random_service.get_winner(
+                lottery_users.get("main_lottery")
+            )
+        except:
+            pass
+
+        try:
+            secondary_lottery_winner = self._random_service.get_winner(
+                lottery_users.get("secondary_lottery")
+            )
+        except:
+            pass
 
         return LotteryWinners(
             main_lottery_winner_id=main_lottery_winner,

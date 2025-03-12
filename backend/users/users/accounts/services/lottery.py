@@ -10,6 +10,9 @@ class LotteryWinsModelService(BaseService):
     default_model = LotteryWin
 
     def add(self, result: LotteryResult):
+        if not result.prizes:
+            return
+
         wins = [
             LotteryWin(
                 winner_id=prize.winner_id,
