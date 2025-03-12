@@ -13,7 +13,7 @@ class ItemDetailedApiView(DetailedApiViewMixin, RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         return self.get_200_response(
-            data=self.repository.get(item_id=request.kwargs.get("item_id"))
+            data=self.repository.get(item_id=self.kwargs.get("item_id"))
         )
 
 
