@@ -1,4 +1,4 @@
-import { renderItemPrize } from "./prize.js";
+import { printPrizeItem } from "./animations.js";
 
 let lottery;
 
@@ -199,7 +199,8 @@ async function main() {
 
             if (response.ok) {
                 const result = await response.json();
-                renderItemPrize(`Победа: ${result.title}`, result.price, result.image_path, "Принять!")
+//                renderItemPrize(`Победа: ${result.title}`, result.price, result.image_path, "Принять!")
+                await printPrizeItem(result.image_path, result.price, `Победа: ${result.title}`, notRedirect=true)
             }
         })
     }
