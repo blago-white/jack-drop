@@ -42,6 +42,14 @@ async function renderLotteryInfo(renderMainPrize) {
         return;
     }
 
+    let requirementText;
+
+    if (renderMainPrize) {
+        requirementText = `Пополните свой баланс от ${lottery.deposit_amount_require}₽<br>Ваш баланс: ${user.balance}₽`;
+    } else {
+        requirementText = `При балансе > ${lottery.deposit_amount_require} вы можете так же участвовать в главном розыгрыше`;
+    }
+
     document.getElementById("prize-wrappper").innerHTML = `
     <div class="lottery-expand-info" style="transform: scale(0);" id="lotteryExpanded">
         <h3 class="lottery-expand-header">РАЗДАЧА<br>СКИНОВ
@@ -52,7 +60,7 @@ async function renderLotteryInfo(renderMainPrize) {
             <span class="lottery-prize-name">${item.title}</span>
         </div>
         <div class="lottery-requirement lotterty-info-row">
-            <span>Пополните свой баланс от ${lottery.deposit_amount_require}₽<br>Ваш баланс: ${user.balance}₽</span>
+            <span>${requirementText}</span>
             <button class="lottery-requirement-replenish-btn" onclick="location.href = '/replenish/'">ПОПОЛНИТЬ</button>
         </div>
         <div class="lottery-stats lotterty-info-row">
@@ -182,6 +190,8 @@ async function getCurrentLottery() {
 
 async function main() {
     const user = await getAuthenticated();
+
+    const lottery_wins_list = [137, 307];
 
     if (user.lottery_wins_list) {
         user.lottery_wins_list.forEach(async function(win) {
