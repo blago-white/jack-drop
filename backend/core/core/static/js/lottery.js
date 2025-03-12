@@ -7,7 +7,7 @@ async function takePart(toMain) {
             method: "POST",
             body: JSON.stringify({
                 "to_main": toMain
-            });
+            })
         }
     );
 
