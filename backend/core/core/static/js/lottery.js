@@ -7,6 +7,9 @@ async function takePart(toMain) {
         "/products/lottery/participate/",
         {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({
                 "to_main": toMain
             })
