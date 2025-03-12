@@ -19,23 +19,35 @@ def implement_lottery():
     if not ok:
         raise ValueError("Lottery implementation error!")
 
-    inventory_service.add_item(owner_id=lottery.winner_main,
-                               item_id=lottery.prize_main.id)
+    prizes = []
 
-    inventory_service.add_item(owner_id=lottery.winner_secondary,
-                               item_id=lottery.prize_secondary.id)
-
-    users_repository.send_results(
-        results=LotteryResult(prizes=[
+    if lottery.winner_main > 0:
+        prizes.append(
             LotteryPrize(
                 winner_id=lottery.winner_main,
-                prize_item_id=lottery.prize_secondary
-            ),
+                prize_item_id=lottery.prize_main
+            )
+        )
+
+        inventory_service.add_item(owner_id=lottery.winner_main,
+                                   item_id=lottery.prize_main.id)
+
+    if lottery.winner_secondary > 0:
+        prizes.append(
             LotteryPrize(
                 winner_id=lottery.winner_secondary,
                 prize_item_id=lottery.prize_secondary
             )
-        ])
-    )
+        )
+
+        inventory_service.add_item(owner_id=lottery.winner_secondary,
+                                   item_id=lottery.prize_secondary.id)
 
     print("LOTTERY IMPLEMENTED")
+
+    if not prizes:
+        return
+
+    users_repository.send_results(
+        results=LotteryResult(prizes=prizes)
+    )
