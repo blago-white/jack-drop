@@ -3,13 +3,15 @@ import { renderItemPrize } from "./prize.js";
 let lottery;
 
 async function takePart(toMain) {
+    const headers = new Headers();
+
+    headers.append("Content-Type", "application/json");
+
     const response = await sendRequest(
         "/products/lottery/participate/",
         {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: headers,
             body: JSON.stringify({
                 "to_main": toMain
             })
