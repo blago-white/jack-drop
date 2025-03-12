@@ -162,13 +162,10 @@ async function main() {
         lottery_wins_list.forEach(async function(win) {
             const response = await sendRequest(`/products/items/${win}/`);
 
-            if (!response.ok) {
-                continue
+            if (response.ok) {
+                const result = await response.json();
+                renderItemPrize(`Победа: ${result.title}`, result.price, result.image_path, "Принять!")
             }
-
-            const result = await response.json();
-
-            renderItemPrize(`Победа: ${result.title}`, result.price, result.image_path, "Принять!")
         })
     }
 
