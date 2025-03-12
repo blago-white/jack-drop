@@ -195,7 +195,7 @@ async function main() {
 
     if (lottery_wins_list) {
         lottery_wins_list.forEach(async function(win) {
-            const response = await sendRequest(`/products/items/${win}/`);
+            const response = await sendRequest(`/products/items/${win}/`, {method: "GET"});
 
             if (response.ok) {
                 const result = await response.json();
