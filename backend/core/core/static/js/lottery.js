@@ -90,12 +90,17 @@ async function countDown(small=false) {
         await sleep(1000);
 
         time = ((60*60*24) - ((Date.now()/1000) - parseInt(getCookie("lottery-started-at"))));
+        time = (parseInt(getCookie("lottery-ended-at")) - ((Date.now()/1000) - parseInt(getCookie("lottery-started-at"))));
+
+        console.log(time);
 
         if (time < 0) {
             try {document.getElementById("lotteryBanner").remove()} catch(error) {}
             try {reduceLotteryInfo()} catch(error) {}
             return;
         }
+
+        console.log(time);
 
         const sec = parseInt(time%60);
 
