@@ -1,3 +1,5 @@
+from "./prize.js" import { renderItemPrize };
+
 let lottery;
 
 async function takePart(toMain) {
