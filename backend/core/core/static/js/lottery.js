@@ -89,10 +89,11 @@ async function countDown(small=false) {
     while (true) {
         await sleep(1000);
 
-        time = ((60*60*24) - ((Date.now()/1000) - parseInt(getCookie("lottery-started-at"))));
-        time = (parseInt(getCookie("lottery-ended-at")) - ((Date.now()/1000) - parseInt(getCookie("lottery-started-at"))));
+//        time = ((60*60*24) - ((Date.now()/1000) - parseInt(getCookie("lottery-started-at"))));
+//        time = (parseInt(getCookie("lottery-ended-at")) - ((Date.now()/1000) - parseInt(getCookie("lottery-started-at"))));
 
-        console.log(Date.now()/1000, parseInt(getCookie("lottery-started-at")), (Date.now()/1000) - parseInt(getCookie("lottery-started-at")), time);
+        durationElapsedTime = (Date.now()/1000) - parseInt(getCookie("lottery-started-at"));
+        time = parseInt(getCookie("lottery-ended-at") - Date.now()/1000);;
 
         if (time < 0) {
             try {document.getElementById("lotteryBanner").remove()} catch(error) {}
@@ -119,7 +120,7 @@ async function renderData(lottery_) {
         return
     }
 
-    if ((Date.now() - (lottery_.created_at + lottery_.start_after)) >= 0) {
+    if ((Date.now()/1000) - parseInt(getCookie("lottery-started-at"))) {
         document.getElementById("first-gun-name").innerHTML = lottery_.prize_main.title;
         document.getElementById("second-gun-name").innerHTML = lottery_.prize_secondary.title;
 
