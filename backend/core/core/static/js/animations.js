@@ -37,13 +37,23 @@ function closeAnimation() {
     }, 200)
 }
 
-export async function printPrizeItem(itemImg, itemPrice, itemTitle, redirectUrl='', useAutoPlay=false, notRedirect=false) {
+export async function printPrizeItem(itemImg, itemPrice, itemTitle, redirectUrl='', useAutoPlay=false, notRedirect=false, closeFunction="") {
     document.getElementById("prize-wrappper").style.display = 'flex';
     document.getElementById("prize-wrappper").style.visibility = 'visible';
     document.getElementById("prize-wrappper").style.background = 'rgb(20, 20, 20, .5)';
     redirectUrl = redirectUrl || location.href;
 
     const receiveButtonText = getCookie('lang') == 'ru' ? 'Получить!' : 'Receive Item!';
+
+    let closeFunction_;
+
+    if (notRedirect && !closeFunction.length) {
+        closeFunction_ = "closeAnimation()";
+    } else if (notRedirect && closeFunction.length) {
+        closeFunction_ = closeFunction;
+    } else {
+        closeFunction_ = "location.href = '" + redirectUrl + "'";
+    }
 
     document.getElementById("prize-wrappper").innerHTML = `
         <video class="animation" id="animation" style="position: absolute;" autoplay=${useAutoPlay}>
@@ -60,7 +70,7 @@ export async function printPrizeItem(itemImg, itemPrice, itemTitle, redirectUrl=
             </span>
         </button>
         <button style="position: absolute;top: 86vh;"
-        class="super-button pink" onclick="${notRedirect ? "closeAnimation()" : ("location.href = '" + redirectUrl + "'")}">
+        class="super-button pink" onclick="${closeFunction_}">
             <span class="super-button-bg" style="background: #FF007A;"></span>
             <span class="super-button-text">
                 <span id="user-data-h" style="list-style: none;display: flex;flex-direction: column;align-items: flex-start;padding: 0px;margin: 0px;">

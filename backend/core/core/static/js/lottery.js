@@ -198,17 +198,33 @@ async function main() {
     const lottery_wins_list = [137, 307];
 
     if (user.lottery_wins_list) {
+        const itemResponses = [];
+
         user.lottery_wins_list.forEach(async function(win) {
             const response = await sendRequest(`/products/items/${win}/`, {method: "GET"});
 
             if (response.ok) {
-                const result = await response.json();
-//                renderItemPrize(`Победа: ${result.title}`, result.price, result.image_path, "Принять!")
-                await printPrizeItem(result.image_path, result.price, `Победа: ${result.title}`, '', true, true)
+                itemResponses.push((await response.json()))
             }
+        });
 
-            await sleep(200);
-        })
+        if (itemResponses.length == 1) {
+            const result = itemResponses[0];
+            await printPrizeItem(result.image_path, result.price, `Победа: ${result.title}`, '', true);
+        } else if (itemResponses.length)
+            const resultFirst = itemResponses[0];
+            const resultSecond = itemResponses[1];
+
+            await printPrizeItem(
+                resultFirst.image_path,
+                resultFirst.price,
+                `Победа: ${resultFirst.title}`,
+                '',
+                true,
+                true,
+                `printPrizeItem(${resultSecond.image_path}, ${resultSecond.price}, "Победа #2: ${resultSecond.title}", "https://jackdrop.online/", true})`
+            )
+        }
     }
 
     console.log(user);
