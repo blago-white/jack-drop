@@ -8,10 +8,18 @@ from ..repositories.lottery import LotteryRepository
 
 class GetCurrentLotteryApiView(RetrieveAPIView, ApiViewMixin):
     repository = LotteryRepository()
+    users_repository = UsersApiService()
 
     def retrieve(self, request, *args, **kwargs):
+        try:
+            user_id = self.users_repository.get_user_info(
+                user_request=request
+            ).get("id")
+        except:
+            user_id = None
+
         return self.get_200_response(
-            data=self.repository.get_current()
+            data=self.repository.get_current(user_id=user_id)
         )
 
 

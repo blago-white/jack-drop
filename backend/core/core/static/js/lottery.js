@@ -1,5 +1,21 @@
 let lottery;
 
+function takePart(toMain) {
+    const response = await sendRequest(
+        "/products/lottery/participate/",
+        {
+            method: "POST",
+            to_main: toMain
+        }
+    );
+
+    if (!response.ok) {
+        await makeWarn("Не удалось участвовать", "Проверьте соответствие требований!")
+    }
+
+    location.href = location.href;
+}
+
 function renderLotteryInfo(renderMainPrize) {
     let item;
 
@@ -30,9 +46,9 @@ function renderLotteryInfo(renderMainPrize) {
                     <span style="font-size: 1.4em;font-family: 'Gilroy SemiBold';" id="lotteryExpandTimerValue">24:00:00</span>
                 </div>
             </div>
-            <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: ${lottery.display_participants_count}</span>
+            <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: ${lottery.display_participants_count+1}</span>
         </div>
-        <button class="lottery-make-part-btn lotterty-info-row">УЧАСТВОВАТЬ</button>
+        <button class="lottery-make-part-btn lotterty-info-row" onclick="takePart(${renderMainPrize})">УЧАСТВОВАТЬ</button>
     </div>
     `;
 
@@ -92,6 +108,14 @@ async function renderData(lottery_) {
     if ((Date.now() - (lottery_.created_at + lottery_.start_after)) >= 0) {
         document.getElementById("first-gun-name").innerHTML = lottery_.prize_main.title;
         document.getElementById("second-gun-name").innerHTML = lottery_.prize_secondary.title;
+
+        if (lottery_.take_part_main) {
+            document.getElementById("prizeGunFirst").style.filter = "opacity(.25)";
+            document.getElementById("prizeGunFirst").onclick = "";
+        } else if (lottery_.take_part_second) {
+            document.getElementById("prizeGunSecond").style.filter = "opacity(.25)";
+            document.getElementById("prizeGunSecond").onclick = "";
+        }
 
         document.getElementById("first-gun-img").src = lottery_.prize_main.image_path;
         document.getElementById("secondary-gun-img").src = lottery_.prize_secondary.image_path;

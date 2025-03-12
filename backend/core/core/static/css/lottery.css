@@ -162,6 +162,7 @@
     border: none;
     border-radius: 1ch;
     width: 5ch;
+    height: 5ch;
 
     transition: all .2s ease;
 }

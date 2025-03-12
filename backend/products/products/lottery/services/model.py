@@ -19,6 +19,23 @@ class LotteryModelService(BaseModelService):
         except:
             return
 
+    def has_participate(self, participant_id: int) -> tuple[bool, bool]:
+        current = self.get_current()
+
+        if not current:
+            return False, False
+
+        return (
+            current.participants.filter(
+                to_main_lottery=True,
+                user_id=participant_id
+            ).exists(),
+            current.participants.filter(
+                to_main_lottery=False,
+                user_id=participant_id
+            ).exists()
+        )
+
     def participate(
             self, participant_id: int,
             to_main_lottery: bool = False
