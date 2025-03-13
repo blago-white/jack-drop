@@ -5,6 +5,7 @@ from ..services.fortune import FortuneWheelService
 
 class FortuneWheelModelRepository(BaseRepository):
     default_service = FortuneWheelService()
+    default_serializer_class = None
 
     _service: FortuneWheelService
 
