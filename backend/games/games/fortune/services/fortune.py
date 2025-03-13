@@ -206,7 +206,7 @@ class FortuneWheelService:
     def _get_case(cases: list[CaseData], count: int = None) -> CaseData:
         cases = sorted(cases, key=lambda case: case.price, reverse=True)
 
-        cases = list(filter(lambda c: c.price < max(300, cases[-1]), cases))
+        cases = list(filter(lambda c: c.price < max(300, cases[-1].price), cases))
 
         return random.choice(
             cases+cases[:len(cases)//2 if not count else count]
