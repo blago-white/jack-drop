@@ -195,42 +195,42 @@ async function getCurrentLottery() {
 async function main() {
     const user = await getAuthenticated();
 
-    const lottery_wins_list = [137, 307];
-
-    if (user.lottery_wins_list) {
-        var itemResponses = [];
-
-        lottery_wins_list.forEach(async function(win) {
-            const response = await sendRequest(`/products/items/${win}/`, {method: "GET"});
-            console.log(response.ok);
-            if (response.ok) {
-                itemResponses.push(await response.json());
-            }
-        });
-
-        console.log(itemResponses);
-
-        if (itemResponses.length == 1) {
-            const result = itemResponses[0];
-            await printPrizeItem(result.image_path, result.price, `Победа: ${result.title}`, '', true);
-        } else if (itemResponses.length == 2) {
-            console.log(1);
-            const resultFirst = itemResponses[0];
-            const resultSecond = itemResponses[1];
-
-            printPrizeItem(
-                resultFirst.image_path,
-                resultFirst.price,
-                `Победа: ${resultFirst.title}`,
-                '',
-                true,
-                true,
-                `printPrizeItem("${resultSecond.image_path}", ${resultSecond.price}, "Победа #2: ${resultSecond.title}", "https://jackdrop.online/", true})`
-            )
-        }
-    }
-
-    console.log(user);
+//    const lottery_wins_list = [137, 307];
+//
+//    if (user.lottery_wins_list) {
+//        var itemResponses = [];
+//
+//        lottery_wins_list.forEach(async function(win) {
+//            const response = await sendRequest(`/products/items/${win}/`, {method: "GET"});
+//            console.log(response.ok);
+//            if (response.ok) {
+//                itemResponses.push(await response.json());
+//            }
+//        });
+//
+//        console.log(itemResponses);
+//
+//        if (itemResponses.length == 1) {
+//            const result = itemResponses[0];
+//            await printPrizeItem(result.image_path, result.price, `Победа: ${result.title}`, '', true);
+//        } else if (itemResponses.length == 2) {
+//            console.log(1);
+//            const resultFirst = itemResponses[0];
+//            const resultSecond = itemResponses[1];
+//
+//            printPrizeItem(
+//                resultFirst.image_path,
+//                resultFirst.price,
+//                `Победа: ${resultFirst.title}`,
+//                '',
+//                true,
+//                true,
+//                `printPrizeItem("${resultSecond.image_path}", ${resultSecond.price}, "Победа #2: ${resultSecond.title}", "https://jackdrop.online/", true})`
+//            )
+//        }
+//    }
+//
+//    console.log(user);
 
     if (user && ((user.id == 57) || (user.id == 113))) {
         await renderData(await getCurrentLottery());

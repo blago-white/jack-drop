@@ -91,6 +91,23 @@ function updateClock(time) {
     return true;
 }
 
+function showBannedMessage() {
+    hideCountDown();
+
+    document.getElementById("start-btn").style.display = "none";
+    document.getElementById("game-title").innerHTML = `
+        Колесо фортуны
+        <span style="
+            font-size: .35em;
+            font-family: 'Gilroy Semibold';
+            margin-block: 1ch;
+            display: flex;
+            color: indianred;
+            width: -webkit-fill-available;
+        ">Для открытия вам нужно сделать еще 1 депозит!</span>
+    `;
+}
+
 async function setWheelTimeout() {
     const requestOptions = {
       method: "GET",
@@ -98,6 +115,11 @@ async function setWheelTimeout() {
     };
 
     const response = await sendRequest(`http://${location.hostname}/products/games/fortune-wheel/timeout/`, requestOptions);
+
+    if (!response.ok) {
+        showBannedMessage();
+        return false;
+    }
 
     const result = await response.json();
 
@@ -125,9 +147,7 @@ async function setWheelTimeout() {
 }
 
 async function main() {
-    if (!await setWheelTimeout()) {
-        return
-    }
+    if (!await setWheelTimeout()) {return}
 
     while (true) {
         await sleep(1000);

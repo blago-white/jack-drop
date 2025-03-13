@@ -10,6 +10,7 @@ from games.api.services.forutne import (FortuneWheelPrizeApiService,
                                         PrizeTypes,
                                         GAME_SKIN_PRICE_RANGE,
                                         FREE_SKIN_PRICE_RANGE)
+from games.services.fortune import FortuneWheelService
 from games.api.services.site import SiteFundsApiService
 from bonus.services.bonus import BonusBuyService, UserBonusesService, BonusCaseService
 from inventory.models import Lockings
@@ -33,6 +34,7 @@ class FortuneWheelApiRepository(BaseApiRepository):
     default_bonus_service = BonusBuyService()
     default_user_bonus_service = UserBonusesService()
     default_bonus_case_service = BonusCaseService()
+    default_fortune_model_service = FortuneWheelService()
 
     default_timeout_service = FortuneWheelTimeoutApiService()
 
@@ -57,6 +59,7 @@ class FortuneWheelApiRepository(BaseApiRepository):
             bonus_buy_service: BonusBuyService = None,
             user_bonus_service: UserBonusesService = None,
             bonus_case_service: BonusCaseService = None,
+            fortune_model_service: FortuneWheelService = None,
             **kwargs):
         self._prize_api_service = (prize_api_service or
                                    self.default_prize_api_service)
@@ -71,6 +74,7 @@ class FortuneWheelApiRepository(BaseApiRepository):
         self._bonus_service = bonus_buy_service or self.default_bonus_service
         self._user_bonus_service = user_bonus_service or self.default_user_bonus_service
         self._bonus_case_service = bonus_case_service or self.default_bonus_case_service
+        self._fortune_model_service = fortune_model_service or self.default_fortune_model_service
 
         self._timeout_service = (fortune_wheel_timeout_service or
                                  self.default_timeout_service)
@@ -85,6 +89,12 @@ class FortuneWheelApiRepository(BaseApiRepository):
         super().__init__(*args, **kwargs)
 
     def make(self, user_data: dict, promocode: str = None):
+        if not self._fortune_model_service.can_play(user_id=user_data.get("id")):
+            raise ValidationError(
+                detail=f"Another deposit is needed!",
+                code=403
+            )
+
         timeout = int(
             self.get_timeout(user_id=user_data.get("id")).get("timeout")
         )
@@ -166,6 +176,12 @@ class FortuneWheelApiRepository(BaseApiRepository):
         self._BONUSE_COMMIT_METHODS.get(prize.get("type"))(**prize_data)
 
     def get_timeout(self, user_id: int) -> dict:
+        if not self._fortune_model_service.can_play(user_id=user_id):
+            raise ValidationError(
+                detail=f"Another deposit is needed!",
+                code=403
+            )
+
         serialized = self._timeout_service.default_endpoint_serializer_class(
             data={"user_id": user_id}
         )
@@ -201,8 +217,6 @@ class FortuneWheelApiRepository(BaseApiRepository):
             self, prize_type: str,
             user_data: dict,
             additional: dict = None) -> dict:
-        print("ADDITIONAL", additional)
-
         serialized = self._prize_api_service.default_endpoint_serializer_class(
             data={
                 "site_funds": {
