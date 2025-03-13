@@ -89,7 +89,7 @@ class FortuneWheelApiRepository(BaseApiRepository):
         super().__init__(*args, **kwargs)
 
     def make(self, user_data: dict, promocode: str = None):
-        if not self._fortune_model_service.can_play(user_id=user_data.get("id")):
+        if not self._fortune_model_service.make_play(user_id=user_data.get("id")):
             raise ValidationError(
                 detail=f"Another deposit is needed!",
                 code=403
