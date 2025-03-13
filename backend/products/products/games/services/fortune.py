@@ -13,7 +13,9 @@ class FortuneWheelService(BaseModelService):
             return True
 
     def make_play(self, user_id: int):
-        result = self.can_play(user_id=user_id)
+        print("MAKE PLAY")
+
+        result = bool(self.can_play(user_id=user_id))
 
         if result:
             self._model.objects.create(user_id=user_id)
