@@ -7,7 +7,10 @@ class FortuneWheelService(BaseModelService):
     default_model = FortuneWheelBan
 
     def can_play(self, user_id: int):
-        return not self._model.objects.get(user_id=user_id)
+        try:
+            return self._model.objects.get(user_id=user_id) is None
+        except:
+            return True
 
     def make_play(self, user_id: int):
         result = self.can_play(user_id=user_id)
