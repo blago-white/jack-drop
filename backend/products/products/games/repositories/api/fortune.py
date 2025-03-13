@@ -96,7 +96,10 @@ class FortuneWheelApiRepository(BaseApiRepository):
             )
 
         timeout = int(
-            self.get_timeout(user_id=user_data.get("id")).get("timeout")
+            self.get_timeout(
+                user_id=user_data.get("id"),
+                force_can_play=True
+            ).get("timeout")
         )
 
         if timeout and not promocode:
@@ -175,12 +178,13 @@ class FortuneWheelApiRepository(BaseApiRepository):
 
         self._BONUSE_COMMIT_METHODS.get(prize.get("type"))(**prize_data)
 
-    def get_timeout(self, user_id: int) -> dict:
-        if not self._fortune_model_service.can_play(user_id=user_id):
-            raise ValidationError(
-                detail=f"Another deposit is needed!",
-                code=403
-            )
+    def get_timeout(self, user_id: int, force_can_play: bool = False) -> dict:
+        if not force_can_play:
+            if not self._fortune_model_service.can_play(user_id=user_id):
+                raise ValidationError(
+                    detail=f"Another deposit is needed!",
+                    code=403
+                )
 
         serialized = self._timeout_service.default_endpoint_serializer_class(
             data={"user_id": user_id}
