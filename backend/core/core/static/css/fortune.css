@@ -1,12 +1,10 @@
 @import 'variables.css';
 
 .bg-filter-img {
-    background: url('../img/fortune-wheel.png');
-    background-size: cover;
-}
+    /*background: url('../img/fortune-wheel.png');
+    background-size: cover;*/
 
-.bg-filter {
-    display: none;
+    filter: blur(1vh);
 }
 
 .fortune-sec {

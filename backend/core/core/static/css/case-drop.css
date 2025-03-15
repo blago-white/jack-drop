@@ -3,7 +3,7 @@
 .bg-filter-img {
     background: url('/core/static/img/bg.jpg');
     background-size: cover;
-
+    filter: blur(.25em);
 }
 
 .case-drop-sec {
