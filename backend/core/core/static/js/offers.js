@@ -13,6 +13,9 @@ async function countDown(small=false) {
         time = ((60*60*24) - ((Date.now()/1000) - parseInt(getCookie("has-offer-promo-created-at"))));
 
         if (time < 0) {
+            setCookie("viewed-offer", undefined);
+            setCookie("offer-hidden", undefined)
+
             try {await closeOffer()} catch(error) {}
             try {await closeOffer(small=True)} catch(error) {}
             return;
