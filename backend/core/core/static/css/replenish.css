@@ -36,7 +36,7 @@
     }
 
     .replenish-person:hover {
-        transform: rotate(10deg) translateX(-10%);
+        transform: translateY(-10%);
     }
 }
 
@@ -217,7 +217,7 @@ h3 {
 }
 
 .amount-selector-row.blocked {
-    opacity: .5;
+    opacity: .25;
     pointer-events: none;
 }
 

@@ -14,6 +14,8 @@ if (usedPromocode && (usedPromocode != "None")) {
 }
 
 async function getBenefitPercent(promocode) {
+    document.getElementById("promocodeBenefits").style.display = "none";
+
     if (!promocode) {
         return
     }
@@ -88,6 +90,11 @@ async function addDeposit() {
     let response;
 
     if (selectedProvider == NICEPAYSELECTOR) {
+        if (amount < 500) {
+            await makeWarn("Сумма должна быть >500 Руб.", "При пополнении картой или сбп");
+            return
+        }
+
         response = await sendRequest('/transactions/payments/create/', {
             method: "POST",
             body: JSON.stringify({"amount": amount, "promocode": promocode}),
