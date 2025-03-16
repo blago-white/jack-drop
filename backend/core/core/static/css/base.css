@@ -37,7 +37,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     height: 109vh!important;
-    filter: blur(.25em);
+    filter: grayscale(1);
 }
 
 body a {
@@ -75,7 +75,7 @@ button {
 }
 
 .button {
-    background-color: #343434;
+    background-color: #0047FF;
     color: white;
     border-radius: calc(100vw * calc(16 / var(--reference-display-w)));
     border: none;

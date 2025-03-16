@@ -82,7 +82,7 @@
 }
 
 .double-range-input {
-    background: #FF007A;
+    background: #0047FF;
     height:calc(150vw * calc(3   / 1920));
     padding-bottom: calc(150vw * calc(3 / 1920));
     border-radius: 2ch;
