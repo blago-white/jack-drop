@@ -33,11 +33,11 @@ body {
 }
 
 .bg-filter-img {
-    background: url('/core/static/img/bg.jpg');
+    background: url(https://s.iimg.su/s/17/XZMCxkIAuNgs7WltnIyzLyDNLvyfiT6OG2liOYtc.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    height: 109vh!important;
-    filter: grayscale(1);
+    height: 109vh !important;
+    filter: saturate(0.4) blur(4px);
 }
 
 body a {

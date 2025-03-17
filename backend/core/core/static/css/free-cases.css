@@ -2,14 +2,19 @@
 
 .free-cases-sec {
     min-height: calc(100vw* calc(580 / var(--reference-display-w)));
-    background: top url(../img/tfborder.png), bottom url(../img/bfborder.png);
-    background-size: contain;
-    background-repeat: no-repeat;
+
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     margin-top: 3vh;
+
+    background: rgb(0, 0, 0, .4);
+    backdrop-filter: blur(1em);
+    border: calc(100vw* calc(1 / 1920)) solid #979797;
+
+    padding-inline: 2ch;
+    padding-bottom: 2ch;
 }
 
 .cases {
@@ -20,8 +25,8 @@
 
 .free-cases-sec h2 {
     text-transform: uppercase;
-    font-size: calc(100vw * calc(48 / var(--reference-display-w)));
-    margin-top: -1.6%;
+    font-size: calc(100vw * calc(39 / var(--reference-display-w)));
+    margin-block: 1ch;
 }
 
 .case-image {

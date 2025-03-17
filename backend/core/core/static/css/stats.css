@@ -1,14 +1,19 @@
 .stats-table {
+    border-radius: calc(100vw* calc(16 / 1920));
+
+    background-color: #33333320;
+    backdrop-filter: blur(1em);
+    border-radius: 2em;
+
+    padding-block: 1ch;
+
+    border: calc(100vw* calc(1 / 1920)) solid #979797;
+    padding-inline: 2.511%;
+
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    border-radius: calc(100vw* calc(16 / 1920));
-
-    background-color: #33333320;
-    backdrop-filter: blur(calc(100vw* calc(10 / 1920)));
-    border: calc(100vw* calc(1 / 1920)) solid #979797;
-    padding-inline: 2.511%;
 
     transition: all .2s ease;
 }

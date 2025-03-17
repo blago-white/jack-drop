@@ -1,14 +1,13 @@
 .cases-filters {
-    background: black;
-    border-radius: calc(100vw * calc(16 / 1920));
-    background-color: #33333320;
-    backdrop-filter: blur(calc(100vw * calc(10 / 1920)));
-    border: calc(100vw * calc(1 / 1920)) solid #979797;
+    border-radius: 2em;
+    background-color: #00000050;
+    backdrop-filter: blur(1em);
+    border: calc(100vw* calc(1 / 1920)) solid #979797;
+
     display: flex;
     align-content: center;
     flex-wrap: wrap;
-    padding: 2.511%;
-    gap: 2.511%;
+    padding: 3ch;
     justify-content: space-between;
 
     transition: all .2s ease;
