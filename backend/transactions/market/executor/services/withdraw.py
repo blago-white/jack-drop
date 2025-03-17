@@ -59,7 +59,7 @@ class ItemWithdrawService(BaseMarketApiService):
                         apikey=self._apikey,
                         classid=class_id,
                         instanceid=instance_id,
-                        price=int(10000),
+                        price=item.price*100,
                         trandelink=item.trade_link.replace("https://steamcommunity.com/tradeoffer/new/?partner=", "")
                     )
             ) as response:
