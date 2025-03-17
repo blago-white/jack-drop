@@ -48,7 +48,7 @@ async function addItemSets() {
     let html = `
         <section class="free-cases-sec">
             <h2 id="cases-category">НАБОРЫ</h2>
-            <ul class="cases-row" id="cases-row">
+            <ul class="cases-row" id="cases-row" style="grid-template-columns: 1fr 1fr 1fr;">
     `;
 
     itemSet.forEach((element) => {

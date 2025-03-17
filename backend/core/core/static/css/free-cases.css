@@ -64,10 +64,10 @@
     padding: 0px;
     align-items: center;
     justify-content: center;
-    grid-template-columns: repeat(4, auto);
-    row-gap: 5vh;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     overflow: hidden;
     gap: 2ch;
+    width: 97.5%;
 }
 
 .case-data {
