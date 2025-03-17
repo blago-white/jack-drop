@@ -64,10 +64,10 @@
     padding: 0px;
     align-items: center;
     justify-content: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 23% 23% 23% 23%;
     overflow: hidden;
     gap: 2ch;
-    width: 97.5%;
+    width: 100%;
 }
 
 .case-data {
@@ -88,11 +88,12 @@ h3 {
 
 .case-data span {
     background: linear-gradient(180deg, #FF62CA 0%, #FF007A 100%);
-    padding-inline: calc(100vw* calc(22 / var(--reference-display-w)));
     padding-block: calc(100vw* calc(12 / var(--reference-display-w)));
     border-radius: calc(100vw* calc(9 / var(--reference-display-w)));
     text-align: center;
     padding-inline: 1ch;
+    width: 9CH;
+    font-family: 'Gilroy Bold';
 }
 
 @media (aspect-ratio < 1/1) {
@@ -106,6 +107,8 @@ h3 {
         border: calc(100vw* calc(1 / 1920)) solid #979797;
         margin-top: 0px;
         width: auto;
+
+        justify-content: space-between;
     }
 
     .cases-row {
@@ -119,7 +122,14 @@ h3 {
     }
 
     .free-cases-sec h2 {
-        margin: 1.6%;
+        background: transparent;
+        border: 0px;
+        backdrop-filter: none;
+        margin: 0px;
+        padding-top: 0px;
+        padding-bottom: 1ch;
+        font-family: 'Gilroy Bold';
+        font-size: calc(100vw* calc(48 / var(--reference-display-w)));
     }
 
     .case-data span {

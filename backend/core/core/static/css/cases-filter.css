@@ -170,7 +170,7 @@
     }
 
     .price-range-form label {
-        font-size: calc(100vw* calc(30 / 960));
         margin-bottom: calc(100vw* calc(12 / 960));
+        font-size: calc(100vw* calc(48 / var(--reference-display-w)));
     }
 }

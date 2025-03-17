@@ -63,8 +63,8 @@ body a {
     margin-inline: calc(100vw* 0.0588);
     width: auto;
     display: flex;
-    gap: calc(100vw * calc(0.0588 * 0.690));
     flex-direction: column;
+    gap: 5vh;
 
     margin-bottom: 28vh;
 }
