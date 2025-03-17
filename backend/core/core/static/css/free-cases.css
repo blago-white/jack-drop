@@ -7,7 +7,6 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin-top: 3vh;
 
     background: rgb(0, 0, 0, .4);
     backdrop-filter: blur(1em);
@@ -15,6 +14,15 @@
 
     padding-inline: 2ch;
     padding-bottom: 2ch;
+    border-radius: 2em;
+
+    width: calc(100vw - calc(4ch + calc(200vw* 0.0588)));
+
+    transition: all .2s ease;
+}
+
+.free-cases-sec:hover {
+    background-color: #33333350!important;
 }
 
 .cases {
@@ -25,8 +33,16 @@
 
 .free-cases-sec h2 {
     text-transform: uppercase;
-    font-size: calc(100vw * calc(39 / var(--reference-display-w)));
+    font-size: calc(100vw* calc(39 / var(--reference-display-w)));
     margin-block: 1ch;
+    width: 100%;
+    text-align: center;
+    background: rgb(20 20 20 / 30%);
+    padding-block: .5ch;
+    backdrop-filter: blur(1em);
+    margin-top: 0px;
+    border-radius: 0px;
+    border-bottom: inherit;
 }
 
 .case-image {
@@ -88,6 +104,7 @@ h3 {
         backdrop-filter: blur(calc(100vw* calc(30 / 1920)));
         border: calc(100vw* calc(1 / 1920)) solid #979797;
         margin-top: 0px;
+        width: auto;
     }
 
     .cases-row {
