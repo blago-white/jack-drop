@@ -2,23 +2,21 @@
 
 .free-cases-sec {
     min-height: calc(100vw* calc(580 / var(--reference-display-w)));
-
     display: flex;
+
     justify-content: center;
     flex-direction: column;
     align-items: center;
-
     background: rgb(0, 0, 0, .4);
     backdrop-filter: blur(1em);
     border: calc(100vw* calc(1 / 1920)) solid #979797;
-
-    padding-inline: 2ch;
     padding-bottom: 2ch;
     border-radius: 2em;
-
-    width: calc(100vw - calc(4ch + calc(200vw* 0.0588)));
-
+    margin: 0px;
+    overflow: hidden;
     transition: all .2s ease;
+
+    width: calc(100vw - calc(calc(200vw* 0.0588)));
 }
 
 .free-cases-sec:hover {
@@ -43,16 +41,19 @@
     margin-top: 0px;
     border-radius: 0px;
     border-bottom: inherit;
+
+    font-family: 'Gilroy Bold';
+    font-size: calc(100vw* calc(39 / var(--reference-display-w)));
 }
 
 .case-image {
     height: calc(100vw * calc(330 / var(--reference-display-w)));
 
-    transition: transform .2s ease;
+    transition: filter .2s ease;
 }
 
 .case-image:hover {
-    transform: scale(1.025);
+    filter: opacity(0.5);
 }
 
 .cases-row {
