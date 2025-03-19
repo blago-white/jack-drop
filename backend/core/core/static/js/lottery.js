@@ -54,7 +54,7 @@ async function renderLotteryInfo(renderMainPrize) {
         requirementText = `При балансе > ${lottery.deposit_amount_require} вы можете так же участвовать в главном розыгрыше`;
     }
 
-    const alreadyTakesPart = renderMainPrize ? lottery.take_part_main : lotteru.take_part_second;
+    const alreadyTakesPart = renderMainPrize ? lottery.take_part_main : lottery.take_part_second;
 
     document.getElementById("prize-wrappper").innerHTML = `
     <div class="lottery-expand-info" style="transform: scale(0);" id="lotteryExpanded">
