@@ -83,7 +83,7 @@ async function renderLotteryInfo(renderMainPrize) {
     </div>
     `;
 
-    document.getElementById("prize-wrappper").onclick = "reduceLotteryInfo();";
+    document.getElementById("prize-wrappper").onclick = reduceLotteryInfo;
     document.getElementById("prize-wrappper").style = "transition: all .2s ease;";
 
     document.getElementById("prize-wrappper").style.visibility = "visible";
@@ -97,7 +97,7 @@ async function renderLotteryInfo(renderMainPrize) {
 
 function reduceLotteryInfo() {
     document.getElementById("lotteryExpanded").style = "";
-    document.getElementById("prize-wrappper").onclick = "";
+    document.getElementById("prize-wrappper").onclick = () => {};
     document.getElementById("prize-wrappper").style.backgroundColor = "rgb(20, 20, 20, .9)";
 
     setTimeout(() => {
