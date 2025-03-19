@@ -96,7 +96,7 @@ async function renderLotteryInfo(renderMainPrize) {
 }
 
 function reduceLotteryInfo() {
-    document.getElementById("lotteryExpanded").style = "";
+    document.getElementById("lotteryExpanded").style = "transform: scale(0);opacity: 0;";
     document.getElementById("prize-wrappper").onclick = () => {};
     document.getElementById("prize-wrappper").style.backgroundColor = "rgb(20, 20, 20, .9)";
 
