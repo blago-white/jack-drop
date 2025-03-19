@@ -213,7 +213,16 @@
         setCookie("lang", "{{ LANGUAGE_CODE }}");
     </script>
     <script>
-        document.addEventListener("scroll", () => {document.getElementById("bgFilter").style.backgroundPosition = `${100}% ${Math.max(-document.documentElement.scrollTop / (2.5 + (document.documentElement.scrollTop / 200)), -400)}%`;})
+        function gcd () {
+            const w = screen.width;
+            const h = screen.height;
+
+            return w/h;
+        }
+
+        if (gcd() > 1/1) {
+            document.addEventListener("scroll", () => {document.getElementById("bgFilter").style.backgroundPosition = `${100}% ${Math.max(-document.documentElement.scrollTop / (2.5 + (document.documentElement.scrollTop / 200)), -400)}%`;})
+        }
     </script>
     {% block extrascripts %}
     {% endblock %}
