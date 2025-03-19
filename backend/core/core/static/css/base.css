@@ -34,7 +34,7 @@ body {
 
 .bg-filter-img {
     background: url(https://s.iimg.su/s/17/XZMCxkIAuNgs7WltnIyzLyDNLvyfiT6OG2liOYtc.jpg);
-    background-size: cover;
+    background-size: 100%;
     background-repeat: no-repeat;
     height: 109vh !important;
     filter: saturate(0.4) blur(4px);
@@ -46,7 +46,7 @@ body a {
 }
 
 .bg-filter {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 1) 90%);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 90%);
     width: 100vw;
     height: calc(110vh + calc(100vw* calc(0.0588* 0.690)));
     position: absolute;
