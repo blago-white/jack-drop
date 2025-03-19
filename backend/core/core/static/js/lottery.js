@@ -41,16 +41,20 @@ async function renderLotteryInfo(renderMainPrize) {
 
     const user = await getAuthenticated();
 
-    if (!user) {
-        await makeWarn("Войдите в аккаунт!", "Для принятия участия в розыгрыше, нужно быть зарегистрированным!")
-        return;
-    }
+//    if (!user) {
+//        await makeWarn("Войдите в аккаунт!", "Для принятия участия в розыгрыше, нужно быть зарегистрированным!")
+//        return;
+//    }
+
+    const isAuthenticated = user ? true : false;
 
     let requirementText;
 
-    if (renderMainPrize) {
+    if (!isAuthenticated) {
+        requirementText = `Сначала пройдите быструю регистрацию!`
+    } else if (renderMainPrize) {
         requirementText = `Пополните свой баланс от ${lottery.deposit_amount_require}₽<br>Ваш баланс: ${user.balance}₽`;
-    } else {
+    } else if (!requirementText) {
         requirementText = `При балансе > ${lottery.deposit_amount_require} вы можете так же участвовать в главном розыгрыше`;
     }
 
@@ -79,7 +83,7 @@ async function renderLotteryInfo(renderMainPrize) {
             </div>
             <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: ${lottery.display_participants_count+1}</span>
         </div>
-        <button class="lottery-make-part-btn lotterty-info-row" type="button" style=${(!alreadyTakesPart) ? "cursor: default;transform: none;" : ""} onclick=${alreadyTakesPart ? "return false;" : "takePart(" + renderMainPrize + ");return false;"}>${alreadyTakesPart ? "ВЫ УЖЕ УЧАСТВУЕТЕ!" : "УЧАСТВОВАТЬ"}</button>
+        <button class="lottery-make-part-btn lotterty-info-row" type="button" style=${(!alreadyTakesPart) ? "cursor: default;transform: none;" : ""} onclick=${isAuthenticated ? (alreadyTakesPart ? "return false;" : "takePart(" + renderMainPrize + ");return false;") : "location.href = '/auth/'"}>${isAuthenticated ? (alreadyTakesPart ? "ВЫ УЖЕ УЧАСТВУЕТЕ!" : "УЧАСТВОВАТЬ") : "РЕГИСТРАЦИЯ"}</button>
     </div>
     `;
 
