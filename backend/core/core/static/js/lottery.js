@@ -54,6 +54,8 @@ async function renderLotteryInfo(renderMainPrize) {
         requirementText = `При балансе > ${lottery.deposit_amount_require} вы можете так же участвовать в главном розыгрыше`;
     }
 
+    const alreadyTakesPart = renderMainPrize ? lottery.take_part_main : lotteru.take_part_second;
+
     document.getElementById("prize-wrappper").innerHTML = `
     <div class="lottery-expand-info" style="transform: scale(0);" id="lotteryExpanded">
         <h3 class="lottery-expand-header">РАЗДАЧА<br>СКИНОВ
@@ -61,7 +63,7 @@ async function renderLotteryInfo(renderMainPrize) {
         </h3>
         <div class="lottery-prize-info lotterty-info-row">
             <img src="${item.image_path}" class="lottery-prize-img">
-            <span class="lottery-prize-name">${item.title}</span>
+            <span class="lottery-prize-name">${item.title}<br><span style="color: #FF007A;">${item.price}<img src="/core/static/img/gear.png"></span></span>
         </div>
         <div class="lottery-requirement lotterty-info-row">
             <span>${requirementText}</span>
@@ -77,7 +79,7 @@ async function renderLotteryInfo(renderMainPrize) {
             </div>
             <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: ${lottery.display_participants_count+1}</span>
         </div>
-        <button class="lottery-make-part-btn lotterty-info-row" type="button" onclick="takePart(${renderMainPrize});return false;">УЧАСТВОВАТЬ</button>
+        <button class="lottery-make-part-btn lotterty-info-row" type="button" style="${(!alreadyTakesPart) ? 'cursor: default;transform: none;' : ''}" onclick="${alreadyTakesPart ? '' : 'takePart(' + renderMainPrize + ');'}"}return false;">${alreadyTakesPart ? "ВЫ УЖЕ УЧАСТВУЕТЕ!" : "УЧАСТВОВАТЬ"}</button>
     </div>
     `;
 
