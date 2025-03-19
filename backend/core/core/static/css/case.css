@@ -1,14 +1,9 @@
 @import "variables.css";
 
-.bg-filter-img {
-    background: url('/core/static/img/bg.jpg');
-    background-size: cover;
-}
-
 .case-data-wrapper {
-    border-radius: calc(100vw * calc(20 / var(--reference-display-w)));
+    border-radius: calc(2* calc(100vw* calc(22 / 1920)));
     background-color: #33333320;
-    backdrop-filter: blur(calc(100vw* calc(72 / 1920)));
+    backdrop-filter: blur(1em);
     border: calc(100vw* calc(1 / 1920)) solid #979797;
 }
 

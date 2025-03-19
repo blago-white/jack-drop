@@ -1,6 +1,6 @@
 .lottery-banner {
     padding-left: 2em;
-    background: rgb(20, 20, 20, .5);
+    background: #33333320;
     border-radius: 2ch;
     display: flex;
     justify-content: space-between;
@@ -13,7 +13,7 @@
 }
 
 .lottery-banner:hover {
-    transform: scale(1.025);
+    background: linear-gradient(90deg, #349aff00 23%, #ea0584 100%);
 }
 
 .lottery-banner:hover .lottery-header-title {
@@ -50,14 +50,6 @@
     border-radius: 2ch!important;
     font-size: 0.8em;
     background: #ff007a;
-}
-
-.prize-gun:hover #first-gun-name {
-    color: #38a3ff;
-}
-
-.prize-gun:hover #second-gun-name {
-    color: #0c43f8;
 }
 
 #lotteryBannerTimerRing {

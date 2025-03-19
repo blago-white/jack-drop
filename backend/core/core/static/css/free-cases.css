@@ -68,6 +68,7 @@
     overflow: hidden;
     gap: 2ch;
     width: 100%;
+    row-gap: 4ch;
 }
 
 .case-data {
@@ -83,7 +84,8 @@ h3 {
     text-transform: uppercase;
     font-weight: 500;
     width: max-content;
-    font-size: calc(100vw * calc(20 / var(--reference-display-w)));
+    font-size: calc(100vw* calc(22 / 1920));
+    margin-bottom: .5ch;
 }
 
 .case-data span {
@@ -92,8 +94,9 @@ h3 {
     border-radius: calc(100vw* calc(9 / var(--reference-display-w)));
     text-align: center;
     padding-inline: 1ch;
-    width: 9CH;
+    width: 6CH;
     font-family: 'Gilroy Bold';
+    font-size: calc(100vw* calc(22 / 1920));
 }
 
 @media (aspect-ratio < 1/1) {
@@ -133,7 +136,15 @@ h3 {
     }
 
     .case-data span {
-        font-size: xx-large;
+        font-size: 3em;
+        display: flex;
+        gap: .5ch;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .case-data span img {
+        height: 75%;
     }
 
     h3 {

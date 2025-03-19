@@ -94,7 +94,7 @@ video {
     backdrop-filter: blur(20px);
     padding-block: calc(100vw * calc(43 / var(--reference-display-w)));
     padding-inline: calc(100vw * calc(25 / var(--reference-display-w)));
-    border-radius: calc(100vw * calc(18 / var(--reference-display-w)));
+    border-radius: calc(2* calc(100vw* calc(22 / 1920)));
     border: 1px solid rgba(151, 151, 151, 1);
     pointer-events: none;
 }

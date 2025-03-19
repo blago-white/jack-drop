@@ -9,9 +9,10 @@
     padding: calc(100vw* calc(25 / var(--reference-display-w)));
     min-height: 60vh;
     background: rgb(0, 0, 0, .3);
-    backdrop-filter: blur(1vh);
+    backdrop-filter: blur(1em);
     border: 1px solid rgba(151, 151, 151, 1);
-    border-radius: 3ch;
+
+    border-radius: calc(2* calc(100vw* calc(22 / 1920)));
 }
 
 .bonus-buy-content {

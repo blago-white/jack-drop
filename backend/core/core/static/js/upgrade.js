@@ -234,10 +234,10 @@ async function getReceiveItems(minItemPrice) {
         receive.innerHTML += receiveHTML;
         receiveDesctop.innerHTML += receiveDesctopHTML;
     } else {
-        receive.style = "display:flex;align-content: center;justify-content: center;"
+        receive.style = "display:flex;align-content: center;justify-content: center;border-radius: calc(2* calc(100vw* calc(22 / 1920)));"
         receive.innerHTML = "Нет предметов для апгрейда";
 
-        receiveDesctop.style = "display:flex;align-content: center;justify-content: center;"
+        receiveDesctop.style = "display:flex;align-content: center;justify-content: center;border-radius: calc(2* calc(100vw* calc(22 / 1920)));";
         receiveDesctop.innerHTML = "Нет предметов для апгрейда";
     }
 }

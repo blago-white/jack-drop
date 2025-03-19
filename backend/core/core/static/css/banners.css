@@ -60,6 +60,7 @@
     font-size: calc(100vw * calc(48 / var(--reference-display-w)));
     max-width: min-content;
     margin-bottom: 0.5ch;
+    text-align: start;
 }
 
 .refcode {
@@ -110,5 +111,9 @@
 
     .banner-illustration {
         left: 44%;
+    }
+
+    .banner-content {
+        width: 150%;
     }
 }

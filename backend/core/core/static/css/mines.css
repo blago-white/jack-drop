@@ -10,10 +10,12 @@ body {
 }
 
 .game-control-inputs, .game-info, .game-fieldset {
-    border-radius: calc(100vw * calc(18 / var(--reference-display-w)))!important;
+    border-radius: calc(2* calc(100vw* calc(22 / 1920)))!important;
     background: rgb(0, 0, 0, .3);
-    backdrop-filter: blur(1vh);
     border: 1px solid rgba(151, 151, 151, 1);
+    backdrop-filter: blur(1em);
+
+    transition: all .2s ease;
 }
 
 .game-controls {
@@ -25,7 +27,8 @@ body {
 }
 
 .control-sec-title {
-    margin-bottom: calc(100vw * calc(20 / var(--reference-display-w)));
+    margin-block: calc(100vw* calc(20 / var(--reference-display-w)));
+    font-size: calc(100vw* calc(39 / var(--reference-display-w)));
 }
 
 .game-control-inputs {
@@ -77,13 +80,12 @@ input {
 .game-info-field {
     display: flex;
     align-items: center;
-    background: firebrick;
     height: 100%;
     width: 100%;
     justify-content: center;
-    background: black;
+    background: #60606050;
     border: inherit;
-    border-radius: calc(100vw * calc(11 / var(--reference-display-w)));;
+    border-radius: calc(100vw* calc(11 / var(--reference-display-w)));
 }
 
 .bet-presets {
@@ -112,20 +114,36 @@ input {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    padding: calc(100vw * calc(16 / var(--reference-display-w)));
-    background: url('../img/mines.png');
+    padding: calc(100vw* calc(16 / var(--reference-display-w)));
+    background: url(../img/mines.png);
     background-size: cover;
-    gap: calc(100vw * calc(10 / var(--reference-display-w)));
+    gap: calc(100vw* calc(10 / var(--reference-display-w)));
+    aspect-ratio: 1 / 1;
+    width: 50%;
+    height: 50%;
 }
 
 .game-fieldset div {
     width: calc(100vw* calc(153 / var(--reference-display-w)));;
     aspect-ratio: 1/1;
-    background: rgba(18, 18, 18, 0.2);
+    background: rgba(18, 18, 18, .2);
     border-radius: inherit;
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(.5em);
     border: 0.95px solid rgba(151, 151, 151, 1);
     display: flex;
+    border-radius: 2ch;
+
+    transition: all .2s ease;
+}
+
+@media (hover: hover) {
+    .game-fieldset div:hover {
+        transform: scale(1.05);
+    }
+}
+
+.game-control-inputs:hover {
+    background-color: #33333350!important;
 }
 
 @media (aspect-ratio < 1/1) {
