@@ -63,7 +63,7 @@ async function renderLotteryInfo(renderMainPrize) {
         </h3>
         <div class="lottery-prize-info lotterty-info-row">
             <img src="${item.image_path}" class="lottery-prize-img">
-            <span class="lottery-prize-name">${item.title}<br><span style="color: #FF007A;">${item.price}<img src="/core/static/img/gear.png"></span></span>
+            <span class="lottery-prize-name">${item.title}<br><span style="color: #FF007A;">${item.price} <img src="/core/static/img/gear.png"></span></span>
         </div>
         <div class="lottery-requirement lotterty-info-row">
             <span>${requirementText}</span>
@@ -79,7 +79,7 @@ async function renderLotteryInfo(renderMainPrize) {
             </div>
             <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: ${lottery.display_participants_count+1}</span>
         </div>
-        <button class="lottery-make-part-btn lotterty-info-row" type="button" style="${(!alreadyTakesPart) ? 'cursor: default;transform: none;' : ''}" onclick="${alreadyTakesPart ? '' : 'takePart(' + renderMainPrize + ');'}"}return false;">${alreadyTakesPart ? "ВЫ УЖЕ УЧАСТВУЕТЕ!" : "УЧАСТВОВАТЬ"}</button>
+        <button class="lottery-make-part-btn lotterty-info-row" type="button" style=${(!alreadyTakesPart) ? "cursor: default;transform: none;" : ""} onclick=${alreadyTakesPart ? "return false;" : "takePart(" + renderMainPrize + ");return false;"}>${alreadyTakesPart ? "ВЫ УЖЕ УЧАСТВУЕТЕ!" : "УЧАСТВОВАТЬ"}</button>
     </div>
     `;
 
