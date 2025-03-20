@@ -10,6 +10,8 @@ function addCases(category, cases, bonuses) {
     let realPrice;
     let priceLabel;
 
+    let longPriceLabel = false;
+
     cases.forEach((element) => {
         if (bonuses && bonuses.free.includes(element.id)) {
             realPrice = 0
@@ -17,17 +19,22 @@ function addCases(category, cases, bonuses) {
             realPrice = ((100 - bonuses.discounted[element.id]) / 100 * element.price).toFixed(2)
         }
 
+        longPriceLabel = false;
+
         if (realPrice != undefined) {
-            priceLabel = `${realPrice} <span style="text-decoration: line-through;color: rgb(210, 210, 210);">${element.price}</span>`
+            priceLabel = `${realPrice} <span style="text-decoration: line-through;color: rgb(210, 210, 210);font-size: 1em;">${element.price}</span>`
+            longPriceLabel = true;
         } else {
             priceLabel = `${element.price}`
+            longPriceLabel = false;
         }
+
 
         html += `
             <li class="case-data" onclick="location.href = 'case/${element.id}/'">
                 <img src="${ element.image_path }" class="case-image">
                 <h3>${ element.title }</h3>
-                <span>${priceLabel} <img src="/core/static/img/gear.png"></span>
+                <span style="${longPriceLabel ? 'width: 10ch' : ''}">${priceLabel} <img src="/core/static/img/gear.png"></span>
             </li>
         `
 
