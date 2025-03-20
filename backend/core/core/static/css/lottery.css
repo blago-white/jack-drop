@@ -12,10 +12,6 @@
     border: calc(100vw* calc(1 / 1920)) solid #979797;
 }
 
-.lottery-banner:hover {
-    background: #33333350 linear-gradient(90deg, #349aff00 23%, #ea0584 100%);
-}
-
 .lottery-banner:hover .lottery-header-title {
     transform: scale(1.075);
 }
@@ -261,6 +257,13 @@
 .lottery-expand-close-btn:hover {
     transform: scale(1.5);
 }
+
+@media (hover : hover) {
+    .lottery-banner:hover {
+        background: #33333350 linear-gradient(90deg, #349aff00 23%, #ea0584 100%);
+    }
+}
+
 
 @media (aspect-ratio < 1/1) {
     .mobile-guns-separator {
