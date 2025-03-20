@@ -6,6 +6,13 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function gcd () {
+    const w = screen.width;
+    const h = screen.height;
+
+    return w/h;
+}
+
 async function takePart(toMain) {
     const headers = new Headers();
 
@@ -83,7 +90,7 @@ async function renderLotteryInfo(renderMainPrize) {
             </div>
             <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: ${lottery.display_participants_count+1}</span>
         </div>
-        <button class="lottery-make-part-btn lotterty-info-row" type="button" style=${(!alreadyTakesPart) ? "cursor: default;transform: none;" : ""} onclick=${isAuthenticated ? (alreadyTakesPart ? "return false;" : "takePart(" + renderMainPrize + ");return false;") : "location.href = '/auth/'"}>${isAuthenticated ? (alreadyTakesPart ? "ВЫ УЖЕ УЧАСТВУЕТЕ!" : "УЧАСТВОВАТЬ") : "РЕГИСТРАЦИЯ"}</button>
+        <button class="lottery-make-part-btn lotterty-info-row" type="button" style=${(!alreadyTakesPart) ? "cursor: default;transform: none;" : ""} onclick=${isAuthenticated ? (alreadyTakesPart ? "return false;" : "takePart(" + renderMainPrize + ");return false;") : "location.href = '/auth/';"}>${isAuthenticated ? (alreadyTakesPart ? "ВЫ УЖЕ УЧАСТВУЕТЕ!" : "УЧАСТВОВАТЬ") : "РЕГИСТРАЦИЯ"}</button>
     </div>
     `;
 
@@ -127,16 +134,24 @@ async function countDown(small=false) {
             return;
         }
 
-        console.log(time);
-
         const sec = parseInt(time%60);
 
         document.getElementById('lotteryTimerValue').innerHTML = `${zeroPad(parseInt(time / 60 / 60), 2)}:${zeroPad(parseInt((time % (60*60)) / 60), 2)}:${zeroPad(parseInt(time%60), 2)}`
-        document.getElementById('lotteryTimerRing').style.background = `radial-gradient(closest-side, rgb(255 0 122) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) ${sec / 60 * 100}%, rgba(255, 255, 255, 0.2) 0deg)`;
+
+        if (gcd() > 1/1) {
+            document.getElementById('lotteryTimerRing').style.background = `radial-gradient(closest-side, rgb(255 0 122) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) ${sec / 60 * 100}%, rgba(255, 255, 255, 0.2) 0deg)`;
+        } else {
+            document.getElementById('lotteryTimerRing').style.background = `radial-gradient(closest-side, rgb(34 34 34) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) 30%, rgba(255, 255, 255, 0.2) 0deg) !important`;
+        }
 
         try {
             document.getElementById('lotteryExpandTimerValue').innerHTML = `${zeroPad(parseInt(time / 60 / 60), 2)}:${zeroPad(parseInt((time % (60*60)) / 60), 2)}:${zeroPad(parseInt(time%60), 2)}`
-            document.getElementById('lotteryExpandTimerRing').style.background = `radial-gradient(closest-side, rgb(255 0 122) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) ${sec / 60 * 100}%, rgba(255, 255, 255, 0.2) 0deg)`;
+
+            if (gcd() > 1/1) {
+                document.getElementById('lotteryTimerRing').style.background = `radial-gradient(closest-side, rgb(255 0 122) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) ${sec / 60 * 100}%, rgba(255, 255, 255, 0.2) 0deg)`;
+            } else {
+                document.getElementById('lotteryTimerRing').style.background = `radial-gradient(closest-side, rgb(34 34 34) 79%, transparent 80%, transparent 100%), conic-gradient(rgb(255, 255, 255) 30%, rgba(255, 255, 255, 0.2) 0deg) !important`;
+            }
         } catch {}
 
         await sleep(1000);
@@ -238,9 +253,7 @@ async function main() {
 //
 //    console.log(user);
 
-    if (user && ((user.id == 57) || (user.id == 113))) {
-        await renderData(await getCurrentLottery());
-    }
+    await renderData(await getCurrentLottery());
 }
 
 window.renderLotteryInfo = renderLotteryInfo;
