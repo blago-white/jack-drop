@@ -279,6 +279,16 @@
         height: 100%;
     }
 
+    .lottery-prize-name img {
+        height: 2ch;
+    }
+
+    .lottery-prize-name span {
+        display: flex;
+        align-items: center;
+        gap: .5ch;
+    }
+
     .prize-gun.end {
         display: flex;
         flex-direction: row;

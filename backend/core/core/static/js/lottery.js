@@ -65,6 +65,12 @@ async function renderLotteryInfo(renderMainPrize) {
         requirementText = `При балансе > ${lottery.deposit_amount_require} вы можете так же участвовать в главном розыгрыше`;
     }
 
+    let replenishButtonCode = "";
+
+    if (isAuthenticated) {
+        replenishButtonCode = '<button class="lottery-requirement-replenish-btn" onclick="location.href = '/replenish/'">ПОПОЛНИТЬ</button>'
+    }
+
     const alreadyTakesPart = renderMainPrize ? lottery.take_part_main : lottery.take_part_second;
 
     document.getElementById("prize-wrappper").innerHTML = `
@@ -78,7 +84,7 @@ async function renderLotteryInfo(renderMainPrize) {
         </div>
         <div class="lottery-requirement lotterty-info-row">
             <span>${requirementText}</span>
-            <button class="lottery-requirement-replenish-btn" onclick="location.href = '/replenish/'">ПОПОЛНИТЬ</button>
+            ${replenishButtonCode}
         </div>
         <div class="lottery-stats lotterty-info-row">
             <div class="timer lottery-timer" style="">
