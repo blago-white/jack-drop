@@ -73,8 +73,6 @@ async function renderLotteryInfo(renderMainPrize) {
 
     const alreadyTakesPart = renderMainPrize ? lottery.take_part_main : lottery.take_part_second;
 
-    const conversionButtonStyle = (!alreadyTakesPart) ? "cursor: default;transform: none;" : "";
-
     const conversionButtonOnclickCode = isAuthenticated ? (alreadyTakesPart ? "return false;" : "takePart(" + renderMainPrize + ");return false;") : "location.href = '/auth/';";
 
     document.getElementById("prize-wrappper").innerHTML = `
@@ -100,7 +98,7 @@ async function renderLotteryInfo(renderMainPrize) {
             </div>
             <span class="lottery-expand-partipicant-count">УЧАСТНИКОВ: ${lottery.display_participants_count+1}</span>
         </div>
-        <button class="lottery-make-part-btn lotterty-info-row" type="button" style="${conversionButtonStyle}" onclick="${conversionButtonOnclickCode}">${isAuthenticated ? (alreadyTakesPart ? "ВЫ УЖЕ УЧАСТВУЕТЕ!" : "УЧАСТВОВАТЬ") : "РЕГИСТРАЦИЯ"}</button>
+        <button class="lottery-make-part-btn lotterty-info-row" type="button" onclick="${conversionButtonOnclickCode}">${isAuthenticated ? (alreadyTakesPart ? "ВЫ УЖЕ УЧАСТВУЕТЕ!" : "УЧАСТВОВАТЬ") : "РЕГИСТРАЦИЯ"}</button>
     </div>
     `;
 
