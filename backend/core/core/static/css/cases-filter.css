@@ -148,7 +148,7 @@
     .cases-filters {
         border-radius: calc(100vw * calc(36.5 / 960));
         padding: 5%;
-        background-color: #1111115;
+        background-color: #11111150;
         backdrop-filter: blur(calc(100vw* calc(30 / 1920)));
         blur(10em)!important;
     }
