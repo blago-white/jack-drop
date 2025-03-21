@@ -106,7 +106,7 @@
     }
 
     .stats-table {
-        background-color: #33333350;
+        background-color: #1111115;
         backdrop-filter: blur(calc(100vw* calc(30 / 1920)));
     }
 

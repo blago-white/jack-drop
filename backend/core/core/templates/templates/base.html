@@ -222,6 +222,8 @@
 
         if (gcd() > 1/1) {
             document.addEventListener("scroll", () => {document.getElementById("bgFilter").style.backgroundPosition = `${100}% ${Math.max(-document.documentElement.scrollTop / (2.5 + (document.documentElement.scrollTop / 200)), -400)}%`;})
+        } else {
+            document.addEventListener("scroll", () => {document.getElementById("bgFilter").style.backgroundPosition = `${100}% ${50 + Math.max(-document.documentElement.scrollTop / (5 + (document.documentElement.scrollTop / 25)), -400)}%`;})
         }
     </script>
     {% block extrascripts %}

@@ -1,9 +1,8 @@
 @media (aspect-ratio < 1/1) {
     .bg-filter-img {
         background: url(/core/static/img/bg.jpg);
-        background-size: cover;
+        background-size: 499%;
         background-repeat: no-repeat;
-        background-position: left;
         height: 100vh !important;
         filter: blur(2em);
     }
