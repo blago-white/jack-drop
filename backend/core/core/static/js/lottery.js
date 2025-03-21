@@ -68,7 +68,7 @@ async function renderLotteryInfo(renderMainPrize) {
     let replenishButtonCode = "";
 
     if (isAuthenticated) {
-        replenishButtonCode = '<button class="lottery-requirement-replenish-btn" onclick="location.href = '/replenish/'">ПОПОЛНИТЬ</button>'
+        replenishButtonCode = `<button class="lottery-requirement-replenish-btn" onclick="location.href = '/replenish/'">ПОПОЛНИТЬ</button>`
     }
 
     const alreadyTakesPart = renderMainPrize ? lottery.take_part_main : lottery.take_part_second;
