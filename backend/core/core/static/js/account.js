@@ -87,7 +87,7 @@ async function renderInfo() {
 
 
     document.getElementById('usr-name').innerHTML = `${username}<span class="account-id-val">ID ${response.id}</span>`;
-    document.getElementById('balance').innerHTML = `${Math.floor(response.balance)}`;
+    document.getElementById('balance').innerHTML = `БАЛАНС: <b>${Math.floor(response.balance)}</b>`;
     document.getElementById('trade-link').value = response.trade_link;
 }
 
