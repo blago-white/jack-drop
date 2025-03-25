@@ -252,6 +252,11 @@ h3 {
     overflow: hidden;
 }
 
+.bonuse_:hover {
+    transform: scale(1.02);
+    background-color: #FF007A;
+}
+
 @media (aspect-ratio < 1/1) {
     .game-history-table.drop {
         grid-template-columns: repeat(3, 1fr);

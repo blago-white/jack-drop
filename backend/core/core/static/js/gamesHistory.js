@@ -175,8 +175,8 @@ function renderBonuses(result) {
     result.forEach((element) => {
         c += 1;
 
-    let style1 = "margin-right: -15%;height: 131%;margin-top: 21%;";
-    let style2 = "margin-right: -10%;height: 100%;";
+    let style1 = "margin-right: -10%;width: 54%;height: auto;";
+    let style2 = "margin-right: -10%;width: 54%;height: auto;";
 
     let style;
 
@@ -187,13 +187,12 @@ function renderBonuses(result) {
     }
 
         if (element.bonus_type == "US") {
-            path = "https://s.iimg.su/s/01/UJerBPlbsfvxIUCmPLWWeTIi2FpNCBU42GpxaVdm.png"
+            path = "https://s.iimg.su/s/25/hNQxLOAWR6M9X1SaGB5qpxXDEExmbgA4l7Zaq49B.png"
         } else if (element.bonus_type == "CD") {
-            path = "https://s.iimg.su/s/01/ZerBhmKVJTdIb2MPyCWm89mjF3bnClK8bzY4np1S.png"
+            path = "https://s.iimg.su/s/25/khzavJhECphtVsVQLOu31xQefiTejDHJhIrb4BEw.png"
         } else {
-            path = "https://s.iimg.su/s/01/UJerBPlbsfvxIUCmPLWWeTIi2FpNCBU42GpxaVdm.png"
+            path = "https://s.iimg.su/s/25/X5s3CLf5s7VCngiq6PKVUeO2rqUJR0YZ3S7Pi0zE.png"
         }
-
 
         table.innerHTML += `
                 <article class="bonuse_" id="${c}">
