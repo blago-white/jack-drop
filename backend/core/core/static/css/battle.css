@@ -165,6 +165,8 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+
+    border-radius: calc(2* calc(100vw* calc(22 / 1920))) !important;
 }
 
 .last-battle-info {
@@ -214,6 +216,8 @@
 
     display: flex;
     flex-direction: column;
+
+    border-radius: calc(2* calc(100vw* calc(22 / 1920))) !important;
 }
 
 .hint-steps {
@@ -242,6 +246,8 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-color: #0E0E0E;
+
+    border-radius: calc(2* calc(100vw* calc(22 / 1920))) !important;
 }
 
 .battles {
@@ -250,6 +256,8 @@
     background: rgba(0, 0, 0, 0.3);
     padding: calc(100vw* calc(40 / var(--reference-display-w)));
     width: 90%;
+
+    border-radius: calc(2* calc(100vw* calc(22 / 1920))) !important;
 }
 
 .battle {
