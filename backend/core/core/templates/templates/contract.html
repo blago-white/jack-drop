@@ -59,19 +59,32 @@ Contract | Jack Drop
             display: flex;
             flex-direction: column;
             margin-inline: auto;
-        "><span style="
-            font-size: 2.5em;
-            font-family: 'Gilroy Semibold';
-            line-height: 83%;
-        "><span id="contract-amount">0</span><img src="https://cdn-icons-png.flaticon.com/128/40/40031.png" style="
-            height: .7em;
-            margin-left: .2ch;
-            filter: invert(1);););
-        "></span><span style="
-            color: #ccc;
+        ">
+            <span style="
+                font-size: 2.5em;
+                font-family: 'Gilroy Semibold';
+                line-height: 83%;
+            ">
+                <span style="
+                    font-size: 0.2em;
+                    color: rgb(200, 200, 200);
+                    display: block;
+                    line-height: 1;
+                ">Сумма</span>
+                <span id="contract-amount">0</span>
+                <img src="https://cdn-icons-png.flaticon.com/128/40/40031.png" style="
+                height: .7em;
+                margin-left: .2ch;
+                filter: invert(1);););
+            ">
+            </span>
+            <span style="font-size: .5em;color: rgb(200, 200, 200);display: block;line-height: 1;font-family: 'Gilroy SemiBold';margin-top: 1ch;">Вы получите предмет ценой</span>
+            <span style="
+            color: #fff;
             font-size: .7em;
             font-family: 'Gilroy Semibold';
-        "><span id="prst">0</span> &gt; <span id="prsp">0</span></span></div>
+        "><span id="prst">0</span> &gt; <span id="prsp">0</span></span>
+        </div>
         <img class="glow" id="contract-glow" src="{% static 'img/glow.png' %}" style="pointer-events: none;grid-row: 1;grid-column: 1;">
     </div>
     <div class="inventory-items" id="inventory-items"></div>
