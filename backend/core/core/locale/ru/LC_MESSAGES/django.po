@@ -363,10 +363,8 @@ msgid "Deposit Amount"
 msgstr "Сумма ставки"
 
 #: templates/templates/mines.html:35
-#, fuzzy
-#| msgid "Mines"
 msgid "Mines Count"
-msgstr "Мины"
+msgstr "Колличество Мин"
 
 #: templates/templates/mines.html:66
 msgid "Random"
