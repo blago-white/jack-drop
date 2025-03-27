@@ -265,7 +265,7 @@ body {
     }
 
     #second-u-i {
-        display: none;
+        display: none !important;
     }
 
     .upgrade-item {
@@ -307,7 +307,10 @@ body {
         padding-block: 0ch!important;
     }
 
-    .upgrade-items-desc { display: none; }
+    .upgrade-items-desc {
+        margin-block: 10%;
+        font-size: calc(100vw* calc(23 / 960));
+    }
 
     .upgrade-item-img-gun {
         display: none;
@@ -317,7 +320,7 @@ body {
         display: flex;
         grid-row: 1;
         grid-column: 1;
-        gap: -100px;
+        display: none;
     }
 
     .ugpgrade-hint {

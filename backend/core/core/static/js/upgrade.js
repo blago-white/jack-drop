@@ -252,6 +252,7 @@ function selectGrantedItem(elem) {
 
     if (gcd() < 1/1) {
         document.getElementById('u-m-1').src = grantedItems.get(raw_id).image_path;
+        document.getElementById("twinItems").style.display = "flex";
     } else {
         document.getElementById('u-d-1').src = grantedItems.get(raw_id).image_path;
     }
@@ -274,6 +275,7 @@ function selectReceiveItem(elem) {
     const raw_id = parseInt(elem.id.slice(2));
     if (gcd() < 1/1) {
         document.getElementById('u-m-2').src = receiveItems.get(raw_id).image_path;
+        document.getElementById("twinItems").style.display = "flex";
     } else {
         document.getElementById('u-d-2').src = receiveItems.get(raw_id).image_path;
     }
