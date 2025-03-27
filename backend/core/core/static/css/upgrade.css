@@ -129,8 +129,13 @@ body {
 
 .upgrade-item-img-gun {
     position: absolute;
-    margin-top: 5vh;
+/*    margin-top: 5vh;
     width: 11vw;
+*/
+    margin: 0px;
+    height: 29%;
+    width: auto;
+
     transition: filter 5s linear, opacity .5s ease, transform .03s ease-out;
 }
 
