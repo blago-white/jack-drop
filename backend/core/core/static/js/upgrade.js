@@ -256,7 +256,8 @@ function selectGrantedItem(elem) {
         document.getElementById('u-d-1').src = grantedItems.get(raw_id).image_path;
     }
 
-    document.getElementById('first-u-i').style = "";
+    document.getElementById('first-u-i').style = "height: 100%;width: 100%;display: flex;align-items: center;justify-content: center;";
+    document.getElementById('upgradeDescLeft').display = "none";
 
     selectedGranted = elem.id;
     elem.style.filter = 'grayscale(1)';
@@ -277,7 +278,8 @@ function selectReceiveItem(elem) {
         document.getElementById('u-d-2').src = receiveItems.get(raw_id).image_path;
     }
 
-    document.getElementById('second-u-i').style = "";
+    document.getElementById('second-u-i').style = "height: 100%;width: 100%;display: flex;align-items: center;justify-content: center;";
+    document.getElementById('upgradeDescRight').display = "none";
 
     selectedReceive = elem.id;
     elem.style.filter = 'grayscale(1)';
