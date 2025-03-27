@@ -290,7 +290,21 @@ body {
     .upgrade-item-img-gun-second {
         display: block;
         position: relative;
-        width: calc(100vw * calc(329 / 960));
+        height: 70%;
+        width: auto;
+        margin-block: 11%;
+    }
+
+    .upgrade-item {
+        height: 100%!important;
+        width: 100%!important;
+        display: flex!important;
+        align-items: center!important;
+        justify-content: center!important;
+        backdrop-filter: blur(calc(100vw* calc(40 / 1920)))!important;
+        border: 1px solid #ccc!important;
+        border-radius: calc(100vw* calc(18 / 960))!important;
+        padding-block: 0ch!important;
     }
 
     .upgrade-items-desc { display: none; }
