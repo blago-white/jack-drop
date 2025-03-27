@@ -305,6 +305,7 @@ body {
         border: 1px solid #ccc!important;
         border-radius: calc(100vw* calc(18 / 960))!important;
         padding-block: 0ch!important;
+        border-radius: calc(100vw* calc(73 / 1920)) !important;
     }
 
     .upgrade-items-desc {
@@ -332,6 +333,7 @@ body {
         padding-block: 5%;
         margin: 0px;
         gap: calc(100vw* calc(31 / 960));
+        border-radius: calc(100vw* calc(73 / 1920)) !important;
     }
 
     .grant-items {
