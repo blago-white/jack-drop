@@ -16,23 +16,34 @@ Upgrade | Jack Drop
 
 {% block main %}
 <section class="upgrade-sec">
-    <div class="upgrade-item">
+    <div class="upgrade-item" style="
+        background: rgb(20, 20, 20, .76);
+        border-radius: 1em;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 75%;
+    ">
         <div class="twin-items">
             <img class="upgrade-item-img-gun-second" id="u-m-1" src="{% static 'img/testgun.png' %}">
             <img class="upgrade-item-img-gun-second" id="u-m-2" src="{% static 'img/testgun.png' %}">
         </div>
-        <img class="upgrade-item-img-gun" id="u-d-1" src="{% static 'img/testgun.png' %}">
-        <img src="{% static 'img/upgrade-item-bg.png' %}" class="upgrade-item-img">
-        <span class="upgrade-items-desc">{% trans 'Left Part Descriprion' %}
+        <span id="upgradeDescLeft" class="upgrade-items-desc">{% trans 'Left Part Descriprion' %}
         </span>
     </div>
     <div class="upgrade-chance">
         <img id="update-chance-circle" src="{% static 'img/upgrade-chance-0.png' %}">
         <span class="upgrade-chance-percent" id="upgrade-percent">0%</span>
     </div>
-    <div class="upgrade-item" id="second-u-i">
+    <div class="upgrade-item" id="second-u-i"  style="
+        background: rgb(20, 20, 20, .76);
+        border-radius: 1em;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 75%;
+    ">
         <img class="upgrade-item-img-gun" id="u-d-2" src="{% static 'img/testgun.png' %}">
-        <img class="receive-item-glow" style="transform: scale(0);opacity: 0;" id="receive-item-glow" src="{% static 'img/glow.png' %}">
         <img src="{% static 'img/upgrade-item-bg.png' %}" class="upgrade-item-img">
         <span class="upgrade-items-desc">{% trans 'Right Part Desctiption' %}</span>
     </div>

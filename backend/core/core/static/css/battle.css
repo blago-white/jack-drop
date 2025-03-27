@@ -355,6 +355,14 @@
     width: 100%;
 }
 
+.battle .button {
+    transition: all .2s ease;
+}
+
+.battle .button:hover {
+    transform: scale(1.05);
+}
+
 @media (aspect-ratio < 1/1) {
     .bg-filter {
         height: 100vh;

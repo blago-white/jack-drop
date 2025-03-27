@@ -79,6 +79,9 @@
     display: flex;
     align-items: center;
     gap: 1ch;
+    backdrop-filter: blur(calc(100vw* calc(22/ 1920)))!important;
+    border-radius: calc(2* calc(100vw* calc(22 / 1920)))!important;
+    border: calc(100vw* calc(1 / 1920)) solid #979797!important;
 }
 
 .bonus-level {

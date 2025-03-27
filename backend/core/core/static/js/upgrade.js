@@ -84,10 +84,9 @@ async function getInevntoryItems() {
     );
 
     const result = await response.json();
+
     let rareColor;
     let c = 0;
-
-    console.log(result);
 
     if (result && (result.length)) {
         result.forEach((element) => {
