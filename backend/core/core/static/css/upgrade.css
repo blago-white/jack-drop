@@ -35,9 +35,10 @@ article:hover {
     grid-template-columns: 1fr;
     align-items: center;
     height: calc(100vw* calc(282 / var(--reference-display-w)));
-    aspect-ratio: 1/1;
-    margin-top: 25%;
-    justify-items: center
+    aspect-ratio: 1 / 1;
+    margin-top: 12.5%;
+    justify-items: center;
+    margin-bottom: 12.5%;
 }
 
 .upgrade-chance img {
