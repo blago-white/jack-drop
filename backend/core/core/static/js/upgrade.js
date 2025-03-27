@@ -256,6 +256,8 @@ function selectGrantedItem(elem) {
         document.getElementById('u-d-1').src = grantedItems.get(raw_id).image_path;
     }
 
+    document.getElementById('u-d-1').style = "";
+
     selectedGranted = elem.id;
     elem.style.filter = 'grayscale(1)';
 
@@ -274,6 +276,8 @@ function selectReceiveItem(elem) {
     } else {
         document.getElementById('u-d-2').src = receiveItems.get(raw_id).image_path;
     }
+
+    document.getElementById('u-d-2').style = "";
 
     selectedReceive = elem.id;
     elem.style.filter = 'grayscale(1)';
