@@ -17,12 +17,12 @@ Upgrade | Jack Drop
 {% block main %}
 <section class="upgrade-sec">
     <div class="upgrade-item" id="first-u-i" style="
-        background: rgb(20, 20, 20, .76);
-        border-radius: 1em;
-        align-items: center;
-        justify-content: center;
         height: 100%;
-        width: 75%;
+        width: 100%;
+        backdrop-filter: blur(calc(100vw* calc(40 / 1920)));
+        background: rgba(51, 51, 51, 0.2);
+        border: 1px solid rgba(151, 151, 151, 1);
+        border-radius: calc(2* calc(100vw* calc(22 / 1920)));
     ">
         <div class="twin-items">
             <img class="upgrade-item-img-gun-second" id="u-m-1" src="{% static 'img/testgun.png' %}">
@@ -36,12 +36,12 @@ Upgrade | Jack Drop
         <span class="upgrade-chance-percent" id="upgrade-percent">0%</span>
     </div>
     <div class="upgrade-item" id="second-u-i"  style="
-        background: rgb(20, 20, 20, .76);
-        border-radius: 1em;
-        align-items: center;
-        justify-content: center;
         height: 100%;
-        width: 75%;
+        width: 100%;
+        backdrop-filter: blur(calc(100vw* calc(40 / 1920)));
+        background: rgba(51, 51, 51, 0.2);
+        border: 1px solid rgba(151, 151, 151, 1);
+        border-radius: calc(2* calc(100vw* calc(22 / 1920)));
     ">
         <img class="upgrade-item-img-gun" id="u-d-2" src="{% static 'img/testgun.png' %}">
         <span id="upgradeDescRight" class="upgrade-items-desc">{% trans 'Right Part Desctiption' %}</span>
