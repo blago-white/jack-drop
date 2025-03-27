@@ -257,7 +257,7 @@ function selectGrantedItem(elem) {
     }
 
     document.getElementById('first-u-i').style = "height: 100%;width: 100%;display: flex;align-items: center;justify-content: center;";
-    document.getElementById('upgradeDescLeft').display = "none";
+    document.getElementById('upgradeDescLeft').style.display = "none";
 
     selectedGranted = elem.id;
     elem.style.filter = 'grayscale(1)';
@@ -279,7 +279,7 @@ function selectReceiveItem(elem) {
     }
 
     document.getElementById('second-u-i').style = "height: 100%;width: 100%;display: flex;align-items: center;justify-content: center;";
-    document.getElementById('upgradeDescRight').display = "none";
+    document.getElementById('upgradeDescRight').style.display = "none";
 
     selectedReceive = elem.id;
     elem.style.filter = 'grayscale(1)';
