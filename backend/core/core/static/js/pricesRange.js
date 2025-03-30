@@ -34,3 +34,17 @@ document.getElementById("price5").addEventListener("click", () => {
 
     location.href = url.href;
 })
+
+const maxUrlParam = parseInt(url.searchParams.get("max"));
+
+if (maxUrlParam == 250) {
+    document.getElementById("price1").style.backgroundColor = "#4a7cff";
+} else if (maxUrlParam == 500) {
+    document.getElementById("price2").style.backgroundColor = "#4a7cff";
+} else if (maxUrlParam == 1000) {
+    document.getElementById("price3").style.backgroundColor = "#4a7cff";
+} else if (maxUrlParam == 2500) {
+    document.getElementById("price4").style.backgroundColor = "#4a7cff";
+} else if (maxUrlParam == 10000) {
+    document.getElementById("price5").style.backgroundColor = "#4a7cff";
+}
