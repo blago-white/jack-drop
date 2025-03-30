@@ -1,58 +1,36 @@
-const inputLeft = document.getElementById("pri");
-const inputRight = document.getElementById("pri2");
-const inputedPrice1 = document.getElementById("range-price-1");
-const inputedPrice2 = document.getElementById("range-price-2");
-
 const url = new URL(document.location.href);
 
-let leftValue = parseInt(inputLeft.value);
-let rightValue = parseInt(inputRight.value);
-
-function changeInputedPrice(event, iid) {
-    if (iid == "l") {
-        leftValue = Number(inputLeft.value);
-        inputedPrice1.innerHTML = `${leftValue} ₽`;
-
-        if (leftValue > rightValue) {
-            rightValue = leftValue;
-            inputedPrice2.innerHTML = `${leftValue} ₽`;
-            inputRight.value = inputLeft.value;
-        }
-    } else {
-        rightValue = Number(inputRight.value);
-        inputedPrice2.innerHTML = `${rightValue} ₽`;
-
-        if (leftValue > rightValue) {
-            leftValue = rightValue;
-            inputedPrice1.innerHTML = `${leftValue} ₽`;
-            inputLeft.value = inputRight.value;
-        }
-    }
-
-    return [leftValue, rightValue];
-}
-
-function reload() {
-    changed = changeInputedPrice();
-
-    url.searchParams.set("min", changed[0]);
-    url.searchParams.set("max", changed[1]);
+document.getElementById("price1").addEventListener("click", () => {
+    url.searchParams.set("min", 0);
+    url.searchParams.set("max", 250);
 
     location.href = url.href;
-}
-
-inputLeft.addEventListener("input", (e) => {
-    changeInputedPrice(e, "l")
 })
 
-inputRight.addEventListener("input", (e) => {
-    changeInputedPrice(e, "r")
+document.getElementById("price2").addEventListener("click", () => {
+    url.searchParams.set("min", 250);
+    url.searchParams.set("max", 500);
+
+    location.href = url.href;
 })
 
-inputLeft.addEventListener("change", (e) => {
-    reload()
+document.getElementById("price3").addEventListener("click", () => {
+    url.searchParams.set("min", 500);
+    url.searchParams.set("max", 1000);
+
+    location.href = url.href;
 })
 
-inputRight.addEventListener("change", (e) => {
-    reload()
+document.getElementById("price4").addEventListener("click", () => {
+    url.searchParams.set("min", 1000);
+    url.searchParams.set("max", 2500);
+
+    location.href = url.href;
+})
+
+document.getElementById("price5").addEventListener("click", () => {
+    url.searchParams.set("min", 2500);
+    url.searchParams.set("max", 10000);
+
+    location.href = url.href;
 })
