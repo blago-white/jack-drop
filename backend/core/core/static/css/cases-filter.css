@@ -183,6 +183,10 @@
         width: 96%;
     }
 
+    .cases-filters .price-hint img {
+        display: none;
+    }
+
     .cases-filters {
         border-radius: calc(100vw * calc(36.5 / 960));
         padding: 5%;
@@ -198,8 +202,9 @@
     .cases-filters .price-hint {
         font-size: inherit;
         min-width: 2ch;
-        padding: 1ch;
+        padding: .25ch;
         max-width: 9ch;
+        padding-block: 1ch;
     }
 
     .last-hint {
