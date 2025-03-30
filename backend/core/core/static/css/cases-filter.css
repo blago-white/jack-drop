@@ -187,7 +187,7 @@
         display: none;
     }
 
-    .cases-filters .price-hints {
+    .cases-filters .price-hint {
         font-size: inherit;
         min-width: 11ch;
         padding: 1ch;
