@@ -116,6 +116,8 @@
     justify-content: center;
     width: 11ch;
     font-family: 'Gilroy SemiBold';
+    gap: .5ch;
+    border-radius: 2em;
 
     transition: all .2s ease;
 }
@@ -136,6 +138,7 @@
 .button {
     gap: 1ch;
     border: none;
+    border-radius: 2em;
     font-family: "Gilroy SemiBold";
 }
 
