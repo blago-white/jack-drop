@@ -97,6 +97,26 @@
     border-radius: 2ch;
 }
 
+.price-hints-list {
+    display: flex;
+    gap: .5em;
+}
+
+.price-hint {
+    background-color: #0047FF;
+    color: white;
+    border-radius: calc(100vw* calc(16 / var(--reference-display-w)));
+    border: none;
+    text-transform: uppercase !important;
+    font-size: calc(100vw* calc(22 / 1920));
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 8ch;
+    text-align: center;
+    justify-content: center;
+}
+
 .cases-forms {
     display: flex;
     justify-content: space-between;
@@ -122,6 +142,16 @@
         align-items: center;
         gap: 1vh;
         flex-direction: column;
+    }
+
+    .price-hints-list {
+        font-size: calc(100vw * calc(30 / 960));
+    }
+
+    .price-hints {
+        font-size: inherit;
+        padding: 1ch;
+        font-family: "Gilroy SemiBold";
     }
 
     .fast-find-form {
@@ -153,8 +183,20 @@
         blur(10em)!important;
     }
 
-    .cases-filters button {
+    .cases-filters .button {
         display: none;
+    }
+
+    .cases-filters .price-hints {
+        font-size: inherit;
+        min-width: 11ch;
+        padding: 1ch;
+    }
+
+    .last-hint {
+        grid-column-start: -5;
+        grid-column-end: -1;
+        width: auto;
     }
 
     .price-range {

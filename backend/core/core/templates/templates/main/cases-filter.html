@@ -28,25 +28,31 @@
                 </svg>
             </button>
         </form>
-        <form class="price-range-form">
-            <div style="display: flex;width: 100%;justify-content: space-between;">
-                <label id="range-price-1" for="pri">
-                    {% if min_case_price is not None %}{{min_case_price}}{% else %}0{% endif%} ₽
-                </label>
-                <label id="range-price-2" for="pri2">
-                    {% if min_case_price is not None %}{{max_case_price}}{% else %}5000{% endif%} ₽</label>
-            </div>
-            <div class="double-range-input" style="display: flex;">
-                <input type="range" value="{% if min_case_price %}{{min_case_price}}{% else %}0{% endif %}"
-                       min="0"
-                       max="5000"
-                       class="price-range"
-                       id="pri">
-                <input type="range" value="{% if min_case_price %}{{max_case_price}}{% else %}5000{% endif %}"
-                       min="0" max="5000"  class="price-range" id="pri2">
-            </div>
-        </form>
-
+    <div class="price-hints-list">
+        <button class="price-hint">0-250</button>
+        <button class="price-hint">250-500</button>
+        <button class="price-hint">500-1000</button>
+        <button class="price-hint">1000-2500</button>
+        <button class="price-hint last-hint">2500+</button>
+    </div>
+<!--        <form class="price-range-form">-->
+<!--            <div style="display: flex;width: 100%;justify-content: space-between;">-->
+<!--                <label id="range-price-1" for="pri">-->
+<!--                    {% if min_case_price is not None %}{{min_case_price}}{% else %}0{% endif%} ₽-->
+<!--                </label>-->
+<!--                <label id="range-price-2" for="pri2">-->
+<!--                    {% if min_case_price is not None %}{{max_case_price}}{% else %}5000{% endif%} ₽</label>-->
+<!--            </div>-->
+<!--            <div class="double-range-input" style="display: flex;">-->
+<!--                <input type="range" value="{% if min_case_price %}{{min_case_price}}{% else %}0{% endif %}"-->
+<!--                       min="0"-->
+<!--                       max="5000"-->
+<!--                       class="price-range"-->
+<!--                       id="pri">-->
+<!--                <input type="range" value="{% if min_case_price %}{{max_case_price}}{% else %}5000{% endif %}"-->
+<!--                       min="0" max="5000"  class="price-range" id="pri2">-->
+<!--            </div>-->
+<!--        </form>-->
     </div>
     <button class="button" onclick="location.href='/'">
         {% trans 'Clear' %}

@@ -302,6 +302,7 @@
     .prize-gun-img {
         transform: none!important;
         width: 28%!important;
+        aspect-ratio: 1 / 1;
     }
 
     .prizes-container {
