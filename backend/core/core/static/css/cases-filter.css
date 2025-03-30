@@ -115,6 +115,13 @@
     text-align: center;
     justify-content: center;
     width: 11ch;
+    font-family: 'Gilroy SemiBold';
+
+    transition: all .2s ease;
+}
+
+.price-hint:hover {
+    transform: rotate(3deg);
 }
 
 .cases-forms {
@@ -191,15 +198,16 @@
 
     .cases-filters .price-hint {
         font-size: inherit;
-        min-width: 11ch;
+        min-width: 2ch;
         padding: 1ch;
-        max-width: 11ch;
+        max-width: 9ch;
     }
 
     .last-hint {
         grid-column-start: -5;
         grid-column-end: -1;
         width: auto;
+        max-width: none !important;
     }
 
     .price-range {
