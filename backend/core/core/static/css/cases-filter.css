@@ -103,7 +103,7 @@
 }
 
 .price-hint {
-    background-color: #0047FF;
+    background-color: transparent;
     color: white;
     border-radius: calc(100vw* calc(16 / var(--reference-display-w)));
     border: none;
@@ -116,15 +116,16 @@
     justify-content: center;
     width: 11ch;
     font-family: 'Gilroy SemiBold';
-    gap: .5ch;
+    gap: .25ch;
     border-radius: 2em;
-
     transition: all .2s ease;
+    border: 2px solid #0047FF;
 }
 
 .price-hint:hover {
     transform: rotate(3deg);
-    background: #4a7cff;
+    background: linear-gradient(90deg, #0047FF 0%, #a818a7 100%);
+    border: none;
 }
 
 .cases-forms {
