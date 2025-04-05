@@ -32,13 +32,7 @@ class NicepayTransactionApiService:
             "amount": data.amount_from * 100,
             "currency": data.currency,
             "description": f"Пополнение JackDrop на {data.amount_from} {data.currency}",
-            "success_url": endpoint_url.format(
-                **(dict(a=data.amount_from) | (dict(
-                    has_free_case=int(has_free_case),
-                    free_case_img=data.case_img,
-                    free_case_title=data.case_title
-                ) if has_free_case else dict()))
-            ),
+            "success_url": endpoint_url.format(a=data.amount_from),
             "fail_url": settings.FAILED_URL,
         }
 
