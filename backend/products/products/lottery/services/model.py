@@ -7,6 +7,10 @@ from ..models.lottery import LotteryEvent, LotteryParticipant
 class LotteryModelService(BaseModelService):
     default_model = LotteryEvent
 
+    def deactivate_lottery(self, lottery: LotteryEvent):
+        lottery.is_active = False
+        lottery.save()
+
     def get_current(self) -> LotteryEvent | None:
         try:
             return self._model.objects.filter(is_active=True).first()

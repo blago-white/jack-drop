@@ -20,6 +20,8 @@ class LotteryGameService:
             raise ValueError("Current lottery not found!")
 
         if current.is_dummy:
+            self._model_service.deactivate_lottery(lottery=current)
+
             raise ValueError("Current lottery is dummy, without winners!")
 
         winners = self._get_winners(lottery=current)
