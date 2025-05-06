@@ -18,9 +18,9 @@ app.autodiscover_tasks()
 
 config_service = config.ConfigModelService()
 
-app.conf.beat_schedule = {
-    'withdraw-items': {
-        'task': 'withdraw',
-        'schedule': config_service.get_interval(),
-    }
-}
+# app.conf.beat_schedule = {
+#     'withdraw-items': {
+#         'task': 'withdraw',
+#         'schedule': config_service.get_interval(),
+#     }
+# }
