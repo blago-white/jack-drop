@@ -2,6 +2,8 @@ version: '3.7'
 
 services:
   tmarketdb:
+    networks:
+      - "mainnetwork"
     image: postgres:16.2-bookworm
     container_name: tmarketdb
     env_file:
@@ -17,6 +19,8 @@ services:
         retries: 5
     restart: always
   tmarketapp:
+    networks:
+      - "mainnetwork"
     build:
       dockerfile: ./market/Dockerfile
     expose:
@@ -30,6 +34,8 @@ services:
       - ./:/home/app
     restart: always
   tpaymentsapp:
+    networks:
+      - "mainnetwork"
     build:
       dockerfile: ./payments/Dockerfile
         #network_mode: host
@@ -43,6 +49,8 @@ services:
       - ./:/home/app
     restart: always
   tmarketnginx:
+    networks:
+      - "mainnetwork"
     build: nginx
     expose:
       - 80
@@ -55,6 +63,8 @@ services:
       - ./market/static:/home/app/m/static/
       - ./payments/static:/home/app/p/static/
   tmarketredis:
+    networks:
+      - "mainnetwork"
     image: redis:7.2.4-bookworm
     env_file:
       - .env
@@ -68,6 +78,8 @@ services:
       retries: 5
     restart: always
   tmarketcelery:
+    networks:
+      - "mainnetwork"
     build:
       dockerfile: ./celery/Dockerfile
     command: celery -A common beat -f /home/app/market/celery.log -l DEBUG
