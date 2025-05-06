@@ -41,7 +41,6 @@ services:
         #network_mode: host
     expose:
       - 8000
-    network_mode: bridge
     env_file:
       - .env
     container_name: tpaymentsapp
