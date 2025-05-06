@@ -14,9 +14,9 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.autodiscover_tasks()
 
-app.conf.beat_schedule = {
-    'inflate-advantage': {
-        'task': 'inflate_advantage',
-        'schedule': 60*20,
-    }
-}
+# app.conf.beat_schedule = {
+#     'inflate-advantage': {
+#         'task': 'inflate_advantage',
+#         'schedule': 60*20,
+#     }
+# }
