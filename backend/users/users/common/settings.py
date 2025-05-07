@@ -34,7 +34,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = ["https://jackdrop.online"]
+CSRF_TRUSTED_ORIGINS = ["https://jackdrop.online", "http://193.227.241.218"]
 
 # Application definition
 

@@ -23,10 +23,10 @@ class BaseReflinkProcessingView(RedirectView):
 class SteamAuthView(BaseReflinkProcessingView):
     def get(self, request: HttpRequest, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect("https://jackdrop.online/")
+            return redirect("http://193.227.241.218/")
 
         return auth(
-            response_url=f"https://jackdrop.online{reverse('login-callback')}"
+            response_url=f"http://193.227.241.218{reverse('login-callback')}"
                          f"?{self._REFER_LINK_FIELD}={self._ref_id}&",
             use_ssl=False
         )
@@ -44,7 +44,7 @@ class SteamAuthProcessView(BaseReflinkProcessingView):
             steam_uid = request.GET.get("openid.claimed_id").split("/")[-1]
 
         if steam_uid is None:
-            return redirect(to="https://jackdrop.online/?loginfail=1")
+            return redirect(to="http://193.227.241.218/?loginfail=1")
 
         token = self.repository.get(
             steam_id=steam_uid
@@ -62,7 +62,7 @@ class SteamAuthProcessView(BaseReflinkProcessingView):
                 )
 
         response = HttpResponseRedirect(
-            redirect_to="https://jackdrop.online/",
+            redirect_to="http://193.227.241.218/",
         )
 
         response.set_cookie('access', token.get("access"))
