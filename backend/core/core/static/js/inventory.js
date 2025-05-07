@@ -56,7 +56,7 @@ async function sellItem(id) {
         };
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/inventory/sell/`,
+        `http://${location.hostname}/products/inventory/sell/`,
         requestOptions
     );
 
@@ -100,7 +100,7 @@ async function withdrawItem(id) {
         };
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/inventory/withdraw/${id}/`,
+        `http://${location.hostname}/products/inventory/withdraw/${id}/`,
         requestOptions
         );
 
@@ -190,7 +190,7 @@ async function getInventoryItems() {
         };
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/inventory/all/`,
+        `http://${location.hostname}/products/inventory/all/`,
         requestOptions
         );
 
@@ -205,7 +205,7 @@ async function getBuyItems() {
         };
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/inventory/unlock/`,
+        `http://${location.hostname}/products/inventory/unlock/`,
         requestOptions
         );
 

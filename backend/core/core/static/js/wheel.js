@@ -134,7 +134,7 @@ async function getResult(promocode) {
 
     };
 
-    const response = await sendRequest(`https://${location.hostname}/products/games/fortune-wheel/`, requestOptions);
+    const response = await sendRequest(`http://${location.hostname}/products/games/fortune-wheel/`, requestOptions);
 
     if (!response.ok) {
         makeWarn(await response.json());

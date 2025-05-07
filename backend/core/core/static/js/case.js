@@ -53,7 +53,7 @@ async function checkBonusCaseAvailable(id) {
     };
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/bonus-buy/bonuse/${id}/`,
+        `http://${location.hostname}/products/bonus-buy/bonuse/${id}/`,
         requestOptions
     );
 
@@ -72,7 +72,7 @@ async function getCase(id) {
     caseId = id;
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/cases/api/v1/case/${id}/items/`,
+        `http://${location.hostname}/products/cases/api/v1/case/${id}/items/`,
         requestOptions
     );
 

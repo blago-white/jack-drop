@@ -254,7 +254,7 @@ async function main() {
 //                '',
 //                true,
 //                true,
-//                `printPrizeItem("${resultSecond.image_path}", ${resultSecond.price}, "Победа #2: ${resultSecond.title}", "https://jackdrop.online/", true})`
+//                `printPrizeItem("${resultSecond.image_path}", ${resultSecond.price}, "Победа #2: ${resultSecond.title}", "http://jackdrop.online/", true})`
 //            )
 //        }
 //    }

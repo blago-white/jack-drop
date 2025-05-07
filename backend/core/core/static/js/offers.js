@@ -107,7 +107,7 @@ async function renderSmallDepositWindow(promocode, discount) {
 
     document.getElementById('smallDepositWindow').innerHTML = `
         <button class="small-close-cross" onclick="closeOffer('${promocode}', '${discount}', true, true);"></button>
-        <img src="https://s.iimg.su/s/28/oToA9ygk2Htnv3mmSRgvIWNylrhlvZgQaCkInOhE.png" onclick="location.href = '/replenish/${promocode}/'" class="small-banner-img">
+        <img src="http://s.iimg.su/s/28/oToA9ygk2Htnv3mmSRgvIWNylrhlvZgQaCkInOhE.png" onclick="location.href = '/replenish/${promocode}/'" class="small-banner-img">
         <span class="small-offer-content" onclick="location.href = '/replenish/${promocode}/'" style="display: flex;align-items: center;" id="smallOfferContent">
         <div class="timer" style="height: 2.5ch;padding: 0px;background: transparent;justify-content: center;">
             <div class="timer-ring" id="timerRing" style="height: 100%;background: radial-gradient(closest-side, #202020 79%, transparent 80% 100%), conic-gradient(#ffffff ${sec / 60 * 100}%, rgb(255, 255, 255, .2) 0);"></div>

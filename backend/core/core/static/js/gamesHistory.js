@@ -187,11 +187,11 @@ function renderBonuses(result) {
     }
 
         if (element.bonus_type == "US") {
-            path = "https://s.iimg.su/s/25/hNQxLOAWR6M9X1SaGB5qpxXDEExmbgA4l7Zaq49B.png"
+            path = "http://s.iimg.su/s/25/hNQxLOAWR6M9X1SaGB5qpxXDEExmbgA4l7Zaq49B.png"
         } else if (element.bonus_type == "CD") {
-            path = "https://s.iimg.su/s/25/khzavJhECphtVsVQLOu31xQefiTejDHJhIrb4BEw.png"
+            path = "http://s.iimg.su/s/25/khzavJhECphtVsVQLOu31xQefiTejDHJhIrb4BEw.png"
         } else {
-            path = "https://s.iimg.su/s/25/X5s3CLf5s7VCngiq6PKVUeO2rqUJR0YZ3S7Pi0zE.png"
+            path = "http://s.iimg.su/s/25/X5s3CLf5s7VCngiq6PKVUeO2rqUJR0YZ3S7Pi0zE.png"
         }
 
         table.innerHTML += `
@@ -230,7 +230,7 @@ async function getItems() {
     };
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/games/history/${_requestSection}/`,
+        `http://${location.hostname}/products/games/history/${_requestSection}/`,
         requestOptions
     );
 

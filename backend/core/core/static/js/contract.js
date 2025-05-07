@@ -117,7 +117,7 @@ async function getItems() {
     };
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/inventory/contract/`,
+        `http://${location.hostname}/products/inventory/contract/`,
         requestOptions
     );
 
@@ -263,7 +263,7 @@ async function makeContract() {
     };
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/games/contract/`,
+        `http://${location.hostname}/products/games/contract/`,
         requestOptions
     );
 

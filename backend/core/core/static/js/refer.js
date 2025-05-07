@@ -14,7 +14,7 @@ async function renderInfo() {
     }
 
     const response = await sendRequest(
-        `https://${location.hostname}/auth/referrals/api/v1/public/status/`,
+        `http://${location.hostname}/auth/referrals/api/v1/public/status/`,
         {method: "GET"}
     );
 

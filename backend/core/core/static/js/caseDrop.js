@@ -68,7 +68,7 @@ export async function getCase(id) {
     caseId = id;
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/cases/api/v1/case/${id}/items/`,
+        `http://${location.hostname}/products/cases/api/v1/case/${id}/items/`,
         requestOptions
     );
 
@@ -162,7 +162,7 @@ async function dropCase() {
     };
 
     const response = await sendRequest(
-        `https://${location.hostname}/products/games/drop/${caseId}/${bonusCase ? '?bonus=1' : ''}`,
+        `http://${location.hostname}/products/games/drop/${caseId}/${bonusCase ? '?bonus=1' : ''}`,
         requestOptions
     );
 
